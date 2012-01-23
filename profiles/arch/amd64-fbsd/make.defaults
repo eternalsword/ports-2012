@@ -1,0 +1,23 @@
+# Copyright 1999-2011 Gentoo Foundation.
+# Distributed under the terms of the GNU General Public License, v2
+# $Header: /var/cvsroot/gentoo-x86/profiles/arch/amd64-fbsd/make.defaults,v 1.5 2011/10/14 22:52:08 vapier Exp $
+# System-wide defaults for the G/FBSD Portage system
+
+ARCH="amd64-fbsd"
+ACCEPT_KEYWORDS="amd64-fbsd ~amd64-fbsd"
+
+CFLAGS="-O2 -pipe"
+CXXFLAGS="${CFLAGS}"
+
+MULTILIB_ABIS="amd64_fbsd x86_fbsd"
+DEFAULT_ABI="amd64_fbsd"
+# Do not remove this one, or all kinds of hell breaks loose.
+ABI="amd64_fbsd"
+
+# 32bit specific settings.
+CFLAGS_x86_fbsd="-m32"
+LDFLAGS_x86_fbsd="-m elf_i386_fbsd"
+
+VIDEO_CARDS="apm ark chips cirrus cyrix dummy i128 intel mach64 mga \
+	neomagic nv r128 radeon rendition s3 s3virge savage siliconmotion sis \
+	sisusb tga trident tseng via vmware"

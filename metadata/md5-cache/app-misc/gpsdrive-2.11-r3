@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile configure install postinst postrm prepare test unpack
+DEPEND=dev-db/sqlite:3 dev-libs/libxml2:2 net-misc/curl >=sci-geosciences/gpsd-2.96 x11-libs/gtk+:2 x11-libs/gdk-pixbuf:2 dbus? ( dev-libs/dbus-glib ) gdal? ( sci-libs/gdal ) kismet? ( net-wireless/kismet ) mapnik? ( >=sci-geosciences/mapnik-0.7.0[postgres] >=dev-db/postgis-1.5.2 ) speech? ( >=app-accessibility/speech-dispatcher-0.6.7 ) dev-util/pkgconfig >=dev-util/cmake-2.8.4 userland_GNU? ( >=sys-apps/findutils-4.4.0 )
+DESCRIPTION=GPS navigation system with NMEA and Garmin support, zoomable map display, waypoints, etc.
+EAPI=4
+HOMEPAGE=http://www.gpsdrive.de/
+IUSE=dbus -debug -kismet gdal mapnik scripts -speech
+KEYWORDS=~amd64 ~ppc ~x86
+LICENSE=GPL-2
+RDEPEND=dev-db/sqlite:3 dev-libs/libxml2:2 net-misc/curl >=sci-geosciences/gpsd-2.96 x11-libs/gtk+:2 x11-libs/gdk-pixbuf:2 dbus? ( dev-libs/dbus-glib ) gdal? ( sci-libs/gdal ) kismet? ( net-wireless/kismet ) mapnik? ( >=sci-geosciences/mapnik-0.7.0[postgres] >=dev-db/postgis-1.5.2 ) speech? ( >=app-accessibility/speech-dispatcher-0.6.7 ) media-fonts/dejavu sci-geosciences/openstreetmap-icons sci-geosciences/mapnik-world-boundaries
+SLOT=0
+SRC_URI=http://www.gpsdrive.de//packages/gpsdrive-2.11.tar.gz
+_eclasses_=base	809ab15a673823938260f6b17661c3f1	cmake-utils	d9f3f2f6cc1a1d6ad8e31702e44133e5	eutils	d92f291efb4ef0595cb90e4b4e7e6b6c	fdo-mime	0acfe1a88fd8751a1d5dc671168219fa	flag-o-matic	a2e1c4641a8aed225d4ddb0f74f382de	multilib	5f4ad6cf85e365e8f0c6050ddd21659e	portability	536c5e70c5fb252ed3b769e04aa3f05b	toolchain-funcs	6526ac6fc9aedf391efb91fcd75ace68	user	32a09e82e2f592bf88ad2fd08525166e	versionator	6601b4c5b3f019a993db59a50e1854e4
+_md5_=2fef109ca5e96aa13b156239b2a811f2

@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile configure install prepare test unpack
+DEPEND=doc? ( app-doc/doxygen )
+DESCRIPTION=Library for RDF syntax which supports reading and writing Turtle and NTriples
+EAPI=3
+HOMEPAGE=http://drobilla.net/software/serd/
+IUSE=doc static-libs test
+KEYWORDS=~amd64
+LICENSE=ISC
+SLOT=0
+SRC_URI=http://download.drobilla.net/serd-0.5.0.tar.bz2
+_eclasses_=base	809ab15a673823938260f6b17661c3f1	eutils	d92f291efb4ef0595cb90e4b4e7e6b6c	multilib	5f4ad6cf85e365e8f0c6050ddd21659e	portability	536c5e70c5fb252ed3b769e04aa3f05b	toolchain-funcs	6526ac6fc9aedf391efb91fcd75ace68	user	32a09e82e2f592bf88ad2fd08525166e
+_md5_=41bff3841d9a9bdc83aa2aa8142afdff

@@ -1,0 +1,24 @@
+# Copyright 1999-2011 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/profiles/targets/desktop/package.use,v 1.15 2011/10/14 20:27:57 ssuominen Exp $
+
+# Jeremy Olexa <darkside@gentoo.org> (07 Oct 2011)
+# Required by mesa, ultimately by xorg-server (every desktop) bug 385843
+dev-libs/libxml2 python
+
+# Samuli Suominen <ssuominen@gentoo.org> (27 Sep 2011)
+# Required by mozilla browsers wrt #372419
+media-libs/libpng apng
+
+# Samuli Suominen <ssuominen@gentoo.org> (19 Dec 2010)
+# Required by udev helpers like udisks and upower
+sys-fs/udev extras gudev hwdb keymap
+
+# Samuli Suominen <ssuominen@gentoo.org> (19 Dec 2010)
+# Support for desktop icons
+xfce-base/xfdesktop thunar
+
+# Chris Gianelloni <wolf31o2@gentoo.org> (26 Mar 2008)
+# While we may need LDAP client support, who needs the server on a desktop?
+# Did I mention that this also fixes the horrible perl dependency hell, too?
+net-nds/openldap minimal

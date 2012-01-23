@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>freedesktop</herd>
+<maintainer>
+	<email>freedesktop-bugs@gentoo.org</email>
+</maintainer>
+<use>
+	<flag name='gnome'>Enable support for reading proxy settings from
+		GNOME</flag>
+	<flag name='kde'>Enable support for reading proxy settings from KDE</flag>
+</use>
+</pkgmetadata>

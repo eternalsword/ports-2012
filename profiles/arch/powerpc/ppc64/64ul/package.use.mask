@@ -1,0 +1,28 @@
+# Copyright 1999-2011 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/profiles/arch/powerpc/ppc64/64ul/package.use.mask,v 1.16 2011/11/25 08:00:02 tetromino Exp $
+
+# Alexandre Rostovtsev <tetromino@gentoo.org> (25 Nov 2011)
+# Mask USE flags on gnome-3.2 packages due to missing keywords on deps;
+# bug #390345
+>=gnome-base/nautilus-3 sendto
+
+# Patrick McLean <chutzpah@gentoo.org> (08 Nov 2011)
+# mask conntrack USE flag for dnsmasq as dep is not keyworded
+net-dns/dnsmasq conntrack
+
+# Brent Baude <ranger@gentoo.org> (06 Jan 2010)
+# masking toolame for mplayer bug 280281
+media-video/mplayer toolame
+
+# Brent Baude <ranger@gentoo.org> (31 Dec 2009)
+# Masking for bug 274847
+app-admin/conky apcupsd
+
+# Brent Baude <ranger@gentoo.org> (6  Feb 2009)
+# Masking solver/ocaml USE from kalzium to fix tree borkage
+kde-base/kalzium solver
+
+# Brent Baude <ranger@gentoo.org> (28 January 2009)
+# Masking zemberek for enchant
+app-text/enchant zemberek
