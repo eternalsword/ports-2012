@@ -24,11 +24,8 @@ RDEPEND="${DEPEND} $(python_abi_depend dev-python/webob dev-python/httplib2 dev-
 
 src_install() {
 	distutils_src_install
-	newconfd "${FILESDIR}/glance.confd" glance
-	newinitd "${FILESDIR}/glance.initd" glance
-
-	for function in api registry scrubber; do
-		dosym /etc/init.d/glance /etc/init.d/glance-${function}
+	for i in api registry scrubber; do
+		newinitd "${FILESDIR}/glance-all.initd" glance-${i}
 	done
 
 	diropts -m 0750
@@ -36,4 +33,5 @@ src_install() {
 
 	insinto /etc/glance
 	doins ${S}/etc/*
+	sed -ie 'sX^sql_connection.*$Xsql_connection = sqlite:////etc/glance/glance.sqliteX' ${D}/etc/glance/glance-registry.conf || die
 }
