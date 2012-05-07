@@ -1,6 +1,6 @@
 DEFINED_PHASES=compile install postinst postrm prepare setup unpack
 DEPEND=dev-python/setuptools[python_abis_2.6?,python_abis_2.7?] dev-python/pep8[python_abis_2.6?,python_abis_2.7?] dev-python/lxml[python_abis_2.6?,python_abis_2.7?] dev-python/python-daemon[python_abis_2.6?,python_abis_2.7?] !dev-python/keystoneclient[python_abis_2.6?,python_abis_2.7?] doc? ( dev-python/sphinx ) python_abis_2.6? ( dev-lang/python:2.6 ) python_abis_2.7? ( dev-lang/python:2.7 ) dev-vcs/git
-DESCRIPTION=Keystone is a cloud identity service written in Python, which provides authentication, authorization, and an OpenStack service catalog. It implements OpenStac's Identity API.
+DESCRIPTION=Keystone is a cloud identity service written in Python, which provides authentication, authorization, and an OpenStack service catalog. It implements OpenStack's Identity API.
 EAPI=4-python
 HOMEPAGE=https://launchpad.net/keystone
 IUSE=+doc python_abis_2.6 python_abis_2.7
@@ -10,4 +10,4 @@ RDEPEND=dev-python/setuptools[python_abis_2.6?,python_abis_2.7?] dev-python/pep8
 REQUIRED_USE=|| ( python_abis_2.6 python_abis_2.7 )
 SLOT=0
 _eclasses_=distutils	82a876811ffd4907daba6062958daa26	git-2	15733ab6a6feb34af9837b41623c2bad	python	cb2844e25e38800105564c14a716c805
-_md5_=e927d07b7d8803372475ec56a7dd93e1
+_md5_=b433880d74ea12fed87239711558fc60
