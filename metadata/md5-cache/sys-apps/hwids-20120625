@@ -1,10 +1,10 @@
 DEFINED_PHASES=compile install
 DESCRIPTION=Hardware (PCI, USB) IDs databases
 EAPI=4
-HOMEPAGE=https://github.com/Flameeyes/hwids
+HOMEPAGE=https://github.com/gentoo/hwids
 KEYWORDS=*
 LICENSE=|| ( GPL-2 BSD )
 RDEPEND=!<sys-apps/pciutils-3.1.9-r2 !<sys-apps/usbutils-005-r1
 SLOT=0
-SRC_URI=https://github.com/Flameeyes/hwids/tarball/hwids-20120611 -> hwids-20120611.tar.gz
-_md5_=83a16313ce8d98a1a7767591aa1669da
+SRC_URI=https://github.com/gentoo/hwids/tarball/hwids-20120625 -> hwids-20120625.tar.gz
+_md5_=96106f7760f52f194178b93173edaf03
