@@ -1,8 +1,10 @@
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/net-misc/curl/curl-7.25.0-r1.ebuild,v 1.15 2012/07/20 01:59:05 jdhore Exp $
 
 EAPI="4"
 
-inherit autotools multilib eutils libtool prefix
+inherit autotools eutils prefix
 
 DESCRIPTION="A Client that groks URLs"
 HOMEPAGE="http://curl.haxx.se/"
@@ -10,13 +12,16 @@ SRC_URI="http://curl.haxx.se/download/${P}.tar.bz2"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ppc ppc64 ~s390 ~sh ~sparc x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x64-freebsd ~x86-freebsd ~hppa-hpux ~ia64-hpux ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 IUSE="ares idn ipv6 kerberos ldap ssh ssl static-libs test threads"
-IUSE="${IUSE} curl_ssl_axtls curl_ssl_cyassl curl_ssl_gnutls curl_ssl_nss +curl_ssl_openssl curl_ssl_polarssl"
+IUSE="${IUSE} curl_ssl_axtls curl_ssl_gnutls curl_ssl_nss +curl_ssl_openssl curl_ssl_polarssl"
+
+#lead to lots of false negatives, bug #285669
+RESTRICT="test"
 
 RDEPEND="ldap? ( net-nds/openldap )
 	ssl? (
-		curl_ssl_axtls? ( net-libs/axTLS app-misc/ca-certificates )
+		curl_ssl_axtls? ( net-libs/axtls app-misc/ca-certificates )
 		curl_ssl_gnutls? (
 			|| (
 				( >=net-libs/gnutls-3[static-libs?] dev-libs/nettle )
@@ -36,12 +41,15 @@ RDEPEND="ldap? ( net-nds/openldap )
 	ssh? ( net-libs/libssh2[static-libs?] )
 	sys-libs/zlib"
 
+# ssl providers to be added:
+# fbopenssl  $(use_with spnego)
+
 # rtmpdump ( media-video/rtmpdump )  / --with-librtmp
-# fbopenssl (not in gentoo) --with-spnego
 # krb4 http://web.mit.edu/kerberos/www/krb4-end-of-life.html
 
 DEPEND="${RDEPEND}
 	sys-apps/ed
+	virtual/pkgconfig
 	test? (
 		sys-apps/diffutils
 		dev-lang/perl
@@ -54,7 +62,6 @@ REQUIRED_USE="threads? ( !ares )
 	ssl? (
 		^^ (
 			curl_ssl_axtls
-			curl_ssl_cyassl
 			curl_ssl_gnutls
 			curl_ssl_openssl
 			curl_ssl_nss
@@ -62,12 +69,17 @@ REQUIRED_USE="threads? ( !ares )
 		)
 	)"
 
+DOCS=( CHANGES README docs/FEATURES docs/INTERNALS \
+	docs/MANUAL docs/FAQ docs/BUGS docs/CONTRIBUTE)
+
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-7.19.7-test241.patch \
+	epatch \
+		"${FILESDIR}"/${PN}-7.19.7-test241.patch \
 		"${FILESDIR}"/${PN}-7.18.2-prefix.patch \
 		"${FILESDIR}"/${PN}-respect-cflags-3.patch \
 		"${FILESDIR}"/${PN}-fix-gnutls-nettle.patch
 	sed -i '/LD_LIBRARY_PATH=/d' configure.ac || die #382241
+
 	eprefixify curl-config.in
 	eautoreconf
 }
@@ -82,16 +94,10 @@ src_configure() {
 	myconf+=( --with-ca-bundle="${EPREFIX}"/etc/ssl/certs/ca-certificates.crt )
 	if use ssl ; then
 		if use curl_ssl_axtls; then
-			einfo "SSL provided by axTLS"
-			einfo "NOTE: axTLS is meant for embedded systems and"
+			einfo "SSL provided by axtls"
+			einfo "NOTE: axtls is meant for embedded systems and"
 			einfo "may not be the best choice as an ssl provider"
 			myconf+=( --with-axtls )
-		fi
-		if use curl_ssl_cyassl; then
-			einfo "SSL provided by cyassl"
-			einfo "NOTE: cyassl is meant for embedded systems and"
-			einfo "may not be the best choice as an ssl provider"
-			myconf+=( --with-cyassl )
 		fi
 		if use curl_ssl_gnutls; then
 			einfo "SSL provided by gnutls"
@@ -168,32 +174,12 @@ src_configure() {
 		"${myconf[@]}"
 }
 
-src_compile() {
-
-	default
-
-	# curl seems to be in troubles when being cross-compiled in the amd64 world as a 32 bits binary (wrong
-	# sizes are configured by configuration scripts thus making the package to break) unfortunately the
-	# original Gentoo ebuild at revision 7.22.0 assumes this is was true everywhere and makes things badly
-	# broken on other arches like sparc64
-
-	if [ ${PROFILE_ARCH} != "sparc64" ] ; then
-		ed - lib/curl_config.h < "${FILESDIR}"/config.h.ed || die
-		ed - src/curl_config.h < "${FILESDIR}"/config.h.ed || die
-		ed - include/curl/curlbuild.h < "${FILESDIR}"/curlbuild.h.ed || die
-	fi
-}
-
 src_install() {
 	default
-	find "${ED}" -name '*.la' -exec rm -f {} +
+	find "${ED}" -name '*.la' -delete
 	rm -rf "${ED}"/etc/
 
 	# https://sourceforge.net/tracker/index.php?func=detail&aid=1705197&group_id=976&atid=350976
 	insinto /usr/share/aclocal
 	doins docs/libcurl/libcurl.m4
-
-	dodoc CHANGES README
-	dodoc docs/FEATURES docs/INTERNALS
-	dodoc docs/MANUAL docs/FAQ docs/BUGS docs/CONTRIBUTE
 }
