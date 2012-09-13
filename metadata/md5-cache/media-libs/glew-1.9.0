@@ -9,5 +9,5 @@ LICENSE=BSD MIT
 RDEPEND=virtual/glu virtual/opengl x11-libs/libX11 x11-libs/libXext x11-libs/libXi x11-libs/libXmu
 SLOT=0
 SRC_URI=mirror://sourceforge/glew/glew-1.9.0.tgz
-_eclasses_=multilib	c2b85b5c63a44798c1e442147ac14c5c	toolchain-funcs	d3b5812eeab360bc41aa48b6cdbbc142
+_eclasses_=multilib	c2b85b5c63a44798c1e442147ac14c5c	toolchain-funcs	6dbd628eeb45b01b517c4d2bd5c3a44e
 _md5_=45d515dd0ed6b14bb755ed0a8f426fc9
