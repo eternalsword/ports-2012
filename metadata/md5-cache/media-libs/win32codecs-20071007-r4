@@ -8,5 +8,5 @@ RDEPEND=real? ( =virtual/libstdc++-3.3* )
 RESTRICT=strip binchecks
 SLOT=0
 SRC_URI=mirror://mplayer/releases/codecs/all-20071007.tar.bz2
-_eclasses_=multilib	c2b85b5c63a44798c1e442147ac14c5c	toolchain-funcs	6dbd628eeb45b01b517c4d2bd5c3a44e
+_eclasses_=multilib	c2b85b5c63a44798c1e442147ac14c5c	toolchain-funcs	53a27e9e8acf42332c82a7838d84773f
 _md5_=8846147f9e453f73da1def9383f92fb3

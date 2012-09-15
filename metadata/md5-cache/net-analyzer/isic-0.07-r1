@@ -8,5 +8,5 @@ LICENSE=BSD
 RDEPEND=net-libs/libnet:1.1
 SLOT=0
 SRC_URI=mirror://sourceforge/isic/isic-0.07.tgz
-_eclasses_=multilib	c2b85b5c63a44798c1e442147ac14c5c	toolchain-funcs	6dbd628eeb45b01b517c4d2bd5c3a44e
+_eclasses_=multilib	c2b85b5c63a44798c1e442147ac14c5c	toolchain-funcs	53a27e9e8acf42332c82a7838d84773f
 _md5_=a3ccafc4b2633f3113ec6f633fea6004

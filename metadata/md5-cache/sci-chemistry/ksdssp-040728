@@ -8,5 +8,5 @@ LICENSE=BSD
 RDEPEND=sci-libs/libpdb++
 SLOT=0
 SRC_URI=mirror://gentoo/ksdssp-040728.shar
-_eclasses_=multilib	c2b85b5c63a44798c1e442147ac14c5c	toolchain-funcs	6dbd628eeb45b01b517c4d2bd5c3a44e
+_eclasses_=multilib	c2b85b5c63a44798c1e442147ac14c5c	toolchain-funcs	53a27e9e8acf42332c82a7838d84773f
 _md5_=912d62365618ee2a843c9e3ec183f608

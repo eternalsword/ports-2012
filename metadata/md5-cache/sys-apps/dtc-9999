@@ -6,5 +6,5 @@ HOMEPAGE=http://git.jdl.com/gitweb/?p=dtc.git
 IUSE=static-libs
 LICENSE=GPL-2
 SLOT=0
-_eclasses_=git-2	15733ab6a6feb34af9837b41623c2bad	multilib	c2b85b5c63a44798c1e442147ac14c5c	toolchain-funcs	6dbd628eeb45b01b517c4d2bd5c3a44e
+_eclasses_=git-2	15733ab6a6feb34af9837b41623c2bad	multilib	c2b85b5c63a44798c1e442147ac14c5c	toolchain-funcs	53a27e9e8acf42332c82a7838d84773f
 _md5_=30fcbab2cfef629dac0a26170c0179a3
