@@ -54,6 +54,7 @@ RDEPEND="
 "
 
 DEPEND="${RDEPEND}
+	app-arch/unzip
 	x11-proto/inputproto
 	x11-proto/xf86miscproto
 	x11-proto/xf86vidmodeproto
