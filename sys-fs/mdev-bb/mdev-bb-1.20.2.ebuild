@@ -7,20 +7,16 @@ HOMEPAGE="http://www.busybox.net/"
 base='busybox'
 MY_P=${base}-${PV/_/-}
 
-SRC_URI="
-	http://www.busybox.net/downloads/${MY_P}.tar.bz2
-"
-KEYWORDS="~amd64 ~x86"
+SRC_URI="http://www.busybox.net/downloads/${MY_P}.tar.bz2"
+KEYWORDS="~*"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="static +mdev-like-a-boss"
+IUSE="static"
 RESTRICT="test"
 
-RDEPEND="
-	!sys-apps/busybox[mdev]
-	mdev-like-a-boss? ( sys-fs/mdev-like-a-boss )
-"
+RDEPEND="!sys-apps/busybox[mdev]"
+
 DEPEND="${RDEPEND}
 	>=sys-kernel/linux-headers-2.6.39"
 
@@ -66,24 +62,12 @@ src_install() {
 	mkdir "${D}/sbin" || die
 	cp busybox "${D}/sbin/mdev" || die
 	chmod 750 "${D}/sbin/mdev" || die
-
-	if use mdev-like-a-boss; then
-		mkdir -p "${D}/etc" || die
-		( cd "${D}/etc" && ln -s ../opt/mdev/mdev.conf ) || die
-		newinitd "${ROOT}/opt/mdev/mdev.init" mdev || die
-	fi
-}
-
-src_postinst() {
-	if use mdev-like-a-boss; then
-		if ! [ -e "${ROOT}/etc/runlevels/sysinit" ]; then
-			ewarn
-			ewarn "Remember to add mdev to sysinit runlevel by:"
-			ewarn "    rc-update add mdev sysinit"
-			ewarn
-			ewarn "Also ensure that udev, udev-postmount and devfs"
-			ewarn "aren't in any runlevel."
-			ewarn
-		fi
-	fi
+	mkdir -p "${D}/etc"
+	cp -a "${FILESDIR}"/mdev.conf "${D}/etc" || die
+	dodir /etc/mdev
+	exeinto /etc/mdev
+	doexe "${FILESDIR}"/catch-all || die
+	doexe "${FILESDIR}"/settle-nics || die
+	doexe "${FILESDIR}"/device-mapper || die
+	newinitd "${FILESDIR}"/mdev.init mdev || die
 }
