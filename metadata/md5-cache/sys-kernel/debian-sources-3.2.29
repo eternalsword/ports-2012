@@ -7,8 +7,8 @@ IUSE=binary rt
 KEYWORDS=~*
 LICENSE=GPL-2
 RDEPEND=binary? ( >=sys-fs/udev-160 )
-RESTRICT=binchecks strip
+RESTRICT=binchecks strip mirror
 SLOT=3.2.29
 SRC_URI=http://www.funtoo.org/distfiles/debian-sources/linux_3.2.29.orig.tar.xz http://www.funtoo.org/distfiles/debian-sources//linux_3.2.29-1.debian.tar.xz
 _eclasses_=eutils	d40dc948067bd3db1c8ebf7d51897313	mount-boot	410bdaef41d2c8674e24edfa9d521177	multilib	9aa8a023e062fca0ba79362d9d0cc488	toolchain-funcs	134429b842a6c67254bfd76a8753e4d4	user	d0a4d0735a6c0183d707ca919bd72f28
-_md5_=b72dcd3a830bdb2bfc61787f90ba5fee
+_md5_=d429167cdd471684dbab2b9157aa7e38
