@@ -1,6 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/hwids/hwids-20130114.ebuild,v 1.9 2013/01/26 21:14:15 ssuominen Exp $
 
 EAPI=5
 inherit udev eutils
