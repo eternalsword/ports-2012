@@ -1,8 +1,8 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/dee/dee-1.0.14.ebuild,v 1.8 2013/02/02 22:24:27 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/dee/dee-1.0.14-r1.ebuild,v 1.1 2013/02/07 08:27:06 jlec Exp $
 
-EAPI=4
+EAPI=5
 
 AUTOTOOLS_AUTORECONF=y
 
@@ -19,7 +19,7 @@ IUSE="doc debug examples +icu static-libs test"
 
 RDEPEND="
 	dev-libs/glib:2
-	dev-libs/icu"
+	dev-libs/icu:="
 DEPEND="${RDEPEND}
 	doc? ( dev-util/gtk-doc )
 	test? (
