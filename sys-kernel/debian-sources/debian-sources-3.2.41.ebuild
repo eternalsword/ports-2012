@@ -5,17 +5,17 @@ EAPI=3
 inherit eutils mount-boot
 
 SLOT=$PVR
-CKV=3.8.13
+CKV=3.2.41
 KV_FULL=${PN}-${PVR}
-EXTRAVERSION=-1
+EXTRAVERSION=-2
 KERNEL_ARCHIVE="linux_${PV}.orig.tar.xz"
-PATCH_ARCHIVE="linux_${PV}${EXTRAVERSION}.debian.tar.xz"
+PATCH_ARCHIVE="linux_${PV}${EXTRAVERSION}+deb7u2.debian.tar.xz"
 RESTRICT="binchecks strip mirror"
 # based on : http://packages.ubuntu.com/maverick/linux-image-2.6.35-22-server
 LICENSE="GPL-2"
 KEYWORDS="~*"
 IUSE="binary rt"
-DEPEND="binary? ( >=sys-kernel/genkernel-3.4.40.4 )"
+DEPEND="binary? ( >=sys-kernel/genkernel-3.4.40-r2 )"
 RDEPEND="binary? ( || ( >=sys-fs/udev-160 >=virtual/udev-171 ) )"
 DESCRIPTION="Debian Sources (and optional binary kernel)"
 HOMEPAGE="http://www.debian.org"
@@ -74,17 +74,17 @@ src_prepare() {
 	# end of debian-specific stuff...
 
 	sed -i -e "s:^\(EXTRAVERSION =\).*:\1 ${EXTRAVERSION}:" Makefile || die
-	sed -i -e 's:#export\tINSTALL_PATH:export\tINSTALL_PATH:' Makefile || die
-	#rm -f .config >/dev/null
+	sed	-i -e 's:#export\tINSTALL_PATH:export\tINSTALL_PATH:' Makefile || die
+	rm -f .config >/dev/null
 	cp -a "${WORKDIR}"/debian "${T}"
-	#make -s mrproper || die "make mrproper failed"
-	#make -s include/linux/version.h || die "make include/linux/version.h failed"
+	make -s mrproper || die "make mrproper failed"
+	make -s include/linux/version.h || die "make include/linux/version.h failed"
 	cd ${S}
 	cp -aR "${WORKDIR}"/debian "${S}"/debian
-	#local opts
-	#use rt && opts="rt" || opts=""
+	local opts
+	use rt && opts="rt" || opts="standard"
 	local myarch="amd64"
-	[ "$REAL_ARCH" = "x86" ] && myarch="i386" #&& opts="$opts 686-pae"
+	[ "$REAL_ARCH" = "x86" ] && myarch="i386" && opts="$opts 686-pae"
 	cp ${FILESDIR}/config-extract . || die
 	chmod +x config-extract || die
 	./config-extract ${myarch} ${opts} || die

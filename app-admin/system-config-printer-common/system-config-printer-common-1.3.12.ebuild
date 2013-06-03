@@ -30,7 +30,7 @@ COMMON_DEPEND="
 	dev-python/pycurl
 	>=dev-python/pygobject-2.21.5:2
 	net-print/cups[dbus]
-	>=virtual/udev-171
+	>=virtual/udev-172
 	virtual/libusb:1
 "
 DEPEND="${COMMON_DEPEND}
