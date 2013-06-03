@@ -1,49 +1,37 @@
 #!/bin/sh
-# Copyright 1999-2004 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-#
-# Gentoo-specific netplug script 
-#
-# This file gets called by netplug when it wants to bring an interface
+# This file gets called by ifplugd when it wants to bring an interface
 # up or down.
-#
-
-IFACE="$1"
-ACTION="$2"
 
 if grep -q initng /proc/1/cmdline 
 then
     EXEC="/sbin/ngc"
     INITNG="yes"
 else
-    EXEC="/etc/init.d/net.${IFACE}"
+    EXEC="/etc/init.d/netif.$1"
     INITNG="no"
 fi
 
-case "${ACTION}" in
-    in)
+case "$2" in
+    up)
 	if [ "${INITNG}" = "yes" ]
 	then
-	    ARGS="-u net/${IFACE}"
+	    ARGS="-u netif/$1"
 	else
 	    ARGS="--quiet start"
 	fi
 	;;
-    out)
+    down)
 	if [ "${INITNG}" = "yes" ]
 	then
-	    ARGS="-d net/${IFACE}"
+	    ARGS="-d netif/$1"
 	else
 	    ARGS="--quiet stop"
 	fi
 	;;
-    probe)
-	# Do nothing as we should already be up
-	exit 0
-	;;
     *)
 	echo "$0: wrong arguments" >&2
-	echo "Call with <interface> <in|out|probe>" >&2
+	echo "Call with <interface> <up|down>" >&2
 	exit 1
 	;;
 esac
@@ -55,7 +43,7 @@ then
     ${EXEC} ${ARGS}
     exit 0
 else
-    logger -t netplug "Error: Couldn't configure ${IFACE}, no ${EXEC} !"
+    logger -t ifplugd.action "Error: Couldn't configure $1, no ${EXEC} !"
     exit 1
 fi
 
