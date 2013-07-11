@@ -1,17 +1,18 @@
-# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-plugins/alsa-plugins/alsa-plugins-1.0.27.ebuild,v 1.2 2013/05/01 16:26:28 ssuominen Exp $
 
-EAPI=5
-inherit autotools eutils flag-o-matic multilib
+EAPI=4
+
+MY_P=${P/_/}
+
+inherit autotools eutils base flag-o-matic multilib
 
 DESCRIPTION="ALSA extra plugins"
 HOMEPAGE="http://www.alsa-project.org/"
-SRC_URI="mirror://alsaproject/plugins/${P}.tar.bz2"
+SRC_URI="mirror://alsaproject/plugins/${MY_P}.tar.bz2"
 
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-linux"
+KEYWORDS="*"
 IUSE="debug ffmpeg jack libsamplerate pulseaudio speex"
 
 RDEPEND=">=media-libs/alsa-lib-${PV}
@@ -23,12 +24,17 @@ RDEPEND=">=media-libs/alsa-lib-${PV}
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
-src_prepare() {
-	epatch \
-		"${FILESDIR}"/${PN}-1.0.19-missing-avutil.patch \
-		"${FILESDIR}"/${PN}-1.0.23-automagic.patch
+PATCHES=(
+	"${FILESDIR}"/${PN}-1.0.19-missing-avutil.patch
+	"${FILESDIR}"/${PN}-1.0.23-automagic.patch
+	"${FILESDIR}"/${PN}-1.0.25-avcodec54.patch
+	"${FILESDIR}"/${P}-libav9.patch #443258
+)
 
-	epatch_user
+S=${WORKDIR}/${MY_P}
+
+src_prepare() {
+	base_src_prepare
 
 	# For some reasons the polyp/pulse plugin does fail with alsaplayer with a
 	# failed assert. As the code works just fine with asserts disabled, for now
