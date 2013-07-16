@@ -9,5 +9,5 @@ LICENSE=GPL-2
 RDEPEND=>=media-libs/libmpdclient-2.2 iconv? ( virtual/libiconv )
 SLOT=0
 SRC_URI=http://www.musicpd.org/download/mpc/0/mpc-0.23.tar.bz2
-_eclasses_=bash-completion-r1	5375a5e8ee7772e200b0819d58e428f5
+_eclasses_=bash-completion-r1	8d16363f1f2b61df195a53d5adff582d	multilib	892e597faee02a5b94eb02ab512e7622	toolchain-funcs	d3b5812eeab360bc41aa48b6cdbbc142
 _md5_=1bec6fed2272ffe8b939f79df8761378
