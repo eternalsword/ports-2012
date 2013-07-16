@@ -877,8 +877,6 @@ app-office/gnumeric:python - Enable python plugin loader.
 app-office/imposter:iksemel - Enable external dev-libs/iksemel parsing support
 app-office/kmymoney:hbci - Enable HBCI support using net-libs/aqbanking
 app-office/kmymoney:quotes - Enable Online Stock Quote retrieval
-app-office/libreoffice:binfilter - Enable support for legacy StarOffice 5.x and earlier file formats
-app-office/libreoffice:binfilterdebug - Generate debug info for binfilter code (not recommended, huge files result)
 app-office/libreoffice:gtk3 - Enable highly experimental gtk3 frontend
 app-office/libreoffice:jemalloc - Use dev-libs/jemalloc for allocations
 app-office/libreoffice:odk - Build the Office Development Kit
@@ -6290,7 +6288,6 @@ www-client/firefox:webm - Use system media-libs/libvpx for HTML5 WebM video supp
 www-client/google-chrome:plugins - Add system plugins path to launcher
 www-client/jumanji:deprecated - Use x11-libs/gtk+:2 instead of x11-libs/gtk+:3
 www-client/links:deprecated - Install deprecated 'links2 -> links' symlink for compability reasons temporarily
-www-client/luakit:helpers - Optional tools used by luakit
 www-client/luakit:luajit - Use the lua just-in-time compiler dev-lang/luajit instead of dev-lang/lua, which should make luakit faster.
 www-client/lynx:gnutls - Use gnutls library for HTTPS support (openssl is the default library for HTTPS support).
 www-client/lynx:ssl - Enable HTTPS support.
