@@ -1,12 +1,11 @@
-DEFINED_PHASES=install postinst
+DEFINED_PHASES=install
 DEPEND=!<=x11-libs/wxGTK-2.6.4.0-r2
 DESCRIPTION=Eselect module and wrappers for wxWidgets
 EAPI=2
 HOMEPAGE=http://www.gentoo.org
-IUSE=+symlink
 KEYWORDS=*
 LICENSE=GPL-2
 RDEPEND=>=app-admin/eselect-1.2.3
 SLOT=0
 SRC_URI=mirror://gentoo/wxwidgets.eselect-1.4.bz2
-_md5_=fbfaaa942f4cd2a6d77ce8a1cb03c84c
+_md5_=fa5780b3502772142cb524ed2def7f55
