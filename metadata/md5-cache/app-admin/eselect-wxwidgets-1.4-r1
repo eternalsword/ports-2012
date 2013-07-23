@@ -8,4 +8,4 @@ LICENSE=GPL-2
 RDEPEND=>=app-admin/eselect-1.2.3
 SLOT=0
 SRC_URI=mirror://gentoo/wxwidgets.eselect-1.4.bz2
-_md5_=fa5780b3502772142cb524ed2def7f55
+_md5_=1eba7805668c724a4035be659feeb37d
