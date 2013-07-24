@@ -21,7 +21,7 @@ if [[ ${PV} = *9999* ]]; then
 else
 	SRC_URI="http://virt-manager.org/download/sources/${PN}/${P}.tar.gz
 	${BACKPORTS+http://dev.gentoo.org/~cardoe/distfiles/${P}-${BACKPORTS}.tar.xz}"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="~*"
 fi
 
 LICENSE="GPL-2"
@@ -31,7 +31,7 @@ IUSE="gnome-keyring policykit sasl"
 RDEPEND="!app-emulation/virtinst
 	x11-libs/gtk+:3[introspection]
 	>=app-emulation/libvirt-0.7.0[python,${PYTHON_USEDEP}]
-	>=app-emulation/libvirt-glib-0.0.9
+	>=app-emulation/libvirt-glib-0.0.9[introspection]
 	${PYTHON_DEPS}
 	dev-libs/libxml2[python,${PYTHON_USEDEP}]
 	dev-python/ipaddr[${PYTHON_USEDEP}]
