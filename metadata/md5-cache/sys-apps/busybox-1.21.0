@@ -1,14 +1,14 @@
 DEFINED_PHASES=compile configure install postinst preinst prepare
-DEPEND=selinux? ( sys-libs/libselinux ) pam? ( sys-libs/pam ) >=sys-kernel/linux-headers-2.6.32
+DEPEND=!static? ( selinux? ( sys-libs/libselinux ) ) pam? ( sys-libs/pam ) static? ( selinux? ( sys-libs/libselinux[static-libs(+)] ) ) >=sys-kernel/linux-headers-2.6.39
 DESCRIPTION=Utilities for rescue and embedded systems
-EAPI=3
+EAPI=4
 HOMEPAGE=http://www.busybox.net/
-IUSE=ipv6 make-symlinks mdev -pam selinux static elibc_glibc savedconfig
+IUSE=ipv6 livecd make-symlinks math -pam selinux sep-usr +static syslog systemd savedconfig
 KEYWORDS=*
 LICENSE=GPL-2
-RDEPEND=selinux? ( sys-libs/libselinux ) pam? ( sys-libs/pam )
+RDEPEND=!static? ( selinux? ( sys-libs/libselinux ) ) pam? ( sys-libs/pam )
 RESTRICT=test
 SLOT=0
-SRC_URI=http://www.busybox.net/downloads/busybox-1.19.3.tar.bz2
+SRC_URI=http://www.busybox.net/downloads/busybox-1.21.0.tar.bz2
 _eclasses_=eutils	63afaaed8aa819fdcb814c7cd39495a2	flag-o-matic	d900015de4e092f26d8c0a18b6bd60de	multilib	892e597faee02a5b94eb02ab512e7622	portability	536c5e70c5fb252ed3b769e04aa3f05b	savedconfig	5313100f525c41f6c72c6e04edeb4f65	toolchain-funcs	d3b5812eeab360bc41aa48b6cdbbc142	user	d0a4d0735a6c0183d707ca919bd72f28
-_md5_=d22e26a9602d0a6121c0897c017f2f7f
+_md5_=9e06bcc1e3cfde81f84c2c4e6060f1b3

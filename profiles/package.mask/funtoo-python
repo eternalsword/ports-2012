@@ -1,4 +1,3 @@
-=dev-lang/python-3.3.3_pre20130630
 =dev-lang/python-3.4_pre20130714
 =dev-lang/python-3.3.3_pre20130721
 =dev-lang/python-2.7.6_pre20130714
@@ -6,7 +5,8 @@
 =dev-lang/python-2.7.6_pre20130721
 =dev-lang/python-2.7.6_pre20130707
 =dev-lang/python-3.4_pre20130721
-=dev-lang/python-2.7.6_pre20130630
+=dev-lang/python-2.7.6_pre20130728
+=dev-lang/python-3.3.3_pre20130728
+=dev-lang/python-3.4_pre20130728
 =dev-lang/python-3.3.3_pre20130714
 =dev-lang/python-3.3.3_pre20130707
-=dev-lang/python-3.4_pre20130630
