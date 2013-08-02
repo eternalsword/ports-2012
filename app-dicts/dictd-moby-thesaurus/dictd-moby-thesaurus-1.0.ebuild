@@ -14,8 +14,8 @@ SLOT="0"
 LICENSE="Public Domain"
 
 src_unpack () {
-	ar xv /usr/portage/distfiles/${DEB} || die "failed to unpack .deb file"
-	tar xvzf data.tar.gz || die "failed to unpack data.tar.gz inside .deb file"
+	unpack ${A} || die "failed to unpack .deb file"
+	( cd  ${WORKDIR} && tar xf data.tar.gz ) || die "failed to unpack data.tar.gz"
 }
 
 

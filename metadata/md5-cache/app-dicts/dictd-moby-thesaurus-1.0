@@ -6,4 +6,4 @@ LICENSE=Public Domain
 RDEPEND=app-text/dictd
 SLOT=0
 SRC_URI=http://ftp.debian.org/debian/pool/main/d/dict-moby-thesaurus/dict-moby-thesaurus_1.0-6.2_all.deb
-_md5_=648df408427a1cbf92cc2147cf9d6c9d
+_md5_=8cca50eaf5e042fe10d9e1a11074a005
