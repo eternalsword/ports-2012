@@ -6,8 +6,8 @@ HOMEPAGE=http://www.bitkipper.net/
 IUSE=qt4 gtk
 KEYWORDS=amd64 ppc x86
 LICENSE=LGPL-2
-RDEPEND=dev-python/twisted gtk? ( dev-python/pygobject:2 ) qt4? ( dev-python/PyQt4[X] ) =dev-lang/python-2*
+RDEPEND=dev-python/twisted-core gtk? ( dev-python/pygobject:2 ) qt4? ( dev-python/PyQt4[X] ) =dev-lang/python-2*
 SLOT=0
 SRC_URI=http://www.bitkipper.net/bytes/debian/dists/unstable/source/pynotifier_0.7.0.orig.tar.gz
 _eclasses_=distutils	eff3570d81107afab02b39caabc62cc7	python	9ffa83b7b864edd2fa5dd6ebe4a63738
-_md5_=44ff92f3633ef7fe4016e1bcf03cc0dd
+_md5_=8e3e96478abe38ea5cc09e2b0eb5909e
