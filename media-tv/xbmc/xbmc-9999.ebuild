@@ -16,6 +16,7 @@ case ${PV} in
 	EGIT_REPO_URI="https://github.com/eternalsword/xbmc.git"
 	inherit git-2
 	SRC_URI="!java? ( mirror://gentoo/${P}-20130413-generated-addons.tar.xz )"
+	KEYWORDS="~amd64 ~x86"
 	;;
 *_alpha*|*_beta*|*_rc*)
 	MY_PV="Frodo_${PV#*_}"
