@@ -38,7 +38,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	dev-util/cmake
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	sys-devel/gettext
 "
 

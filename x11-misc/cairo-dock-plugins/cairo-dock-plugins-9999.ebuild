@@ -34,7 +34,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	dev-util/cmake
 	sys-devel/gettext
-	dev-util/pkgconfig
+	virtual/pkgconfig
 "
 src_prepare() {
 	bzr_src_prepare

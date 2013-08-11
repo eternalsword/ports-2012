@@ -14,7 +14,6 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
 IUSE="xcomposite"
 
 RDEPEND="
@@ -35,7 +34,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	dev-util/cmake
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	sys-devel/gettext
 "
 
