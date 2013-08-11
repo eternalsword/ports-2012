@@ -13,7 +13,7 @@ inherit eutils python-single-r1 multiprocessing autotools
 
 case ${PV} in
 9999)
-	EGIT_REPO_URI="git://github.com/xbmc/xbmc.git"
+	EGIT_REPO_URI="https://github.com/eternalsword/xbmc.git"
 	inherit git-2
 	SRC_URI="!java? ( mirror://gentoo/${P}-20130413-generated-addons.tar.xz )"
 	;;
