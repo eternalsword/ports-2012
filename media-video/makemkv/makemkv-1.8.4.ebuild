@@ -10,8 +10,8 @@ MY_PB=makemkv-bin-${PV}
 
 DESCRIPTION="Tool for ripping Blu-Ray, HD-DVD and DVD discs and copying content to a Matroska container"
 HOMEPAGE="http://www.makemkv.com/"
-SRC_URI="http://www.makemkv.com/download/old/${MY_P}.tar.gz
-	http://www.makemkv.com/download/old/${MY_PB}.tar.gz"
+SRC_URI="http://www.makemkv.com/download/${MY_P}.tar.gz
+	http://www.makemkv.com/download/${MY_PB}.tar.gz"
 
 LICENSE="LGPL-2.1 MPL-1.1 MakeMKV-EULA openssl"
 SLOT="0"
