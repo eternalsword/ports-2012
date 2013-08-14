@@ -379,7 +379,8 @@ app-editors/gedit-plugins:charmap - Insert special characters just by clicking o
 app-editors/gedit-plugins:git - Shows document changes related to git's HEAD
 app-editors/gedit-plugins:synctex - Synchronize between LaTeX and PDF with gedit and evince
 app-editors/gedit-plugins:terminal - Embed a terminal in the bottom pane
-app-editors/gvim:netbeans - Include netbeans externaleditor integration support
+app-editors/gvim:luajit - Use dev-lang/luajit instead of dev-lang/lua
+app-editors/gvim:netbeans - Include netbeans external editor integration support
 app-editors/jasspa-microemacs:nanoemacs - Build NanoEmacs instead of MicroEmacs
 app-editors/joe:xterm - Enable full xterm clipboard support
 app-editors/latexila:latexmk - Install dev-tex/latexmk (used by default for the build tools)
@@ -392,6 +393,7 @@ app-editors/nano:minimal - Disable all fancy features, including ones that other
 app-editors/tea:aspell - Enable spellchecking using app-text/aspell
 app-editors/tea:hunspell - Enable spellchecking using app-text/hunspell
 app-editors/vim:X - Link console vim against X11 libraries to enable title and clipboard features in xterm
+app-editors/vim:luajit - Use dev-lang/luajit instead of dev-lang/lua
 app-editors/vim:vim-pager - Install vimpager and vimmanpager links
 app-editors/xemacs:athena - Chooses the MIT Athena widget set
 app-editors/xemacs:dnd - Enables support for the x11-libs/dnd drag-n-drop library
@@ -5792,6 +5794,7 @@ sys-apps/memtest86+:floppy - Install a script to create floppy disks containing 
 sys-apps/memtest86+:serial - Compile with serial console support
 sys-apps/moreutils:perl - Install scripts written in Perl
 sys-apps/net-tools:old-output - use old ifconfig output style (useful for when new output breaks scripts)
+sys-apps/openrc:netifrc - enable Gentoo's network stack (net.* scripts)
 sys-apps/openrc:newnet - enable the new network stack (experimental)
 sys-apps/openrc:tools - build optional tools
 sys-apps/pacman:gpg - Support verifying packages signed with GPG using app-crypt/gpgme
@@ -6076,10 +6079,10 @@ sys-fs/aufs3:pax_kernel - Apply patch needed for pax enabled kernels
 sys-fs/aufs3:ramfs - Enable initramfs/rootfs support
 sys-fs/btrfs-progs:debug-utils - Build additional utils for debugging
 sys-fs/cryptsetup:dynamic - Build cryptsetup dynamically
-sys-fs/cryptsetup:gcrypt - Enable the dev-libs/libgcrypt crypto backend
-sys-fs/cryptsetup:kernel - Enable the kernel crypto backend
-sys-fs/cryptsetup:nettle - Enable the dev-libs/nettle crypto backend
-sys-fs/cryptsetup:openssl - Enable the dev-libs/openssl crypto backend
+sys-fs/cryptsetup:gcrypt - Use dev-libs/libgcrypt crypto backend
+sys-fs/cryptsetup:kernel - Use kernel crypto backend (mainly for embedded systems)
+sys-fs/cryptsetup:nettle - Use dev-libs/nettle crypto backend
+sys-fs/cryptsetup:openssl - Use dev-libs/openssl crypto backend
 sys-fs/cryptsetup:reencrypt - Build cryptsetup-reencrypt
 sys-fs/cryptsetup:urandom - Use /dev/urandom instead of /dev/random
 sys-fs/dmraid:dietlibc - Compile against dev-libs/dietlibc
