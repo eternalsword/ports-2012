@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/gdbus-codegen/gdbus-codegen-2.34.3.ebuild,v 1.3 2013/02/25 08:33:15 zmedico Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-util/gdbus-codegen/gdbus-codegen-2.34.3.ebuild,v 1.5 2013/08/15 09:54:54 tetromino Exp $
 
 EAPI="5"
 GNOME_ORG_MODULE="glib"
@@ -26,7 +26,8 @@ PDEPEND=">=dev-libs/glib-${PV}:2"
 S="${WORKDIR}/glib-${PV}/gio/gdbus-2.0/codegen"
 
 python_prepare_all() {
-	epatch "${FILESDIR}/${PN}-2.32.4-sitedir.patch"
+	PATCHES=( "${FILESDIR}/${PN}-2.32.4-sitedir.patch" )
+	distutils-r1_python_prepare_all
 	sed -e "s:\"/usr/local\":\"${EPREFIX}/usr\":" \
 		-i config.py || die "sed config.py failed"
 
@@ -41,5 +42,6 @@ src_test() {
 }
 
 python_install_all() {
+	distutils-r1_python_install_all # no-op, but prevents QA warning
 	doman "${WORKDIR}/glib-${PV}/docs/reference/gio/gdbus-codegen.1"
 }

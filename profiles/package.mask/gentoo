@@ -1,6 +1,6 @@
 ####################################################################
 
-# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.15010 2013/08/10 14:23:00 aballier Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.15035 2013/08/16 14:26:36 ssuominen Exp $
 #
 # When you add an entry to the top of this file, add your name, the date, and
 # an explanation of why something is getting masked. Please be extremely
@@ -31,10 +31,100 @@
 
 #--- END OF EXAMPLES ---
 
-# Alexis Ballier <aballier@gentoo.org> (10 Aug 2013)
-# Missing blocker on emul-baselibs and its bump
->=sys-apps/attr-2.4.47-r1
->=dev-libs/glib-2.36.3-r2
+# Ian Stakenvicius <axs@gentoo.org> (16 Aug 2013)
+# Mask openrc-0.12 and netifrc until packaging can be re-worked
+# so that upgrade paths do not kill existing network setups.
+# There are AT LEAST known multi-NIC issues with it.
+=sys-apps/openrc-0.12*
+net-misc/netifrc
+>=sys-apps/kmod-14-r2
+
+# Doug Goldstein <cardoe@gentoo.org> (16 Aug 2013)
+# Masked for dev
+=app-emulation/qemu-1.6.0
+
+# Michał Górny <mgorny@gentoo.org> (16 Aug 2013)
+# Getting more broken every day. No commit for 5 years. Nothing
+# in the tree uses it. Please consider dev-python/pygpgme instead.
+# Bug #339409. Masked for removal in 30 days.
+dev-python/pyme
+
+# Alexis Ballier <aballier@gentoo.org> (15 Aug 2013)
+# Beta release, breaks some packages
+>=dev-lang/ocaml-4.01.0_beta1
+
+# Tom Wijsman <TomWij@gentoo.org> (15 Aug 2013)
+# Dependencies are unable to satisfy current version,
+# broken; needs a version bump from bug #475552.
+dev-java/itext:5
+
+# Hans de Graaff <graaff@gentoo.org> (14 Aug 2013)
+# Last release in 2009. ruby18-only. Uses deprecated
+# ruby-gnome2 components that have been removed upstream
+# quite some time ago. No maintainer.
+# Also remove the deprecated ruby-gnome2 components.
+# Masked for removal in 30 days.
+app-dicts/fantasdic
+rox-extra/rox-rename
+dev-ruby/ruby-gconf2
+dev-ruby/ruby-gnomecanvas2
+dev-ruby/ruby-libart2
+dev-ruby/ruby-libglade2
+
+
+# Patrick Lauer <patrick@gentoo.org> (14 Aug 2013)
+# Untested / unconfirmed major bump of perl #479064
+# Needs proper testing before being unleashed
+=dev-lang/perl-5.18.1
+=virtual/perl-Attribute-Handlers-0.940.0
+=virtual/perl-CPAN-2.0.0
+=virtual/perl-Devel-PPPort-3.200.0-r2
+=virtual/perl-Dumpvalue-1.170.0-r1
+=virtual/perl-ExtUtils-Constant-0.230.0-r3
+=virtual/perl-File-Temp-0.230.0
+=virtual/perl-Filter-Simple-0.890.0
+=virtual/perl-IO-Zlib-1.100.0-r3
+=virtual/perl-Locale-Maketext-Simple-0.210.0-r3
+=virtual/perl-MIME-Base64-3.130.0-r3
+=virtual/perl-Math-BigInt-FastCalc-0.300.0-r2
+=virtual/perl-Math-Complex-1.590.0-r2
+=virtual/perl-Module-Loaded-0.80.0-r2
+=virtual/perl-Package-Constants-0.20.0-r3
+=virtual/perl-Perl-OSType-1.3.0
+=virtual/perl-Pod-Escapes-1.40.0-r3
+=virtual/perl-Test-Simple-0.980.0-r3
+=virtual/perl-Text-Balanced-2.20.0-r3
+=virtual/perl-Text-ParseWords-3.280.0-r1
+=virtual/perl-Tie-RefHash-1.390.0-r1
+=virtual/perl-Time-HiRes-1.972.500-r2
+=virtual/perl-digest-base-1.170.0-r2
+=virtual/perl-if-0.60.200
+=virtual/perl-libnet-1.220.0-r2
+=virtual/perl-parent-0.225.0-r4
+=virtual/perl-threads-1.860.0-r2
+=virtual/perl-ExtUtils-CBuilder-0.280.210
+=virtual/perl-IO-1.280.0
+=virtual/perl-Module-CoreList-2.900.0
+
+
+# Justin Lecher <jlec@gentoo.org> (11 Aug 2013)
+# Not needed anymore
+# All consumer upstreams moved away from it
+sci-libs/mccp4
+
+# Hans de Graaff <graaff@gentoo.org> (11 Aug 2013)
+# These are all leaf packages marked for ruby18 and ree18.
+# ree18 is already removed from the tree, and ruby18 will
+# follow soon. These packages don't have dependencies in the
+# tree. Removal in 30 days.
+dev-ruby/cerberus
+dev-ruby/delocalize
+dev-ruby/linecache
+dev-ruby/rubigen
+dev-ruby/ruby-bz2
+dev-ruby/ruby-debug-base
+dev-ruby/ruby-debug
+dev-ruby/zoom
 
 # Ole Markus With <olemarkus@olemarkus.org> (10 Aug 2013)
 # About a year since upstream stopped maintaining this package.
@@ -72,11 +162,6 @@ dev-vcs/bzr-svn
 # Alexandre Rostovtsev <tetromino@gentoo.org> (04 Aug 2013)
 # API break, reverse dependencies need patching; bug #479458.
 >=sci-geosciences/geocode-glib-0.99.1
-
-# Doug Goldstein <cardoe@gentoo.org> (03 Aug 2013)
-# Masked due to mirgration breakage.
-=app-emulation/qemu-1.5.2
-=app-emulation/qemu-1.4.2-r1
 
 # Ian Delaney <idella4@gentoo.org> (01 Aug 2013)
 # Mask while awaiting bump to dep Djblets-0.7.16
@@ -292,57 +377,6 @@ dev-java/sun-jre-bin
 # temp masked for testing, wrt bug 474888
 =media-plugins/vdr-music-0.9.9
 
-# Alexis Ballier <aballier@gentoo.org> (27 Jun 2013)
-# TeX Live 2013 mask.
-# kpathsea has to be there because it has config files without /usr/share/texmf
-# and thus will break anything before TeX Live 2013.
->=dev-libs/kpathsea-6.1.1_p20130530
->=app-text/texlive-core-2013
->=dev-tex/luatex-0.74
->=app-text/texlive-2013
->=dev-tex/bibtexu-3.71_p20130530
->=dev-texlive/texlive-fontsextra-2013
->=dev-texlive/texlive-langother-2013
->=dev-texlive/texlive-latexrecommended-2013
->=dev-texlive/texlive-formatsextra-2013
->=dev-texlive/texlive-games-2013
->=dev-texlive/texlive-langcyrillic-2013
->=dev-texlive/texlive-pstricks-2013
->=dev-texlive/texlive-langportuguese-2013
->=dev-texlive/texlive-omega-2013
->=dev-texlive/texlive-langspanish-2013
->=dev-texlive/texlive-langczechslovak-2013
->=dev-texlive/texlive-basic-2013
->=dev-texlive/texlive-langindic-2013
->=dev-texlive/texlive-langpolish-2013
->=dev-texlive/texlive-luatex-2013
->=dev-texlive/texlive-plainextra-2013
->=dev-texlive/texlive-langafrican-2013
->=dev-texlive/texlive-fontutils-2013
->=dev-texlive/texlive-genericextra-2013
->=dev-texlive/texlive-latexextra-2013
->=dev-texlive/texlive-latex-2013
->=dev-texlive/texlive-mathextra-2013
->=dev-texlive/texlive-langgreek-2013
->=dev-texlive/texlive-langenglish-2013
->=dev-texlive/texlive-fontsrecommended-2013
->=dev-texlive/texlive-science-2013
->=dev-texlive/texlive-langarabic-2013
->=dev-texlive/texlive-metapost-2013
->=dev-texlive/texlive-xetex-2013
->=dev-texlive/texlive-langgerman-2013
->=dev-texlive/texlive-music-2013
->=dev-texlive/texlive-langitalian-2013
->=dev-texlive/texlive-langcjk-2013
->=dev-texlive/texlive-langeuropean-2013
->=dev-texlive/texlive-langfrench-2013
->=dev-texlive/texlive-bibtexextra-2013
->=dev-texlive/texlive-humanities-2013
->=dev-texlive/texlive-context-2013
->=dev-texlive/texlive-pictures-2013
->=dev-texlive/texlive-genericrecommended-2013
->=dev-texlive/texlive-publishers-2013
-
 # Alexis Ballier <aballier@gentoo.org> (26 Jun 2013)
 # New major release. Rev. deps need to be checked first.
 >=media-libs/flac-1.3.0
@@ -493,13 +527,6 @@ media-gfx/yablex
 # Masked for testing
 =dev-java/jython-2.7*
 
-# Samuli Suominen <ssuominen@gentoo.org> (05 Mar 2013)
-# Fails to compile unless system has previously installed copy
-# wrt bugs 411443 and 413753
-# Masked temporarily until fixed
-=media-libs/libcaca-0.99_beta18
-=app-misc/toilet-0.3
-
 # Robin H. Johnson <robbat2@gentoo.org> (04 Mar 2013)
 # MySQL 5.6 is not yet GA.
 >=dev-db/mariadb-5.6
@@ -509,10 +536,6 @@ media-gfx/yablex
 # Davide Pesavento <pesa@gentoo.org> (02 Mar 2013)
 # Depends on blender, which is masked.
 media-gfx/yafaray
-
-# Doug Goldstein <cardoe@gentoo.org> (24 Feb 2013)
-# Working on the next stable patchset
-=app-emulation/qemu-1.2.2-r4
 
 # Eray Aslan <eras@gentoo.org> (13 Feb 2013)
 # Mask experimental software
@@ -531,10 +554,6 @@ media-gfx/yafaray
 # Doug Goldstein <cardoe@gentoo.org> (22 Jan 2013)
 # Masked for development
 =sys-block/open-iscsi-2.0.873
-
-# Marien Zwart <marienz@gentoo.org>
-# Patch tarball is broken, meaning this builds 1.2.0 (bug #452918)
-=app-emulation/qemu-1.2.2-r1
 
 # Mike Gilbert <floppym@gentoo.org (18 Jan 2013)
 # Release made by unofficial maintainer. Drops support for Python 3 with
@@ -829,12 +848,6 @@ sci-chemistry/webmo
 # Torsten Veller <tove@gentoo.org> (18 Jun 2011)
 # Mask perl-5.14. See tracker bug #356171
 =dev-lang/perl-5.14*
-
-# Alexis Ballier <aballier@gentoo.org> (20 Apr 2011)
-# Tiziano Müller <dev-zero@gentoo.org> (11 Aug 2010)
-# Breaks net-voip/sflphone, non maintainer update, but is needed by
-# media-video/ffmpeg
->=media-libs/celt-0.8.1
 
 # Marijn Schouten <hkBst@gentoo.org> (07 April 2011)
 # Masked for number of issues, but can be used to

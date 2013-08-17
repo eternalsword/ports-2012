@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/gdbus-codegen/gdbus-codegen-2.32.4-r1.ebuild,v 1.5 2013/08/10 13:25:28 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-util/gdbus-codegen/gdbus-codegen-2.32.4-r1.ebuild,v 1.7 2013/08/16 15:28:01 jer Exp $
 
 EAPI="5"
 GNOME_ORG_MODULE="glib"
@@ -14,7 +14,7 @@ HOMEPAGE="http://www.gtk.org/"
 
 LICENSE="LGPL-2+"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm ~hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
 IUSE=""
 
 RDEPEND="${PYTHON_DEPS}"
@@ -26,7 +26,8 @@ PDEPEND=">=dev-libs/glib-${PV}:2"
 S="${WORKDIR}/glib-${PV}/gio/gdbus-2.0/codegen"
 
 python_prepare_all() {
-	epatch "${FILESDIR}/${PN}-2.32.4-sitedir.patch"
+	PATCHES=( "${FILESDIR}/${PN}-2.32.4-sitedir.patch" )
+	distutils-r1_python_prepare_all
 	sed -e "s:\"/usr/local\":\"${EPREFIX}/usr\":" \
 		-i config.py || die "sed config.py failed"
 
@@ -41,5 +42,6 @@ src_test() {
 }
 
 python_install_all() {
+	distutils-r1_python_install_all # no-op, but prevents QA warning
 	doman "${WORKDIR}/glib-${PV}/docs/reference/gio/gdbus-codegen.1"
 }

@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/glib/glib-2.36.3-r2.ebuild,v 1.1 2013/08/10 14:24:32 aballier Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/glib/glib-2.36.3-r2.ebuild,v 1.5 2013/08/15 01:24:32 tetromino Exp $
 
 EAPI="5"
 PYTHON_COMPAT=( python2_{5,6,7} )
@@ -10,24 +10,34 @@ inherit autotools bash-completion-r1 gnome.org libtool eutils flag-o-matic gnome
 
 DESCRIPTION="The GLib library of C routines"
 HOMEPAGE="http://www.gtk.org/"
+SRC_URI="${SRC_URI}
+	http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz" # pkg.m4 for eautoreconf
 
 LICENSE="LGPL-2+"
 SLOT="2"
 IUSE="debug fam kernel_linux selinux static-libs systemtap test utils xattr"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~amd64-linux ~arm-linux ~x86-linux"
 
+# FIXME: want libselinux[${MULTILIB_USEDEP}] - bug #480960
 RDEPEND="
 	virtual/libiconv[${MULTILIB_USEDEP}]
 	virtual/libffi[${MULTILIB_USEDEP}]
 	sys-libs/zlib[${MULTILIB_USEDEP}]
 	|| (
 		>=dev-libs/elfutils-0.142
-		>=dev-libs/libelf-0.8.12 )
+		>=dev-libs/libelf-0.8.12
+		>=sys-freebsd/freebsd-lib-9.2_rc1
+		)
+	selinux? ( sys-libs/libselinux )
 	xattr? ( sys-apps/attr[${MULTILIB_USEDEP}] )
 	fam? ( virtual/fam[${MULTILIB_USEDEP}] )
 	utils? (
 		${PYTHON_DEPS}
 		>=dev-util/gdbus-codegen-${PV}[${PYTHON_USEDEP}] )
+	abi_x86_32? (
+		!<=app-emulation/emul-linux-x86-baselibs-20130224-r9
+		!app-emulation/emul-linux-x86-baselibs[-abi_x86_32(-)]
+	)
 "
 DEPEND="${RDEPEND}
 	app-text/docbook-xml-dtd:4.1.2
@@ -66,6 +76,9 @@ pkg_setup() {
 }
 
 src_prepare() {
+	# Prevent build failure in stage3 where pkgconfig is not available, bug #481056
+	mv -f "${WORKDIR}"/pkg-config-*/pkg.m4 "${S}"/m4macros/ || die
+
 	# Fix gmodule issues on fbsd; bug #184301, upstream bug #107626
 	epatch "${FILESDIR}"/${PN}-2.12.12-fbsd.patch
 
@@ -169,6 +182,13 @@ multilib_src_configure() {
 
 	# Only used by the gresource bin
 	multilib_is_native_abi || myconf="${myconf} --disable-libelf"
+
+	# FIXME: change to "$(use_enable selinux)" when libselinux is multilibbed, bug #480960
+	if multilib_is_native_abi; then
+		myconf="${myconf} $(use_enable selinux)"
+	else
+		myconf="${myconf} --disable-selinux"
+	fi
 
 	# Always use internal libpcre, bug #254659
 	ECONF_SOURCE="${S}" econf ${myconf} \
