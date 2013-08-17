@@ -18,7 +18,7 @@ KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux ~x86-solaris"
 IUSE=""
 
 COMMON_DEP="
-	dev-java/jnr-constants:0
+	<=dev-java/jnr-constants-0.8.3:0
 	dev-java/jnr-ffi:0.5"
 RDEPEND="${COMMON_DEP}
 	>=virtual/jre-1.5"

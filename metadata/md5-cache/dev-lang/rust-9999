@@ -1,0 +1,12 @@
+DEFINED_PHASES=configure unpack
+DEPEND=sys-devel/llvm clang? ( sys-devel/clang ) dev-lang/perl dev-lang/python:2.7 dev-vcs/git
+DESCRIPTION=Experimental programming language from mozilla
+EAPI=4
+HOMEPAGE=http://www.rust-lang.org
+IUSE=clang
+KEYWORDS=~x86 ~amd64
+LICENSE=MIT Apache-2.0
+RDEPEND=sys-devel/llvm
+SLOT=0
+_eclasses_=git-2	e92e09651292b1bef5656592364550f7
+_md5_=eca9025076d49fa0ffc2dc2d5f38b68b

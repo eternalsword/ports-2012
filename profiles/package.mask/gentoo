@@ -1,6 +1,6 @@
 ####################################################################
 
-# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.15035 2013/08/16 14:26:36 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.15037 2013/08/17 02:26:24 axs Exp $
 #
 # When you add an entry to the top of this file, add your name, the date, and
 # an explanation of why something is getting masked. Please be extremely
@@ -31,10 +31,19 @@
 
 #--- END OF EXAMPLES ---
 
+
+# Manuel Rüger <mrueg@gentoo.org> (16 Aug 2013)
+# Outdated documentation as ruby18 will be removed soon.
+# Masked for removal in 30 days.
+dev-ruby/programming-ruby
+
+
 # Ian Stakenvicius <axs@gentoo.org> (16 Aug 2013)
 # Mask openrc-0.12 and netifrc until packaging can be re-worked
 # so that upgrade paths do not kill existing network setups.
 # There are AT LEAST known multi-NIC issues with it.
+# The mask is triage and will be removed as soon as packaging
+# issues are sorted (probably 48h or less); see bug 481394
 =sys-apps/openrc-0.12*
 net-misc/netifrc
 >=sys-apps/kmod-14-r2
