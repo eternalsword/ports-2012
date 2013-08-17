@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/www-client/surf/surf-0.6.ebuild,v 1.3 2013/03/31 17:37:17 nimiux Exp $
 
 EAPI=4
-inherit savedconfig toolchain-funcs
+inherit savedconfig toolchain-funcs eutils
 
 DESCRIPTION="a simple web browser based on WebKit/GTK+"
 HOMEPAGE="http://surf.suckless.org/"
@@ -38,6 +38,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	epatch_user
 	sed -i \
 		-e 's|{|(|g;s|}|)|g' \
 		-e 's|\t@|\t|g;s|echo|@&|g' \
