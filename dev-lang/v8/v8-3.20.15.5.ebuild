@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/v8/v8-3.19.18.9.ebuild,v 1.1 2013/07/10 00:41:14 floppym Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/v8/v8-3.20.15.5.ebuild,v 1.2 2013/08/18 03:12:49 steev Exp $
 
 EAPI="5"
 PYTHON_COMPAT=( python2_{6,7} )
@@ -16,11 +16,17 @@ LICENSE="BSD"
 soname_version="${PV}"
 SLOT="0/${soname_version}"
 KEYWORDS="~amd64 ~arm ~x86 ~x86-fbsd ~x64-macos ~x86-macos"
-IUSE="neon readline"
+IUSE="icu neon readline"
 
-RDEPEND="readline? ( sys-libs/readline:0 )"
+RDEPEND="icu? ( dev-libs/icu:= )
+	readline? ( sys-libs/readline:0 )"
 DEPEND="${PYTHON_DEPS}
 	${RDEPEND}"
+
+src_prepare() {
+	# Make sure no bundled libraries are used.
+	find third_party -type f \! -iname '*.gyp*' -delete || die
+}
 
 src_configure() {
 	tc-export AR CC CXX RANLIB
@@ -46,7 +52,7 @@ src_configure() {
 			fi ;;
 		arm*-*)
 			myarch="arm"
-			myconf+=" -Dv8_target_arch=arm -Darm_fpu="
+			myconf+=" -Dv8_target_arch=arm -Darm_fpu=default"
 			if [[ ${CHOST} == *-hardfloat-* ]] ; then
 				myconf+=" -Dv8_use_arm_eabi_hardfloat=true"
 			else
@@ -83,7 +89,12 @@ src_configure() {
 		*) die "Unrecognized CHOST: ${CHOST}"
 	esac
 
-	myconf+=" $(gyp_use readline console readline dumb)"
+	myconf+="
+		$(gyp_use icu v8_enable_i18n_support)
+		$(gyp_use readline console readline dumb)"
+
+	myconf+="
+		-Duse_system_icu=1"
 
 	# Make sure that -Werror doesn't get added to CFLAGS by the build system.
 	# Depending on GCC version the warnings are different and we don't
