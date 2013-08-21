@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-cluster/neutron/neutron-2012.2.4-r1.ebuild,v 1.1 2013/08/20 16:29:16 prometheanfire Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-cluster/neutron/neutron-2012.2.4-r1.ebuild,v 1.3 2013/08/20 19:36:07 prometheanfire Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
@@ -12,6 +12,7 @@ RESTRICT="test"
 DESCRIPTION="Quantum is a virtual network service for Openstack."
 HOMEPAGE="https://launchpad.net/neutron"
 SRC_URI="http://launchpad.net/${PN}/folsom/${PV}/+download/quantum-${PV}.tar.gz"
+S="${WORKDIR}/quantum-${PV}"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -62,7 +63,7 @@ python_install() {
 	doins "etc/quantum.conf"
 	doins "etc/rootwrap.conf"
 	insinto /etc
-	doins -r "etc/neutron/"
+	doins -r "etc/quantum/"
 
 	#remove the etc stuff from usr...
 	rm -R "${D}/usr/etc/"
