@@ -23,11 +23,15 @@ RDEPEND="dev-db/sqlite:3[soundex(+)]
 	net-misc/rsync
 	sys-apps/diffutils
 	sys-apps/sandbox
-	>=sys-apps/portage-2.1.9
+	>=sys-apps/portage-2.1.9[${PYTHON_USEDEP}]
 	sys-devel/gettext
 	${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 	dev-util/intltool"
+
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+S="${S}/lib"
 
 REPO_CONFPATH="${ROOT}/etc/entropy/repositories.conf"
 REPO_D_CONFPATH="${ROOT}/etc/entropy/repositories.conf.d"
@@ -45,19 +49,8 @@ pkg_setup() {
 	enewuser entropy-nopriv -1 -1 -1 entropy-nopriv || die "failed to create entropy-nopriv user"
 }
 
-src_compile() {
-	cd "${S}"/lib || die
-	emake || die "make failed"
-}
-
 src_install() {
-	# create directories required by equo
-	dodir /var/run/entropy
-	keepdir /var/run/entropy
-
-	cd "${S}"/lib || die
-	# TODO: drop VARDIR after 146
-	emake DESTDIR="${D}" VARDIR="/var" LIBDIR="usr/lib" install || die "make install failed"
+	emake DESTDIR="${D}" LIBDIR="usr/lib" install || die "make install failed"
 
 	python_optimize "${D}/usr/lib/entropy/lib/entropy"
 }
