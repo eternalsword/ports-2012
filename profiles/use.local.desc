@@ -6361,6 +6361,7 @@ www-apache/pwauth:ignore-case - Ignore string case in username (mostly Windows c
 www-apps/389-dsgw:adminserver - Install DSGW with Admin Server
 www-apps/ampache:transcode - Install optional dependencies for transcoding support
 www-apps/bitten:server - Install master instance that integrates itself with Trac
+www-apps/blohg:git - Enable Git support
 www-apps/bugzilla:extras - Optional Perl modules
 www-apps/bugzilla:modperl - Enable www-apache/mod_perl support
 www-apps/cgit:highlight - Enable source code highlighting
@@ -6455,9 +6456,7 @@ www-client/uzbl:tabbed - Install the uzbl-tabbed script
 www-client/w3m:lynxkeymap - If you prefer Lynx-like key binding
 www-client/weboob:fast-libs - Enable fast libs
 www-client/weboob:secure-updates - Enable secure updates
-www-misc/litmus:gssapi - Support for GSSAPI through dev-perl/GSSAPI.
 www-misc/litmus:libproxy - Support for automatic proxy configuratino management through net-libs/libproxy.
-www-misc/litmus:openssl - Support for SSL through OpenSSL (dev-libs/openssl).
 www-misc/litmus:pkcs11 - Support for PKCS #11 through PaKChoiS (dev-libs/pakchois).
 www-misc/monitorix:evms - Make use of utilities for the IBM Enterprise Volume Management System with sys-fs/evms.
 www-misc/monitorix:hddtemp - Use SMART to monitor the temperature of hard drives with app-admin/hddtemp.
