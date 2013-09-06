@@ -8,5 +8,5 @@ KEYWORDS=~x86 ~amd64
 LICENSE=MIT Apache-2.0
 RDEPEND=sys-devel/llvm
 SLOT=0
-_eclasses_=git-2	e92e09651292b1bef5656592364550f7
+_eclasses_=git-2	fabc717260816d50ef1964caf14a3d5c
 _md5_=eca9025076d49fa0ffc2dc2d5f38b68b

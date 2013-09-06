@@ -7,5 +7,5 @@ IUSE=+ccache +git
 LICENSE=GPL-2
 RDEPEND=dev-lang/python ccache? ( dev-util/ccache ) git? ( dev-vcs/git )
 SLOT=0
-_eclasses_=git-2	e92e09651292b1bef5656592364550f7
+_eclasses_=git-2	fabc717260816d50ef1964caf14a3d5c
 _md5_=f44bf612aed278803b5152b51dccf1b4
