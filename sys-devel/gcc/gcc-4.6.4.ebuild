@@ -140,8 +140,8 @@ src_prepare() {
 	if use hardened; then
 		local gcc_hard_flags="-DEFAULT_RELRO -DEFAULT_BIND_NOW -DEFAULT_PIE_SSP"
 		sed -i -e "/^HARD_CFLAGS = /s|=|= ${gcc_hard_flags} |" "${S}"/gcc/Makefile.in || die
-		einfo "Applying PIE patches..."
-		epatch "${WORKDIR}"/piepatch/
+		EPATCH_MULTI_MSG="Applying PIE patches..." \
+		epatch "${WORKDIR}"/piepatch/*.patch
 	fi
 }
 
@@ -167,7 +167,11 @@ src_configure() {
 	use libssp || export gcc_cv_libc_provides_ssp=yes
 
 	local branding="Funtoo"
-	use hardened && branding="$branding Hardened, pie=${PIE_VER}"
+	if use hardened; then
+		branding="$branding Hardened ${PVR}, pie-${PIE_VER}"
+	else
+		branding="$branding ${PVR}"
+	fi
 
 	cd ${WORKDIR}/objdir && ../gcc-${PV}/configure \
 		$(use_enable libssp) \
@@ -191,7 +195,7 @@ src_configure() {
 		--enable-secureplt \
 		--disable-lto \
 		--with-bugurl=http://bugs.funtoo.org \
-		--with-pkgversion="$branding ${PVR}" \
+		--with-pkgversion="$branding" \
 		--with-mpfr-include=${S}/mpfr/src \
 		--with-mpfr-lib=${WORKDIR}/objdir/mpfr/src/.libs \
 		$confgcc \
