@@ -1,0 +1,8 @@
+DEFINED_PHASES=-
+DEPEND=|| ( dev-util/pkgconf[pkg-config] >=dev-util/pkgconfig-0.26 dev-util/pkg-config-lite dev-util/pkgconfig-openbsd[pkg-config] )
+DESCRIPTION=Virtual for the pkg-config implementation
+EAPI=2
+KEYWORDS=*
+RDEPEND=|| ( dev-util/pkgconf[pkg-config] >=dev-util/pkgconfig-0.26 dev-util/pkg-config-lite dev-util/pkgconfig-openbsd[pkg-config] )
+SLOT=0
+_md5_=5a481aeb7c62e6da2e3dbf5821057007

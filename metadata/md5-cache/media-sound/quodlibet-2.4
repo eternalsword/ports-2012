@@ -1,0 +1,14 @@
+DEFINED_PHASES=compile install postinst postrm prepare setup
+DEPEND=>=dev-python/pygtk-2.12 dev-util/intltool =dev-lang/python-2.7*
+DESCRIPTION=audio library tagger, manager, and player for GTK+
+EAPI=4
+HOMEPAGE=http://code.google.com/p/quodlibet/
+IUSE=dbus gstreamer ipod
+KEYWORDS=amd64 ppc ppc64 x86
+LICENSE=GPL-2
+RDEPEND=>=dev-python/pygtk-2.12 dev-python/feedparser >=media-libs/mutagen-1.14 gstreamer? ( >=dev-python/gst-python-0.10.2:0.10 media-libs/gst-plugins-good:0.10 media-plugins/gst-plugins-meta:0.10 ) !gstreamer? ( media-libs/xine-lib ) dbus? ( app-misc/media-player-info dev-python/dbus-python ) ipod? ( media-libs/libgpod[python] ) =dev-lang/python-2.7*
+REQUIRED_USE=ipod? ( dbus )
+SLOT=0
+SRC_URI=http://quodlibet.googlecode.com/files/quodlibet-2.4.tar.gz
+_eclasses_=distutils	4d62465f6d5c8554c77b91c9d95dd315	eutils	a09e9d3f51cc9119897f6970ba2f9d52	multilib	892e597faee02a5b94eb02ab512e7622	python	9ffa83b7b864edd2fa5dd6ebe4a63738	toolchain-funcs	d3b5812eeab360bc41aa48b6cdbbc142	user	d0a4d0735a6c0183d707ca919bd72f28
+_md5_=d7739ad135e6fc6eedfdfaaf1cc473dd
