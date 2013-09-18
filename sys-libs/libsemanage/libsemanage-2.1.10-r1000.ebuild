@@ -1,25 +1,24 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright owners: Gentoo Foundation
+#                   Arfrever Frehtes Taifersar Arahesis
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/libsemanage/libsemanage-2.1.9.ebuild,v 1.4 2013/02/07 19:42:32 swift Exp $
 
-EAPI="3"
-# Support for 4 depends on python.eclass
-PYTHON_DEPEND="python? *"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="*-jython *-pypy-* 2.6"
+EAPI="5-progress"
+PYTHON_DEPEND="python? ( <<>> )"
+PYTHON_MULTIPLE_ABIS="1"
+PYTHON_RESTRICTED_ABIS="*-jython *-pypy-*"
 
-inherit multilib python toolchain-funcs eutils
+inherit eutils multilib python toolchain-funcs
 
-SEPOL_VER="2.1.8"
-SELNX_VER="2.1.12"
+SEPOL_VER="2.1.9"
+SELNX_VER="2.1.13"
 
 DESCRIPTION="SELinux kernel and policy management library"
 HOMEPAGE="http://userspace.selinuxproject.org"
-SRC_URI="http://userspace.selinuxproject.org/releases/20120924/${P}.tar.gz"
+SRC_URI="http://userspace.selinuxproject.org/releases/20130423/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="*"
 IUSE="python ruby"
 
 RDEPEND=">=sys-libs/libsepol-${SEPOL_VER}
@@ -66,23 +65,24 @@ src_prepare() {
 	echo "# decompression of modules in the module store." >> "${S}/src/semanage.conf"
 	echo "bzip-small=true" >> "${S}/src/semanage.conf"
 
+	sed -e "/^gcc/s:-aux-info:-I../include &:" -i src/exception.sh
+
 	epatch_user
 }
 
 src_compile() {
-	emake AR="$(tc-getAR)" CC="$(tc-getCC)" all || die
+	emake AR="$(tc-getAR)" CC="$(tc-getCC)" all
 
 	if use python; then
 		python_copy_sources src
 		building() {
-			emake CC="$(tc-getCC)" PYLIBVER="python$(python_get_version)" PYPREFIX="python-$(python_get_version)" "$@"
+			emake CC="$(tc-getCC)" PYINC="-I$(python_get_includedir)" PYLIBVER="python$(python_get_version)" PYPREFIX="python-$(python_get_version)" pywrap
 		}
-		python_execute_function -s --source-dir src building -- swigify
-		python_execute_function -s --source-dir src building -- pywrap
+		python_execute_function -s --source-dir src building
 	fi
 
 	if use ruby; then
-		emake -C src CC="$(tc-getCC)" rubywrap || die
+		emake -C src CC="$(tc-getCC)" rubywrap
 	fi
 }
 
@@ -91,8 +91,8 @@ src_install() {
 		DESTDIR="${D}" \
 		LIBDIR="${D}usr/$(get_libdir)" \
 		SHLIBDIR="${D}$(get_libdir)" \
-		install || die
-	dosym "../../$(get_libdir)/libsemanage.so.1" "/usr/$(get_libdir)/libsemanage.so" || die
+		install
+	dosym "../../$(get_libdir)/libsemanage.so.1" "/usr/$(get_libdir)/libsemanage.so"
 
 	if use python; then
 		installation() {
@@ -110,7 +110,8 @@ src_install() {
 		emake -C src \
 			DESTDIR="${D}" \
 			LIBDIR="${D}usr/$(get_libdir)" \
-			install-rubywrap || die
+			RUBYINSTALL="${D}$(ruby -rrbconfig -e 'puts RbConfig::CONFIG["sitearchdir"]')" \
+			install-rubywrap
 	fi
 }
 
