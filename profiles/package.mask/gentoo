@@ -1,6 +1,6 @@
 ####################################################################
 
-# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.15120 2013/09/17 16:10:35 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.15122 2013/09/18 12:57:08 pinkbyte Exp $
 #
 # When you add an entry to the top of this file, add your name, the date, and
 # an explanation of why something is getting masked. Please be extremely
@@ -31,15 +31,18 @@
 
 #--- END OF EXAMPLES ---
 
+# Sergey Popov <pinkbyte@gentoo.org> (18 Sep 2013)
+# Mask development releases of botan:
+# - causes many API breakages
+# - do not compile in some USE-flag combinations
+# - requires at least gcc 4.7(and possibly even 4.8 for some features)
+>=dev-libs/botan-1.11.0
+
 # Michał Górny <mgorny@gentoo.org> (17 Sep 2013)
 # Mask for testing. It enables some new eclass code, some new distutils
 # magic and certainly will trigger some random failures.
 # http://thread.gmane.org/gmane.linux.gentoo.devel/88175
 >=dev-python/python-exec-2
-
-# Tim Harder <radhermit@gentoo.org> (16 Sep 2013)
-# masked until libmatroska-1.4.1 is released
->=media-video/mkvtoolnix-6.4.0
 
 # Joerg Bornkessel <hd_brummy@gentoo.org> (15 Sep 2013)
 # removal on ~15 Oct 2013
