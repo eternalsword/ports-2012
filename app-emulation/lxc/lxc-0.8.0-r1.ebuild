@@ -1,6 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/lxc/lxc-0.8.0-r1.ebuild,v 1.3 2013/09/10 05:22:55 maekke Exp $
 
 EAPI="4"
 
@@ -20,7 +18,7 @@ SRC_URI="http://lxc.sourceforge.net/download/lxc/${MY_P}.tar.gz
 	${BACKPORTS:+http://dev.gentoo.org/~flameeyes/${PN}/${MY_P}-backports-${BACKPORTS}.tar.xz}"
 S="${WORKDIR}/${MY_P}"
 
-KEYWORDS="~amd64 ~arm ~ppc64 ~x86"
+KEYWORDS="~*"
 
 LICENSE="LGPL-3"
 SLOT="0"
@@ -116,7 +114,7 @@ src_install() {
 	find "${D}" -name '*.la' -delete
 
 	# Gentoo-specific additions!
-	newinitd "${FILESDIR}/${PN}.initd.2" ${PN}
+	newinitd "${FILESDIR}/${PN}.initd.3" ${PN}
 	keepdir /var/log/lxc
 }
 
