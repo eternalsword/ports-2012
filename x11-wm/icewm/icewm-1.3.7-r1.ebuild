@@ -1,23 +1,30 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-wm/icewm/icewm-1.3.7.ebuild,v 1.5 2012/10/07 10:25:13 xarthisius Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-wm/icewm/icewm-1.3.7-r1.ebuild,v 1.2 2013/09/21 13:18:40 pacho Exp $
 
-EAPI="4"
+EAPI=5
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit eutils
+inherit autotools eutils python-single-r1
 
 DESCRIPTION="Ice Window Manager with Themes"
 HOMEPAGE="http://www.icewm.org/"
 LICENSE="GPL-2"
 SRC_URI="mirror://sourceforge/${PN}/${P/_}.tar.gz"
+
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
-IUSE="debug gnome minimal nls truetype uclibc xinerama"
+IUSE="bidi debug gnome minimal nls truetype uclibc xinerama"
+REQUIRED_USE="gnome? ( ${PYTHON_REQUIRED_USE} )"
+
+# Tests broken in all versions, patches welcome, bug #323907, #389533
+RESTRICT="test"
 
 #fix for icewm preversion package names
 S=${WORKDIR}/${P/_}
 
-RDEPEND="x11-libs/libX11
+RDEPEND="
+	x11-libs/libX11
 	x11-libs/libXrandr
 	x11-libs/libXext
 	x11-libs/libXpm
@@ -26,16 +33,23 @@ RDEPEND="x11-libs/libX11
 	x11-libs/libSM
 	x11-libs/libICE
 	xinerama? ( x11-libs/libXinerama )
-	gnome? ( gnome-base/gnome-desktop:2 )
+	bidi? ( dev-libs/fribidi )
+	gnome? (
+		${PYTHON_DEPS}
+		dev-python/pyxdg
+		gnome-base/gnome-desktop:2
+		gnome-base/gnome-menus
+		gnome-base/libgnomeui )
 	nls? ( sys-devel/gettext )
 	truetype? ( >=media-libs/freetype-2.0.9 )
-	media-libs/giflib"
-
+	media-libs/giflib
+"
 DEPEND="${RDEPEND}
 	x11-proto/xproto
 	x11-proto/xextproto
 	xinerama? ( x11-proto/xineramaproto )
-	>=sys-apps/sed-4"
+	>=sys-apps/sed-4
+"
 
 pkg_setup() {
 	if use truetype && use minimal; then
@@ -46,15 +60,28 @@ pkg_setup() {
 }
 
 src_prepare() {
+	# Fedora patches
+	epatch "${FILESDIR}"/${PN}-menu.patch
+	epatch "${FILESDIR}"/${PN}-toolbar.patch
+	epatch "${FILESDIR}"/${PN}-keys.patch
+	epatch "${FILESDIR}"/${PN}-fribidi.patch
+	epatch "${FILESDIR}"/${PN}-1.3.7-dso.patch
+	epatch "${FILESDIR}"/${PN}-defaults.patch
+	epatch "${FILESDIR}"/${PN}-wmclient.patch
+	epatch "${FILESDIR}"/${PN}-1.3.7-menuiconsize.patch
+	epatch "${FILESDIR}"/${PN}-1.3.7-configurenotify.patch
+	epatch "${FILESDIR}"/${PN}-1.3.7-deprecated.patch
+
 	epatch "${FILESDIR}"/${P}-gcc44.patch \
 		"${FILESDIR}"/${P}-gcc47.patch
+
+	# Get thermal info from proper locations, bug #452730
+	epatch "${FILESDIR}"/${PN}-1.3.7-thermal.patch
+
 	cd "${S}/src"
 	use uclibc && epatch "${FILESDIR}/${PN}-uclibc.patch"
-	# build fix for libX11-1.5.0, bug 420773
-	epatch "${FILESDIR}"/${PN}-1.2.37-libX11-1.5.0-deprecated.patch
 
-	echo "#!/bin/sh" > "$T/${PN}"
-	echo "/usr/bin/icewm-session" >> "$T/${PN}"
+	cd "${S}"/ && eautoreconf
 }
 
 src_configure() {
@@ -70,6 +97,7 @@ src_configure() {
 		--with-libdir=/usr/share/icewm
 		--with-cfgdir=/etc/icewm
 		--with-docdir=/usr/share/doc/${PF}/html
+		$(use_enable bidi fribidi)
 		$(use_enable debug)
 		$(use_enable gnome menus-gnome2)
 		$(use_enable nls i18n)
@@ -87,20 +115,18 @@ src_configure() {
 src_install(){
 	default
 
+	if use gnome; then
+		dobin "${FILESDIR}"/icewm-xdg-menu
+		exeinto /usr/share/icewm/
+		newexe "${FILESDIR}"/icewm-startup startup
+	fi
+
 	dodoc AUTHORS BUGS CHANGES PLATFORMS README* TODO VERSION
 	dohtml -a html,sgml doc/*
 
 	exeinto /etc/X11/Sessions
-	doexe "$T/icewm"
+	doexe "${FILESDIR}/icewm"
 
 	insinto /usr/share/xsessions
 	doins "${FILESDIR}/IceWM.desktop"
-}
-
-pkg_postinst() {
-	if use gnome; then
-		elog "You have enabled gnome USE flag which provides icewm-menu-gnome2 ."
-		elog "It is used internally and generates IceWM program menus from"
-		elog "FreeDesktop .desktop files"
-	fi
 }
