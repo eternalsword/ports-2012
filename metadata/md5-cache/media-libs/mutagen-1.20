@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install postinst postrm prepare test
+DEPEND=test? ( dev-python/eyeD3 dev-python/pyvorbis media-libs/flac[ogg] media-sound/vorbis-tools ) =dev-lang/python-2*
+DESCRIPTION=Mutagen is an audio metadata tag reader and writer implemented in pure Python.
+EAPI=3
+HOMEPAGE=http://code.google.com/p/mutagen http://pypi.python.org/pypi/mutagen
+IUSE=test
+KEYWORDS=alpha amd64 hppa ~ia64 ppc ppc64 sparc x86 ~x86-interix ~amd64-linux ~x86-linux
+LICENSE=GPL-2
+RDEPEND==dev-lang/python-2*
+SLOT=0
+SRC_URI=http://mutagen.googlecode.com/files/mutagen-1.20.tar.gz
+_eclasses_=distutils	4d62465f6d5c8554c77b91c9d95dd315	python	9ffa83b7b864edd2fa5dd6ebe4a63738
+_md5_=318a329fefd4bb2883155091d5840ac4
