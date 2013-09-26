@@ -1,6 +1,6 @@
 ####################################################################
 
-# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.15130 2013/09/21 20:23:45 hwoarang Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.15132 2013/09/24 04:49:49 patrick Exp $
 #
 # When you add an entry to the top of this file, add your name, the date, and
 # an explanation of why something is getting masked. Please be extremely
@@ -30,6 +30,12 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Agostino Sarubbo <ago@gentoo.org> (23 Sep 2013)
+# Masked because of vulnerable versions
+# DO NOT REMOVE OLDER VERSIONS
+# temporarily disabled as it also breaks s390 keywording
+#<net-nds/openldap-2.4.35
 
 # Michał Górny <mgorny@gentoo.org> (21 Sep 2013)
 # Mask multilib versions of OpenGL packages for testing.
