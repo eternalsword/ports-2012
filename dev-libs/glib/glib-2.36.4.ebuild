@@ -1,9 +1,9 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/glib/glib-2.36.4.ebuild,v 1.1 2013/08/16 03:20:25 tetromino Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/glib/glib-2.36.4.ebuild,v 1.3 2013/09/05 18:29:53 mgorny Exp $
 
 EAPI="5"
-PYTHON_COMPAT=( python2_{5,6,7} )
+PYTHON_COMPAT=( python2_{6,7} )
 # Avoid runtime dependency on python when USE=test
 
 inherit autotools bash-completion-r1 gnome.org libtool eutils flag-o-matic gnome2-utils multilib pax-utils python-r1 toolchain-funcs versionator virtualx linux-info multilib-minimal
@@ -196,6 +196,7 @@ multilib_src_configure() {
 		$(use_enable systemtap dtrace) \
 		$(use_enable systemtap systemtap) \
 		$(use_enable test modular-tests) \
+		--disable-compile-warnings \
 		--enable-man \
 		--with-pcre=internal \
 		--with-threads=posix \

@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/openvpn/openvpn-2.3.2.ebuild,v 1.1 2013/06/10 12:29:33 djc Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/openvpn/openvpn-2.3.2.ebuild,v 1.11 2013/09/26 17:32:05 ago Exp $
 
 EAPI=4
 
@@ -12,7 +12,7 @@ HOMEPAGE="http://openvpn.net/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~arm-linux ~x86-linux"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~s390 ~sh sparc x86 ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~arm-linux ~x86-linux"
 IUSE="examples down-root iproute2 pam passwordsave pkcs11 +plugins polarssl selinux +ssl +lzo static userland_BSD"
 
 REQUIRED_USE="static? ( !plugins !pkcs11 )
@@ -78,8 +78,8 @@ src_install() {
 		doins -r sample contrib
 	fi
 
-	systemd_newtmpfilesd "${FILESDIR}"/${PN}.tmpfile ${PN}.conf || die
-	systemd_newunit "${FILESDIR}"/${PN}.service 'openvpn@.service' || die
+	systemd_newtmpfilesd "${FILESDIR}"/${PN}.tmpfile ${PN}.conf
+	systemd_newunit "${FILESDIR}"/${PN}.service 'openvpn@.service'
 }
 
 pkg_postinst() {

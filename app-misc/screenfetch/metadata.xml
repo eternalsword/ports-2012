@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>                                                           
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer>
-<email>hwoarang@gentoo.org</email>
-<name>Markos Chandras</name>
-</maintainer>
+	<herd>no-herd</herd>
+	<maintainer>
+		<email>ari.malinen@gmail.com</email>
+		<name>Ari Malinen</name>
+	</maintainer>
 </pkgmetadata>
-

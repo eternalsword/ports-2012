@@ -1,10 +1,10 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/qemu/qemu-9999.ebuild,v 1.57 2013/08/16 14:05:22 cardoe Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/qemu/qemu-9999.ebuild,v 1.60 2013/09/05 18:20:53 mgorny Exp $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_5,2_6,2_7} )
+PYTHON_COMPAT=( python{2_6,2_7} )
 PYTHON_REQ_USE="ncurses,readline"
 
 inherit eutils flag-o-matic linux-info toolchain-funcs multilib python-r1 \
@@ -90,15 +90,15 @@ RDEPEND="!static-softmmu? ( ${LIB_DEPEND//\[static-libs(+)]} )
 	static-user? ( >=dev-libs/glib-2.0[static-libs(+)] )
 	qemu_softmmu_targets_i386? (
 		>=sys-firmware/ipxe-1.0.0_p20130624
-		>=sys-firmware/seabios-1.7.3
-		>=sys-firmware/sgabios-0.1_pre8
-		>=sys-firmware/vgabios-0.7a
+		sys-firmware/seabios
+		sys-firmware/sgabios
+		sys-firmware/vgabios
 	)
 	qemu_softmmu_targets_x86_64? (
 		>=sys-firmware/ipxe-1.0.0_p20130624
-		>=sys-firmware/seabios-1.7.3
-		>=sys-firmware/sgabios-0.1_pre8
-		>=sys-firmware/vgabios-0.7a
+		sys-firmware/seabios
+		sys-firmware/sgabios
+		sys-firmware/vgabios
 	)
 	accessibility? ( app-accessibility/brltty )
 	alsa? ( >=media-libs/alsa-lib-1.0.13 )
@@ -328,7 +328,8 @@ qemu_src_configure() {
 		conf_opts+=" $(use_enable xfs xfsctl)"
 		use mixemu && conf_opts+=" --enable-mixemu"
 		conf_opts+=" --audio-drv-list=${audio_opts}"
-		conf_opts+=" --enable-migration-from-qemu-kvm"
+		# Gentoo-specific opts
+		[[ ${PV} = *9999* ]] || conf_opts+=" --enable-migration-from-qemu-kvm"
 	fi
 
 	conf_opts+=" $(use_enable debug debug-info)"

@@ -20,7 +20,7 @@
    always a description without a lang attribute. Also there are no overlapping
    descriptions allowed (multiple description tags with the same language)
 
-   $Header: /var/cvsroot/gentoo/xml/htdocs/proj/en/metastructure/herds/herds.xml,v 1.1051 2013/08/16 09:42:43 pinkbyte Exp $
+   $Header: /var/cvsroot/gentoo/xml/htdocs/proj/en/metastructure/herds/herds.xml,v 1.1061 2013/09/28 05:52:15 prometheanfire Exp $
 
 -->
 <herds>
@@ -201,6 +201,14 @@
     <email>angelos@gentoo.org</email>
     <name>Christoph Mende</name>
   </maintainer>
+  <maintainer>
+    <email>TomWij@gentoo.org</email>
+    <name>Tom Wijsman</name>
+  </maintainer>
+  <maintainer>
+    <email>cynede@gentoo.org</email>
+    <name>Heather Cynede</name>
+  </maintainer>
 </herd>
 <herd>
   <name>freedesktop</name>
@@ -357,6 +365,12 @@
   <email>kde@gentoo.org</email>
   <description>KDE and related packages</description>
   <maintainingproject>/proj/en/desktop/kde/index.xml</maintainingproject>
+</herd>
+<herd>
+  <name>openstack</name>
+  <email>openstack@gentoo.org</email>
+  <description>Openstack-related packages</description>
+  <maintainingproject>/proj/en/virtualization/openstack/index.xml</maintainingproject>
 </herd>
 <herd>
   <name>qt</name>
@@ -588,6 +602,10 @@
   <maintainer>
     <email>ago@gentoo.org</email>
     <name>Agostino Sarubbo</name>
+  </maintainer>
+  <maintainer>
+    <email>jmorgan@gentoo.org</email>
+    <name>Jack Morgan</name>
   </maintainer>
 </herd>
 <herd>
@@ -843,6 +861,10 @@
   <maintainer>
     <email>qnikst@gentoo.org</email>
     <name>Alexander Vershilov</name>
+  </maintainer>
+  <maintainer>
+    <email>cynede@gentoo.org</email>
+    <name>Heather Cynede</name>
   </maintainer>
   <maintainer>
     <email>slyfox@gentoo.org</email>
@@ -1106,6 +1128,14 @@
     <email>ago@gentoo.org</email>
     <name>Agostino Sarubbo</name>
   </maintainer>
+  <maintainer>
+    <email>zlogene@gentoo.org</email>
+    <name>Mikle Kolyada</name>
+  </maintainer>
+  <maintainer>
+    <email>jmorgan@gentoo.org</email>
+    <name>Jack Morgan</name>
+  </maintainer>
 </herd>
 <herd>
   <name>mips</name>
@@ -1131,6 +1161,10 @@
     <email>mattst88@gentoo.org</email>
     <name>Matt Turner</name>
   </maintainer>
+  <maintainer>
+    <email>pinkbyte@gentoo.org</email>
+    <name>Sergey Popov</name>
+  </maintainer>
 </herd>
 <herd>
   <name>web-apps</name>
@@ -1143,6 +1177,14 @@
   <maintainer>
     <email>blueness@gentoo.org</email>
     <name>Anthony G. Basile</name>
+  </maintainer>
+  <maintainer>
+    <email>twitch153@gentoo.org</email>
+    <name>Devan Franchini</name>
+  </maintainer>
+  <maintainer>
+    <email>jmbsvicetto@gentoo.org</email>
+    <name>Jorge Manuel B. S. Vicetto</name>
   </maintainer>
 </herd>
 <herd>
@@ -1632,6 +1674,10 @@
     <email>ago@gentoo.org</email>
     <name>Agostino Sarubbo</name>
   </maintainer>
+  <maintainer>
+     <email>zlogene@gentoo.org</email>
+     <name>Mikle Kolyada</name>
+  </maintainer>	
 </herd>
 <herd>
   <name>ia64</name>
@@ -1646,6 +1692,14 @@
   <maintainer>
     <email>ago@gentoo.org</email>
     <name>Agostino Sarubbo</name>
+  </maintainer>
+  <maintainer>
+    <email>zlogene@gentoo.org</email>
+    <name>Mikle Kolyada</name>
+  </maintainer>
+  <maintainer>
+    <email>jmorgan@gentoo.org</email>
+    <name>Jack Morgan</name>
   </maintainer>
 </herd>
 <herd>

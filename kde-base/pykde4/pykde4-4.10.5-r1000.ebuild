@@ -28,6 +28,10 @@ DEPEND="${RDEPEND}
 	sys-devel/libtool
 "
 
+PATCHES=(
+	"${FILESDIR}/${PN}-4.10.5-sip-4.15.patch"
+)
+
 pkg_setup() {
 	python_pkg_setup
 	kde4-base_pkg_setup

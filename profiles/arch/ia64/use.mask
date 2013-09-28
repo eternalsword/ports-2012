@@ -52,6 +52,7 @@ upnp
 systemd
 webm
 fdk
+valgrind
 
 # Stuff we don't want
 antlr
@@ -246,3 +247,7 @@ template_haskell
 
 # toolkit for nvidia binary drivers
 cg
+
+# Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org> (22 Aug 2013)
+# virtual/opencl is not keyworded
+opencl

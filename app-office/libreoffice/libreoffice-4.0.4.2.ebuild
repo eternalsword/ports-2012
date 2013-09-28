@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.0.4.2.ebuild,v 1.6 2013/06/30 21:12:02 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.0.4.2.ebuild,v 1.9 2013/09/16 20:09:37 zerochaos Exp $
 
 EAPI=5
 
@@ -128,7 +128,7 @@ COMMON_DEPEND="
 	>=net-misc/curl-7.21.4
 	net-nds/openldap
 	sci-mathematics/lpsolve
-	virtual/jpeg
+	virtual/jpeg:0
 	>=x11-libs/cairo-1.10.0[X]
 	x11-libs/libXinerama
 	x11-libs/libXrandr
@@ -193,7 +193,7 @@ fi
 #        after everything upstream is under gbuild
 #        as dmake execute tests right away
 DEPEND="${COMMON_DEPEND}
-	>=dev-libs/boost-1.46
+	>=dev-libs/boost-1.46:=
 	>=dev-libs/libxml2-2.7.8
 	dev-libs/libxslt
 	dev-perl/Archive-Zip
@@ -489,6 +489,7 @@ src_configure() {
 		$(use_enable gnome gconf) \
 		$(use_enable gnome gio) \
 		$(use_enable gnome lockdown) \
+		$(use_enable gstreamer) \
 		$(use_enable gtk) \
 		$(use_enable kde kde4) \
 		$(use_enable mysql ext-mysql-connector) \

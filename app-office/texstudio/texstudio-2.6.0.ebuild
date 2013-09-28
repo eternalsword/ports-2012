@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/texstudio/texstudio-2.6.0.ebuild,v 1.5 2013/07/23 13:50:08 kensington Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-office/texstudio/texstudio-2.6.0.ebuild,v 1.9 2013/09/05 10:44:55 ago Exp $
 
 EAPI=5
 
@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/${PN}/${PN}/TeXstudio%20${PV}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~ppc ~ppc64 ~x86 ~x86-fbsd"
+KEYWORDS="amd64 ppc ppc64 x86 ~x86-fbsd"
 IUSE="video"
 
 COMMON_DEPEND="
@@ -50,6 +50,11 @@ src_prepare() {
 	find hunspell quazip utilities/poppler-data -delete || die
 	if use video; then
 		sed "/^PHONON/s:$:true:g" -i ${PN}.pro || die
+	fi
+	if use ppc || use ppc64; then
+		cat > texmakerx_my.pri <<- EOF
+		NO_CRASH_HANDLER=true
+		EOF
 	fi
 	qt4-r2_src_prepare
 }

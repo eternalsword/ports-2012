@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.0.9999.ebuild,v 1.34 2013/07/10 07:56:42 scarabeus Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.0.9999.ebuild,v 1.37 2013/09/16 14:30:55 scarabeus Exp $
 
 EAPI=5
 
@@ -129,7 +129,7 @@ COMMON_DEPEND="
 	>=net-misc/curl-7.21.4
 	net-nds/openldap
 	sci-mathematics/lpsolve
-	virtual/jpeg
+	virtual/jpeg:0
 	>=x11-libs/cairo-1.10.0[X]
 	x11-libs/libXinerama
 	x11-libs/libXrandr
@@ -489,6 +489,7 @@ src_configure() {
 		$(use_enable gnome gconf) \
 		$(use_enable gnome gio) \
 		$(use_enable gnome lockdown) \
+		$(use_enable gstreamer) \
 		$(use_enable gtk) \
 		$(use_enable kde kde4) \
 		$(use_enable mysql ext-mysql-connector) \
@@ -548,7 +549,7 @@ src_install() {
 	fi
 
 	# symlink the nsplugin to proper location
-	use gtk && inst_plugin /usr/$(get_libdir)/libreoffice/program/libnpsoplugin.so
+	# use gtk && inst_plugin /usr/$(get_libdir)/libreoffice/program/libnpsoplugin.so
 
 	# Hack for offlinehelp, this needs fixing upstream at some point.
 	# It is broken because we send --without-help

@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.1.9999.ebuild,v 1.9 2013/07/29 09:28:03 scarabeus Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.1.9999.ebuild,v 1.14 2013/09/20 20:26:45 dilfridge Exp $
 
 EAPI=5
 
@@ -23,7 +23,7 @@ DEV_URI="
 EXT_URI="http://ooo.itc.hu/oxygenoffice/download/libreoffice"
 ADDONS_URI="http://dev-www.libreoffice.org/src/"
 
-BRANDING="${PN}-branding-gentoo-0.7.tar.xz"
+BRANDING="${PN}-branding-gentoo-0.8.tar.xz"
 # PATCHSET="${P}-patchset-01.tar.xz"
 
 [[ ${PV} == *9999* ]] && SCM_ECLASS="git-2"
@@ -130,7 +130,7 @@ COMMON_DEPEND="
 	>=net-misc/curl-7.21.4
 	net-nds/openldap
 	sci-mathematics/lpsolve
-	virtual/jpeg
+	virtual/jpeg:0
 	>=x11-libs/cairo-1.10.0[X]
 	x11-libs/libXinerama
 	x11-libs/libXrandr
@@ -482,6 +482,7 @@ src_configure() {
 		$(use_enable gnome gconf) \
 		$(use_enable gnome gio) \
 		$(use_enable gnome lockdown) \
+		$(use_enable gstreamer) \
 		$(use_enable gtk) \
 		$(use_enable gtk3) \
 		$(use_enable kde kde4) \
@@ -519,8 +520,11 @@ src_compile() {
 		[[ -s "${path}/helpimg.ilst" ]] || ewarn "The help images list is empty, something is fishy, report a bug."
 	)
 
+	local target
+	use test && target="build" || target="build-nocheck"
+
 	# this is not a proper make script
-	make build || die
+	make ${target} || die
 }
 
 src_test() {
@@ -542,7 +546,7 @@ src_install() {
 	fi
 
 	# symlink the nsplugin to proper location
-	use gtk && inst_plugin /usr/$(get_libdir)/libreoffice/program/libnpsoplugin.so
+	# use gtk && inst_plugin /usr/$(get_libdir)/libreoffice/program/libnpsoplugin.so
 
 	# Hack for offlinehelp, this needs fixing upstream at some point.
 	# It is broken because we send --without-help

@@ -74,3 +74,9 @@ pkg_setup() {
 		--disable-appindicator"
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
 }
+
+src_prepare() {
+	epatch "${FILESDIR}/${P}-collision-fix.patch"
+	eautoreconf
+	mate_src_prepare
+}

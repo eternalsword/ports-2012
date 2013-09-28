@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/opencv/opencv-2.4.5.ebuild,v 1.5 2013/06/25 12:59:22 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/opencv/opencv-2.4.5.ebuild,v 1.7 2013/09/06 16:39:49 dilfridge Exp $
 
 EAPI=5
 PYTHON_DEPEND="2:2.6"
@@ -13,14 +13,14 @@ SRC_URI="mirror://sourceforge/opencvlibrary/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64 ppc x86 ~amd64-linux"
+KEYWORDS="amd64 ppc x86 ~amd64-fbsd ~amd64-linux"
 IUSE="cuda doc eigen examples ffmpeg gstreamer gtk ieee1394 ipp jpeg jpeg2k opencl openexr opengl pch png qt4 testprograms threads tiff v4l xine"
 
 RDEPEND="
 	app-arch/bzip2
 	dev-python/numpy
 	sys-libs/zlib
-	cuda? ( >=dev-util/nvidia-cuda-toolkit-4.2 )
+	cuda? ( <dev-util/nvidia-cuda-toolkit-5.5 )
 	eigen? ( dev-cpp/eigen:2 )
 	ffmpeg? ( virtual/ffmpeg )
 	gstreamer? (

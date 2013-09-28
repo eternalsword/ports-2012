@@ -1,12 +1,12 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-editors/vim/vim-9999.ebuild,v 1.3 2013/08/13 22:13:30 radhermit Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-editors/vim/vim-9999.ebuild,v 1.5 2013/09/06 06:45:52 radhermit Exp $
 
 EAPI=5
 VIM_VERSION="7.4"
 PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
 PYTHON_REQ_USE=threads
-inherit eutils vim-doc flag-o-matic fdo-mime versionator bash-completion-r1 prefix python-single-r1
+inherit eutils vim-doc flag-o-matic fdo-mime versionator bash-completion-r1 python-single-r1
 
 if [[ ${PV} == 9999* ]] ; then
 	inherit mercurial
@@ -329,7 +329,7 @@ src_install() {
 	rm -f "${ED}"/usr/share/man/man1/{ex,view}.1
 }
 
-vim_pkg_postinst() {
+pkg_postinst() {
 	# Update documentation tags (from vim-doc.eclass)
 	update_vim_helptags
 
@@ -359,7 +359,7 @@ vim_pkg_postinst() {
 	update_vim_symlinks
 }
 
-vim_pkg_postrm() {
+pkg_postrm() {
 	# Update documentation tags (from vim-doc.eclass)
 	update_vim_helptags
 

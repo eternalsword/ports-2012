@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-9999.ebuild,v 1.149 2013/08/05 09:31:06 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-9999.ebuild,v 1.153 2013/09/13 03:03:44 tetromino Exp $
 
 EAPI="5"
 
@@ -65,7 +65,6 @@ NATIVE_DEPEND="
 		x11-libs/libXext
 		x11-libs/libXrandr
 		x11-libs/libXi
-		x11-libs/libXmu
 		x11-libs/libXxf86vm
 	)
 	xinerama? ( x11-libs/libXinerama )
@@ -123,7 +122,6 @@ RDEPEND="${COMMON_DEPEND}
 	perl? ( dev-lang/perl dev-perl/XML-Simple )
 	samba? ( >=net-fs/samba-3.0.25 )
 	selinux? ( sec-policy/selinux-wine )
-	truetype? ( media-fonts/corefonts )
 	udisks? ( sys-fs/udisks:2 )"
 [[ ${PV} == "9999" ]] || RDEPEND="${RDEPEND}
 	pulseaudio? ( sys-auth/rtkit )"
@@ -176,7 +174,8 @@ src_prepare() {
 	local PATCHES=(
 		"${FILESDIR}"/${PN}-1.5.26-winegcc.patch #260726
 		"${FILESDIR}"/${PN}-1.4_rc2-multilib-portage.patch #395615
-		"${FILESDIR}"/${PN}-1.5.17-osmesa-check.patch #429386
+		"${FILESDIR}"/${PN}-1.7.2-osmesa-check.patch #429386
+		"${FILESDIR}"/${PN}-1.6-memset-O3.patch #480508
 	)
 	[[ ${PV} == "9999" ]] || PATCHES+=(
 		"../${PULSE_PATCHES}"/*.patch #421365

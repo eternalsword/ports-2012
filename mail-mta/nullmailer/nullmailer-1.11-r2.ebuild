@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/mail-mta/nullmailer/nullmailer-1.11-r2.ebuild,v 1.3 2013/08/10 12:07:53 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/mail-mta/nullmailer/nullmailer-1.11-r2.ebuild,v 1.6 2013/09/25 10:21:20 jlec Exp $
 
 EAPI=4
 WANT_AUTOMAKE="1.10.3"
@@ -20,7 +20,7 @@ HOMEPAGE="http://untroubled.org/nullmailer/"
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="amd64 ppc ~x86"
+KEYWORDS="amd64 ppc x86"
 
 IUSE="ssl"
 
@@ -53,6 +53,10 @@ src_prepare() {
 	sed -i.orig \
 		-e '/^nullmailer_send_LDADD/s, =, = ../lib/cli++/libcli++.a,' \
 		"${S}"/src/Makefile.am || die "Sed failed"
+	sed \
+		-e "s:^AC_PROG_RANLIB:AC_CHECK_TOOL(AR, ar, false)\nAC_PROG_RANLIB:g" \
+		-i configure.in || die
+	sed -e "s/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/" -i configure.in || die
 	eautoreconf
 }
 

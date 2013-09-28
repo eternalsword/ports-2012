@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-9999-r2.ebuild,v 1.189 2013/08/09 08:55:12 scarabeus Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-9999-r2.ebuild,v 1.196 2013/09/20 20:26:45 dilfridge Exp $
 
 EAPI=5
 
@@ -23,7 +23,7 @@ DEV_URI="
 EXT_URI="http://ooo.itc.hu/oxygenoffice/download/libreoffice"
 ADDONS_URI="http://dev-www.libreoffice.org/src/"
 
-BRANDING="${PN}-branding-gentoo-0.7.tar.xz"
+BRANDING="${PN}-branding-gentoo-0.8.tar.xz"
 # PATCHSET="${P}-patchset-01.tar.xz"
 
 [[ ${PV} == *9999* ]] && SCM_ECLASS="git-2"
@@ -72,7 +72,7 @@ unset EXT_URI
 unset ADDONS_SRC
 
 IUSE="bluetooth +branding +cups dbus debug eds firebird gnome gstreamer +gtk
-gtk3 jemalloc kde mysql odk opengl postgres telepathy test +vba +webdav"
+gtk3 jemalloc kde mysql odk opengl postgres telepathy test +vba vlc +webdav"
 
 LO_EXTS="nlpsolver presenter-minimizer scripting-beanshell scripting-javascript wiki-publisher"
 # Unpackaged separate extensions:
@@ -123,7 +123,7 @@ COMMON_DEPEND="
 	media-gfx/graphite2
 	>=media-libs/fontconfig-2.8.0
 	media-libs/freetype:2
-	>=media-libs/harfbuzz-0.9.10:=[icu(+)]
+	>=media-libs/harfbuzz-0.9.18:=[icu(+)]
 	media-libs/lcms:2
 	>=media-libs/libpng-1.4
 	>=media-libs/libcdr-0.0.5
@@ -131,7 +131,7 @@ COMMON_DEPEND="
 	>=net-misc/curl-7.21.4
 	net-nds/openldap
 	sci-mathematics/lpsolve
-	virtual/jpeg
+	virtual/jpeg:0
 	>=x11-libs/cairo-1.10.0[X]
 	x11-libs/libXinerama
 	x11-libs/libXrandr
@@ -184,6 +184,7 @@ RDEPEND="${COMMON_DEPEND}
 	media-fonts/liberation-fonts
 	media-fonts/urw-fonts
 	java? ( >=virtual/jre-1.6 )
+	vlc? ( media-video/vlc )
 "
 
 if [[ ${PV} != *9999* ]]; then
@@ -484,6 +485,7 @@ src_configure() {
 		$(use_enable gnome gconf) \
 		$(use_enable gnome gio) \
 		$(use_enable gnome lockdown) \
+		$(use_enable gstreamer) \
 		$(use_enable gtk) \
 		$(use_enable gtk3) \
 		$(use_enable kde kde4) \
@@ -494,6 +496,7 @@ src_configure() {
 		$(use_enable telepathy) \
 		$(use_enable test linkoo) \
 		$(use_enable vba) \
+		$(use_enable vlc) \
 		$(use_enable webdav neon) \
 		$(use_with java) \
 		$(use_with mysql system-mysql-cppconn) \
@@ -521,8 +524,11 @@ src_compile() {
 		[[ -s "${path}/helpimg.ilst" ]] || ewarn "The help images list is empty, something is fishy, report a bug."
 	)
 
+	local target
+	use test && target="build" || target="build-nocheck"
+
 	# this is not a proper make script
-	make build || die
+	make ${target} || die
 }
 
 src_test() {
@@ -544,7 +550,7 @@ src_install() {
 	fi
 
 	# symlink the nsplugin to proper location
-	use gtk && inst_plugin /usr/$(get_libdir)/libreoffice/program/libnpsoplugin.so
+	# use gtk && inst_plugin /usr/$(get_libdir)/libreoffice/program/libnpsoplugin.so
 
 	# Hack for offlinehelp, this needs fixing upstream at some point.
 	# It is broken because we send --without-help

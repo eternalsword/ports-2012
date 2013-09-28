@@ -1,6 +1,18 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/arch/powerpc/package.use.mask,v 1.175 2013/08/14 20:21:47 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/arch/powerpc/package.use.mask,v 1.179 2013/09/15 14:01:16 johu Exp $
+
+# Johannes Huber <johu@gentoo.org> (15 Sep 2013)
+# # Depends on kde-misc/networkmanagement, not keyworded yet.
+kde-base/solid-runtime networkmanager
+
+# Pacho Ramos <pacho@gentoo.org> (08 Sep 2013)
+# monodevelop is not keyworded, bug #468030
+gnome-extra/zeitgeist-datasources mono
+
+# Agostino Sarubbo <ago@gentoo.org> (24 Aug 2013)
+# Klibc does not work anymore on ppc
+app-shells/mksh static
 
 # Nathan Phillip Brink <binki@gentoo.org> (31 Jul 2013)
 # app-text/discount missing ~ppc.
@@ -133,10 +145,6 @@ app-emulation/qemu     spice xen rbd usbredir
 # Kacper Kowalik <xarthisius@gentoo.org> (16 Jan 2011)
 # bug 350513, app-pda/jpilot is not keyworded
 mail-client/claws-mail pda
-
-# Alexey Shvetsov <alexxy@gentoo.org> (04 Mar 2011)
-# Mask unsatisfied kde-deps bug #357403
-=kde-base/solid-4.9* bluetooth
 
 # Sebastian Pipping <sping@gentoo.org> (22 Feb 2011)
 # No media-sound/lilypond here, yet (bug #356069)
