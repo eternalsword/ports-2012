@@ -1,0 +1,27 @@
+From 098f318fd0e9c39da230d116a32d4def49271c5f Mon Sep 17 00:00:00 2001
+From: "Joe R. Nassimian" <nassimian.joseph@gmail.com>
+Date: Thu, 12 Sep 2013 08:56:41 +0200
+Subject: [PATCH] [patch] updated gegl for upcoming libopenraw.
+
+In upcoming version of libopenraw, symbol 'OR_DATA_TYPE_CFA' has been
+renamed into OR_DATA_TYPE_RAW.
+---
+ operations/external/openraw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/operations/external/openraw.c b/operations/external/openraw.c
+index 9fc1e95..b4b4a13 100644
+--- a/operations/external/openraw.c
++++ b/operations/external/openraw.c
+@@ -116,7 +116,7 @@ load_buffer (GeglOperation *operation)
+       goto clean_file;
+     }
+ 
+-  if(or_rawdata_format (rawdata) != OR_DATA_TYPE_CFA)
++  if(or_rawdata_format (rawdata) != OR_DATA_TYPE_RAW)
+     {
+       goto clean_file;
+     }
+-- 
+1.8.3.2
+
