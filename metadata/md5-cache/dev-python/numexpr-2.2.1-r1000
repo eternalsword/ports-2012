@@ -10,5 +10,5 @@ RDEPEND=dev-python/numpy[python_abis_2.6?,python_abis_2.7?,python_abis_3.1?,pyth
 REQUIRED_USE=|| ( python_abis_2.6 python_abis_2.7 python_abis_3.1 python_abis_3.2 python_abis_3.3 python_abis_3.4 )
 SLOT=0
 SRC_URI=http://numexpr.googlecode.com/files/numexpr-2.2.1.tar.gz
-_eclasses_=distutils	4d62465f6d5c8554c77b91c9d95dd315	python	9ffa83b7b864edd2fa5dd6ebe4a63738
+_eclasses_=distutils	4d62465f6d5c8554c77b91c9d95dd315	python	925399c42fdfa67082308a125dfe5f16
 _md5_=2052cf74c034703f9f8f1461b719d65b
