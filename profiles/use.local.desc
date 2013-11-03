@@ -2499,8 +2499,10 @@ gnome-base/gdm:gnome-shell - Enables a greeter based on GNOME Shell (uses OpenGL
 gnome-base/gdm:plymouth - Enable support for smooth transition from sys-boot/plymouth
 gnome-base/gdm:remote - Enables support for secure remote connections
 gnome-base/gdm:smartcard - Enables experimental smartcard authentication
+gnome-base/gnome:classic - Install gnome-extra/gnome-shell-extensions for the Gnome Shell Classic mode
 gnome-base/gnome:extras - Install additional GNOME applications
 gnome-base/gnome:fallback - Install gnome-base/gnome-panel and x11-wm/metacity for the GNOME 3 fallback mode
+gnome-base/gnome:flashback - Install gnome-base/gnome-panel and x11-wm/metacity for the GNOME 3 Flashback mode
 gnome-base/gnome-applets:cpufreq - Build cpu frequency scaling monitor applet
 gnome-base/gnome-control-center:colord - Support color management using x11-misc/colord
 gnome-base/gnome-control-center:gnome-online-accounts - Enable configuration panel for net-libs/gnome-online-accounts accounts
@@ -2605,6 +2607,7 @@ gnome-extra/zeitgeist:telepathy - Enable telepathy framework as data source
 gnome-extra/zeitgeist-datahub:download - Monitor XDG download directory
 gnome-extra/zeitgeist-datahub:telepathy - Telepathy logging support for 1-to-1 chats, calls and file transfers
 gnome-extra/zeitgeist-datasources:bzr - Zeitgeist plugin for dev-vcs/bzr as data source
+gnome-extra/zeitgeist-datasources:chromium - Zeitgeist plugin for www-client/chromium as data source
 gnome-extra/zeitgeist-datasources:emacs - Zeitgeist plugin for emacs as data source
 gnome-extra/zeitgeist-datasources:firefox - Zeitgeist plugin for www-client/firefox as data source
 gnome-extra/zeitgeist-datasources:geany - Zeitgeist plugin for dev-util/geany as data source
@@ -2894,6 +2897,7 @@ mail-mta/exim:dsn - Adds support for Delivery Status Notifications (DSN)
 mail-mta/exim:exiscan-acl - Patch providing support for content scanning
 mail-mta/exim:lmtp - Adds support for lmtp
 mail-mta/exim:mbx - Adds support for UW's mbx format
+mail-mta/exim:pkcs11 - Require pkcs11 support in net-libs/gnutls with USE=gnutls
 mail-mta/exim:spf - Adds support for Sender Policy Framework
 mail-mta/exim:srs - Adds support for Sender Rewriting Scheme
 mail-mta/msmtp:mta - Enable this to install as system-wide MTA
@@ -3532,8 +3536,8 @@ media-sound/moc:tremor - Build vorbis support using an integer implementation of
 media-sound/mp3blaster:sid - Build with SID (Commodore 64 Audio) support
 media-sound/mp3splt-gtk:audacious - Include media-sound/audacious support
 media-sound/mp3splt-gtk:gtk3 - Link against x11-libs/gtk+:3 instead of x11-libs/gtk+:2
+media-sound/mpd:adplug - Enable the AdPlug decoder plugin
 media-sound/mpd:cdio - Use libcdio for ISO9660 parsing support
-media-sound/mpd:cue - Support CUE Sheet Parser Library
 media-sound/mpd:curl - Support for web stream listening
 media-sound/mpd:faad - Use external faad library for AAC decoding
 media-sound/mpd:fifo - Support writing audio to a FIFO
@@ -3543,8 +3547,10 @@ media-sound/mpd:id3tag - Support for ID3 tags
 media-sound/mpd:inotify - Use the Linux kernel inotify subsystem to notice changes to mpd music library
 media-sound/mpd:lame - Support for MP3 streaming via Icecast2
 media-sound/mpd:lastfmradio - Support listening to last.fm radio stations
+media-sound/mpd:libmpdclient - Enable support for remote mpd databases
 media-sound/mpd:mpg123 - Enable support for mp3 decoding over media-sound/mpg123
 media-sound/mpd:network - Enables network streaming support
+media-sound/mpd:opus - Enable Opus codec support
 media-sound/mpd:pipe - Support writing audio to a pipe
 media-sound/mpd:recorder - Enables output plugin for recording radio streams
 media-sound/mpd:sid - Build with SID (Commodore 64 Audio) support
@@ -4381,6 +4387,7 @@ net-fs/netatalk:pgp - Add support pgp authentication module
 net-fs/netatalk:quota - Add support for user quota on various filesystems.
 net-fs/netatalk:shadow - Add shadow support
 net-fs/netatalk:ssl - Use dev-libs/openssl to provide DHX User Access Modules. These are not used with most recent versions of OS X and can be kept disabled without risks.
+net-fs/netatalk:tracker - Add support for spotlight like tracker
 net-fs/netatalk:utils - Install afpstats script
 net-fs/nfs-utils:nfsdcld - Enable nfsdcld NFSv4 clientid tracking daemon
 net-fs/nfs-utils:nfsidmap - Enable support for newer nfsidmap helper
@@ -6871,6 +6878,8 @@ x11-themes/gtk-engines-nodoka:animation-rtl - Progressbar animation from right t
 x11-themes/gtk-engines-qtcurve:mozilla - Install GUI theme tweaks for mozilla based browsers www-client/firefox
 x11-themes/kfaenza:additional - Install additional KFaenza icons. See third homepage for details
 x11-themes/light-themes:gtk3 - Support GTK 3.x, too
+x11-themes/qtcurve:kde - Enable KDE4 support. This adds a QtCurve configuration module to KDE's SystemSettings
+x11-themes/qtcurve:windeco - Enable window decoration for KWin
 x11-themes/qtcurve-qt4:kde - Enable KDE4 support. This adds a QtCurve configuration module to KDE's SystemSettings
 x11-themes/qtcurve-qt4:windeco - Enable window decoration for KWin
 x11-themes/redhat-artwork:audacious - Install media-sound/audacious theme
