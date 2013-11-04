@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install postinst postrm prepare setup
+DEPEND=dev-python/gevent-websocket dev-python/gevent dev-python/setuptools =dev-lang/python-2*
+DESCRIPTION=SocketIO server based on the Gevent pywsgi server
+EAPI=4
+HOMEPAGE=http://pypi.python.org/pypi/gevent-socketio/
+KEYWORDS=~amd64 ~x86
+LICENSE=BSD
+RDEPEND=dev-python/gevent-websocket =dev-lang/python-2*
+SLOT=0
+SRC_URI=mirror://pypi/g/gevent-socketio/gevent-socketio-0.3.5-rc2.tar.gz
+_eclasses_=distutils	00e4a86b194f4de1a4a18039fd3632b9	python	925399c42fdfa67082308a125dfe5f16
+_md5_=3ec5fff4651ae3ddf08b628165d14178
