@@ -14,17 +14,15 @@ checkconfig() {
 
 start() {
 	checkconfig
-	# Make sure conmux finds everything
-	export PATH="${PATH}:/usr/share/conmux/drivers:/usr/share/conmux/helpers"
-	ebegin "Starting conmux registry daemon"
-	touch ${CONMUX_REGISTRY_LOG}
-	start-stop-daemon -b -m --start -p /run/conmux-registry.pid \
-		--exec /usr/sbin/conmux-registry -- ${CONMUX_REGISTRY_PORT} \
-			${CONMUX_REGISTRY_LOG}
+	ebegin "Starting conmux daemon"
+	touch ${CONMUX_REGISTRY_LOG} ${CONMUX_REGISTRY_FILE}
+	start-stop-daemon -b --start -p /run/conmux-registry.pid \
+		--exec /usr/sbin/conmux-registry \
+		${CONMUX_REGISTRY_PORT} ${CONMUX_REGISTRY_FILE}
 }
 
 stop() {
-	ebegin "Stopping conmux registry daemon"
+	ebegin "Stopping conmux daemon"
 	start-stop-daemon --stop --pidfile /run/conmux-registry.pid
 	eend $?
 }

@@ -1,9 +1,9 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-misc/xvkbd/xvkbd-3.4a-r1.ebuild,v 1.5 2013/11/01 12:40:24 yac Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-misc/xvkbd/xvkbd-3.4a-r1.ebuild,v 1.4 2013/07/27 22:09:10 ago Exp $
 
 EAPI=5
-inherit toolchain-funcs eutils
+inherit toolchain-funcs
 
 DESCRIPTION="virtual keyboard for X window system"
 HOMEPAGE="http://homepage3.nifty.com/tsato/xvkbd/"
@@ -31,10 +31,6 @@ DEPEND="
 	x11-proto/xextproto
 	x11-proto/xproto
 "
-
-src_prepare() {
-	epatch_user
-}
 
 src_configure() {
 	xmkmf -a || die
