@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/makemkv/makemkv-1.8.6-r1.ebuild,v 1.3 2013/11/22 05:29:52 mattm Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/makemkv/makemkv-1.8.6-r1.ebuild,v 1.5 2013/11/22 09:52:39 mattm Exp $
 
 EAPI=4
 inherit eutils gnome2-utils multilib flag-o-matic
@@ -15,7 +15,7 @@ SRC_URI="http://www.makemkv.com/download/${MY_P}.tar.gz
 
 LICENSE="LGPL-2.1 MPL-1.1 MakeMKV-EULA openssl"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="multilib"
 
 QA_PREBUILT="opt/bin/makemkvcon opt/bin/mmdtsdec"
@@ -40,6 +40,9 @@ src_prepare() {
 
 src_configure() {
 	replace-flags -O* -Os
+	if [[ -x ${ECONF_SOURCE:-.}/configure ]] ; then
+		econf
+	fi
 }
 
 src_compile() {
