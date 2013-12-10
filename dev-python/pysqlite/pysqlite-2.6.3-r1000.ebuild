@@ -10,7 +10,7 @@ inherit distutils
 
 DESCRIPTION="DB-API 2.0 interface for SQLite 3.x"
 HOMEPAGE="http://code.google.com/p/pysqlite/ https://pypi.python.org/pypi/pysqlite"
-SRC_URI="http://${PN}.googlecode.com/files/${P}.tar.gz"
+SRC_URI="https://pypi.python.org/packages/source/p/pysqlite/${P}.tar.gz"
 
 LICENSE="pysqlite"
 SLOT="2"
