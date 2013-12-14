@@ -23,26 +23,6 @@ SRC_URI="http://ftp.osuosl.org/pub/funtoo/distfiles/${KERNEL_ARCHIVE}
 	http://ftp.osuosl.org//pub/funtoo/distfiles/${PATCH_ARCHIVE}"
 S="$WORKDIR/linux-${CKV}"
 
-apply() {
-	p=$1; shift
-	case "${p##*.}" in
-		gz)
-			ca="gzip -dc"
-			;;
-		bz2)
-			ca="bzip2 -dc"
-			;;
-		xz)
-			ca="xz -dc"
-			;;
-		*)
-			ca="cat"
-			;;
-	esac
-	[ ! -e $p ] && die "patch $p not found"
-	echo "Applying patch $p"; $ca $p | patch $* || die "patch $p failed"
-}
-
 get_patch_list() {
 	[[ -z "${1}" ]] && die "No patch series file specified"
 	local patch_series="${1}"
