@@ -3889,6 +3889,7 @@ media-video/mpv:bluray - Enable playback of Blu-ray filesystems
 media-video/mpv:bs2b - Enable Bauer stereophonic-to-binaural headphone filter
 media-video/mpv:cdio - Use libcdio for CD support (instead of cdparanoia)
 media-video/mpv:doc-pdf - Build documentation in pdf format
+media-video/mpv:dvdnav - Enable support for DVD navigation using media-libs/dvdnav.
 media-video/mpv:enca - Enables support for charset discovery and conversion using app-i18n/enca
 media-video/mpv:libguess - Enables support for charset discovery and conversion using app-i18n/libguess
 media-video/mpv:luajit - Use dev-lang/luajit instead of dev-lang/lua
@@ -4792,6 +4793,8 @@ net-libs/loudmouth:asyncns - Use libasyncns for asynchronous name resolution.
 net-libs/neon:libproxy - Add support for net-libs/libproxy
 net-libs/neon:pkcs11 - Add support for PKCS#11 using dev-libs/pakchois
 net-libs/netembryo:sctp - Support for Stream Control Transmission Protocol
+net-libs/nodejs:npm - Enable NPM package manager
+net-libs/nodejs:snapshot - Enable snapshot creation for faster startup
 net-libs/opal:audio - Enable audio support
 net-libs/opal:capi - Enable CAPI support
 net-libs/opal:celt - Enable CELT ultra-low delay audio codec
