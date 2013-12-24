@@ -623,6 +623,7 @@ app-forensics/libewf:ewf - Enables the v1 API
 app-forensics/libewf:fuse - Enable fuse support for ewfmount
 app-forensics/libewf:rawio - Enables raw IO handling
 app-forensics/libewf:uuid - Enable UUID support in the ewftools
+app-forensics/openscap:gconf - Build the gconf independant probes
 app-forensics/openscap:nss - Prefer NSS over libgcrypt as the crypto engine
 app-forensics/openscap:rpm - Compiles the RPM probes
 app-forensics/openscap:sce - Enables Script Check Engine (SCE) support
@@ -5447,6 +5448,7 @@ net-wireless/blueman:gconf - Enable the GConf configuration backend
 net-wireless/blueman:network - Add functionality to setup (host) PAN connections using either net-dns/dnsmasq or net-misc/dhcp
 net-wireless/blueman:sendto - Install the sendto-plugin for gnome-base/nautilus
 net-wireless/bluez:hid2hci - The HID proxying makes the keyboard / mouse show up as regular USB HID devices, but needs them to be paired before enabling this, otherwise they won't be detected
+net-wireless/bluez:obex - Enable OBEX transfer support.
 net-wireless/bluez:test-programs - Install tools for testing of various Bluetooth functions
 net-wireless/gnome-bluetooth:nautilus - Build the gnome-extra/nautilus-sendto plugin
 net-wireless/gnuradio:analog - enable analog signal processing blocks
