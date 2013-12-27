@@ -10,5 +10,5 @@ RDEPEND=>=dev-qt/qtgui-4.7:4 >=app-crypt/qca-2.0.2:2 dbus? ( >=dev-qt/qtdbus-4.7
 REQUIRED_USE=iconsets? ( extras ) plugins? ( extras ) powersave? ( extras ) webkit? ( extras )
 RESTRICT=test
 SLOT=0
-_eclasses_=base	5f55566958e88506923ea360535053cc	eutils	a82a329b538368791f5a6113c60e557e	git-2	2027b81a576527fa16bece425941e094	git-r3	3d2603a6e66cd898e6b88e2135314bb8	multilib	892e597faee02a5b94eb02ab512e7622	qmake-utils	6f4ff01a55830f6d86647dc56dfaf3a7	qt4-r2	003d836c85e4138fcb185326e041a8c2	subversion	de38ef8c5baf84d80e695a4d6ad26554	toolchain-funcs	d3b5812eeab360bc41aa48b6cdbbc142	user	d0a4d0735a6c0183d707ca919bd72f28
+_eclasses_=base	5f55566958e88506923ea360535053cc	eutils	6d8dee04b66401ad63aea36dde0b0ae8	git-2	2027b81a576527fa16bece425941e094	git-r3	3d2603a6e66cd898e6b88e2135314bb8	multilib	892e597faee02a5b94eb02ab512e7622	qmake-utils	6f4ff01a55830f6d86647dc56dfaf3a7	qt4-r2	003d836c85e4138fcb185326e041a8c2	subversion	de38ef8c5baf84d80e695a4d6ad26554	toolchain-funcs	d3b5812eeab360bc41aa48b6cdbbc142	user	d0a4d0735a6c0183d707ca919bd72f28
 _md5_=4e6b920646a3cf473d5f661cc43470ca
