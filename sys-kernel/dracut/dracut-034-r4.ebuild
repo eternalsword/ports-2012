@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-kernel/dracut/dracut-034-r2.ebuild,v 1.2 2013/12/14 17:17:50 aidecoe Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-kernel/dracut/dracut-034-r4.ebuild,v 1.2 2013/12/28 17:41:17 aidecoe Exp $
 
 EAPI=4
 
@@ -77,7 +77,6 @@ RDEPEND="${CDEPEND}
 	>sys-apps/kmod-5[tools]
 	|| ( >=sys-apps/sysvinit-2.87-r3 sys-apps/systemd-sysv-utils )
 	>=sys-apps/util-linux-2.21
-	virtual/pkgconfig
 
 	debug? ( dev-util/strace )
 	device-mapper? ( >=sys-fs/lvm2-2.02.33 )
@@ -109,6 +108,7 @@ DEPEND="${CDEPEND}
 	>=dev-libs/libxslt-1.1.26
 	app-text/docbook-xml-dtd:4.5
 	>=app-text/docbook-xsl-stylesheets-1.75.2
+	virtual/pkgconfig
 	"
 
 DOCS=( AUTHORS HACKING NEWS README README.generic README.kernel README.modules
@@ -166,33 +166,38 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV}-0007-dracut.sh-also-mkdir-run-lock-which-is.patch"
 	epatch "${FILESDIR}/${PV}-0008-dracut.sh-no-need-to-make-subdirs-in-r.patch"
 	epatch "${FILESDIR}/${PV}-0009-lvm-install-thin-utils-for-non-hostonl.patch"
-	epatch "${FILESDIR}/${PV}-0010-module-setup.sh-add-comments-for-dracu.patch"
+	epatch "${FILESDIR}/${PV}-0010-module-setup.sh-add-comments.patch.bz2"
 	epatch "${FILESDIR}/${PV}-0011-lvm-fix-thin-recognition.patch"
 	epatch "${FILESDIR}/${PV}-0012-lvm-always-install-thin-utils-for-lvm.patch"
 	epatch "${FILESDIR}/${PV}-0013-usrmount-always-install.patch"
+	epatch "${FILESDIR}/${PV}-0014-udev-rules-add-eudev-rules.patch"
 
-	local libdirs
-
-	#local ldir
-	#for ldir in $(get_all_libdirs); do
-	#	libdirs+=" /$ldir /usr/$ldir"
-	#done
-	#libdirs="${libdirs# }"
-
-	libdirs="/$(get_libdir) /usr/$(get_libdir)"
+	local libdirs="/$(get_libdir) /usr/$(get_libdir)"
 	[[ $libdirs =~ /lib\  ]] || libdirs+=" /lib /usr/lib"
 	einfo "Setting libdirs to \"${libdirs}\" ..."
 	sed -e "3alibdirs=\"${libdirs}\"" \
 		-i "${S}/dracut.conf.d/gentoo.conf.example" || die
 
+	local udevdir="$("$(tc-getPKG_CONFIG)" udev --variable=udevdir)"
+	einfo "Setting udevdir to ${udevdir}..."
+	sed -r -e "s|^(udevdir=).*$|\1${udevdir}|" \
+			-i "${S}/dracut.conf.d/gentoo.conf.example" || die
+
 	if use dracut_modules_systemd; then
 		local systemdutildir="$(systemd_get_utildir)"
 		local systemdsystemunitdir="$(systemd_get_unitdir)"
+		local systemdsystemconfdir="$("$(tc-getPKG_CONFIG)" systemd \
+			--variable=systemdsystemconfdir)"
+		[[ ${systemdsystemconfdir} ]] \
+			|| systemdsystemconfdir=/etc/systemd/system
 		einfo "Setting systemdutildir to ${systemdutildir} and ..."
 		sed -e "5asystemdutildir=\"${systemdutildir}\"" \
 			-i "${S}/dracut.conf.d/gentoo.conf.example" || die
-		einfo "Setting systemdsystemunitdir to ${systemdsystemunitdir}..."
+		einfo "Setting systemdsystemunitdir to ${systemdsystemunitdir} and..."
 		sed -e "6asystemdsystemunitdir=\"${systemdsystemunitdir}\"" \
+			-i "${S}/dracut.conf.d/gentoo.conf.example" || die
+		einfo "Setting systemdsystemconfdir to ${systemdsystemconfdir}..."
+		sed -e "7asystemdsystemconfdir=\"${systemdsystemconfdir}\"" \
 			-i "${S}/dracut.conf.d/gentoo.conf.example" || die
 	fi
 
