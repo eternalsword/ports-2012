@@ -9,4 +9,4 @@ RDEPEND=dev-libs/beecrypt net-firewall/iptables net-misc/vconfig sys-apps/iprout
 SLOT=0
 SRC_URI=http://people.linux-vserver.org/~dhozac/t/uv-testing/util-vserver-0.30.216-pre3025.tar.bz2
 _eclasses_=bash-completion-r1	09212e464bcf83382a48e5a48e199d4a	eutils	40081e8c7e7f7c4f9db349a1d6d52925	multilib	892e597faee02a5b94eb02ab512e7622	toolchain-funcs	d3b5812eeab360bc41aa48b6cdbbc142
-_md5_=b797152e89954f3adfc30733185143d5
+_md5_=024ae30988cb6f0f20617e558242e208
