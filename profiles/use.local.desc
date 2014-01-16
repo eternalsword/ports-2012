@@ -5755,6 +5755,9 @@ sci-libs/grib_api:jasper - Use media-libs/jasper instead of media-libs/openjpeg 
 sci-libs/gsl:cblas-external - Link gsl with external cblas provided by (virtual/cblas) instead of shipped internal version
 sci-libs/hdf5:fortran2003 - enable new features that require Fortran 2003 (http://www.hdfgroup.org/HDF5/doc/fortran/NewFeatures_F2003.pdf)
 sci-libs/indilib:nova - Enable support for nova celestial mechanics calculations
+sci-libs/ipopt:hsl - hsl
+sci-libs/ipopt:mumps - Enable sci-libs/mumps support
+sci-libs/lemon:glpk - Enable GNU Linear Programming Kit sci-mathematics/glpk support
 sci-libs/lemon:tools - Build additional tools
 sci-libs/libghemical:mopac7 - Use sci-chemistry/mopac7 for semi-empirical calculations
 sci-libs/libghemical:mpqc - Use sci-chemistry/mpqc for quantum-mechanical calculations
@@ -5789,6 +5792,7 @@ sci-libs/openmm:wrappers - build wrappers for Python, C and Fortran
 sci-libs/plplot:ada - Add bindings for the ADA programming language
 sci-libs/plplot:dynamic - Build with dynamic drivers
 sci-libs/plplot:octave - Add bindings for sci-mathematics/octave
+sci-libs/plplot:pdl - Add bindings for dev-perl/PDL
 sci-libs/plplot:qhull - Add bindings for media-libs/qhull
 sci-libs/plplot:shapefile - Enable support for ESRI shapefiles
 sci-libs/scikits_image:freeimage - Enable support for image i/o via media-libs/freeimage
