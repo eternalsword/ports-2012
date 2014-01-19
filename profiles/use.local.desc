@@ -2208,6 +2208,7 @@ dev-vcs/gitg:glade - Install a glade catalog file
 dev-vcs/gitolite:contrib - Install user-contributed files
 dev-vcs/gitolite:tools - Install tools to e.g. convert a Gitosis config to gitolite or one to check if your setup is gitolite >= 3.x compatible
 dev-vcs/gitolite-gentoo:contrib - Install user-contributed files
+dev-vcs/gitolite-gentoo:tools - Install tools to e.g. convert a Gitosis config to gitolite or one to check if your setup is gitolite >= 3.x compatible
 dev-vcs/qct:bazaar - Support for dev-vcs/bzr
 dev-vcs/qct:mercurial - Support for dev-vcs/mercurial
 dev-vcs/qct:monotone - Support for dev-vcs/monotone
@@ -6379,7 +6380,6 @@ sys-kernel/debian-sources:rt - Applies the CONFIG_PREEMPT_RT patch series
 sys-kernel/dracut:debug - Module installing additional tools like strace, file editor, ssh and more
 sys-kernel/dracut:device-mapper - Set of helper modules providing support for device mapper. You need to enable this only if emerge says so.
 sys-kernel/dracut:net - Set of helper modules providing networking support. You need to enable this only if emerge says so.
-sys-kernel/dracut:optimization - Build optimized version of dracut_install function. It will be used instead of the one written in bash.
 sys-kernel/genkernel-next:cryptsetup - Enable support for Luks disk enrcyption using sys-fs/cryptsetup
 sys-kernel/genkernel-next:dmraid - Enable support for DMRAID (include dmraid dependency)
 sys-kernel/genkernel-next:gpg - Enable support for GPG (include gnupg dependency)
