@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/eudev/eudev-1.4.ebuild,v 1.1 2014/01/15 00:09:16 blueness Exp $
 
 EAPI="5"
 
@@ -14,7 +12,7 @@ then
 	inherit git-2
 else
 	SRC_URI="http://dev.gentoo.org/~blueness/${PN}/${P}.tar.gz"
-	KEYWORDS="~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~x86"
+	KEYWORDS="*"
 fi
 
 DESCRIPTION="Linux dynamic and persistent device naming support (aka userspace devfs)"
@@ -22,7 +20,7 @@ HOMEPAGE="https://github.com/gentoo/eudev"
 
 LICENSE="LGPL-2.1 MIT GPL-2"
 SLOT="0"
-IUSE="doc gudev +hwdb kmod introspection +keymap +modutils +openrc +rule-generator selinux static-libs test"
+IUSE="doc +gudev +hwdb +kmod introspection +keymap +modutils +rule-generator selinux +static-libs test"
 
 COMMON_DEPEND="gudev? ( dev-libs/glib:2 )
 	kmod? ( sys-apps/kmod )
@@ -57,7 +55,7 @@ RDEPEND="${COMMON_DEPEND}
 PDEPEND="hwdb? ( >=sys-apps/hwids-20130717-r1[udev] )
 	keymap? ( >=sys-apps/hwids-20130717-r1[udev] )
 	>=virtual/udev-206-r2
-	openrc? ( >=sys-fs/udev-init-scripts-18 )"
+	>=sys-fs/udev-init-scripts-18"
 
 REQUIRED_USE="keymap? ( hwdb )"
 
@@ -200,7 +198,7 @@ multilib_src_install_all()
 	prune_libtool_files --all
 	rm -rf "${ED}"/usr/share/doc/${PF}/LICENSE.*
 
-	use rule-generator && use openrc && doinitd "${FILESDIR}"/udev-postmount
+	use rule-generator && doinitd "${FILESDIR}"/udev-postmount
 
 	# drop distributed hwdb files, they override sys-apps/hwids
 	rm -f "${ED}"/etc/udev/hwdb.d/*.hwdb
@@ -219,6 +217,22 @@ pkg_preinst()
 			dosym ../../doc/${PF}/html/${htmldir} \
 				/usr/share/gtk-doc/html/${htmldir}
 		fi
+	done
+}
+
+add_init() {
+	local runl=$1
+	if [ ! -e ${ROOT}/etc/runlevels/${runl} ]
+	then
+		install -d -m0755 ${ROOT}/etc/runlevels/${runl}
+	fi
+	for initd in $*
+	do
+		# if the initscript is not going to be installed and  is not currently installed, return
+		[[ -e ${D}/etc/init.d/${initd} || -e ${ROOT}/etc/init.d/${initd} ]] || continue
+		[[ -e ${ROOT}/etc/runlevels/${runl}/${initd} ]] && continue
+		elog "Auto-adding '${initd}' service to your ${runl} runlevel"
+		ln -snf /etc/init.d/${initd} "${ROOT}"/etc/runlevels/${runl}/${initd}
 	done
 }
 
@@ -261,13 +275,7 @@ pkg_postinst()
 	ewarn "upgrade go into effect:"
 	ewarn "\t/etc/init.d/udev --nodeps restart"
 
-	if use rule-generator && use openrc; then
-		ewarn
-		ewarn "Please add the udev-postmount init script to your default runlevel"
-		ewarn "to ensure the legacy rule-generator functionality works as reliably"
-		ewarn "as possible."
-		ewarn "\trc-update add udev-postmount default"
-	fi
+	add_init default udev-postmount
 
 	elog
 	elog "For more information on eudev on Gentoo, writing udev rules, and"
