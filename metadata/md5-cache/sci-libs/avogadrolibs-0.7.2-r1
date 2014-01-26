@@ -10,5 +10,5 @@ RDEPEND=>=sci-chemistry/molequeue-0.7 sci-libs/chemkit sci-libs/hdf5 opengl? ( d
 REQUIRED_USE=qt4? ( opengl )
 SLOT=0
 SRC_URI=mirror://sourceforge/project/avogadro/avogadro2/0.7.2/avogadrolibs-0.7.2.tar.gz
-_eclasses_=cmake-utils	c1adf5cca3394be84cbc3fdd9ab18ce1	eutils	40081e8c7e7f7c4f9db349a1d6d52925	flag-o-matic	62e05953761097ae84a70d6c7a3e2c9c	multilib	fac675dcccf94392371a6abee62d909f	toolchain-funcs	d3b5812eeab360bc41aa48b6cdbbc142
+_eclasses_=cmake-utils	237ad9142c92887acf21a7b868549e3f	eutils	40081e8c7e7f7c4f9db349a1d6d52925	flag-o-matic	62e05953761097ae84a70d6c7a3e2c9c	multilib	fac675dcccf94392371a6abee62d909f	toolchain-funcs	d3b5812eeab360bc41aa48b6cdbbc142
 _md5_=5632f33d85113ef4c003b7133a756ce4
