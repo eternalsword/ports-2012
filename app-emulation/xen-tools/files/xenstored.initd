@@ -7,17 +7,13 @@ depend() {
 	need xencommons
 }
 
-xenstored_dir_check() {
+start() {
 	# create dir dynamically
-	local i
 	for i in /var/lock/subsys /run/xen /run/xend/boot /run/xenstored; do
 		[ -x $i ] || mkdir -p $i
 	done
-}
 
-start() {
 	ebegin "Starting xenstored daemon"
-	xenstored_dir_check
 	start-stop-daemon --start --exec /usr/sbin/xenstored \
 		--pidfile /run/xenstored.pid \
 		-- --pid-file=/run/xenstored.pid \

@@ -1,26 +1,26 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/emul-linux-x86-java/emul-linux-x86-java-1.7.0.51.ebuild,v 1.1 2014/01/23 23:03:54 tomwij Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/emul-linux-x86-java/emul-linux-x86-java-1.6.0.45.ebuild,v 1.2 2013/04/23 09:07:41 ago Exp $
 
 EAPI="5"
 
 inherit java-vm-2 eutils prefix versionator
 
 # This URIs need to be updated when bumping!
-JRE_URI="http://www.oracle.com/technetwork/java/javase/downloads/jre7-downloads-1880261.html"
+JRE_URI="http://www.oracle.com/technetwork/java/javase/downloads/jre6downloads-1902815.html"
 
 MY_PV="$(get_version_component_range 2)u$(get_version_component_range 4)"
 S_PV="$(replace_version_separator 3 '_')"
 
-X86_AT="jre-${MY_PV}-linux-i586.tar.gz"
+X86_AT="jre-${MY_PV}-linux-i586.bin"
 
 DESCRIPTION="Oracle's Java SE Runtime Environment (32bit)"
 HOMEPAGE="http://www.oracle.com/technetwork/java/javase/"
 SRC_URI="${X86_AT}"
 
 LICENSE="Oracle-BCLA-JavaSE"
-SLOT="1.7"
-KEYWORDS="-* ~amd64"
+SLOT="1.6"
+KEYWORDS="-* amd64"
 IUSE="+X alsa nsplugin pax_kernel"
 
 RESTRICT="fetch strip"
@@ -42,6 +42,10 @@ pkg_nofetch() {
 	einfo "Please download '${X86_AT}' from:"
 	einfo "'${JRE_URI}'"
 	einfo "and move it to '${DISTDIR}'"
+}
+
+src_unpack() {
+	sh "${DISTDIR}"/${A} -noregister || die "Failed to unpack"
 }
 
 src_compile() {
