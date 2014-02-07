@@ -1,10 +1,10 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/tcp-wrappers/tcp-wrappers-7.6.22.ebuild,v 1.5 2014/01/18 03:46:43 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/tcp-wrappers/tcp-wrappers-7.6.22-r1.ebuild,v 1.4 2014/01/30 20:36:44 axs Exp $
 
 EAPI="4"
 
-inherit eutils toolchain-funcs versionator flag-o-matic
+inherit eutils toolchain-funcs versionator flag-o-matic multilib-minimal
 
 MY_PV=$(get_version_component_range 1-2)
 DEB_PV=$(get_version_component_range 3)
@@ -19,6 +19,12 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x86-interix ~amd64-linux ~arm-linux ~ia64-linux ~x86-linux"
 IUSE="ipv6 netgroups static-libs"
 
+RDEPEND="
+	abi_x86_32? (
+		!<=app-emulation/emul-linux-x86-baselibs-20131008-r4
+		!app-emulation/emul-linux-x86-baselibs[-abi_x86_32(-)]
+	)"
+
 S=${WORKDIR}/${MY_P}
 
 src_prepare() {
@@ -26,11 +32,15 @@ src_prepare() {
 	epatch $(sed -e 's:^:../debian/patches/:' ../debian/patches/series)
 	epatch "${FILESDIR}"/${PN}-7.6-headers.patch
 	epatch "${FILESDIR}"/${PN}-7.6-redhat-bug11881.patch
+
+	multilib_copy_sources
 }
 
 temake() {
+	local mycppflags="-DHAVE_WEAKSYMS -DHAVE_STRERROR -DSYS_ERRLIST_DEFINED"
+	use ipv6 && mycppflags+=" -DINET6=1 -Dss_family=__ss_family -Dss_len=__ss_len"
 	emake \
-		REAL_DAEMON_DIR=/usr/sbin \
+		REAL_DAEMON_DIR="${EPREFIX}"/usr/sbin \
 		TLI= VSYSLOG= PARANOID= BUGS= \
 		AUTH="-DALWAYS_RFC931" \
 		AUX_OBJ="weak_symbols.o" \
@@ -43,39 +53,41 @@ temake() {
 		AR="$(tc-getAR)" ARFLAGS=rc \
 		CC="$(tc-getCC)" \
 		RANLIB="$(tc-getRANLIB)" \
-		COPTS="${CFLAGS} ${CPPFLAGS}" \
+		COPTS="${CFLAGS} ${CPPFLAGS} ${mycppflags}" \
 		LDFLAGS="${LDFLAGS}" \
 		"$@" || die
 }
 
-src_configure() {
-	tc-export AR CC RANLIB
-	append-cppflags -DHAVE_WEAKSYMS -DHAVE_STRERROR -DSYS_ERRLIST_DEFINED
-	use ipv6 && append-cppflags -DINET6=1 -Dss_family=__ss_family -Dss_len=__ss_len
+multilib_src_configure() {
+	tc-export AR RANLIB
 	temake config-check
 }
 
-src_compile() {
+multilib_src_compile() {
 	temake all
 }
 
-src_install() {
-	dosbin tcpd tcpdchk tcpdmatch safe_finger try-from || die
+multilib_src_install() {
+	into /usr
+	use static-libs && dolib.a libwrap.a
+	dolib.so shared/libwrap.so*
 
+	insinto /usr/include
+	doins tcpd.h
+
+	if multilib_build_binaries; then
+		gen_usr_ldscript -a wrap
+		dosbin tcpd tcpdchk tcpdmatch safe_finger try-from
+	fi
+}
+
+multilib_src_install_all() {
 	doman *.[358]
 	dosym hosts_access.5 /usr/share/man/man5/hosts.allow.5
 	dosym hosts_access.5 /usr/share/man/man5/hosts.deny.5
 
 	insinto /etc
 	newins "${FILESDIR}"/hosts.allow.example hosts.allow
-
-	insinto /usr/include
-	doins tcpd.h
-
-	into /usr
-	use static-libs && dolib.a libwrap.a
-	dolib.so shared/libwrap.so*
-	gen_usr_ldscript -a wrap
 
 	dodoc BLURB CHANGES DISCLAIMER README*
 }
