@@ -447,6 +447,7 @@ app-emulation/bochs:gdb - Enable support for the remote GDB stub
 app-emulation/bochs:x86-64 - Enable support for emulation of 64-bit CPUs
 app-emulation/crossover-bin:capi - Enable ISDN support via CAPI
 app-emulation/docker:aufs - Enables dependencies for the "aufs" driver, including necessary kernel flags.
+app-emulation/docker:btrfs - Enables dependencies for the experimental "btrfs" driver, including necessary kernel flags.
 app-emulation/docker:device-mapper - Enables dependencies for the "device-mapper" driver, including necessary kernel flags.
 app-emulation/dosemu:fluidsynth - use media-sound/fluidsynth for MIDI emulation
 app-emulation/e-uae:capslib - Add CAPS library support
@@ -1558,6 +1559,8 @@ dev-libs/apr-util:openssl - Install apr_crypto_openssl module
 dev-libs/bitset:jemalloc - Use dev-libs/jemalloc for allocations
 dev-libs/bitset:tcmalloc - Use tcmalloc from dev-util/google-perftools for allocations
 dev-libs/blitz:boost - Enable usage of boost::serialization
+dev-libs/c-blosc:lz4 - Enable lz4 compression
+dev-libs/c-blosc:snappy - Enable snappy compression
 dev-libs/check:subunit - Enable support for the subunit unit test protocol
 dev-libs/cyberjack:fox - Enable installation of x11-libs/fox based fxcyberjack program
 dev-libs/cyrus-sasl:authdaemond - Add Courier-IMAP authdaemond unix socket support (net-mail/courier-imap, mail-mta/courier)
@@ -1872,8 +1875,6 @@ dev-python/PyQtMobility:sensors - Build bindings for the QtSensors module
 dev-python/PyQtMobility:serviceframework - Build bindings for the QtServiceFramework module
 dev-python/PyQtMobility:systeminfo - Build bindings for the QtSystemInfo module
 dev-python/PyQtMobility:versit - Build bindings for the QtVersit module
-dev-python/atpy:fits - Enable support for reading and FITS with dev-python/pyfits.
-dev-python/atpy:votable - Enable support for reading and VOTABLE with dev-python/vo.
 dev-python/celery:sql - Adds SQL support
 dev-python/cgkit:3ds - Enable support for importing 3D Studio models
 dev-python/cvxopt:dsdp - Use interior point library sci-libs/dsdp
@@ -3475,6 +3476,7 @@ media-sound/csound:linear - Build the linear algebra Opcodes
 media-sound/csound:luajit - Use the lua just-in-time compiler dev-lang/luajit instead of dev-lang/lua
 media-sound/csound:portmidi - Build the PortMIDI I/O module
 media-sound/csound:samples - Install the HRTF datafiles for use with hrtfmove, hrtfmove2, hrtfstat, hrtfearly, and hrtfreverb
+media-sound/csound:score - Build the alternative score parser
 media-sound/csound:stk - Build the stk opcodes
 media-sound/csound:tcl - Build the tcl interface and clients
 media-sound/csound:utils - Build stand-alone executables for utilities that can also be used via `csound -U`
@@ -5178,6 +5180,7 @@ net-misc/ntp:parse-clocks - Add support for PARSE clocks
 net-misc/ntp:samba - Provide support for Samba's signing daemon (needed for Active Directory domain controllers)
 net-misc/nxcl:nxclient - Use nxssh from net-misc/nxclient instead of standard ssh
 net-misc/nxserver-freenx:nxclient - Allow to install net-misc/nxclient in parallel with this package, using it to display messages in the sessions
+net-misc/ocsync:sftp - Enable sftp transfer support via net-libs/libssh
 net-misc/ofono:atmodem - ETSI AT modem support.
 net-misc/ofono:bluetooth - Enable Bluetooth modem support using net-wireless/bluez.
 net-misc/ofono:cdmamodem - Enable CDMA modem support.
@@ -6714,7 +6717,9 @@ www-servers/lighttpd:rrdtool - Enable rrdtool support via mod_rrdtool
 www-servers/lighttpd:uploadprogress - Apply experimental patch for upload progress module
 www-servers/lighttpd:webdav - Enable webdav properties
 www-servers/monkeyd:debug - Enable lots of debugging info
+www-servers/monkeyd:jemalloc - Use dev-libs/jemalloc for allocations
 www-servers/monkeyd:minimal - Do not install shared lib and include files
+www-servers/monkeyd:musl - Enable musl compatibility mode
 www-servers/nginx:addition - Enables HTTP addition filter module
 www-servers/nginx:aio - Enables file AIO support
 www-servers/nginx:flv - Enables special processing module for flv files
@@ -7051,6 +7056,7 @@ xfce-base/xfce4-settings:libcanberra - Enable sound event support using media-li
 xfce-base/xfce4-settings:xklavier - Enable keyboard layout selection support using x11-libs/libxklavier
 xfce-base/xfdesktop:thunar - Build support for desktop icons (for example, launchers and folders)
 xfce-extra/tumbler:odf - Enable support for .odf thumbnailers by using gnome-extra/libgsf
+xfce-extra/xfce4-clipman-plugin:qrcode - Enable support for media-gfx/qrencode
 xfce-extra/xfce4-mpc-plugin:libmpd - Build using media-libs/libmpd backend, instead of native fallback which is preferred
 xfce-extra/xfce4-playercontrol-plugin:audacious - Enable Audacious support
 xfce-extra/xfce4-playercontrol-plugin:mpd - Enable Music Player Daemon support
