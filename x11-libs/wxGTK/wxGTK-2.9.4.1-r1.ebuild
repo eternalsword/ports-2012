@@ -1,6 +1,8 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/wxGTK/wxGTK-2.9.4.1-r1.ebuild,v 1.2 2014/01/27 17:35:05 dirtyepic Exp $
 
-EAPI="4"
+EAPI="5"
 
 inherit eutils flag-o-matic
 
@@ -13,15 +15,17 @@ SRC_URI="mirror://sourceforge/wxpython/wxPython-src-2.9.4.0.tar.bz2
 	doc? ( mirror://sourceforge/wxpython/wxPython-docs-2.9.4.0.tar.bz2 )
 	mirror://sourceforge/wxpython/wxPython-src-${PV}.patch"
 
-KEYWORDS="~*"
-IUSE="X aqua doc debug gnome gstreamer opengl pch sdl tiff webkit"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
+IUSE="+X aqua doc debug gnome gstreamer opengl pch sdl tiff webkit"
+
+SLOT="2.9/2.9.4"
 
 RDEPEND="
 	dev-libs/expat
 	sdl?    ( media-libs/libsdl )
 	X?  (
 		>=dev-libs/glib-2.22:2
-		media-libs/libpng:0
+		media-libs/libpng:0=
 		sys-libs/zlib
 		virtual/jpeg
 		>=x11-libs/gtk+-2.18:2
@@ -31,7 +35,6 @@ RDEPEND="
 		x11-libs/pango[X]
 		gnome? ( gnome-base/libgnomeprintui:2.2 )
 		gstreamer? (
-			gnome-base/gconf:2
 			media-libs/gstreamer:0.10
 			media-libs/gst-plugins-base:0.10 )
 		opengl? ( virtual/opengl )
@@ -51,11 +54,11 @@ DEPEND="${RDEPEND}
 		x11-proto/xproto
 		x11-proto/xineramaproto
 		x11-proto/xf86vidmodeproto
-		)
-	>=app-admin/eselect-wxwidgets-1.4"
+		)"
 #	test? ( dev-util/cppunit )
 
-SLOT="2.9"
+PDEPEND=">=app-admin/eselect-wxwidgets-1.4"
+
 LICENSE="wxWinLL-3
 		GPL-2
 		doc?	( wxWinFDL-3 )"
@@ -65,6 +68,7 @@ S="${WORKDIR}/wxPython-src-2.9.4.0"
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-collision.patch
 	epatch "${DISTDIR}"/wxPython-src-${PV}.patch
+	epatch_user
 }
 
 src_configure() {
@@ -94,7 +98,6 @@ src_configure() {
 	# wxGTK options
 	#   --enable-graphics_ctx - needed for webkit, editra
 	#   --without-gnomevfs - bug #203389
-
 	use X && \
 		myconf="${myconf}
 			--enable-graphics_ctx
@@ -158,22 +161,15 @@ src_install() {
 	if use doc; then
 		dohtml -r "${S}"/docs/doxygen/out/html/*
 	fi
+
+	# Stray windows locale file, causes collisions
+	local wxmsw="${ED}usr/share/locale/it/LC_MESSAGES/wxmsw.mo"
+	[[ -e ${wxmsw} ]] && rm "${wxmsw}"
 }
 
 pkg_postinst() {
 	has_version app-admin/eselect-wxwidgets \
 		&& eselect wxwidgets update
-
-	if [[ -e "${ROOT}"/usr/lib/wx/config ]] ; then
-		local wxwidgets=( $(find -H "${ROOT}"/usr/lib/wx/config/* -printf "%f " 2> /dev/null) )
-		if [[ ! -z "${wxwidgets[@]}" && "${#wxwidgets[@]}" == 1 ]] ; then
-			eselect wxwidgets set  "${wxwidgets[0]}"
-			echo
-			elog "Portage detected that your system has only one wxWidgets profile."
-			elog "Your systems wxWidgets profile is now set to ${wxwidgets[0]}"
-			echo
-		fi
-	fi
 }
 
 pkg_postrm() {
