@@ -42,7 +42,6 @@ DEPEND="${RDEPEND}
 "
 src_prepare() {
 	bzr_src_prepare
-	epatch  "${FILESDIR}/cairo-dock-plugins-9999.patch"
 	distutils_src_prepare
 	python_convert_shebangs -r 2 .
 }
