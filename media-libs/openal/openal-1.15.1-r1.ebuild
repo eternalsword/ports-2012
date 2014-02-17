@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/openal/openal-1.15.1-r1.ebuild,v 1.2 2013/09/06 21:14:10 axs Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/openal/openal-1.15.1-r1.ebuild,v 1.7 2014/01/31 14:56:26 ssuominen Exp $
 
 EAPI=5
 inherit cmake-multilib
@@ -19,12 +19,10 @@ IUSE="alsa alstream coreaudio debug neon oss portaudio pulseaudio sse"
 RDEPEND="alsa? ( media-libs/alsa-lib[${MULTILIB_USEDEP}] )
 	alstream? ( virtual/ffmpeg )
 	portaudio? ( >=media-libs/portaudio-19_pre[${MULTILIB_USEDEP}] )
-	pulseaudio? ( media-sound/pulseaudio )
+	pulseaudio? ( media-sound/pulseaudio[${MULTILIB_USEDEP}] )
 	abi_x86_32? (
-		amd64? (
-			alstream? ( app-emulation/emul-linux-x86-medialibs )
-			pulseaudio? ( app-emulation/emul-linux-x86-soundlibs )
-		)
+		!<app-emulation/emul-linux-x86-sdl-20131008-r1
+		!app-emulation/emul-linux-x86-sdl[-abi_x86_32(-)]
 	)"
 DEPEND="${RDEPEND}
 	oss? ( virtual/os-headers )"
@@ -34,16 +32,25 @@ S=${WORKDIR}/${MY_P}
 DOCS="alsoftrc.sample env-vars.txt hrtf.txt README"
 
 src_configure() {
-	local mycmakeargs=(
-		$(cmake-utils_use alsa)
-		$(cmake-utils_use coreaudio)
-		$(cmake-utils_use alstream EXAMPLES)
-		$(cmake-utils_use neon)
-		$(cmake-utils_use oss)
-		$(cmake-utils_use portaudio)
-		$(cmake-utils_use pulseaudio)
-		$(cmake-utils_use sse)
+	my_configure() {
+		local mycmakeargs=(
+			$(cmake-utils_use alsa)
+			$(cmake-utils_use coreaudio)
+			$(cmake-utils_use neon)
+			$(cmake-utils_use oss)
+			$(cmake-utils_use portaudio)
+			$(cmake-utils_use pulseaudio)
+			$(cmake-utils_use sse)
 		)
 
-	cmake-multilib_src_configure
+		if multilib_build_binaries; then
+			mycmakeargs+=( $(cmake-utils_use alstream EXAMPLES) )
+		else
+			mycmakeargs+=( "-DEXAMPLES=OFF" )
+		fi
+
+		cmake-utils_src_configure
+	}
+
+	multilib_parallel_foreach_abi my_configure
 }

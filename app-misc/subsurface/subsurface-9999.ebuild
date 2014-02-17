@@ -1,46 +1,43 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-misc/subsurface/subsurface-9999.ebuild,v 1.2 2013/04/03 21:16:11 tomwij Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-misc/subsurface/subsurface-9999.ebuild,v 1.4 2013/12/23 16:57:35 tomwij Exp $
 
 EAPI="5"
 
 if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI="git://subsurface.hohndel.org/subsurface.git"
 	GIT_ECLASS="git-2"
-	LIBDC_V="0.3.0"
+	KEYWORDS=""
+	SRC_URI=""
+	LIBDC_V="0.4.1"
 else
-	SRC_URI="http://subsurface.hohndel.org/downloads/Subsurface-${PV}.tgz -> ${P}.tar.gz"
+	MY_P=${P/s/S}
+	SRC_URI="http://subsurface.hohndel.org/downloads/${MY_P}.tgz https://bitbucket.org/bearsh/bearshlay/downloads/${MY_P}.tgz"
 	KEYWORDS="~amd64 ~x86"
-	LIBDC_V="0.3.0"
+	LIBDC_V="0.4.1"
 fi
 
-inherit eutils gnome2-utils ${GIT_ECLASS}
+PLOCALES="bg_BG da_DK de_CH de_DE es_ES et_EE fi_FI fr_FR he it_IT nb_NO nl_NL
+	pl_PL pt_BR pt_PT ru_RU sk_SK sv_SE zh_TW"
 
-LINGUAS="bg bg_BG de de_DE de_CH es es_ES fi fi_FI fr fr_FR hr hr_HR it it_IT
-	nb nb_NO nl nl_NL nn no ru ru_RU sk sk_SK sv sv_SE"
+inherit eutils l10n qt4-r2 ${GIT_ECLASS}
 
 DESCRIPTION="An open source dive log program"
 HOMEPAGE="http://subsurface.hohndel.org"
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="doc map usb"
-for LINGUA in ${LINGUAS}; do
-	IUSE+=" linguas_${LINGUA}"
-done
+IUSE="debug doc usb"
 
-RDEPEND="dev-libs/glib:2
+RDEPEND="dev-db/sqlite:3
+	dev-libs/glib:2
 	dev-libs/libxml2
 	dev-libs/libxslt
 	dev-libs/libzip
-	gnome-base/gconf:2
-	map? ( sci-geosciences/osm-gps-map )
-	net-libs/libsoup:2.4
-	sys-libs/glibc
-	virtual/libusb
-	x11-libs/cairo
-	x11-libs/gdk-pixbuf:2
-	x11-libs/gtk+:2
-	x11-libs/pango
+	dev-qt/qtcore:4
+	dev-qt/qtgui:4
+	dev-qt/qtsvg:4
+	dev-qt/qtwebkit:4
+	kde-base/marble
 "
 DEPEND="${RDEPEND}
 	>=dev-libs/libdivecomputer-${LIBDC_V}[static-libs,usb?]
@@ -48,66 +45,30 @@ DEPEND="${RDEPEND}
 	doc? ( app-text/asciidoc )
 "
 
+DOCS="README"
+
 src_unpack() {
 	if [[ ${PV} = *9999* ]]; then
 		git-2_src_unpack
-	elif [[ "${SRC_URI}" == *git* ]]; then
-		unpack ${A}
-		mv subsurface-v${PV}-* ${P} || die "Failed to mv the failes to ${P}."
 	else
-		mkdir "${P}" && cd "${P}" || die "Failed to create/change to ${P}."
 		unpack ${A}
+		mv ${MY_P}* ${P} || die "failed to mv the files to ${P}"
 	fi
 }
 
-src_prepare() {
-	# Don't hardcode gcc.
-	sed -i 's|CC\=gcc||' Makefile || die "Failed to fix gcc hardcode issues."
-
-	# Don't hardcode CFLAGS.
-	sed -i 's|CFLAGS\=.*||' Makefile || die "Failed to fix hardcoded CFLAGS."
-
-	# Don't call gtk_update_icon_cache.
-	sed -i -e "s|\$(gtk_update_icon_cache)|:|" Makefile || die "Failed to disable gtk_update_icon_cache call."
-}
-
-src_compile() {
-	emake CC=$(tc-getCC)
-
-	if use doc; then
-		emake doc
-	fi
+rm_trans() {
+	rm "${ED}/usr/share/${PN}/translations/${PN}_${1}.qm" || die "rm ${PN}_${1}.qm failed"
 }
 
 src_install() {
-	default
+	qt4-r2_src_install
 
-	# Remove unwanted linguas
-	local del
-	for LANG in $(ls "${D}/usr/share/locale"); do
-		del=1
-		for LINGUA in ${LINGUAS}; do
-			if [[ ${LANG/.UTF-8/} == ${LINGUA} ]]; then
-				if use linguas_${LINGUA}; then
-					del=0
-				fi
-				break
-			fi
-		done
-		if [[ ${del} == 1 ]]; then
-			rm -r "${D}/usr/share/locale/${LANG}" || die "Removing language ${LANG} failed."
-		fi
-	done
+	l10n_for_each_disabled_locale_do rm_trans
 
-	if use doc; then
-		dohtml -r "${S}/Documentation/"
+	# this is not a translation but present (no need to die if not present)
+	rm "${ED}/usr/share/${PN}/translations/${PN}_source.qm"
+
+	if ! use doc; then
+		rm -R "${ED}/usr/share/${PN}/Documentation"* || die "rm doc failed"
 	fi
-}
-
-pkg_postinst() {
-	gnome2_icon_cache_update
-}
-
-pkg_postrm() {
-	gnome2_icon_cache_update
 }

@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/avidemux-core/avidemux-core-9999.ebuild,v 1.3 2013/08/31 09:29:52 tomwij Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/avidemux-core/avidemux-core-9999.ebuild,v 1.6 2014/01/30 18:13:38 tomwij Exp $
 
 EAPI="5"
 
@@ -24,14 +24,13 @@ if [[ ${PV} == *9999* ]] ; then
 	inherit git-2
 else
 	MY_P="${MY_PN}_${PV}"
-	SRC_URI="mirror://sourceforge/${MY_PN}/${PV}/${MY_P}.tar.gz"
+	SRC_URI="mirror://sourceforge/${MY_PN}/${MY_PN}/${PV}/${MY_P}.tar.gz"
 fi
 
 # Trying to use virtual; ffmpeg misses aac,cpudetection USE flags now though, are they needed?
 DEPEND="
 	!<media-video/avidemux-${PV}:${SLOT}
 	dev-db/sqlite:3
-	nls? ( sys-devel/gettext:0 )
 	sdl? ( media-libs/libsdl:0 )
 	system-ffmpeg? ( >=virtual/ffmpeg-9:0[mp3,theora] )
 	xv? ( x11-libs/libXv:0 )
@@ -41,10 +40,12 @@ DEPEND="
 "
 RDEPEND="
 	$DEPEND
+	nls? ( virtual/libintl:0 )
 "
 DEPEND="
 	$DEPEND
 	virtual/pkgconfig:0
+	nls? ( sys-devel/gettext:0 )
 	!system-ffmpeg? ( dev-lang/yasm:0[nls=] )
 "
 

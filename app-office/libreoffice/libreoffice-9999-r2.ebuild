@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-9999-r2.ebuild,v 1.196 2013/09/20 20:26:45 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-9999-r2.ebuild,v 1.209 2014/01/27 15:35:49 scarabeus Exp $
 
 EAPI=5
 
@@ -74,7 +74,7 @@ unset ADDONS_SRC
 IUSE="bluetooth +branding +cups dbus debug eds firebird gnome gstreamer +gtk
 gtk3 jemalloc kde mysql odk opengl postgres telepathy test +vba vlc +webdav"
 
-LO_EXTS="nlpsolver presenter-minimizer scripting-beanshell scripting-javascript wiki-publisher"
+LO_EXTS="nlpsolver scripting-beanshell scripting-javascript wiki-publisher"
 # Unpackaged separate extensions:
 # diagram: lo has 0.9.5 upstream is weirdly patched 0.9.4 -> wtf?
 # hunart: only on ooo extensions -> fubared download path somewhere on sf
@@ -97,11 +97,14 @@ COMMON_DEPEND="
 	app-arch/unzip
 	>=app-text/hunspell-1.3.2-r3
 	app-text/mythes
+	app-text/libabw
 	>=app-text/libexttextcat-3.2
+	app-text/libebook
+	app-text/libetonyek
 	app-text/liblangtag
 	app-text/libmspub
-	>=app-text/libmwaw-0.1.7
-	app-text/libodfgen
+	>=app-text/libmwaw-0.2
+	>=app-text/libodfgen-0.0.3
 	app-text/libwpd:0.9[tools]
 	app-text/libwpg:0.2
 	>=app-text/libwps-0.2.2
@@ -127,6 +130,7 @@ COMMON_DEPEND="
 	media-libs/lcms:2
 	>=media-libs/libpng-1.4
 	>=media-libs/libcdr-0.0.5
+	media-libs/libfreehand
 	media-libs/libvisio
 	>=net-misc/curl-7.21.4
 	net-nds/openldap
@@ -205,7 +209,7 @@ DEPEND="${COMMON_DEPEND}
 	dev-util/cppunit
 	>=dev-util/gperf-3
 	dev-util/intltool
-	>=dev-util/mdds-0.9.0:=
+	>=dev-util/mdds-0.10.1:=
 	virtual/pkgconfig
 	net-misc/npapi-sdk
 	>=sys-apps/findutils-4.4.2
@@ -445,7 +449,7 @@ src_configure() {
 		--enable-randr \
 		--enable-randr-link \
 		--enable-release-build \
-		--enable-hardlink-deliver \
+		--disable-hardlink-deliver \
 		--disable-ccache \
 		--disable-crashdump \
 		--disable-dependency-tracking \
@@ -494,7 +498,6 @@ src_configure() {
 		$(use_enable opengl) \
 		$(use_enable postgres postgresql-sdbc) \
 		$(use_enable telepathy) \
-		$(use_enable test linkoo) \
 		$(use_enable vba) \
 		$(use_enable vlc) \
 		$(use_enable webdav neon) \
@@ -514,7 +517,7 @@ src_compile() {
 		grep "^export" "${S}/config_host.mk" > "${T}/config_host.mk"
 		source "${T}/config_host.mk" 2&> /dev/null
 
-		local path="${SOLARVER}/${INPATH}/res/img"
+		local path="${WORKDIR}/helpcontent2/source/auxiliary/"
 		mkdir -p "${path}" || die
 
 		echo "perl \"${S}/helpcontent2/helpers/create_ilst.pl\" -dir=icon-themes/galaxy/res/helpimg > \"${path}/helpimg.ilst\""
@@ -547,6 +550,7 @@ src_install() {
 	if use branding; then
 		insinto /usr/$(get_libdir)/${PN}/program
 		newins "${WORKDIR}/branding-sofficerc" sofficerc
+		echo "CONFIG_PROTECT=/usr/$(get_libdir)/${PN}/program/sofficerc" > "${ED}"/etc/env.d/99${PN}
 	fi
 
 	# symlink the nsplugin to proper location
@@ -560,6 +564,9 @@ src_install() {
 
 	# Remove desktop files for support to old installs that can't parse mime
 	rm -rf "${ED}"/usr/share/mimelnk/
+
+	pax-mark -m "${ED}"/usr/$(get_libdir)/libreoffice/program/soffice.bin
+	pax-mark -m "${ED}"/usr/$(get_libdir)/libreoffice/program/unopkg.bin
 }
 
 pkg_preinst() {
@@ -569,9 +576,6 @@ pkg_preinst() {
 
 pkg_postinst() {
 	kde4-base_pkg_postinst
-
-	pax-mark -m "${EPREFIX}"/usr/$(get_libdir)/libreoffice/program/soffice.bin
-	pax-mark -m "${EPREFIX}"/usr/$(get_libdir)/libreoffice/program/unopkg.bin
 
 	use java || \
 		ewarn 'If you plan to use lbase application you should enable java or you will get various crashes.'

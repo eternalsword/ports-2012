@@ -1,9 +1,9 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="5"
-MATE_LA_PUNT="yes"
+GNOME2_LA_PUNT="yes"
 GCONF_DEBUG="no"
 
 inherit mate
@@ -30,11 +30,9 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40
 	>=mate-base/mate-common-1.5.0"
 
-pkg_setup() {
-	G2CONF="${G2CONF}
-		$(use_enable introspection)
-		$(use_enable startup-notification)"
-
+src_configure() {
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
+	gnome2_src_configure \
+		$(use_enable introspection) \
+		$(use_enable startup-notification)
 }
-

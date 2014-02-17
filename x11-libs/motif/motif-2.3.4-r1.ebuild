@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/motif/motif-2.3.4-r1.ebuild,v 1.27 2013/08/06 11:09:57 ulm Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/motif/motif-2.3.4-r1.ebuild,v 1.31 2014/02/07 19:50:54 ulm Exp $
 
 EAPI=5
 
@@ -14,46 +14,22 @@ SRC_URI="mirror://sourceforge/project/motif/Motif%20${PV}%20Source%20Code/${P}-s
 
 LICENSE="LGPL-2.1+ MIT"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 sh sparc x86 ~ppc-aix ~amd64-fbsd ~x86-fbsd ~ia64-hpux ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 sh sparc x86 ~ppc-aix ~amd64-fbsd ~x86-fbsd ~ia64-hpux ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
 IUSE="examples jpeg +motif22-compatibility png static-libs unicode xft"
 
 RDEPEND="abi_x86_32? ( !app-emulation/emul-linux-x86-motif[-abi_x86_32(-)] )
-	|| ( (
-		x11-libs/libX11[${MULTILIB_USEDEP}]
-		x11-libs/libXext[${MULTILIB_USEDEP}]
-		x11-libs/libXmu[${MULTILIB_USEDEP}]
-		x11-libs/libXp[${MULTILIB_USEDEP}]
-		x11-libs/libXt[${MULTILIB_USEDEP}]
-		xft? (
-			media-libs/fontconfig[${MULTILIB_USEDEP}]
-			x11-libs/libXft[${MULTILIB_USEDEP}]
-		)
-	)
-	(
-		x11-libs/libX11
-		x11-libs/libXext
-		x11-libs/libXmu
-		x11-libs/libXp
-		x11-libs/libXt
-		xft? ( media-libs/fontconfig x11-libs/libXft )
-		abi_x86_32? ( amd64? (
-			app-emulation/emul-linux-x86-xlibs[development]
-		) )
-	) )
-	|| ( (
-		unicode? ( virtual/libiconv[${MULTILIB_USEDEP}] )
-		jpeg? ( virtual/jpeg:0=[${MULTILIB_USEDEP}] )
-		png? ( >=media-libs/libpng-1.4:0=[${MULTILIB_USEDEP}] )
-	)
-	(
-		unicode? ( virtual/libiconv )
-		jpeg? ( virtual/jpeg:0= )
-		png? ( >=media-libs/libpng-1.4:0= )
-		abi_x86_32? ( amd64? (
-			jpeg? ( app-emulation/emul-linux-x86-baselibs )
-			png? ( app-emulation/emul-linux-x86-baselibs )
-		) )
-	) )"
+	x11-libs/libX11[${MULTILIB_USEDEP}]
+	x11-libs/libXext[${MULTILIB_USEDEP}]
+	x11-libs/libXmu[${MULTILIB_USEDEP}]
+	x11-libs/libXp[${MULTILIB_USEDEP}]
+	x11-libs/libXt[${MULTILIB_USEDEP}]
+	jpeg? ( virtual/jpeg:0=[${MULTILIB_USEDEP}] )
+	png? ( >=media-libs/libpng-1.4:0=[${MULTILIB_USEDEP}] )
+	unicode? ( virtual/libiconv[${MULTILIB_USEDEP}] )
+	xft? (
+		media-libs/fontconfig[${MULTILIB_USEDEP}]
+		x11-libs/libXft[${MULTILIB_USEDEP}]
+	)"
 
 DEPEND="${RDEPEND}
 	sys-devel/flex
@@ -84,14 +60,6 @@ src_prepare() {
 	# for Solaris Xos_r.h :(
 	[[ ${CHOST} == *-solaris2.11 ]] \
 		&& append-cppflags -DNEED_XOS_R_H -DHAVE_READDIR_R_3
-
-	# workaround for missing pkgconfig files in emul-linux-x86-xlibs #479876
-	if use xft && use amd64 && use abi_x86_32 \
-		&& has_version "app-emulation/emul-linux-x86-xlibs[-abi_x86_32(-)]"
-	then
-		append-cppflags -I/usr/include/freetype2
-		append-libs -lXft
-	fi
 
 	if use !elibc_glibc && use !elibc_uclibc && use unicode; then
 		# libiconv detection in configure script doesn't always work

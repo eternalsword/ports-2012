@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/R/R-3.0.2.ebuild,v 1.2 2013/09/27 02:47:09 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/R/R-3.0.2.ebuild,v 1.4 2014/02/17 12:34:34 heroxbd Exp $
 
 EAPI=5
 
@@ -15,7 +15,7 @@ SRC_URI="
 
 LICENSE="|| ( GPL-2 GPL-3 ) LGPL-2.1"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-fbsd ~x86-linux ~x64-macos"
+KEYWORDS="~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x64-macos"
 IUSE="bash-completion cairo doc icu java jpeg lapack minimal nls openmp perl png prefix profile readline static-libs tiff tk X"
 REQUIRED_USE="png? ( || ( cairo X ) ) jpeg? ( || ( cairo X ) ) tiff? ( || ( cairo X ) )"
 
@@ -139,7 +139,7 @@ src_configure() {
 		--with-system-bzlib \
 		--with-system-pcre \
 		--with-system-xz \
-		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)" \
+		--with-blas="$($(tc-getPKG_CONFIG) --variable=libdir blas)" \
 		--docdir="${EPREFIX}/usr/share/doc/${PF}" \
 		rdocdir="${EPREFIX}/usr/share/doc/${PF}" \
 		$(use_enable nls) \
@@ -157,6 +157,8 @@ src_configure() {
 		$(use_with readline) \
 		$(use_with tiff libtiff) \
 		$(use_with tk tcltk) \
+		$(use_with tk tk-config "${EPREFIX}"/usr/lib/tkConfig.sh) \
+		$(use_with tk tcl-config "${EPREFIX}"/usr/lib/tclConfig.sh) \
 		$(use_with X x)
 }
 

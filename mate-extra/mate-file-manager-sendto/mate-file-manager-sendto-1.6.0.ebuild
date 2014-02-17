@@ -4,7 +4,7 @@
 
 EAPI="5"
 GCONF_DEBUG="yes"
-MATE_LA_PUNT="yes"
+GNOME2_LA_PUNT="yes"
 
 inherit mate
 
@@ -31,19 +31,23 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35
 	>=mate-base/mate-common-1.2.2"
 
-_use_plugin() {
-	if use ${1}; then
-		G2CONF="${G2CONF}${2:-"${1}"},"
-	fi
+src_prepare() {
+	# Tarball has no proper build system, should be fixed on next release.
+	mate_gen_build_system
+
+	gnome2_src_prepare
 }
 
-pkg_setup() {
+src_configure() {
 	DOCS="AUTHORS ChangeLog NEWS README"
-	G2CONF="${G2CONF}
-		--with-plugins=removable-devices,"
-	_use_plugin cdr caja-burn
-	_use_plugin mail emailclient
-	_use_plugin pidgin
-	_use_plugin gajim
-	_use_plugin upnp
+
+	local myconf
+	myconf="--with-plugins=removable-devices,"
+	use cdr && myconf="${myconf}caja-burn,"
+	use mail && myconf="${myconf}emailclient,"
+	use pidgin && myconf="${myconf}pidgin,"
+	use gajim && myconf="${myconf}gajim,"
+	use upnp && myconf="${myconf}upnp,"
+
+	gnome2_src_configure ${myconf}
 }

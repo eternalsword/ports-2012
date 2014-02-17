@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-process/cronie/cronie-1.4.11.ebuild,v 1.1 2013/08/10 11:00:54 polynomial-c Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-process/cronie/cronie-1.4.11.ebuild,v 1.11 2014/01/11 09:53:57 zlogene Exp $
 
 EAPI=5
 
@@ -10,8 +10,8 @@ DESCRIPTION="Cronie is a standard UNIX daemon cron based on the original vixie-c
 SRC_URI="https://fedorahosted.org/releases/c/r/cronie/${P}.tar.gz"
 HOMEPAGE="https://fedorahosted.org/cronie/wiki"
 
-LICENSE="ISC BSD BSD-2"
-KEYWORDS="~amd64 ~arm ~sparc ~x86"
+LICENSE="ISC BSD BSD-2 GPL-2"
+KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ~ppc ~ppc64 sparc x86"
 IUSE="anacron inotify pam selinux"
 
 DEPEND="pam? ( virtual/pam )

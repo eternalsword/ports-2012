@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-vcs/git/git-9999.ebuild,v 1.45 2013/09/16 17:53:28 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-vcs/git/git-9999.ebuild,v 1.55 2014/02/13 14:51:26 polynomial-c Exp $
 
 EAPI=5
 
@@ -40,14 +40,14 @@ fi
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="+blksha1 +curl cgi doc emacs gnome-keyring +gpg gtk highlight +iconv +nls +pcre +perl +python ppcsha1 tk +threads +webdav xinetd cvs subversion test"
+IUSE="+blksha1 +curl cgi doc emacs gnome-keyring +gpg gtk highlight +iconv mediawiki +nls +pcre +perl +python ppcsha1 tk +threads +webdav xinetd cvs subversion test"
 
 # Common to both DEPEND and RDEPEND
 CDEPEND="
 	dev-libs/openssl
 	sys-libs/zlib
 	pcre? ( dev-libs/libpcre )
-	perl? ( dev-lang/perl[-build(-)] )
+	perl? ( dev-lang/perl:=[-build(-)] )
 	tk? ( dev-lang/tk )
 	curl? (
 		net-misc/curl
@@ -58,6 +58,10 @@ CDEPEND="
 
 RDEPEND="${CDEPEND}
 	gpg? ( app-crypt/gnupg )
+	mediawiki? (
+		dev-perl/HTML-Tree
+		dev-perl/MediaWiki-API
+	)
 	perl? ( dev-perl/Error
 			dev-perl/Net-SMTP-SSL
 			dev-perl/Authen-SASL
@@ -68,7 +72,7 @@ RDEPEND="${CDEPEND}
 	python? ( gtk?
 	(
 		>=dev-python/pygtk-2.8[${PYTHON_USEDEP}]
-		dev-python/pygtksourceview:2[${PYTHON_USEDEP}]
+		>=dev-python/pygtksourceview-2.10.1-r1:2[${PYTHON_USEDEP}]
 	)
 		${PYTHON_DEPS} )"
 
@@ -84,9 +88,8 @@ DEPEND="${CDEPEND}
 		sys-apps/texinfo
 		app-text/xmlto
 	)
-	test? (
-		app-crypt/gnupg
-	)"
+	nls? ( sys-devel/gettext )
+	test? (	app-crypt/gnupg	)"
 
 # Live ebuild builds man pages and HTML docs, additionally
 if [[ ${PV} == *9999 ]]; then
@@ -100,6 +103,7 @@ S="${WORKDIR}/${MY_P}"
 REQUIRED_USE="
 	cgi? ( perl )
 	cvs? ( perl )
+	mediawiki? ( perl )
 	subversion? ( perl )
 	webdav? ( curl )
 	gtk? ( python )
@@ -165,7 +169,8 @@ exportmakeopts() {
 	use subversion \
 		|| myopts="${myopts} NO_SVN_TESTS=YesPlease"
 	use threads \
-		&& myopts="${myopts} THREADED_DELTA_SEARCH=YesPlease"
+		&& myopts="${myopts} THREADED_DELTA_SEARCH=YesPlease" \
+		|| myopts="${myopts} NO_PTHREADS=YesPlease"
 	use cvs \
 		|| myopts="${myopts} NO_CVS=YesPlease"
 # Disabled until ~m68k-mint can be keyworded again
@@ -219,15 +224,21 @@ src_unpack() {
 
 src_prepare() {
 	# bug #350330 - automagic CVS when we don't want it is bad.
-	epatch "${FILESDIR}"/git-1.8.2-optional-cvs.patch
+	epatch "${FILESDIR}"/git-1.9.0_rc3-optional-cvs.patch
+
+	# install mediawiki perl modules also in vendor_dir
+	# hack, needs better upstream solution
+	epatch "${FILESDIR}"/git-1.8.5-mw-vendor.patch
+
+	epatch_user
 
 	sed -i \
-		-e 's:^\(CFLAGS =\).*$:\1 $(OPTCFLAGS) -Wall:' \
-		-e 's:^\(LDFLAGS =\).*$:\1 $(OPTLDFLAGS):' \
-		-e 's:^\(CC = \).*$:\1$(OPTCC):' \
-		-e 's:^\(AR = \).*$:\1$(OPTAR):' \
-		-e "s:\(PYTHON_PATH = \)\(.*\)$:\1${EPREFIX}\2:" \
-		-e "s:\(PERL_PATH = \)\(.*\)$:\1${EPREFIX}\2:" \
+		-e 's:^\(CFLAGS[[:space:]]*=\).*$:\1 $(OPTCFLAGS) -Wall:' \
+		-e 's:^\(LDFLAGS[[:space:]]*=\).*$:\1 $(OPTLDFLAGS):' \
+		-e 's:^\(CC[[:space:]]* =\).*$:\1$(OPTCC):' \
+		-e 's:^\(AR[[:space:]]* =\).*$:\1$(OPTAR):' \
+		-e "s:\(PYTHON_PATH[[:space:]]\+=[[:space:]]\+\)\(.*\)$:\1${EPREFIX}\2:" \
+		-e "s:\(PERL_PATH[[:space:]]\+=[[:space:]]\+\)\(.*\)$:\1${EPREFIX}\2:" \
 		Makefile contrib/svn-fe/Makefile || die "sed failed"
 
 	# Never install the private copy of Error.pm (bug #296310)
@@ -236,7 +247,7 @@ src_prepare() {
 		perl/Makefile.PL
 
 	# Fix docbook2texi command
-	sed -i 's/DOCBOOK2X_TEXI=docbook2x-texi/DOCBOOK2X_TEXI=docbook2texi.pl/' \
+	sed -r -i 's/DOCBOOK2X_TEXI[[:space:]]*=[[:space:]]*docbook2x-texi/DOCBOOK2X_TEXI = docbook2texi.pl/' \
 		Documentation/Makefile || die "sed failed"
 
 	# Fix git-subtree missing DESTDIR
@@ -328,6 +339,11 @@ src_compile() {
 	cd "${S}"/contrib/subtree
 	git_emake
 	use doc && git_emake doc
+
+	if use mediawiki ; then
+		cd "${S}"/contrib/mw-to-git
+		git_emake
+	fi
 }
 
 src_install() {
@@ -356,7 +372,8 @@ src_install() {
 	use doc && doinfo Documentation/{git,gitman}.info
 
 	newbashcomp contrib/completion/git-completion.bash ${PN}
-	newbashcomp contrib/completion/git-prompt.sh ${PN}-prompt
+	# Not really a bash-completion file (bug #477920)
+	dodoc contrib/completion/git-prompt.sh
 
 	if use emacs ; then
 		elisp-install ${PN} contrib/emacs/git.{el,elc}
@@ -376,7 +393,8 @@ src_install() {
 	#dobin contrib/fast-import/git-p4 # Moved upstream
 	#dodoc contrib/fast-import/git-p4.txt # Moved upstream
 	newbin contrib/fast-import/import-tars.perl import-tars
-	newbin contrib/git-resurrect.sh git-resurrect
+	exeinto /usr/libexec/git-core/
+	newexe contrib/git-resurrect.sh git-resurrect
 
 	# git-subtree
 	cd "${S}"/contrib/subtree
@@ -388,6 +406,12 @@ src_install() {
 	dodoc git-subtree.txt
 	cd "${S}"
 
+	if use mediawiki ; then
+		cd "${S}"/contrib/mw-to-git
+		git_emake install
+		cd "${S}"
+	fi
+
 	# git-diffall
 	dobin contrib/diffall/git-diffall
 	newdoc contrib/diffall/README git-diffall.txt
@@ -397,8 +421,14 @@ src_install() {
 	newdoc contrib/diff-highlight/README README.diff-highlight
 
 	# git-jump
-	dobin contrib/git-jump/git-jump
+	exeinto /usr/libexec/git-core/
+	doexe contrib/git-jump/git-jump
 	newdoc contrib/git-jump/README git-jump.txt
+
+	# git-contacts
+	exeinto /usr/libexec/git-core/
+	doexe contrib/contacts/git-contacts
+	dodoc contrib/contacts/git-contacts.txt
 
 	if use gnome-keyring ; then
 		cd "${S}"/contrib/credential/gnome-keyring
@@ -415,6 +445,7 @@ src_install() {
 
 	# remote-helpers
 	if use python ; then
+		python_scriptinto /usr/libexec/git-core/
 		python_doscript "${S}"/contrib/remote-helpers/git-remote-{bzr,hg}
 		python_optimize
 	fi
@@ -437,7 +468,7 @@ src_install() {
 	# svnimport - use git-svn
 	# thunderbird-patch-inline - fixes thunderbird
 	for i in \
-		blameview buildsystems ciabot continuous convert-objects fast-import \
+		buildsystems convert-objects fast-import \
 		hg-to-git hooks remotes2config.sh rerere-train.sh \
 		stats vim workdir \
 		; do
@@ -477,7 +508,7 @@ src_install() {
 	fi
 
 	if use !prefix ; then
-		newinitd "${FILESDIR}"/git-daemon.initd git-daemon
+		newinitd "${FILESDIR}"/git-daemon-r1.initd git-daemon
 		newconfd "${FILESDIR}"/git-daemon.confd git-daemon
 		systemd_newunit "${FILESDIR}/git-daemon_at.service" "git-daemon@.service"
 		systemd_dounit "${FILESDIR}/git-daemon.socket"
@@ -491,10 +522,12 @@ src_test() {
 	local tests_cvs="t9200-git-cvsexportcommit.sh \
 					t9400-git-cvsserver-server.sh \
 					t9401-git-cvsserver-crlf.sh \
+					t9402-git-cvsserver-refs.sh \
 					t9600-cvsimport.sh \
 					t9601-cvsimport-vendor-branch.sh \
 					t9602-cvsimport-branches-tags.sh \
-					t9603-cvsimport-patchsets.sh"
+					t9603-cvsimport-patchsets.sh \
+					t9604-cvsimport-timestamps.sh"
 	local tests_perl="t3701-add-interactive.sh \
 					t5502-quickfetch.sh \
 					t5512-ls-remote.sh \
@@ -599,7 +632,7 @@ pkg_postinst() {
 	echo
 	showpkgdeps git-quiltimport "dev-util/quilt"
 	showpkgdeps git-instaweb \
-		"|| ( www-servers/lighttpd www-servers/apache )"
+		"|| ( www-servers/lighttpd www-servers/apache www-servers/nginx )"
 	echo
 }
 

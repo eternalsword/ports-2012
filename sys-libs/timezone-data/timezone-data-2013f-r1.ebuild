@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/timezone-data/timezone-data-2013f-r1.ebuild,v 1.1 2013/09/28 10:55:44 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/timezone-data/timezone-data-2013f-r1.ebuild,v 1.2 2013/09/30 04:42:20 vapier Exp $
 
 EAPI="3"
 
@@ -17,24 +17,12 @@ SRC_URI="http://www.iana.org/time-zones/repository/releases/tzdata${data_ver}.ta
 
 LICENSE="BSD public-domain"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
+KEYWORDS="~*"
 IUSE="nls elibc_FreeBSD elibc_glibc"
 
 RDEPEND="!<sys-libs/glibc-2.3.5"
 
 S=${WORKDIR}
-
-pkg_setup() {
-	# Deal with the case where older timezone-data installed a
-	# dir here, but newer one installs symlinks.  Portage will
-	# barf when you try to transition file types.
-	if cd "${EROOT}"/usr/share/zoneinfo 2>/dev/null ; then
-		if [[ -d posix ]] ; then
-			mv posix .gentoo-upgrade || die
-			ln -s .gentoo-upgrade posix || die
-		fi
-	fi
-}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-2013f-makefile.patch
@@ -66,10 +54,6 @@ src_compile() {
 			LDLIBS="${LDLIBS}" \
 			zic || die
 	fi
-}
-
-pkg_postinst() {
-	rm -rf "${EROOT}"/usr/share/zoneinfo/.gentoo-upgrade
 }
 
 src_install() {

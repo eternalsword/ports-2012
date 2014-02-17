@@ -1,6 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-extra/gnome-system-monitor/gnome-system-monitor-3.6.1.ebuild,v 1.3 2013/09/13 22:59:16 eva Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -13,7 +11,7 @@ HOMEPAGE="http://www.gnome.org/"
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="systemd"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="*"
 
 RDEPEND=">=dev-libs/glib-2.28:2
 	>=x11-libs/libwnck-2.91.0:3

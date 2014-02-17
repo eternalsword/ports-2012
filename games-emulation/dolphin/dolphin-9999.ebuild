@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-emulation/dolphin/dolphin-9999.ebuild,v 1.6 2013/09/08 22:54:49 twitch153 Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-emulation/dolphin/dolphin-9999.ebuild,v 1.11 2014/02/07 17:55:17 twitch153 Exp $
 
 EAPI=5
 
@@ -10,7 +10,7 @@ inherit cmake-utils eutils pax-utils toolchain-funcs versionator wxwidgets games
 
 if [[ ${PV} == 9999* ]]
 then
-	EGIT_REPO_URI="https://code.google.com/p/dolphin-emu/"
+	EGIT_REPO_URI="https://github.com/dolphin-emu/dolphin"
 	inherit git-2
 	KEYWORDS=""
 else
@@ -19,13 +19,13 @@ else
 fi
 
 DESCRIPTION="Gamecube and Wii game emulator"
-HOMEPAGE="http://www.dolphin-emulator.com/"
+HOMEPAGE="https://www.dolphin-emu.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="alsa ao bluetooth doc ffmpeg +lzo openal opengl openmp portaudio pulseaudio"
 
-RDEPEND=">=media-libs/glew-1.6
+RDEPEND=">=media-libs/glew-1.10
 	>=media-libs/libsdl-1.2[joystick]
 	<media-libs/libsfml-2.0
 	>=net-libs/miniupnpc-1.8
@@ -90,16 +90,16 @@ src_prepare() {
 	# Remove ALL the bundled libraries, aside from:
 	# - SOIL: The sources are not public.
 	# - Bochs-disasm: Don't know what it is.
-	# - CLRun: Part of OpenCL
+	# - GL: A custom gl.h file is used.
 	mv Externals/SOIL . || die
 	mv Externals/Bochs_disasm . || die
-	mv Externals/CLRun . || die
 	mv Externals/polarssl . || die
-	rm -r Externals/* || die
-	mv CLRun Externals || die
+	mv Externals/GL . || die
+	rm -r Externals/* || die "Failed to delete Externals dir."
 	mv Bochs_disasm Externals || die
 	mv SOIL Externals || die
 	mv polarssl Externals || die
+	mv GL Externals || die
 }
 
 src_configure() {
@@ -117,11 +117,15 @@ src_configure() {
 	cmake-utils_src_configure
 }
 
+src_compile() {
+
+	cmake-utils_src_compile
+}
 src_install() {
 
 	cmake-utils_src_install
 
-	dodoc Readme.txt
+	dodoc Readme.md
 	if use doc; then
 		dodoc -r docs/ActionReplay docs/DSP docs/WiiMote
 	fi

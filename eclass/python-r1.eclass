@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/python-r1.eclass,v 1.62 2013/09/26 11:24:30 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/python-r1.eclass,v 1.66 2013/12/29 18:19:48 mgorny Exp $
 
 # @ECLASS: python-r1
 # @MAINTAINER:
@@ -122,7 +122,7 @@ fi
 #
 # Example value:
 # @CODE
-# dev-python/python-exec:=
+# dev-lang/python-exec:=
 # python_targets_python2_6? ( dev-lang/python:2.6[gdbm] )
 # python_targets_python2_7? ( dev-lang/python:2.7[gdbm] )
 # @CODE
@@ -205,10 +205,12 @@ _python_set_globals() {
 	# but if new targets were added, we may need to force a rebuild
 	# 3) use whichever python-exec slot installed in EAPI 5. For EAPI 4,
 	# just fix :2 since := deps are not supported.
-	if [[ ${EAPI} != 4 ]]; then
-		PYTHON_DEPS+="dev-python/python-exec:=[${PYTHON_USEDEP}]"
+	if [[ ${_PYTHON_WANT_PYTHON_EXEC2} == 0 ]]; then
+		PYTHON_DEPS+="dev-lang/python-exec:0[${PYTHON_USEDEP}]"
+	elif [[ ${EAPI} != 4 ]]; then
+		PYTHON_DEPS+="dev-lang/python-exec:=[${PYTHON_USEDEP}]"
 	else
-		PYTHON_DEPS+="dev-python/python-exec:2[${PYTHON_USEDEP}]"
+		PYTHON_DEPS+="dev-lang/python-exec:2[${PYTHON_USEDEP}]"
 	fi
 }
 _python_set_globals
@@ -418,7 +420,7 @@ _python_check_USE_PYTHON() {
 		_PYTHON_USE_PYTHON_CHECKED=1
 
 		# python-exec has profile-forced flags.
-		if [[ ${CATEGORY}/${PN} == dev-python/python-exec ]]; then
+		if [[ ${CATEGORY}/${PN} == dev-lang/python-exec ]]; then
 			return
 		fi
 
@@ -521,10 +523,10 @@ _python_check_USE_PYTHON() {
 				ewarn "Please note that after switching the active Python interpreter,"
 				ewarn "you may need to run 'python-updater' to rebuild affected packages."
 				ewarn
-				ewarn "For more information on python.eclass compatibility, please see"
-				ewarn "the appropriate python-r1 User's Guide chapter [1]."
+				ewarn "For more information on PYTHON_TARGETS and python.eclass"
+				ewarn "compatibility, please see the relevant Wiki article [1]."
 				ewarn
-				ewarn "[1] http://www.gentoo.org/proj/en/Python/python-r1/user-guide.xml#doc_chap2"
+				ewarn "[1] https://wiki.gentoo.org/wiki/Project:Python/PYTHON_TARGETS"
 			fi
 		}
 
@@ -606,10 +608,10 @@ _python_check_USE_PYTHON() {
 			ewarn "Please note that after changing the USE_PYTHON variable, you may need"
 			ewarn "to run 'python-updater' to rebuild affected packages."
 			ewarn
-			ewarn "For more information on python.eclass compatibility, please see"
-			ewarn "the appropriate python-r1 User's Guide chapter [1]."
+			ewarn "For more information on PYTHON_TARGETS and python.eclass"
+			ewarn "compatibility, please see the relevant Wiki article [1]."
 			ewarn
-			ewarn "[1] http://www.gentoo.org/proj/en/Python/python-r1/user-guide.xml#doc_chap2"
+			ewarn "[1] https://wiki.gentoo.org/wiki/Project:Python/PYTHON_TARGETS"
 		fi
 	fi
 }
@@ -710,6 +712,21 @@ python_parallel_foreach_impl() {
 	local MULTIBUILD_VARIANTS
 	_python_obtain_impls
 	multibuild_parallel_foreach_variant _python_multibuild_wrapper "${@}"
+}
+
+# @FUNCTION: python_setup
+# @DESCRIPTION:
+# Find the best (most preferred) Python implementation enabled
+# and set the Python build environment up for it.
+#
+# This function needs to be used when Python is being called outside
+# of python_foreach_impl calls (e.g. for shared processes like doc
+# building). python_foreach_impl sets up the build environment itself.
+python_setup() {
+	debug-print-function ${FUNCNAME} "${@}"
+
+	python_export_best
+	python_wrapper_setup
 }
 
 # @FUNCTION: python_export_best

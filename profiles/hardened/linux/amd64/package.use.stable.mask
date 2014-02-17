@@ -1,3 +1,11 @@
+# Copyright 1999-2014 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/profiles/hardened/linux/amd64/package.use.stable.mask,v 1.7 2014/02/06 12:57:58 tomwij Exp $
+
+# Tom Wijsman <TomWij@gentoo.org> (06 Feb 2014)
+# [QA] Masked jit USE flag on www-apps/cgit as dev-lang/luajit is not stable.
+www-apps/cgit jit
+
 # Michał Górny <mgorny@gentoo.org> (24 Sep 2013)
 # on behalf of gx86-multilib project <multilib@gentoo.org>
 # Mask abi_x86_32 on stable until emul-* packages are made
@@ -57,6 +65,7 @@ dev-libs/glib abi_x86_32
 dev-libs/gmp abi_x86_32
 dev-libs/json-c abi_x86_32
 dev-libs/libcdio abi_x86_32
+dev-libs/libcdio-paranoia abi_x86_32
 dev-libs/libconfig abi_x86_32
 dev-libs/libcss abi_x86_32
 dev-libs/libedit abi_x86_32
@@ -91,6 +100,15 @@ dev-libs/openssl abi_x86_32
 dev-libs/re2 abi_x86_32
 dev-libs/udis86 abi_x86_32
 dev-libs/yajl abi_x86_32
+dev-qt/qtcore abi_x86_32
+dev-qt/qtdbus abi_x86_32
+dev-qt/qtgui abi_x86_32
+dev-qt/qtopengl abi_x86_32
+dev-qt/qtscript abi_x86_32
+dev-qt/qtsql abi_x86_32
+dev-qt/qtsvg abi_x86_32
+dev-qt/qtwebkit abi_x86_32
+dev-qt/qtxmlpatterns abi_x86_32
 gnome-base/gconf abi_x86_32
 gnome-base/gnome-vfs abi_x86_32
 gnome-base/libglade abi_x86_32
@@ -165,7 +183,6 @@ media-libs/libsidplay abi_x86_32
 media-libs/libsndfile abi_x86_32
 media-libs/libsvgtiny abi_x86_32
 media-libs/libtheora abi_x86_32
-media-libs/libtxc_dxtn abi_x86_32
 media-libs/libv4l abi_x86_32
 media-libs/libvisual abi_x86_32
 media-libs/libvorbis abi_x86_32
@@ -374,15 +391,6 @@ x11-libs/libXxf86vm abi_x86_32
 x11-libs/motif abi_x86_32
 x11-libs/pango abi_x86_32
 x11-libs/pixman abi_x86_32
-x11-libs/qt-core abi_x86_32
-x11-libs/qt-dbus abi_x86_32
-x11-libs/qt-gui abi_x86_32
-x11-libs/qt-opengl abi_x86_32
-x11-libs/qt-script abi_x86_32
-x11-libs/qt-sql abi_x86_32
-x11-libs/qt-svg abi_x86_32
-x11-libs/qt-webkit abi_x86_32
-x11-libs/qt-xmlpatterns abi_x86_32
 x11-proto/compositeproto abi_x86_32
 x11-proto/damageproto abi_x86_32
 x11-proto/fixesproto abi_x86_32

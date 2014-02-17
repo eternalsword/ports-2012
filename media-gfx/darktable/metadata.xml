@@ -9,7 +9,6 @@
 	<use>
 		<flag name="colord">Support color management using <pkg>x11-misc/colord</pkg></flag>
 		<flag name="graphicsmagick">Use <pkg>media-gfx/graphicsmagick</pkg> for image importing</flag>
-		<flag name="facebook">Add support for uploading photos to facebook</flag>
 		<flag name="flickr">Add support for uploading photos to flickr</flag>
 		<flag name="geo">Enable geotagging support</flag>
 		<flag name="opencl">Enable opencl support</flag>
@@ -18,6 +17,7 @@
 		<flag name="slideshow">Build the opengl slideshow viewer</flag>
 		<flag name="squish">Enable thumbnail compression via libsquish</flag>
 		<flag name="web-services">Add support for uploading photos to facebook and picasa</flag>
+		<flag name="webp">Enable WebP export support</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">darktable-org/darktable</remote-id>

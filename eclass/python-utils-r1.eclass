@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/python-utils-r1.eclass,v 1.41 2013/09/26 11:24:30 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/python-utils-r1.eclass,v 1.46 2014/01/17 14:35:11 jer Exp $
 
 # @ECLASS: python-utils-r1
 # @MAINTAINER:
@@ -10,7 +10,7 @@
 # Based on work of: Krzysztof Pawlik <nelchael@gentoo.org>
 # @BLURB: Utility functions for packages with Python parts.
 # @DESCRIPTION:
-# An utility eclass providing functions to query Python implementations,
+# A utility eclass providing functions to query Python implementations,
 # install Python modules and scripts.
 #
 # This eclass does not set any metadata variables nor export any phase
@@ -349,18 +349,23 @@ python_export() {
 			PYTHON_PKG_DEP)
 				local d
 				case ${impl} in
-					python*)
-						PYTHON_PKG_DEP='dev-lang/python';;
-					jython*)
-						PYTHON_PKG_DEP='dev-java/jython';;
-					pypy*)
-						PYTHON_PKG_DEP='virtual/pypy';;
+					python2.6)
+						PYTHON_PKG_DEP='>=dev-lang/python-2.6.8-r3:2.6';;
+					python2.7)
+						PYTHON_PKG_DEP='>=dev-lang/python-2.7.5-r2:2.7';;
+					python3.2)
+						PYTHON_PKG_DEP='>=dev-lang/python-3.2.5-r2:3.2';;
+					python3.3)
+						PYTHON_PKG_DEP='>=dev-lang/python-3.3.2-r2:3.3';;
+					pypy-c2.0)
+						PYTHON_PKG_DEP='>=virtual/pypy-2.0.2:2.0';;
+					jython2.5)
+						PYTHON_PKG_DEP='>=dev-java/jython-2.5.3-r2:2.5';;
+					jython2.7)
+						PYTHON_PKG_DEP='dev-java/jython:2.7';;
 					*)
 						die "Invalid implementation: ${impl}"
 				esac
-
-				# slot
-				PYTHON_PKG_DEP+=:${impl##*[a-z-]}
 
 				# use-dep
 				if [[ ${PYTHON_REQ_USE} ]]; then
@@ -379,44 +384,6 @@ python_export() {
 				die "python_export: unknown variable ${var}"
 		esac
 	done
-}
-
-# @FUNCTION: python_get_PYTHON
-# @USAGE: [<impl>]
-# @DESCRIPTION:
-# Obtain and print the path to the Python interpreter for the given
-# implementation. If no implementation is provided, ${EPYTHON} will
-# be used.
-#
-# If you just need to have PYTHON set (and exported), then it is better
-# to use python_export() directly instead.
-python_get_PYTHON() {
-	debug-print-function ${FUNCNAME} "${@}"
-
-	eqawarn '$(python_get_PYTHON) is discouraged since all standard environments' >&2
-	eqawarn 'have PYTHON exported anyway. Please use ${PYTHON} instead.' >&2
-	eqawarn 'python_get_PYTHON will be removed on 2013-10-16.' >&2
-
-	python_export "${@}" PYTHON
-	echo "${PYTHON}"
-}
-
-# @FUNCTION: python_get_EPYTHON
-# @USAGE: <impl>
-# @DESCRIPTION:
-# Obtain and print the EPYTHON value for the given implementation.
-#
-# If you just need to have EPYTHON set (and exported), then it is better
-# to use python_export() directly instead.
-python_get_EPYTHON() {
-	debug-print-function ${FUNCNAME} "${@}"
-
-	eqawarn '$(python_get_EPYTHON) is discouraged since all standard environments' >&2
-	eqawarn 'have EPYTHON exported anyway. Please use ${EPYTHON} instead.' >&2
-	eqawarn 'python_get_EPYTHON will be removed on 2013-10-16.' >&2
-
-	python_export "${@}" EPYTHON
-	echo "${EPYTHON}"
 }
 
 # @FUNCTION: python_get_sitedir
@@ -1014,7 +981,7 @@ _python_want_python_exec2() {
 
 	# Check if we cached the result, or someone put an override.
 	if [[ ! ${_PYTHON_WANT_PYTHON_EXEC2+1} ]]; then
-		has_version 'dev-python/python-exec:2'
+		has_version 'dev-lang/python-exec:2'
 		_PYTHON_WANT_PYTHON_EXEC2=$(( ! ${?} ))
 	fi
 

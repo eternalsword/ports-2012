@@ -1,10 +1,10 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-cdr/cdrtools/cdrtools-3.01_alpha17.ebuild,v 1.1 2013/09/06 16:08:16 billie Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-cdr/cdrtools/cdrtools-3.01_alpha17.ebuild,v 1.15 2014/01/29 20:58:03 vapier Exp $
 
 EAPI=5
 
-inherit fcaps multilib eutils toolchain-funcs flag-o-matic
+inherit fcaps multilib eutils toolchain-funcs flag-o-matic gnuconfig
 
 MY_P="${P/_alpha/a}"
 
@@ -14,13 +14,14 @@ SRC_URI="ftp://ftp.berlios.de/pub/cdrecord/$([[ -z ${PV/*_alpha*} ]] && echo 'al
 
 LICENSE="GPL-2 LGPL-2.1 CDDL-Schily"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~sparc-solaris ~x86-solaris"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~sparc-solaris ~x86-solaris"
 IUSE="acl nls unicode"
 
 RDEPEND="acl? ( virtual/acl )
 	nls? ( virtual/libintl )
 	!app-cdr/cdrkit"
 DEPEND="${RDEPEND}
+	x11-misc/makedepend
 	nls? ( >=sys-devel/gettext-0.18.1.1 )"
 
 S=${WORKDIR}/${P/_alpha[0-9][0-9]}
@@ -32,8 +33,10 @@ FILECAPS=(
 )
 
 src_prepare() {
+	gnuconfig_update
+
 	# Remove profiled make files.
-	rm -f $(find . -name '*_p.mk') || die "rm profiled"
+	find -name '*_p.mk' -delete
 
 	# Adjusting hardcoded paths.
 	sed -i -e 's:opt/schily:usr:' \

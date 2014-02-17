@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-simulation/searchandrescue/searchandrescue-1.5.0.ebuild,v 1.3 2013/09/19 17:25:45 mr_bones_ Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-simulation/searchandrescue/searchandrescue-1.5.0.ebuild,v 1.5 2014/02/08 16:25:56 mr_bones_ Exp $
 
 EAPI=5
 inherit eutils flag-o-matic toolchain-funcs games
@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/searchandrescue/${MY_PN}-${PV}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~ppc ~x86"
+KEYWORDS="amd64 ~ppc x86"
 IUSE=""
 
 RDEPEND="x11-libs/libXxf86vm
@@ -42,9 +42,13 @@ src_unpack() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-build.patch
+	rm pconf/pconf || die
+	sed -i -e '/Wall/s/$/ $(CFLAGS)/' pconf/Makefile || die
 }
 
 src_configure() {
+	emake CC=$(tc-getCC) -C pconf pconf # Needed for the configure script
+
 	append-flags -DNEW_GRAPHICS -DHAVE_SDL_MIXER
 	export CPP="$(tc-getCXX)"
 	export CPPFLAGS="${CXXFLAGS}"

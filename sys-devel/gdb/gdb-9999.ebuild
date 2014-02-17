@@ -1,8 +1,8 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/gdb/gdb-9999.ebuild,v 1.14 2013/09/15 12:04:52 grobian Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-devel/gdb/gdb-9999.ebuild,v 1.21 2014/02/06 07:44:40 vapier Exp $
 
-EAPI="3"
+EAPI="4"
 
 inherit flag-o-matic eutils
 
@@ -31,7 +31,7 @@ case ${PV} in
 	;;
 9999*)
 	# live git tree
-	EGIT_REPO_URI="git://sourceware.org/git/gdb.git"
+	EGIT_REPO_URI="git://sourceware.org/git/binutils-gdb.git"
 	inherit git-2
 	SRC_URI=""
 	;;
@@ -50,7 +50,7 @@ SRC_URI="${SRC_URI} ${PATCH_VER:+mirror://gentoo/${P}-patches-${PATCH_VER}.tar.x
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
 if [[ ${PV} != 9999* ]] ; then
-	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~ppc-aix ~x86-fbsd ~x64-freebsd ~amd64-linux ~arm-linux ~x86-linux ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~ppc-aix ~amd64-fbsd ~x86-fbsd ~x64-freebsd ~amd64-linux ~arm-linux ~x86-linux ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 fi
 IUSE="+client expat multitarget nls +python +server test vanilla zlib"
 
@@ -105,6 +105,8 @@ src_configure() {
 		$(is_cross && echo \
 			--with-sysroot="${sysroot}" \
 			--includedir="${sysroot}/usr/include")
+		# Disable modules that are in a combined binutils/gdb tree. #490566
+		--disable-{binutils,etc,gas,gold,gprof,ld}
 	)
 
 	if use server && ! use client ; then
@@ -128,6 +130,9 @@ src_configure() {
 			--enable-64-bit-bfd
 			--disable-install-libbfd
 			--disable-install-libiberty
+			# This only disables building in the readline subdir.
+			# For gdb itself, it'll use the system version.
+			--disable-readline
 			--with-system-readline
 			--with-separate-debug-dir="${EPREFIX}"/usr/lib/debug
 			$(use_with expat)
@@ -142,13 +147,13 @@ src_configure() {
 }
 
 src_test() {
-	emake check || ewarn "tests failed"
+	nonfatal emake check || ewarn "tests failed"
 }
 
 src_install() {
 	use server && ! use client && cd gdb/gdbserver
-	emake DESTDIR="${D}" install || die
-	use client && { find "${ED}"/usr -name libiberty.a -delete || die ; }
+	default
+	use client && find "${ED}"/usr -name libiberty.a -delete
 	cd "${S}"
 
 	# Don't install docs when building a cross-gdb
@@ -160,9 +165,8 @@ src_install() {
 	# http://sourceware.org/ml/gdb-patches/2011-12/msg00915.html
 	# Only install if it exists due to the twisted behavior (see
 	# notes in src_configure above).
-	[[ -e gdb/gdbserver/gdbreplay ]] && { dobin gdb/gdbserver/gdbreplay || die ; }
+	[[ -e gdb/gdbserver/gdbreplay ]] && dobin gdb/gdbserver/gdbreplay
 
-	dodoc README
 	if use client ; then
 		docinto gdb
 		dodoc gdb/CONTRIBUTE gdb/README gdb/MAINTAINERS \

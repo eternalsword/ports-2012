@@ -1,6 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-extra/sushi/sushi-3.6.1.ebuild,v 1.7 2013/02/02 22:41:36 ago Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -13,7 +11,7 @@ HOMEPAGE="http://git.gnome.org/browse/sushi"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="*"
 IUSE="office"
 
 # Optional app-office/unoconv support (OOo to pdf)

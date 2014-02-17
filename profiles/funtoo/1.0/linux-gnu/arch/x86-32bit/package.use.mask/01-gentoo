@@ -1,8 +1,17 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/arch/x86/package.use.mask,v 1.125 2013/09/08 17:08:31 ottxor Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/arch/x86/package.use.mask,v 1.130 2014/02/16 15:12:06 ssuominen Exp $
 
 # This file requires >=portage-2.1.1
+
+# Samuli Suominen <ssuominen@gentoo.org> (16 Feb 2014)
+# Still considered experimental by upstream:
+# http://sourceforge.net/p/mikmod/bugs/16/#17ea
+media-libs/libmikmod sse2
+
+# Sergey Popov <pinkbyte@gentoo.org> (27 Dec 2013)
+# Boost.Context can be built on x86
+dev-libs/boost	-context
 
 # Christoph Junghans <ottxor@gentoo.org> (08 Sep 2013)
 # restrict USE=quad for x86 as there are too less registers
@@ -15,8 +24,9 @@ sci-libs/fftw quad
 
 # Tim Harder <radhermit@gentoo.org> (13 Aug 2013)
 # dev-lang/luajit keyworded for x86 (masked in base)
-app-editors/vim -luajit
-app-editors/gvim -luajit
+# dev-scheme/racket keyworded for amd64 (masked in base)
+app-editors/vim -luajit -racket
+app-editors/gvim -luajit -racket
 
 # Kacper Kowalik <xarthisius@gentoo.org> (09 Aug 2013)
 # Works on x86
@@ -26,10 +36,6 @@ sys-apps/hwloc -cuda -gl -opencl
 # Keywords missing, bug #478104
 >=app-editors/gedit-plugins-3.8.3 git
 
-# Pacho Ramos <pacho@gentoo.org> (20 Jul 2013)
-# Keywords pending, bug #476710
->=gnome-base/gnome-extra-apps-3.8 games
-
 # Anthony G. Basile <blueness@gentoo.org> (18 Jun 2013)
 # Works on x86
 net-libs/cyassl -aes-ni
@@ -37,6 +43,7 @@ net-libs/cyassl -aes-ni
 # Justin Lecher <jlec@gentoo.org> (21 Feb 2013)
 # cuda only works on x86 and amd64
 sci-libs/cholmod -cuda
+sci-libs/flann -cuda
 
 # Alexandre Rostovtsev <tetromino@gentoo.org> (30 Dec 2012)
 # sys-apps/biosdevname, systemd work on this arch (masked in base)

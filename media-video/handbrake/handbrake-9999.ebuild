@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/handbrake/handbrake-9999.ebuild,v 1.13 2013/09/16 12:42:28 tomwij Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/handbrake/handbrake-9999.ebuild,v 1.15 2014/02/06 21:35:41 thev00d00 Exp $
 
 EAPI="5"
 
@@ -42,7 +42,6 @@ RDEPEND="
 	media-libs/libbluray
 	media-libs/libdvdnav
 	media-libs/libdvdread
-	media-libs/libmpeg2
 	media-libs/libmp4v2:0
 	media-libs/libmkv
 	media-libs/libsamplerate
@@ -110,9 +109,6 @@ src_prepare() {
 	# Make use of an unpatched version of a52 that does not make a private field public.
 	epatch "${FILESDIR}"/${PN}-9999-use-unpatched-a52.patch
 
-	# Add gmodule to the linker command line for bug #482674.
-	epatch "${FILESDIR}"/${PN}-0.9.9-add-gmodule-to-gtk-configure.patch
-
 	# Fixup configure.ac with newer automake.
 	# TODO: Would like to see this shorten towards the future;
 	#       see which are still needed, put those in a patch instead of 6 lines here.
@@ -126,7 +122,6 @@ src_prepare() {
 	# Don't run autogen.sh.
 	# TODO: Document why we're not running this.
 	sed -i '/autogen.sh/d' module.rules || die "Removing autogen.sh call failed"
-
 	eautoreconf
 }
 
@@ -148,7 +143,6 @@ src_configure() {
 		--enable-libmkv \
 		--enable-mp4v2 \
 		$(use_enable fdk fdk-aac) \
-		$(use_enable ffmpeg ff-mpeg2) \
 		$(use_enable gtk) \
 		$(usex !gstreamer --disable-gst) || die "Configure failed."
 }

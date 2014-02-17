@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-emulation/dolphin/dolphin-4.0.ebuild,v 1.1 2013/09/26 03:37:02 twitch153 Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-emulation/dolphin/dolphin-4.0.ebuild,v 1.4 2014/02/17 01:49:47 twitch153 Exp $
 
 EAPI=5
 
@@ -8,15 +8,17 @@ WX_GTK_VER="2.9"
 
 inherit cmake-utils eutils pax-utils toolchain-funcs versionator wxwidgets games
 
-SRC_URI="http://${PN}-emu.googlecode.com/files/${P}-src.zip"
+SRC_URI="https://github.com/${PN}-emu/${PN}/archive/${PV}.zip"
 KEYWORDS="~amd64"
 
 DESCRIPTION="Gamecube and Wii game emulator"
-HOMEPAGE="http://www.dolphin-emulator.com/"
+HOMEPAGE="https://www.dolphin-emu.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="alsa ao bluetooth doc ffmpeg +lzo openal opengl openmp portaudio pulseaudio"
+
+RESTRICT="mirror"
 
 RDEPEND=">=media-libs/glew-1.6
 	>=media-libs/libsdl-1.2[joystick]
@@ -86,15 +88,16 @@ src_prepare() {
 	# - SOIL: The sources are not public.
 	# - Bochs-disasm: Don't know what it is.
 	# - CLRun: Part of OpenCL
+	# - polarssl: Currently fails the check as is.
 	mv Externals/SOIL . || die
 	mv Externals/Bochs_disasm . || die
 	mv Externals/CLRun . || die
 	mv Externals/polarssl . || die
 	rm -r Externals/* || die
+	mv polarssl Externals || die
 	mv CLRun Externals || die
 	mv Bochs_disasm Externals || die
 	mv SOIL Externals || die
-	mv polarssl Externals || die
 }
 
 src_configure() {
@@ -110,6 +113,11 @@ src_configure() {
 	)
 
 	cmake-utils_src_configure
+}
+
+src_compile() {
+
+	cmake-utils_src_compile
 }
 
 src_install() {

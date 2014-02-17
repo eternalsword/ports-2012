@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-servers/apache/apache-2.4.6-r1.ebuild,v 1.2 2013/07/28 01:39:37 aballier Exp $
+# $Header: /var/cvsroot/gentoo-x86/www-servers/apache/apache-2.4.6-r1.ebuild,v 1.5 2014/01/31 08:32:28 vapier Exp $
 
 EAPI="2"
 
@@ -113,7 +113,7 @@ MODULE_CRITICAL="
 use ssl && MODULE_CRITICAL+=" socache_shmcb"
 use doc && MODULE_CRITICAL+=" alias negotiation setenvif"
 
-inherit eutils apache-2 systemd
+inherit eutils apache-2 systemd toolchain-funcs
 
 DESCRIPTION="The Apache Web Server."
 HOMEPAGE="http://httpd.apache.org/"
@@ -121,7 +121,7 @@ HOMEPAGE="http://httpd.apache.org/"
 # some helper scripts are Apache-1.1, thus both are here
 LICENSE="Apache-2.0 Apache-1.1"
 SLOT="2"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
 IUSE=""
 
 DEPEND="${DEPEND}
@@ -145,7 +145,16 @@ src_prepare() {
 		cd "${S}" || die "Failed to cd to ${S}"
 	fi
 	apache-2_src_prepare
-	sed -i -e 's/! test -f/test -f/' "${GENTOO_PATCHDIR}"/init/apache2.initd || die "Failed to fix init script"
+	pushd "${GENTOO_PATCHDIR}" &>/dev/null || die
+	epatch "${FILESDIR}"/gentoo-apache-2.2.23-initd_fixups.patch
+	popd &>/dev/null || die
+}
+
+src_configure() {
+	# Brain dead check.
+	tc-is-cross-compiler && export ap_cv_void_ptr_lt_long="no"
+
+	apache-2_src_configure
 }
 
 src_install() {

@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-text/active-dvi/active-dvi-1.10.2-r1.ebuild,v 1.1 2013/09/25 19:38:03 ottxor Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-text/active-dvi/active-dvi-1.10.2-r1.ebuild,v 1.4 2014/01/26 15:39:48 ago Exp $
 
 EAPI="5"
 
@@ -17,7 +17,7 @@ LICENSE="LGPL-2.1"
 
 IUSE="+ocamlopt"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~ppc x86"
 
 RDEPEND=">=dev-lang/ocaml-3.11.2:=[ocamlopt?]
 	>=dev-ml/camlimages-4.0.1:=[truetype,tiff,jpeg,postscript,X]
@@ -42,7 +42,7 @@ src_prepare() {
 
 src_configure() {
 	TEXMFMAIN="${EPREFIX}"/usr/share/texmf-site econf $(use_enable ocamlopt native-program) \
-		--docdir="${EPREFIX}/usr/share/doc/${PF}"
+		--docdir="${EPREFIX}/usr/share/doc/${PF}" --enable-dependency-tracking #486066
 }
 
 src_compile() {
@@ -58,6 +58,10 @@ src_install() {
 	dodoc ${DOCS}
 
 	export STRIP_MASK="*/bin/advi.byt"
+
+	for i in "${ED}/usr/share/doc/${PF}/"*.dvi ; do
+		docompress -x /usr/share/doc/${PF}/$(basename $i)
+	done
 }
 
 pkg_postinst() {

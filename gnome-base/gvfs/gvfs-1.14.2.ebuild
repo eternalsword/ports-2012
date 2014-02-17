@@ -1,6 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-base/gvfs/gvfs-1.14.2.ebuild,v 1.9 2013/05/11 22:03:26 ssuominen Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -21,7 +19,7 @@ if [[ ${PV} = 9999 ]]; then
 	KEYWORDS=""
 	DOCS=""
 else
-	KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-interix ~amd64-linux ~arm-linux ~x86-linux ~sparc-solaris ~x86-solaris"
+	KEYWORDS="*"
 	DOCS="AUTHORS ChangeLog NEWS MAINTAINERS README TODO" # ChangeLog.pre-1.2 README.commits
 fi
 
@@ -64,6 +62,7 @@ RDEPEND=">=dev-libs/glib-2.33.12:2
 		virtual/udev[gudev] )
 	udisks? ( >=sys-fs/udisks-1.97:2 )"
 DEPEND="${RDEPEND}
+	app-text/docbook-xsl-stylesheets
 	dev-libs/libxslt
 	>=dev-util/intltool-0.40
 	virtual/pkgconfig

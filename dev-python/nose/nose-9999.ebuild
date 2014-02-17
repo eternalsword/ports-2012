@@ -4,7 +4,7 @@
 
 EAPI="5-progress"
 PYTHON_MULTIPLE_ABIS="1"
-PYTHON_TESTS_FAILURES_TOLERANT_ABIS="2.5 2.6 *-jython"
+PYTHON_TESTS_FAILURES_TOLERANT_ABIS="2.6 *-jython"
 
 inherit distutils git-2
 
@@ -22,7 +22,7 @@ RDEPEND="$(python_abi_depend dev-python/coverage)
 	$(python_abi_depend dev-python/setuptools)"
 DEPEND="${RDEPEND}
 	doc? ( $(python_abi_depend dev-python/sphinx) )
-	test? ( $(python_abi_depend -e "2.5 3.* *-jython" dev-python/twisted-core) )"
+	test? ( $(python_abi_depend -e "3.* *-jython" dev-python/twisted-core) )"
 
 DOCS="AUTHORS"
 
@@ -43,6 +43,9 @@ src_prepare() {
 		-e "s/test_raises_bad_return/_&/g" \
 		-e "s/test_raises_twisted_error/_&/g" \
 		-i unit_tests/test_twisted.py || die "sed failed"
+
+	# Disable failing doctest.
+	rm functional_tests/doc_tests/test_multiprocess/multiprocess.rst
 }
 
 src_compile() {
@@ -57,9 +60,6 @@ src_compile() {
 }
 
 src_test() {
-	# Disable failing doctest.
-	rm -f functional_tests/doc_tests/test_multiprocess/multiprocess.rst
-
 	testing() {
 		if [[ "$(python_get_version -l --major)" == "3" ]]; then
 			rm -fr build || return

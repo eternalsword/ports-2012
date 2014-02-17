@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-visualization/qtiplot/qtiplot-0.9.8.9-r2.ebuild,v 1.3 2013/07/12 15:22:16 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-visualization/qtiplot/qtiplot-0.9.8.9-r2.ebuild,v 1.7 2014/01/19 09:38:26 pacho Exp $
 
 EAPI=5
 
@@ -17,7 +17,7 @@ SRC_URI="
 
 LICENSE="GPL-2 GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="bindist doc mono latex python"
 
 LANGS="cn cz de es fr ja ro ru sv"
@@ -41,9 +41,9 @@ CDEPEND="
 	dev-qt/qtsvg:4
 	>=x11-libs/gl2ps-1.3.5[png]
 	>=dev-cpp/muParser-1.32
-	>=dev-libs/boost-1.35.0
+	>=dev-libs/boost-1.35.0:=
 	dev-libs/quazip
-	media-libs/libpng
+	media-libs/libpng:=
 	sci-libs/alglib
 	sci-libs/gsl
 	sci-libs/tamu_anova
@@ -71,6 +71,8 @@ PATCHES=(
 	"${FILESDIR}"/${P}-set_col_values.patch
 	"${FILESDIR}"/${P}-adopt_to_alglib3.patch
 	"${FILESDIR}"/${P}-crasher_without_internet.patch
+	"${FILESDIR}"/${P}-private.patch
+	"${FILESDIR}"/${P}-sip-4.15.patch
 	)
 
 pkg_setup() {

@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-antivirus/clamav/clamav-0.98.ebuild,v 1.1 2013/09/27 16:04:14 eras Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-antivirus/clamav/clamav-0.98.ebuild,v 1.7 2013/11/29 09:07:21 pinkbyte Exp $
 
 EAPI=5
 
@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~sparc-solaris ~x86-solaris"
+KEYWORDS="alpha amd64 ~arm hppa ia64 ppc ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~sparc-solaris ~x86-solaris"
 IUSE="bzip2 clamdtop iconv ipv6 milter selinux static-libs uclibc"
 
 CDEPEND="bzip2? ( app-arch/bzip2 )
@@ -35,13 +35,14 @@ pkg_setup() {
 }
 
 src_prepare() {
-	use ppc64 && append-flags -mminimal-toic
+	use ppc64 && append-flags -mminimal-toc
 	use uclibc && export ac_cv_type_error_t=yes
 }
 
 src_configure() {
 	econf \
 		--disable-experimental \
+		--disable-fanotify \
 		--enable-id-check \
 		--with-dbdir="${EPREFIX}"/var/lib/clamav \
 		--with-system-tommath \
@@ -115,7 +116,7 @@ src_install() {
 
 	for i in clamd freshclam clamav-milter
 	do
-		[[ -f "${D}"/etc/clamd.conf.sample ]] && mv "${D}"/etc/clamd.conf{.sample,}
+		[[ -f "${D}"/etc/"${i}".conf.sample ]] && mv "${D}"/etc/"${i}".conf{.sample,}
 	done
 
 	prune_libtool_files --all

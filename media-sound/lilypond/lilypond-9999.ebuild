@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/lilypond/lilypond-9999.ebuild,v 1.4 2013/08/29 06:05:10 radhermit Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/lilypond/lilypond-9999.ebuild,v 1.6 2014/02/04 07:31:03 radhermit Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python{2_6,2_7} )
@@ -29,7 +29,10 @@ RDEPEND=">=app-text/ghostscript-gpl-8.15
 DEPEND="${RDEPEND}
 	app-text/t1utils
 	dev-lang/perl
-	dev-texlive/texlive-metapost
+	|| (
+		( >=dev-texlive/texlive-metapost-2013 >=dev-tex/metapost-1.803 )
+		<dev-texlive/texlive-metapost-2013
+	)
 	virtual/pkgconfig
 	media-gfx/fontforge
 	>=sys-apps/texinfo-4.11
@@ -95,7 +98,7 @@ src_install () {
 
 	python_fix_shebang "${ED}"
 
-	dodoc HACKING
+	dodoc HACKING README.txt
 }
 
 pkg_postinst() {

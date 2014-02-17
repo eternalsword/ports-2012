@@ -1,12 +1,12 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/kexec-tools/kexec-tools-9999.ebuild,v 1.8 2013/09/21 11:35:53 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/kexec-tools/kexec-tools-9999.ebuild,v 1.12 2013/12/28 20:27:31 jlec Exp $
 
 EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils flag-o-matic git-2 linux-info systemd
+inherit autotools-utils flag-o-matic git-r3 linux-info systemd
 
 DESCRIPTION="Load another kernel from the currently executing Linux kernel"
 HOMEPAGE="http://kernel.org/pub/linux/utils/kernel/kexec/"
@@ -18,6 +18,8 @@ SLOT="0"
 KEYWORDS=""
 IUSE="booke lzma xen zlib"
 
+REQUIRED_USE="lzma? ( zlib )"
+
 DEPEND="
 	lzma? ( app-arch/xz-utils )
 	zlib? ( sys-libs/zlib )"
@@ -25,7 +27,10 @@ RDEPEND="${DEPEND}"
 
 CONFIG_CHECK="~KEXEC"
 
-PATCHES=( "${FILESDIR}"/${PN}-2.0.4-disable-kexec-test.patch )
+PATCHES=(
+	"${FILESDIR}"/${PN}-2.0.4-disable-kexec-test.patch
+	"${FILESDIR}"/${PN}-2.0.4-out-of-source.patch
+	)
 
 pkg_setup() {
 	# GNU Make's $(COMPILE.S) passes ASFLAGS to $(CCAS), CCAS=$(CC)
@@ -57,6 +62,9 @@ src_install() {
 
 	insinto /etc
 	doins "${FILESDIR}"/kexec.conf
+
+	insinto /etc/kernel/postinst.d
+	doins "${FILESDIR}"/90_kexec
 
 	systemd_dounit "${FILESDIR}"/kexec.service
 }

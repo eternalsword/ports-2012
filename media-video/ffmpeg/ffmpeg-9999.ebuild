@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/ffmpeg/ffmpeg-9999.ebuild,v 1.136 2013/08/12 00:09:07 aballier Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/ffmpeg/ffmpeg-9999.ebuild,v 1.146 2014/02/12 13:15:46 aballier Exp $
 
 EAPI="5"
 
@@ -43,15 +43,27 @@ IUSE="
 	aac aacplus alsa amr amrenc bindist bluray +bzip2 cdio celt
 	cpudetection debug doc +encode examples faac fdk flite fontconfig frei0r
 	gme	gnutls gsm +hardcoded-tables +iconv iec61883 ieee1394 jack jpeg2k
-	libass libcaca libsoxr libv4l modplug mp3 network openal openssl opus oss
-	pic pulseaudio quvi rtmp schroedinger sdl speex static-libs test theora
-	threads truetype twolame v4l vaapi vdpau vorbis vpx wavpack X x264 xvid
-	+zlib
+	ladspa libass libcaca libsoxr libv4l modplug mp3 +network openal opengl
+	openssl opus oss pic pulseaudio quvi rtmp schroedinger sdl speex ssh
+	static-libs test theora threads truetype twolame v4l vaapi vdpau vorbis vpx
+	wavpack X x264 xvid +zlib zvbi
 	"
+
+ARM_CPU_FEATURES="armv5te armv6 armv6t2 neon armvfp:vfp"
+MIPS_CPU_FEATURES="mips32r2 mipsdspr1 mipsdspr2 mipsfpu"
+PPC_CPU_FEATURES="altivec"
+SPARC_CPU_FEATURES="vis"
+X86_CPU_FEATURES="3dnow:amd3dnow 3dnowext:amd3dnowext avx avx2 fma4 mmx mmxext sse sse2 sse3 ssse3 sse4 sse4_2:sse42"
 
 # String for CPU features in the useflag[:configure_option] form
 # if :configure_option isn't set, it will use 'useflag' as configure option
-CPU_FEATURES="3dnow:amd3dnow 3dnowext:amd3dnowext altivec avx mmx mmxext ssse3 vis neon"
+CPU_FEATURES="
+	${ARM_CPU_FEATURES}
+	${MIPS_CPU_FEATURES}
+	${PPC_CPU_FEATURES}
+	${SPARC_CPU_FEATURES}
+	${X86_CPU_FEATURES}
+"
 
 for i in ${CPU_FEATURES}; do
 	IUSE="${IUSE} ${i%:*}"
@@ -75,7 +87,6 @@ RDEPEND="
 		aacplus? ( media-libs/libaacplus )
 		amrenc? ( media-libs/vo-amrwbenc )
 		faac? ( media-libs/faac )
-		fdk? ( media-libs/fdk-aac )
 		mp3? ( >=media-sound/lame-3.98.3 )
 		theora? ( >=media-libs/libtheora-1.1.1[encode] media-libs/libogg )
 		twolame? ( media-sound/twolame )
@@ -83,6 +94,7 @@ RDEPEND="
 		x264? ( >=media-libs/x264-0.0.20111017:= )
 		xvid? ( >=media-libs/xvid-1.1.0 )
 	)
+	fdk? ( media-libs/fdk-aac )
 	flite? ( app-accessibility/flite )
 	fontconfig? ( media-libs/fontconfig )
 	frei0r? ( media-plugins/frei0r-plugins )
@@ -100,14 +112,16 @@ RDEPEND="
 	libv4l? ( media-libs/libv4l )
 	modplug? ( media-libs/libmodplug )
 	openal? ( >=media-libs/openal-1.1 )
+	opengl? ( virtual/opengl )
 	openssl? ( dev-libs/openssl )
 	opus? ( media-libs/opus )
 	pulseaudio? ( media-sound/pulseaudio )
-	quvi? ( media-libs/libquvi )
+	quvi? ( media-libs/libquvi:0.4 )
 	rtmp? ( >=media-video/rtmpdump-2.2f )
 	sdl? ( >=media-libs/libsdl-1.2.13-r1[audio,video] )
 	schroedinger? ( media-libs/schroedinger )
 	speex? ( >=media-libs/speex-1.2_beta3 )
+	ssh? ( net-libs/libssh )
 	truetype? ( media-libs/freetype:2 )
 	vaapi? ( >=x11-libs/libva-0.32 )
 	vdpau? ( x11-libs/libvdpau )
@@ -115,6 +129,7 @@ RDEPEND="
 	vpx? ( >=media-libs/libvpx-0.9.6 )
 	X? ( x11-libs/libX11 x11-libs/libXext x11-libs/libXfixes )
 	zlib? ( sys-libs/zlib )
+	zvbi? ( media-libs/zvbi )
 	!media-video/qt-faststart
 	!media-libs/libpostproc
 "
@@ -125,8 +140,9 @@ DEPEND="${RDEPEND}
 	fontconfig? ( virtual/pkgconfig )
 	gnutls? ( virtual/pkgconfig )
 	ieee1394? ( virtual/pkgconfig )
+	ladspa? ( media-libs/ladspa-sdk )
 	libv4l? ( virtual/pkgconfig )
-	mmx? ( dev-lang/yasm )
+	mmx? ( >=dev-lang/yasm-1.2 )
 	rtmp? ( virtual/pkgconfig )
 	schroedinger? ( virtual/pkgconfig )
 	test? ( net-misc/wget )
@@ -165,7 +181,7 @@ src_configure() {
 	# Encoders
 	if use encode
 	then
-		ffuse="${ffuse} aac:libvo-aacenc amrenc:libvo-amrwbenc mp3:libmp3lame fdk:libfdk-aac"
+		ffuse="${ffuse} aac:libvo-aacenc amrenc:libvo-amrwbenc mp3:libmp3lame"
 		for i in aacplus faac theora twolame wavpack x264 xvid; do
 			ffuse="${ffuse} ${i}:lib${i}"
 		done
@@ -174,7 +190,7 @@ src_configure() {
 		if use aac || use amrenc ; then
 			myconf="${myconf} --enable-version3"
 		fi
-		if use aacplus || use faac || use fdk ; then
+		if use aacplus || use faac ; then
 			myconf="${myconf} --enable-nonfree"
 		fi
 	else
@@ -182,7 +198,7 @@ src_configure() {
 	fi
 
 	# libavdevice options
-	ffuse="${ffuse}	cdio:libcdio iec61883:libiec61883 ieee1394:libdc1394 libcaca openal"
+	ffuse="${ffuse}	cdio:libcdio iec61883:libiec61883 ieee1394:libdc1394 libcaca openal opengl"
 
 	# Indevs
 	use v4l || myconf="${myconf} --disable-indev=v4l2 --disable-outdev=v4l2"
@@ -197,7 +213,7 @@ src_configure() {
 	done
 
 	# libavfilter options
-	ffuse="${ffuse} flite:libflite frei0r fontconfig libass truetype:libfreetype"
+	ffuse="${ffuse} flite:libflite frei0r fontconfig ladspa libass truetype:libfreetype"
 
 	# libswresample options
 	ffuse="${ffuse} libsoxr"
@@ -206,11 +222,12 @@ src_configure() {
 	ffuse="${ffuse} threads:pthreads"
 
 	# Decoders
-	ffuse="${ffuse} amr:libopencore-amrwb amr:libopencore-amrnb	jpeg2k:libopenjpeg"
+	ffuse="${ffuse} amr:libopencore-amrwb amr:libopencore-amrnb fdk:libfdk-aac jpeg2k:libopenjpeg"
 	use amr && myconf="${myconf} --enable-version3"
-	for i in bluray celt gme gsm modplug opus quvi rtmp schroedinger speex vorbis vpx; do
+	for i in bluray celt gme gsm modplug opus quvi rtmp ssh schroedinger speex vorbis vpx zvbi; do
 		ffuse="${ffuse} ${i}:lib${i}"
 	done
+	use fdk && myconf="${myconf} --enable-nonfree"
 
 	for i in ${ffuse} ; do
 		myconf="${myconf} $(use_enable ${i%:*} ${i#*:})"

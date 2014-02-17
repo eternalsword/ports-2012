@@ -1,3 +1,10 @@
+#  cautionary mask to freetype-2.5.1, broken
+=media-libs/freetype-2.5.1
+
+#  Oleg Vinichenko (3 Dec 2013)
+#  mask latest version of autogen, broken
+>=sys-devel/autogen-5.18
+  
 #  Oleg Vinichenko (6 Sep 2013)
 #  mask perl modules that explicitly require newer perl-5.18
 #  until we get perl-5.18 to tree.
@@ -39,17 +46,9 @@ app-benchmarks/phoronix-test-suite
 # depends on sys-app/texinfo-5
 =app-emulation/xen-tools-4.2.2-r1
 
-#  Oleg Vinichenko ( 26 jun 2013)
-#  mask beta version of postgresql, FL-591
->dev-db/postgresql-base-9.2.4
-
 #  Oleg Vinichenko (16 Jun 2013)
 #  mask broken hexchat ebuild FL-584
 >=net-irc/hexchat-2.9.5_p20130525 
-
-# Oleg Vinichenk (16 Jun 2013)
-# cautionary mask latest icu-51.2, breaks expected
->=dev-libs/icu-51.2-r1000
 
 # Oleg Vinichenko (12 Jun 2013)
 # mask openmpi-1.6.4 due to sandbox issues, FL-578, https://bugs.gentoo.org/show_bug.cgi?id=462602
@@ -64,7 +63,7 @@ app-benchmarks/phoronix-test-suite
 # Oleg Vinichenko (23 Apr 2013)
 # mask xorg-server-1.14, driver incompatibility, FL-449, FL-522,
 # security update for xorg-server
->x11-base/xorg-server-1.13.4
+>x11-base/xorg-server-1.14.3-r2
 
 # Oleg Vinichenko (19 Apr 2013)
 # mask back mpc-1.0.1, ebuild itself is fine and usable
@@ -97,19 +96,6 @@ sys-fs/zfs-fuse
 # mask dangerous baselayout-2.2.0-r2
 =sys-apps/baselayout-2.2.0-r2
 
-# Oleg Vinichenko (30 Oct 2012 )
-# mask back nano-2.3.1-r2, stage build  issues
->=app-editors/nano-2.3.1-r2
-
-# Oleg Vinichenko (24 Oct 2012)
-# less-452 breaks man pages
->=sys-apps/less-452
-
-# Oleg Vinichenko (22 Jul 2012)
-# mask libusbx, try to avoid pulling into stages
->=dev-libs/libusbx-1.0.12
-
-
 # Adrien Dessemond (09 May 2012)
 # Python 2.7.4-pre and 3.2.4-pre versions are problematic to fetch from upstrea$
 # and per their nature should not be in Funtoo stable anyway
@@ -126,7 +112,7 @@ sys-fs/zfs-fuse
 # for adventurous ones!
 # Daniel Robbins (15 Sep 2012) - new udev version to fix /run persistent issues:
 # Jean-Francis Roy (28 Nov 2012) - new udev version to add keymap USE flag + virtual/udev mask:
->sys-fs/udev-171-r8
+>sys-fs/udev-171-r10
 >sys-fs/eudev-0-r1
 >virtual/udev-171
 

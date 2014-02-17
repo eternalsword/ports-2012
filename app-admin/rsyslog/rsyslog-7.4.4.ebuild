@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/rsyslog/rsyslog-7.4.4.ebuild,v 1.2 2013/09/11 08:12:45 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/rsyslog/rsyslog-7.4.4.ebuild,v 1.8 2013/12/24 12:21:31 ultrabug Exp $
 
 EAPI=4
 AUTOTOOLS_AUTORECONF=yes
@@ -12,7 +12,7 @@ HOMEPAGE="http://www.rsyslog.com/"
 SRC_URI="http://www.rsyslog.com/files/download/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3 LGPL-3 Apache-2.0"
-KEYWORDS="~amd64 ~arm ~hppa ~x86"
+KEYWORDS="amd64 ~arm hppa x86"
 SLOT="0"
 IUSE="dbi debug doc extras kerberos mysql oracle postgres relp snmp ssl static-libs systemd zeromq zlib"
 
@@ -20,8 +20,8 @@ RDEPEND="
 	dev-libs/json-c
 	dev-libs/libee
 	>=dev-libs/libestr-0.1.5
+	dev-libs/libgcrypt
 	dev-libs/liblognorm
-	net-misc/curl
 	dbi? ( dev-db/libdbi )
 	extras? ( net-libs/libnet )
 	kerberos? ( virtual/krb5 )
@@ -30,9 +30,9 @@ RDEPEND="
 	oracle? ( dev-db/oracle-instantclient-basic )
 	relp? ( >=dev-libs/librelp-1.0.3 )
 	snmp? ( net-analyzer/net-snmp )
-	ssl? ( net-libs/gnutls dev-libs/libgcrypt )
+	ssl? ( net-libs/gnutls )
 	systemd? ( sys-apps/systemd )
-	zeromq? ( net-libs/czmq )
+	zeromq? ( >=net-libs/zeromq-3 <net-libs/czmq-2 )
 	zlib? ( sys-libs/zlib )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"

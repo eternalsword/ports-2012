@@ -4,10 +4,9 @@
 
 EAPI="5"
 GCONF_DEBUG="no"
-MATE_LA_PUNT="yes"
-PYTHON_DEPEND="2:2.5"
+GNOME2_LA_PUNT="yes"
 
-inherit mate python
+inherit mate
 
 DESCRIPTION="The MATE panel"
 HOMEPAGE="http://mate-desktop.org"
@@ -43,23 +42,19 @@ DEPEND="${RDEPEND}
 	~app-text/docbook-xml-dtd-4.1.2
 	>=mate-base/mate-common-1.5.0"
 
-pkg_setup() {
-	# possible values: none, clock, fish, notification-area, wncklet, all
-	local applets="all"
-	G2CONF="${G2CONF}
-		--libexecdir=/usr/libexec/mate-applets
-		--disable-deprecation-flags
-		--with-in-process-applets=${applets}
-		$(use_enable networkmanager network-manager)
-		$(use_enable introspection)"
-	DOCS="AUTHORS ChangeLog HACKING NEWS README"
-	python_set_active_version 2
+src_prepare() {
+	# Disable useless python check.
+	sed -e '/AM_PATH_PYTHON/d' -i configure.ac || die
+	eautoreconf
+	gnome2_src_prepare
 }
 
-src_prepare() {
-	sed -e '/toplevel-id-list \= \/apps\/panel\/general\/toplevel_id_list/d' \
-		-i data/mate-panel.convert
-	sed -e '/object-id-list \= \/apps\/panel\/general\/object_id_list/d' \
-		-i data/mate-panel.convert
-	mate_src_prepare
+src_configure() {
+	DOCS="AUTHORS ChangeLog HACKING NEWS README"
+
+	gnome2_src_configure \
+		--libexecdir=/usr/libexec/mate-applets \
+		--disable-deprecation-flags \
+		$(use_enable networkmanager network-manager) \
+		$(use_enable introspection)
 }

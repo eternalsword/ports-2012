@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-qt/qtdemo/qtdemo-4.8.5-r1.ebuild,v 1.1 2013/07/25 09:07:41 pesa Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-qt/qtdemo/qtdemo-4.8.5-r1.ebuild,v 1.6 2013/12/28 02:06:13 pesa Exp $
 
 EAPI=4
 
@@ -11,7 +11,7 @@ SLOT="4"
 if [[ ${QT4_BUILD_TYPE} == live ]]; then
 	KEYWORDS=""
 else
-	KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~x64-macos"
+	KEYWORDS="amd64 ~arm ppc ppc64 x86 ~x64-macos"
 fi
 IUSE="dbus declarative kde multimedia opengl openvg phonon qt3support webkit xmlpatterns"
 
@@ -97,10 +97,10 @@ src_configure() {
 	myconf+="
 		$(qt_use dbus)
 		$(qt_use declarative)
-		$(qt_use multimedia)
+		$(qt_use multimedia) -no-audio-backend
 		$(qt_use opengl)
 		$(qt_use openvg)
-		$(qt_use phonon)
+		$(qt_use phonon) -no-phonon-backend
 		$(qt_use qt3support)
 		$(qt_use webkit)
 		$(qt_use xmlpatterns)"

@@ -1,9 +1,28 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/eapi-5-files/package.use.stable.mask,v 1.26 2013/09/26 15:07:59 floppym Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/eapi-5-files/package.use.stable.mask,v 1.36 2014/01/18 08:10:33 vapier Exp $
 
 # This file requires eapi 5 or later. New entries go on top.
 # Please use the same syntax as in package.use.mask
+
+# Ian Delaney <idella4@gentoo.org> (09 Dec 2013)
+# subsequent to the total inaction of the maintainer of
+# ocaml to honour / respond in any way to 
+# Bug #486076, ocaml masked to allow xen to once again
+# become a stabilisable package
+app-emulation/xen-tools ocaml
+
+# Pacho Ramos <pacho@gentoo.org> (17 Nov 2013)
+# Still needs gnutls-3
+>=net-nntp/pan-0.139 ssl
+
+# Sergey Popov <pinkbyte@gentoo.org> (28 Oct 2013)
+# sys-cluster/cman is still in ~arch.
+sys-cluster/pacemaker cman
+
+# Alexandre Rostovtsev <tetromino@gentoo.org> (02 Oct 2013)
+# We want to stabilize zukitwo before gnome-shell
+x11-themes/zukitwo gnome-shell
 
 # Mike Gilbert <floppym@gentoo.org> (21 Sep 2013)
 # sys-fs/zfs isn't going stable anytime soon.
@@ -20,10 +39,6 @@ app-emulation/qemu glusterfs
 # Agostino Sarubbo <ago@gentoo.org> (31 Aug 2013)
 # Clang is not stable
 app-portage/eix clang
-
-# Alexandre Rostovtsev <tetromino@gentoo.org> (15 Aug 2013)
-# Remove when app-crypt/libsecret is stable
-=gnome-base/gvfs-1.14.2 gnome-keyring
 
 # Samuli Suominen <ssuominen@gentoo.org> (01 Aug 2013)
 # The dependencies for these flags are still in ~arch.

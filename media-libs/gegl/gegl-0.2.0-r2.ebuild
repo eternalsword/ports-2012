@@ -1,9 +1,10 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/gegl/gegl-0.2.0-r2.ebuild,v 1.10 2013/09/25 17:25:48 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/gegl/gegl-0.2.0-r2.ebuild,v 1.12 2013/11/26 02:48:55 patrick Exp $
 
 EAPI=5
 
+WANT_AUTOMAKE=1.11  # see bug 471990, comment 3
 # vala and introspection support is broken, bug #468208
 #VALA_MIN_API_VERSION=0.14
 #VALA_USE_DEPEND=vapigen
@@ -32,7 +33,7 @@ RDEPEND="
 	jpeg2k? ( >=media-libs/jasper-1.900.1 )
 	openexr? ( media-libs/openexr )
 	png? ( media-libs/libpng )
-	raw? ( >=media-libs/libopenraw-0.0.5 )
+	raw? ( =media-libs/libopenraw-0.0.9 )
 	sdl? ( media-libs/libsdl )
 	svg? ( >=gnome-base/librsvg-2.14:2 )
 	umfpack? ( sci-libs/umfpack )

@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-p2p/qbittorrent/qbittorrent-9999.ebuild,v 1.10 2013/09/05 19:44:42 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-p2p/qbittorrent/qbittorrent-9999.ebuild,v 1.14 2013/12/30 12:55:47 hwoarang Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python{2_6,2_7} )
@@ -23,7 +23,9 @@ IUSE="dbus +X geoip"
 CDEPEND="dev-libs/boost
 	dev-qt/qtcore:4
 	net-libs/rb_libtorrent
+	>=dev-qt/qtsingleapplication-2.6.1_p20130904
 	X? ( dev-qt/qtgui:4 )
+
 	dbus? ( dev-qt/qtdbus:4 )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
@@ -41,12 +43,13 @@ src_prepare() {
 
 src_configure() {
 	local myconf
-	use X         || myconf+=" --disable-gui"
 	use geoip     || myconf+=" --disable-geoip-database"
 	use dbus      || myconf+=" --disable-qt-dbus"
+	use X         || myconf+=" --disable-gui"
 
 	# econf fails, since this uses qconf
 	./configure --prefix=/usr --qtdir=/usr \
+		--with-qtsingleapplication=system \
 		--with-libboost-inc=/usr/include/boost \
 		${myconf} || die "configure failed"
 	eqmake4
