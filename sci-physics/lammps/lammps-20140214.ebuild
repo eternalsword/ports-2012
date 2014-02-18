@@ -1,10 +1,8 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/lammps/lammps-20140212.ebuild,v 1.3 2014/02/18 12:12:39 nicolasbock Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/lammps/lammps-20140214.ebuild,v 1.1 2014/02/18 13:02:44 nicolasbock Exp $
 
 EAPI=5
-
-FORTRAN_NEEDED="lammps-package-meam"
 
 inherit eutils fortran-2
 
@@ -48,8 +46,7 @@ SRC_URI="http://lammps.sandia.gov/tars/${MY_P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="doc examples gzip lammps-memalign lammps-package-dipole
-	lammps-package-meam lammps-package-reax lammps-package-rigid mpi"
+IUSE="doc examples gzip lammps-memalign mpi"
 
 DEPEND="mpi? ( virtual/mpi )"
 RDEPEND="${DEPEND}"
@@ -80,29 +77,33 @@ lmp_emake() {
 src_prepare() {
 	# Fix inconsistent use of SHFLAGS.
 	sed -i -e 's:$(CCFLAGS):$(CCFLAGS) -fPIC:' src/STUBS/Makefile || die
-	if use lammps-package-meam; then
-		sed -i -e 's:$(F90FLAGS):$(F90FLAGS) -fPIC:' lib/meam/Makefile.gfortran || die
-	fi
-	if use lammps-package-reax; then
-		sed -i -e 's:$(F90FLAGS):$(F90FLAGS) -fPIC:' lib/reax/Makefile.gfortran || die
-	fi
+	sed -i -e 's:$(F90FLAGS):$(F90FLAGS) -fPIC:' lib/meam/Makefile.gfortran || die
+	sed -i -e 's:$(F90FLAGS):$(F90FLAGS) -fPIC:' lib/reax/Makefile.gfortran || die
+
+	# Fix makefile in tools.
+	sed -i \
+		-e 's:g++:$(CXX) $(CXXFLAGS):' \
+		-e 's:gcc:$(CC) $(CCFLAGS):' \
+		-e 's:ifort:$(FC) $(FCFLAGS):' \
+		tools/Makefile
 }
 
 src_compile() {
 	# Compile stubs for serial version.
 	use mpi || lmp_emake -C src stubs
 
-	# Build optional packages.
-	if use lammps-package-meam; then
-		lmp_emake -C src yes-meam
-		lmp_emake -j1 -C lib/meam -f Makefile.gfortran
-	fi
-	use lammps-package-dipole && emake -C src yes-dipole
-	use lammps-package-rigid && emake -C src yes-rigid
-	if use lammps-package-reax; then
-		emake -C src yes-reax
-		lmp_emake -j1 -C lib/reax -f Makefile.gfortran
-	fi
+	# Build packages
+	emake -C src yes-dipole
+	emake -C src yes-kspace
+	emake -C src yes-mc
+	lmp_emake -C src yes-meam
+	lmp_emake -j1 -C lib/meam -f Makefile.gfortran
+	emake -C src yes-reax
+	emake -C src yes-replica
+	lmp_emake -j1 -C lib/reax -f Makefile.gfortran
+	emake -C src yes-rigid
+	emake -C src yes-shock
+	emake -C src yes-xtc
 
 	# Build static library.
 	lmp_emake -C src makelib
@@ -114,12 +115,16 @@ src_compile() {
 
 	# Compile main executable.
 	lmp_emake -C src serial
+
+	# Compile tools.
+	emake -C tools binary2txt
 }
 
 src_install() {
 	newlib.a "src/liblammps_serial.a" "liblammps.a"
 	newlib.so "src/liblammps_serial.so" "liblammps.so"
 	newbin "src/lmp_serial" "lmp"
+	dobin tools/binary2txt
 
 	local LAMMPS_POTENTIALS="/usr/share/${PF}/potentials"
 	insinto "${LAMMPS_POTENTIALS}"
@@ -138,9 +143,4 @@ src_install() {
 		dodoc doc/Manual.pdf
 		dohtml -r doc/*
 	fi
-
-	einfo "starting with this version, the optional package USE flags have"
-	einfo "changed names. Simply prepend lammps- in front the old ones, i.e."
-	einfo "the dipole package is built with the lammps-package-dipole USE"
-	einfo "flag."
 }
