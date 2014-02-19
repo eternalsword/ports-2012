@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/lammps/lammps-20140214.ebuild,v 1.1 2014/02/18 13:02:44 nicolasbock Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/lammps/lammps-20140214.ebuild,v 1.4 2014/02/19 19:05:49 nicolasbock Exp $
 
 EAPI=5
 
@@ -46,7 +46,7 @@ SRC_URI="http://lammps.sandia.gov/tars/${MY_P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="doc examples gzip lammps-memalign mpi"
+IUSE="doc examples gzip lammps-memalign mpi static-libs"
 
 DEPEND="mpi? ( virtual/mpi )"
 RDEPEND="${DEPEND}"
@@ -105,9 +105,11 @@ src_compile() {
 	emake -C src yes-shock
 	emake -C src yes-xtc
 
-	# Build static library.
-	lmp_emake -C src makelib
-	lmp_emake -C src -f Makefile.lib serial
+	if use static-libs; then
+		# Build static library.
+		lmp_emake -C src makelib
+		lmp_emake -C src -f Makefile.lib serial
+	fi
 
 	# Build shared library.
 	lmp_emake -C src makeshlib
@@ -121,19 +123,23 @@ src_compile() {
 }
 
 src_install() {
-	newlib.a "src/liblammps_serial.a" "liblammps.a"
+	use static-libs && newlib.a "src/liblammps_serial.a" "liblammps.a"
 	newlib.so "src/liblammps_serial.so" "liblammps.so"
 	newbin "src/lmp_serial" "lmp"
 	dobin tools/binary2txt
+	# Don't forget to add header files of optional packages as they are added
+	# to this ebuild. There may also be .mod files from Fortran based
+	# packages.
+	doheader -r src/*.h lib/meam/*.mod
 
-	local LAMMPS_POTENTIALS="/usr/share/${PF}/potentials"
+	local LAMMPS_POTENTIALS="/usr/share/${PN}/potentials"
 	insinto "${LAMMPS_POTENTIALS}"
 	doins potentials/*
 	echo "LAMMPS_POTENTIALS=${LAMMPS_POTENTIALS}" > 99lammps
 	doenvd 99lammps
 
 	if use examples; then
-		local LAMMPS_EXAMPLES="/usr/share/${PF}/examples"
+		local LAMMPS_EXAMPLES="/usr/share/${PN}/examples"
 		insinto "${LAMMPS_EXAMPLES}"
 		doins -r examples/*
 	fi
