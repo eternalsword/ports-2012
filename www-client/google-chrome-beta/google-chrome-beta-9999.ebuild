@@ -25,9 +25,11 @@ LIBGCRYPT="libgcrypt.so.11.8.2"
 SRC_URI="
 	amd64? (
 		https://dl.google.com/linux/direct/google-chrome-beta_current_amd64.deb
+		http://dev.gentoo.org/~floppym/dist/${LIBGCRYPT}-amd64.xz
 	)
 	x86? (
 		https://dl.google.com/linux/direct/google-chrome-beta_current_i386.deb
+		http://dev.gentoo.org/~floppym/dist/${LIBGCRYPT}-x86.xz
 	)
 "
 
