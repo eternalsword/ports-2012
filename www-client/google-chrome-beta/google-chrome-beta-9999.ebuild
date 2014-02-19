@@ -13,6 +13,12 @@ inherit readme.gentoo chromium eutils multilib pax-utils unpacker
 DESCRIPTION="The web browser from Google"
 HOMEPAGE="http://www.google.com/chrome"
 
+if [[ ${PN} == google-chrome ]]; then
+	MY_PN=${PN}-stable
+else
+	MY_PN=${PN}
+fi
+
 # Bundle a copy of libgcrypt, bug 494596
 LIBGCRYPT="libgcrypt.so.11.8.2"
 
