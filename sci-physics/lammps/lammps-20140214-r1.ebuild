@@ -1,10 +1,10 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/lammps/lammps-20140214.ebuild,v 1.5 2014/02/19 20:12:04 nicolasbock Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/lammps/lammps-20140214-r1.ebuild,v 1.2 2014/02/19 22:49:50 nicolasbock Exp $
 
 EAPI=5
 
-inherit eutils fortran-2
+inherit eutils fortran-2 multilib
 
 convert_month() {
 	case $1 in
@@ -80,12 +80,17 @@ src_prepare() {
 	sed -i -e 's:$(F90FLAGS):$(F90FLAGS) -fPIC:' lib/meam/Makefile.gfortran || die
 	sed -i -e 's:$(F90FLAGS):$(F90FLAGS) -fPIC:' lib/reax/Makefile.gfortran || die
 
+	# Fix missing .so name.
+	sed -i \
+		-e 's:SHLIBFLAGS\s\+=\s\+:SHLIBFLAGS = -Wl,-soname,liblammps.so.0 :' \
+		src/MAKE/Makefile.serial || die
+
 	# Fix makefile in tools.
 	sed -i \
 		-e 's:g++:$(CXX) $(CXXFLAGS):' \
 		-e 's:gcc:$(CC) $(CCFLAGS):' \
 		-e 's:ifort:$(FC) $(FCFLAGS):' \
-		tools/Makefile
+		tools/Makefile || die
 }
 
 src_compile() {
@@ -105,9 +110,11 @@ src_compile() {
 	emake -C src yes-shock
 	emake -C src yes-xtc
 
-	# Build static library.
-	lmp_emake -C src makelib
-	lmp_emake -C src -f Makefile.lib serial
+	if use static-libs; then
+		# Build static library.
+		lmp_emake -C src makelib
+		lmp_emake -C src -f Makefile.lib serial
+	fi
 
 	# Build shared library.
 	lmp_emake -C src makeshlib
@@ -121,19 +128,26 @@ src_compile() {
 }
 
 src_install() {
-	use static-libs && newlib.a "src/liblammps_serial.a" "liblammps.a"
-	newlib.so "src/liblammps_serial.so" "liblammps.so"
-	newbin "src/lmp_serial" "lmp"
+	use static-libs && newlib.a src/liblammps_serial.a liblammps.a
+	newlib.so src/liblammps_serial.so liblammps.so.0.0.0
+	dosym liblammps.so.0.0.0 /usr/$(get_libdir)/liblammps.so
+	dosym liblammps.so.0.0.0 /usr/$(get_libdir)/liblammps.so.0
+	newbin src/lmp_serial lmp
 	dobin tools/binary2txt
+	# Don't forget to add header files of optional packages as they are added
+	# to this ebuild. There may also be .mod files from Fortran based
+	# packages.
+	insinto "/usr/include/${PN}"
+	doins -r src/*.h lib/meam/*.mod
 
-	local LAMMPS_POTENTIALS="/usr/share/${PF}/potentials"
-	insinto "${LAMMPS_POTENTIALS}"
+	local LAMMPS_POTENTIALS="usr/share/${PN}/potentials"
+	insinto "/${LAMMPS_POTENTIALS}"
 	doins potentials/*
-	echo "LAMMPS_POTENTIALS=${LAMMPS_POTENTIALS}" > 99lammps
+	echo "LAMMPS_POTENTIALS=${EROOT}${LAMMPS_POTENTIALS}" > 99lammps
 	doenvd 99lammps
 
 	if use examples; then
-		local LAMMPS_EXAMPLES="/usr/share/${PF}/examples"
+		local LAMMPS_EXAMPLES="/usr/share/${PN}/examples"
 		insinto "${LAMMPS_EXAMPLES}"
 		doins -r examples/*
 	fi
