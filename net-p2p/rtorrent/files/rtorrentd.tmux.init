@@ -10,6 +10,8 @@ depend() {
 
 start() {
 	PWHOME="$(getent passwd $USER | awk -F: '{ print $6 }')"
+	DAEMON="/usr/bin/tmux"
+	DAEMON_OPTS="new -s rtorrent -f /etc/rtorrent.tmux.conf -d /usr/bin/rtorrent"
 
 	ebegin "Starting rtorrent"
 	env TERM="xterm" \
@@ -21,7 +23,7 @@ start() {
 			--user $USER \
 			--env HOME="${PWHOME:-/home/$USER}" \
 			--name rtorrent \
-			--exec /usr/bin/tmux new -s rtorrent -f /etc/rtorrent.tmux.conf -d /usr/bin/rtorrent
+			--exec $DAEMON -- $DAEMON_OPTS
 	eend $?
 }
 
