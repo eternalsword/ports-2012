@@ -14,7 +14,7 @@ inherit git-2
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris"
-IUSE="daemon debug ipv6 test xmlrpc"
+IUSE="daemon tmux debug ipv6 test xmlrpc"
 
 COMMON_DEPEND="=net-libs/libtorrent-9999
 	>=dev-libs/libsigc++-2.2.2:2
@@ -22,7 +22,13 @@ COMMON_DEPEND="=net-libs/libtorrent-9999
 	sys-libs/ncurses
 	xmlrpc? ( dev-libs/xmlrpc-c )"
 RDEPEND="${COMMON_DEPEND}
-	daemon? ( app-misc/screen )"
+	daemon? ( 
+		tmux? ( app-misc/tmux )
+		!tmux? ( app-misc/screen )
+	)
+	!daemon? (
+		tmux? ( app-misc/tmux )
+	)"
 DEPEND="${COMMON_DEPEND}
 	test? ( dev-util/cppunit )
 	virtual/pkgconfig"
@@ -49,7 +55,17 @@ src_install() {
 	doman doc/rtorrent.1
 
 	if use daemon; then
-		newinitd "${FILESDIR}/rtorrentd.init" rtorrentd
+		if use tmux; then
+			newinitd "${FILESDIR}/rtorrentd.tmux.init" rtorrentd
+			cp "${FILESDIR}/rtorrent.tmux.conf" "${ED}/etc/rtorrent.tmux.conf" || die
+		else
+			newinitd "${FILESDIR}/rtorrentd.init" rtorrentd
+		fi
 		newconfd "${FILESDIR}/rtorrentd.conf" rtorrentd
+	else
+		if use tmux; then
+			newinitd "${FILESDIR}/rtorrentd.tmux.init" rtorrentd
+			cp "${FILESDIR}/rtorrent.tmux.conf" "${ED}/etc/rtorrent.tmux.conf" || die
+		fi
 	fi
 }
