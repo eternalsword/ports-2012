@@ -24,8 +24,7 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 #	epatch "${FILESDIR}"/download_constructor.diff
-	eautoconf
-	elibtoolize
+	eautoreconf
 }
 
 src_configure() {

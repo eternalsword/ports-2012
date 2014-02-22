@@ -32,7 +32,7 @@ DOCS=( doc/rtorrent.rc )
 src_prepare() {
 	# upstream forgot to include
 	cp ${FILESDIR}/rtorrent.1 ${S}/doc/ || die
-	eautoconf
+	eautoreconf
 }
 
 src_configure() {
