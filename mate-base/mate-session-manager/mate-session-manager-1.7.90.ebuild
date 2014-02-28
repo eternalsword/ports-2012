@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,13 +14,14 @@ LICENSE="GPL-2 LGPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 
-IUSE="ipv6 elibc_FreeBSD systemd"
+IUSE="gtk3 ipv6 elibc_FreeBSD systemd"
 
 # x11-misc/xdg-user-dirs{,-gtk} are needed to create the various XDG_*_DIRs, and
 # create .config/user-dirs.dirs which is read by glib to get G_USER_DIRECTORY_*
 # xdg-user-dirs-update is run during login (see 10-user-dirs-update-gnome below).
 RDEPEND=">=dev-libs/glib-2.16:2
-	x11-libs/gtk+:2
+	gtk3? ( x11-libs/gtk+:3 )
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=dev-libs/dbus-glib-0.76
 	>=sys-power/upower-0.9.0
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
@@ -52,12 +53,6 @@ src_prepare() {
 	# see https://bugzilla.gnome.org/show_bug.cgi?id=627903
 	epatch "${FILESDIR}/${PN}-1.2.0-idle-transition.patch"
 
-	# Fix suspend support with systemd
-	epatch "${FILESDIR}/${P}-login1.patch"
-
-	# Use gnome-keyring
-	epatch "${FILESDIR}/${PN}-1.6-gnome-keyring.patch"
-
 	eautoreconf
 	gnome2_src_prepare
 }
@@ -66,12 +61,14 @@ src_configure() {
 	DOCS="AUTHORS ChangeLog NEWS README"
 
 	# TODO: convert libnotify to a configure option
-	gnome2_src_configure \
-		--docdir="${EPREFIX}/usr/share/doc/${PF}" \
-		--with-default-wm=mate-wm \
-		--with-gtk=2.0 \
-		$(use_enable ipv6) \
-		$(use_with systemd)
+	G2CONF="${G2CONF}
+		--docdir=${EPREFIX}/usr/share/doc/${PF}
+		--with-default-wm=mate-wm"
+
+	use gtk3 && G2CONF="${G2CONF} --with-gtk=3.0"
+	use !gtk3 && G2CONF="${G2CONF} --with-gtk=2.0"
+
+	gnome2_src_configure
 }
 
 src_install() {

@@ -28,13 +28,6 @@ DEPEND="${RDEPEND}
 	>=mate-base/mate-common-1.5.0
 	>=dev-util/intltool-0.40"
 
-src_prepare() {
-	# Tarball has no proper build system, should be fixed on next release.
-	mate_gen_build_system
-
-	gnome2_src_prepare
-}
-
 src_configure() {
 	DOCS="AUTHORS ChangeLog NEWS README"
 
