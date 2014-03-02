@@ -15,12 +15,13 @@ RESTRICT="mirror strip"
 LICENSE="MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="grub2 extlinux"
+IUSE="grub2 extlinux lilo"
 
 RDEPEND="
 	>=dev-lang/python-3.3
 	grub2? ( >=sys-boot/grub-2.00-r7 )
-	extlinux? ( sys-boot/syslinux )"
+	extlinux? ( sys-boot/syslinux )
+	lilo? ( sys-boot/lilo )"
 
 src_install() {
 	# Copy the main files
@@ -30,4 +31,8 @@ src_install() {
 	# Make a symbolic link: /sbin/bliss-boot
 	mkdir -p ${D}/sbin && cd ${D}/sbin
 	ln -s ${D}opt/${PN}/${PN} ${PN}
+
+	# Copy conf.py file to /etc/bliss-boot/conf.py
+	mkdir -p ${D}/etc/${PN}
+	cp ${D}/opt/${PN}/libs/conf.py ${D}/etc/${PN}
 }

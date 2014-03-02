@@ -15,7 +15,7 @@ _BD="/boot/kernels/${_PLV}"     # Kernel /boot Directory
 
 # Main
 DESCRIPTION="Precompiled Vanilla Kernel (Kernel Ready-to-Eat [KRE])"
-HOMEPAGE="http://funtoo.org/"
+HOMEPAGE="http://medd.homeip.net:3333/"
 SRC_URI="http://medd.homeip.net:3333/chinchilla/releases/14.1/kernels/${_PLV}/kernel-${_PLV}.tar.xz
          http://medd.homeip.net:3333/chinchilla/releases/14.1/kernels/${_PLV}/modules-${_PLV}.tar.xz
          http://medd.homeip.net:3333/chinchilla/releases/14.1/kernels/${_PLV}/headers-${_PLV}.tar.xz"
