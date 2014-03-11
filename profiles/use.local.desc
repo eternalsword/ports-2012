@@ -6116,6 +6116,7 @@ sys-apps/policycoreutils:audit - Enable support for sys-process/audit and use th
 sys-apps/policycoreutils:sesandbox - Enable support for SELinux sandbox application
 sys-apps/portage:epydoc - Build html API documentation with epydoc.
 sys-apps/portage:python3 - Use python3 as Python interpreter.
+sys-apps/proot:care - Build dynamic CARE binary (more info - http://reproducible.io/)
 sys-apps/pyrenamer:music - Enable support for renaming music
 sys-apps/qingy:consolekit - Enable native consolekit support
 sys-apps/qingy:opensslcrypt - Encrypt communications between qingy and its GUI using dev-libs/openssl
