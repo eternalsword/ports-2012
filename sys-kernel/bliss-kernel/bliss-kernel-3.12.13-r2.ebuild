@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Jonathan Vasquez <jvasquez1011@gmail.com>
+# Copyright (C) 2013-2014 Jonathan Vasquez <fearedbliss@funtoo.org>
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="4"
@@ -15,8 +15,8 @@ _BD="/boot/kernels/${_PLV}"     # Kernel /boot Directory
 
 # Main
 DESCRIPTION="Precompiled Vanilla Kernel (Kernel Ready-to-Eat [KRE])"
-HOMEPAGE="http://medd.homeip.net/"
-SRC_URI="http://medd.homeip.net/funtoo/kernels/${_PLV}/kernel-${_PLV}.tar.xz"
+HOMEPAGE="http://fearedbliss.com/"
+SRC_URI="http://fearedbliss.com/funtoo/kernels/${_PLV}/kernel-${_PLV}.tar.xz"
 
 RESTRICT="mirror strip"
 LICENSE="GPL-2"
