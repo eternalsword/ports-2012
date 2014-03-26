@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/vlc/vlc-9999.ebuild,v 1.215 2014/03/19 13:57:10 tomwij Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/vlc/vlc-9999.ebuild,v 1.217 2014/03/26 16:04:34 tomwij Exp $
 
 EAPI="5"
 
@@ -244,7 +244,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-2.1.0-fix-libtremor-libs.patch
 
 	# Patch up incompatibilities and reconfigure autotools.
-	epatch "${FILESDIR}"/${PN}-2.1.0-libva-1.2.1-compat.patch
+	epatch "${FILESDIR}"/${P}-libva-1.2.1-compat.patch
 
 	# Fix up broken audio when skipping using a fixed reversed bisected commit.
 	epatch "${FILESDIR}"/${PN}-2.1.0-TomWij-bisected-PA-broken-underflow.patch
@@ -270,6 +270,9 @@ src_configure() {
 	# Needs libresid-builder from libsidplay:2 which is in another directory...
 	# FIXME!
 	append-ldflags "-L/usr/$(get_libdir)/sidplay/builders/"
+
+	# Append -fPIC temporarily for bug #502394.
+	append-flags -fPIC
 
 	if use truetype || use projectm ; then
 		local dejavu="/usr/share/fonts/dejavu/"
