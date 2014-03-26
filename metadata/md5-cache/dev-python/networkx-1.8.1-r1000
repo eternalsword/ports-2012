@@ -11,4 +11,4 @@ REQUIRED_USE=examples? ( graphviz matplotlib numpy pyparsing scipy ) || ( python
 SLOT=0
 SRC_URI=mirror://pypi/n/networkx/networkx-1.8.1.tar.gz
 _eclasses_=distutils	cbbc1b446ecf8bec39c0ad32a3904452	python	66c3d00d12f20a8c0d932c1a9bebffe6
-_md5_=7e406a1a993ee0376e6302c8f6bf07a9
+_md5_=fd7fddd5c65adba3278cb350b522e557
