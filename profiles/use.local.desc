@@ -1933,6 +1933,7 @@ dev-python/pypy:shadowstack - Use a shadow stack for finding GC roots
 dev-python/pypy-bin:shadowstack - Use a shadow stack for finding GC roots
 dev-python/pyrax:keyring - adds support for the keyring auth backend
 dev-python/pytables:contrib - Install user-contributed files
+dev-python/python-stdnum:vies - Enable VIES
 dev-python/pyzor:pyzord - enable support for pyzord
 dev-python/rarfile:compressed - Enables the module to support compressed v3 archives by calling the app-arch/unrar.
 dev-python/scrapy:boto - Add support for Amazon S3 via dev-python/boto
