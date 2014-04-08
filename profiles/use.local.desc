@@ -6291,6 +6291,8 @@ sys-cluster/neutron:metadata - Installs the initscripts for the neutron metadata
 sys-cluster/neutron:openvswitch - Installs the initscripts for the neutron openvswitch service
 sys-cluster/neutron:server - Installs the initscripts for the neutron server service
 sys-cluster/ocfs:aio - Add aio support
+sys-cluster/openmpi:cma - Enable the CMA (Cross Memory Attach) MCA
+sys-cluster/openmpi:cuda - Add GPU direct support
 sys-cluster/openmpi:heterogeneous - Enable features required for heterogeneous platform support
 sys-cluster/openmpi:mpi-threads - Enable MPI_THREAD_MULTIPLE
 sys-cluster/openmpi:pbs - Add support for the Portable Batch System (PBS)
