@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/mysql-cmake.eclass,v 1.18 2014/03/19 00:55:48 hasufell Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/mysql-cmake.eclass,v 1.15 2013/03/04 19:10:31 robbat2 Exp $
 
 # @ECLASS: mysql-cmake.eclass
 # @MAINTAINER:
@@ -12,10 +12,10 @@
 # @DESCRIPTION:
 # The mysql-cmake.eclass provides the support to build the mysql
 # ebuilds using the cmake build system. This eclass provides
-# the src_unpack, src_prepare, src_configure, src_compile, scr_install,
-# pkg_preinst, pkg_postinst, pkg_config and pkg_postrm phase hooks.
+# the src_prepare, src_configure, src_compile, and src_install
+# phase hooks.
 
-inherit cmake-utils flag-o-matic multilib prefix
+inherit cmake-utils flag-o-matic multilib prefix eutils
 
 #
 # HELPER FUNCTIONS:
@@ -67,6 +67,20 @@ mysql-cmake_disable_test() {
 	fi
 }
 
+# @FUNCTION: mysql-cmake_use_plugin
+# @DESCRIPTION:
+# Helper function to enable/disable plugins by use flags
+# cmake-utils_use_with is not enough as some references check WITH_ (0|1)
+# and some check WITHOUT_. Also, this can easily extend to non-storage plugins.
+mysql-cmake_use_plugin() {
+	[[ -z $2 ]] && die "mysql-cmake_use_plugin <USE flag> <flag name>"
+	if use_if_iuse $1 ; then
+		echo "-DWITH_$2=1"
+	else
+		echo "-DWITHOUT_$2=1 -DWITH_$2=0"
+	fi
+}
+
 # @FUNCTION: configure_cmake_locale
 # @DESCRIPTION:
 # Helper function to configure locale cmake options
@@ -103,14 +117,8 @@ configure_cmake_minimal() {
 	mycmakeargs+=(
 		-DWITHOUT_SERVER=1
 		-DWITHOUT_EMBEDDED_SERVER=1
-		-DENABLED_LOCAL_INFILE=1
 		-DEXTRA_CHARSETS=none
 		-DINSTALL_SQLBENCHDIR=
-		-DWITH_SSL=system
-		-DWITH_ZLIB=system
-		-DWITHOUT_LIBWRAP=1
-		-DWITH_READLINE=0
-		-DWITH_LIBEDIT=0
 		-DWITHOUT_ARCHIVE_STORAGE_ENGINE=1
 		-DWITHOUT_BLACKHOLE_STORAGE_ENGINE=1
 		-DWITHOUT_CSV_STORAGE_ENGINE=1
@@ -130,36 +138,27 @@ configure_cmake_minimal() {
 configure_cmake_standard() {
 
 	mycmakeargs+=(
-		-DENABLED_LOCAL_INFILE=1
 		-DEXTRA_CHARSETS=all
 		-DMYSQL_USER=mysql
 		-DMYSQL_UNIX_ADDR=${EPREFIX}/var/run/mysqld/mysqld.sock
-		-DWITH_READLINE=0
-		-DWITH_LIBEDIT=0
-		-DWITH_ZLIB=system
-		-DWITHOUT_LIBWRAP=1
-	)
-
-	mycmakeargs+=(
 		$(cmake-utils_use_disable !static SHARED)
 		$(cmake-utils_use_with debug)
 		$(cmake-utils_use_with embedded EMBEDDED_SERVER)
 		$(cmake-utils_use_with profiling)
 		$(cmake-utils_use_enable systemtap DTRACE)
+		$(cmake-utils_use_enable static-libs STATIC_LIBS)
 	)
 
-	if use ssl; then
-		mycmakeargs+=( -DWITH_SSL=system )
-	else
-		mycmakeargs+=( -DWITH_SSL=bundled )
+	if use static; then
+		mycmakeargs+=( -DWITH_PIC=1 )
 	fi
 
-	if mysql_version_is_at_least "5.5" && use jemalloc; then
-		mycmakeargs+=( -DCMAKE_EXE_LINKER_FLAGS='-ljemalloc' -DWITH_SAFEMALLOC=OFF )
+	if use jemalloc; then
+		mycmakeargs+=( -DWITH_SAFEMALLOC=OFF )
 	fi
 
-	if mysql_version_is_at_least "5.5" && use tcmalloc; then
-		mycmakeargs+=( -DCMAKE_EXE_LINKER_FLAGS='-ltcmalloc' -DWITH_SAFEMALLOC=OFF )
+	if use tcmalloc; then
+		mycmakeargs+=( -DWITH_SAFEMALLOC=OFF )
 	fi
 
 	# Storage engines
@@ -175,25 +174,48 @@ configure_cmake_standard() {
 		$(cmake-utils_use_with extraengine FEDERATED_STORAGE_ENGINE)
 	)
 
-	if pbxt_available ; then
+	if in_iuse pbxt ; then
 		mycmakeargs+=( $(cmake-utils_use_with pbxt PBXT_STORAGE_ENGINE) )
 	fi
 
-	if [[ ${PN} == "mariadb" ]]; then
+	if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]]; then
 		mycmakeargs+=(
-			$(cmake-utils_use_with oqgraph OQGRAPH_STORAGE_ENGINE)
-			$(cmake-utils_use_with sphinx SPHINX_STORAGE_ENGINE)
-			$(cmake-utils_use_with extraengine FEDERATEDX_STORAGE_ENGINE)
+			$(mysql-cmake_use_plugin oqgraph OQGRAPH)
+			$(mysql-cmake_use_plugin sphinx SPHINX)
+			$(mysql-cmake_use_plugin extraengine FEDERATEDX)
+			$(mysql-cmake_use_plugin tokudb TOKUDB)
+			$(mysql-cmake_use_plugin pam AUTH_PAM)
 		)
 
-		if ! use pam ; then
-			mycmakeargs+=( -DAUTH_PAM_DISABLED=1 )
+		if mysql_version_is_at_least 10.0.5 ; then
+			# CassandraSE needs Apache Thrift which is not in portage
+			# TODO: Add use and deps for Connect SE external deps
+			mycmakeargs+=(
+				-DWITHOUT_CASSANDRA=1 -DWITH_CASSANDRA=0
+				$(mysql-cmake_use_plugin extraengine SEQUENCE)
+				$(mysql-cmake_use_plugin extraengine SPIDER)
+				$(mysql-cmake_use_plugin extraengine CONNECT)
+				-DCONNECT_WITH_MYSQL=1
+				$(cmake-utils_use xml CONNECT_WITH_LIBXML2)
+				$(cmake-utils_use odbc CONNECT_WITH_ODBC)
+			)
 		fi
 	fi
 
 	if [[ ${PN} == "percona-server" ]]; then
 		mycmakeargs+=(
 			$(cmake-utils_use_with pam)
+		)
+	fi
+
+	if [[ ${PN} == "mysql-cluster" ]]; then
+		# TODO: This really should include the following options,
+		# but the memcached package doesn't install the files it seeks.
+		# -DWITH_BUNDLED_MEMCACHED=OFF
+		# -DMEMCACHED_HOME=${EPREFIX}/usr
+		mycmakeargs+=(
+			-DWITH_BUNDLED_LIBEVENT=OFF
+			$(cmake-utils_use_with java NDB_JAVA)
 		)
 	fi
 }
@@ -211,21 +233,38 @@ mysql-cmake_src_prepare() {
 
 	cd "${S}"
 
-	# Apply the patches for this MySQL version
-	EPATCH_SUFFIX="patch"
-	mkdir -p "${EPATCH_SOURCE}" || die "Unable to create epatch directory"
-	# Clean out old items
-	rm -f "${EPATCH_SOURCE}"/*
-	# Now link in right patches
-	mysql_mv_patches
-	# And apply
-	epatch
+	if [[ ${MY_EXTRAS_VER} != none ]]; then
+
+		# Apply the patches for this MySQL version
+		EPATCH_SUFFIX="patch"
+		mkdir -p "${EPATCH_SOURCE}" || die "Unable to create epatch directory"
+		# Clean out old items
+		rm -f "${EPATCH_SOURCE}"/*
+		# Now link in right patches
+		mysql_mv_patches
+		# And apply
+		epatch
+	fi
 
 	# last -fPIC fixup, per bug #305873
 	i="${S}"/storage/innodb_plugin/plug.in
 	[[ -f ${i} ]] && sed -i -e '/CFLAGS/s,-prefer-non-pic,,g' "${i}"
 
 	rm -f "scripts/mysqlbug"
+	if use jemalloc && ! ( [[ ${PN} == "mariadb" ]] && mysql_version_is_at_least "5.5.33"  ); then
+		echo "TARGET_LINK_LIBRARIES(mysqld jemalloc)" >> "${S}/sql/CMakeLists.txt"
+	fi
+
+	if use tcmalloc; then
+		echo "TARGET_LINK_LIBRARIES(mysqld tcmalloc)" >> "${S}/sql/CMakeLists.txt"
+	fi
+
+	if in_iuse tokudb ; then
+		# Don't build bundled xz-utils
+		rm -f "${S}/storage/tokudb/ft-index/cmake_modules/TokuThirdParty.cmake"
+		touch "${S}/storage/tokudb/ft-index/cmake_modules/TokuThirdParty.cmake"
+	fi
+
 	epatch_user
 }
 
@@ -250,7 +289,8 @@ mysql-cmake_src_configure() {
 		-DINSTALL_DOCREADMEDIR=share/doc/${P}
 		-DINSTALL_INCLUDEDIR=include/mysql
 		-DINSTALL_INFODIR=share/info
-		-DINSTALL_LIBDIR=$(get_libdir)/mysql
+		-DINSTALL_LIBDIR=$(get_libdir)
+		-DINSTALL_ELIBDIR=$(get_libdir)/mysql
 		-DINSTALL_MANDIR=share/man
 		-DINSTALL_MYSQLDATADIR=${EPREFIX}/var/lib/mysql
 		-DINSTALL_MYSQLSHAREDIR=share/mysql
@@ -262,13 +302,37 @@ mysql-cmake_src_configure() {
 		-DINSTALL_SUPPORTFILESDIR=${EPREFIX}/usr/share/mysql
 		-DWITH_COMMENT="Gentoo Linux ${PF}"
 		$(cmake-utils_use_with test UNIT_TESTS)
+		-DWITH_READLINE=0
+		-DWITH_LIBEDIT=0
+		-DWITH_ZLIB=system
+		-DWITHOUT_LIBWRAP=1
+		-DENABLED_LOCAL_INFILE=1
 	)
+
+	if [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] && mysql_version_is_at_least "5.6.12" ; then
+		mycmakeargs+=( -DWITH_EDITLINE=system )
+	fi
+
+	if use ssl; then
+		mycmakeargs+=( -DWITH_SSL=system )
+	else
+		mycmakeargs+=( -DWITH_SSL=bundled )
+	fi
 
 	# Bug 412851
 	# MariaDB requires this flag to compile with GPLv3 readline linked
 	# Adds a warning about redistribution to configure
-	if [[ ${PN} == "mariadb" ]] ; then
+	if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 		mycmakeargs+=( -DNOT_FOR_DISTRIBUTION=1 )
+	fi
+
+	if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]]; then
+		if use jemalloc ; then
+			mycmakeargs+=( -DWITH_JEMALLOC="system" )
+		else
+			mycmakeargs+=( -DWITH_JEMALLOC=no )
+		fi
+		mysql_version_is_at_least "10.0.9" && mycmakeargs+=( -DWITH_PCRE=system )
 	fi
 
 	configure_cmake_locale
@@ -283,14 +347,14 @@ mysql-cmake_src_configure() {
 	filter-flags "-O" "-O[01]"
 
 	CXXFLAGS="${CXXFLAGS} -fno-strict-aliasing"
-	CXXFLAGS="${CXXFLAGS} -felide-constructors -fno-rtti"
+	CXXFLAGS="${CXXFLAGS} -felide-constructors"
 	# Causes linkage failures.  Upstream bug #59607 removes it
 	if ! mysql_version_is_at_least "5.6" ; then
 		CXXFLAGS="${CXXFLAGS} -fno-implicit-templates"
 	fi
-	# As of 5.7, exceptions are used!
+	# As of 5.7, exceptions and rtti are used!
 	if ! mysql_version_is_at_least "5.7" ; then
-		CXXFLAGS="${CXXFLAGS} -fno-exceptions"
+		CXXFLAGS="${CXXFLAGS} -fno-exceptions -fno-rtti"
 	fi
 	export CXXFLAGS
 
@@ -329,7 +393,7 @@ mysql-cmake_src_install() {
 	dosym "/usr/bin/mysqlcheck" "/usr/bin/mysqloptimize"
 
 	# Create a mariadb_config symlink
-	[[ ${PN} == "mariadb" ]] && dosym "/usr/bin/mysql_config" "/usr/bin/mariadb_config"
+	[[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] && dosym "/usr/bin/mysql_config" "/usr/bin/mariadb_config"
 
 	# INSTALL_LAYOUT=STANDALONE causes cmake to create a /usr/data dir
 	rm -Rf "${ED}/usr/data"
@@ -385,7 +449,7 @@ mysql-cmake_src_install() {
 		fi
 
 		diropts "-m0755"
-		for folder in "${MY_LOGDIR#${EPREFIX}}" "/var/run/mysqld" ; do
+		for folder in "${MY_LOGDIR#${EPREFIX}}" ; do
 			dodir "${folder}"
 			keepdir "${folder}"
 			chown -R mysql:mysql "${ED}/${folder}"
@@ -410,12 +474,12 @@ mysql-cmake_src_install() {
 		done
 	fi
 
-	cat <<-EOF > "${T}"/80mysql-libdir
-	LDPATH="${EPREFIX}/usr/$(get_libdir)/mysql"
-	EOF
-	doenvd "${T}"/80mysql-libdir
+#	cat <<-EOF > "${T}"/80mysql-libdir
+#	LDPATH="${EPREFIX}/usr/$(get_libdir)/mysql"
+#	EOF
+#	doenvd "${T}"/80mysql-libdir
 
 	#Remove mytop if perl is not selected
-	[[ ${PN} == "mariadb" ]] && ! use perl \
+	[[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] && ! use perl \
 	&& rm -f "${ED}/usr/bin/mytop"
 }

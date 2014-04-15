@@ -1147,6 +1147,22 @@ dev-db/mariadb:profiling - Add support for statement profiling (requires USE=com
 dev-db/mariadb:sphinx - Add suport for the sphinx full-text search engine
 dev-db/mariadb:systemtap - Build support for profiling and tracing using dev-util/systemtap
 dev-db/mariadb:test - Install upstream testsuites for end use.
+dev-db/mariadb:tokudb - Add support for TokuDB storage engine
+dev-db/mariadb-galera:cluster - Add support for NDB clustering (deprecated)
+dev-db/mariadb-galera:community - Enables the community features from upstream.
+dev-db/mariadb-galera:embedded - Build embedded server (libmysqld)
+dev-db/mariadb-galera:extraengine - Add support for alternative storage engines (Archive, CSV, Blackhole, Federated(X), Partition)
+dev-db/mariadb-galera:jemalloc - Use dev-libs/jemalloc for allocations.
+dev-db/mariadb-galera:latin1 - Use LATIN1 encoding instead of UTF8
+dev-db/mariadb-galera:max-idx-128 - Raise the max index per table limit from 64 to 128
+dev-db/mariadb-galera:minimal - Install client programs only, no server
+dev-db/mariadb-galera:oqgraph - Add support for the Open Query GRAPH engine
+dev-db/mariadb-galera:profiling - Add support for statement profiling (requires USE=community).
+dev-db/mariadb-galera:sphinx - Add suport for the sphinx full-text search engine
+dev-db/mariadb-galera:systemtap - Build support for profiling and tracing using dev-util/systemtap
+dev-db/mariadb-galera:test - Install upstream testsuites for end use.
+dev-db/mariadb-galera:tokudb - Add support for TokuDB storage engine
+dev-db/mariadb-native-client:mysqlcompat - Enable mysqlclient library symbolic links
 dev-db/mongodb:mms-agent - Install the MongoDB Monitoring Service agent
 dev-db/mongodb:sharedclient - build client shared library libmongoclient.so
 dev-db/mongodb:spidermonkey - Use embedded SpiderMonkey engine (dev-lang/spidermonkey) instead of v8
@@ -1165,8 +1181,33 @@ dev-db/mysql:raid - Deprecated option, removed in the 5.0 series
 dev-db/mysql:systemtap - Build support for profiling and tracing using dev-util/systemtap
 dev-db/mysql:test - Install upstream testsuites for end use.
 dev-db/mysql:xtradb - Add experimental support for Percona's InnoDB replacement: XtraDB
+dev-db/mysql-cluster:big-tables - Make tables contain up to 1.844E+19 rows
+dev-db/mysql-cluster:cluster - Add support for NDB clustering
+dev-db/mysql-cluster:community - Enables the community features from upstream.
+dev-db/mysql-cluster:embedded - Build embedded server (libmysqld)
+dev-db/mysql-cluster:extraengine - Add support for alternative storage engines (Archive, CSV, Blackhole, Federated(X), Partition)
+dev-db/mysql-cluster:jemalloc - Use dev-libs/jemalloc for allocations.
+dev-db/mysql-cluster:latin1 - Use LATIN1 encoding instead of UTF8
+dev-db/mysql-cluster:max-idx-128 - Raise the max index per table limit from 64 to 128
+dev-db/mysql-cluster:minimal - Install client programs only, no server
+dev-db/mysql-cluster:pbxt - Add experimental support for PBXT storage engine
+dev-db/mysql-cluster:profiling - Add support for statement profiling (requires USE=community).
+dev-db/mysql-cluster:systemtap - Build support for profiling and tracing using dev-util/systemtap
+dev-db/mysql-cluster:test - Install upstream testsuites for end use.
+dev-db/mysql-cluster:xtradb - Add experimental support for Percona's InnoDB replacement: XtraDB
 dev-db/mysql-connector-c++:gcov - Build coverage support
 dev-db/opendbx:bindist - Disable support for dev-db/firebird database which is not GPL compatible.
+dev-db/percona-server:cluster - Add support for NDB clustering (deprecated)
+dev-db/percona-server:community - Enables the community features from upstream.
+dev-db/percona-server:embedded - Build embedded server (libmysqld)
+dev-db/percona-server:extraengine - Add support for alternative storage engines (Archive, CSV, Blackhole, Federated(X), Partition)
+dev-db/percona-server:jemalloc - Use dev-libs/jemalloc for allocations.
+dev-db/percona-server:latin1 - Use LATIN1 encoding instead of UTF8
+dev-db/percona-server:max-idx-128 - Raise the max index per table limit from 64 to 128
+dev-db/percona-server:minimal - Install client programs only, no server
+dev-db/percona-server:profiling - Add support for statement profiling (requires USE=community).
+dev-db/percona-server:systemtap - Build support for profiling and tracing using dev-util/systemtap
+dev-db/percona-server:test - Install upstream testsuites for end use.
 dev-db/pgadmin3:databasedesigner - Enable the Database Designer component
 dev-db/pgbouncer:libevent - Use libevent 2.0+ and evdns as the DNS backend
 dev-db/pgbouncer:udns - Use udns as the DNS backend. Supports IPv4 only.
@@ -2144,8 +2185,10 @@ dev-util/dialog:minimal - Disable library, install command-line program only
 dev-util/emilpro:system-binutils - Use the gentoo binutils instead of building against an unpatched vanilla version
 dev-util/fatrace:powertop - Add powetop integration
 dev-util/geany:vte - Enable Terminal support (x11-libs/vte)
+dev-util/geany-plugins:autoclose - Enable the autoclose plugin.
 dev-util/geany-plugins:commander - Enable the commander plugin which provides a command panel for rapid access to any action.
 dev-util/geany-plugins:debugger - Enable the debugger plugin which interfaces with sys-devel/gdb
+dev-util/geany-plugins:defineformat - Enable the defineformat plugin.
 dev-util/geany-plugins:devhelp - Enable the devhelp plugin which integrates dev-util/devhelp
 dev-util/geany-plugins:enchant - Enable spell checking using enchant
 dev-util/geany-plugins:gpg - Enable geanypg plugin which integrates GPG using app-crypt/gpgme
@@ -5171,7 +5214,7 @@ net-misc/connman:tools - Enable testing tools.
 net-misc/connman:vpnc - Use net-misc/vpnc for cisco VPN support.
 net-misc/csync:sftp - Enable sftp transfer support via net-libs/libssh
 net-misc/curl:metalink - Enable metalink support
-net-misc/curl:rtmp - Enable RTMPDump Streaming Media support
+net-misc/curl:rtmp - Enable RTMP Streaming Media support
 net-misc/curl:ssh - Enabled SSH urls in curl using libssh2
 net-misc/curl:ssl - Enable crypto engine support (via openssl if USE='-gnutls -nss')
 net-misc/dahdi:flash - Support (short) flash on FXS
@@ -6279,6 +6322,7 @@ sys-cluster/corosync:infiniband - Enable Infiniband RDMA transport support
 sys-cluster/drbd:heartbeat - Enable Heartbeat integration
 sys-cluster/drbd:pacemaker - Enable Pacemaker integration
 sys-cluster/drbd:xen - Enable Xen integration
+sys-cluster/galera:garbd - Install Galera Arbitrator - a stateless daemon which acts as a lightweight group member
 sys-cluster/gearmand:drizzle - Support dev-db/libdrizzle for the queue storage. This also adds support for MySQL storage.
 sys-cluster/gearmand:memcache - Support memcache daemon (via dev-libs/libmemcached) for the queue storage.
 sys-cluster/gearmand:tokyocabinet - Support dev-db/tokyocabinet for the queue storage.
