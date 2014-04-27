@@ -1,8 +1,8 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/hddtemp/hddtemp-0.3_beta15-r23.ebuild,v 1.2 2013/07/08 21:05:57 aidecoe Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/hddtemp/hddtemp-0.3_beta15-r25.ebuild,v 1.1 2014/04/27 11:11:29 aidecoe Exp $
 
-EAPI=4
+EAPI=5
 
 inherit eutils autotools systemd
 
@@ -54,11 +54,11 @@ src_install() {
 	update_db "${D}/usr/share/hddtemp/hddgentoo.db" "${D}/usr/share/hddtemp/hddtemp.db"
 	newconfd "${FILESDIR}"/hddtemp-conf.d hddtemp
 	newinitd "${FILESDIR}"/hddtemp-init hddtemp
-	systemd_dounit "${FILESDIR}"/hddtemp.service
+	systemd_newunit "${FILESDIR}"/hddtemp.service-r1 "${PN}.service"
+	systemd_install_serviced "${FILESDIR}"/hddtemp.service.conf
 
-	dosbin "${FILESDIR}"/update-hddtemp.db
-
-	if use network-cron ; then
+	if use network-cron; then
+		dosbin "${FILESDIR}"/update-hddtemp.db
 		exeinto /etc/cron.monthly
 		echo -e "#!/bin/sh\n/usr/sbin/update-hddtemp.db" > "${T}"/hddtemp.cron
 		newexe "${T}"/hddtemp.cron update-hddtemp.db
@@ -67,7 +67,11 @@ src_install() {
 
 pkg_postinst() {
 	elog "In order to update your hddtemp database, run:"
-	elog "  update-hddtemp.db"
+	if use network-cron; then
+		elog "  update-hddtemp.db"
+	else
+		elog "  emerge --config =${CATEGORY}/${PF}"
+	fi
 	elog ""
 	elog "If your hard drive is not recognized by hddtemp, please consider"
 	elog "submitting your HDD info for inclusion into the Gentoo hddtemp"
@@ -90,4 +94,14 @@ update_db() {
 
 		grep "${id}" "${dst}" 2>&1 >/dev/null || echo "${line}" >> "${dst}"
 	done < "${src}"
+}
+
+pkg_config() {
+	cd "${ROOT}"/usr/share/hddtemp || die
+
+	einfo "Trying to download the latest hddtemp.db file"
+	wget http://www.guzu.net/linux/hddtemp.db -O hddtemp.db \
+		|| die "failed to download hddtemp.db"
+
+	update_db "hddgentoo.db" "hddtemp.db"
 }
