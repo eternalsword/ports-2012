@@ -10,4 +10,4 @@ RDEPEND=gif? ( media-libs/giflib:= ) jpeg? ( virtual/jpeg:0= ) opengl? ( media-l
 SLOT=0/5
 SRC_URI=http://webp.googlecode.com/files/libwebp-0.4.0.tar.gz
 _eclasses_=eutils	025442f2eecab39ad0b4e541b6e142af	libtool	b9b3340e3a19510f0d9f05cfccbf209f	multibuild	d3794110bf67450fe5ea134a46a77ec9	multilib	fac675dcccf94392371a6abee62d909f	multilib-build	beac2970c3c24c0edc50c2db94294935	multilib-minimal	5d77d70b80ea6e86a58d332de2abb1cc	multiprocessing	c2d96fb38f2596209e98fceda58ba1ed	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
-_md5_=7c2e374a36efdd22a54656e62b21ea3d
+_md5_=656632866d3de9e9f0bc6d31fe10f6d0

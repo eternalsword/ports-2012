@@ -240,7 +240,6 @@ if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 	fi
 	mysql_version_is_at_least "10.0.7" && DEPEND="${DEPEND} oqgraph? ( dev-libs/judy:0= )"
 	if mysql_version_is_at_least "10.0.9" ; then
-		use embedded && DEPEND="${DEPEND} >=dev-libs/libpcre-8.35:3=[static-libs]" || \
 		DEPEND="${DEPEND} >=dev-libs/libpcre-8.35:3="
 	fi
 fi
@@ -453,7 +452,7 @@ mysql-multilib_src_configure() {
 
 		configure_cmake_locale
 
-		if multilib_build_binaries ; then
+		if multilib_is_native_abi ; then
 			if use minimal ; then
 				configure_cmake_minimal
 			else
@@ -493,7 +492,7 @@ mysql-multilib_src_configure() {
 mysql-multilib_src_compile() {
 	#_mysql-multilib_src_compile() {
 	#
-	#	if ! multilib_build_binaries ; then
+	#	if ! multilib_is_native_abi ; then
 	#		BUILD_DIR="${BUILD_DIR}/libmysql" cmake-utils_src_compile
 	#	else
 	#		cmake-utils_src_compile
@@ -513,7 +512,7 @@ mysql-multilib_src_install() {
 	_mysql-multilib_src_install() {
 		debug-print-function ${FUNCNAME} "$@"
 
-		if multilib_build_binaries; then
+		if multilib_is_native_abi; then
 			mysql-cmake_src_install
 		else
 		#	BUILD_DIR="${BUILD_DIR}/libmysql" cmake-utils_src_install
@@ -522,7 +521,7 @@ mysql-multilib_src_install() {
 				insinto /usr/include/mysql/private
 				doins sql/*.h
 			fi
-			
+
 		fi
 		# Do multilib magic only when >1 ABI is used.
 		if [[ ${#MULTIBUILD_VARIANTS[@]} -gt 1 ]]; then

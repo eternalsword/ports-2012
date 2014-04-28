@@ -10,4 +10,4 @@ RDEPEND=>=media-libs/harfbuzz-0.9.9:=[glib(+),truetype(+),abi_x86_32(-)?,abi_x86
 SLOT=0
 SRC_URI=mirror://gnome/sources/pango/1.36/pango-1.36.3.tar.xz
 _eclasses_=autotools	5256b4f4c1798109f39f308f9f7eaf5f	eutils	025442f2eecab39ad0b4e541b6e142af	fdo-mime	0acfe1a88fd8751a1d5dc671168219fa	gnome.org	8fef8f967214f56e08fa92d61163d891	gnome2	d6a3125760ce1a56efda628043f4acec	gnome2-utils	924d80d23c665d976484b8bfb50ae08b	libtool	b9b3340e3a19510f0d9f05cfccbf209f	multibuild	d3794110bf67450fe5ea134a46a77ec9	multilib	fac675dcccf94392371a6abee62d909f	multilib-build	beac2970c3c24c0edc50c2db94294935	multilib-minimal	5d77d70b80ea6e86a58d332de2abb1cc	multiprocessing	c2d96fb38f2596209e98fceda58ba1ed	toolchain-funcs	48b38a216afb92db6314d6c3187abea3	versionator	a8a3963967d6140be9a14b08bb8f047f
-_md5_=fe5ea59fb8f96191647afcea71a497d7
+_md5_=344c0e867dc1dded73dff4ddbfd3040b
