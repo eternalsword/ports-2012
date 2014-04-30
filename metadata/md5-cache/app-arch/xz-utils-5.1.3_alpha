@@ -9,5 +9,5 @@ LICENSE=public-domain LGPL-2.1+ GPL-2+
 RDEPEND=!<app-arch/lzma-4.63 !app-arch/lzma-utils !<app-arch/p7zip-4.57
 SLOT=0
 SRC_URI=http://tukaani.org/xz/xz-5.1.3alpha.tar.gz
-_eclasses_=eutils	025442f2eecab39ad0b4e541b6e142af	libtool	b9b3340e3a19510f0d9f05cfccbf209f	multibuild	d3794110bf67450fe5ea134a46a77ec9	multilib	fac675dcccf94392371a6abee62d909f	multilib-build	a861ad0b6d3e64a5733465b91a12d9fd	multilib-minimal	5d77d70b80ea6e86a58d332de2abb1cc	multiprocessing	c2d96fb38f2596209e98fceda58ba1ed	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
+_eclasses_=eutils	025442f2eecab39ad0b4e541b6e142af	libtool	b9b3340e3a19510f0d9f05cfccbf209f	multibuild	d3794110bf67450fe5ea134a46a77ec9	multilib	fac675dcccf94392371a6abee62d909f	multilib-build	cf050e70adafed0b1ac373a423a00746	multilib-minimal	25cb388b79cf32cf140e5791dcfc3173	multiprocessing	c2d96fb38f2596209e98fceda58ba1ed	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
 _md5_=bc50da4052ffa9aba6d8a247f39bd3fb
