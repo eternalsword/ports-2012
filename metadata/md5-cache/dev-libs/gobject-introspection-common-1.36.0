@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile configure install
+DEPEND=app-arch/xz-utils
+DESCRIPTION=Build infrastructure for GObject Introspection
+EAPI=5
+HOMEPAGE=http://live.gnome.org/GObjectIntrospection/
+KEYWORDS=*
+LICENSE=HPND
+RDEPEND=!<dev-libs/gobject-introspection-1.36.0
+SLOT=0
+SRC_URI=mirror://gnome/sources/gobject-introspection/1.36/gobject-introspection-1.36.0.tar.xz
+_eclasses_=eutils	025442f2eecab39ad0b4e541b6e142af	gnome.org	8fef8f967214f56e08fa92d61163d891	multilib	fac675dcccf94392371a6abee62d909f	toolchain-funcs	48b38a216afb92db6314d6c3187abea3	versionator	a8a3963967d6140be9a14b08bb8f047f
+_md5_=a143d0ec50de85a79f9b1066ee196992
