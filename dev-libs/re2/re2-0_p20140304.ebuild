@@ -1,17 +1,20 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/re2/re2-0_p20130712.ebuild,v 1.3 2014/05/04 16:05:10 floppym Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/re2/re2-0_p20140304.ebuild,v 1.1 2014/05/04 17:39:10 floppym Exp $
 
 EAPI=5
 
-inherit eutils multilib multilib-minimal toolchain-funcs
+inherit flag-o-matic eutils multilib multilib-minimal toolchain-funcs
 
 DESCRIPTION="An efficent, principled regular expression library"
 HOMEPAGE="http://code.google.com/p/re2/"
 SRC_URI="http://re2.googlecode.com/files/${PN}-${PV##*_p}.tgz"
 
 LICENSE="BSD"
-SLOT="0"
+# Symbols removed in version 20140110
+# http://upstream-tracker.org/compat_reports/re2/20131024_to_20140110/abi_compat_report.html
+# https://code.google.com/p/re2/issues/detail?id=111
+SLOT="0/0.20140110"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
@@ -19,27 +22,17 @@ IUSE=""
 S="${WORKDIR}/${PN}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${PN}-compile-r0.patch"
 	multilib_copy_sources
 }
 
-mymake() {
-	local makeopts=(
-		AR="$(tc-getAR)"
-		CXX="$(tc-getCXX)"
-		CXXFLAGS="${CXXFLAGS} -pthread"
-		LDFLAGS="${LDFLAGS} -pthread"
-		NM="$(tc-getNM)"
-	)
-	emake "${makeopts[@]}" "$@"
-}
-
-multilib_src_compile() {
-	mymake
+src_configure() {
+	tc-export AR CXX NM
+	append-cxxflags -pthread
+	append-ldflags -pthread
 }
 
 multilib_src_test() {
-	mymake static-test
+	emake static-test
 }
 
 multilib_src_install() {
