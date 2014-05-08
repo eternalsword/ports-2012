@@ -1951,6 +1951,7 @@ dev-python/django-tastypie:lxml - An optional serialiser dev-python/lxml
 dev-python/django-tastypie:oauth - Adds OAuth authentication support
 dev-python/django-tastypie:yaml - An optional serialiser dev-python/yaml
 dev-python/falcon:cython - Build cython-based python modules
+dev-python/flask-restful:paging - Enable resource paging support
 dev-python/geopy:yahoo - Enables use of YahooPlaceFinder
 dev-python/icalendar:doc - Generate examples and other extra documentation
 dev-python/kaa-base:tls - SSL/TLS support via dev-python/tlslite
