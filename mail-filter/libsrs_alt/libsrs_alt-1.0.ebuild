@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/mail-filter/libsrs_alt/libsrs_alt-1.0.ebuild,v 1.11 2014/05/27 16:18:07 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/mail-filter/libsrs_alt/libsrs_alt-1.0.ebuild,v 1.10 2012/04/17 11:56:36 naota Exp $
 
 inherit eutils autotools
 
@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 sparc x86 ~x86-fbsd"
 IUSE=""
 
-RDEPEND="!dev-perl/Mail-SRS"
+DEPEND="!dev-perl/Mail-SRS"
+RDEPEND=""
 
 src_unpack() {
 	unpack ${A}
