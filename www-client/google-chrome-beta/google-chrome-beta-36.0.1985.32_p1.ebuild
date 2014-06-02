@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-client/google-chrome-beta/google-chrome-beta-36.0.1985.32_p1.ebuild,v 1.2 2014/05/29 00:44:28 floppym Exp $
 
 EAPI="5"
 
@@ -23,10 +21,10 @@ MY_P="${MY_PN}_${PV/_p/-}"
 
 SRC_URI="
 	amd64? (
-		http://dl.google.com/linux/chrome/deb/pool/main/g/${MY_PN}/${MY_P}_amd64.deb
+		http://www.funtoo.org/distfiles/chrome/${MY_P}_amd64.deb
 	)
 	x86? (
-		http://dl.google.com/linux/chrome/deb/pool/main/g/${MY_PN}/${MY_P}_i386.deb
+		http://www.funtoo.org/distfiles/chrome/${MY_P}_i386.deb
 	)
 "
 
@@ -42,8 +40,8 @@ RDEPEND="
 	dev-libs/atk
 	dev-libs/expat
 	dev-libs/glib:2
-	|| ( dev-libs/libgcrypt:11 dev-libs/libgcrypt:0/11 )
 	dev-libs/nspr
+	dev-libs/libgcrypt-compat
 	dev-libs/nss
 	gnome-base/gconf:2
 	media-libs/alsa-lib
