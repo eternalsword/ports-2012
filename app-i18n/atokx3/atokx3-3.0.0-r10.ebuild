@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-i18n/atokx3/atokx3-3.0.0-r10.ebuild,v 1.2 2014/05/31 07:53:10 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-i18n/atokx3/atokx3-3.0.0-r10.ebuild,v 1.1 2014/04/28 00:17:22 naota Exp $
 
 EAPI="3"
 
@@ -24,6 +24,7 @@ IUSE="multilib"
 
 RESTRICT="strip mirror"
 
+# emul-linux-x86-baselibs-20121202 is required because some libraries depends on /lib32/libudev.so.0
 RDEPEND="!app-i18n/atokx2
 	!dev-libs/libiiimcf
 	!dev-libs/csconv
@@ -54,31 +55,9 @@ RDEPEND="!app-i18n/atokx2
 	x11-libs/libdrm
 	x11-libs/pangox-compat
 	multilib? (
+		=app-emulation/emul-linux-x86-baselibs-20140406-r1
+		app-emulation/emul-linux-x86-gtklibs
 		|| (
-			app-emulation/emul-linux-x86-baselibs
-			(
-				dev-libs/glib:2[abi_x86_32]
-				dev-libs/libxml2:2[abi_x86_32]
-				media-libs/libpng[abi_x86_32]
-				sys-apps/tcp-wrappers[abi_x86_32]
-				virtual/pam[abi_x86_32]
-			)
-		)
-		|| (
-			app-emulation/emul-linux-x86-gtklibs
-			(
-				dev-libs/atk[abi_x86_32]
-				x11-libs/cairo[abi_x86_32]
-				>=x11-libs/gtk+-2.4.13:2[abi_x86_32]
-				x11-libs/pangox-compat[abi_x86_32]
-			)
-		)
-		|| (
-			app-emulation/emul-linux-x86-opengl
-			x11-libs/libdrm[abi_x86_32]
-		)
-		|| (
-			app-emulation/emul-linux-x86-xlibs
 			(
 				media-libs/fontconfig[abi_x86_32]
 				x11-libs/libICE[abi_x86_32]
@@ -94,6 +73,7 @@ RDEPEND="!app-i18n/atokx2
 				x11-libs/libXrender[abi_x86_32]
 				x11-libs/libXxf86vm[abi_x86_32]
 			)
+			app-emulation/emul-linux-x86-xlibs
 		)
 	)"
 
