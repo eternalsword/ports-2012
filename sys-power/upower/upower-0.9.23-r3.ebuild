@@ -1,7 +1,9 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/sys-power/upower/upower-0.9.23-r3.ebuild,v 1.1 2014/06/02 18:45:13 ssuominen Exp $
 
 EAPI=5
-inherit eutils systemd udev
+inherit eutils systemd
 
 DESCRIPTION="D-Bus abstraction for enumerating power devices and querying history and statistics"
 HOMEPAGE="http://upower.freedesktop.org/"
@@ -9,8 +11,8 @@ SRC_URI="http://${PN}.freedesktop.org/releases/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~*"
-IUSE="doc +introspection ios kernel_FreeBSD kernel_linux systemd"
+KEYWORDS="alpha amd64 arm ia64 ppc ppc64 sparc x86"
+IUSE="doc +introspection ios kernel_FreeBSD kernel_linux"
 
 COMMON_DEPEND=">=dev-libs/dbus-glib-0.100
 	>=dev-libs/glib-2.22
@@ -19,18 +21,18 @@ COMMON_DEPEND=">=dev-libs/dbus-glib-0.100
 	introspection? ( dev-libs/gobject-introspection )
 	kernel_linux? (
 		virtual/libusb:1
-		=virtual/udev-171[gudev]
+		virtual/libgudev:=
+		virtual/udev
 		ios? (
-			>=app-pda/libimobiledevice-1
-			>=app-pda/libplist-1
+			>=app-pda/libimobiledevice-1:=
+			>=app-pda/libplist-1:=
 			)
-		systemd? ( sys-apps/systemd )
 		)"
 RDEPEND="${COMMON_DEPEND}
 	kernel_linux? (
-		systemd? ( app-shells/bash )
-		!systemd? ( >=sys-power/pm-utils-1.4.1 )
-		)"
+		app-shells/bash
+		>=sys-apps/systemd-200
+	)"
 DEPEND="${COMMON_DEPEND}
 	dev-libs/libxslt
 	app-text/docbook-xsl-stylesheets
@@ -41,15 +43,25 @@ DEPEND="${COMMON_DEPEND}
 		app-text/docbook-xml-dtd:4.1.2
 		)"
 
+QA_MULTILIB_PATHS="usr/lib/${PN}/.*"
+
+DOCS="AUTHORS HACKING NEWS README"
+
 src_prepare() {
 	sed -i -e '/DISABLE_DEPRECATED/d' configure || die
+
+	epatch \
+		"${FILESDIR}"/${P}-create-dir-runtime.patch \
+		"${FILESDIR}"/${P}-fix-segfault.patch \
+		"${FILESDIR}"/${P}-clamp_percentage_for_overfull_batt.patch
 }
 
 src_configure() {
-	local backend
+	local backend myconf
 
 	if use kernel_linux; then
 		backend=linux
+		myconf="--disable-deprecated"
 	elif use kernel_FreeBSD; then
 		backend=freebsd
 	else
@@ -57,13 +69,13 @@ src_configure() {
 	fi
 
 	econf \
+		--libexecdir="${EPREFIX}"/usr/lib/${PN} \
 		--localstatedir="${EPREFIX}"/var \
 		$(use_enable introspection) \
 		--disable-static \
-		$(use_enable !systemd deprecated) \
+		${myconf} \
 		--enable-man-pages \
 		$(use_enable doc gtk-doc) \
-		$(use_enable systemd) \
 		--disable-tests \
 		--with-html-dir="${EPREFIX}"/usr/share/doc/${PF}/html \
 		--with-backend=${backend} \
@@ -73,9 +85,7 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" udevrulesdir="$(get_udevdir)"/rules.d install
-
-	dodoc AUTHORS HACKING NEWS README
+	default
 	keepdir /var/lib/upower #383091
 	prune_libtool_files
 }
