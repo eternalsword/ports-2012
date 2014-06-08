@@ -1,9 +1,9 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/udisks/udisks-1.0.4-r3.ebuild,v 1.2 2012/11/04 13:53:22 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/udisks/udisks-1.0.5.ebuild,v 1.10 2014/06/02 17:31:03 ssuominen Exp $
 
-EAPI=4
-inherit eutils bash-completion-r1 linux-info udev
+EAPI=5
+inherit eutils bash-completion-r1 linux-info udev systemd
 
 DESCRIPTION="Daemon providing interfaces to work with storage devices"
 HOMEPAGE="http://www.freedesktop.org/wiki/Software/udisks"
@@ -11,18 +11,21 @@ SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86"
-IUSE="debug nls remote-access"
+KEYWORDS="alpha amd64 arm ia64 ~mips ppc ppc64 ~sh sparc x86"
+IUSE="debug nls remote-access selinux"
 
-COMMON_DEPEND=">=dev-libs/dbus-glib-0.98
-	>=dev-libs/glib-2.28
-	>=dev-libs/libatasmart-0.18
-	>=sys-auth/polkit-0.104-r1
-	>=sys-apps/dbus-1.4.20
+COMMON_DEPEND=">=dev-libs/dbus-glib-0.100
+	>=dev-libs/glib-2.30
+	>=dev-libs/libatasmart-0.19
+	>=sys-auth/polkit-0.110
+	>=sys-apps/dbus-1.6
 	>=sys-apps/sg3_utils-1.27.20090411
 	>=sys-block/parted-3
-	virtual/udev[gudev,hwdb]
-	>=sys-fs/lvm2-2.02.66"
+	>=sys-fs/lvm2-2.02.66
+	virtual/libgudev:=
+	virtual/libudev:=
+	virtual/udev
+	selinux? ( sec-policy/selinux-devicekit )"
 # util-linux -> mount, umount, swapon, swapoff (see also #403073)
 RDEPEND="${COMMON_DEPEND}
 	>=sys-apps/util-linux-2.20.1-r2
@@ -38,8 +41,8 @@ pkg_setup() {
 	# Listing only major arch's here to avoid tracking kernel's defconfig
 	if use amd64 || use arm || use ppc || use ppc64 || use x86; then
 		CONFIG_CHECK="~!IDE" #319829
-		CONFIG_CHECK+=" ~USB_SUSPEND" #331065
 		CONFIG_CHECK+=" ~NLS_UTF8" #425562
+		kernel_is lt 3 10 && CONFIG_CHECK+=" ~USB_SUSPEND" #331065, #477278
 		linux-info_pkg_setup
 	fi
 }
@@ -47,9 +50,9 @@ pkg_setup() {
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${PN}-1.0.2-ntfs-3g.patch \
-		"${FILESDIR}"/${P}-kernel-2.6.36-compat.patch
+		"${FILESDIR}"/${PN}-1.0.4-revert-floppy.patch
 
-	sed -i -e "s:/lib/udev:$(udev_get_udevdir):" data/80-udisks.rules || die
+	sed -i -e "s:/lib/udev:$(get_udevdir):" data/80-udisks.rules || die
 }
 
 src_configure() {
@@ -64,7 +67,8 @@ src_configure() {
 		--enable-dmmp \
 		$(use_enable remote-access) \
 		$(use_enable nls) \
-		--with-html-dir="${EPREFIX}"/deprecated
+		--with-html-dir="${EPREFIX}"/deprecated \
+		"$(systemd_with_unitdir)"
 }
 
 src_test() {
@@ -77,8 +81,8 @@ src_install() {
 		DESTDIR="${D}" \
 		slashsbindir=/usr/sbin \
 		slashlibdir=/usr/lib \
-		udevhelperdir="$(udev_get_udevdir)" \
-		udevrulesdir="$(udev_get_udevdir)"/rules.d \
+		udevhelperdir="$(get_udevdir)" \
+		udevrulesdir="$(get_udevdir)"/rules.d \
 		install #398081
 
 	dodoc AUTHORS HACKING NEWS README
