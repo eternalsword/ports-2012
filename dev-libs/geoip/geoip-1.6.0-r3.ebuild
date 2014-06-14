@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/geoip/geoip-1.6.0-r2.ebuild,v 1.2 2014/06/12 19:32:39 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/geoip/geoip-1.6.0-r3.ebuild,v 1.1 2014/06/14 01:27:30 jer Exp $
 
 EAPI=5
 inherit autotools eutils
@@ -15,7 +15,7 @@ SRC_URI="
 LICENSE="LGPL-2.1 GPL-2 MaxMind2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~x86-macos"
-IUSE="city ipv6 static-libs"
+IUSE="static-libs"
 RESTRICT="test"
 
 DEPEND="net-misc/wget"
@@ -29,6 +29,7 @@ src_prepare() {
 
 src_configure() {
 	econf $(use_enable static-libs static)
+	sed -e "s|@PREFIX@|${ROOT}|g" "${FILESDIR}"/geoipupdate-r3.sh > geoipupdate.sh || die
 }
 
 src_install() {
@@ -38,13 +39,11 @@ src_install() {
 
 	prune_libtool_files
 
-	newsbin "${FILESDIR}"/geoipupdate-r3.sh geoipupdate.sh
+	keepdir /usr/share/GeoIP
+
+	dosbin geoipupdate.sh
 }
 
 pkg_postinst() {
 	"${ROOT}"/usr/sbin/geoipupdate.sh --force
-}
-
-pkg_postrm() {
-	rm -r "${ROOT}/usr/share/GeoIP/"
 }
