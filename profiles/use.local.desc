@@ -1616,6 +1616,8 @@ dev-lang/ruby:rdoc - Install dev-ruby/rdoc after installing Ruby.
 dev-lang/ruby:readline - Use the sys-libs/readline library to provide the readline extension, used for instance by the irb tool. This flag is meaningful only if the libedit USE flag is disabled. If neither libedit nor readline USE flags are enabled, the readline extension will not be built (and irb will lose line editing functionality).
 dev-lang/ruby:rubytests - Install ruby tests that can only be run after ruby is installed
 dev-lang/ruby:yaml - Use the dev-libs/libyaml library to build the psych extension, available since Ruby 1.9.2_rc2, in alternative to the bundled syck-based parser.
+dev-lang/rust:binary-bootstrap - Download precompiled rust for compilator bootstrap
+dev-lang/rust:clang - Use sys-devel/clang for building
 dev-lang/scala:binary - Install from (Gentoo-compiled) binary instead of building from sources. Set this when you run out of memory during build.
 dev-lang/spidermonkey:debug - Enable assertions to allow for easier debugging of programs that link to spidermonkey -- note this will often crash software on regular end-user systems
 dev-lang/spidermonkey:system-icu - Use the system-wide dev-libs/icu instead of bundled -- note, only takes effect when icu flag is enabled
@@ -4922,11 +4924,6 @@ net-irc/weechat:relay - Enable relay plugin (experimental)
 net-irc/weechat:rmodifier - Enable rmodifier plugin.
 net-irc/weechat:scripts - Build infrastructure for scripting.
 net-irc/weechat:xfer - Enable xfer plugin support.
-net-irc/xchat:fastscroll - Make scrolling of large text buffers faster by circumventing some of pango's overhead
-net-irc/xchat:hires-icons - Install custom high-resolution icons instead of the default one
-net-irc/xchat:ntlm - Enable NTLM authentication
-net-irc/xchat:xchatdccserver - Enables support for the /dccserver command via a patch
-net-irc/xchat:xchatnogtk - Disables building the GTK front end to XChat
 net-irc/znc:daemon - Allow znc to run as a system-wide service. Installs an init script and creates a znc user:group.
 net-libs/aqbanking:chipcard - Enable support for DDV/RSA-chipcards
 net-libs/axtls:cgi-lua - Enables lua backed cgi for axhttpd server
@@ -5253,14 +5250,24 @@ net-misc/batman-adv:bla - B.A.T.M.A.N. bridge loop avoidance
 net-misc/batman-adv:dat - B.A.T.M.A.N. distributed arp table
 net-misc/batman-adv:nc - B.A.T.M.A.N. network coding
 net-misc/bfgminer:adl - Enable support for controlling fans and overclocking on AMD cards with AMD Display Library
+net-misc/bfgminer:antminer - Enable support for mining with AntMiner U1 sticks
 net-misc/bfgminer:avalon - Enable support for mining with Avalon ASIC modules
 net-misc/bfgminer:bfsb - Enable support for mining on BFSB host Raspberry Pi
+net-misc/bfgminer:bfx - Enable support for mining with BFx2 USB sticks
+net-misc/bfgminer:bifury - Enable support for mining with Bi*fury USB sticks
 net-misc/bfgminer:bigpic - Enable support for mining with Big Picture Mining USB sticks (Red/BlueFury, BF1, etc)
 net-misc/bfgminer:bitforce - Enable support for mining with ButterFly Labs BitFORCE ASICs and/or FPGAs
 net-misc/bfgminer:bitfury - Enable support for mining with 55nm Bitfury-based devices
 net-misc/bfgminer:cpumining - Enable support for mining with CPUs
+net-misc/bfgminer:drillbit - Enable support for mining with Drillbit boards
+net-misc/bfgminer:dualminer - Enable support for mining with DualMiner USB sticks
+net-misc/bfgminer:gridseed - Enable support for mining with 5-chip GridSeed orbs
 net-misc/bfgminer:hashbuster - Enable support for mining with HashBuster nano boards
+net-misc/bfgminer:hashbuster2 - Enable support for mining with HashBuster micro boards
+net-misc/bfgminer:hashfast - Enable support for mining with HashFast devices
 net-misc/bfgminer:icarus - Enable support for mining with Icarus-compatible devices (including Block Erupter Sapphire ASICs)
+net-misc/bfgminer:klondike - Enable support for mining with Klondike USB miners
+net-misc/bfgminer:libusb - Use libusb
 net-misc/bfgminer:littlefury - Enable support for mining with LittleFury USB sticks
 net-misc/bfgminer:metabank - Enable support for mining on Metabank host Raspberry Pi
 net-misc/bfgminer:modminer - Enable support for mining with ModMiner FPGAs
@@ -5270,9 +5277,11 @@ net-misc/bfgminer:padlock - Enable support for mining with VIA Padlock CPUs
 net-misc/bfgminer:proxy - Enable support for virtual proxy device
 net-misc/bfgminer:proxy_getwork - Enable proxy support for getwork protocol (often used with Block Erupter Blades)
 net-misc/bfgminer:proxy_stratum - Enable proxy support for stratum protocol
+net-misc/bfgminer:rockminer - Enable support for mining with RockMiner devices
 net-misc/bfgminer:scrypt - Enable support for scrypt mining algorithm
 net-misc/bfgminer:sse2_4way - Enable support for CPU SSE2 4way mining algorithm
 net-misc/bfgminer:sse4 - Enable support for CPU SSE4 mining algorithm
+net-misc/bfgminer:twinfury - Enable support for mining with Twinfury USB sticks
 net-misc/bfgminer:x6500 - Enable support for mining with X6500 FPGAs
 net-misc/bfgminer:ztex - Enable support for mining with Ztex FPGAs
 net-misc/cfengine:html - Install HTML documentation
