@@ -1,9 +1,8 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emacs/company-mode/company-mode-0.6.14.ebuild,v 1.2 2014/02/13 18:19:49 ulm Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emacs/company-mode/company-mode-0.6.14.ebuild,v 1.4 2014/06/07 11:05:17 ulm Exp $
 
 EAPI=5
-NEED_EMACS=23
 
 inherit elisp
 
@@ -14,12 +13,11 @@ SRC_URI="https://github.com/${PN}/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="ropemacs +semantic"
+IUSE="ropemacs"
 
 # Note: company-mode supports many backends, and we refrain from including
 # them all in RDEPEND. Only depend on things that are needed at build time.
-DEPEND="ropemacs? ( app-emacs/pymacs )
-	semantic? ( virtual/emacs-cedet )"
+DEPEND="ropemacs? ( app-emacs/pymacs )"
 RDEPEND="${DEPEND}
 	ropemacs? ( dev-python/ropemacs )"
 
@@ -36,10 +34,5 @@ src_prepare() {
 	if ! use ropemacs; then
 		elog "Removing ropemacs backend, as requested by USE=-ropemacs"
 		rm company-ropemacs.el || die
-	fi
-
-	if ! use semantic; then
-		elog "Removing semantic backend, as requested by USE=-semantic"
-		rm company-semantic.el || die
 	fi
 }

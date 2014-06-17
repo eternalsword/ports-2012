@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-action/powermanga/powermanga-0.91.ebuild,v 1.2 2013/04/29 08:16:42 hasufell Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-action/powermanga/powermanga-0.91.ebuild,v 1.6 2014/05/15 16:24:24 ulm Exp $
 
 EAPI=5
 inherit eutils autotools games
@@ -11,10 +11,10 @@ SRC_URI="http://linux.tlk.fr/games/Powermanga/download/${P}.tgz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="amd64 ppc x86"
 IUSE=""
 
-RDEPEND=">=media-libs/libsdl-1.2[audio,joystick,video]
+RDEPEND=">=media-libs/libsdl-1.2[sound,joystick,video]
 	media-libs/libpng:0
 	x11-libs/libX11
 	x11-libs/libXext

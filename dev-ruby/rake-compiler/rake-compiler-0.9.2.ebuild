@@ -1,9 +1,9 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/rake-compiler/rake-compiler-0.9.2.ebuild,v 1.4 2014/01/02 07:12:21 graaff Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/rake-compiler/rake-compiler-0.9.2.ebuild,v 1.9 2014/06/13 19:18:51 jer Exp $
 
 EAPI=5
-USE_RUBY="ruby18 ruby19 ruby20 jruby"
+USE_RUBY="ruby19 ruby20 jruby"
 
 RUBY_FAKEGEM_RECIPE_TEST="none"
 
@@ -19,12 +19,12 @@ LICENSE="MIT"
 SRC_URI="http://github.com/luislavena/${PN}/tarball/v${PV} -> ${P}.tar.gz"
 RUBY_S="luislavena-${PN}-*"
 
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+KEYWORDS="~alpha ~amd64 arm hppa ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 SLOT="0"
 IUSE=""
 
 ruby_add_rdepend "dev-ruby/rake"
-ruby_add_bdepend "test? ( dev-ruby/rspec:2 )"
+USE_RUBY="ruby19 ruby20 jruby" ruby_add_bdepend "test? ( dev-ruby/rspec:2 )"
 USE_RUBY="ruby19" ruby_add_bdepend "test? ( dev-util/cucumber )"
 
 each_ruby_prepare() {
@@ -43,12 +43,17 @@ each_ruby_prepare() {
 }
 
 each_ruby_test() {
-	ruby-ng_rspec
-
 	# Skip cucumber for jruby (not supported) and ruby20 (not ready yet)
+	# Skip rspec as well for ruby21 to allow bootstrapping rspec for ruby21
 	case ${RUBY} in
 		*ruby19)
+			ruby-ng_rspec
 			ruby-ng_cucumber
+			;;
+		*ruby21)
+			;;
+		*)
+			ruby-ng_rspec
 			;;
 	esac
 }

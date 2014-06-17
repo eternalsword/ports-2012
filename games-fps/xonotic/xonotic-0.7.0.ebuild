@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-fps/xonotic/xonotic-0.7.0.ebuild,v 1.2 2013/06/15 19:50:42 hasufell Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-fps/xonotic/xonotic-0.7.0.ebuild,v 1.4 2014/05/15 16:47:18 ulm Exp $
 
 EAPI=5
 inherit eutils check-reqs games
@@ -30,7 +30,7 @@ UIRDEPEND="
 	virtual/opengl
 	media-libs/freetype:2
 	alsa? ( media-libs/alsa-lib )
-	sdl? ( media-libs/libsdl[X,audio,joystick,opengl,video,alsa?] )"
+	sdl? ( media-libs/libsdl[X,sound,joystick,opengl,video,alsa?] )"
 UIDEPEND="
 	x11-proto/xextproto
 	x11-proto/xf86dgaproto
@@ -109,6 +109,6 @@ src_install() {
 	doins -r key_0.d0pk server data
 	prepgamesdirs
 
-	elog "If you are using opensource drivers you should condider installing: "
+	elog "If you are using opensource drivers you should consider installing: "
 	elog "    media-libs/libtxc_dxtn"
 }

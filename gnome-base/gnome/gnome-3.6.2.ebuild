@@ -40,7 +40,9 @@ RDEPEND="
 	extras? ( >=gnome-base/gnome-extra-apps-${PV} )
 	fallback? (
 		>=gnome-base/gnome-applets-3.6.0
-		>=gnome-base/gnome-fallback-${PV} )"
+		>=gnome-base/gnome-fallback-${PV} )
+	x11-base/xorg-server
+	x11-base/xorg-drivers"
 DEPEND=""
 PDEPEND="|| ( >=gnome-base/gvfs-1.12.1[udisks] >=gnome-base/gvfs-1.12.1[gdu] )"
 # Broken from assumptions of gnome-vfs headers being included in nautilus headers,

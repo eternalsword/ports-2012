@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/eutils.eclass,v 1.431 2014/01/08 06:46:18 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/eutils.eclass,v 1.434 2014/04/27 19:01:30 vapier Exp $
 
 # @ECLASS: eutils.eclass
 # @MAINTAINER:
@@ -659,7 +659,7 @@ epatch() {
 # @USAGE:
 # @DESCRIPTION:
 # Applies user-provided patches to the source tree. The patches are
-# taken from /etc/portage/patches/<CATEGORY>/<PF|P|PN>[:SLOT]/, where the first
+# taken from /etc/portage/patches/<CATEGORY>/<P-PR|P|PN>[:SLOT]/, where the first
 # of these three directories to exist will be the one to use, ignoring
 # any more general directories which might exist as well. They must end
 # in ".patch" to be applied.
@@ -1728,5 +1728,50 @@ einstalldocs() {
 }
 
 check_license() { die "you no longer need this as portage supports ACCEPT_LICENSE itself"; }
+
+# @FUNCTION: optfeature
+# @USAGE: <short description> <package atom to match> [other atoms]
+# @DESCRIPTION:
+# Print out a message suggesting an optional package (or packages) which
+# provide the described functionality
+#
+# The following snippet would suggest app-misc/foo for optional foo support,
+# app-misc/bar or app-misc/baz[bar] for optional bar support
+# and either both app-misc/a and app-misc/b or app-misc/c for alphabet support.
+# @CODE
+#	optfeature "foo support" app-misc/foo
+#	optfeature "bar support" app-misc/bar app-misc/baz[bar]
+#	optfeature "alphabet support" "app-misc/a app-misc/b" app-misc/c
+# @CODE
+optfeature() {
+	debug-print-function ${FUNCNAME} "$@"
+	local i j msg
+	local desc=$1
+	local flag=0
+	shift
+	for i; do
+		for j in ${i}; do
+			if has_version "${j}"; then
+				flag=1
+			else
+				flag=0
+				break
+			fi
+		done
+		if [[ ${flag} -eq 1 ]]; then
+			break
+		fi
+	done
+	if [[ ${flag} -eq 0 ]]; then
+		for i; do
+			msg=" "
+			for j in ${i}; do
+				msg+=" ${j} and"
+			done
+			msg="${msg:0: -4} for ${desc}"
+			elog "${msg}"
+		done
+	fi
+}
 
 fi

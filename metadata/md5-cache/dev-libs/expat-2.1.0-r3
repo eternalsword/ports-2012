@@ -1,5 +1,4 @@
 DEFINED_PHASES=compile configure install prepare test
-DEPEND=userland_GNU? ( >=sys-apps/coreutils-8.5 )
 DESCRIPTION=XML parsing libraries
 EAPI=5
 HOMEPAGE=http://expat.sourceforge.net/
@@ -9,5 +8,5 @@ LICENSE=MIT
 RDEPEND=abi_x86_32? ( !<=app-emulation/emul-linux-x86-baselibs-20130224-r6 !app-emulation/emul-linux-x86-baselibs[-abi_x86_32(-)] )
 SLOT=0
 SRC_URI=mirror://sourceforge/expat/expat-2.1.0.tar.gz
-_eclasses_=eutils	40081e8c7e7f7c4f9db349a1d6d52925	libtool	b9b3340e3a19510f0d9f05cfccbf209f	multibuild	f43414256d67e04ca5f4d4b3611dd134	multilib	fac675dcccf94392371a6abee62d909f	multilib-build	16ef76b5d4e4752929dacf8c3a640539	multilib-minimal	5d77d70b80ea6e86a58d332de2abb1cc	multiprocessing	c2d96fb38f2596209e98fceda58ba1ed	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
-_md5_=067d9f7688c87e4ef9b7af96978043ee
+_eclasses_=eutils	025442f2eecab39ad0b4e541b6e142af	libtool	2964b38e7ad7f6998406386ad1c6dbcf	multibuild	56961ac06660a16c3f807c0c39247e4c	multilib	fac675dcccf94392371a6abee62d909f	multilib-build	8e48442a24570a4083ae0c4b879fafff	multilib-minimal	fdbed344148ac0f8d4ba701ff95f99d8	multiprocessing	c2d96fb38f2596209e98fceda58ba1ed	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
+_md5_=584fa29f1f92f59594f1466248f8d398

@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/vlc/vlc-2.0.8a.ebuild,v 1.6 2014/01/30 18:13:24 tomwij Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/vlc/vlc-2.0.8a.ebuild,v 1.10 2014/03/26 15:50:35 tomwij Exp $
 
 EAPI="5"
 
@@ -49,7 +49,7 @@ IUSE="a52 aalib alsa altivec atmo +audioqueue avahi +avcodec
 	+macosx-audio +macosx-dialog-provider +macosx-eyetv +macosx-quartztext
 	+macosx-qtkit +macosx-vout matroska media-library mmx modplug mp3 mpeg
 	mtp musepack ncurses neon ogg omxil opengl optimisememory opus oss
-	png portaudio +postproc projectm pulseaudio pvr qt4 rtsp run-as-root samba
+	png portaudio +postproc projectm pulseaudio pvr +qt4 rtsp run-as-root samba
 	schroedinger sdl sdl-image sftp shine shout sid skins speex sqlite sse svg
 	+swscale switcher taglib theora tremor truetype twolame udev upnp vaapi v4l
 	vcdx visual vlm vorbis waveout wingdi wma-fixed +X x264 +xcb xml xosd xv
@@ -133,7 +133,7 @@ RDEPEND="
 		taglib? ( >=media-libs/taglib-1.5:0 sys-libs/zlib:0 )
 		theora? ( >=media-libs/libtheora-1.0_beta3:0 )
 		tremor? ( media-libs/tremor:0 )
-		truetype? ( media-libs/freetype:2 virtual/ttf-fonts:0
+		truetype? ( <media-libs/freetype-2.5.3:2 virtual/ttf-fonts:0
 			!fontconfig? ( media-fonts/dejavu:0 ) )
 		twolame? ( media-sound/twolame:0 )
 		udev? ( virtual/udev:0 )
@@ -156,8 +156,8 @@ DEPEND="${RDEPEND}
 	kde? ( >=kde-base/kdelibs-4:4 )
 	xcb? ( x11-proto/xproto:0 )
 	app-arch/xz-utils:0
-	>=sys-devel/gettext-0.18.1:0
-	virtual/pkgconfig:0"
+	>=sys-devel/gettext-0.18.1:*
+	virtual/pkgconfig:*"
 
 REQUIRED_USE="
 	aalib? ( X )

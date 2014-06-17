@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-action/supertuxkart/supertuxkart-0.8.1.ebuild,v 1.2 2014/02/11 21:30:14 mr_bones_ Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-action/supertuxkart/supertuxkart-0.8.1.ebuild,v 1.5 2014/04/29 23:31:25 hasufell Exp $
 
 EAPI=5
 inherit gnome2-utils cmake-utils eutils games
@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/supertuxkart/SuperTuxKart/${PV}/${P}-src.tar.bz2
 
 LICENSE="GPL-3 CC-BY-SA-3.0 CC-BY-2.0 public-domain ZLIB"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="amd64 ~ppc x86"
 IUSE="debug fribidi wiimote"
 
 # don't unbundle irrlicht and bullet
@@ -41,7 +41,7 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}/SuperTuxKart-${PV}
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-{gentoo,icon-dest,irrlicht,desktopfile}.patch
+	epatch "${FILESDIR}"/${P}-{gentoo,icon-dest,irrlicht,desktopfile,mesa-10.x}.patch
 
 	# inconsistent handling of debug definition
 	# avoid using Debug build type

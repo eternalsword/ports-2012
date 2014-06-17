@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/mail-client/trojita/trojita-9999.ebuild,v 1.21 2014/01/14 08:20:46 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/mail-client/trojita/trojita-9999.ebuild,v 1.24 2014/04/29 16:44:18 johu Exp $
 
 EAPI=5
 
@@ -18,12 +18,12 @@ if [[ ${PV} == "9999" ]]; then
 else
 	SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 	KEYWORDS="~amd64 ~ppc ~x86"
-	MY_LANGS="bs cs da de el es et fr ga gl hu ia lt mr nl pl pt pt_BR ro sk sv tr ug uk zh_CN zh_TW"
+	MY_LANGS="bs cs da de el es et fr ga gl hu ia it lt mr nb nl pl pt pt_BR ro sk sv tr ug uk zh_CN zh_TW"
 fi
 
 LICENSE="|| ( GPL-2 GPL-3 )"
 SLOT="0"
-IUSE="debug test +zlib"
+IUSE="debug +password test +zlib"
 for MY_LANG in ${MY_LANGS} ; do
 	IUSE="${IUSE} linguas_${MY_LANG}"
 done
@@ -35,6 +35,7 @@ RDEPEND="
 	>=dev-qt/qtwebkit-${QT_REQUIRED}:4
 "
 DEPEND="${RDEPEND}
+	password? ( dev-libs/qtkeychain[qt4] )
 	test? ( >=dev-qt/qttest-${QT_REQUIRED}:4 )
 	zlib? (
 		virtual/pkgconfig
@@ -46,6 +47,7 @@ DOCS="README LICENSE"
 
 src_configure() {
 	local mycmakeargs=(
+		$(cmake-utils_use_with password QTKEYCHAIN_PLUGIN)
 		$(cmake-utils_use_with test TESTS)
 		$(cmake-utils_use_with zlib ZLIB)
 	)

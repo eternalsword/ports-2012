@@ -1,24 +1,19 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/freewrl/freewrl-9999.ebuild,v 1.3 2013/12/23 16:20:49 axs Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-gfx/freewrl/freewrl-9999.ebuild,v 1.6 2014/04/22 19:22:43 axs Exp $
 
 EAPI=5
 
 inherit autotools nsplugins eutils flag-o-matic java-pkg-opt-2 multilib
 
 if [[ ${PV} == "9999" ]]; then
-	inherit cvs
-	ECVS_SERVER="freewrl.cvs.sourceforge.net:/cvsroot/freewrl/"
-	ECVS_USER="anonymous"
-	ECVS_PASS=""
-	ECVS_AUTH="pserver"
-	ECVS_MODULE="freewrl/freex3d"
-	ECVS_TOP_DIR="${DISTDIR}/cvs-src/freewrl/freex3d"
-	S="${WORKDIR}/freewrl/freex3d"
+	inherit git-r3
+	EGIT_REPO_URI="git://git.code.sf.net/p/freewrl/git"
+	S="${WORKDIR}/${P}/freex3d"
 	SRC_URI=
 	KEYWORDS=
 else
-	SRC_URI="mirror://sourceforge/freewrl/${P}.1.tar.bz2"
+	SRC_URI="mirror://sourceforge/freewrl/${P}.tar.bz2"
 	KEYWORDS="~amd64 ~x86"
 fi
 
@@ -26,7 +21,7 @@ DESCRIPTION="VRML97 and X3D compliant browser, library, and web-browser plugin"
 HOMEPAGE="http://freewrl.sourceforge.net/"
 LICENSE="GPL-3"
 SLOT="0"
-IUSE="curl debug +glew java libeai motif +nsplugin osc +sox static-libs"
+IUSE="curl debug java libeai motif +nsplugin opencl osc +sox static-libs"
 
 COMMONDEPEND="x11-libs/libXau
 	x11-libs/libXdmcp
@@ -35,7 +30,6 @@ COMMONDEPEND="x11-libs/libXau
 	motif? ( x11-libs/motif )
 	!motif? ( x11-libs/libXaw )
 	media-libs/mesa
-	glew? ( media-libs/glew )
 	virtual/opengl
 	media-libs/libpng
 	virtual/jpeg
@@ -44,6 +38,7 @@ COMMONDEPEND="x11-libs/libXau
 	media-libs/fontconfig
 	curl? ( net-misc/curl )
 	osc? ( media-libs/liblo )
+	opencl? ( virtual/opencl )
 	dev-lang/spidermonkey:0="
 DEPEND="${COMMONDEPEND}
 	virtual/pkgconfig
@@ -74,7 +69,6 @@ src_configure() {
 
 	local myconf="--enable-fontconfig
 		--without-expat
-		--without-glu
 		--with-x
 		--with-imageconvert=/usr/bin/convert
 		--with-unzip=/usr/bin/unzip
@@ -85,13 +79,13 @@ src_configure() {
 		# spidermonkey pre-1.8.5 has no pkg-config, so override ./configure
 		myconf+="${spidermonkeys_pc[@]/#/ --disable-}"
 		JAVASCRIPT_ENGINE_CFLAGS="-I/usr/include/js -DXP_UNIX"
-		if has_version ">=dev-lang/spidermonkey-1.8" ; then
+		if has_version ">=dev-lang/spidermonkey-1.8:0" ; then
 			# spidermonkey-1.8 changed the name of the lib
 			JAVASCRIPT_ENGINE_LIBS="-lmozjs"
 		else
 			JAVASCRIPT_ENGINE_LIBS="-ljs"
 		fi
-		if has_version dev-lang/spidermonkey[threadsafe] ; then
+		if has_version "dev-lang/spidermonkey:0[threadsafe]" ; then
 			JAVASCRIPT_ENGINE_CFLAGS+=" -DJS_THREADSAFE $(pkg-config --cflags nspr)"
 			JAVASCRIPT_ENGINE_LIBS="$(pkg-config --libs nspr) ${JAVASCRIPT_ENGINE_LIBS}"
 		fi
@@ -104,7 +98,7 @@ src_configure() {
 	fi
 	econf	${myconf} \
 		$(use_enable curl libcurl) \
-		$(use_with glew) \
+		$(use_with opencl OpenCL) \
 		$(use_enable debug) $(use_enable debug thread_colorized) \
 		$(use_enable libeai) \
 		$(use_enable java) \

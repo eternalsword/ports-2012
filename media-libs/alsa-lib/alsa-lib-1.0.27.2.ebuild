@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/alsa-lib/alsa-lib-1.0.27.2.ebuild,v 1.5 2014/02/15 14:05:00 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/alsa-lib/alsa-lib-1.0.27.2.ebuild,v 1.13 2014/04/28 17:46:53 mgorny Exp $
 
 EAPI=5
 
@@ -15,7 +15,7 @@ SRC_URI="mirror://alsaproject/lib/${P}.tar.bz2"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~sh sparc x86 ~amd64-linux ~x86-linux"
 IUSE="doc debug alisp python"
 
 RDEPEND="python? ( ${PYTHON_DEPS} )
@@ -39,7 +39,7 @@ src_prepare() {
 multilib_src_configure() {
 	local myconf
 	# enable Python only on final ABI
-	if multilib_build_binaries; then
+	if multilib_is_native_abi; then
 		myconf="$(use_enable python)"
 	else
 		myconf="--disable-python"
@@ -62,7 +62,7 @@ multilib_src_configure() {
 multilib_src_compile() {
 	emake
 
-	if multilib_build_binaries && use doc; then
+	if multilib_is_native_abi && use doc; then
 		emake doc
 		fgrep -Zrl "${S}" doc/doxygen/html | \
 			xargs -0 sed -i -e "s:${S}::"
@@ -71,7 +71,7 @@ multilib_src_compile() {
 
 multilib_src_install() {
 	emake DESTDIR="${D}" install
-	if multilib_build_binaries && use doc; then
+	if multilib_is_native_abi && use doc; then
 		dohtml -r doc/doxygen/html/.
 	fi
 }

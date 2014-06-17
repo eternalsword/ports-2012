@@ -1,9 +1,9 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/ruby-glib2/ruby-glib2-1.1.8.ebuild,v 1.5 2013/09/05 12:35:14 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/ruby-glib2/ruby-glib2-1.1.8.ebuild,v 1.7 2014/05/21 01:40:18 mrueg Exp $
 
 EAPI=4
-USE_RUBY="ruby18 ree18 ruby19"
+USE_RUBY="ruby19"
 
 inherit ruby-ng-gnome2
 

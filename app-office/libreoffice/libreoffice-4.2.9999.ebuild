@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.2.9999.ebuild,v 1.7 2014/02/08 12:14:52 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.2.9999.ebuild,v 1.11 2014/05/18 09:04:49 scarabeus Exp $
 
 EAPI=5
 
@@ -9,7 +9,7 @@ QT_MINIMAL="4.7.4"
 KDE_SCM="git"
 CMAKE_REQUIRED="never"
 
-PYTHON_COMPAT=( python2_7 python3_3 )
+PYTHON_COMPAT=( python2_7 python3_3 python3_4 )
 PYTHON_REQ_USE="threads,xml"
 
 # experimental ; release ; old
@@ -117,7 +117,7 @@ COMMON_DEPEND="
 	>=dev-libs/hyphen-2.7.1
 	>=dev-libs/icu-4.8.1.1:=
 	>=dev-libs/libatomic_ops-7.2d
-	>=dev-libs/liborcus-0.5.1:=
+	=dev-libs/liborcus-0.5*:=
 	>=dev-libs/nspr-4.8.8
 	>=dev-libs/nss-3.12.9
 	>=dev-lang/perl-5.0
@@ -209,7 +209,7 @@ DEPEND="${COMMON_DEPEND}
 	dev-util/cppunit
 	>=dev-util/gperf-3
 	dev-util/intltool
-	>=dev-util/mdds-0.10.1:=
+	>=dev-util/mdds-0.10.2:=
 	virtual/pkgconfig
 	net-misc/npapi-sdk
 	>=sys-apps/findutils-4.4.2
@@ -404,7 +404,7 @@ src_configure() {
 			--without-system-hsqldb
 			--with-ant-home="${ANT_HOME}"
 			--with-jdk-home=$(java-config --jdk-home 2>/dev/null)
-			--with-jvm-path="${EPREFIX}/usr/$(get_libdir)/"
+			--with-jvm-path="${EPREFIX}/usr/lib/"
 		"
 
 		use libreoffice_extensions_scripting-beanshell && \

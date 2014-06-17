@@ -9,7 +9,7 @@
 >=app-accessibility/at-spi2-core-2.8
 >=app-accessibility/orca-3.8
 >=app-admin/gnome-system-log-3.8
->=app-cdr/brasero-3.8
+>=app-cdr/brasero-3.11
 >=app-crypt/gcr-3.8
 >=app-editors/ghex-3.8
 >=app-misc/gnote-3.8
@@ -50,7 +50,7 @@
 >=gnome-extra/mousetweaks-3.8
 >=gnome-extra/nautilus-sendto-3.8
 >=gnome-extra/nautilus-tracker-tags-0.16
->=gnome-extra/nm-applet-0.9.8
+>gnome-extra/nm-applet-0.9.8.2
 >=gnome-extra/office-runner-1.0.1
 >=gnome-extra/seahorse-nautilus-3.8
 >=gnome-extra/sushi-3.8
@@ -62,9 +62,9 @@
 >=media-gfx/eog-3.8
 >=media-gfx/gnome-font-viewer-3.8
 >=media-gfx/gnome-screenshot-3.8
->=media-libs/clutter-gtk-1.4.4
+>media-libs/clutter-gtk-1.4.2
 >=media-libs/clutter-1.14
->=media-libs/cogl-1.14
+>media-libs/cogl-1.12.2-r2
 >=media-video/totem-3.8
 >=net-im/empathy-3.8
 >=net-libs/libsoup-2.43
@@ -73,12 +73,12 @@
 >=net-misc/vinagre-3.8
 >=sys-apps/gnome-disk-utility-3.8
 >=www-client/epiphany-3.8
->=x11-libs/gnome-pty-helper-0.34.3
+>x11-libs/gnome-pty-helper-0.28.1
 >=x11-libs/gtksourceview-3.8
 >=x11-libs/libcryptui-3.8
 >=x11-libs/libwnck-3.8
->=x11-libs/vte-0.34.3
->=x11-misc/colord-0.1.31
+>x11-libs/vte-0.34.2
+>x11-misc/colord-0.1.31
 >=x11-terms/gnome-terminal-3.8
 >=x11-themes/gnome-backgrounds-3.8
 >=x11-themes/gnome-icon-theme-symbolic-3.8
@@ -131,7 +131,7 @@ games-puzzle/gnome-sudoku
 >dev-libs/libgdata-0.13.2-r2
 >gnome-base/dconf-0.14.1
 >dev-libs/libgweather-3.6.2
->x11-libs/gtk+-3.6.3-r3
+>=x11-libs/gtk+-3.8.8
 >dev-cpp/gtkmm-3.6.0
 >dev-cpp/glibmm-2.34.1
 >net-libs/glib-networking-2.34.2
@@ -149,10 +149,14 @@ games-puzzle/gnome-sudoku
 >media-libs/libquvi-0.4.1
 >media-libs/libquvi-scripts-0.4.21
 >app-editors/gedit-plugins-3.6.1-r1
->=app-crypt/libsecret-0.16
+>app-crypt/libsecret-0.15-r1
 
 # We keep a higher version of these packages to avoid random running-time breakage
 # when downgrading.
 >dev-libs/glib-2.36.4-r1
 >dev-libs/gobject-introspection-1.36.0-r1
 >dev-libs/gobject-introspection-common-1.36.0
+>sys-apps/accountsservice-0.6.35
+>dev-libs/libical-0.48-r2
+>sys-devel/bison-2.7.1
+>sys-libs/tdb-1.2.13

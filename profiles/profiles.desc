@@ -81,11 +81,11 @@ ia64            default/linux/ia64/13.0/desktop/kde/systemd     stable
 ia64            default/linux/ia64/13.0/developer               stable
 
 # M68K Profiles
-m68k            default/linux/m68k/13.0                         dev
-m68k            default/linux/m68k/13.0/desktop                 dev
-m68k            default/linux/m68k/13.0/desktop/gnome           dev
-m68k            default/linux/m68k/13.0/desktop/kde             dev
-m68k            default/linux/m68k/13.0/developer               dev
+m68k            default/linux/m68k/13.0                         exp
+m68k            default/linux/m68k/13.0/desktop                 exp
+m68k            default/linux/m68k/13.0/desktop/gnome           exp
+m68k            default/linux/m68k/13.0/desktop/kde             exp
+m68k            default/linux/m68k/13.0/developer               exp
 
 # MIPS Profiles
 mips            default/linux/mips/13.0                         dev
@@ -127,15 +127,15 @@ ppc64           default/linux/powerpc/ppc64/13.0/64bit-userland/desktop/kde/syst
 ppc64           default/linux/powerpc/ppc64/13.0/64bit-userland/developer               stable
 
 # S390 Profiles
-s390            default/linux/s390/13.0                         dev
-s390            default/linux/s390/13.0/s390x                   dev
+s390            default/linux/s390/13.0                         exp
+s390            default/linux/s390/13.0/s390x                   exp
 
 # SH Profiles
-sh              default/linux/sh/13.0                           dev
-sh              default/linux/sh/13.0/desktop                   dev
-sh              default/linux/sh/13.0/desktop/gnome             dev
-sh              default/linux/sh/13.0/desktop/kde               dev
-sh              default/linux/sh/13.0/developer                 dev
+sh              default/linux/sh/13.0                           exp
+sh              default/linux/sh/13.0/desktop                   exp
+sh              default/linux/sh/13.0/desktop/gnome             exp
+sh              default/linux/sh/13.0/desktop/kde               exp
+sh              default/linux/sh/13.0/developer                 exp
 
 # SPARC Profiles
 sparc           default/linux/sparc/13.0                        stable
@@ -172,18 +172,23 @@ amd64		hardened/linux/amd64/no-multilib			stable
 amd64		hardened/linux/amd64/no-multilib/selinux		stable
 amd64		hardened/linux/amd64/x32				dev
 amd64		hardened/linux/uclibc/amd64				dev
+amd64		hardened/linux/musl/amd64				exp
 arm		hardened/linux/arm/armv7a				dev
 arm		hardened/linux/arm/armv6j				dev
 arm		hardened/linux/uclibc/arm/armv7a			dev
+arm		hardened/linux/musl/arm/armv7a				exp
 ia64		hardened/linux/ia64					dev
-mips		hardened/linux/uclibc/mips				exp
-mips		hardened/linux/uclibc/mips/mipsel			exp
+mips		hardened/linux/uclibc/mips				dev
+mips		hardened/linux/uclibc/mips/mipsel			dev
+mips		hardened/linux/musl/mips				exp
+mips		hardened/linux/musl/mips/mipsel				exp
 ppc		hardened/linux/powerpc/ppc32				dev
 ppc		hardened/linux/powerpc/ppc64/32bit-userland		dev
 ppc64		hardened/linux/powerpc/ppc64/64bit-userland		dev
 x86		hardened/linux/x86					stable
 x86		hardened/linux/x86/selinux				stable
 x86		hardened/linux/uclibc/x86				dev
+x86		hardened/linux/musl/x86					exp
 
 # uclibc/embedded multiarch profiles
 #amd64		uclibc/amd64					dev

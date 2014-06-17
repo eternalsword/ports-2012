@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-base/gnome-core-libs/gnome-core-libs-3.10.0.ebuild,v 1.2 2014/02/15 11:02:39 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/gnome-base/gnome-core-libs/gnome-core-libs-3.10.0.ebuild,v 1.7 2014/05/01 02:42:45 tetromino Exp $
 
 EAPI="5"
 
@@ -12,7 +12,7 @@ IUSE="cups python"
 
 # when unmasking for an arch
 # double check none of the deps are still masked !
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc x86"
 
 # Note to developers:
 # This is a wrapper for the core libraries used by GNOME 3
@@ -26,7 +26,6 @@ RDEPEND="
 	>=x11-libs/libwnck-3.4.5:3
 	>=gnome-base/librsvg-2.40.1
 	>=gnome-base/gnome-desktop-${PV}:3
-	>=gnome-base/libgnomekbd-3.6
 	>=x11-libs/startup-notification-0.12
 
 	>=gnome-base/gvfs-1.18.0

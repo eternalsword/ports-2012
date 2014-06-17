@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-p2p/vuze/vuze-4.8.1.2-r1.ebuild,v 1.1 2013/08/15 16:23:14 tomwij Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-p2p/vuze/vuze-4.8.1.2-r1.ebuild,v 1.4 2014/06/14 09:27:20 phajdan.jr Exp $
 
 EAPI=5
 
@@ -22,7 +22,7 @@ SRC_URI="mirror://sourceforge/azureus/${PN}/Vuze_${MY_PV}/${SRC_TARBALL}
 LICENSE="GPL-2 BSD"
 
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
+KEYWORDS="amd64 ~ppc ~ppc64 x86"
 IUSE=""
 
 # bundles parts of commons-lang, but modified
@@ -32,7 +32,7 @@ RDEPEND="
 	dev-java/bcprov:1.40
 	>=dev-java/commons-cli-1.0:1
 	>=dev-java/log4j-1.2.8:0
-	dev-java/swt:3.7[cairo]
+	>=dev-java/swt-3.7.2-r1:3.7[cairo]
 	>=virtual/jre-1.5"
 
 DEPEND="${RDEPEND}

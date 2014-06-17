@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/vlc/vlc-2.1.0.ebuild,v 1.12 2014/01/30 18:13:24 tomwij Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/vlc/vlc-2.1.0.ebuild,v 1.16 2014/03/26 15:50:35 tomwij Exp $
 
 EAPI="5"
 
@@ -135,7 +135,7 @@ RDEPEND="
 		taglib? ( >=media-libs/taglib-1.6.1:0 sys-libs/zlib:0 )
 		theora? ( >=media-libs/libtheora-1.0_beta3:0 )
 		tremor? ( media-libs/tremor:0 )
-		truetype? ( media-libs/freetype:2 virtual/ttf-fonts:0
+		truetype? ( <media-libs/freetype-2.5.3:2 virtual/ttf-fonts:0
 			!fontconfig? ( media-fonts/dejavu:0 ) )
 		twolame? ( media-sound/twolame:0 )
 		udev? ( >=virtual/udev-142:0 )
@@ -143,7 +143,7 @@ RDEPEND="
 		v4l? ( media-libs/libv4l:0 )
 		vaapi? ( x11-libs/libva:0 virtual/ffmpeg[vaapi] )
 		vcdx? ( >=dev-libs/libcdio-0.78.2:0 >=media-video/vcdimager-0.7.22:0 )
-		vdpau? ( >=x11-libs/libvdpau-0.6:0 !<media-video/libav-9.11 )
+		vdpau? ( >=x11-libs/libvdpau-0.6:0 !<media-video/libav-10_beta1 )
 		vorbis? ( media-libs/libvorbis:0 )
 		X? ( x11-libs/libX11:0 )
 		x264? ( >=media-libs/x264-0.0.20090923:0= )
@@ -156,8 +156,8 @@ DEPEND="${RDEPEND}
 	kde? ( >=kde-base/kdelibs-4:4 )
 	xcb? ( x11-proto/xproto:0 )
 	app-arch/xz-utils:0
-	>=sys-devel/gettext-0.18.3:0
-	virtual/pkgconfig:0
+	>=sys-devel/gettext-0.18.3:*
+	virtual/pkgconfig:*
 "
 
 REQUIRED_USE="

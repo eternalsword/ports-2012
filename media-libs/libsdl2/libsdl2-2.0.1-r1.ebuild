@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libsdl2/libsdl2-2.0.1-r1.ebuild,v 1.2 2014/01/04 22:36:20 hasufell Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libsdl2/libsdl2-2.0.1-r1.ebuild,v 1.5 2014/05/15 12:34:42 ulm Exp $
 
 EAPI=5
 inherit autotools flag-o-matic toolchain-funcs eutils
@@ -14,21 +14,20 @@ LICENSE="ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="3dnow alsa altivec +audio custom-cflags dbus directfb fusionsound gles haptic +joystick mmx nas opengl oss pulseaudio sse sse2 static-libs +threads tslib udev +video X xinerama xscreensaver"
+IUSE="3dnow alsa altivec custom-cflags dbus fusionsound gles haptic +joystick mmx nas opengl oss pulseaudio +sound sse sse2 static-libs +threads tslib udev +video X xinerama xscreensaver"
 REQUIRED_USE="
-	alsa? ( audio )
-	fusionsound? ( audio )
+	alsa? ( sound )
+	fusionsound? ( sound )
 	gles? ( video )
-	nas? ( audio )
+	nas? ( sound )
 	opengl? ( video )
-	pulseaudio? ( audio )
+	pulseaudio? ( sound )
 	xinerama? ( X )
 	xscreensaver? ( X )"
 
 RDEPEND="
 	alsa? ( media-libs/alsa-lib )
 	dbus? ( sys-apps/dbus )
-	directfb? ( >=dev-libs/DirectFB-1.0.0 )
 	fusionsound? ( || ( >=media-libs/FusionSound-1.1.1 >=dev-libs/DirectFB-1.7.1[fusionsound] ) )
 	gles? ( media-libs/mesa[gles2] )
 	nas? ( media-libs/nas )
@@ -65,21 +64,10 @@ src_prepare() {
 src_configure() {
 	use custom-cflags || strip-flags
 
-	local directfbconf="--disable-video-directfb"
-	if use directfb ; then
-		# since DirectFB can link against SDL and trigger a
-		# dependency loop, only link against DirectFB if it
-		# isn't broken #61592
-		echo 'int main(){}' > directfb-test.c
-		$(tc-getCC) directfb-test.c -ldirectfb 2>/dev/null \
-			&& directfbconf="--enable-video-directfb" \
-			|| ewarn "Disabling DirectFB since libdirectfb.so is broken"
-	fi
-
 	# sorted by `./configure --help`
 	econf \
 		$(use_enable static-libs static) \
-		$(use_enable audio) \
+		$(use_enable sound audio) \
 		$(use_enable video) \
 		--enable-render \
 		--enable-events \
@@ -110,8 +98,8 @@ src_configure() {
 		--disable-nas-shared \
 		--disable-sndio \
 		--disable-sndio-shared \
-		$(use_enable audio diskaudio) \
-		$(use_enable audio dummyaudio) \
+		$(use_enable sound diskaudio) \
+		$(use_enable sound dummyaudio) \
 		$(use_enable X video-x11) \
 		--disable-x11-shared \
 		$(use_enable X video-x11-xcursor) \
@@ -122,8 +110,7 @@ src_configure() {
 		$(use_enable X video-x11-xshape) \
 		$(use_enable X video-x11-vm) \
 		--disable-video-cocoa \
-		${directfbconf} \
-		--disable-directfb-shared \
+		--disable-video-directfb \
 		$(use_enable fusionsound) \
 		--disable-fusionsound-shared \
 		$(use_enable video video-dummy) \

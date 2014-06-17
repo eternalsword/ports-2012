@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/libav/libav-0.8.9-r1.ebuild,v 1.3 2014/02/09 22:07:01 lu_zero Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/libav/libav-0.8.9-r1.ebuild,v 1.5 2014/05/15 17:12:08 ulm Exp $
 
 EAPI=5
 
@@ -31,7 +31,7 @@ KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd
 
 IUSE="+3dnow +3dnowext aac alsa altivec amr bindist +bzip2 cdio cpudetection
 	  custom-cflags debug dirac doc +encode faac truetype frei0r +gpl gsm
-	  +hardcoded-tables ieee1394 jack jpeg2k +mmx +mmxext mp3 network openssl
+	  +hardcoded-tables ieee1394 jack jpeg2k +mmx +mmxext mp3 +network openssl
 	  oss pic pulseaudio +qt-faststart rtmp schroedinger sdl speex ssl +ssse3
 	  static-libs test theora threads v4l vaapi vdpau vorbis vpx X x264 xvid
 	  +zlib"
@@ -78,7 +78,7 @@ RDEPEND="
 	rtmp? ( >=media-video/rtmpdump-2.2f[${MULTILIB_USEDEP}] )
 	ssl? ( openssl? ( dev-libs/openssl[${MULTILIB_USEDEP}] )
 		   !openssl? ( net-libs/gnutls[${MULTILIB_USEDEP}] ) )
-	sdl? ( >=media-libs/libsdl-1.2.13-r1[audio,video,${MULTILIB_USEDEP}] )
+	sdl? ( >=media-libs/libsdl-1.2.13-r1[sound,video,${MULTILIB_USEDEP}] )
 	schroedinger? ( media-libs/schroedinger[${MULTILIB_USEDEP}] )
 	speex? ( >=media-libs/speex-1.2_beta3[${MULTILIB_USEDEP}] )
 	vaapi? ( x11-libs/libva[${MULTILIB_USEDEP}] )

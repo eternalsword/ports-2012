@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-vcs/git/git-9999.ebuild,v 1.55 2014/02/13 14:51:26 polynomial-c Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-vcs/git/git-9999.ebuild,v 1.57 2014/05/28 23:44:51 robbat2 Exp $
 
 EAPI=5
 
@@ -10,6 +10,7 @@ GENTOO_DEPEND_ON_PERL=no
 PYTHON_COMPAT=( python2_{6,7} )
 [[ ${PV} == *9999 ]] && SCM="git-2"
 EGIT_REPO_URI="git://git.kernel.org/pub/scm/git/git.git"
+EGIT_MASTER=master
 
 inherit toolchain-funcs eutils elisp-common perl-module bash-completion-r1 python-single-r1 systemd ${SCM}
 
@@ -373,7 +374,9 @@ src_install() {
 
 	newbashcomp contrib/completion/git-completion.bash ${PN}
 	# Not really a bash-completion file (bug #477920)
-	dodoc contrib/completion/git-prompt.sh
+	# but still needed uncompressed (bug #507480)
+	insinto /usr/share/${PN}
+	doins contrib/completion/git-prompt.sh
 
 	if use emacs ; then
 		elisp-install ${PN} contrib/emacs/git.{el,elc}

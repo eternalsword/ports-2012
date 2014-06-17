@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/gjs/gjs-1.36.1.ebuild,v 1.4 2013/12/08 17:57:02 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/gjs/gjs-1.36.1.ebuild,v 1.6 2014/05/07 02:44:20 tetromino Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -13,14 +13,14 @@ HOMEPAGE="http://live.gnome.org/Gjs"
 LICENSE="MIT || ( MPL-1.1 LGPL-2+ GPL-2+ )"
 SLOT="0"
 IUSE="+cairo examples"
-KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc x86 ~amd64-fbsd"
+KEYWORDS="~alpha amd64 ~arm ~ia64 ~mips ~ppc ~ppc64 ~sparc x86 ~amd64-fbsd"
 
 RDEPEND="
 	>=dev-libs/glib-2.36.0:2
 	>=dev-libs/gobject-introspection-1.36.0
 
 	dev-libs/dbus-glib
-	sys-libs/readline
+	sys-libs/readline:0
 	>=dev-lang/spidermonkey-1.8.5:0
 	virtual/libffi
 	cairo? ( x11-libs/cairo )

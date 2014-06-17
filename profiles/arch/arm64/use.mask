@@ -74,6 +74,12 @@ prelude
 mssql
 
 # havent tested yet
+ruby
+ctypes-python
+sasl
+libproxy
+pkcs11
+gnutls
 bazaar
 darcs
 mercurial
@@ -96,11 +102,14 @@ beagle
 nvtv
 mzscheme
 xemacs
+rpm
 scanner
 madwifi
 libupnp
 zvbi
 ldap
+mysql
+postgres
 dvd
 fluidsynth
 gnomecd
@@ -117,6 +126,7 @@ darcs
 bs2b
 toolame
 ladspa
+ldns
 ggi
 nut
 xanim
@@ -226,3 +236,7 @@ opencl
 python_targets_python2_6
 python_targets_python3_0
 python_targets_python3_1
+python_targets_python3_2
+
+# This one we need to test ...
+python_targets_python3_3

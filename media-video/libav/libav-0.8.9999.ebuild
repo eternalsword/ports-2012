@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/libav/libav-0.8.9999.ebuild,v 1.25 2013/07/10 03:07:45 lu_zero Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/libav/libav-0.8.9999.ebuild,v 1.27 2014/05/15 17:12:08 ulm Exp $
 
 EAPI=5
 
@@ -31,7 +31,7 @@ SLOT="0/0.8"
 ~x64-solaris ~x86-solaris"
 IUSE="+3dnow +3dnowext aac alsa altivec amr bindist +bzip2 cdio cpudetection
 	  custom-cflags debug dirac doc +encode faac truetype frei0r +gpl gsm
-	  +hardcoded-tables ieee1394 jack jpeg2k +mmx +mmxext mp3 network openssl
+	  +hardcoded-tables ieee1394 jack jpeg2k +mmx +mmxext mp3 +network openssl
 	  oss pic pulseaudio +qt-faststart rtmp schroedinger sdl speex ssl +ssse3
 	  static-libs test theora threads v4l vaapi vdpau vorbis vpx X x264 xvid
 	  +zlib"
@@ -75,7 +75,7 @@ RDEPEND="
 	rtmp? ( >=media-video/rtmpdump-2.2f )
 	ssl? ( openssl? ( dev-libs/openssl )
 		   !openssl? ( net-libs/gnutls ) )
-	sdl? ( >=media-libs/libsdl-1.2.13-r1[audio,video] )
+	sdl? ( >=media-libs/libsdl-1.2.13-r1[sound,video] )
 	schroedinger? ( media-libs/schroedinger )
 	speex? ( >=media-libs/speex-1.2_beta3 )
 	vaapi? ( x11-libs/libva )

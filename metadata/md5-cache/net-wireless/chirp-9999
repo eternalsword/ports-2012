@@ -1,10 +1,12 @@
-DEFINED_PHASES=compile install postinst postrm prepare setup test unpack
-DEPEND=dev-python/pyserial dev-libs/libxml2[python] =dev-lang/python-2* dev-vcs/mercurial
+DEFINED_PHASES=compile configure install prepare test unpack
+DEPEND=dev-python/pyserial dev-libs/libxml2[python] python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) dev-lang/python-exec:=[python_targets_python2_7(-)?,-python_single_target_python2_7(-)] dev-vcs/mercurial
 DESCRIPTION=Free open-source tool for programming your amateur radio
 EAPI=5
 HOMEPAGE=http://chirp.danplanet.com
+IUSE=python_targets_python2_7
 LICENSE=GPL-3
-RDEPEND=dev-python/pyserial dev-libs/libxml2[python] dev-python/pygtk =dev-lang/python-2*
+RDEPEND=dev-python/pyserial dev-libs/libxml2[python] dev-python/pygtk python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) dev-lang/python-exec:=[python_targets_python2_7(-)?,-python_single_target_python2_7(-)]
+REQUIRED_USE=|| ( python_targets_python2_7 )
 SLOT=0
-_eclasses_=distutils	00e4a86b194f4de1a4a18039fd3632b9	eutils	40081e8c7e7f7c4f9db349a1d6d52925	mercurial	6bb94b704fb44f17b02994ca3fa756a9	multilib	fac675dcccf94392371a6abee62d909f	python	66c3d00d12f20a8c0d932c1a9bebffe6	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
-_md5_=64628bbf15b91cfd859ea3ebac52473e
+_eclasses_=distutils-r1	0ffe72d093023ff4f69e4ceaf6f63e4e	eutils	025442f2eecab39ad0b4e541b6e142af	mercurial	6bb94b704fb44f17b02994ca3fa756a9	multibuild	56961ac06660a16c3f807c0c39247e4c	multilib	fac675dcccf94392371a6abee62d909f	multiprocessing	c2d96fb38f2596209e98fceda58ba1ed	python-r1	6f0183db47dc66fccb7a6899f7209b48	python-utils-r1	8ba35e0dacf49c6cae65901d183c971f	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
+_md5_=bb48688e3ca056ab9bccc06ac0045eb3

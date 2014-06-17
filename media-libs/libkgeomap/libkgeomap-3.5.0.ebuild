@@ -1,11 +1,11 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libkgeomap/libkgeomap-3.5.0.ebuild,v 1.3 2014/01/26 11:39:42 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libkgeomap/libkgeomap-3.5.0.ebuild,v 1.5 2014/04/16 15:21:48 dilfridge Exp $
 
 EAPI=5
 
 KDE_MINIMAL="4.10"
-
+VIRTUALX_REQUIRED="test"
 inherit kde4-base
 
 MY_PV=${PV/_/-}
@@ -22,7 +22,7 @@ SLOT=4
 
 DEPEND="
 	$(add_kdebase_dep libkexiv2)
-	$(add_kdebase_dep marble kde,plasma)
+	kde-base/marble:4=[kde,plasma]
 "
 RDEPEND=${DEPEND}
 

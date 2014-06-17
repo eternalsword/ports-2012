@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libmtp/libmtp-9999.ebuild,v 1.9 2013/11/23 13:40:55 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libmtp/libmtp-9999.ebuild,v 1.11 2014/05/20 22:22:43 mrueg Exp $
 
 EAPI=5
 
@@ -11,7 +11,7 @@ if [[ ${PV} == *9999* ]]; then
 	EGIT_PROJECT="libmtp"
 	inherit git-2
 else
-	KEYWORDS="~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~x86 ~amd64-fbsd"
+	KEYWORDS="~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~x86 ~amd64-fbsd"
 	SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 fi
 
@@ -23,7 +23,7 @@ SLOT="0"
 IUSE="+crypt doc examples static-libs"
 
 RDEPEND="virtual/libusb:1
-	crypt? ( dev-libs/libgcrypt )"
+	crypt? ( dev-libs/libgcrypt:0 )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen )"

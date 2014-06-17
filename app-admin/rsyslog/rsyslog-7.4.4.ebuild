@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/rsyslog/rsyslog-7.4.4.ebuild,v 1.8 2013/12/24 12:21:31 ultrabug Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/rsyslog/rsyslog-7.4.4.ebuild,v 1.10 2014/04/16 16:14:41 maksbotan Exp $
 
 EAPI=4
 AUTOTOOLS_AUTORECONF=yes
@@ -20,7 +20,7 @@ RDEPEND="
 	dev-libs/json-c
 	dev-libs/libee
 	>=dev-libs/libestr-0.1.5
-	dev-libs/libgcrypt
+	dev-libs/libgcrypt:0
 	dev-libs/liblognorm
 	dbi? ( dev-db/libdbi )
 	extras? ( net-libs/libnet )
@@ -47,6 +47,10 @@ RESTRICT="test"
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
 DOCS=(AUTHORS ChangeLog doc/rsyslog-example.conf)
+
+src_prepare() {
+	epatch "$FILESDIR"/${BRANCH}/${PN}-7.x-mmjsonparse.patch
+}
 
 src_configure() {
 	# Maintainer notes:

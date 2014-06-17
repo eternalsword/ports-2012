@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/kde4-base.eclass,v 1.132 2014/01/18 00:43:03 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/kde4-base.eclass,v 1.136 2014/06/14 18:33:59 kensington Exp $
 
 # @ECLASS: kde4-base.eclass
 # @MAINTAINER:
@@ -82,15 +82,15 @@ case ${KDEBASE} in
 			# @DESCRIPTION:
 			# Specifies KDevelop version. Default is 4.0.0 for tagged packages and 9999 for live packages.
 			# Applies to KDEBASE=kdevelop only.
-			KDEVELOP_VERSION="${KDEVELOP_VERSION:-9999}"
+			KDEVELOP_VERSION="${KDEVELOP_VERSION:-4.9999}"
 			# @ECLASS-VARIABLE: KDEVPLATFORM_VERSION
 			# @DESCRIPTION:
 			# Specifies KDevplatform version. Default is 1.0.0 for tagged packages and 9999 for live packages.
 			# Applies to KDEBASE=kdevelop only.
-			KDEVPLATFORM_VERSION="${KDEVPLATFORM_VERSION:-9999}"
+			KDEVPLATFORM_VERSION="${KDEVPLATFORM_VERSION:-4.9999}"
 		else
 			case ${PN} in
-				kdevelop|quanta)
+				kdevelop)
 					KDEVELOP_VERSION=${PV}
 					KDEVPLATFORM_VERSION="$(($(get_major_version)-3)).$(get_after_major_version)"
 					;;
@@ -200,7 +200,7 @@ esac
 # @ECLASS-VARIABLE: QT_MINIMAL
 # @DESCRIPTION:
 # Determine version of qt we enforce as minimal for the package.
-QT_MINIMAL="${QT_MINIMAL:-4.8.0}"
+QT_MINIMAL="${QT_MINIMAL:-4.8.5}"
 
 # Declarative dependencies
 qtdeclarativedepend="
@@ -288,10 +288,8 @@ kdecommondepend="
 	>=dev-qt/qt3support-${QT_MINIMAL}:4[accessibility]
 	>=dev-qt/qtcore-${QT_MINIMAL}:4[qt3support,ssl]
 	>=dev-qt/qtdbus-${QT_MINIMAL}:4
-	|| (
-		( >=dev-qt/qtgui-4.8.5:4[accessibility,dbus(+)] dev-qt/designer:4[-phonon] )
-		<dev-qt/qtgui-4.8.5:4[accessibility,dbus(+)]
-	)
+	>=dev-qt/designer-${QT_MINIMAL}:4[-phonon]
+	>=dev-qt/qtgui-${QT_MINIMAL}:4[accessibility,dbus(+)]
 	>=dev-qt/qtscript-${QT_MINIMAL}:4
 	>=dev-qt/qtsql-${QT_MINIMAL}:4[qt3support]
 	>=dev-qt/qtsvg-${QT_MINIMAL}:4
@@ -311,7 +309,7 @@ if [[ ${PN} != kdelibs ]]; then
 			case ${KDEVPLATFORM_REQUIRED} in
 				always)
 					kdecommondepend+="
-						>=dev-util/kdevplatform-${KDEVPLATFORM_VERSION}
+						>=dev-util/kdevplatform-${KDEVPLATFORM_VERSION}:4
 					"
 					;;
 				*) ;;
@@ -441,6 +439,18 @@ _calculate_src_uri() {
 				4.[1-7].[12345])
 					# Stable KDE SC with old .bz2 support
 					SRC_URI="mirror://kde/stable/${PV}/src/${_kmname_pv}.tar.bz2" ;;
+				4.11.7)
+					# Part of 4.12 actually, sigh. Not stable for next release!
+					SRC_URI="mirror://kde/stable/4.12.3/src/${_kmname_pv}.tar.xz" ;;
+				4.11.8)
+					# Part of 4.12 actually, sigh. Not stable for next release!
+					SRC_URI="mirror://kde/stable/4.12.4/src/${_kmname_pv}.tar.xz" ;;
+				4.11.9)
+					# Part of 4.12 actually, sigh. Not stable for next release!
+					SRC_URI="mirror://kde/stable/4.12.5/src/${_kmname_pv}.tar.xz" ;;
+				4.11.10)
+					# Part of 4.13 actually, sigh. Not stable for next release!
+					SRC_URI="mirror://kde/stable/4.13.2/src/${_kmname_pv}.tar.xz" ;;
 				*)
 					# Stable KDE SC releases
 					SRC_URI="mirror://kde/stable/${PV}/src/${_kmname_pv}.tar.xz" ;;
@@ -464,7 +474,7 @@ _calculate_live_repo() {
 			# Determine branch URL based on live type
 			local branch_prefix
 			case ${PV} in
-				9999*)
+				4.9999*)
 					# trunk
 					branch_prefix="trunk/KDE"
 					;;
@@ -551,12 +561,8 @@ _calculate_live_repo() {
 			fi
 
 			# default branching
-			[[ ${PV} != 9999* && ${KDEBASE} == kde-base ]] && \
+			[[ ${PV} != 4.9999* && ${KDEBASE} == kde-base ]] && \
 				EGIT_BRANCH="KDE/$(get_kde_version)"
-
-			# kde-workspace master needs Qt5/kf5
-			[[ ${PV} == 9999 && ${_kmname} == kde-workspace ]] && \
-				EGIT_BRANCH="KDE/4.11"
 
 			# default repo uri
 			EGIT_REPO_URI+=( "${EGIT_MIRROR}/${_kmname}" )

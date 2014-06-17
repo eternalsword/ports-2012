@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-leechcraft/lc-azoth/lc-azoth-9999.ebuild,v 1.9 2014/01/29 15:18:19 maksbotan Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-leechcraft/lc-azoth/lc-azoth-9999.ebuild,v 1.11 2014/06/16 17:29:49 maksbotan Exp $
 
 EAPI="5"
 
@@ -13,7 +13,7 @@ KEYWORDS=""
 IUSE="debug doc astrality +acetamide +adiumstyles +autoidler +autopaste +birthdaynotifier
 		+chathistory +crypt +depester +embedmedia +herbicide +hili +isterique
 		+juick +keeso +lastseen	+metacontacts media +msn +murm +latex +nativeemoticons
-		+otroid +p100q +spell shx +standardstyles +vader +woodpecker +xmpp +xtazy"
+		+otroid +spell shx +standardstyles +vader +woodpecker +xmpp +xtazy"
 
 COMMON_DEPEND="~app-leechcraft/lc-core-${PV}
 		dev-libs/qjson
@@ -21,7 +21,7 @@ COMMON_DEPEND="~app-leechcraft/lc-core-${PV}
 		autoidler? ( x11-libs/libXScrnSaver )
 		astrality? ( net-libs/telepathy-qt )
 		otroid? ( net-libs/libotr )
-		media? ( dev-qt/qtmultimedia:4 )
+		media? ( dev-qt/qt-mobility[multimedia] )
 		msn? ( net-libs/libmsn )
 		woodpecker? ( dev-libs/kqoauth )
 		xmpp? (
@@ -79,7 +79,6 @@ src_configure() {
 		$(cmake-utils_use_enable murm AZOTH_MURM)
 		$(cmake-utils_use_enable nativeemoticons AZOTH_NATIVEEMOTICONS)
 		$(cmake-utils_use_enable otroid AZOTH_OTROID)
-		$(cmake-utils_use_enable p100q AZOTH_P100Q)
 		$(cmake-utils_use_enable spell AZOTH_ROSENTHAL)
 		$(cmake-utils_use_enable shx AZOTH_SHX)
 		$(cmake-utils_use_enable standardstyles AZOTH_STANDARDSTYLES)

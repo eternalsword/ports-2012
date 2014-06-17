@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/python-r1.eclass,v 1.66 2013/12/29 18:19:48 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/python-r1.eclass,v 1.73 2014/05/26 16:13:35 mgorny Exp $
 
 # @ECLASS: python-r1
 # @MAINTAINER:
@@ -85,7 +85,7 @@ fi
 #
 # Example:
 # @CODE
-# PYTHON_COMPAT_OVERRIDE='pypy2_0 python3_3' emerge -1v dev-python/foo
+# PYTHON_COMPAT_OVERRIDE='pypy python3_3' emerge -1v dev-python/foo
 # @CODE
 
 # @ECLASS-VARIABLE: PYTHON_REQ_USE
@@ -290,6 +290,8 @@ python_gen_usedep() {
 		done
 	done
 
+	[[ ${matches[@]} ]] || die "No supported implementations match python_gen_usedep patterns: ${@}"
+
 	local out=${matches[@]}
 	echo ${out// /,}
 }
@@ -338,20 +340,24 @@ python_gen_useflags() {
 # of Python implementations which are both in PYTHON_COMPAT and match
 # any of the patterns passed as the remaining parameters.
 #
-# Please note that USE constraints on the package need to be enforced
-# separately. Therefore, the dependency usually needs to use
-# python_gen_usedep as well.
+# In order to enforce USE constraints on the packages, verbatim
+# '${PYTHON_USEDEP}' (quoted!) may be placed in the dependency
+# specification. It will get expanded within the function into a proper
+# USE dependency string.
 #
 # Example:
 # @CODE
 # PYTHON_COMPAT=( python{2_5,2_6,2_7} )
-# RDEPEND="$(python_gen_cond_dep dev-python/unittest2 python{2_5,2_6})"
+# RDEPEND="$(python_gen_cond_dep \
+#   'dev-python/unittest2[${PYTHON_USEDEP}]' python{2_5,2_6})"
 # @CODE
 #
 # It will cause the variable to look like:
 # @CODE
-# RDEPEND="python_targets_python2_5? ( dev-python/unittest2 )
-#	python_targets_python2_6? ( dev-python/unittest2 )"
+# RDEPEND="python_targets_python2_5? (
+#     dev-python/unittest2[python_targets_python2_5?] )
+#	python_targets_python2_6? (
+#     dev-python/unittest2[python_targets_python2_6?] )"
 # @CODE
 python_gen_cond_dep() {
 	debug-print-function ${FUNCNAME} "${@}"
@@ -361,6 +367,12 @@ python_gen_cond_dep() {
 
 	local dep=${1}
 	shift
+
+	# substitute ${PYTHON_USEDEP} if used
+	if [[ ${dep} == *'${PYTHON_USEDEP}'* ]]; then
+		local PYTHON_USEDEP=$(python_gen_usedep "${@}")
+		dep=${dep//\$\{PYTHON_USEDEP\}/${PYTHON_USEDEP}}
+	fi
 
 	for impl in "${PYTHON_COMPAT[@]}"; do
 		_python_impl_supported "${impl}" || continue
@@ -440,6 +452,10 @@ _python_check_USE_PYTHON() {
 							fi
 							py2=${impl/_/.}
 							;;
+						python3_4)
+							debug-print "${FUNCNAME}: python3.4 found, not using eselect"
+							return 1
+							;;
 						python3_*)
 							if [[ ${py3+1} ]]; then
 								debug-print "${FUNCNAME}: -> more than one py3: ${py3} ${impl}"
@@ -504,6 +520,7 @@ _python_check_USE_PYTHON() {
 				fi
 			fi
 
+
 			if [[ ${py3+1} ]]; then
 				local sel_py3=$(eselect python show --python3)
 
@@ -546,14 +563,15 @@ _python_check_USE_PYTHON() {
 
 			local abi
 			case "${impl}" in
+				pypy|python3_4)
+					# unsupported in python.eclass
+					continue
+					;;
 				python*)
 					abi=${impl#python}
 					;;
 				jython*)
 					abi=${impl#jython}-jython
-					;;
-				pypy*)
-					abi=2.7-pypy-${impl#pypy}
 					;;
 				*)
 					die "Unexpected Python implementation: ${impl}"
@@ -765,6 +783,8 @@ python_replicate_script() {
 	debug-print-function ${FUNCNAME} "${@}"
 
 	_python_replicate_script() {
+		local _PYTHON_FIX_SHEBANG_QUIET=1
+
 		if _python_want_python_exec2; then
 			local PYTHON_SCRIPTDIR
 			python_export PYTHON_SCRIPTDIR
@@ -774,7 +794,7 @@ python_replicate_script() {
 				doexe "${files[@]}"
 			)
 
-			_python_rewrite_shebang "${EPYTHON}" \
+			python_fix_shebang \
 				"${files[@]/*\//${D%/}/${PYTHON_SCRIPTDIR}/}"
 		else
 			local f
@@ -782,7 +802,7 @@ python_replicate_script() {
 				cp -p "${f}" "${f}-${EPYTHON}" || die
 			done
 
-			_python_rewrite_shebang "${EPYTHON}" \
+			python_fix_shebang \
 				"${files[@]/%/-${EPYTHON}}"
 		fi
 	}

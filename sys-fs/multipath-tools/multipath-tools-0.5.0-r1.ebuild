@@ -1,9 +1,9 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/multipath-tools/multipath-tools-0.5.0-r1.ebuild,v 1.2 2014/02/02 11:02:23 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/multipath-tools/multipath-tools-0.5.0-r1.ebuild,v 1.8 2014/05/29 01:44:11 floppym Exp $
 
 EAPI=4
-inherit eutils toolchain-funcs udev
+inherit eutils systemd toolchain-funcs udev
 
 DESCRIPTION="Device mapper target autoconfig"
 HOMEPAGE="http://christophe.varoqui.free.fr/"
@@ -11,7 +11,7 @@ SRC_URI="http://christophe.varoqui.free.fr/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~arm ~ia64 ppc ppc64 ~sparc x86"
 IUSE="systemd"
 
 RDEPEND=">=sys-fs/lvm2-2.02.45
@@ -24,6 +24,8 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-makefile.patch
+	epatch "${FILESDIR}"/${P}-systemd-pkgconfig.patch
+	epatch_user
 }
 
 src_compile() {
@@ -39,6 +41,7 @@ src_install() {
 	emake \
 		DESTDIR="${D}" \
 		SYSTEMD=$(usex systemd 1 "") \
+		unitdir="$(systemd_get_unitdir)" \
 		libudevdir='${prefix}'/"${udevdir}" \
 		install
 

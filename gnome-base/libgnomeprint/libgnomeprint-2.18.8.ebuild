@@ -1,11 +1,11 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-base/libgnomeprint/libgnomeprint-2.18.8.ebuild,v 1.11 2012/05/29 14:24:01 aballier Exp $
+# $Header: /var/cvsroot/gentoo-x86/gnome-base/libgnomeprint/libgnomeprint-2.18.8.ebuild,v 1.14 2014/04/29 11:47:52 polynomial-c Exp $
 
 EAPI="3"
 GCONF_DEBUG="no"
 
-inherit eutils gnome2
+inherit autotools eutils gnome2
 
 DESCRIPTION="Printer handling for Gnome"
 HOMEPAGE="http://www.gnome.org/"
@@ -44,7 +44,10 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-stdio-include.patch
+	epatch "${FILESDIR}"/${P}-stdio-include.patch \
+		"${FILESDIR}"/${P}-freetype-2.5.1.patch \
+		"${FILESDIR}"/${P}-bison3.patch
+	eautoreconf
 	gnome2_src_prepare
 
 	# Drop DEPRECATED flags, bug #384807

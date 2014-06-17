@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-action/extreme-tuxracer/extreme-tuxracer-0.6.0.ebuild,v 1.2 2014/01/24 22:09:23 mr_bones_ Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-action/extreme-tuxracer/extreme-tuxracer-0.6.0.ebuild,v 1.6 2014/05/17 19:20:35 hasufell Exp $
 
 EAPI=5
 inherit eutils gnome2-utils games
@@ -11,12 +11,12 @@ SRC_URI="mirror://sourceforge/extremetuxracer/etr-${PV/_/}.tar.xz"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND="virtual/opengl
 	virtual/glu
-	media-libs/libsdl[X,audio,video]
+	media-libs/libsdl[X,sound,video]
 	media-libs/sdl-mixer[vorbis]
 	media-libs/sdl-image[png]
 	media-libs/freetype:2"
@@ -26,6 +26,7 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}/etr-${PV/_/}
 
 src_prepare() {
+	epatch "${FILESDIR}"/${P}-libsdl.patch
 	# kind of ugly in there so we'll do it ourselves
 	sed -i -e '/SUBDIRS/s/resources doc//' Makefile.in || die
 }

@@ -1,6 +1,32 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/arch/powerpc/package.use.mask,v 1.191 2014/02/10 19:01:53 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/arch/powerpc/package.use.mask,v 1.197 2014/06/14 21:41:35 dilfridge Exp $
+
+# Andreas K. Huettel <dilfridge@gentoo.org> (14 Jun 2014)
+# dependency sci-libs/vtk not keyworded on ppc yet
+media-libs/opencv vtk
+
+# Markos Chandras <hwoarang@gentoo.org> (03 May 2014)
+# sys-libs/libseccomp suppors amd64, x86, ARM and MIPS.
+app-emulation/lxc seccomp
+
+# Julian Ospald <hasufell@gentoo.org> (20 Apr 2014)
+# Missing keywords, bug #508226
+media-video/mpv sdl
+
+# Johannes Huber <johu@gentoo.org> (16 Apr 2014)
+# unkeyworded deps
+kde-base/gwenview semantic-desktop
+kde-base/okular dpi
+kde-base/nepomuk-core migrator
+
+# Pacho Ramos <pacho@gentoo.org> (12 Apr 2014)
+# Missing keywords, bug #507490
+net-misc/modemmanager mbim
+
+# Pacho Ramos <pacho@gentoo.org> (22 Feb 2013)
+# Missing keywords, bug #495250
+>=gnome-base/gnome-extra-apps-3.10 tracker
 
 # Pacho Ramos <pacho@gentoo.org> (10 Feb 2014)
 # Missing keywords, bug #495254

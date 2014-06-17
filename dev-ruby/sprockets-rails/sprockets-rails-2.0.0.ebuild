@@ -1,9 +1,9 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/sprockets-rails/sprockets-rails-2.0.0.ebuild,v 1.2 2013/10/13 22:09:24 maekke Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/sprockets-rails/sprockets-rails-2.0.0.ebuild,v 1.4 2014/04/21 06:16:47 graaff Exp $
 
 EAPI=5
-USE_RUBY="ruby19"
+USE_RUBY="ruby19 ruby20 ruby21"
 
 RUBY_FAKEGEM_TASK_DOC=""
 
@@ -17,7 +17,7 @@ SRC_URI="https://github.com/rails/sprockets-rails/archive/v${PV}.tar.gz -> ${P}.
 
 LICENSE="MIT"
 SLOT="$(get_version_component_range 1-2)"
-KEYWORDS="~amd64 ~arm"
+KEYWORDS="~amd64 ~arm ~x86"
 
 IUSE="test"
 

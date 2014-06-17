@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/dbus/dbus-1.8.0.ebuild,v 1.3 2014/02/13 05:45:14 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/dbus/dbus-1.8.0.ebuild,v 1.7 2014/06/10 00:47:05 vapier Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
@@ -12,7 +12,7 @@ SRC_URI="http://dbus.freedesktop.org/releases/dbus/${P}.tar.gz"
 
 LICENSE="|| ( AFL-2.1 GPL-2 )"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~arm-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~arm-linux ~x86-linux"
 IUSE="debug doc selinux static-libs systemd test X"
 
 RDEPEND=">=dev-libs/expat-2
@@ -20,7 +20,7 @@ RDEPEND=">=dev-libs/expat-2
 		sec-policy/selinux-dbus
 		sys-libs/libselinux
 		)
-	systemd? ( sys-apps/systemd )
+	systemd? ( sys-apps/systemd:0= )
 	X? (
 		x11-libs/libX11
 		x11-libs/libXt
@@ -107,7 +107,7 @@ multilib_src_configure() {
 		"$(systemd_with_unitdir)"
 		)
 
-	if multilib_build_binaries; then
+	if multilib_is_native_abi; then
 		docconf=(
 			--enable-xml-docs
 			$(use_enable doc doxygen-docs)
@@ -128,7 +128,7 @@ multilib_src_configure() {
 	einfo "Running configure in ${BUILD_DIR}"
 	ECONF_SOURCE="${S}" econf "${myconf[@]}" "${docconf[@]}"
 
-	if multilib_build_binaries && use test; then
+	if multilib_is_native_abi && use test; then
 		mkdir "${TBD}"
 		cd "${TBD}"
 		einfo "Running configure in ${TBD}"
@@ -141,7 +141,7 @@ multilib_src_configure() {
 }
 
 multilib_src_compile() {
-	if multilib_build_binaries; then
+	if multilib_is_native_abi; then
 		# after the compile, it uses a selinuxfs interface to
 		# check if the SELinux policy has the right support
 		use selinux && addwrite /selinux/access
@@ -149,7 +149,7 @@ multilib_src_compile() {
 		einfo "Running make in ${BUILD_DIR}"
 		emake
 
-		if multilib_build_binaries && use test; then
+		if multilib_is_native_abi && use test; then
 			cd "${TBD}"
 			einfo "Running make in ${TBD}"
 			emake
@@ -165,7 +165,7 @@ src_test() {
 }
 
 multilib_src_install() {
-	if multilib_build_binaries; then
+	if multilib_is_native_abi; then
 		emake DESTDIR="${D}" install
 	else
 		emake DESTDIR="${D}" install-pkgconfigDATA

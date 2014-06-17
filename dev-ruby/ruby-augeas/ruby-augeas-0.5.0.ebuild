@@ -1,10 +1,10 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/ruby-augeas/ruby-augeas-0.5.0.ebuild,v 1.1 2013/09/15 03:56:15 prometheanfire Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/ruby-augeas/ruby-augeas-0.5.0.ebuild,v 1.4 2014/04/25 02:28:11 patrick Exp $
 
-EAPI=3
+EAPI=5
 # jruby -> native extentions
-USE_RUBY="ruby18 ruby19 ree18"
+USE_RUBY="ruby19"
 
 RUBY_FAKEGEM_DOCDIR="doc/site/api"
 RUBY_FAKEGEM_EXTRADOC="NEWS README.rdoc"
@@ -31,7 +31,7 @@ each_ruby_configure() {
 }
 
 each_ruby_compile() {
-	emake -C ext/augeas || die
+	emake -C ext/augeas V=1
 }
 
 each_ruby_install() {

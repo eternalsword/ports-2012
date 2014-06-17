@@ -1,10 +1,10 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/llvm/llvm-3.3-r3.ebuild,v 1.2 2014/01/23 13:05:27 voyageur Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-devel/llvm/llvm-3.3-r3.ebuild,v 1.11 2014/06/15 14:30:03 mgorny Exp $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} pypy2_0 )
+PYTHON_COMPAT=( python{2_6,2_7} pypy pypy2_0 )
 
 inherit cmake-utils eutils flag-o-matic multilib multilib-minimal \
 	python-r1 toolchain-funcs pax-utils check-reqs
@@ -18,7 +18,7 @@ SRC_URI="http://llvm.org/releases/${PV}/${P}.src.tar.gz
 
 LICENSE="UoI-NCSA"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~amd64-fbsd ~x86-fbsd ~x64-freebsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="amd64 arm ppc ppc64 x86 ~amd64-fbsd ~x86-fbsd ~x64-freebsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos"
 IUSE="clang debug doc gold +libffi multitarget ocaml python
 	+static-analyzer test udis86 xml video_cards_radeon
 	kernel_Darwin kernel_FreeBSD"
@@ -165,7 +165,7 @@ src_prepare() {
 		# Automatically select active system GCC's libraries, bugs #406163 and #417913
 		epatch "${FILESDIR}"/clang-3.1-gentoo-runtime-gcc-detection-v3.patch
 
-		epatch "${FILESDIR}"/clang-3.4-gentoo-install.patch
+		epatch "${FILESDIR}"/clang-3.3-gentoo-install.patch
 
 		# backport support for g++-X.Y header location
 		epatch "${FILESDIR}"/clang-3.3-gcc-header-path.patch
@@ -194,6 +194,8 @@ src_prepare() {
 
 	# User patches
 	epatch_user
+
+	python_setup
 }
 
 multilib_src_configure() {
@@ -213,7 +215,7 @@ multilib_src_configure() {
 		conf_flags+=( --with-clang-resource-dir=../lib/clang/${PV} )
 	fi
 	# well, it's used only by clang executable c-index-test
-	if multilib_build_binaries && use clang && use xml; then
+	if multilib_is_native_abi && use clang && use xml; then
 		conf_flags+=( XML2CONFIG="$(tc-getPKG_CONFIG) libxml-2.0" )
 	else
 		conf_flags+=( ac_cv_prog_XML2CONFIG="" )
@@ -231,7 +233,7 @@ multilib_src_configure() {
 		conf_flags+=( --enable-experimental-targets=R600 )
 	fi
 
-	if multilib_build_binaries; then
+	if multilib_is_native_abi; then
 		use gold && conf_flags+=( --with-binutils-include="${EPREFIX}"/usr/include/ )
 		# extra commas don't hurt
 		use ocaml && bindings+=',ocaml'
@@ -249,16 +251,13 @@ multilib_src_configure() {
 		append-cppflags "$(pkg-config --cflags libffi)"
 	fi
 
-	# build with a suitable Python version
-	python_export_best
-
 	# llvm prefers clang over gcc, so we may need to force that
 	tc-export CC CXX
 
 	ECONF_SOURCE=${S} \
 	econf "${conf_flags[@]}"
 
-	multilib_build_binaries && cmake_configure
+	multilib_is_native_abi && cmake_configure
 }
 
 cmake_configure() {
@@ -292,7 +291,7 @@ set_makeargs() {
 		local tools=( llvm-config )
 		use clang && tools+=( clang )
 
-		if multilib_build_binaries; then
+		if multilib_is_native_abi; then
 			tools+=(
 				opt llvm-as llvm-dis llc llvm-ar llvm-nm llvm-link lli
 				llvm-extract llvm-mc llvm-bcanalyzer llvm-diff macho-dump
@@ -323,7 +322,7 @@ multilib_src_compile() {
 	set_makeargs -1
 	emake "${MAKEARGS[@]}"
 
-	if multilib_build_binaries; then
+	if multilib_is_native_abi; then
 		set_makeargs
 		emake -C tools "${MAKEARGS[@]}"
 
@@ -385,7 +384,7 @@ multilib_src_install() {
 	dodir /tmp
 	mv "${ED}"/usr/bin/llvm-config "${ED}"/tmp/"${CHOST}"-llvm-config || die
 
-	if ! multilib_build_binaries; then
+	if ! multilib_is_native_abi; then
 		# Drop all the executables since LLVM doesn't like to
 		# clobber when installing.
 		rm -r "${ED}"/usr/bin || die

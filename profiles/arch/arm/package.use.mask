@@ -1,6 +1,59 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/arch/arm/package.use.mask,v 1.192 2014/01/27 02:19:31 zx2c4 Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/arch/arm/package.use.mask,v 1.207 2014/06/08 11:38:20 mrueg Exp $
+
+# Jauhien Piatlicki <jauhien@gentoo.org> (29 May 2014)
+# Unkeyworded deps
+lxqt-base/lxqt-meta lximage
+
+# Markus Meier <maekke@gentoo.org> (04 May 2014)
+# Unkeyworded deps, bug #509082
+mail-filter/opendkim opendbx
+
+# Markus Meier <maekke@gentoo.org> (04 May 2014)
+# Unkeyworded deps, bug #507896
+dev-qt/qt-mobility messaging
+
+# Andreas K. Huettel <dilfridge@gentoo.org> (3 May 2014)
+# Missing keywords, should only be a transitionary problem
+kde-base/baloo alternatekcm
+
+# Julian Ospald <hasufell@gentoo.org> (20 Apr 2014)
+# Missing keywords, bug #508226
+media-video/mpv sdl
+
+# S. Suominen <ssuominen@g.o> (17 Apr 2014)
+# First GTK+-3.x version of EasyTAG!
+# Keyword as reqiuired, ~arch is enough for now:
+# media-libs/opusfile for USE opus
+# media-libs/opus for USE opus
+# app-text/apadata-tools for FEAATURES and USE test
+# Do it! No reason to ask permission before!
+>=media-sound/easytag-2.2.0 opus test
+
+# Johannes Huber <johu@gentoo.org> (16 Apr 2014)
+# unkeyworded deps
+kde-base/gwenview semantic-desktop
+kde-base/okular dpi
+kde-base/nepomuk-core migrator
+
+# Yixun Lan <dlan@gentoo.org> (12 Apr 2014)
+# app-emulation/qemu is not keyworded on arm arch.
+app-emulation/xen-tools system-qemu
+
+# Mike Gilbert <floppym@gentoo.org> (27 Mar 2014)
+# sys-libs/libseccomp is not keyworded on many archs.
+sys-apps/systemd -seccomp
+
+# Markus Meier <maekke@gentoo.org> (25 Feb 2014)
+# stable reverse deps of media-libs/libquvi, bug #495254
+=dev-libs/totem-pl-parser-2.32.6-r3 quvi
+=media-video/mplayer2-2.0_p20130126 quvi
+=media-video/mplayer2-2.0_p20130428-r1 quvi
+
+# Markus Meier <maekke@gentoo.org> (23 Feb 2014)
+# unkeyworded dep, bug #499974
+dev-libs/efl physics
 
 # Jason A. Donenfeld <zx2c4@gentoo.org> (27 Jan 2014)
 # luajit isn't keyworded for arm yet, which is a bummer
@@ -163,6 +216,7 @@ net-print/cups java
 =sys-devel/gettext-0.18.1.1-r1 java
 =sys-devel/gettext-0.18.1.1-r3 java
 =sys-devel/gettext-0.18.2 java
+=sys-devel/gettext-0.18.3.2 java
 =sys-libs/db-1.85-r3 java
 =sys-libs/db-3.2.9_p2 java
 =sys-libs/db-4.2.52_p5-r1 java
@@ -296,11 +350,11 @@ dev-libs/libmemcached sasl
 
 # Pacho Ramos <pacho@gentoo.org> (19 Jul 2011)
 # Missing keywords on dependencies
-app-cdr/brasero vcd
+app-cdr/brasero vcd dvd
 
 # Pacho Ramos <pacho@gentoo.org> (02 Apr 2011)
 # quvi support is needed to play youtube files now
-media-video/totem flash youtube
+media-video/totem youtube
 
 # Markus Meier <maekke@gentoo.org> (13 Mar 2011)
 # needs stable kde stuff
@@ -355,7 +409,7 @@ dev-libs/boost mpi
 
 # missing keywords
 media-sound/sox ladspa
-media-plugins/gst-plugins-meta aac dts dv lame libvisual taglib vcd wavpack
+media-plugins/gst-plugins-meta aac dts dv lame libvisual taglib vcd wavpack dvd
 
 # projectm not keyworded, bug #314969
 media-video/vlc projectm chromaprint opencv

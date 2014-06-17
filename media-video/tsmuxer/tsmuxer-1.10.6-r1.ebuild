@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/tsmuxer/tsmuxer-1.10.6-r1.ebuild,v 1.9 2013/12/30 08:10:35 aballier Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/tsmuxer/tsmuxer-1.10.6-r1.ebuild,v 1.11 2014/06/16 21:14:18 mgorny Exp $
 
 EAPI=5
 
@@ -55,13 +55,17 @@ RDEPEND="
 				)
 			)
 			|| (
-				dev-libs/glib:2[abi_x86_32(-)]
 				app-emulation/emul-linux-x86-baselibs[-abi_x86_32(-)]
+				(
+					dev-libs/glib:2[abi_x86_32(-)]
+					media-libs/libpng:1.2[abi_x86_32(-)]
+					sys-libs/zlib[abi_x86_32(-)]
+				)
 			)
 			|| (
 				(
-					dev-qt/qtcore[abi_x86_32(-)]
-					dev-qt/qtgui[abi_x86_32(-)]
+					dev-qt/qtcore:4[abi_x86_32(-)]
+					dev-qt/qtgui:4[abi_x86_32(-)]
 				)
 				app-emulation/emul-linux-x86-qtlibs[-abi_x86_32(-)]
 			)

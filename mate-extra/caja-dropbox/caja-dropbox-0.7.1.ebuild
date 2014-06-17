@@ -1,33 +1,44 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/mate-extra/caja-dropbox/caja-dropbox-0.7.1.ebuild,v 1.2 2014/05/04 14:54:15 ago Exp $
 
 EAPI="5"
+
 PYTHON_COMPAT=( python2_{6,7} )
 GNOME2_LA_PUNT="yes"
-inherit autotools eutils python-single-r1 linux-info mate user
 
+inherit autotools eutils gnome2 python-single-r1 linux-info user versionator
+
+MATE_BRANCH="1.4"
+
+SRC_URI="http://pub.mate-desktop.org/releases/${MATE_BRANCH}/${P}.tar.xz"
 DESCRIPTION="Store, Sync and Share Files Online"
 HOMEPAGE="http://www.dropbox.com/"
-SRC_URI="http://pub.mate-desktop.org/releases/1.4/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86 ~x86-linux"
+KEYWORDS="amd64"
+
 IUSE="debug"
 
-RDEPEND="mate-base/mate-file-manager
-	dev-libs/glib:2
+RDEPEND="
+	dev-libs/atk:0
+	>=dev-libs/glib-2.14:2
 	dev-python/pygtk:2[${PYTHON_USEDEP}]
-	net-misc/dropbox
+	>=mate-base/mate-file-manager-1.6:0
+	media-libs/fontconfig:1.0
+	media-libs/freetype:2
+	net-misc/dropbox:0
+	x11-libs/cairo:0
+	x11-libs/gdk-pixbuf:2
 	x11-libs/gtk+:2
-	x11-libs/libXinerama"
+	x11-libs/libXinerama:0
+	x11-libs/pango:0"
 
 DEPEND="${RDEPEND}
-	virtual/pkgconfig
-	dev-python/docutils"
+	dev-python/docutils:0
+	virtual/pkgconfig:*"
 
-DOCS="AUTHORS ChangeLog NEWS README"
 G2CONF="${G2CONF} $(use_enable debug) --disable-static"
 
 CONFIG_CHECK="~INOTIFY_USER"
@@ -41,14 +52,18 @@ pkg_setup () {
 src_prepare() {
 	gnome2_src_prepare
 
-	# use sysem dropbox
+	# Use system dropbox.
 	sed -e "s|~/[.]dropbox-dist|/opt/dropbox|" \
 		-e 's|\(DROPBOXD_PATH = \).*|\1"/opt/dropbox/dropboxd"|' \
 			-i dropbox.in || die
-	# us system rst2man
+
+	# Use system rst2man.
 	epatch "${FILESDIR}"/${PN}-0.7.0-system-rst2man.patch
+
 	AT_NOELIBTOOLIZE=yes eautoreconf
 }
+
+DOCS="AUTHORS ChangeLog NEWS README"
 
 src_install () {
 	python_fix_shebang dropbox.in
@@ -58,9 +73,8 @@ src_install () {
 	local extensiondir="$(pkg-config --variable=extensiondir libcaja-extension)"
 	[ -z ${extensiondir} ] && die "pkg-config unable to get caja extensions dir"
 
-	# Strip $EPREFIX from $extensiondir as fowners/fperms act on $ED not $D
+	# Strip $EPREFIX from $extensiondir as fowners/fperms act on $ED not $D.
 	extensiondir="${extensiondir#${EPREFIX}}"
-
 	use prefix || fowners root:dropbox "${extensiondir}"/libcaja-dropbox.so
 	fperms o-rwx "${extensiondir}"/libcaja-dropbox.so
 }

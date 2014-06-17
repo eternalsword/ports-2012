@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/libiconv/libiconv-1.14-r1.ebuild,v 1.4 2013/12/24 12:43:52 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/libiconv/libiconv-1.14-r1.ebuild,v 1.7 2014/05/24 09:47:39 hwoarang Exp $
 
 EAPI="4"
 
@@ -12,33 +12,42 @@ SRC_URI="mirror://gnu/libiconv/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 arm ~mips ppc x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="amd64 arm ~mips ppc x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
 IUSE="+static-libs"
 
 DEPEND="!sys-libs/glibc
-	!sys-apps/man-pages"
+	!userland_GNU? ( !sys-apps/man-pages )"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	# Make sure that libtool support is updated to link "the linux way"
-	# on FreeBSD.
+	epatch "${FILESDIR}"/${P}-no-gets.patch
 	elibtoolize
 }
 
 multilib_src_configure() {
 	# Disable NLS support because that creates a circular dependency
 	# between libiconv and gettext
-	ECONF_SOURCE="${S}" econf \
+	ECONF_SOURCE="${S}" \
+	econf \
 		--docdir="\$(datarootdir)/doc/${PF}/html" \
 		--disable-nls \
 		--enable-shared \
 		$(use_enable static-libs static)
 }
 
-multilib_src_install() {
-	default
-
+multilib_src_install_all() {
 	# Install in /lib as utils installed in /lib like gnutar
 	# can depend on this
-	[ "${ABI}" = "${DEFAULT_ABI}" ] && gen_usr_ldscript -a iconv charset
+	gen_usr_ldscript -a iconv charset
+
+	# If we have a GNU userland, we probably have sys-apps/man-pages
+	# installed, which means we want to rename our copies #503162.
+	# The use of USELAND=GNU is kind of a hack though ...
+	if use userland_GNU ; then
+		cd "${ED}"/usr/share/man || die
+		local f
+		for f in man*/*.[0-9] ; do
+			mv "${f}" "${f%/*}/${PN}-${f#*/}" || die
+		done
+	fi
 }

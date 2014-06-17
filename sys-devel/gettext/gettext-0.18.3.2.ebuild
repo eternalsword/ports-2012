@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/gettext/gettext-0.18.3.2.ebuild,v 1.3 2014/01/30 22:12:30 axs Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-devel/gettext/gettext-0.18.3.2.ebuild,v 1.14 2014/06/01 16:50:48 vapier Exp $
 
 EAPI="4"
 
@@ -12,7 +12,7 @@ SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3 LGPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
 IUSE="acl -cvs doc emacs git java nls +cxx ncurses openmp static-libs elibc_glibc"
 
 # only runtime goes multilib
@@ -72,7 +72,7 @@ multilib_src_configure() {
 	tc-is-cross-compiler && export gl_cv_func_working_acl_get_file=yes
 
 	local ECONF_SOURCE=${S}
-	if ! multilib_build_binaries ; then
+	if ! multilib_is_native_abi ; then
 		# for non-native ABIs, we build runtime only
 		ECONF_SOURCE+=/gettext-runtime
 	else
@@ -103,7 +103,7 @@ multilib_src_configure() {
 multilib_src_install() {
 	default
 
-	if multilib_build_binaries ; then
+	if multilib_is_native_abi ; then
 		dosym msgfmt /usr/bin/gmsgfmt #43435
 		dobin gettext-tools/misc/gettextize
 

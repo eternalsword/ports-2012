@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-irc/irssi-otr/irssi-otr-0.3-r1.ebuild,v 1.2 2013/10/13 08:05:42 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-irc/irssi-otr/irssi-otr-0.3-r1.ebuild,v 1.4 2014/06/05 10:13:25 mrueg Exp $
 
 EAPI=5
 
@@ -16,9 +16,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~hppa ~sparc ~x86"
 IUSE="debug"
 
-RDEPEND="net-libs/libotr
+RDEPEND="<net-libs/libotr-4
 	dev-libs/glib:2
-	dev-libs/libgcrypt
+	dev-libs/libgcrypt:0
 	dev-libs/libgpg-error
 	net-irc/irssi"
 

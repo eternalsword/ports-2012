@@ -1,10 +1,10 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/ruby-gettext/ruby-gettext-2.3.3.ebuild,v 1.17 2013/12/26 15:11:43 maekke Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/ruby-gettext/ruby-gettext-2.3.3.ebuild,v 1.19 2014/06/14 06:52:21 graaff Exp $
 
 EAPI=4
 
-USE_RUBY="ruby18 ruby19 jruby ree18"
+USE_RUBY="ruby19 jruby"
 
 RUBY_FAKEGEM_NAME="${PN/ruby-/}"
 RUBY_FAKEGEM_VERSION="${PV%_*}"
@@ -27,7 +27,7 @@ IUSE="doc test"
 SLOT="0"
 LICENSE="Ruby"
 
-ruby_add_rdepend ">=dev-ruby/locale-2.0.5"
+ruby_add_rdepend "~dev-ruby/locale-2.0.5"
 
 ruby_add_bdepend "doc? ( dev-ruby/yard )
 	dev-ruby/racc"

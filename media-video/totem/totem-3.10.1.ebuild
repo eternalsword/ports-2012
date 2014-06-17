@@ -1,11 +1,11 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/totem/totem-3.10.1.ebuild,v 1.1 2013/12/24 17:26:24 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/totem/totem-3.10.1.ebuild,v 1.7 2014/06/16 11:32:05 tetromino Exp $
 
 EAPI="5"
 GCONF_DEBUG="yes"
 GNOME2_LA_PUNT="yes" # plugins are dlopened
-PYTHON_COMPAT=( python2_{6,7} )
+PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="threads"
 
 inherit autotools eutils gnome2 multilib python-single-r1
@@ -23,7 +23,7 @@ REQUIRED_USE="
 	zeitgeist? ( introspection )
 "
 
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc x86 ~x86-fbsd"
 
 # TODO:
 # Cone (VLC) plugin needs someone with the right setup to test it
@@ -81,13 +81,21 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	app-text/docbook-xml-dtd:4.5
 	app-text/scrollkeeper
+	app-text/yelp-tools
 	>=dev-util/gtk-doc-am-1.14
 	>=dev-util/intltool-0.40
 	sys-devel/gettext
 	x11-proto/xextproto
 	x11-proto/xproto
 	virtual/pkgconfig
+
+	dev-libs/gobject-introspection-common
+	gnome-base/gnome-common
 "
+# eautoreconf needs:
+#	app-text/yelp-tools
+#	dev-libs/gobject-introspection-common
+#	gnome-base/gnome-common
 # docbook-xml-dtd is needed for user doc
 # Prevent dev-python/pylint dep, bug #482538
 pkg_setup() {

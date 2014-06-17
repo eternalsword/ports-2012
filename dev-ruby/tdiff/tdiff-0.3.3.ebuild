@@ -1,10 +1,10 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/tdiff/tdiff-0.3.3.ebuild,v 1.2 2014/01/30 23:15:17 maekke Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/tdiff/tdiff-0.3.3.ebuild,v 1.4 2014/05/27 04:55:39 graaff Exp $
 
 EAPI=5
 
-USE_RUBY="ruby18 ruby19 ruby20 jruby"
+USE_RUBY="ruby19 ruby20 ruby21 jruby"
 
 RUBY_FAKEGEM_RECIPE_TEST="rspec"
 

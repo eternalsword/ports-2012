@@ -1,10 +1,11 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-extra/gnome-contacts/gnome-contacts-3.10.1.ebuild,v 1.1 2013/12/24 16:51:07 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/gnome-extra/gnome-contacts/gnome-contacts-3.10.1.ebuild,v 1.6 2014/05/04 04:58:24 tetromino Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
 VALA_MIN_API_VERSION="0.22"
+VALA_MAX_API_VERSION="0.22" # build fails with 0.24
 VALA_USE_DEPEND="vapigen"
 
 inherit gnome2 vala
@@ -15,7 +16,7 @@ HOMEPAGE="https://wiki.gnome.org/Design/Apps/Contacts"
 LICENSE="GPL-2+"
 SLOT="0"
 IUSE="v4l"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc x86"
 
 VALA_DEPEND="
 	$(vala_depend)

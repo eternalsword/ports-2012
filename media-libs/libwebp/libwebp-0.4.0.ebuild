@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libwebp/libwebp-0.4.0.ebuild,v 1.5 2014/01/26 20:57:54 floppym Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libwebp/libwebp-0.4.0.ebuild,v 1.15 2014/04/28 17:45:42 mgorny Exp $
 
 EAPI=5
 inherit eutils libtool multilib-minimal
@@ -11,7 +11,7 @@ SRC_URI="http://webp.googlecode.com/files/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0/5" # subslot = libwebp soname version
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~x64-macos ~m68k-mint"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~s390 sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~x64-macos ~m68k-mint"
 IUSE="experimental gif +jpeg opengl +png static-libs swap-16bit-csp tiff"
 
 # TODO: dev-lang/swig bindings in swig/ subdirectory
@@ -39,7 +39,7 @@ src_prepare() {
 multilib_src_configure() {
 	# Only used for gif2webp binary wrt #486646
 	local build_gif2webp=$(usex gif)
-	multilib_build_binaries || build_gif2webp=no
+	multilib_is_native_abi || build_gif2webp=no
 
 	ac_cv_header_gif_lib_h=${build_gif2webp} \
 	ac_cv_header_jpeglib_h=$(usex jpeg) \

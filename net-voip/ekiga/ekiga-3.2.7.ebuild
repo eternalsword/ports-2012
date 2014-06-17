@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-voip/ekiga/ekiga-3.2.7.ebuild,v 1.19 2013/04/16 20:22:45 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-voip/ekiga/ekiga-3.2.7.ebuild,v 1.21 2014/05/15 12:05:52 ulm Exp $
 
 EAPI=4
 
@@ -17,14 +17,14 @@ HOMEPAGE="http://www.ekiga.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 ia64 ppc ~ppc64 sparc x86"
+KEYWORDS="~alpha amd64 ia64 ppc ~ppc64 sparc x86"
 IUSE="avahi dbus debug doc eds gconf gnome gstreamer h323 kde kontact ldap
 libnotify mmx nls +shm static v4l xcap xv"
 
 RDEPEND=">=dev-libs/glib-2.14.0:2
 	dev-libs/libsigc++:2
 	dev-libs/libxml2:2
-	<net-libs/opal-3.10.8[audio,sip,video,debug=,h323?]
+	<net-libs/opal-3.10.8[sip,sound,video,debug=,h323?]
 	<net-libs/ptlib-2.10.8[ldap?,stun,v4l?,video,wav,debug=]
 	>=x11-libs/gtk+-2.12.0:2
 	avahi? ( >=net-dns/avahi-0.6[dbus] )

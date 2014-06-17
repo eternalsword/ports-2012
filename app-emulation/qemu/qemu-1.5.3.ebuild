@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/qemu/qemu-1.5.3.ebuild,v 1.3 2013/09/15 09:29:18 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/qemu/qemu-1.5.3.ebuild,v 1.6 2014/04/19 17:12:38 vapier Exp $
 
 EAPI=5
 
@@ -21,7 +21,7 @@ else
 	SRC_URI="http://wiki.qemu-project.org/download/${P}.tar.bz2
 	${BACKPORTS:+
 		http://dev.gentoo.org/~cardoe/distfiles/${P}-${BACKPORTS}.tar.xz}"
-	KEYWORDS="amd64 ~ppc ~ppc64 ~x86 ~x86-fbsd"
+	KEYWORDS="amd64 ~ppc ~ppc64 x86 ~x86-fbsd"
 fi
 
 DESCRIPTION="QEMU + Kernel-based Virtual Machine userland tools"
@@ -220,8 +220,6 @@ pkg_pretend() {
 
 pkg_setup() {
 	enewgroup kvm 78
-
-	python_export_best
 }
 
 src_prepare() {
@@ -235,7 +233,7 @@ src_prepare() {
 			epatch
 
 	# Fix ld and objcopy being called directly
-	tc-export LD OBJCOPY
+	tc-export AR LD OBJCOPY
 
 	# Verbose builds
 	MAKEOPTS+=" V=1"
@@ -365,6 +363,8 @@ qemu_src_configure() {
 }
 
 src_configure() {
+	python_export_best
+
 	softmmu_targets=
 	user_targets=
 
