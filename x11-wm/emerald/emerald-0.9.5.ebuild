@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 IUSE=""
 
-# NOTE: emerald-0.9.5 can not bee downloaden as it chould.
+# NOTE: emerald-0.9.5 can not be downloaded as it should.
 RESTRICT="fetch strip"
 
 
@@ -25,7 +25,7 @@ PDEPEND="~x11-themes/emerald-themes-${THEMES_RELEASE}"
 
 RDEPEND="
 	>=x11-libs/gtk+-2.8.0:2
-	=x11-libs/libwnck-2.30.7
+	>=x11-libs/libwnck-2.30.7
 	>=x11-wm/compiz-${PV}
 "
 
