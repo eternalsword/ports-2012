@@ -1,4 +1,6 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/net-libs/libsoup/libsoup-2.46.0-r1.ebuild,v 1.2 2014/06/18 20:39:01 mgorny Exp $
 
 EAPI="5"
 GCONF_DEBUG="yes"
@@ -13,13 +15,13 @@ HOMEPAGE="https://wiki.gnome.org/LibSoup"
 LICENSE="LGPL-2+"
 SLOT="2.4"
 IUSE="debug +introspection samba ssl test"
-KEYWORDS="*"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x86-solaris"
 
 RDEPEND="
-	>=dev-libs/glib-2.36[${MULTILIB_USEDEP}]
+	>=dev-libs/glib-2.38.2-r1:2[${MULTILIB_USEDEP}]
 	>=dev-libs/libxml2-2.9.1-r4:2[${MULTILIB_USEDEP}]
 	>=dev-db/sqlite-3.8.2:3[${MULTILIB_USEDEP}]
-	net-libs/glib-networking[ssl?,${MULTILIB_USEDEP}]
+	>=net-libs/glib-networking-2.38.2[ssl?,${MULTILIB_USEDEP}]
 	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
 	samba? ( net-fs/samba )
 "

@@ -1,18 +1,20 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/media-libs/mesa/mesa-10.1.3.ebuild,v 1.3 2014/06/18 19:55:05 mgorny Exp $
 
 EAPI=5
 
 EGIT_REPO_URI="git://anongit.freedesktop.org/mesa/mesa"
 
 if [[ ${PV} = 9999* ]]; then
-	GIT_ECLASS="git-2"
+	GIT_ECLASS="git-r3"
 	EXPERIMENTAL="true"
 fi
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit base autotools multilib multilib-minimal flag-o-matic \
-	python-any-r1 toolchain-funcs ${GIT_ECLASS}
+	python-any-r1 toolchain-funcs pax-utils ${GIT_ECLASS}
 
 OPENGL_DIR="xorg-x11"
 
@@ -20,7 +22,7 @@ MY_PN="${PN/m/M}"
 MY_P="${MY_PN}-${PV/_/-}"
 MY_SRC_P="${MY_PN}Lib-${PV/_/-}"
 
-FOLDER="${PV}"
+FOLDER="${PV/.0/}"
 
 DESCRIPTION="OpenGL-like graphic library for Linux"
 HOMEPAGE="http://mesa3d.sourceforge.net/"
@@ -37,7 +39,7 @@ fi
 # GLES[2]/gl[2]{,ext,platform}.h are SGI-B-2.0
 LICENSE="MIT SGI-B-2.0"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~arm-linux ~ia64-linux ~x86-linux ~sparc-solaris ~x64-solaris ~x86-solaris"
 
 INTEL_CARDS="i915 i965 ilo intel"
 RADEON_CARDS="r100 r200 r300 r600 radeon radeonsi"
@@ -47,9 +49,9 @@ for card in ${VIDEO_CARDS}; do
 done
 
 IUSE="${IUSE_VIDEO_CARDS}
-	bindist +classic debug +egl +gallium gbm gles1 gles2 +llvm +nptl
-	llvm-shared-libs opencl openvg osmesa pax_kernel pic r600-llvm-compiler
-	selinux vdpau wayland xvmc xa kernel_FreeBSD"
+	bindist +classic debug +dri3 +egl +gallium gbm gles1 gles2 +llvm +nptl
+	opencl openvg osmesa pax_kernel pic r600-llvm-compiler selinux
+	vdpau wayland xvmc xa kernel_FreeBSD"
 
 REQUIRED_USE="
 	llvm?   ( gallium )
@@ -81,7 +83,7 @@ REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 "
 
-LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.49"
+LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.52"
 # keep correct libdrm and dri2proto dep
 # keep blocks in rdepend for binpkg
 RDEPEND="
@@ -91,38 +93,39 @@ RDEPEND="
 	classic? ( app-admin/eselect-mesa )
 	gallium? ( app-admin/eselect-mesa )
 	>=app-admin/eselect-opengl-1.2.7
-	dev-libs/expat[${MULTILIB_USEDEP}]
-	gbm? ( virtual/udev[${MULTILIB_USEDEP}] )
-	>=x11-libs/libX11-1.3.99.901[${MULTILIB_USEDEP}]
-	>=x11-libs/libxshmfence-1.0[${MULTILIB_USEDEP}]
-	x11-libs/libXdamage[${MULTILIB_USEDEP}]
-	x11-libs/libXext[${MULTILIB_USEDEP}]
-	x11-libs/libXxf86vm[${MULTILIB_USEDEP}]
-	>=x11-libs/libxcb-1.9.2[${MULTILIB_USEDEP}]
+	>=dev-libs/expat-2.1.0-r3[${MULTILIB_USEDEP}]
+	gbm? ( >=virtual/udev-208-r2[${MULTILIB_USEDEP}] )
+	dri3? ( >=virtual/udev-208-r2[${MULTILIB_USEDEP}] )
+	>=x11-libs/libX11-1.6.2[${MULTILIB_USEDEP}]
+	>=x11-libs/libxshmfence-1.1[${MULTILIB_USEDEP}]
+	>=x11-libs/libXdamage-1.1.4-r1[${MULTILIB_USEDEP}]
+	>=x11-libs/libXext-1.3.2[${MULTILIB_USEDEP}]
+	>=x11-libs/libXxf86vm-1.1.3[${MULTILIB_USEDEP}]
+	>=x11-libs/libxcb-1.9.3[${MULTILIB_USEDEP}]
 	llvm? (
 		video_cards_radeonsi? ( || (
-			dev-libs/elfutils[${MULTILIB_USEDEP}]
-			dev-libs/libelf[${MULTILIB_USEDEP}]
-		) )
+			>=dev-libs/elfutils-0.155-r1[${MULTILIB_USEDEP}]
+			>=dev-libs/libelf-0.8.13-r2[${MULTILIB_USEDEP}]
+			) )
 		video_cards_r600? ( || (
-			dev-libs/elfutils[${MULTILIB_USEDEP}]
-			dev-libs/libelf[${MULTILIB_USEDEP}]
-		) )
+			>=dev-libs/elfutils-0.155-r1[${MULTILIB_USEDEP}]
+			>=dev-libs/libelf-0.8.13-r2[${MULTILIB_USEDEP}]
+			) )
 		!video_cards_r600? (
 			video_cards_radeon? ( || (
-				dev-libs/elfutils[${MULTILIB_USEDEP}]
-				dev-libs/libelf[${MULTILIB_USEDEP}]
-			) )
+				>=dev-libs/elfutils-0.155-r1[${MULTILIB_USEDEP}]
+				>=dev-libs/libelf-0.8.13-r2[${MULTILIB_USEDEP}]
+				) )
 		)
-		llvm-shared-libs? ( >=sys-devel/llvm-2.9[${MULTILIB_USEDEP}] )
+		>=sys-devel/llvm-3.3-r3[${MULTILIB_USEDEP}]
 	)
 	opencl? (
 				app-admin/eselect-opencl
 				dev-libs/libclc
 			)
-	vdpau? ( >=x11-libs/libvdpau-0.4.1[${MULTILIB_USEDEP}] )
+	vdpau? ( >=x11-libs/libvdpau-0.7[${MULTILIB_USEDEP}] )
 	wayland? ( >=dev-libs/wayland-1.2.0[${MULTILIB_USEDEP}] )
-	xvmc? ( >=x11-libs/libXvMC-1.0.6[${MULTILIB_USEDEP}] )
+	xvmc? ( >=x11-libs/libXvMC-1.0.8[${MULTILIB_USEDEP}] )
 	${LIBDRM_DEPSTRING}[video_cards_freedreno?,video_cards_nouveau?,video_cards_vmware?,${MULTILIB_USEDEP}]
 "
 for card in ${INTEL_CARDS}; do
@@ -139,25 +142,27 @@ done
 
 DEPEND="${RDEPEND}
 	llvm? (
-		>=sys-devel/llvm-2.9[${MULTILIB_USEDEP}]
 		r600-llvm-compiler? ( sys-devel/llvm[video_cards_radeon] )
 		video_cards_radeonsi? ( sys-devel/llvm[video_cards_radeon] )
 	)
 	opencl? (
-				>=sys-devel/llvm-3.3-r1[video_cards_radeon,${MULTILIB_USEDEP}]
+				>=sys-devel/llvm-3.3-r3[video_cards_radeon,${MULTILIB_USEDEP}]
 				>=sys-devel/clang-3.3[${MULTILIB_USEDEP}]
 				>=sys-devel/gcc-4.6
 	)
 	sys-devel/bison
 	sys-devel/flex
+	sys-devel/gettext
 	virtual/pkgconfig
-	>=x11-proto/dri2proto-2.6[${MULTILIB_USEDEP}]
-	>=x11-proto/dri3proto-1.0[${MULTILIB_USEDEP}]
-	>=x11-proto/presentproto-1.0[${MULTILIB_USEDEP}]
-	>=x11-proto/glproto-1.4.15-r1[${MULTILIB_USEDEP}]
-	>=x11-proto/xextproto-7.0.99.1[${MULTILIB_USEDEP}]
-	x11-proto/xf86driproto[${MULTILIB_USEDEP}]
-	x11-proto/xf86vidmodeproto[${MULTILIB_USEDEP}]
+	>=x11-proto/dri2proto-2.8-r1[${MULTILIB_USEDEP}]
+	dri3? (
+		>=x11-proto/dri3proto-1.0[${MULTILIB_USEDEP}]
+		>=x11-proto/presentproto-1.0[${MULTILIB_USEDEP}]
+	)
+	>=x11-proto/glproto-1.4.16-r1[${MULTILIB_USEDEP}]
+	>=x11-proto/xextproto-7.2.1-r1[${MULTILIB_USEDEP}]
+	>=x11-proto/xf86driproto-2.1.1-r1[${MULTILIB_USEDEP}]
+	>=x11-proto/xf86vidmodeproto-2.3.1-r1[${MULTILIB_USEDEP}]
 	$(python_gen_any_dep 'dev-libs/libxml2[python,${PYTHON_USEDEP}]')
 "
 
@@ -166,6 +171,7 @@ python_check_deps() {
 }
 
 S="${WORKDIR}/${MY_P}"
+EGIT_CHECKOUT_DIR=${S}
 
 # It is slow without texrels, if someone wants slow
 # mesa without texrels +pic use is worth the shot
@@ -189,7 +195,7 @@ pkg_setup() {
 
 src_unpack() {
 	default
-	[[ $PV = 9999* ]] && git-2_src_unpack
+	[[ $PV = 9999* ]] && git-r3_src_unpack
 }
 
 src_prepare() {
@@ -202,7 +208,7 @@ src_prepare() {
 	fi
 
 	# relax the requirement that r300 must have llvm, bug 380303
-	epatch "${FILESDIR}"/mesa-9.2-dont-require-llvm-for-r300.patch
+	epatch "${FILESDIR}"/${PN}-9.2-dont-require-llvm-for-r300.patch
 
 	# fix for hardened pax_kernel, bug 240956
 	[[ ${PV} != 9999* ]] && epatch "${FILESDIR}"/glx_ro_text_segm.patch
@@ -211,9 +217,6 @@ src_prepare() {
 	if [[ ${CHOST} == *-solaris* ]] ; then
 		sed -i -e "s/-DSVR4/-D_POSIX_C_SOURCE=200112L/" configure.ac || die
 	fi
-
-	#EGL linker fix
-	epatch "${FILESDIR}"/mesa-egl_gallium.patch
 
 	base_src_prepare
 
@@ -301,16 +304,13 @@ multilib_src_configure() {
 	# build fails with BSD indent, bug #428112
 	use userland_GNU || export INDENT=cat
 
-	if ! multilib_is_native_abi; then
-		myconf+="LLVM_CONFIG=${EPREFIX}/usr/bin/llvm-config.${ABI}"
-	fi
-
 	econf \
 		--enable-dri \
 		--enable-glx \
 		--enable-shared-glapi \
 		$(use_enable !bindist texture-float) \
 		$(use_enable debug) \
+		$(use_enable dri3) \
 		$(use_enable egl) \
 		$(use_enable gbm) \
 		$(use_enable gles1) \
@@ -318,7 +318,6 @@ multilib_src_configure() {
 		$(use_enable nptl glx-tls) \
 		$(use_enable osmesa) \
 		$(use_enable !pic asm) \
-		$(use_with llvm-shared-libs) \
 		--with-dri-drivers=${DRI_DRIVERS} \
 		--with-gallium-drivers=${GALLIUM_DRIVERS} \
 		PYTHON2="${PYTHON}" \
@@ -363,13 +362,11 @@ multilib_src_install() {
 				if [ -f "$(get_libdir)/gallium/${x}" ]; then
 					mv -f "${ED}/usr/$(get_libdir)/dri/${x}" "${ED}/usr/$(get_libdir)/dri/${x/_dri.so/g_dri.so}" \
 						|| die "Failed to move ${x}"
-					insinto "/usr/$(get_libdir)/dri/"
-					if [ -f "$(get_libdir)/${x}" ]; then
-						insopts -m0755
-						doins "$(get_libdir)/${x}"
-					fi
 				fi
 			done
+			if use classic; then
+				emake -C "${BUILD_DIR}/src/mesa/drivers/dri" DESTDIR="${D}" install
+			fi
 			for x in "${ED}"/usr/$(get_libdir)/dri/*.so; do
 				if [ -f ${x} -o -L ${x} ]; then
 					mv -f "${x}" "${x/dri/mesa}" \
@@ -417,6 +414,13 @@ multilib_src_install_all() {
 }
 
 multilib_src_test() {
+	if use llvm; then
+		local llvm_tests='lp_test_arit lp_test_arit lp_test_blend lp_test_blend lp_test_conv lp_test_conv lp_test_format lp_test_format lp_test_printf lp_test_printf'
+		pushd src/gallium/drivers/llvmpipe >/dev/null || die
+		emake ${llvm_tests}
+		pax-mark m ${llvm_tests}
+		popd >/dev/null || die
+	fi
 	emake check
 }
 
