@@ -2,16 +2,16 @@
 
 EAPI="5"
 
-inherit eutils fdo-mime gnome2-utils
+inherit eutils fdo-mime git-2 gnome2-utils
 
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
+EGIT_REPO_URI="https://github.com/Alexey-Yakovenko/deadbeef.git"
+EGIT_BRANCH="master"
+EGIT_BOOTSTRAP="autogen.sh"
 
-KEYWORDS="~*"
+KEYWORDS=""
 
 DESCRIPTION="foobar2k-like music player"
 HOMEPAGE="http://deadbeef.sourceforge.net/"
-
-RESTRICT="mirror"
 
 LICENSE="BSD
 	UNICODE
