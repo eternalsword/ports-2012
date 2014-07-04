@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/systemd/systemd-215.ebuild,v 1.2 2014/07/04 15:00:55 floppym Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/systemd/systemd-215.ebuild,v 1.4 2014/07/04 19:04:15 floppym Exp $
 
 EAPI=5
 
@@ -82,6 +82,9 @@ src_prepare() {
 	# Bug 463376
 	sed -i -e 's/GROUP="dialout"/GROUP="uucp"/' rules/*.rules || die
 
+	# Make sure we regenerate this policy file.
+	touch src/core/org.freedesktop.systemd1.policy.in.in || die
+
 	autotools-utils_src_prepare
 }
 
@@ -147,6 +150,9 @@ multilib_src_configure() {
 		# disable -flto since it is an optimization flag
 		# and makes distcc less effective
 		cc_cv_CFLAGS__flto=no
+
+		# Workaround for bug 516346
+		--enable-dependency-tracking
 
 		--disable-maintainer-mode
 		--localstatedir=/var

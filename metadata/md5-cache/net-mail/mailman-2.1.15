@@ -9,5 +9,5 @@ LICENSE=GPL-2
 RDEPEND=virtual/mta virtual/cron virtual/httpd-cgi selinux? ( sec-policy/selinux-mailman ) =dev-lang/python-2*
 SLOT=0
 SRC_URI=mirror://sourceforge/mailman/mailman-2.1.15.tgz
-_eclasses_=eutils	76fc3c462065bb4ca959f939e6793f94	multilib	fac675dcccf94392371a6abee62d909f	python	963c2522921a97a6e18e76ab4dc2d3ae	systemd	b0daeef4b75b0130d34c62aa1930d21e	toolchain-funcs	48b38a216afb92db6314d6c3187abea3	user	1a9ecf501027961855b0320e8915a79c
+_eclasses_=eutils	76fc3c462065bb4ca959f939e6793f94	multilib	fac675dcccf94392371a6abee62d909f	python	d111d5162e70b4b26e65f1f6ed181028	systemd	b0daeef4b75b0130d34c62aa1930d21e	toolchain-funcs	48b38a216afb92db6314d6c3187abea3	user	1a9ecf501027961855b0320e8915a79c
 _md5_=e32c5f46dfae8c8f23a6379b90d34558
