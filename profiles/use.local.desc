@@ -2010,6 +2010,7 @@ dev-python/PyQtMobility:sensors - Build bindings for the QtSensors module
 dev-python/PyQtMobility:serviceframework - Build bindings for the QtServiceFramework module
 dev-python/PyQtMobility:systeminfo - Build bindings for the QtSystemInfo module
 dev-python/PyQtMobility:versit - Build bindings for the QtVersit module
+dev-python/bokeh:chaco - Enable interface for implementing qplot and ggplot like functionality using chaco
 dev-python/celery:redis - Enables redis support
 dev-python/cgkit:3ds - Enable support for importing 3D Studio models
 dev-python/cvxopt:dsdp - Use interior point library sci-libs/dsdp
