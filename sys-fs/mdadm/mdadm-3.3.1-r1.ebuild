@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/mdadm/mdadm-3.3.1.ebuild,v 1.1 2014/07/14 18:08:15 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/mdadm/mdadm-3.3.1-r1.ebuild,v 1.1 2014/07/17 07:03:55 ssuominen Exp $
 
 EAPI="4"
 inherit multilib flag-o-matic systemd toolchain-funcs udev
@@ -48,7 +48,9 @@ src_test() {
 }
 
 src_install() {
-	mdadm_emake DESTDIR="${D}" install install-systemd
+	# Use split lines because of bug #517218
+	mdadm_emake DESTDIR="${D}" install
+	mdadm_emake DESTDIR="${D}" install-systemd
 	into /
 	dosbin mdassemble
 	dodoc ChangeLog INSTALL TODO README* ANNOUNCE-${PV}
@@ -59,8 +61,6 @@ src_install() {
 	newconfd "${FILESDIR}"/mdadm.confd mdadm
 	newinitd "${FILESDIR}"/mdraid.rc mdraid
 	newconfd "${FILESDIR}"/mdraid.confd mdraid
-# Shouldn't be required since upstream has it's own .service files. Untested. -ssuominen
-#	systemd_newunit "${FILESDIR}"/mdadm.service-r1 mdadm.service
 
 	# From the Debian patchset
 	into /usr
