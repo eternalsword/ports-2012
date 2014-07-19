@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/mpv/mpv-0.4.1.ebuild,v 1.1 2014/07/14 20:00:54 maksbotan Exp $
 
 EAPI=5
 
@@ -20,7 +18,7 @@ SRC_URI+=" https://github.com/mpv-player/mpv/archive/v${PV}.tar.gz -> ${P}.tar.g
 LICENSE="GPL-2"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="~alpha ~amd64 ~arm ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux"
+KEYWORDS="~*"
 IUSE="+alsa bluray bs2b cdio -doc-pdf dvb +dvd dvdnav +enca encode +iconv jack -joystick
 jpeg ladspa lcms +libass libcaca libguess libmpv lirc lua luajit +mpg123 -openal +opengl
 oss portaudio postproc pulseaudio pvr +quvi samba sdl selinux +shm v4l vaapi vdpau
@@ -42,11 +40,7 @@ REQUIRED_USE="
 	xv? ( X )
 "
 
-RDEPEND+="
-	|| (
-		>=media-video/libav-10:=[encode?,threads,vaapi?,vdpau?]
-		>=media-video/ffmpeg-2.1.4:0=[encode?,threads,vaapi?,vdpau?]
-	)
+RDEPEND+=">=media-video/ffmpeg-2.1.4:0=[encode?,threads,vaapi?,vdpau?]
 	sys-libs/ncurses
 	sys-libs/zlib
 	X? (
@@ -101,11 +95,8 @@ RDEPEND+="
 	pulseaudio? ( media-sound/pulseaudio )
 	quvi? (
 		>=media-libs/libquvi-0.4.1:=
-		|| (
-			>=media-video/libav-10[network]
-			>=media-video/ffmpeg-2.1.4:0[network]
+		>=media-video/ffmpeg-2.1.4:0[network]
 		)
-	)
 	samba? ( net-fs/samba )
 	sdl? ( media-libs/libsdl2[threads] )
 	selinux? ( sec-policy/selinux-mplayer )
