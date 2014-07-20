@@ -1,19 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/cairo/cairo-1.12.16-r3.ebuild,v 1.5 2014/06/24 22:19:45 mgorny Exp $
 
 EAPI=5
 
 inherit check-reqs eutils flag-o-matic autotools multilib-minimal
 
-if [[ ${PV} == *9999* ]]; then
-	inherit git-2
-	EGIT_REPO_URI="git://anongit.freedesktop.org/git/cairo"
-	SRC_URI=""
-else
-	SRC_URI="http://cairographics.org/releases/${P}.tar.xz"
-	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
-fi
+SRC_URI="http://cairographics.org/releases/${P}.tar.xz"
+KEYWORDS="*"
 
 DESCRIPTION="A vector graphics library with cross-device output support"
 HOMEPAGE="http://cairographics.org/"
@@ -119,13 +111,6 @@ src_prepare() {
 	fi
 
 	epatch_user
-
-	# Slightly messed build system YAY
-	if [[ ${PV} == *9999* ]]; then
-		touch boilerplate/Makefile.am.features
-		touch src/Makefile.am.features
-		touch ChangeLog
-	fi
 
 	# We need to run elibtoolize to ensure correct so versioning on FreeBSD
 	# upgraded to an eautoreconf for the above interix patch.

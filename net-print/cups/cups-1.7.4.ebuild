@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.7.4.ebuild,v 1.1 2014/07/18 16:04:42 dilfridge Exp $
 
 EAPI=5
 
@@ -15,17 +13,8 @@ MY_P=${MY_P/_beta/b}
 MY_PV=${PV/_rc/rc}
 MY_PV=${MY_PV/_beta/b}
 
-if [[ ${PV} == *9999 ]]; then
-	inherit git-2
-	EGIT_REPO_URI="http://www.cups.org/cups.git"
-	if [[ ${PV} != 9999 ]]; then
-		EGIT_BRANCH=branch-${PV/.9999}
-	fi
-	KEYWORDS=""
-else
-	SRC_URI="http://www.cups.org/software/${MY_PV}/${MY_P}-source.tar.bz2"
-	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~m68k-mint"
-fi
+SRC_URI="http://www.cups.org/software/${MY_PV}/${MY_P}-source.tar.bz2"
+KEYWORDS="*"
 
 DESCRIPTION="The Common Unix Printing System"
 HOMEPAGE="http://www.cups.org/"
