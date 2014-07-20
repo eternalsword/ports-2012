@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/libical/libical-1.0-r2.ebuild,v 1.2 2014/05/07 02:41:12 patrick Exp $
 
 EAPI=5
 inherit cmake-utils
@@ -17,6 +15,15 @@ IUSE="doc examples introspection static-libs"
 RDEPEND="introspection? ( dev-libs/gobject-introspection )"
 DEPEND="${RDEPEND}
 	dev-lang/perl"
+
+src_prepare() {
+	# From Upstream:
+	# 	https://github.com/libical/libical/commit/27f81864aaad5975a4e66ba3527bda5af8767eef
+	# 	https://github.com/libical/libical/commit/0d2fef6095f405876e02e4792847d3b3c5e5b009
+	epatch "${FILESDIR}"/${P}-generate-gir-based-on-release-version-and-build-from-correct-libical.patch
+	
+	cmake-utils_src_prepare
+}
 
 src_configure() {
 	local mycmakeargs=" $( cmake-utils_use introspection GOBJECT_INTROSPECTION )"

@@ -1,4 +1,6 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/media-libs/gstreamer/gstreamer-0.10.36-r2.ebuild,v 1.4 2014/07/12 11:48:49 mgorny Exp $
 
 EAPI=5
 
@@ -10,10 +12,10 @@ SRC_URI="http://${PN}.freedesktop.org/src/${PN}/${P}.tar.xz"
 
 LICENSE="LGPL-2+"
 SLOT="0.10"
-KEYWORDS="*"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
 IUSE="+introspection nls +orc test"
 
-RDEPEND="dev-libs/glib:2[${MULTILIB_USEDEP}]
+RDEPEND=">=dev-libs/glib-2.34.3:2[${MULTILIB_USEDEP}]
 	>=dev-libs/libxml2-2.9.1-r4[${MULTILIB_USEDEP}]
 	introspection? ( >=dev-libs/gobject-introspection-0.6.8 )"
 DEPEND="${RDEPEND}
@@ -69,7 +71,7 @@ multilib_src_configure() {
 	# Disable debug, as it only affects -g passing (debugging symbols), this must done through make.conf in gentoo
 	ECONF_SOURCE=${S} \
 	econf \
-		--libexecdir=/usr/$(get_libdir) \
+		--libexecdir="${EPREFIX}"/usr/$(get_libdir) \
 		--disable-static \
 		$(use_enable nls) \
 		--disable-valgrind \

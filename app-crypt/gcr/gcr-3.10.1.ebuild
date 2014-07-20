@@ -1,4 +1,6 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/app-crypt/gcr/gcr-3.10.1.ebuild,v 1.11 2014/04/21 10:28:28 ago Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -14,13 +16,13 @@ LICENSE="GPL-2+ LGPL-2+"
 SLOT="0/1" # subslot = suffix of libgcr-3
 IUSE="debug gtk +introspection vala"
 REQUIRED_USE="vala? ( introspection )"
-KEYWORDS="*"
+KEYWORDS="alpha amd64 arm ia64 ~mips ppc ppc64 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~arm-linux ~x86-linux ~sparc-solaris ~x86-solaris"
 
 COMMON_DEPEND="
 	>=app-crypt/gnupg-2
 	>=app-crypt/p11-kit-0.19
 	>=dev-libs/glib-2.32:2
-	>=dev-libs/libgcrypt-1.2.2:=
+	>=dev-libs/libgcrypt-1.2.2:0=
 	>=dev-libs/libtasn1-1:=
 	>=sys-apps/dbus-1
 	gtk? ( >=x11-libs/gtk+-3:3 )

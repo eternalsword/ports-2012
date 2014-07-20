@@ -1,4 +1,6 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/cairo/cairo-1.12.16-r2.ebuild,v 1.7 2014/06/24 22:19:45 mgorny Exp $
 
 EAPI=5
 
@@ -10,7 +12,7 @@ if [[ ${PV} == *9999* ]]; then
 	SRC_URI=""
 else
 	SRC_URI="http://cairographics.org/releases/${P}.tar.xz"
-	KEYWORDS="*"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 fi
 
 DESCRIPTION="A vector graphics library with cross-device output support"
@@ -32,7 +34,7 @@ RDEPEND=">=dev-libs/lzo-2.06-r1[${MULTILIB_USEDEP}]
 	>=x11-libs/pixman-0.32.4[${MULTILIB_USEDEP}]
 	directfb? ( dev-libs/DirectFB )
 	gles2? ( >=media-libs/mesa-9.1.6[gles2,${MULTILIB_USEDEP}] )
-	glib? ( dev-libs/glib:2[${MULTILIB_USEDEP}] )
+	glib? ( >=dev-libs/glib-2.34.3:2[${MULTILIB_USEDEP}] )
 	opengl? ( || ( >=media-libs/mesa-9.1.6[egl,${MULTILIB_USEDEP}] media-libs/opengl-apple ) )
 	openvg? ( >=media-libs/mesa-9.1.6[openvg,${MULTILIB_USEDEP}] )
 	qt4? ( >=dev-qt/qtgui-4.8:4 )

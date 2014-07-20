@@ -1,4 +1,6 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/net-libs/webkit-gtk/webkit-gtk-2.4.3.ebuild,v 1.2 2014/06/21 20:00:28 pacho Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -13,7 +15,7 @@ SRC_URI="http://www.webkitgtk.org/releases/${MY_P}.tar.xz"
 
 LICENSE="LGPL-2+ BSD"
 SLOT="3/25" # soname version of libwebkit2gtk-3.0
-KEYWORDS="*"
+KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~x86-macos"
 IUSE="aqua coverage debug +egl +geoloc gles2 +gstreamer +introspection +jit libsecret +opengl spell wayland +webgl +X"
 # bugs 372493, 416331
 REQUIRED_USE="
@@ -242,6 +244,11 @@ src_configure() {
 		${myconf}
 }
 
+src_compile() {
+	# Try to avoid issues like bug #463960
+	unset DISPLAY
+	gnome2_src_compile
+}
 src_test() {
 	# Tests expect an out-of-source build in WebKitBuild
 	ln -s . WebKitBuild || die "ln failed"

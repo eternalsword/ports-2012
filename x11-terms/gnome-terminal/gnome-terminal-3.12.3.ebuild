@@ -13,7 +13,7 @@ HOMEPAGE="https://wiki.gnome.org/Apps/Terminal/"
 
 LICENSE="GPL-3+"
 SLOT="0"
-IUSE="+gnome-shell +nautilus"
+IUSE="deprecated +gnome-shell +nautilus"
 KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~arm-linux ~x86-linux"
 
 # FIXME: automagic dependency on gtk+[X]
@@ -45,6 +45,12 @@ DOC_CONTENTS="To get previous working directory inherited in new opened
 	. /etc/profile.d/vte.sh"
 
 src_prepare() {
+	if use deprecated; then
+		# From Fedora:
+		# 	http://pkgs.fedoraproject.org/cgit/gnome-terminal.git/tree/restore-transparency.patch?h=f20-gnome-3-12
+		epatch "${FILESDIR}"/${P}-restore-background-transparency-support.patch
+	fi
+	
 	epatch \
 		"${FILESDIR}"/${PN}-3.12.0-remove-set-title-feature-0.patch \
 		"${FILESDIR}"/${PN}-3.12.0-remove-set-title-feature-1.patch \
