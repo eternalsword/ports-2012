@@ -1615,7 +1615,6 @@ dev-lang/rust:clang - Use sys-devel/clang for building
 dev-lang/scala:binary - Install from (Gentoo-compiled) binary instead of building from sources. Set this when you run out of memory during build.
 dev-lang/swi-prolog:archive - Use libarchive for extension packs
 dev-lang/swig:ccache - build ccache-swig(a fast compiler cache)
-dev-lang/vala:vapigen - Enable vala's library binding generator
 dev-lang/yap:R - Enable support for connecting R to Prolog
 dev-libs/DirectFB:bmp - build BMP image provider
 dev-libs/DirectFB:divine - enable DiVine
