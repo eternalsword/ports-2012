@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/perl-core/digest-base/digest-base-1.170.0.ebuild,v 1.15 2014/01/20 20:45:35 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/perl-core/Digest/Digest-1.170.0.ebuild,v 1.1 2014/07/22 19:29:54 dilfridge Exp $
 
 EAPI=4
 
