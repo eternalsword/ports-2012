@@ -5149,6 +5149,7 @@ net-misc/bfgminer:proxy - Enable support for virtual proxy device
 net-misc/bfgminer:proxy_getwork - Enable proxy support for getwork protocol (often used with Block Erupter Blades)
 net-misc/bfgminer:proxy_stratum - Enable proxy support for stratum protocol
 net-misc/bfgminer:rockminer - Enable support for mining with RockMiner devices
+net-misc/bfgminer:screen - Provide start-bfgminer.sh script to launch BFGMiner in app-misc/screen
 net-misc/bfgminer:scrypt - Enable support for scrypt mining algorithm
 net-misc/bfgminer:sse2_4way - Enable support for CPU SSE2 4way mining algorithm
 net-misc/bfgminer:sse4 - Enable support for CPU SSE4 mining algorithm
@@ -5635,10 +5636,13 @@ net-wireless/bluez:hid2hci - The HID proxying makes the keyboard / mouse show up
 net-wireless/bluez:obex - Enable OBEX transfer support.
 net-wireless/bluez:test-programs - Install tools for testing of various Bluetooth functions
 net-wireless/gnuradio:analog - enable analog signal processing blocks
+net-wireless/gnuradio:channels - enable channel mode blocks
+net-wireless/gnuradio:ctrlport - enable ControlPort rpc
 net-wireless/gnuradio:digital - enable digital signal processing blocks
 net-wireless/gnuradio:fcd - enable Funcube Dongle source block
 net-wireless/gnuradio:filter - enable filter signal processing blocks
 net-wireless/gnuradio:grc - enable GNU Radio Companion graphical tool to design signal processing flow graphs
+net-wireless/gnuradio:log - enable logging to console and files
 net-wireless/gnuradio:pager - enable pager signal processing blocks
 net-wireless/gnuradio:performance-counters - enable block performance counters
 net-wireless/gnuradio:uhd - install UHD source and sink blocks
