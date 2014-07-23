@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-analyzer/snortsam/snortsam-2.70.ebuild,v 1.6 2014/07/17 14:31:53 jer Exp $
 
 EAPI=5
 inherit eutils flag-o-matic toolchain-funcs
@@ -11,13 +9,17 @@ SRC_URI="${HOMEPAGE}files/snortsam/${PN}-src-${PV}.tar.gz"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~*"
 IUSE="debug"
 
 S=${WORKDIR}/${PN}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-gentoo.patch
+	
+	# From Funtoo:
+	# 	https://bugs.funtoo.org/browse/FL-1408
+	epatch "${FILESDIR}"/${P}-fix-undefined-reference.patch
 
 	find "${S}" -depth -type d -name CVS -exec rm -rf \{\} \;
 }
