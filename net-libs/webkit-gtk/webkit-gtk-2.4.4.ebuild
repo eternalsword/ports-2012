@@ -98,6 +98,8 @@ S="${WORKDIR}/${MY_P}"
 CHECKREQS_DISK_BUILD="18G" # and even this might not be enough, bug #417307
 
 pkg_pretend() {
+	nvidia_check || die #463960
+
 	if [[ ${MERGE_TYPE} != "binary" ]] && is-flagq "-g*" && ! is-flagq "-g*0" ; then
 		einfo "Checking for sufficient disk space to build ${PN} with debugging CFLAGS"
 		check-reqs_pkg_pretend
@@ -109,6 +111,8 @@ pkg_pretend() {
 }
 
 pkg_setup() {
+	nvidia_check || die #463960
+
 	# Check whether any of the debugging flags is enabled
 	if [[ ${MERGE_TYPE} != "binary" ]] && is-flagq "-g*" && ! is-flagq "-g*0" ; then
 		if is-flagq "-ggdb" && [[ ${WEBKIT_GTK_GGDB} != "yes" ]]; then
@@ -157,6 +161,11 @@ src_prepare() {
 
 	# bug #459978, upstream bug #113397
 	epatch "${FILESDIR}/${PN}-1.11.90-gtk-docize-fix.patch"
+
+	# FIXME: Needs updating, but probably unneeded in 2.4 as it has a 
+	# "developer mode" for this
+	# Do not build unittests unless requested, upstream bug #128163
+#	epatch "${FILESDIR}"/${PN}-2.2.4-unittests-build.patch
 
 	# Deadlock causing infinite compilations with nvidia-drivers:
 	# https://bugs.gentoo.org/show_bug.cgi?id=463960
@@ -269,4 +278,21 @@ src_install() {
 
 	# Prevents crashes on PaX systems
 	use jit && pax-mark m "${ED}usr/bin/jsc-3"
+}
+
+nvidia_check() {
+	if [[ ${MERGE_TYPE} != "binary" ]] &&
+	   use introspection &&
+	   has_version '=x11-drivers/nvidia-drivers-325*' &&
+	   [[ $(eselect opengl show 2> /dev/null) = "nvidia" ]]
+	then
+		eerror "${PN} freezes while compiling if x11-drivers/nvidia-drivers-325.* is"
+		eerror "used as the system OpenGL library."
+		eerror "You can either update to >=nvidia-drivers-331.13, or temporarily select"
+		eerror "Mesa as the system OpenGL library:"
+		eerror " # eselect opengl set xorg-x11"
+		eerror "See https://bugs.gentoo.org/463960 for more details."
+		eerror
+		return 1
+	fi
 }
