@@ -1801,6 +1801,8 @@ dev-libs/opensc:libtool - Use sys-devel/libtool for dynamically loading librarie
 dev-libs/opensc:openct - Use dev-libs/openct (and CT-API) for accessing Smartcard hardware.
 dev-libs/opensc:pcsc-lite - Use sys-apps/pcsc-lite (and PC/SC API) for accessing Smartcard hardware.
 dev-libs/opensc:secure-messaging - Enable secure messaging.
+dev-libs/openssl:bindist - Disable EC/RC5 algorithms (as they seem to be patented)
+dev-libs/openssl:rfc3779 - Enable support for RFC 3779 (X.509 Extensions for IP Addresses and AS Identifiers)
 dev-libs/pkcs11-helper:nss - Enable NSS crypto engine
 dev-libs/ppl:lpsol - Build the ppl_lpsol linear programming problem solver
 dev-libs/pyzy:boost - Compile against dev-libs/boost libraries
@@ -3199,7 +3201,6 @@ media-gfx/ufraw:timezone - enable DST correction for file timestamps
 media-gfx/xpaint:pgf - Support for loading PGF images
 media-gfx/xsane:ocr - Enable support for Optical Character Recognition reader
 media-gfx/yafaray:blender - install media-gfx/blender scripts
-media-libs/a52dec:djbfft - Prefer D.J. Bernstein's library for fourier transforms
 media-libs/allegro:dumb - Enable media-libs/dumb module library support
 media-libs/allegro:physfs - Enable physfs support
 media-libs/allegro:vga - Enables the VGA graphics driver
@@ -3939,56 +3940,6 @@ media-video/dvdrip:subtitles - Enables support for subtitle ripping
 media-video/dvdstyler:deprecated - Use the old libgnomeui-2 library
 media-video/ffdiaporama:openclipart - Support openslipart database
 media-video/ffdiaporama:texturemate - Install extra backgrounds
-media-video/ffmpeg:3dnowext - Enable manually-optimised routines using the AMD 3DNow!Ex SIMD instruction set, present in modern AMD CPUs. (Check for 3dnowext in /proc/cpuinfo to know whether your CPU supports it).
-media-video/ffmpeg:aacplus - AAC+ encoding via media-libs/libaacplus.
-media-video/ffmpeg:amr - Enables Adaptive Multi-Rate Audio support
-media-video/ffmpeg:amrenc - Enables Adaptive Multi-Rate Audio encoding support with media-libs/vo-amrwbenc.
-media-video/ffmpeg:armv5te - Enables optimizations for armv5te processors.
-media-video/ffmpeg:armv6 - Enables optimizations for armv6 processors.
-media-video/ffmpeg:armv6t2 - Enables optimizations for armv6t2 processors.
-media-video/ffmpeg:armvfp - Enables VFP optimizations for ARM processors.
-media-video/ffmpeg:avx - Adds support for Advanced Vector Extensions instructions (Intel Sandy Bridge, AMD Bulldozer and later chips)
-media-video/ffmpeg:avx2 - Adds support for Advanced Vector Extensions 2 instructions (Intel Haswell and later chips)
-media-video/ffmpeg:bindist - Enforces license compatibility constraints via REQUIRED_USE.
-media-video/ffmpeg:bluray - Enable playback of Blu-ray filesystems
-media-video/ffmpeg:cdio - Enables audio CD grabbing with dev-libs/libcdio.
-media-video/ffmpeg:celt - Adds Xiph CELT audio decoding support via media-libs/celt
-media-video/ffmpeg:cpudetection - Enables runtime CPU detection (useful for bindist, compatibility on other CPUs)
-media-video/ffmpeg:dirac - Enable Dirac video support (an advanced royalty-free video compression format) via the reference library: dirac.
-media-video/ffmpeg:faac - Use external faac library for AAC encoding
-media-video/ffmpeg:fdk - Use external fdk-aac library for AAC encoding
-media-video/ffmpeg:flite - Adds a text-to-speech filter based on app-accessibility/flite.
-media-video/ffmpeg:fma3 - Enables FMA3 optimizations: AMD processors starting with Piledriver architecture and Intel Haswell based processors or later.
-media-video/ffmpeg:fma4 - Enables FMA4 optimizations: AMD processors starting with Bulldozer architecture.
-media-video/ffmpeg:frei0r - Enable frei0r wrapping in libavfilter
-media-video/ffmpeg:gme - Enables support for media-libs/game-music-emu for playing various video game music formats.
-media-video/ffmpeg:hardcoded-tables - Use pre-calculated tables rather than calculating them on the fly.
-media-video/ffmpeg:iec61883 - Support for FireWire DV/HDV input device using media-libs/libiec61883.
-media-video/ffmpeg:libsoxr - Enables audio resampling through media-libs/soxr.
-media-video/ffmpeg:libv4l - Uses media-libs/libv4l for video4linux instead of direct calls. Adds support for more devices via the userspace library.
-media-video/ffmpeg:mips32r2 - Enables MIPS32R2 optimizations.
-media-video/ffmpeg:mipsdspr1 - Enables MIPS DSP ASE R1 optimizations.
-media-video/ffmpeg:mipsdspr2 - Enables MIPS DSP ASE R2 optimizations.
-media-video/ffmpeg:mipsfpu - Enables floating point MIPS optimizations.
-media-video/ffmpeg:mmxext - Enables mmx2 support
-media-video/ffmpeg:network - Enables network streaming support
-media-video/ffmpeg:openssl - Enables dev-libs/openssl support. Adds support for encrypted network protocols (TLS/HTTPS).
-media-video/ffmpeg:opus - Adds (decoding) support for the Opus codec via media-libs/opus.
-media-video/ffmpeg:pic - Force shared libraries to be built as PIC (this is slower)
-media-video/ffmpeg:quvi - Adds support for playing media from Internet services using the quvi project.
-media-video/ffmpeg:rtmp - Enable Real Time Messaging Protocol using librtmp
-media-video/ffmpeg:schroedinger - Enable Dirac video support (an advanced royalty-free video compression format) via libschroedinger (high-speed implementation in C of the Dirac codec).
-media-video/ffmpeg:sse4 - Enables SSE4 optimizations: Intel Core microarchitecture and AMD K10 or later.
-media-video/ffmpeg:sse4_2 - Enables SSE4.2 optimizations: Nehalem-based Intel Core i7 or later.
-media-video/ffmpeg:ssh - Enable SSH/sftp support via net-libs/libssh.
-media-video/ffmpeg:ssse3 - Faster floating point optimization for SSSE3 capable chips (Intel Core 2 and later chips)
-media-video/ffmpeg:twolame - Enables MP2 encoding via media-sound/twolame as an alternative to the internal encoder.
-media-video/ffmpeg:vaapi - Enables VAAPI (Video Acceleration API) for hardware decoding
-media-video/ffmpeg:vis - Adds support for SIMD optimizations for UltraSPARC processors.
-media-video/ffmpeg:vpx - Enables vp8 codec support using libvpx: Decoding vp8 does not require this to be enabled but libvpx can also be used for decoding; encoding vp8 requires this useflag to be enabled though.
-media-video/ffmpeg:webp - Enables WebP encoding with media-libs/libwebp.
-media-video/ffmpeg:x265 - Enables HEVC encoding with media-libs/x265.
-media-video/ffmpeg:zvbi - Enables media-libs/zvbi based teletext decoder.
 media-video/ffmpeg2theora:kate - Adds support for Ogg Kate subtitles via libkate.
 media-video/gnome-mplayer:dconf - Enable support for gnome-base/dconf
 media-video/gnome-mplayer:gda - Enable support for gnome-extra/libgda
@@ -4868,15 +4819,9 @@ net-libs/daq:pcap - Build the PCAP data acquisition module.
 net-libs/glib-networking:gnome - Extract HTTP/HTTPS/SOCKS proxy configuration stored using GSettings
 net-libs/glib-networking:libproxy - Use net-libs/libproxy for getting the HTTP/HTTPS/SOCKS proxy configuration
 net-libs/gnome-online-accounts:gnome - Use gnome-base/gnome-control-center to set GNOME online accounts preferences
-net-libs/gnutls:bindist - Disallow building LZO support, because of a license incompatibility with dev-libs/lzo.
-net-libs/gnutls:crywrap - Build the crywrap TLS proxy service
-net-libs/gnutls:dane - Build libgnutls-dane, implementing DNS-based Authentication of Named Entities. Requires net-dns/unbound.
-net-libs/gnutls:nettle - Use dev-libs/nettle as crypto backend
-net-libs/gnutls:pkcs11 - Add support for PKCS#11 through app-crypt/p11-kit
 net-libs/gtk-vnc:gtk3 - Build the gtk3 gtk-vnc library and other gtk3 assets
 net-libs/gtk-vnc:introspection - Use dev-libs/gobject-introspection for introspection
 net-libs/gtk-vnc:vala - Enable bindings for dev-lang/vala
-net-libs/gupnp-igd:introspection - Use dev-libs/gobject-introspection for introspection
 net-libs/h323plus:aec - Enable acoustic echo cancellation
 net-libs/h323plus:sound - Enable audio codecs
 net-libs/h323plus:video - Enable video codecs
@@ -5148,6 +5093,7 @@ net-misc/bfgminer:scrypt - Enable support for scrypt mining algorithm
 net-misc/bfgminer:sse2_4way - Enable support for CPU SSE2 4way mining algorithm
 net-misc/bfgminer:sse4 - Enable support for CPU SSE4 mining algorithm
 net-misc/bfgminer:twinfury - Enable support for mining with Twinfury USB sticks
+net-misc/bfgminer:udev-broad-rules - Enable broader udev rules that may match non-mining devices
 net-misc/bfgminer:x6500 - Enable support for mining with X6500 FPGAs
 net-misc/bfgminer:zeusminer - Enable support for mining with ZeusMiner units
 net-misc/bfgminer:ztex - Enable support for mining with Ztex FPGAs
