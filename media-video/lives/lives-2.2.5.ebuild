@@ -1,8 +1,7 @@
-# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/lives/lives-1.4.6.ebuild,v 1.4 2012/05/05 08:58:57 jdhore Exp $
 
-EAPI=4
+EAPI=5
+
 inherit autotools eutils
 
 MY_P=LiVES-${PV}
@@ -13,10 +12,10 @@ SRC_URI="http://www.xs4all.nl/~salsaman/lives/current/${MY_P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="*"
 IUSE="libvisual matroska nls ogg theora" # static-libs
 
-RDEPEND="media-video/mplayer
+RDEPEND="|| ( media-video/mplayer[jpeg] media-video/mplayer2[jpeg] )
 	|| ( media-gfx/imagemagick media-gfx/graphicsmagick[imagemagick] )
 	dev-lang/perl
 	>=dev-libs/glib-2.14
@@ -46,9 +45,12 @@ src_prepare() {
 	esvn_clean
 
 	# Don't try to detect installed copies wrt #295293
-	sed -i -e '/^PKG_CHECK_MODULES(WEED/s:true:false:' configure.in || die
+	sed -i -e '/^PKG_CHECK_MODULES(WEED/s:true:false:' configure.ac || die
 	sed -i -e '/test/s:sendOSC:dIsAbLeAuToMaGiC:' libOSC/sendOSC/Makefile.am || die
 
+	# Don't remove system weed
+	#sed -i -e '/libweed\*\.la/s/rm/#rm/' libweed/Makefile.am || die
+	sed -i -e '/install-exec-hook:/,+1{s/^/#/}' libweed/Makefile.am || die
 	# Use python 2.x as per reference in plugins
 	sed -i \
 		-e '/#!.*env/s:python:python2:' \
@@ -62,13 +64,13 @@ src_configure() {
 	# $(use_enable static-libs static)
 	econf \
 		--disable-static \
+		--disable-gtk3 \
 		$(use_enable libvisual) \
 		$(use_enable nls)
 }
 
 src_install() {
 	default
-
 	rm -f "${ED}"usr/bin/lives #384727
 	dosym lives-exe /usr/bin/lives
 
