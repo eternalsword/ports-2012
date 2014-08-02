@@ -1,8 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/tk/tk-8.5.13-r1.ebuild,v 1.11 2013/03/01 12:45:04 ago Exp $
 
-EAPI=4
+EAPI=5
 
 inherit autotools eutils multilib prefix toolchain-funcs versionator virtualx
 
@@ -13,9 +11,9 @@ HOMEPAGE="http://www.tcl.tk/"
 SRC_URI="mirror://sourceforge/tcl/${MY_P}-src.tar.gz"
 
 LICENSE="tcltk"
-SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
-IUSE="debug threads truetype aqua xscreensaver"
+SLOT="0/8.6"
+KEYWORDS="*"
+IUSE="debug +threads truetype aqua xscreensaver"
 
 RDEPEND="
 	!aqua? (
@@ -29,19 +27,32 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	!aqua? ( x11-proto/xproto )"
 
+# Not bumped to 8.6
+#RESTRICT=test
+
 SPARENT="${WORKDIR}/${MY_P}"
 S="${SPARENT}"/unix
 
 src_prepare() {
+	find \
+		"${SPARENT}"/compat/* \
+		-delete || die
+		
+	# From Funtoo:
+	# 	https://bugs.funtoo.org/browse/FL-1246
+	cd "${SPARENT}"
+	epatch "${FILESDIR}"/${P}-fix-tk-8.6-requirement-error.patch
+	cd "${S}"
+
 	epatch \
 		"${FILESDIR}"/${PN}-8.5.11-fedora-xft.patch \
-		"${FILESDIR}"/${P}-multilib.patch
+		"${FILESDIR}"/${PN}-8.5.13-multilib.patch
 
 	epatch "${FILESDIR}"/${PN}-8.4.15-aqua.patch
 	eprefixify Makefile.in
 
 	# Bug 125971
-	epatch "${FILESDIR}"/${P}-conf.patch
+	epatch "${FILESDIR}"/${PN}-8.5.14-conf.patch
 
 	# Bug 354067 : the same applies to tcl, since the patch is about tcl.m4, just
 	# copy the tcl patch
@@ -57,6 +68,10 @@ src_prepare() {
 	rm -f configure || die
 
 	tc-export CC
+
+	sed \
+		-e 's:-O[2s]\?::g' \
+		-i tcl.m4 || die
 
 	eautoconf
 }
