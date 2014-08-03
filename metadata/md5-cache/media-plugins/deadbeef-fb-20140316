@@ -1,0 +1,15 @@
+DEFINED_PHASES=configure install
+DEPEND=gtk2? ( media-sound/deadbeef[gtk2] ) gtk3? ( media-sound/deadbeef[gtk3] )
+DESCRIPTION=DeaDBeeF filebrowser plugin
+EAPI=5
+HOMEPAGE=http://sourceforge.net/projects/deadbeef-fb/
+IUSE=gtk2 gtk3
+KEYWORDS=~*
+LICENSE=GPL-2
+RDEPEND=gtk2? ( media-sound/deadbeef[gtk2] ) gtk3? ( media-sound/deadbeef[gtk3] )
+REQUIRED_USE=|| ( gtk2 gtk3 )
+RESTRICT=mirror
+SLOT=0
+SRC_URI=mirror://sourceforge/deadbeef-fb/deadbeef-fb_20140316_src.tar.gz
+_eclasses_=eutils	06133990e861be0fe60c2b428fd025d9	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0f1760274637a138b99bb649202ea402
+_md5_=44e8f593f7f2395e42cfddb97bbd4dc8
