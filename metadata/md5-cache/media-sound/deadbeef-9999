@@ -9,4 +9,4 @@ RDEPEND=aac? ( media-libs/faad2 ) adplug? ( media-libs/adplug ) alsa? ( media-li
 REQUIRED_USE=cover-imlib2? ( cover ) cover-network? ( cover curl ) converter? ( || ( gtk2 gtk3 ) ) cover? ( || ( gtk2 gtk3 ) ) lastfm? ( curl ) pltbrowser? ( || ( gtk2 gtk3 ) ) shellexecui? ( || ( gtk2 gtk3 ) shellexec ) || ( alsa oss pulseaudio nullout )
 SLOT=0
 _eclasses_=eutils	06133990e861be0fe60c2b428fd025d9	fdo-mime	0acfe1a88fd8751a1d5dc671168219fa	git-2	2027b81a576527fa16bece425941e094	git-r3	f908736fc2f2912c118910333ea303f4	gnome2-utils	924d80d23c665d976484b8bfb50ae08b	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0f1760274637a138b99bb649202ea402
-_md5_=bbe007240042839fb9ff0ca986bce18f
+_md5_=ae899c08dbc27218e93efc80daac39a2
