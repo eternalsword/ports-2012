@@ -12,4 +12,4 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=mirror://sourceforge/deadbeef-fb/deadbeef-fb_20140316_src.tar.gz
 _eclasses_=eutils	06133990e861be0fe60c2b428fd025d9	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0f1760274637a138b99bb649202ea402
-_md5_=44e8f593f7f2395e42cfddb97bbd4dc8
+_md5_=9db8ee740de0a0278e05df38d461a227

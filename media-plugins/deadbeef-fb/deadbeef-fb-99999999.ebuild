@@ -2,17 +2,18 @@
 
 EAPI="5"
 
-inherit eutils
+inherit eutils git-2
+
+EGIT_REPO_URI="git://git.code.sf.net/p/deadbeef-fb/code"
+EGIT_BRANCH="master"
+EGIT_BOOTSTRAP="autogen.sh"
 
 DESCRIPTION="DeaDBeeF filebrowser plugin"
 HOMEPAGE="http://sourceforge.net/projects/deadbeef-fb/"
-SRC_URI="mirror://sourceforge/${PN}/${PN}_${PV}_src.tar.gz"
-
-RESTRICT="mirror"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS=""
 IUSE="gtk2 gtk3"
 REQUIRED_USE="|| ( ${IUSE} )"
 
