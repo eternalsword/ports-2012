@@ -21,6 +21,12 @@ RDEPEND="dev-libs/libxml2
 
 DEPEND="${RDEPEND}"
 
+src_prepare() {
+	epatch "${FILESDIR}/${PN}-cflags.diff"
+	epatch "${FILESDIR}/${PN}-load-gtk2-and-gtk3-version-fix.diff"
+	epatch "${FILESDIR}/${PN}-focus-fix.diff"
+}
+
 src_compile() {
 	if use gtk2 ; then
 		emake gtk2
