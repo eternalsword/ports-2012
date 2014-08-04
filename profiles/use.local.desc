@@ -335,6 +335,7 @@ app-crypt/hashcat-gui:opencl - Install oclhashcat-{plus,lite}-bin to take advant
 app-crypt/heimdal:hdb-ldap - Adds support for LDAP as a database backend
 app-crypt/heimdal:otp - Adds support for one-time passwords
 app-crypt/heimdal:pkinit - Adds support for PKINIT for the initial ticket
+app-crypt/hmaccalc:fips - Enable NSS FIPS mode and support only the FIPS-compliant functions
 app-crypt/johntheripper:cuda - Use nvidia cuda toolkit for speeding up cracking on capable devices
 app-crypt/johntheripper:mozilla - Support mozilla password cracking
 app-crypt/johntheripper:opencl - Enable opencl support for speeding up cracking on capable devices
