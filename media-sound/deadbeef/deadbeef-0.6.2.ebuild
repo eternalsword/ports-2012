@@ -2,11 +2,9 @@
 
 EAPI="5"
 
-inherit eutils fdo-mime gnome2-utils versionator
+inherit eutils fdo-mime gnome2-utils
 
-MY_PV="$(replace_version_separator 3 '-')"
-
-SRC_URI="mirror://sourceforge/${PN}/${PN}-${MY_PV}.tar.bz2"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 
 KEYWORDS="~*"
 
@@ -120,8 +118,6 @@ DEPEND="${RDEPEND}
 	nls? ( virtual/libintl
 		dev-util/intltool )"
 
-S="${WORKDIR}/${PN}-${MY_PV}"
-
 src_prepare() {
 	if use midi ; then
 		# set default gentoo path
@@ -197,7 +193,7 @@ pkg_preinst() {
 
 pkg_postinst() {
 	if use midi ; then
-		einfo "enable manually freepats support for timidity via"
+		einfo "enable the freepats support for wildmidi manually, using the following command:"
 		einfo "eselect timidity set --global freepats"
 	fi
 
