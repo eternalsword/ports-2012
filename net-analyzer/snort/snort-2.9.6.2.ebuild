@@ -1,24 +1,22 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-analyzer/snort/snort-2.9.4.6-r1.ebuild,v 1.1 2014/02/03 08:27:03 kumba Exp $
 
 EAPI="5"
 inherit autotools multilib user
 
 DESCRIPTION="The de facto standard for intrusion detection/prevention"
 HOMEPAGE="http://www.snort.org/"
-SRC_URI="http://snort.org/downloads/2320 -> ${P}.tar.gz"
+SRC_URI="https://www.snort.org/downloads/snort/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~mips ~ppc ~ppc64 ~sparc ~x86"
-IUSE="static +dynamicplugin +zlib +gre +mpls +targetbased
-+ppm +perfprofiling +non-ether-decoders control-socket
-shared-rep sourcefire linux-smp-stats inline-init-failopen
+KEYWORDS="*"
+IUSE="static +zlib +gre +mpls +targetbased +ppm +perfprofiling
++non-ether-decoders control-socket file-inspect high-availability
+shared-rep side-channel sourcefire linux-smp-stats inline-init-failopen
 +threads debug +active-response +normalizer reload-error-restart
-+react +flexresp3 +paf large-pcap-64bit selinux"
++react +flexresp3 large-pcap-64bit selinux"
 
 DEPEND=">=net-libs/libpcap-1.3.0
-	>=net-libs/daq-2.0.0
+	>=net-libs/daq-2.0.2[static-libs]
 	>=dev-libs/libpcre-8.33
 	dev-libs/libdnet
 	zlib? ( sys-libs/zlib )"
@@ -26,8 +24,7 @@ DEPEND=">=net-libs/libpcap-1.3.0
 RDEPEND="${DEPEND}
 	selinux? ( sec-policy/selinux-snort )"
 
-REQUIRED_USE="zlib? ( dynamicplugin )
-	      !kernel_linux? ( !shared-rep )"
+REQUIRED_USE="!kernel_linux? ( !shared-rep )"
 
 pkg_setup() {
 
@@ -47,7 +44,7 @@ src_prepare() {
 		|| die "sed for sf_engine failed"
 
 	# Multilib fix for the curent set of dynamic-preprocessors
-	for i in ftptelnet smtp ssh dns ssl dcerpc2 sdf imap pop rzb_saac sip reputation gtp modbus dnp3; do
+	for i in file ftptelnet smtp ssh dns ssl dcerpc2 sdf imap pop rzb_saac sip reputation gtp modbus dnp3; do
 		sed -i -e 's|${exec_prefix}/lib|${exec_prefix}/'$(get_libdir)'|g' \
 			"${WORKDIR}/${P}/src/dynamic-preprocessors/$i/Makefile.am" \
 			|| die "sed for $i failed."
@@ -63,14 +60,16 @@ src_configure() {
 		$(use_enable !static shared) \
 		$(use_enable static) \
 		$(use_enable static so-with-static-lib) \
-		$(use_enable dynamicplugin) \
 		$(use_enable zlib) \
 		$(use_enable gre) \
 		$(use_enable mpls) \
 		$(use_enable targetbased) \
 		$(use_enable control-socket) \
+		$(use_enable file-inspect) \
+		$(use_enable high-availability ha) \
 		$(use_enable non-ether-decoders) \
 		$(use_enable shared-rep) \
+		$(use_enable side-channel) \
 		$(use_enable sourcefire) \
 		$(use_enable ppm) \
 		$(use_enable perfprofiling) \
@@ -86,14 +85,12 @@ src_configure() {
 		$(use_enable reload-error-restart) \
 		$(use_enable react) \
 		$(use_enable flexresp3) \
-		$(use_enable paf) \
 		$(use_enable large-pcap-64bit large-pcap) \
 		--enable-reload \
 		--disable-build-dynamic-examples \
 		--disable-profile \
 		--disable-ppm-test \
 		--disable-intel-soft-cpm \
-		--disable-static-daq \
 		--disable-rzb-saac
 }
 
@@ -155,7 +152,7 @@ src_install() {
 	rm -rf "${D}"usr/share/doc/snort || die "Failed to remove SF doc directories"
 	rm "${D}"usr/share/doc/"${PF}"/Makefile* || die "Failed to remove doc make files"
 
-	#Remove unneeded .la files (Bug #382863)
+	# Remove unneeded .la files (Bug #382863)
 	rm "${D}"usr/$(get_libdir)/snort_dynamicengine/libsf_engine.la || die
 	rm "${D}"usr/$(get_libdir)/snort_dynamicpreprocessor/libsf_*_preproc.la || die "Failed to remove libsf_?_preproc.la"
 
