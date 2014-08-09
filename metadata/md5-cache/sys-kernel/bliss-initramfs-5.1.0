@@ -1,0 +1,12 @@
+DEFINED_PHASES=install
+DESCRIPTION=Allows you to boot your system's root filesystem installed on ZFS
+EAPI=5
+HOMEPAGE=https://github.com/fearedbliss/bliss-initramfs
+IUSE=zfs raid lvm luks
+KEYWORDS=-* ~amd64
+LICENSE=MPL-2.0
+RDEPEND=>=dev-lang/python-3.3 app-arch/cpio app-shells/bash sys-apps/kmod sys-apps/grep zfs? ( sys-kernel/spl sys-fs/zfs sys-fs/zfs-kmod ) luks? ( sys-fs/cryptsetup app-crypt/gnupg )
+RESTRICT=mirror strip
+SLOT=0
+SRC_URI=https://github.com/fearedbliss/bliss-initramfs/archive/5.1.0.tar.gz -> bliss-initramfs-5.1.0.tar.gz
+_md5_=773180f43ad7b12337cd62d6a24ff35d

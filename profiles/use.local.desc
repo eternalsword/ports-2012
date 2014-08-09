@@ -6449,8 +6449,6 @@ sys-kernel/aufs-sources:experimental - Apply experimental patches; for more info
 sys-kernel/aufs-sources:module - Patch kernel to allow aufs being build as a module.
 sys-kernel/aufs-sources:vanilla - Use vanilla kernel sources without applying genpatches. WARNING: This flag will drop all support from the Gentoo Kernel Security team
 sys-kernel/bliss-initramfs:luks - Encryption support
-sys-kernel/bliss-initramfs:lvm - LVM support
-sys-kernel/bliss-initramfs:raid - RAID support
 sys-kernel/bliss-initramfs:zfs - ZFS support
 sys-kernel/ck-sources:bfsonly - BFS by itslef vs The full ck patchset
 sys-kernel/ck-sources:deblob - Remove binary blobs from kernel sources to provide libre license compliance.
