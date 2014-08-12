@@ -2715,6 +2715,7 @@ kde-base/kdeartwork-kscreensaver:eigen - Enable various arithmetic screensavers 
 kde-base/kdeartwork-kscreensaver:kexiv2 - Enable image rotation based on exif tags with libkexiv2.
 kde-base/kdebase-data:wallpapers - Install the KDE wallpapers
 kde-base/kdebase-kioslaves:sftp - Enable SFTP protocol support using net-libs/libssh
+kde-base/kdebase-meta:display-manager - Pull in a graphical display manager
 kde-base/kdebase-meta:wallpapers - Install the KDE wallpapers
 kde-base/kdebase-runtime-meta:crash-reporter - Builds a gui tool to submit crash information to the upstream backtracker
 kde-base/kdebase-runtime-meta:nepomuk - Enable Nepomuk based semantic desktop support (deprecated)
@@ -3195,7 +3196,6 @@ media-libs/allegro:vga - Enables the VGA graphics driver
 media-libs/alsa-lib:alisp - Enable support for ALISP (ALSA LISP) interpreter for advanced features.
 media-libs/alure:dumb - Enable media-libs/dumb module library support
 media-libs/alure:fluidsynth - Enables Fluidsynth MIDI software synthesis
-media-libs/aubio:double-precision - Compile in double precision mode.
 media-libs/avidemux-core:aften - Enable A/52 (AC-3) audio encoder support.
 media-libs/avidemux-core:amr - Enable Adaptive Multi-Rate format support via media-libs/opencore-amr.
 media-libs/avidemux-core:system-ffmpeg - Use the ffmpeg provided by the system.

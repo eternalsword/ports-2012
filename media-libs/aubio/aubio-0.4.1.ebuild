@@ -1,8 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/aubio/aubio-0.4.0.ebuild,v 1.1 2014/01/18 12:13:59 aballier Exp $
 
-EAPI=5
+EAPI="5"
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -10,11 +8,11 @@ inherit distutils-r1 waf-utils multilib
 
 DESCRIPTION="Library for audio labelling"
 HOMEPAGE="http://aubio.org/"
-SRC_URI="http://aubio.org//pub/${P}.tar.bz2"
+SRC_URI="http://aubio.org/pub/${P}.tar.bz2"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~*"
 IUSE="doc double-precision examples ffmpeg fftw jack libsamplerate sndfile python"
 
 RDEPEND="
@@ -92,7 +90,6 @@ src_install() {
 	fi
 
 	if use doc; then
-		dohtml -r doc/full/html/*
 		dodoc doc/*.txt
 	fi
 
