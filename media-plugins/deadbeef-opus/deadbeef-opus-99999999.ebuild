@@ -10,6 +10,8 @@ DESCRIPTION="Ogg Opus decoder plugin for DeaDBeeF audio player"
 HOMEPAGE="https://bitbucket.org/${BITBUCKET_USERNAME}/${PN}/overview"
 EGIT_REPO_URI="https://bitbucket.org/${BITBUCKET_USERNAME}/${PN}.git"
 
+RESTRICT="strip"
+
 LICENSE="GPL-2"
 KEYWORDS=""
 
