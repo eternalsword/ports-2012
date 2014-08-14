@@ -3,10 +3,9 @@ DEPEND=>=media-libs/opusfile-0.5[float,http] media-libs/libogg media-sound/deadb
 DESCRIPTION=Ogg Opus decoder plugin for DeaDBeeF audio player
 EAPI=5
 HOMEPAGE=https://bitbucket.org/Lithopsian/deadbeef-opus/overview
-KEYWORDS=~*
 LICENSE=GPL-2
 RDEPEND=>=media-libs/opusfile-0.5[float,http] media-libs/libogg media-sound/deadbeef
 RESTRICT=strip
 SLOT=0
-_eclasses_=deadbeef-plugins	369d27ea5f8d2bef86fa65339fdfe217	eutils	06133990e861be0fe60c2b428fd025d9	git-2	2027b81a576527fa16bece425941e094	git-r3	f908736fc2f2912c118910333ea303f4	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0f1760274637a138b99bb649202ea402
-_md5_=44cd798d1fe5b857226b8ac22ebfd0a2
+_eclasses_=deadbeef-plugins	de7104dea723f88b263624bf644880a5	eutils	06133990e861be0fe60c2b428fd025d9	git-2	2027b81a576527fa16bece425941e094	git-r3	f908736fc2f2912c118910333ea303f4	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0f1760274637a138b99bb649202ea402
+_md5_=6a723fb9829daaae7b4bb6703078d457
