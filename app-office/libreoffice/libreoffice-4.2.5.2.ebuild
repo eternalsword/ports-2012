@@ -1,8 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.2.5.2.ebuild,v 1.6 2014/08/15 09:10:14 scarabeus Exp $
 
-EAPI=5
+EAPI="5"
 
 KDE_REQUIRED="optional"
 QT_MINIMAL="4.7.4"
@@ -89,7 +87,7 @@ unset lo_xt
 LICENSE="|| ( LGPL-3 MPL-1.1 )"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="amd64 ~arm ~ppc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="*"
 
 COMMON_DEPEND="
 	${PYTHON_DEPS}
@@ -466,7 +464,6 @@ src_configure() {
 		--disable-online-update \
 		--disable-systray \
 		--with-alloc=$(use jemalloc && echo "jemalloc" || echo "system") \
-		--with-build-version="Gentoo official package" \
 		--enable-extension-integration \
 		--with-external-dict-dir="${EPREFIX}/usr/share/myspell" \
 		--with-external-hyph-dir="${EPREFIX}/usr/share/myspell" \
@@ -475,7 +472,7 @@ src_configure() {
 		--with-lang="" \
 		--with-parallelism=${jbs} \
 		--with-system-ucpp \
-		--with-vendor="Gentoo Foundation" \
+		--with-vendor="Funtoo Linux" \
 		--with-x \
 		--without-afms \
 		--without-fonts \
