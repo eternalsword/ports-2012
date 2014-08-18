@@ -10,8 +10,8 @@ checkconfig() {
 	fi
 
 	if [ "${LOADMODULES}" = "yes" -a -f /proc/modules ]; then
-		if [ -z "${MODULE_0}" ]; then
-			eerror "MODULE_0 is not set in /etc/conf.d/lm_sensors, try running sensors-detect"
+		if [ -z "${BUS_MODULES}" -a -z "${HWMON_MODULES}" ]; then
+			eerror "Either BUS_MODULES or HWMON_MODULES should be set in /etc/conf.d/lm_sensors, try running sensors-detect"
 			return 1
 		fi
 	fi
@@ -46,18 +46,12 @@ start() {
 			eend 0
 		fi
 
-		i=0
-		while true; do
-			module=`eval echo '$'MODULE_${i}`
-			module_args=`eval echo '$'MODULE_${i}_ARGS`
-			if [ -z "${module}" ]; then
-				break
-			fi
+		for module in $BUS_MODULES $HWMON_MODULES ; do
 			ebegin "  Loading ${module}"
-			modprobe ${module} ${module_args} >/dev/null 2>&1
+			modprobe ${module} >/dev/null 2>&1
 			eend $?
-			i=$(($i+1))
 		done
+
 	fi
 
 	if [ "${INITSENSORS}" = "yes" ]; then
@@ -78,19 +72,7 @@ stop() {
 	if [ "${LOADMODULES}" = "yes" -a -f /proc/modules ]; then
 		einfo "Unloading lm_sensors modules..."
 
-		# find the highest possible MODULE_ number
-		i=0
-		while true; do
-			module=`eval echo '$'MODULE_${i}`
-			if [ -z "${module}" ] ; then
-				break
-			fi
-			i=$(($i+1))
-		done
-
-		while [ ${i} -gt 0 ]; do
-			i=$(($i-1))
-			module=`eval echo '$'MODULE_${i}`
+		for module in $HWMON_MODULES $BUS_MODULES ; do
 			ebegin "  Unloading ${module}"
 			rmmod ${module} >/dev/null 2>&1
 			eend $?
