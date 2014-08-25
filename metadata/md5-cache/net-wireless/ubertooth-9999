@@ -9,4 +9,4 @@ RDEPEND=bluez? ( net-wireless/bluez:= ) >=net-libs/libbtbb-9999:= pcap? ( net-li
 REQUIRED_USE=dfu? ( python ) specan? ( python ) ubertooth1-firmware? ( dfu ) python? ( || ( dfu specan ) )
 SLOT=0
 _eclasses_=cmake-utils	3c236476577c40ef83fcb42c7f6c0b23	distutils	555d63fd11e255896d25c40490fc0f07	eutils	06133990e861be0fe60c2b428fd025d9	flag-o-matic	75e24bac8423c515dd9c5717f08feb83	git-r3	f908736fc2f2912c118910333ea303f4	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python	98d2432956e2e80dc689fe2c52466233	toolchain-funcs	0f1760274637a138b99bb649202ea402
-_md5_=8488c29ba9841443187e1190c8a266c5
+_md5_=7cf67c0632f12f5b65c96e1b7cf9e80d
