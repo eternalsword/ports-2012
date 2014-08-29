@@ -1613,7 +1613,6 @@ dev-lang/qu-prolog:pedro - Pedro subscription/notification communications system
 dev-lang/rakudo:moar - Build the MoarVM backend (experimental)
 dev-lang/rakudo:parrot - Build the parrot backend (default)
 dev-lang/rubinius:llvm - Build with llvm. Currently the package only builds against old versions of llvm.
-dev-lang/rust:binary-bootstrap - Download precompiled rust for compilator bootstrap
 dev-lang/rust:clang - Use sys-devel/clang for building
 dev-lang/rust:libcxx - Use sys-libs/libcxx as standard library when building with sys-devel/clang
 dev-lang/scala:binary - Install from (Gentoo-compiled) binary instead of building from sources. Set this when you run out of memory during build.
