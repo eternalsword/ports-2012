@@ -1,8 +1,8 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-action/powermanga/powermanga-0.90.ebuild,v 1.14 2014/05/15 16:24:24 ulm Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-action/powermanga/powermanga-0.92.ebuild,v 1.1 2014/09/06 00:54:29 mr_bones_ Exp $
 
-EAPI=2
+EAPI=5
 inherit eutils autotools games
 
 DESCRIPTION="An arcade 2D shoot-em-up game"
@@ -11,19 +11,18 @@ SRC_URI="http://linux.tlk.fr/games/Powermanga/download/${P}.tgz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="amd64 ppc x86"
+KEYWORDS="~amd64 ~ppc ~x86"
 IUSE=""
 
-DEPEND=">=media-libs/libsdl-1.2[sound,joystick,video]
-	media-libs/libpng
+RDEPEND=">=media-libs/libsdl-1.2[sound,joystick,video]
+	media-libs/libpng:0
+	x11-libs/libX11
 	x11-libs/libXext
 	x11-libs/libXxf86dga
 	media-libs/sdl-mixer[mod]"
+DEPEND="${RDEPEND}"
 
 src_prepare() {
-	sed -i -e "/null/d" graphics/Makefile.in || die
-	sed -i -e "/zozo/d" texts/text_en.txt || die
-	sed -i -e '/^CFLAGS=/s/-O3 -Wall/${CFLAGS}/' configure.ac || die
 	local f
 	for f in src/assembler.S src/assembler_opt.S ; do
 		einfo "patching $f"
@@ -33,33 +32,35 @@ src_prepare() {
 		#endif
 		EOF
 	done
-	epatch \
-		"${FILESDIR}"/${P}-underlink.patch \
-		"${FILESDIR}"/${P}-segfault.patch
+	epatch "${FILESDIR}"/${P}-flags.patch
+	sed -i \
+		-e "/scoredir/s#/var/games/powermanga#${GAMES_STATEDIR}#" \
+		src/Makefile.am || die
 	eautoreconf
 }
 
 src_configure() {
-	egamesconf --prefix=/usr || die
+	egamesconf --prefix=/usr
 }
 
 src_install() {
-	dogamesbin powermanga || die
+	newgamesbin src/powermanga powermanga.bin
 	doman powermanga.6
 	dodoc AUTHORS CHANGES README
 
 	insinto "${GAMES_DATADIR}/powermanga"
-	doins -r data sounds graphics texts || die
+	doins -r data sounds graphics texts
 
-	find "${D}${GAMES_DATADIR}/powermanga/" -name "Makefil*" -exec rm -f \{\} +
+	find "${D}${GAMES_DATADIR}/powermanga/" -name "Makefil*" -execdir rm -f \{\} +
 
-	insinto /var/games
+	insinto "${GAMES_STATEDIR}"
 	local f
 	for f in powermanga.hi-easy powermanga.hi powermanga.hi-hard ; do
-		touch "${D}/var/games/${f}" || die
-		fperms 660 "/var/games/${f}" || die
+		touch "${D}${GAMES_STATEDIR}/${f}" || die
+		fperms 660 "${GAMES_STATEDIR}/${f}"
 	done
 
+	games_make_wrapper powermanga powermanga.bin "${GAMES_DATADIR}/powermanga"
 	make_desktop_entry powermanga Powermanga
 	prepgamesdirs
 }
