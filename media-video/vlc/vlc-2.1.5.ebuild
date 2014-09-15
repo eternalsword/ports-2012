@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/vlc/vlc-2.1.2.ebuild,v 1.13 2014/09/10 22:06:30 zerochaos Exp $
 
 EAPI="5"
 
@@ -35,7 +33,7 @@ LICENSE="LGPL-2.1 GPL-2"
 SLOT="0/5-7" # vlc - vlccore
 
 if [ "${PV%9999}" = "${PV}" ] ; then
-	KEYWORDS="alpha amd64 ~arm ppc ppc64 -sparc x86 ~amd64-fbsd ~x86-fbsd"
+	KEYWORDS="*"
 else
 	KEYWORDS=""
 fi
@@ -48,11 +46,11 @@ IUSE="a52 aalib alsa altivec atmo +audioqueue avahi +avcodec
 	libsamplerate libtiger linsys libtar lirc live lua +macosx
 	+macosx-audio +macosx-dialog-provider +macosx-eyetv +macosx-quartztext
 	+macosx-qtkit +macosx-vout matroska media-library mmx modplug mp3 mpeg
-	mtp musepack ncurses neon ogg omxil opencv opengl optimisememory opus
+	mtp musepack ncurses neon ogg omxil opencv opengl optimisememory opus oss
 	png +postproc projectm pulseaudio +qt4 qt5 rdp rtsp run-as-root samba
 	schroedinger sdl sdl-image sftp shout sid skins speex sse svg +swscale
 	taglib theora tremor truetype twolame udev upnp vaapi v4l vcdx vdpau
-	vlm vorbis wma-fixed +X x264 +xcb xml xv zvbi"
+	vlm vnc vorbis wma-fixed +X x264 +xcb xml xv zvbi"
 
 RDEPEND="
 		!<media-video/ffmpeg-1.2:0
@@ -114,8 +112,9 @@ RDEPEND="
 		opencv? ( >media-libs/opencv-2.0:0 )
 		opengl? ( virtual/opengl:0 >=x11-libs/libX11-1.3.99.901:0 )
 		opus? ( >=media-libs/opus-1.0.3:0 )
+		oss? ( media-sound/oss )
 		png? ( media-libs/libpng:0= sys-libs/zlib:0 )
-		postproc? ( || ( media-libs/libpostproc:0 >=media-video/ffmpeg-1.2:0 ) )
+		postproc? ( || ( >=media-video/ffmpeg-1.2:0 media-libs/libpostproc:0 ) )
 		projectm? ( media-libs/libprojectm:0 media-fonts/dejavu:0 )
 		pulseaudio? ( >=media-sound/pulseaudio-0.9.22:0 )
 		qt4? ( >=dev-qt/qtgui-4.6.0:4 >=dev-qt/qtcore-4.6.0:4 )
@@ -144,6 +143,7 @@ RDEPEND="
 		vaapi? ( x11-libs/libva:0 virtual/ffmpeg[vaapi] )
 		vcdx? ( >=dev-libs/libcdio-0.78.2:0 >=media-video/vcdimager-0.7.22:0 )
 		vdpau? ( >=x11-libs/libvdpau-0.6:0 !<media-video/libav-10_beta1 )
+		vnc? ( >=net-libs/libvncserver-0.9.9:0 )
 		vorbis? ( media-libs/libvorbis:0 )
 		X? ( x11-libs/libX11:0 )
 		x264? ( >=media-libs/x264-0.0.20090923:0= )
@@ -237,8 +237,11 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-2.1.0-newer-rdp.patch
 	epatch "${FILESDIR}"/${PN}-2.1.0-libva-1.2.1-compat.patch
 
-	# Fix up broken audio; first is a fixed reversed bisected commit, latter two are backported.
+	# Fix up broken audio when skipping using a fixed reversed bisected commit.
 	epatch "${FILESDIR}"/${PN}-2.1.0-TomWij-bisected-PA-broken-underflow.patch
+
+	# vlc 2.2.x oss support backport
+	epatch "${FILESDIR}"/${PN}-2.1.5-oss_fix.patch
 
 	# Disable avcodec checks when avcodec is not used.
 	sed -i 's/^#if LIBAVCODEC_VERSION_CHECK(.*)$/#if 0/' modules/codec/avcodec/fourcc.c || die
@@ -279,7 +282,6 @@ src_configure() {
 		${myconf} \
 		--enable-vlc \
 		--docdir=/usr/share/doc/${PF} \
-		--disable-dependency-tracking \
 		--disable-optimizations \
 		--disable-update-check \
 		--enable-fast-install \
@@ -323,6 +325,7 @@ src_configure() {
 		$(use_enable httpd) \
 		$(use_enable ieee1394 dv1394) \
 		$(use_enable ios-vout) \
+		$(use_enable ios-vout ios-vout2) \
 		$(use_enable jack) \
 		$(use_enable kate) \
 		$(use_with kde kde-solid) \
@@ -353,10 +356,12 @@ src_configure() {
 		$(use_enable neon) \
 		$(use_enable ogg) $(use_enable ogg mux_ogg) \
 		$(use_enable omxil) \
+		$(use_enable omxil omxil-vout) \
 		$(use_enable opencv) \
 		$(use_enable opengl glx) \
 		$(use_enable opus) \
 		$(use_enable optimisememory optimize-memory) \
+		$(use_enable oss) \
 		$(use_enable png) \
 		$(use_enable postproc) \
 		$(use_enable projectm) \
@@ -389,6 +394,7 @@ src_configure() {
 		$(use_enable vcdx) \
 		$(use_enable vdpau) \
 		$(use_enable vlm) \
+		$(use_enable vnc libvnc) \
 		$(use_enable vorbis) \
 		$(use_enable wma-fixed) \
 		$(use_with X x) \
@@ -397,19 +403,29 @@ src_configure() {
 		$(use_enable xml libxml2) \
 		$(use_enable xv xvideo) \
 		$(use_enable zvbi) $(use_enable !zvbi telx) \
+		--disable-coverage \
+		--disable-cprof \
 		--disable-crystalhd \
 		--disable-decklink \
+		--disable-gles1 \
+		--disable-gles2 \
 		--disable-goom \
+		--disable-ios-audio \
 		--disable-kai \
 		--disable-kva \
-		--disable-oss \
+		--disable-maintainer-mode \
+		--disable-merge-ffmpeg \
+		--disable-opensles \
 		--disable-quicksync \
+		--disable-quicktime \
+		--disable-rpi-omxil \
 		--disable-shine \
 		--disable-sndio \
 		--disable-vda \
-		--disable-vsxu
+		--disable-vsxu \
+		--disable-wasapi
 
-		# ^ We don't have these disables libraries in the Portage tree yet.
+		# ^ We don't have these disabled libraries in the Portage tree yet.
 }
 
 src_test() {
