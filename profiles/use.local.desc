@@ -3649,6 +3649,64 @@ media-sound/csound:utils - Build stand-alone executables for utilities that can 
 media-sound/darkice:aacplus - AAC+ encoding via media-libs/libaacplus
 media-sound/darkice:opus - Enable Opus audio codec support
 media-sound/darkice:twolame - Build with twolame support
+media-sound/deadbeef:aac - Advanced Audio Coding (AAC) plugin
+media-sound/deadbeef:adplug - Adplug plugin
+media-sound/deadbeef:alac - Apple Lossless Audio Codec (ALAC) plugin
+media-sound/deadbeef:archive - Reading media files from archived files
+media-sound/deadbeef:bookmark-manager - Resume playing files (after closing player) from the last timestamp
+media-sound/deadbeef:bs2b - bs2b dsp support. Useful for headphones
+media-sound/deadbeef:cdda - Compact Disc Digital Audio (CDDA) plugin
+media-sound/deadbeef:converter - Support for converting media files
+media-sound/deadbeef:cover - Album artwork plugin
+media-sound/deadbeef:cover-imlib2 - Album artwork (with support for imlib2) plugin
+media-sound/deadbeef:cover-network - Plugin for downloading album artwork from internet
+media-sound/deadbeef:curl - cURL plugin
+media-sound/deadbeef:dts - Digital Theater System (DTS) plugin
+media-sound/deadbeef:dumb - Tracker music (MOD, S3M, XM, IT, STM, 669, PTM, PSM, MTM, DSM, ASYLUM AMF, UMX, J2B) plugin
+media-sound/deadbeef:equalizer - Equalizer plugin
+media-sound/deadbeef:ffmpeg - FFmpeg plugin
+media-sound/deadbeef:flac - Free Lossless Audio Codec (FLAC) plugin
+media-sound/deadbeef:gme - Game Music Emu (NSF, AY and other formats) plugin
+media-sound/deadbeef:gnome-mmkeys - Gnome multimedia keys support
+media-sound/deadbeef:gtk2 - GTK2 based user interface
+media-sound/deadbeef:gtk3 - GTK3 based user interface
+media-sound/deadbeef:hotkeys - Hotkeys support plugin
+media-sound/deadbeef:infobar - Download and show lyrics
+media-sound/deadbeef:jack - Jack audio support
+media-sound/deadbeef:lastfm - Last.fm scrobbling plugin
+media-sound/deadbeef:libnotify - Notification daemon support plugin
+media-sound/deadbeef:libsamplerate - Sample rate conversion plugin
+media-sound/deadbeef:m3u - m3u playlist plugin
+media-sound/deadbeef:mac - Monkey's Audio plugin
+media-sound/deadbeef:midi - midi support (via timidity) plugin
+media-sound/deadbeef:mms - Microsoft Media Server (MMS) plugin
+media-sound/deadbeef:mono2stereo - mono2stereo plugin
+media-sound/deadbeef:mp3 - MPEG-1/2/2.5 Layer 3 (MP3) plugin
+media-sound/deadbeef:mpris - MPRIS support
+media-sound/deadbeef:musical-spectrum - Draws musical spectrum for current track
+media-sound/deadbeef:nls - Native Language Support (NLS)
+media-sound/deadbeef:nullout - NULL output plugin
+media-sound/deadbeef:oss - Open Sound System (OSS) output plugin
+media-sound/deadbeef:playlist-browser - Playlist browser user interface plugin
+media-sound/deadbeef:psf - AOSDK-based PSF(QSF,SSF,DSF) plugin
+media-sound/deadbeef:pulseaudio - PulseAudio output plugin
+media-sound/deadbeef:replaygain-control - Advanced control of replaygain
+media-sound/deadbeef:shellexec - Support for running shell commands via gui prompt
+media-sound/deadbeef:shn - Shorten (SHN) plugin
+media-sound/deadbeef:sid - Commodore64 SID music player plugin
+media-sound/deadbeef:sndfile - PCM wav support (via libsndfile) plugin
+media-sound/deadbeef:spectrogram - Draws spectrogram for current track
+media-sound/deadbeef:stereo-widener - Widens stereo
+media-sound/deadbeef:tta - True Audio TTA plugin
+media-sound/deadbeef:unity - Gnome Unity support
+media-sound/deadbeef:vk - Play music from vk.com social network
+media-sound/deadbeef:vorbis - Ogg Vorbis plugin
+media-sound/deadbeef:vtx - Libayemy VTX ZX-Spectrum music player plugin
+media-sound/deadbeef:vu-meter - Draws vu meter for current track
+media-sound/deadbeef:waveform-seekbar - Draws waveform seekbar for current track
+media-sound/deadbeef:wavpack - WavPack plugin
+media-sound/deadbeef:wma - Windows media audio plugin
+media-sound/deadbeef:zip - vfs_zip plugin
 media-sound/denemo:fluidsynth - Enable Fluidsynth MIDI software synthesis
 media-sound/denemo:portmidi - Enable support for the portmidi backend
 media-sound/dir2ogg:mac - Add support for decoding Monkey's Audio files
