@@ -935,6 +935,9 @@ app-office/gnumeric:python - Enable python plugin loader.
 app-office/imposter:iksemel - Enable external dev-libs/iksemel parsing support
 app-office/kmymoney:hbci - Enable HBCI support using net-libs/aqbanking
 app-office/kmymoney:quotes - Enable Online Stock Quote retrieval
+app-office/libreoffice:coinmp - Use sci-libs/coinor-mp as alternative solver
+app-office/libreoffice:collada - Enable Collada for rendering 3D models stored in *.dae and *.kmz format
+app-office/libreoffice:gltf - Use media-libs/libgltf for inserting 3D models in the glTF format into presentations
 app-office/libreoffice:gtk3 - Enable highly experimental gtk3 frontend
 app-office/libreoffice:jemalloc - Use dev-libs/jemalloc for allocations
 app-office/libreoffice:odk - Build the Office Development Kit
@@ -6972,9 +6975,10 @@ x11-misc/shutter:drawing - Enables drawing tool
 x11-misc/shutter:webphoto - Enables screenshots of websites
 x11-misc/slim:consolekit - Enable native consolekit support
 x11-misc/stalonetray:graceful-exit - use non-portable hack to exit gracefuly on signal
-x11-misc/tint2:battery - Enable battery status plugin
-x11-misc/tint2:examples - Install tint2rc examples
-x11-misc/tint2:tint2conf - Build/Install tint2conf as well
+x11-misc/tint2:battery - Battery status plugin
+x11-misc/tint2:examples - tint2rc examples
+x11-misc/tint2:startup-notification - Startup notification support
+x11-misc/tint2:tint2conf - tint2conf support
 x11-misc/vnc2swf:x11vnc - Install script that depends on x11vnc
 x11-misc/wbar:gtk - Enables the gtk-based wbar-config GUI
 x11-misc/x11vnc:system-libvncserver - Build x11vnc against the system libvncserver (experimental)

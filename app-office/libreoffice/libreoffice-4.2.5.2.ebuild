@@ -1,6 +1,8 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.2.5.2.ebuild,v 1.19 2014/09/14 09:11:47 dilfridge Exp $
 
-EAPI="5"
+EAPI=5
 
 KDE_REQUIRED="optional"
 QT_MINIMAL="4.7.4"
@@ -87,7 +89,7 @@ unset lo_xt
 LICENSE="|| ( LGPL-3 MPL-1.1 )"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="*"
+KEYWORDS="amd64 ~arm ~ppc x86 ~amd64-linux ~x86-linux"
 
 COMMON_DEPEND="
 	${PYTHON_DEPS}
@@ -95,17 +97,17 @@ COMMON_DEPEND="
 	app-arch/unzip
 	>=app-text/hunspell-1.3.2-r3
 	app-text/mythes
-	app-text/libabw
+	=app-text/libabw-0.0*
 	>=app-text/libexttextcat-3.2
-	app-text/libebook
-	app-text/libetonyek
+	=app-text/libebook-0.0*
+	=app-text/libetonyek-0.0*
 	app-text/liblangtag
-	app-text/libmspub
-	>=app-text/libmwaw-0.2
-	>=app-text/libodfgen-0.0.3
+	=app-text/libmspub-0.0*
+	=app-text/libmwaw-0.2*
+	=app-text/libodfgen-0.0*
 	app-text/libwpd:0.9[tools]
 	app-text/libwpg:0.2
-	>=app-text/libwps-0.2.2
+	=app-text/libwps-0.2*
 	>=app-text/poppler-0.16:=[xpdf-headers(+),cxx]
 	>=dev-cpp/clucene-2.3.3.4-r2
 	dev-cpp/libcmis:0.4
@@ -115,7 +117,7 @@ COMMON_DEPEND="
 	>=dev-libs/hyphen-2.7.1
 	>=dev-libs/icu-4.8.1.1:=
 	>=dev-libs/libatomic_ops-7.2d
-	=dev-libs/liborcus-0.5*:=
+	=dev-libs/liborcus-0.5*
 	>=dev-libs/nspr-4.8.8
 	>=dev-libs/nss-3.12.9
 	>=dev-lang/perl-5.0
@@ -127,9 +129,9 @@ COMMON_DEPEND="
 	>=media-libs/harfbuzz-0.9.18:=[icu(+)]
 	media-libs/lcms:2
 	>=media-libs/libpng-1.4
-	>=media-libs/libcdr-0.0.5
-	media-libs/libfreehand
-	media-libs/libvisio
+	=media-libs/libcdr-0.0*
+	=media-libs/libfreehand-0.0*
+	=media-libs/libvisio-0.0*
 	>=net-misc/curl-7.21.4
 	net-nds/openldap
 	sci-mathematics/lpsolve
@@ -464,6 +466,7 @@ src_configure() {
 		--disable-online-update \
 		--disable-systray \
 		--with-alloc=$(use jemalloc && echo "jemalloc" || echo "system") \
+		--with-build-version="Gentoo official package" \
 		--enable-extension-integration \
 		--with-external-dict-dir="${EPREFIX}/usr/share/myspell" \
 		--with-external-hyph-dir="${EPREFIX}/usr/share/myspell" \
@@ -472,7 +475,7 @@ src_configure() {
 		--with-lang="" \
 		--with-parallelism=${jbs} \
 		--with-system-ucpp \
-		--with-vendor="Funtoo Linux" \
+		--with-vendor="Gentoo Foundation" \
 		--with-x \
 		--without-afms \
 		--without-fonts \

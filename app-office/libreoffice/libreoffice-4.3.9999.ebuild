@@ -1,6 +1,8 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.3.9999.ebuild,v 1.2 2014/09/16 21:25:00 dilfridge Exp $
 
-EAPI="5"
+EAPI=5
 
 KDE_REQUIRED="optional"
 QT_MINIMAL="4.7.4"
@@ -56,12 +58,10 @@ unset DEV_URI
 # Really required addons
 # These are bundles that can't be removed for now due to huge patchsets.
 # If you want them gone, patches are welcome.
-ADDONS_SRC+=" ${ADDONS_URI}/4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2"
-ADDONS_SRC+=" ${ADDONS_URI}/OpenCOLLADA-master-6509aa13af.tar.bz2"
-ADDONS_SRC+=" ${ADDONS_URI}/libgltf/3d9ea1f2828c46f8ba94b88a87b3326d-libgltf-0.0.0.tar.bz2"
-ADDONS_SRC+=" ${ADDONS_URI}/CoinMP-1.7.6.tgz"
 ADDONS_SRC+=" ${ADDONS_URI}/d62650a6f908e85643e557a236ea989c-vigra1.6.0.tar.gz"
 ADDONS_SRC+=" ${ADDONS_URI}/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz" # modifies source code
+ADDONS_SRC+=" collada? ( ${ADDONS_URI}/4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2 )"
+ADDONS_SRC+=" collada? ( ${ADDONS_URI}/OpenCOLLADA-master-6509aa13af.tar.bz2 )"
 ADDONS_SRC+=" java? ( ${ADDONS_URI}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip )"
 ADDONS_SRC+=" libreoffice_extensions_wiki-publisher? ( ${ADDONS_URI}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip )" # no release for 8 years, should we package it?
 ADDONS_SRC+=" libreoffice_extensions_scripting-javascript? ( ${ADDONS_URI}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip )" # Does not build with 1.6 rhino at all
@@ -73,8 +73,8 @@ unset ADDONS_URI
 unset EXT_URI
 unset ADDONS_SRC
 
-IUSE="bluetooth +branding +cups dbus debug eds firebird gnome gstreamer +gtk
-gtk3 jemalloc kde mysql odk opengl postgres telepathy test +vba vlc +webdav"
+IUSE="bluetooth +branding coinmp collada +cups dbus debug eds firebird gltf gnome gstreamer
++gtk gtk3 jemalloc kde mysql odk opengl postgres telepathy test +vba vlc"
 
 LO_EXTS="nlpsolver scripting-beanshell scripting-javascript wiki-publisher"
 # Unpackaged separate extensions:
@@ -91,7 +91,7 @@ unset lo_xt
 LICENSE="|| ( LGPL-3 MPL-1.1 )"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="~*"
+KEYWORDS="~amd64 ~arm ~ppc ~x86 ~amd64-linux ~x86-linux"
 
 COMMON_DEPEND="
 	${PYTHON_DEPS}
@@ -104,11 +104,11 @@ COMMON_DEPEND="
 	>=app-text/libebook-0.1.1
 	>=app-text/libetonyek-0.1.1
 	app-text/liblangtag
-	>=app-text/libmspub-0.1.1
+	>=app-text/libmspub-0.1.0
 	>=app-text/libmwaw-0.3.1
-	>=app-text/libodfgen-0.1.1
-	>=app-text/libwpd-0.10.0[tools]
-	>=app-text/libwpg-0.3.0
+	>=app-text/libodfgen-0.1.0
+	app-text/libwpd:0.10[tools]
+	app-text/libwpg:0.3
 	>=app-text/libwps-0.3.0
 	>=app-text/poppler-0.16:=[xpdf-headers(+),cxx]
 	>=dev-cpp/clucene-2.3.3.4-r2
@@ -119,7 +119,7 @@ COMMON_DEPEND="
 	>=dev-libs/hyphen-2.7.1
 	>=dev-libs/icu-4.8.1.1:=
 	>=dev-libs/libatomic_ops-7.2d
-	=dev-libs/liborcus-0.7*:=
+	>=dev-libs/liborcus-0.7.0
 	>=dev-libs/librevenge-0.0.1
 	>=dev-libs/nspr-4.8.8
 	>=dev-libs/nss-3.12.9
@@ -129,8 +129,7 @@ COMMON_DEPEND="
 	media-gfx/graphite2
 	>=media-libs/fontconfig-2.8.0
 	media-libs/freetype:2
-	>=media-libs/glew-1.10.0
-	media-libs/glm
+	>=media-libs/glew-1.10
 	>=media-libs/harfbuzz-0.9.18:=[icu(+)]
 	media-libs/lcms:2
 	>=media-libs/libpng-1.4
@@ -138,6 +137,7 @@ COMMON_DEPEND="
 	>=media-libs/libfreehand-0.1.0
 	>=media-libs/libvisio-0.1.0
 	>=net-misc/curl-7.21.4
+	net-libs/neon
 	net-nds/openldap
 	sci-mathematics/lpsolve
 	virtual/jpeg:0
@@ -146,10 +146,12 @@ COMMON_DEPEND="
 	x11-libs/libXrandr
 	x11-libs/libXrender
 	bluetooth? ( net-wireless/bluez )
+	coinmp? ( sci-libs/coinor-mp )
 	cups? ( net-print/cups )
 	dbus? ( >=dev-libs/dbus-glib-0.92 )
 	eds? ( gnome-extra/evolution-data-server )
 	firebird? ( >=dev-db/firebird-2.5 )
+	gltf? ( media-libs/libgltf )
 	gnome? ( gnome-base/gconf:2 )
 	gtk? (
 		x11-libs/gdk-pixbuf[X]
@@ -181,7 +183,6 @@ COMMON_DEPEND="
 		>=net-libs/telepathy-glib-0.18.0
 		>=x11-libs/gtk+-2.24:2
 	)
-	webdav? ( net-libs/neon )
 "
 
 RDEPEND="${COMMON_DEPEND}
@@ -215,7 +216,7 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/gperf-3
 	dev-util/intltool
 	>=dev-util/mdds-0.10.3:=
-	virtual/pkgconfig
+	media-libs/glm
 	net-misc/npapi-sdk
 	>=sys-apps/findutils-4.4.2
 	sys-devel/bison
@@ -225,6 +226,7 @@ DEPEND="${COMMON_DEPEND}
 	>=sys-devel/make-3.82
 	sys-devel/ucpp
 	sys-libs/zlib
+	virtual/pkgconfig
 	x11-libs/libXt
 	x11-libs/libXtst
 	x11-proto/randrproto
@@ -242,11 +244,15 @@ DEPEND="${COMMON_DEPEND}
 PATCHES=(
 	# not upstreamable stuff
 	"${FILESDIR}/${PN}-3.7-system-pyuno.patch"
+
+	# from master branch
+	"${FILESDIR}/${PN}-4.3.1.2-implement--with-system-coinmp.patch"
 )
 
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 	bluetooth? ( dbus )
+	collada? ( gltf )
 	gnome? ( gtk )
 	eds? ( gnome )
 	telepathy? ( gtk )
@@ -255,8 +261,6 @@ REQUIRED_USE="
 	libreoffice_extensions_scripting-javascript? ( java )
 	libreoffice_extensions_wiki-publisher? ( java )
 "
-
-RESTRICT="mirror"
 
 CHECKREQS_MEMORY="512M"
 CHECKREQS_DISK_BUILD="6G"
@@ -451,6 +455,7 @@ src_configure() {
 		--enable-cairo-canvas \
 		--enable-graphite \
 		--enable-largefile \
+		--enable-neon \
 		--enable-python=system \
 		--enable-randr \
 		--enable-randr-link \
@@ -466,9 +471,11 @@ src_configure() {
 		--disable-report-builder \
 		--disable-kdeab \
 		--disable-kde \
+		--disable-mergelibs \
 		--disable-online-update \
 		--disable-systray \
 		--with-alloc=$(use jemalloc && echo "jemalloc" || echo "system") \
+		--with-build-version="Gentoo official package" \
 		--enable-extension-integration \
 		--with-external-dict-dir="${EPREFIX}/usr/share/myspell" \
 		--with-external-hyph-dir="${EPREFIX}/usr/share/myspell" \
@@ -477,7 +484,7 @@ src_configure() {
 		--with-lang="" \
 		--with-parallelism=${jbs} \
 		--with-system-ucpp \
-		--with-vendor="Funtoo Linux" \
+		--with-vendor="Gentoo Foundation" \
 		--with-x \
 		--without-fonts \
 		--without-myspell-dicts \
@@ -485,11 +492,14 @@ src_configure() {
 		--with-helppack-integration \
 		--without-sun-templates \
 		$(use_enable bluetooth sdremote-bluetooth) \
+		$(use_enable coinmp) \
+		$(use_enable collada) \
 		$(use_enable cups) \
 		$(use_enable debug) \
 		$(use_enable dbus) \
 		$(use_enable eds evolution2) \
 		$(use_enable firebird firebird-sdbc) \
+		$(use_enable gltf) \
 		$(use_enable gnome gconf) \
 		$(use_enable gnome gio) \
 		$(use_enable gnome lockdown) \
@@ -504,7 +514,8 @@ src_configure() {
 		$(use_enable telepathy) \
 		$(use_enable vba) \
 		$(use_enable vlc) \
-		$(use_enable webdav neon) \
+		$(use_with coinmp system-coinmp) \
+		$(use_with gltf system-libgltf) \
 		$(use_with java) \
 		$(use_with mysql system-mysql-cppconn) \
 		$(use_with odk doxygen) \

@@ -1,6 +1,8 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice-l10n/libreoffice-l10n-4.2.5.2.ebuild,v 1.4 2014/08/10 18:16:21 slyfox Exp $
 
-EAPI="5"
+EAPI=5
 
 inherit rpm eutils multilib versionator
 
@@ -12,7 +14,7 @@ BASE_SRC_URI="http://download.documentfoundation.org/${PN/-l10n/}/stable/${MY_PV
 
 LICENSE="|| ( LGPL-3 MPL-1.1 )"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="amd64 ~arm ~ppc x86 ~amd64-linux ~x86-linux"
 IUSE="offlinehelp"
 
 #
