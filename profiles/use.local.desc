@@ -2668,7 +2668,6 @@ gnome-extra/gnome-dvb-daemon:totem - Build a plugin for media-video/totem
 gnome-extra/gnome-dvb-daemon:vala - Add support for dev-lang/vala
 gnome-extra/gnome-games:artworkextra - Installs extra artwork for various games
 gnome-extra/gnome-media:twolame - Allow encoding MPEG Audio Layer 2 (MP2) files using twolame
-gnome-extra/gnome-packagekit:systemd - Use sys-apps/systemd instead of sys-auth/consolekit for rebooting
 gnome-extra/gnome-screensaver:systemd - Support sys-apps/systemd's logind
 gnome-extra/gnome-utils:bonobo - Enable applets (gdict one) still not ported to DBUS, requiring deprecated bonobo support in gnome-panel.
 gnome-extra/libgda:bindist - Disable support for dev-db/firebird database which is not GPL compatible.
@@ -3696,7 +3695,7 @@ media-sound/deadbeef:playlist-browser - Playlist browser user interface plugin
 media-sound/deadbeef:psf - AOSDK-based PSF(QSF,SSF,DSF) plugin
 media-sound/deadbeef:pulseaudio - PulseAudio output plugin
 media-sound/deadbeef:replaygain-control - Advanced control of replaygain
-media-sound/deadbeef:shellexec - Support for running shell commands via gui prompt
+media-sound/deadbeef:shell-exec - Support for running shell commands
 media-sound/deadbeef:shn - Shorten (SHN) plugin
 media-sound/deadbeef:sid - Commodore64 SID music player plugin
 media-sound/deadbeef:sndfile - PCM wave support (via libsndfile) plugin
