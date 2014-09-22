@@ -5,8 +5,12 @@
 # Roman Kuzmitsky <damex.pp@gmail.com>
 # @BLURB: Eclass for automating deadbeef player plugins installation.
 # @DESCRIPTION:
-# This eclass makes trivial deadbeef plugins ebuilds possible.
+# This eclass makes trivial deadbeef plugin ebuilds possible.
 # Many things that would normally be done manually is automated.
+
+if [[ "${EAPI}" -lt 5 ]] ; then
+	die "EAPI="${EAPI}" is not supported"
+fi
 
 inherit eutils
 
@@ -85,10 +89,10 @@ deadbeef-plugins_src_compile() {
 # @DESCRIPTION:
 # Looking for a *.so deadbeef plugins and installs found plugins to corresponding deadbeef directory.
 deadbeef-plugins_src_install() {
-	local plugins=`find "${WORKDIR}" -name "*.so"`
+	local plugins=`find "${WORKDIR}" -name "*.so" -type f`
 	for plugin in ${plugins}
 		do
 			insinto "/usr/$(get_libdir)/deadbeef"
-			doins "${plugin}" || die
+			doins "${plugin}"
 		done
 }
