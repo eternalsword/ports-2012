@@ -87,9 +87,6 @@ src_prepare() {
 
 	epatch "${FILESDIR}"/${PN}-4.1-document-system-bashrc.patch
 
-	# CVE-2014-6271
-	epatch "${FILESDIR}/CVE-2014-6271.patch"
-
 	epatch_user
 }
 
