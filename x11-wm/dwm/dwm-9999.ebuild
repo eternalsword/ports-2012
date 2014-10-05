@@ -4,15 +4,15 @@
 
 EAPI="5"
 
-inherit eutils savedconfig toolchain-funcs
+inherit eutils savedconfig toolchain-funcs git-r3
 
 DESCRIPTION="a dynamic window manager for X11"
 HOMEPAGE="http://dwm.suckless.org/"
-SRC_URI="http://dl.suckless.org/${PN}/${P}.tar.gz"
+EGIT_REPO_URI="git://git.suckless.org/dwm"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 ppc ppc64 x86 ~x86-fbsd"
+KEYWORDS=""
 IUSE="xinerama"
 
 DEPEND="
