@@ -1,6 +1,6 @@
 DEFINED_PHASES=install postinst postrm prepare
 DESCRIPTION=Complete DAW using a tracker-based approach
-EAPI=5
+EAPI=4
 HOMEPAGE=http://www.renoise.com/
 KEYWORDS=-* ~x86 ~amd64
 LICENSE=renoise
@@ -9,4 +9,4 @@ RESTRICT=mirror strip
 SLOT=0
 SRC_URI=http://files.renoise.com/demo/Renoise_3_0_0_Demo_x86_64.tar.bz2
 _eclasses_=eutils	32548a82e42dc26e3312581476d2f20c	fdo-mime	0acfe1a88fd8751a1d5dc671168219fa	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0f1760274637a138b99bb649202ea402
-_md5_=fb876611699b096fd82af8a1d25e7968
+_md5_=40fe77aa059162e6df6e88a0c49515e7
