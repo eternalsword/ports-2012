@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/e2fsprogs/e2fsprogs-1.42.10.ebuild,v 1.2 2014/05/29 02:38:52 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/e2fsprogs/e2fsprogs-1.42.10.ebuild,v 1.19 2014/09/09 01:51:43 jmorgan Exp $
 
 EAPI=4
 
@@ -9,7 +9,7 @@ case ${PV} in
 *)      UP_PV=${PV} ;;
 esac
 
-inherit eutils flag-o-matic multilib toolchain-funcs
+inherit autotools eutils flag-o-matic multilib toolchain-funcs
 
 DESCRIPTION="Standard EXT2/EXT3/EXT4 filesystem utilities"
 HOMEPAGE="http://e2fsprogs.sourceforge.net/"
@@ -17,7 +17,7 @@ SRC_URI="mirror://sourceforge/e2fsprogs/${PN}-${UP_PV}.tar.gz"
 
 LICENSE="GPL-2 BSD"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 -x86-fbsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x86-macos ~m68k-mint"
+KEYWORDS="alpha amd64 arm arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh sparc x86 -x86-fbsd ~amd64-linux ~arm-linux ~x86-linux"
 IUSE="nls static-libs elibc_FreeBSD"
 
 RDEPEND="~sys-libs/${PN}-libs-${PV}
@@ -30,36 +30,27 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/${P%_pre*}
 
-pkg_setup() {
-	if [[ ! -e ${EROOT}/etc/mtab ]] ; then
-		# add some crap to deal with missing /etc/mtab #217719
-		ewarn "No /etc/mtab file, creating one temporarily"
-		echo "${PN} crap for src_test" > "${EROOT}"/etc/mtab
-	fi
-}
-
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-1.41.8-makefile.patch
 	epatch "${FILESDIR}"/${PN}-1.40-fbsd.patch
-	epatch "${FILESDIR}"/${PN}-1.41.12-darwin-makefile.patch
 	epatch "${FILESDIR}"/${P}-e2fsck-fix-makefile-dependency.patch
-	if [[ ${CHOST} == *-mint* ]] ; then
-		epatch "${FILESDIR}"/${PN}-1.41-mint.patch
-		epatch "${FILESDIR}"/${PN}-1.41.12-mint-blkid.patch
-	fi
+	epatch "${FILESDIR}"/${P}-fix-build-cflags.patch
+
 	# blargh ... trick e2fsprogs into using e2fsprogs-libs
 	rm -rf doc
 	sed -i -r \
 		-e 's:@LIBINTL@:@LTLIBINTL@:' \
-		-e '/^LIB(COM_ERR|SS)/s:[$][(]LIB[)]/lib([^@]*)@LIB_EXT@:-l\1:' \
-		-e '/^DEPLIB(COM_ERR|SS)/s:=.*:=:' \
+		-e '/^(STATIC_)?LIB(COM_ERR|SS)/s:[$][(]LIB[)]/lib([^@]*)@(STATIC_)?LIB_EXT@:-l\1:' \
+		-e '/^DEP(STATIC_)?LIB(COM_ERR|SS)/s:=.*:=:' \
 		MCONFIG.in || die "muck libs" #122368
 	sed -i -r \
 		-e '/^LIB_SUBDIRS/s:lib/(et|ss)::g' \
 		Makefile.in || die "remove subdirs"
+	ln -s $(which mk_cmds) lib/ss/ || die
 
 	# Avoid rebuild
-	touch lib/ss/ss_err.h
+	echo '#include_next <ss/ss_err.h>' > lib/ss/ss_err.h
+	eautoreconf
 }
 
 src_configure() {
@@ -69,20 +60,11 @@ src_configure() {
 	# needs open64() prototypes and friends
 	append-cppflags -D_GNU_SOURCE
 
-	# We want to use the "bsd" libraries while building on Darwin, but while
-	# building on other Gentoo/*BSD we prefer elf-naming scheme.
-	local libtype
-	case ${CHOST} in
-		*-darwin*) libtype=--enable-bsd-shlibs  ;;
-		*-mint*)   libtype=                     ;;
-		*)         libtype=--enable-elf-shlibs  ;;
-	esac
-
 	ac_cv_path_LDCONFIG=: \
 	econf \
 		--with-root-prefix="${EPREFIX}/" \
 		--enable-symlink-install \
-		${libtype} \
+		$(tc-is-static-only || echo --enable-elf-shlibs) \
 		$(tc-has-tls || echo --disable-tls) \
 		--without-included-gettext \
 		$(use_enable nls) \
@@ -100,12 +82,12 @@ src_configure() {
 }
 
 src_compile() {
-	emake COMPILE_ET=compile_et MK_CMDS=mk_cmds
+	emake V=1 COMPILE_ET=compile_et MK_CMDS=mk_cmds
 
 	# Build the FreeBSD helper
 	if use elibc_FreeBSD ; then
 		cp "${FILESDIR}"/fsck_ext2fs.c .
-		emake fsck_ext2fs
+		emake V=1 fsck_ext2fs
 	fi
 }
 

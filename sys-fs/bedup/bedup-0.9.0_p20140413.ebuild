@@ -1,10 +1,10 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/bedup/bedup-0.9.0_p20140413.ebuild,v 1.3 2014/05/21 11:31:18 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/bedup/bedup-0.9.0_p20140413.ebuild,v 1.5 2014/09/06 11:07:40 mgorny Exp $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_2,3_3} )
+PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 
 inherit distutils-r1 vcs-snapshot
 
@@ -25,5 +25,4 @@ RDEPEND="${DEPEND}
 	dev-python/alembic[${PYTHON_USEDEP}]
 	dev-python/contextlib2[${PYTHON_USEDEP}]
 	dev-python/pyxdg[${PYTHON_USEDEP}]
-	>=dev-python/sqlalchemy-0.8.2[sqlite,${PYTHON_USEDEP}]
-	virtual/python-argparse[${PYTHON_USEDEP}]"
+	>=dev-python/sqlalchemy-0.8.2[sqlite,${PYTHON_USEDEP}]"

@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/google-musicmanager/google-musicmanager-1.0.117.4968_beta.ebuild,v 1.1 2014/05/26 21:44:45 ottxor Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/google-musicmanager/google-musicmanager-1.0.117.4968_beta.ebuild,v 1.3 2014/10/08 09:53:44 ottxor Exp $
 
 EAPI=5
 
@@ -9,7 +9,7 @@ inherit eutils unpacker
 MY_URL="http://dl.google.com/linux/musicmanager/deb/pool/main/${P:0:1}/${PN}-beta"
 MY_PKG="${PN}-beta_${PV/_beta}-r0_i386.deb"
 
-DESCRIPTION="Google Music Manager is a application for adding music to your Google Music library."
+DESCRIPTION="Google Music Manager is a application for adding music to your Google Music library"
 HOMEPAGE="http://music.google.com"
 SRC_URI="x86? ( ${MY_URL}/${MY_PKG} )
 	amd64? ( ${MY_URL}/${MY_PKG/i386/amd64} )"
@@ -19,7 +19,7 @@ SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE="log"
 
-OBSOLETE="no"
+OBSOLETE="yes"
 [[ $OBSOLETE = yes ]] && RESTRICT="fetch strip" || RESTRICT="strip mirror"
 
 RDEPEND="

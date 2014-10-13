@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/collectd/collectd-5.2.2.ebuild,v 1.3 2014/03/01 22:08:15 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/collectd/collectd-5.2.2.ebuild,v 1.5 2014/10/09 19:44:34 dilfridge Exp $
 
 EAPI="4"
 
@@ -16,7 +16,7 @@ SRC_URI="${HOMEPAGE}/files/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="contrib debug kernel_linux kernel_FreeBSD kernel_Darwin perl static-libs"
+IUSE="contrib debug kernel_linux kernel_FreeBSD kernel_Darwin perl selinux static-libs"
 
 # The plugin lists have to follow here since they extend IUSE
 
@@ -55,7 +55,8 @@ unset plugin
 COMMON_DEPEND="
 	dev-libs/libgcrypt:0
 	sys-devel/libtool
-	perl?					( dev-lang/perl[ithreads] ( || ( sys-devel/libperl[ithreads] >=sys-devel/libperl-5.10 ) ) )
+	perl?					( dev-lang/perl[ithreads] )
+	selinux?						( sec-policy/selinux-collectd )
 	collectd_plugins_apache?		( net-misc/curl )
 	collectd_plugins_ascent?		( net-misc/curl dev-libs/libxml2 )
 	collectd_plugins_bind?			( dev-libs/libxml2 )
@@ -78,7 +79,7 @@ COMMON_DEPEND="
 	collectd_plugins_nut?			( sys-power/nut )
 	collectd_plugins_onewire?		( sys-fs/owfs )
 	collectd_plugins_oracle?		( >=dev-db/oracle-instantclient-basic-11.2.0.1.0 )
-	collectd_plugins_perl?			( dev-lang/perl[ithreads] ( || ( sys-devel/libperl[ithreads] >=sys-devel/libperl-5.10 ) ) )
+	collectd_plugins_perl?			( dev-lang/perl[ithreads] )
 	collectd_plugins_ping?			( net-libs/liboping )
 	collectd_plugins_postgresql?		( >=dev-db/postgresql-base-8.2 )
 	collectd_plugins_python?		( =dev-lang/python-2* )

@@ -18,11 +18,11 @@ SELNX_VER="2.3"
 
 DESCRIPTION="SELinux kernel and policy management library"
 HOMEPAGE="http://userspace.selinuxproject.org/"
-SRC_URI="http://userspace.selinuxproject.org/releases/20140506/${MY_P}.tar.gz"
+SRC_URI="https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20140506/${MY_P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="*"
 IUSE="python ruby static-libs"
 RESTRICT="test"
 

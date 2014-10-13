@@ -1,12 +1,14 @@
-DEFINED_PHASES=compile install postinst postrm prepare setup
-DEPEND=net-libs/libpcap =dev-lang/python-2*
-DESCRIPTION=Switzerland Network Testing Tool
-EAPI=3
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=net-libs/libpcap python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) dev-lang/python-exec:=[python_targets_python2_7(-)?,-python_single_target_python2_7(-)]
+DESCRIPTION=Network Testing Tool
+EAPI=5
 HOMEPAGE=http://www.eff.org/testyourisp/switzerland/
+IUSE=python_targets_python2_7
 KEYWORDS=~x86 ~amd64
 LICENSE=GPL-3
-RDEPEND=net-libs/libpcap =dev-lang/python-2*
+RDEPEND=net-libs/libpcap python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) dev-lang/python-exec:=[python_targets_python2_7(-)?,-python_single_target_python2_7(-)]
+REQUIRED_USE=|| ( python_targets_python2_7 )
 SLOT=0
 SRC_URI=mirror://sourceforge/switzerland/switzerland-0.1.0.tgz
-_eclasses_=distutils	cbbc1b446ecf8bec39c0ad32a3904452	multilib	fac675dcccf94392371a6abee62d909f	python	46d9f0382a194b2c30ac61862799b58c	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
-_md5_=2e86e35a9cc85e62975042a99dfd97be
+_eclasses_=distutils-r1	90e7008a7d21e3b1597bea444bb85827	eutils	32548a82e42dc26e3312581476d2f20c	multibuild	56961ac06660a16c3f807c0c39247e4c	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	multiprocessing	d7f2985a2c76c365ee20269db5261414	python-r1	75e5c82b55dcb208a0a8f4ab8847e731	python-utils-r1	47dda904cf91c61f45b564d9f834fde1	toolchain-funcs	0f1760274637a138b99bb649202ea402
+_md5_=21b9640208cf835974b52dd9d9e8e676

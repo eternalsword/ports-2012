@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-extra/nm-applet/nm-applet-0.9.8.10-r1.ebuild,v 1.1 2014/05/05 10:02:27 zerochaos Exp $
 
 EAPI=5
 GCONF_DEBUG="no"
@@ -15,9 +13,9 @@ HOMEPAGE="https://wiki.gnome.org/Projects/NetworkManager"
 LICENSE="GPL-2+"
 SLOT="0"
 IUSE="bluetooth gconf +introspection modemmanager"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="*"
 
-RDEPEND="
+COMMON_DEPEND="
 	app-crypt/libsecret
 	>=dev-libs/glib-2.26:2
 	>=dev-libs/dbus-glib-0.88
@@ -36,13 +34,16 @@ RDEPEND="
 		gnome-base/libgnome-keyring )
 	introspection? ( >=dev-libs/gobject-introspection-0.9.6 )
 	modemmanager? ( >=net-misc/modemmanager-0.7.990 )
-	virtual/freedesktop-icon-theme
-	virtual/notification-daemon
 	virtual/udev[gudev]
 "
-DEPEND="${RDEPEND}
+DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 	>=dev-util/intltool-0.40
+"
+
+RDEPEND="${COMMON_DEPEND}
+	virtual/freedesktop-icon-theme
+	virtual/notification-daemon
 "
 
 src_configure() {

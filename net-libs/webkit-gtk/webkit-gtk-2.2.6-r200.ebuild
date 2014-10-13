@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/webkit-gtk/webkit-gtk-2.2.6-r200.ebuild,v 1.9 2014/04/21 10:30:20 ago Exp $
 
 EAPI="5"
 PYTHON_COMPAT=( python{2_6,2_7} )
@@ -15,7 +13,7 @@ SRC_URI="http://www.webkitgtk.org/releases/${MY_P}.tar.xz"
 
 LICENSE="LGPL-2+ BSD"
 SLOT="2"
-KEYWORDS="alpha amd64 arm ia64 ~mips ppc ppc64 sparc x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~x86-macos"
+KEYWORDS="*"
 IUSE="aqua coverage debug +egl +geoloc gles2 +gstreamer +introspection +jit libsecret +opengl spell +webgl"
 # bugs 372493, 416331
 REQUIRED_USE="
@@ -42,7 +40,7 @@ RDEPEND="
 	>=x11-libs/pango-1.30.0.0
 	x11-libs/libXrender
 	x11-libs/libXt
-	>=x11-libs/gtk+-2.24.10:2
+	>=x11-libs/gtk+-2.24.10:2[introspection?]
 
 	egl? ( media-libs/mesa[egl] )
 	geoloc? ( app-misc/geoclue:0 )

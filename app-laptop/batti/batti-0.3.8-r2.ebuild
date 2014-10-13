@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-laptop/batti/batti-0.3.8-r2.ebuild,v 1.3 2014/05/31 18:22:41 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-laptop/batti/batti-0.3.8-r2.ebuild,v 1.5 2014/09/01 16:48:09 mgorny Exp $
 
 EAPI=5
 
@@ -16,12 +16,12 @@ SRC_URI="http://batti-gtk.googlecode.com/files/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="libnotify"
 
 RDEPEND="dev-python/pygtk
 	dev-python/dbus-python
-	|| ( sys-power/upower:= sys-power/upower-pm-utils )
+	|| ( sys-power/upower sys-power/upower-pm-utils )
 	x11-themes/gnome-icon-theme
 	libnotify? ( x11-libs/libnotify )"
 DEPEND=""

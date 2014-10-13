@@ -1,16 +1,16 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/trollop/trollop-2.0.ebuild,v 1.6 2014/04/05 14:10:59 mrueg Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/trollop/trollop-2.0.ebuild,v 1.8 2014/10/11 00:03:21 mrueg Exp $
 
-EAPI=4
-USE_RUBY="ruby19 ruby20 jruby"
+EAPI=5
+USE_RUBY="ruby19 ruby20 ruby21 jruby"
 
 RUBY_FAKEGEM_TASK_DOC=""
 RUBY_FAKEGEM_EXTRADOC="FAQ.txt History.txt README.txt"
 
 inherit ruby-fakegem
 
-DESCRIPTION="Trollop is a commandline option parser for Ruby."
+DESCRIPTION="Trollop is a commandline option parser for Ruby"
 HOMEPAGE="http://trollop.rubyforge.org/"
 LICENSE="Ruby"
 

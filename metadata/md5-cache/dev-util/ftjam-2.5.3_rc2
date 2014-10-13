@@ -1,11 +1,11 @@
 DEFINED_PHASES=install unpack
 DEPEND=!dev-util/jam sys-devel/bison
-DESCRIPTION=Jam is a powerful alternative to make. FTJam is a 100% compatible enhanced Jam implementation.
+DESCRIPTION=Jam is a powerful alternative to make. FTJam is a 100% compatible enhanced Jam implementation
 HOMEPAGE=http://freetype.sourceforge.net/jam/index.html
 KEYWORDS=amd64 ppc ppc64 sparc x86
 LICENSE=perforce GPL-2
 RDEPEND=!dev-util/jam
 SLOT=0
 SRC_URI=http://david.freetype.org/jam/ftjam-2.5.3rc2.tar.bz2
-_eclasses_=eutils	025442f2eecab39ad0b4e541b6e142af	multilib	fac675dcccf94392371a6abee62d909f	toolchain-funcs	48b38a216afb92db6314d6c3187abea3	versionator	a8a3963967d6140be9a14b08bb8f047f
-_md5_=6c6c33390c9bb090c65620df5e5d1a04
+_eclasses_=eutils	32548a82e42dc26e3312581476d2f20c	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0f1760274637a138b99bb649202ea402	versionator	cd0bcdb170807e4a1984115e9d53a26f
+_md5_=c3b884ca809a38a28628a3351f9548b5

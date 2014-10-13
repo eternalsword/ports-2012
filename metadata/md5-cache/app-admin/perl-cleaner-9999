@@ -4,7 +4,7 @@ DESCRIPTION=User land tool for cleaning up old perl installs
 EAPI=5
 HOMEPAGE=http://www.gentoo.org/proj/en/perl/
 LICENSE=GPL-2
-RDEPEND=app-shells/bash || ( >=sys-apps/coreutils-8.15 app-misc/realpath sys-freebsd/freebsd-bin ) dev-lang/perl
+RDEPEND=app-shells/bash || ( >=sys-apps/coreutils-8.15 app-misc/realpath sys-freebsd/freebsd-bin ) dev-lang/perl || ( ( sys-apps/portage app-portage/portage-utils ) sys-apps/pkgcore sys-apps/paludis )
 SLOT=0
-_eclasses_=eutils	025442f2eecab39ad0b4e541b6e142af	git-r3	1832330dbb193ea5884e9a0703961fc3	multilib	fac675dcccf94392371a6abee62d909f	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
-_md5_=0ecaa9b2dd7a9d5d0b836d43a1526d44
+_eclasses_=eutils	32548a82e42dc26e3312581476d2f20c	git-r3	f908736fc2f2912c118910333ea303f4	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0f1760274637a138b99bb649202ea402
+_md5_=b5f584fb4002c55da38736732d28ef40

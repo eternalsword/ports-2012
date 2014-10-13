@@ -1,13 +1,13 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-wireless/aircrack-ng/aircrack-ng-9999.ebuild,v 1.9 2014/04/18 01:30:53 zerochaos Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-wireless/aircrack-ng/aircrack-ng-9999.ebuild,v 1.11 2014/08/03 23:13:27 zerochaos Exp $
 
 EAPI="5"
 
 PYTHON_COMPAT=( python2_7 )
 DISTUTILS_OPTIONAL=1
 
-inherit toolchain-funcs versionator distutils-r1
+inherit toolchain-funcs versionator distutils-r1 flag-o-matic
 
 DESCRIPTION="WLAN tools for breaking 802.11 WEP/WPA keys"
 HOMEPAGE="http://www.aircrack-ng.org"
@@ -50,6 +50,10 @@ REQUIRED_USE="airdrop-ng? ( ${PYTHON_REQUIRED_USE} )
 		airgraph-ng? ( ${PYTHON_REQUIRED_USE} )"
 
 src_compile() {
+	if [[ $($(tc-getCC) --version) == clang* ]] ; then
+		die "Please use gcc, upstream bug http://trac.aircrack-ng.org/ticket/1144"
+	fi
+
 	if [[ ${PV} == "9999" ]] ; then
 		liveflags=REVFLAGS=-D_REVISION="${ESVN_WC_REVISION}"
 	fi

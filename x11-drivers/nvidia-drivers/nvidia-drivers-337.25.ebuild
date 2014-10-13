@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-drivers/nvidia-drivers/nvidia-drivers-337.25.ebuild,v 1.3 2014/06/15 14:35:44 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-drivers/nvidia-drivers/nvidia-drivers-337.25.ebuild,v 1.5 2014/07/30 19:22:29 ssuominen Exp $
 
 EAPI=5
 
@@ -59,8 +59,8 @@ RDEPEND="
 		multilib? (
 			|| (
 				 (
-					x11-libs/libX11[abi_x86_32]
-					x11-libs/libXext[abi_x86_32]
+					>=x11-libs/libX11-1.6.2[abi_x86_32]
+					>=x11-libs/libXext-1.3.2[abi_x86_32]
 				 )
 				app-emulation/emul-linux-x86-xlibs
 			)
@@ -247,7 +247,7 @@ src_install() {
 		use uvm && doins "${FILESDIR}"/nvidia-uvm.conf
 
 		# Ensures that our device nodes are created when not using X
-		exeinto "$(udev_get_udevdir)"
+		exeinto "$(get_udevdir)"
 		doexe "${FILESDIR}"/nvidia-udev.sh
 		udev_newrules "${FILESDIR}"/nvidia.udev-rule 99-nvidia.rules
 	elif use kernel_FreeBSD; then

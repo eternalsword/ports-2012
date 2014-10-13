@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/ldns/ldns-1.6.16-r1.ebuild,v 1.1 2014/05/13 06:18:49 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/ldns/ldns-1.6.16-r1.ebuild,v 1.3 2014/07/09 17:03:04 mgorny Exp $
 
 EAPI="5"
 PYTHON_COMPAT=( python2_7 )
@@ -18,15 +18,17 @@ IUSE="doc gost +ecdsa python +ssl static-libs vim-syntax"
 
 RESTRICT="test" # 1.6.9 has no test directory
 
-RDEPEND="ssl? ( >=dev-libs/openssl-0.9.7:0[${MULTILIB_USEDEP}] )
-	ecdsa? ( >=dev-libs/openssl-1.0.1c:0[-bindist,${MULTILIB_USEDEP}] )
-	gost? ( >=dev-libs/openssl-1:0[${MULTILIB_USEDEP}] )"
+RDEPEND="ssl? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
+	ecdsa? ( >=dev-libs/openssl-1.0.1h-r2:0[-bindist,${MULTILIB_USEDEP}] )
+	gost? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
+	python? ( ${PYTHON_DEPS} )"
 DEPEND="${RDEPEND}
 	python? ( dev-lang/swig )
 	doc? ( app-doc/doxygen )"
 
 # configure will die if ecdsa is enabled and ssl is not
-REQUIRED_USE="ecdsa? ( ssl )"
+REQUIRED_USE="ecdsa? ( ssl )
+	python? ( ${PYTHON_REQUIRED_USE} )"
 
 MULTILIB_CHOST_TOOLS=(
 	/usr/bin/ldns-config

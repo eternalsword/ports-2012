@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-news/quiterss/quiterss-0.15.4.ebuild,v 1.1 2014/04/26 19:13:54 maksbotan Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-news/quiterss/quiterss-0.15.4.ebuild,v 1.4 2014/07/14 14:56:49 pinkbyte Exp $
 
 EAPI=5
 
@@ -20,13 +20,13 @@ SRC_URI="https://quiterss.org/files/${PV}/${MY_P}.tar.bz2"
 LICENSE="GPL-3"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="~amd64 ~arm ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm x86 ~amd64-linux ~x86-linux"
 IUSE="debug phonon"
 
 RDEPEND="
 	dev-qt/qtcore:4
 	dev-qt/qtgui:4
-	dev-qt/qtsingleapplication
+	dev-qt/qtsingleapplication[X]
 	dev-qt/qtsql:4[sqlite]
 	dev-qt/qtwebkit:4
 	phonon? ( || ( media-libs/phonon dev-qt/qtphonon:4 ) )

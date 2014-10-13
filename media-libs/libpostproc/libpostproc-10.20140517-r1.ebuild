@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libpostproc/libpostproc-10.20140517-r1.ebuild,v 1.1 2014/06/07 21:31:50 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libpostproc/libpostproc-10.20140517-r1.ebuild,v 1.8 2014/10/11 13:45:22 maekke Exp $
 
 EAPI="5"
 
@@ -25,7 +25,7 @@ fi
 LICENSE="GPL-2"
 SLOT="0"
 if [ "${PV#9999}" = "${PV}" ] ; then
-	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
+	KEYWORDS="alpha amd64 arm ~hppa ~ia64 ppc ppc64 ~sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
 fi
 IUSE="pic static-libs"
 
@@ -36,7 +36,7 @@ for i in ${CPU_FEATURES}; do
 	IUSE="${IUSE} ${i%:*}"
 done
 
-DEPEND=">=virtual/ffmpeg-0.10.2-r2[${MULTILIB_USEDEP}]"
+DEPEND=">=virtual/ffmpeg-9-r1[${MULTILIB_USEDEP}]"
 RDEPEND="${DEPEND}
 	!<media-video/libav-0.8.2-r2
 	!media-video/ffmpeg:0

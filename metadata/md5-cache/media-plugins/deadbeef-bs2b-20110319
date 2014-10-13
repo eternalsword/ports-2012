@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile configure install prepare unpack
+DEPEND=media-libs/libbs2b media-sound/deadbeef >=dev-vcs/git-1.8.2.1
+DESCRIPTION=DeaDBeeF bs2b dsp plugin
+EAPI=5
+HOMEPAGE=https://gitorious.org/deadbeef-sm-plugins/bs2b
+KEYWORDS=~*
+LICENSE=MIT
+RDEPEND=media-libs/libbs2b media-sound/deadbeef
+RESTRICT=mirror
+SLOT=0
+_eclasses_=deadbeef-plugins	7c8fe03766edd0d6acdc92e6fc07974d	eutils	32548a82e42dc26e3312581476d2f20c	git-r3	f908736fc2f2912c118910333ea303f4	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0f1760274637a138b99bb649202ea402
+_md5_=44061691dc3928b300301160b7576e3c

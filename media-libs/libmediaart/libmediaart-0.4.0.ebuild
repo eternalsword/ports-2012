@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libmediaart/libmediaart-0.4.0.ebuild,v 1.1 2014/04/27 17:33:08 eva Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -14,7 +12,7 @@ HOMEPAGE="https://github.com/curlybeast/libmediaart"
 
 LICENSE="LGPL-2.1+"
 SLOT="1.0"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="*"
 IUSE="gtk +introspection qt4 qt5 vala"
 REQUIRED_USE="
 	?? ( gtk qt4 qt5 )
@@ -56,5 +54,5 @@ src_configure() {
 }
 
 src_test() {
-	Xemake check
+	dbus-launch Xemake check #513502
 }

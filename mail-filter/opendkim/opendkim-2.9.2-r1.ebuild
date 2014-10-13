@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/mail-filter/opendkim/opendkim-2.9.2-r1.ebuild,v 1.2 2014/05/04 16:11:57 maekke Exp $
+# $Header: /var/cvsroot/gentoo-x86/mail-filter/opendkim/opendkim-2.9.2-r1.ebuild,v 1.5 2014/08/14 16:17:22 phajdan.jr Exp $
 
 EAPI=5
 inherit autotools db-use eutils systemd user
@@ -16,7 +16,7 @@ SRC_URI="mirror://sourceforge/opendkim/${P}.tar.gz"
 
 LICENSE="Sendmail-Open-Source BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~x86"
+KEYWORDS="amd64 ~arm x86"
 IUSE="+berkdb gnutls ldap lmdb lua memcached opendbx poll sasl selinux +ssl static-libs unbound"
 
 DEPEND="|| ( mail-filter/libmilter mail-mta/sendmail )
@@ -193,6 +193,4 @@ pkg_config() {
 	cat "${ROOT}"etc/opendkim/${selector}.txt
 	einfo "t=y signifies you only test the DKIM on your domain. See following page for the complete list of tags:"
 	einfo "  http://www.dkim.org/specs/rfc4871-dkimbase.html#key-text"
-	einfo
-	einfo "Also look at the ADSP http://tools.ietf.org/html/rfc5617"
 }

@@ -1,10 +1,10 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/pytables/pytables-3.1.1.ebuild,v 1.1 2014/04/14 17:48:57 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-python/pytables/pytables-3.1.1.ebuild,v 1.3 2014/09/17 07:21:57 jlec Exp $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
+PYTHON_COMPAT=( python{2_7,3_2,3_3,3_4} )
 
 MY_PN=tables
 MY_P=${MY_PN}-${PV}
@@ -30,17 +30,26 @@ RDEPEND="
 	dev-python/numexpr[${PYTHON_USEDEP}]
 	sci-libs/hdf5:0="
 DEPEND="${RDEPEND}
-	dev-python/cython[${PYTHON_USEDEP}]"
+	>=dev-python/cython-0.14[${PYTHON_USEDEP}]"
 
 S="${WORKDIR}/${MY_P}"
 
 DOCS=( ANNOUNCE.txt RELEASE_NOTES.txt THANKS )
+
+PATCHES=(
+	"${FILESDIR}"/${P}-cython-backport.patch
+	)
 
 python_prepare_all() {
 	export HDF5_DIR="${EPREFIX}"/usr
 	sed -i -e "s:/usr:${EPREFIX}/usr:g" setup.py || die
 	rm -r c-blosc/{blosc,internal-complibs} || die
 	distutils-r1_python_prepare_all
+}
+
+python_compile() {
+	python_is_python3 || local -x CFLAGS="${CFLAGS} -fno-strict-aliasing"
+	distutils-r1_python_compile
 }
 
 python_test() {

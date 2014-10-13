@@ -1,6 +1,16 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/targets/desktop/package.use,v 1.38 2014/05/31 16:19:28 zerochaos Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/targets/desktop/package.use,v 1.41 2014/09/17 22:21:23 chithanh Exp $
+
+# Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org> (17 Sep 2014)
+# Disable glamor for xf86-video-intel since it also needs uxa, which is
+# disabled by default
+x11-drivers/xf86-video-intel -glamor
+
+# Samuli Suominen <ssuominen@gentoo.org> (24 Jul 2014)
+# Because targets/desktop/make.defaults has USE="bluetooth" but net-libs/libpcap doesn't
+# support BlueZ 5.x, disable USE="bluetooth" by default to avoid conflicting packages:
+net-libs/libpcap -bluetooth
 
 # Rick Farina <zerochaos@gentoo.org> (31 May 2014)
 # wireshark 1.10.x has a mostly non-functional qt4 interface so keep
@@ -47,7 +57,6 @@ sys-apps/systemd gudev introspection
 sys-fs/eudev gudev introspection
 sys-fs/udev gudev introspection
 virtual/libgudev introspection
-virtual/udev gudev introspection
 
 # Samuli Suominen <ssuominen@gentoo.org> (19 Dec 2010)
 # Support for desktop file icons

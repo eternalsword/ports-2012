@@ -1,20 +1,20 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/ctdb/ctdb-9999.ebuild,v 1.5 2014/06/12 20:14:28 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-db/ctdb/ctdb-9999.ebuild,v 1.7 2014/08/10 19:58:22 slyfox Exp $
 
 EAPI=5
 
 EGIT_REPO_URI="git://git.samba.org/ctdb.git"
 inherit autotools eutils git-2 multilib-minimal
 
-DESCRIPTION="A cluster implementation of the TDB database used to store temporary data."
+DESCRIPTION="A cluster implementation of the TDB database used to store temporary data"
 HOMEPAGE="http://ctdb.samba.org/"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="dev-libs/popt[${MULTILIB_USEDEP}]"
+DEPEND=">=dev-libs/popt-1.16-r2[${MULTILIB_USEDEP}]"
 RDEPEND="${DEPEND}"
 
 src_prepare() {

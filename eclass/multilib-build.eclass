@@ -37,12 +37,16 @@ inherit multibuild multilib
 # ensure that every *preliminary* work is done and the multilib can be
 # extended safely.
 _MULTILIB_FLAGS=(
-	abi_x86_32:x86,x86_fbsd
-	abi_x86_64:amd64,amd64_fbsd
+	abi_x86_32:x86,x86_fbsd,x86_freebsd,x86_linux,x86_macos,x86_solaris
+	abi_x86_64:amd64,amd64_fbsd,x64_freebsd,amd64_linux,x64_macos,x64_solaris
 	abi_x86_x32:x32
 	abi_mips_n32:n32
 	abi_mips_n64:n64
 	abi_mips_o32:o32
+	abi_ppc_32:ppc,ppc_aix,ppc_macos
+	abi_ppc_64:ppc64
+	abi_s390_32:s390
+	abi_s390_64:s390x
 )
 
 # @ECLASS-VARIABLE: MULTILIB_COMPAT
@@ -53,8 +57,15 @@ _MULTILIB_FLAGS=(
 #
 # This variable is intended for use in prebuilt multilib packages that
 # can provide binaries only for a limited set of ABIs. If ABIs need to
-# be limited due to a bug in source code, package.use.mask is
-# recommended instead.
+# be limited due to a bug in source code, package.use.mask is to be used
+# instead. Along with MULTILIB_COMPAT, KEYWORDS should contain '-*'.
+#
+# Note that setting this variable effectively disables support for all
+# other ABIs, including other architectures. For example, specifying
+# abi_x86_{32,64} disables support for MIPS as well.
+#
+# The value of MULTILIB_COMPAT determines the value of IUSE. If set, it
+# also enables REQUIRED_USE constraints.
 #
 # Example use:
 # @CODE
@@ -104,6 +115,8 @@ _multilib_build_set_globals() {
 		done
 
 		flags=( "${MULTILIB_COMPAT[@]}" )
+
+		REQUIRED_USE="|| ( ${flags[*]} )"
 	fi
 
 	local usedeps=${flags[@]/%/(-)?}
@@ -150,7 +163,10 @@ multilib_get_enabled_abi_pairs() {
 			# paludis is broken (bug #486592), and switching it locally
 			# for the split is more complex than cheating like this
 			for m_abi in ${m_abis//,/ }; do
-				if [[ ${m_abi} == ${abi} ]] && use "${m_flag}"; then
+				if [[ ${m_abi} == ${abi} ]] \
+					&& { [[ ! "${MULTILIB_COMPAT[@]}" ]] || has "${m_flag}" "${MULTILIB_COMPAT[@]}"; } \
+					&& use "${m_flag}"
+				then
 					echo "${m_flag}.${abi}"
 					found=1
 					break 2
@@ -550,9 +566,6 @@ multilib_install_wrappers() {
 # @DESCRIPTION:
 # Determine whether the currently built ABI is the profile native.
 # Return true status (0) if that is true, otherwise false (1).
-#
-# This function is not intended to be used directly. Please use
-# multilib_build_binaries instead.
 multilib_is_native_abi() {
 	debug-print-function ${FUNCNAME} "${@}"
 
@@ -563,14 +576,7 @@ multilib_is_native_abi() {
 
 # @FUNCTION: multilib_build_binaries
 # @DESCRIPTION:
-# Determine whether to build binaries for the currently built ABI.
-# Returns true status (0) if the currently built ABI is the profile
-# native or COMPLETE_MULTILIB variable is set to 'yes', otherwise
-# false (1).
-#
-# This is often useful for configure calls when some of the options are
-# supposed to be disabled for multilib ABIs (like those used for
-# executables only).
+# Deprecated synonym for multilib_is_native_abi
 multilib_build_binaries() {
 	debug-print-function ${FUNCNAME} "${@}"
 
@@ -598,7 +604,7 @@ multilib_native_use_with() {
 # @FUNCTION: multilib_native_use_enable
 # @USAGE: <flag> [<opt-name> [<opt-value>]]
 # @DESCRIPTION:
-# Output --enable configure option alike use_with if USE <flag>
+# Output --enable configure option alike use_enable if USE <flag>
 # is enabled and executables are being built (multilib_is_native_abi
 # is true). Otherwise, outputs --disable configure option. Arguments are
 # the same as for use_enable in the EAPI.
@@ -607,6 +613,34 @@ multilib_native_use_enable() {
 		use_enable "${@}"
 	else
 		echo "--disable-${2:-${1}}"
+	fi
+}
+
+# @FUNCTION: multilib_native_enable
+# @USAGE: <opt-name> [<opt-value>]
+# @DESCRIPTION:
+# Output --enable configure option if executables are being built
+# (multilib_is_native_abi is true). Otherwise, output --disable configure
+# option.
+multilib_native_enable() {
+	if multilib_is_native_abi; then
+		echo "--enable-${1}${2+=${2}}"
+	else
+		echo "--disable-${1}"
+	fi
+}
+
+# @FUNCTION: multilib_native_with
+# @USAGE: <opt-name> [<opt-value>]
+# @DESCRIPTION:
+# Output --with configure option if executables are being built
+# (multilib_is_native_abi is true). Otherwise, output --without configure
+# option.
+multilib_native_with() {
+	if multilib_is_native_abi; then
+		echo "--with-${1}${2+=${2}}"
+	else
+		echo "--without-${1}"
 	fi
 }
 

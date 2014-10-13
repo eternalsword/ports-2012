@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libmtp/libmtp-1.1.6-r1.ebuild,v 1.9 2014/05/20 22:22:43 mrueg Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libmtp/libmtp-1.1.6-r1.ebuild,v 1.12 2014/09/10 22:17:02 zerochaos Exp $
 
 EAPI=5
 
@@ -15,7 +15,7 @@ else
 	SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 fi
 
-DESCRIPTION="An implementation of Microsoft's Media Transfer Protocol (MTP)."
+DESCRIPTION="An implementation of Microsoft's Media Transfer Protocol (MTP)"
 HOMEPAGE="http://libmtp.sourceforge.net/"
 
 LICENSE="LGPL-2.1"
@@ -23,7 +23,8 @@ SLOT="0"
 IUSE="+crypt doc examples static-libs"
 
 RDEPEND="virtual/libusb:1
-	crypt? ( dev-libs/libgcrypt:0 )"
+	crypt? ( dev-libs/libgcrypt:0=
+		dev-libs/libgpg-error )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen )"

@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.4.38-r1.ebuild,v 1.6 2014/05/24 05:03:28 jmbsvicetto Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.4.38-r1.ebuild,v 1.8 2014/10/12 06:26:40 robbat2 Exp $
 
 EAPI="5"
 
@@ -17,7 +17,7 @@ HOMEPAGE="http://www.OpenLDAP.org/"
 SRC_URI="ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/${P}.tgz
 		 mirror://gentoo/${BIS_P}"
 
-LICENSE="OPENLDAP"
+LICENSE="OPENLDAP GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~x86-solaris"
 
@@ -61,7 +61,7 @@ OPENLDAP_DEFAULTDIR_VERSIONTAG="/var/lib/openldap-data"
 
 openldap_filecount() {
 	local dir="$1"
-	find "${dir}" -type f ! -name '.*' ! -name 'DB_CONFIG.example' | wc -l
+	find "${dir}" -type f ! -name '.*' ! -name 'DB_CONFIG*' | wc -l
 }
 
 openldap_find_versiontags() {

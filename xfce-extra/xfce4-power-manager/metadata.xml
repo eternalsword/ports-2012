@@ -3,6 +3,6 @@
 <pkgmetadata>
   <herd>xfce</herd>
   <use>
-    <flag name='udisks'>Pull in <pkg>sys-fs/udisks</pkg> for spindown support</flag>
+    <flag name='lxpanel'>Build the applet for <pkg>lxde-base/lxpanel</pkg>, you can set XFCE_PLUGINS="" if you don't want the Xfce dependencies.</flag>
   </use>
 </pkgmetadata>

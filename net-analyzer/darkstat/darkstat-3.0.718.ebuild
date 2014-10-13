@@ -1,10 +1,9 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-analyzer/darkstat/darkstat-3.0.718.ebuild,v 1.1 2014/05/04 14:10:51 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-analyzer/darkstat/darkstat-3.0.718.ebuild,v 1.6 2014/08/15 19:18:31 jer Exp $
 
 EAPI=5
-
-inherit eutils user
+inherit autotools eutils user
 
 DESCRIPTION="Network traffic analyzer with cute web interface"
 HOMEPAGE="http://unix4lyfe.org/darkstat/"
@@ -12,7 +11,7 @@ SRC_URI="http://unix4lyfe.org/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="amd64 ppc x86"
 
 DEPEND="net-libs/libpcap"
 RDEPEND="${DEPEND}"
@@ -22,7 +21,9 @@ DARKSTAT_CHROOT_DIR=${DARKSTAT_CHROOT_DIR:-/var/lib/darkstat}
 DOCS=( AUTHORS ChangeLog README NEWS )
 
 src_prepare() {
+	sed -i -e 's|-flto||g' configure.ac || die
 	epatch_user
+	eautoreconf
 }
 
 src_configure() {
@@ -32,11 +33,11 @@ src_configure() {
 src_install() {
 	default
 
-	newinitd "${FILESDIR}"/darkstat-init.new darkstat
-	newconfd "${FILESDIR}"/darkstat-confd.new darkstat
+	newinitd "${FILESDIR}"/darkstat-initd darkstat
+	newconfd "${FILESDIR}"/darkstat-confd darkstat
 
-	sed -i -e "s:__CHROOT__:${DARKSTAT_CHROOT_DIR}:g" "${D}"/etc/conf.d/darkstat
-	sed -i -e "s:__CHROOT__:${DARKSTAT_CHROOT_DIR}:g" "${D}"/etc/init.d/darkstat
+	sed -i -e "s:__CHROOT__:${DARKSTAT_CHROOT_DIR}:g" "${D}"/etc/conf.d/darkstat || die
+	sed -i -e "s:__CHROOT__:${DARKSTAT_CHROOT_DIR}:g" "${D}"/etc/init.d/darkstat || die
 
 	keepdir "${DARKSTAT_CHROOT_DIR}"
 	chown darkstat:0 "${D}${DARKSTAT_CHROOT_DIR}"

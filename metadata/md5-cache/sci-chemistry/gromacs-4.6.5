@@ -1,5 +1,5 @@
 DEFINED_PHASES=compile configure install postinst prepare pretend test unpack
-DEPEND=X? ( x11-libs/libX11 x11-libs/libSM x11-libs/libICE ) blas? ( virtual/blas ) cuda? ( >=dev-util/nvidia-cuda-toolkit-4.2.9-r1 ) fftw? ( sci-libs/fftw:3.0 ) gsl? ( sci-libs/gsl ) lapack? ( virtual/lapack ) mkl? ( sci-libs/mkl ) mpi? ( virtual/mpi ) openmm? ( >=dev-util/nvidia-cuda-toolkit-4.2.9-r1 sci-libs/openmm[cuda,opencl] ) virtual/pkgconfig dev-util/ninja >=dev-util/cmake-2.8.9 userland_GNU? ( >=sys-apps/findutils-4.4.0 )
+DEPEND=X? ( x11-libs/libX11 x11-libs/libSM x11-libs/libICE ) blas? ( virtual/blas ) cuda? ( >=dev-util/nvidia-cuda-toolkit-4.2.9-r1 ) fftw? ( sci-libs/fftw:3.0 ) gsl? ( sci-libs/gsl ) lapack? ( virtual/lapack ) mkl? ( sci-libs/mkl ) mpi? ( virtual/mpi ) openmm? ( >=dev-util/nvidia-cuda-toolkit-4.2.9-r1 sci-libs/openmm[cuda,opencl] ) virtual/pkgconfig dev-util/ninja >=dev-util/cmake-2.8.12 userland_GNU? ( >=sys-apps/findutils-4.4.0 )
 DESCRIPTION=The ultimate molecular dynamics simulation package
 EAPI=5
 HOMEPAGE=http://www.gromacs.org/
@@ -10,5 +10,5 @@ RDEPEND=X? ( x11-libs/libX11 x11-libs/libSM x11-libs/libICE ) blas? ( virtual/bl
 REQUIRED_USE=|| ( single-precision double-precision ) cuda? ( single-precision ) openmm? ( single-precision ) mkl? ( !blas !fftw !lapack )
 SLOT=0/4.6.5
 SRC_URI=ftp://ftp.gromacs.org/pub/gromacs/gromacs-4.6.5.tar.gz doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.6.5.pdf -> gromacs-manual-4.6.5.pdf ) test? ( http://gromacs.googlecode.com/files/regressiontests-4.6.5.tar.gz )
-_eclasses_=bash-completion-r1	2ba44308a7ebbf2a3b15cd8169b94d21	cmake-utils	50a0f8ec01542e7e35e36a41264aeb9a	cuda	9be39ddb95b9b07ec931f30628d40757	eutils	025442f2eecab39ad0b4e541b6e142af	flag-o-matic	32bd61b45c2f57e468b4ee7311fec8f5	multilib	fac675dcccf94392371a6abee62d909f	readme.gentoo	be2652cdd5c20f4689ccb4769072ea99	toolchain-funcs	48b38a216afb92db6314d6c3187abea3	versionator	a8a3963967d6140be9a14b08bb8f047f
+_eclasses_=bash-completion-r1	f0ded7847ea95e22359c0dcd9af91853	cmake-utils	3c236476577c40ef83fcb42c7f6c0b23	cuda	4a1af424313a3b30f00f3c918de4f772	eutils	32548a82e42dc26e3312581476d2f20c	flag-o-matic	75e24bac8423c515dd9c5717f08feb83	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	readme.gentoo	106edea5533517715013de909a333abd	toolchain-funcs	0f1760274637a138b99bb649202ea402	versionator	cd0bcdb170807e4a1984115e9d53a26f
 _md5_=aed58c671fc4f9475a1afaf004cad5ab

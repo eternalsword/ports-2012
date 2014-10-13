@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/sdl-mixer/sdl-mixer-1.2.12-r4.ebuild,v 1.2 2014/05/22 16:33:19 hasufell Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/sdl-mixer/sdl-mixer-1.2.12-r4.ebuild,v 1.4 2014/08/08 11:57:01 hasufell Exp $
 
 EAPI=5
 inherit eutils multilib-minimal
@@ -26,23 +26,23 @@ REQUIRED_USE="
 	modplug? ( mod )
 	"
 
-RDEPEND=">=media-libs/libsdl-1.2.10[${MULTILIB_USEDEP}]
-	flac? ( media-libs/flac[${MULTILIB_USEDEP}] )
+RDEPEND=">=media-libs/libsdl-1.2.15-r4[${MULTILIB_USEDEP}]
+	flac? ( >=media-libs/flac-1.2.1-r5[${MULTILIB_USEDEP}] )
 	midi? (
-		fluidsynth? ( media-sound/fluidsynth[${MULTILIB_USEDEP}] )
+		fluidsynth? ( >=media-sound/fluidsynth-1.1.6-r1[${MULTILIB_USEDEP}] )
 		timidity? ( media-sound/timidity++ )
 	)
 	mp3? (
-		mad? ( media-libs/libmad[${MULTILIB_USEDEP}] )
-		smpeg? ( >=media-libs/smpeg-0.4.4-r1[${MULTILIB_USEDEP}] )
+		mad? ( >=media-libs/libmad-0.15.1b-r8[${MULTILIB_USEDEP}] )
+		smpeg? ( >=media-libs/smpeg-0.4.4-r10[${MULTILIB_USEDEP}] )
 	)
 	mod? (
-		modplug? ( media-libs/libmodplug[${MULTILIB_USEDEP}] )
-		mikmod? ( >=media-libs/libmikmod-3.1.10[${MULTILIB_USEDEP}] )
+		modplug? ( >=media-libs/libmodplug-0.8.8.4-r1[${MULTILIB_USEDEP}] )
+		mikmod? ( >=media-libs/libmikmod-3.2.0[${MULTILIB_USEDEP}] )
 	)
 	vorbis? (
-		media-libs/libvorbis[${MULTILIB_USEDEP}]
-		media-libs/libogg[${MULTILIB_USEDEP}] )
+		>=media-libs/libvorbis-1.3.3-r1[${MULTILIB_USEDEP}]
+		>=media-libs/libogg-1.3.0[${MULTILIB_USEDEP}] )
 	abi_x86_32? (
 		!<=app-emulation/emul-linux-x86-sdl-20140406-r1
 		!app-emulation/emul-linux-x86-sdl[-abi_x86_32(-)]
@@ -55,6 +55,7 @@ src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-wav.patch \
 		"${FILESDIR}"/${P}-clang.patch \
+		"${FILESDIR}"/${P}-Fix-compiling-against-libmodplug-0.8.8.5.patch \
 		"${FILESDIR}"/${P}-mikmod-r58{7,8}.patch #445980
 	sed -i \
 		-e '/link.*play/s/-o/$(LDFLAGS) -o/' \

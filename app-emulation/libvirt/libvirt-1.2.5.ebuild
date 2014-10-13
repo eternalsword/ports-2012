@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/libvirt/libvirt-1.2.5.ebuild,v 1.1 2014/06/16 15:28:59 dev-zero Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/libvirt/libvirt-1.2.5.ebuild,v 1.4 2014/08/12 15:25:28 ago Exp $
 
 EAPI=5
 
@@ -22,7 +22,7 @@ else
 		ftp://libvirt.org/libvirt/${MY_P}.tar.gz
 		${BACKPORTS:+
 			http://dev.gentoo.org/~cardoe/distfiles/${MY_P}-${BACKPORTS}.tar.xz}"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 x86"
 fi
 S="${WORKDIR}/${P%_rc*}"
 
@@ -319,6 +319,7 @@ src_configure() {
 
 	## stuff we don't yet support
 	myconf="${myconf} --without-netcf"
+	myconf="${myconf} --without-wireshark-dissector"
 
 	# we use udev over hal
 	myconf="${myconf} --without-hal"

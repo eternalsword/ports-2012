@@ -1,11 +1,11 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-arcade/pacmanarena/pacmanarena-0.15.ebuild,v 1.15 2011/05/24 06:53:32 tupone Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-arcade/pacmanarena/pacmanarena-0.15.ebuild,v 1.17 2014/10/09 15:31:09 mr_bones_ Exp $
 
-EAPI=2
+EAPI=5
 inherit eutils autotools games
 
-DESCRIPTION="a Pacman clone in full 3D with a few surprises. Rockets, bombs and explosions abound."
+DESCRIPTION="a Pacman clone in full 3D with a few surprises. Rockets, bombs and explosions abound"
 HOMEPAGE="http://pacmanarena.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/pacman-arena-${PV}.tar.bz2
 	mirror://sourceforge/${PN}/pacman-data-0.0.zip"
@@ -17,7 +17,7 @@ IUSE=""
 
 RDEPEND="virtual/opengl
 	virtual/glu
-	media-libs/libsdl
+	media-libs/libsdl[sound]
 	media-libs/sdl-mixer[vorbis]
 	media-libs/sdl-net"
 DEPEND="${RDEPEND}
@@ -35,20 +35,18 @@ src_prepare() {
 	sed -i \
 		-e "/^CFLAGS/ s:pacman:${PN}:" \
 		-e '1i CC=@CC@' \
-		Makefile.in \
-		|| die "sed Makefile.in failed"
+		Makefile.in || die
 	sed -i \
 		-e '/CFLAGS/s:-g::' \
-		configure \
-		|| die "sed configure failed"
+		configure || die
 	epatch "${FILESDIR}"/${P}-underlink.patch
 	eautoreconf
 }
 
 src_install() {
-	newgamesbin pacman ${PN} || die "newgamesbin failed"
+	newgamesbin pacman ${PN} || die
 	insinto "${GAMES_DATADIR}"/${PN}
-	doins -r gfx sfx || die "doins failed"
+	doins -r gfx sfx || die
 	newicon gfx/pacman_arena1.tga ${PN}.tga
 	make_desktop_entry ${PN} "Pacman Arena" /usr/share/pixmaps/${PN}.tga
 	dodoc README

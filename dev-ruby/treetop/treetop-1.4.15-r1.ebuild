@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/treetop/treetop-1.4.15-r1.ebuild,v 1.1 2014/04/20 18:21:30 graaff Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/treetop/treetop-1.4.15-r1.ebuild,v 1.4 2014/08/05 16:00:41 mrueg Exp $
 
 EAPI=5
 
@@ -14,7 +14,7 @@ RUBY_FAKEGEM_EXTRADOC="README.md"
 
 inherit ruby-fakegem
 
-DESCRIPTION="Treetop is a language for describing languages."
+DESCRIPTION="Treetop is a language for describing languages"
 HOMEPAGE="http://treetop.rubyforge.org/"
 LICENSE="Ruby"
 

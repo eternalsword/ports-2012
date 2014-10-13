@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/amarok/amarok-2.8.0-r2.ebuild,v 1.1 2014/05/13 18:15:58 johu Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/amarok/amarok-2.8.0-r2.ebuild,v 1.3 2014/08/10 21:03:34 slyfox Exp $
 
 EAPI=5
 
@@ -14,7 +14,7 @@ VIRTUALX_REQUIRED="test"
 VIRTUALDBUS_TEST="true"
 inherit flag-o-matic kde4-base pax-utils
 
-DESCRIPTION="Advanced audio player based on KDE framework."
+DESCRIPTION="Advanced audio player based on KDE framework"
 HOMEPAGE="http://amarok.kde.org/"
 if [[ ${PV} != *9999* ]]; then
 	if [[ $PV == *[6-9][0-9]* ]]; then
@@ -79,15 +79,6 @@ RDEPEND="${COMMONDEPEND}
 "
 
 PATCHES=( "${FILESDIR}/${P}-gmock-1.7.patch" )
-
-src_prepare() {
-	if [[ ${KDE_BUILD_TYPE} != live ]]; then
-		mv doc/en_US doc/en || die
-		sed -e "s/en_US/en/" -i doc/CMakeLists.txt || die
-	fi
-
-	kde4-base_src_prepare
-}
 
 src_configure() {
 	# Append minimal-toc cflag for ppc64, see bug 280552 and 292707

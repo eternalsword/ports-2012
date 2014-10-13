@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/exiv2/exiv2-0.24.ebuild,v 1.2 2014/06/12 07:21:52 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-gfx/exiv2/exiv2-0.24.ebuild,v 1.4 2014/09/06 16:39:36 ottxor Exp $
 
 EAPI=5
 AUTOTOOLS_IN_SOURCE_BUILD=1
@@ -14,15 +14,15 @@ SRC_URI="http://www.exiv2.org/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0/13"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~x64-solaris ~x86-solaris"
 IUSE_LINGUAS="de es fi fr pl ru sk"
 IUSE="contrib doc examples nls xmp zlib static-libs $(printf 'linguas_%s ' ${IUSE_LINGUAS})"
 
 RDEPEND="
-	virtual/libiconv[${MULTILIB_USEDEP}]
-	nls? ( virtual/libintl[${MULTILIB_USEDEP}] )
-	xmp? ( dev-libs/expat[${MULTILIB_USEDEP}] )
-	zlib? ( sys-libs/zlib[${MULTILIB_USEDEP}] )
+	>=virtual/libiconv-0-r1[${MULTILIB_USEDEP}]
+	nls? ( >=virtual/libintl-0-r1[${MULTILIB_USEDEP}] )
+	xmp? ( >=dev-libs/expat-2.1.0-r3[${MULTILIB_USEDEP}] )
+	zlib? ( >=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}] )
 "
 
 DEPEND="${RDEPEND}
@@ -59,7 +59,7 @@ src_prepare() {
 	if use contrib; then
 		# create build environment for contrib
 		ln -snf ../../src contrib/organize/exiv2
-		sed -i -e 's:/usr/local/include/.*:/usr/include:g' \
+		sed -i -e 's:/usr/local/include/.*:'"${EPREFIX}"'/usr/include:g' \
 			-e 's:/usr/local/lib/lib:-l:g' -e 's:-gcc..-mt-._..\.a::g' \
 			contrib/organize/boost.mk || die
 	fi
@@ -91,6 +91,8 @@ multilib_src_configure() {
 }
 
 multilib_src_compile() {
+	# Needed for Solaris because /bin/sh is not a bash, bug #245647
+	sed -i -e "s:/bin/sh:${EPREFIX}/bin/sh:" src/Makefile || die "sed failed"
 	emake
 
 	if multilib_is_native_abi; then

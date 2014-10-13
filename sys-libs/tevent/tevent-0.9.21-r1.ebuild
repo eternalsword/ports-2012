@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/tevent/tevent-0.9.21-r1.ebuild,v 1.2 2014/06/10 00:13:08 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/tevent/tevent-0.9.21-r1.ebuild,v 1.13 2014/10/11 13:38:57 maekke Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python2_{6,7} )
@@ -13,14 +13,14 @@ SRC_URI="http://samba.org/ftp/tevent/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~arm-linux ~x86-linux"
+KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd ~arm-linux ~x86-linux"
 IUSE="python"
 
 RDEPEND=">=sys-libs/talloc-2.1.0[python?,${MULTILIB_USEDEP}]
 	python? ( ${PYTHON_DEPS} )"
 
 DEPEND="${RDEPEND}
-	virtual/pkgconfig[${MULTILIB_USEDEP}]
+	>=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}]
 	${PYTHON_DEPS}
 "
 # build system does not work with python3
@@ -42,6 +42,8 @@ multilib_src_configure() {
 }
 
 multilib_src_compile() {
+	# need to avoid parallel building, this looks like the sanest way with waf-utils/multiprocessing eclasses
+	unset MAKEOPTS
 	waf-utils_src_compile
 }
 

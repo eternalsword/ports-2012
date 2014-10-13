@@ -1,9 +1,9 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libcaca/libcaca-0.99_beta18-r2.ebuild,v 1.4 2014/04/28 17:43:33 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libcaca/libcaca-0.99_beta18-r2.ebuild,v 1.15 2014/09/21 20:06:57 maekke Exp $
 
 EAPI=5
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 inherit autotools eutils flag-o-matic mono multilib java-pkg-opt-2 python-single-r1 multilib-minimal
 
 MY_P=${P/_/.}
@@ -13,23 +13,23 @@ SRC_URI="http://libcaca.zoy.org/files/${PN}/${MY_P}.tar.gz"
 
 LICENSE="GPL-2 ISC LGPL-2.1 WTFPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd"
 IUSE="cxx doc imlib java mono ncurses opengl python ruby slang static-libs test truetype X"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
-COMMON_DEPEND="imlib? ( media-libs/imlib2[${MULTILIB_USEDEP}] )
+COMMON_DEPEND="imlib? ( >=media-libs/imlib2-1.4.6-r2[${MULTILIB_USEDEP}] )
 	mono? ( dev-lang/mono )
-	ncurses? ( >=sys-libs/ncurses-5.3[${MULTILIB_USEDEP}] )
+	ncurses? ( >=sys-libs/ncurses-5.9-r3[${MULTILIB_USEDEP}] )
 	opengl? (
-		virtual/glu[${MULTILIB_USEDEP}]
-		virtual/opengl[${MULTILIB_USEDEP}]
-		media-libs/freeglut[${MULTILIB_USEDEP}]
+		>=virtual/glu-9.0-r1[${MULTILIB_USEDEP}]
+		>=virtual/opengl-7.0-r1[${MULTILIB_USEDEP}]
+		>=media-libs/freeglut-2.8.1[${MULTILIB_USEDEP}]
 		truetype? ( >=media-libs/ftgl-2.1.3_rc5 )
 	)
 	python? ( ${PYTHON_DEPS} )
 	ruby? ( =dev-lang/ruby-1.8* )
-	slang? ( >=sys-libs/slang-2[${MULTILIB_USEDEP}] )
-	X? ( x11-libs/libX11[${MULTILIB_USEDEP}] x11-libs/libXt[${MULTILIB_USEDEP}] )"
+	slang? ( >=sys-libs/slang-2.2.4-r1[${MULTILIB_USEDEP}] )
+	X? ( >=x11-libs/libX11-1.6.2[${MULTILIB_USEDEP}] >=x11-libs/libXt-1.1.4[${MULTILIB_USEDEP}] )"
 RDEPEND="${COMMON_DEPEND}
 	java? ( >=virtual/jre-1.5 )"
 DEPEND="${COMMON_DEPEND}
@@ -62,7 +62,7 @@ src_prepare() {
 
 	sed -i \
 		-e 's:$(JAVAC):$(JAVAC) $(JAVACFLAGS):' \
-		-e 's:libcaca_java_la_CPPFLAGS =:libcaca_java_la_CPPFLAGS = -I../caca:' \
+		-e 's:libcaca_java_la_CPPFLAGS =:libcaca_java_la_CPPFLAGS = -I$(top_srcdir)/caca:' \
 		java/Makefile.am || die
 
 	if ! use truetype; then
@@ -73,10 +73,12 @@ src_prepare() {
 		append-cflags -DX_DISPLAY_MISSING
 	fi
 
-	has_version '>=dev-texlive/texlive-latex-2013' && epatch "${FILESDIR}/${P}-latex_hacks.patch"
+	# Removed 'has_version '>=dev-texlive/texlive-latex-2013' &&' that prefixed this
+	# patch before wrt #517474
+	epatch "${FILESDIR}"/${P}-latex_hacks.patch
 
 	# fix out of source tests
-	epatch "${FILESDIR}/${P}-fix-tests.patch"
+	epatch "${FILESDIR}"/${P}-fix-tests.patch
 
 	eautoreconf
 

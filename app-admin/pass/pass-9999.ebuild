@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/pass/pass-9999.ebuild,v 1.16 2014/05/09 22:52:55 zx2c4 Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/pass/pass-9999.ebuild,v 1.19 2014/07/26 21:08:29 zx2c4 Exp $
 
 EAPI=4
 
@@ -24,7 +24,7 @@ RDEPEND="
 	elibc_Darwin? ( app-misc/getopt )
 	zsh-completion? ( app-shells/zsh-completion )
 	fish-completion? ( app-shells/fish )
-	dmenu? ( x11-misc/dmenu )
+	dmenu? ( x11-misc/dmenu x11-misc/xdotool )
 	emacs? ( virtual/emacs )
 "
 
@@ -47,7 +47,7 @@ src_compile() {
 src_install() {
 	use zsh-completion && export FORCE_ZSHCOMP=1
 	use fish-completion && export FORCE_FISHCOMP=1
-	default
+	emake DESTDIR="${D}" PREFIX="${EPREFIX}/usr" install
 	use dmenu && dobin contrib/dmenu/passmenu
 	newbashcomp src/completion/pass.bash-completion pass
 	if use emacs; then

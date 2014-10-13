@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/flag-o-matic.eclass,v 1.199 2014/06/14 07:34:59 rhill Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/flag-o-matic.eclass,v 1.202 2014/08/11 00:36:05 kumba Exp $
 
 # @ECLASS: flag-o-matic.eclass
 # @MAINTAINER:
@@ -10,8 +10,8 @@
 # This eclass contains a suite of functions to help developers sanely
 # and safely manage toolchain flags in their builds.
 
-if [[ ${___ECLASS_ONCE_FLAG_O_MATIC} != "recur -_+^+_- spank" ]] ; then
-___ECLASS_ONCE_FLAG_O_MATIC="recur -_+^+_- spank"
+if [[ -z ${_FLAG_O_MATIC_ECLASS} ]]; then
+_FLAG_O_MATIC_ECLASS=1
 
 inherit eutils toolchain-funcs multilib
 
@@ -47,7 +47,7 @@ setup-allowed-flags() {
 		-mno-faster-structs -mfaster-structs -m32 -m64 -mx32 -mabi \
 		-mlittle-endian -mbig-endian -EL -EB -fPIC -mlive-g0 -mcmodel \
 		-mstack-bias -mno-stack-bias -msecure-plt -m*-toc -mfloat-abi \
-		-D* -U*"
+		-mfix-r10000 -mno-fix-r10000 -D* -U*"
 
 	# 4.5
 	ALLOWED_FLAGS+=" -mno-fma4 -mno-movbe -mno-xop -mno-lwp"
@@ -616,10 +616,10 @@ append-libs() {
 			continue
 		fi
 		case $flag in
-			-[lL]*) 
+			-[lL]*)
 				export LIBS="${LIBS} ${flag}"
 				;;
-			-*) 
+			-*)
 				eqawarn "Appending non-library to LIBS (${flag}); Other linker flags should be passed via LDFLAGS"
 				export LIBS="${LIBS} ${flag}"
 				;;

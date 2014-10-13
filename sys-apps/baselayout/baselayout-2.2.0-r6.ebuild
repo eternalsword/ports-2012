@@ -4,12 +4,12 @@ EAPI="4"
 inherit multilib
 
 DESCRIPTION="Filesystem baselayout, initscripts and /sbin/realdev command"
-HOMEPAGE="http://www.funtoo.org/"
+HOMEPAGE="http://www.funtoo.org/Package:Baselayout"
 GITHUB_REPO="baselayout"
 GITHUB_USER="funtoo"
 GITHUB_TAG="baselayout-2.2.0-r6"
 SRC_URI="https://www.github.com/${GITHUB_USER}/${GITHUB_REPO}/tarball/${GITHUB_TAG} ->  ${GITHUB_TAG}.tar.gz 
-http://ftp.osuosl.org/pub/funtoo/distfiles/realdev/realdev-1.0.tar.bz2"
+http://build.funtoo.org/distfiles/realdev/realdev-1.0.tar.bz2"
 S=$WORKDIR/$GITHUB_TAG
 S2=$WORKDIR/realdev-1.0
 
@@ -186,7 +186,6 @@ src_install() {
 	keepdir /var/lib/misc
 	keepdir /var/lock/subsys
 	keepdir /var/log/news
-	keepdir /var/run
 	keepdir /var/spool
 	keepdir /var/state
 	keepdir /run
@@ -194,7 +193,7 @@ src_install() {
 	diropts -m 1777
 	keepdir /tmp /var/tmp
 
-	diropts -o root -g uucp -m0775 /var/lock
+	diropts -o root -g uucp -m0775 ${D}/var/lock
 	keepdir /var/lock
 
 	diropts -m0700
@@ -229,6 +228,8 @@ src_install() {
 		echo "LDPATH=\"${libdirs_env}\"" > "${T}"/04multilib
 		doenvd "${T}"/04multilib
 	fi
+	#create /var/run symlink	
+	ln -s ../run ${D}/var/run || die
 
 	# rc-scripts version for testing of features that *should* be present
 	echo "Funtoo Linux - baselayout ${PV}" > "${D}"/etc/gentoo-release
@@ -251,7 +252,6 @@ pkg_postinst() {
 
 	# openrc requires /run
 	[ ! -d ${ROOT}run ] && install -d ${ROOT}run
-
 
 	# templates installed to /usr/share/baselayout and copied into place if they
 	# don't exist in /etc.

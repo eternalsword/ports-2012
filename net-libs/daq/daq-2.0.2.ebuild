@@ -1,28 +1,30 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/daq/daq-2.0.2.ebuild,v 1.2 2014/06/03 16:54:59 vapier Exp $
 
-EAPI="4"
-
+EAPI=5
 inherit eutils multilib autotools
 
 DESCRIPTION="Data Acquisition library, for packet I/O"
 HOMEPAGE="http://www.snort.org/"
-SRC_URI="http://www.snort.org/downloads/2778 -> ${P}.tar.gz"
+SRC_URI="https://www.snort.org/downloads/snort/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~mips ~ppc ~ppc64 ~sparc ~x86"
-IUSE="ipv6 +afpacket +dump +pcap nfq ipq static-libs"
+KEYWORDS="*"
+IUSE="ipv6 +afpacket +dump +pcap nfq ipq +static-libs"
 
-DEPEND="pcap? ( >=net-libs/libpcap-1.0.0 )
-		dump? ( >=net-libs/libpcap-1.0.0 )
-		nfq? ( dev-libs/libdnet
-			>=net-firewall/iptables-1.4.10
-			net-libs/libnetfilter_queue )
-		ipq? ( dev-libs/libdnet
-			>=net-firewall/iptables-1.4.10
-			net-libs/libnetfilter_queue )"
+PCAP_DEPEND=">=net-libs/libpcap-1.0.0"
+IPT_DEPEND="
+	>=net-firewall/iptables-1.4.10
+	dev-libs/libdnet
+	net-libs/libnetfilter_queue
+
+"
+DEPEND="
+	dump? ( ${PCAP_DEPEND} )
+	ipq? ( ${IPT_DEPEND} )
+	nfq? ( ${IPT_DEPEND} )
+	pcap? ( ${PCAP_DEPEND} )
+"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
@@ -47,16 +49,12 @@ src_configure() {
 		--disable-bundled-modules
 }
 
-src_install() {
-	emake DESTDIR="${D}" install
-	dodoc ChangeLog README
+DOCS=( ChangeLog README )
 
-	# Remove unneeded .la files
-	rm \
-		"${ED}"usr/$(get_libdir)/daq/*.la \
-		"${ED}"usr/$(get_libdir)/libdaq*.la \
-		"${ED}"usr/$(get_libdir)/libsfbpf.la \
-		|| die
+src_install() {
+	default
+
+	prune_libtool_files
 
 	# If not using static-libs don't install the static libraries
 	# This has been bugged upstream

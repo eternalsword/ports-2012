@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/glance/glance-2014.1.9999.ebuild,v 1.1 2014/04/28 01:54:37 prometheanfire Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/glance/glance-2014.1.9999.ebuild,v 1.5 2014/10/11 22:25:23 prometheanfire Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
@@ -30,7 +30,7 @@ DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]
 				>=dev-python/mock-1.0[${PYTHON_USEDEP}]
 				>=dev-python/mox-0.5.3[${PYTHON_USEDEP}]
 				>=dev-python/sphinx-1.1.2[${PYTHON_USEDEP}]
-				<dev-python/sphinx-1.2[${PYTHON_USEDEP}]
+				<dev-python/sphinx-1.1.9999[${PYTHON_USEDEP}]
 				>=dev-python/requests-1.1[${PYTHON_USEDEP}]
 				>=dev-python/testrepository-0.0.18[${PYTHON_USEDEP}]
 				>=dev-python/testtools-0.9.34[${PYTHON_USEDEP}]
@@ -46,21 +46,33 @@ DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]
 #>=dev-python/wsgiref-0.1.2[${PYTHON_USEDEP}]
 
 RDEPEND=">=dev-python/greenlet-0.3.2[${PYTHON_USEDEP}]
-		sqlite? ( >=dev-python/sqlalchemy-0.7.8[sqlite,${PYTHON_USEDEP}]
-	          <=dev-python/sqlalchemy-0.9.99[sqlite,${PYTHON_USEDEP}] )
-		mysql? ( >=dev-python/sqlalchemy-0.7.8[mysql,${PYTHON_USEDEP}]
-	         <=dev-python/sqlalchemy-0.9.99[mysql,${PYTHON_USEDEP}] )
-		postgres? ( >=dev-python/sqlalchemy-0.7.8[postgres,${PYTHON_USEDEP}]
-	            <=dev-python/sqlalchemy-0.9.99[postgres,${PYTHON_USEDEP}] )
+		sqlite? (
+			>=dev-python/sqlalchemy-0.8.0[sqlite,${PYTHON_USEDEP}]
+			!~dev-python/sqlalchemy-0.9.5[sqlite,${PYTHON_USEDEP}]
+			<=dev-python/sqlalchemy-0.9.99[sqlite,${PYTHON_USEDEP}]
+		)
+		mysql? (
+			dev-python/mysql-python
+			>=dev-python/sqlalchemy-0.8.0[${PYTHON_USEDEP}]
+			!~dev-python/sqlalchemy-0.9.5[${PYTHON_USEDEP}]
+			<=dev-python/sqlalchemy-0.9.99[${PYTHON_USEDEP}]
+		)
+		postgres? (
+		dev-python/psycopg:2
+			>=dev-python/sqlalchemy-0.8.0[${PYTHON_USEDEP}]
+			!~dev-python/sqlalchemy-0.9.5[${PYTHON_USEDEP}]
+			<=dev-python/sqlalchemy-0.9.99[${PYTHON_USEDEP}]
+		)
 		>=dev-python/anyjson-0.3.3[${PYTHON_USEDEP}]
 		>=dev-python/eventlet-0.13.0[${PYTHON_USEDEP}]
 		>=dev-python/pastedeploy-1.5.0[${PYTHON_USEDEP}]
 		>=dev-python/routes-1.12.3[${PYTHON_USEDEP}]
+		!~dev-python/routes-2.0[${PYTHON_USEDEP}]
 		>=dev-python/webob-1.2.3[${PYTHON_USEDEP}]
-		virtual/python-argparse[${PYTHON_USEDEP}]
 		>=dev-python/boto-2.12.0[${PYTHON_USEDEP}]
 		!~dev-python/boto-2.13.0[${PYTHON_USEDEP}]
 		>=dev-python/sqlalchemy-migrate-0.9[${PYTHON_USEDEP}]
+		!~dev-python/sqlalchemy-migrate-0.9.2[${PYTHON_USEDEP}]
 		>=dev-python/httplib2-0.7.5[${PYTHON_USEDEP}]
 		>=dev-python/kombu-2.4.8[${PYTHON_USEDEP}]
 		>=dev-python/pycrypto-2.6[${PYTHON_USEDEP}]
@@ -76,10 +88,11 @@ RDEPEND=">=dev-python/greenlet-0.3.2[${PYTHON_USEDEP}]
 		>=dev-python/python-cinderclient-1.0.6[${PYTHON_USEDEP}]
 		>=dev-python/python-keystoneclient-0.7.0[${PYTHON_USEDEP}]
 		>=dev-python/pyopenssl-0.11[${PYTHON_USEDEP}]
-		>=dev-python/six-1.5.2[${PYTHON_USEDEP}]
-		>=dev-python/oslo-messaging-1.3.0[${PYTHON_USEDEP}]"
+		>=dev-python/six-1.6.0[${PYTHON_USEDEP}]
+		>=dev-python/oslo-messaging-1.3.0[${PYTHON_USEDEP}]
+		>=dev-python/oslo-vmware-0.2[${PYTHON_USEDEP}]"
 
-PATCHES=( "${FILESDIR}"/${PN}-2013.2-sphinx_mapping.patch )
+PATCHES=( "${FILESDIR}/${PN}-2013.2-sphinx_mapping.patch" )
 
 pkg_setup() {
 	enewgroup glance

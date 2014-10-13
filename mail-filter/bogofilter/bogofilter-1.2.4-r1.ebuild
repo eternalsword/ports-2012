@@ -1,17 +1,17 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/mail-filter/bogofilter/bogofilter-1.2.4-r1.ebuild,v 1.6 2014/06/14 10:51:59 phajdan.jr Exp $
+# $Header: /var/cvsroot/gentoo-x86/mail-filter/bogofilter/bogofilter-1.2.4-r1.ebuild,v 1.11 2014/08/13 09:32:57 ago Exp $
 
 EAPI=5
 inherit autotools db-use eutils flag-o-matic toolchain-funcs
 
-DESCRIPTION="Bayesian spam filter designed with fast algorithms, and tuned for speed."
+DESCRIPTION="Bayesian spam filter designed with fast algorithms, and tuned for speed"
 HOMEPAGE="http://bogofilter.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm hppa ia64 ~ppc ~ppc64 ~sh ~sparc x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ia64 ppc ~ppc64 ~sh sparc x86 ~x86-fbsd"
 IUSE="berkdb sqlite tokyocabinet"
 
 DEPEND="virtual/libiconv
@@ -120,6 +120,6 @@ src_install() {
 	dohtml doc/*.html
 
 	dodir /usr/share/doc/${PF}/samples
-	mv "${D}"/etc/bogofilter.cf.example "${D}"/usr/share/doc/${PF}/samples/
-	rmdir "${D}"/etc
+	mv "${D}"/etc/bogofilter.cf.example "${D}"/usr/share/doc/${PF}/samples/ || die
+	rmdir "${D}"/etc || die
 }

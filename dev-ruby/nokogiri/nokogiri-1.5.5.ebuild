@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/nokogiri/nokogiri-1.5.5.ebuild,v 1.11 2014/05/07 19:24:11 mrueg Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/nokogiri/nokogiri-1.5.5.ebuild,v 1.13 2014/08/28 02:53:26 mrueg Exp $
 
 EAPI=4
 
@@ -12,8 +12,8 @@ RUBY_FAKEGEM_EXTRADOC="CHANGELOG.rdoc CHANGELOG.ja.rdoc README.rdoc README.ja.rd
 
 inherit ruby-fakegem eutils multilib
 
-DESCRIPTION="Nokogiri is an HTML, XML, SAX, and Reader parser."
-HOMEPAGE="http://nokogiri.rubyforge.org/"
+DESCRIPTION="Nokogiri is an HTML, XML, SAX, and Reader parser"
+HOMEPAGE="http://nokogiri.org/"
 LICENSE="MIT"
 SRC_URI="https://github.com/sparklemotion/nokogiri/tarball/v${PV} -> ${P}.tgz"
 RUBY_S="sparklemotion-nokogiri-*"

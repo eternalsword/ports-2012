@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/icalendar/icalendar-3.7.ebuild,v 1.1 2014/06/07 07:04:24 idella4 Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-python/icalendar/icalendar-3.7.ebuild,v 1.3 2014/08/10 21:12:06 slyfox Exp $
 
 EAPI="5"
 
@@ -10,7 +10,7 @@ inherit distutils-r1
 
 MY_PN="collective-${PN}"
 
-DESCRIPTION="Package used for parsing and generating iCalendar files (RFC 2445)."
+DESCRIPTION="Package used for parsing and generating iCalendar files (RFC 2445)"
 HOMEPAGE="http://github.com/collective/icalendar"
 SRC_URI="mirror://pypi/i/${PN}/${P}.tar.gz"
 
@@ -24,7 +24,6 @@ RDEPEND="dev-python/pytz[${PYTHON_USEDEP}]"
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]
 	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
 	test? ( ${RDEPEND}
-		virtual/python-unittest2[${PYTHON_USEDEP}]
 		dev-python/python-dateutil:0[${PYTHON_USEDEP}]
 		dev-python/pytest[${PYTHON_USEDEP}]
 		dev-python/coverage[${PYTHON_USEDEP}] )"

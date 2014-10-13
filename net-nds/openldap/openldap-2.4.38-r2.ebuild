@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.4.38-r2.ebuild,v 1.3 2014/05/24 05:03:28 jmbsvicetto Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.4.38-r2.ebuild,v 1.16 2014/10/12 06:26:40 robbat2 Exp $
 
 EAPI="5"
 
@@ -17,9 +17,9 @@ HOMEPAGE="http://www.OpenLDAP.org/"
 SRC_URI="ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/${P}.tgz
 		 mirror://gentoo/${BIS_P}"
 
-LICENSE="OPENLDAP"
+LICENSE="OPENLDAP GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~x86-solaris"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~s390 ~sh sparc x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~x86-solaris"
 
 IUSE_DAEMON="crypt icu samba slp tcpd experimental minimal"
 IUSE_BACKEND="+berkdb"
@@ -33,8 +33,8 @@ REQUIRED_USE="cxx? ( sasl )"
 
 # openssl is needed to generate lanman-passwords required by samba
 RDEPEND="icu? ( dev-libs/icu:= )
-	ssl? ( !gnutls? ( dev-libs/openssl[${MULTILIB_USEDEP}] )
-		gnutls? ( net-libs/gnutls[${MULTILIB_USEDEP}] dev-libs/libgcrypt:0[${MULTILIB_USEDEP}] ) )
+	ssl? ( !gnutls? ( >=dev-libs/openssl-1.0.1h-r2[${MULTILIB_USEDEP}] )
+		gnutls? ( >=net-libs/gnutls-2.12.23-r6[${MULTILIB_USEDEP}] >=dev-libs/libgcrypt-1.5.3:0[${MULTILIB_USEDEP}] ) )
 	sasl? ( dev-libs/cyrus-sasl:= )
 	!minimal? (
 		sys-devel/libtool
@@ -103,7 +103,7 @@ MULTILIB_WRAPPED_HEADERS=(
 
 openldap_filecount() {
 	local dir="$1"
-	find "${dir}" -type f ! -name '.*' ! -name 'DB_CONFIG.example' | wc -l
+	find "${dir}" -type f ! -name '.*' ! -name 'DB_CONFIG*' | wc -l
 }
 
 openldap_find_versiontags() {

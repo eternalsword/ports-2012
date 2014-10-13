@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/gupnp/gupnp-0.20.12-r1.ebuild,v 1.2 2014/06/15 16:59:18 floppym Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/gupnp/gupnp-0.20.12-r1.ebuild,v 1.8 2014/08/07 19:36:01 jer Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -17,7 +17,7 @@ HOMEPAGE="https://wiki.gnome.org/Projects/GUPnP"
 
 LICENSE="LGPL-2"
 SLOT="0/4"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~arm hppa ~ia64 ~ppc ~ppc64 ~sparc x86"
 IUSE="connman +introspection kernel_linux networkmanager"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
@@ -25,24 +25,24 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}
 
 RDEPEND="
 	${PYTHON_DEPS}
-	>=net-libs/gssdp-0.13.0:0=[introspection?,${MULTILIB_USEDEP}]
-	>=net-libs/libsoup-2.28.2:2.4[introspection?,${MULTILIB_USEDEP}]
-	>=dev-libs/glib-2.28.0:2[${MULTILIB_USEDEP}]
-	dev-libs/libxml2[${MULTILIB_USEDEP}]
+	>=net-libs/gssdp-0.14.7:0=[introspection?,${MULTILIB_USEDEP}]
+	>=net-libs/libsoup-2.44.2:2.4[introspection?,${MULTILIB_USEDEP}]
+	>=dev-libs/glib-2.34.3:2[${MULTILIB_USEDEP}]
+	>=dev-libs/libxml2-2.9.1-r4[${MULTILIB_USEDEP}]
 	|| (
-		>=sys-apps/util-linux-2.16[${MULTILIB_USEDEP}]
+		>=sys-apps/util-linux-2.24.1-r3[${MULTILIB_USEDEP}]
 		<sys-libs/e2fsprogs-libs-1.41.8[${MULTILIB_USEDEP}] )
 	introspection? (
 			>=dev-libs/gobject-introspection-0.6.4
 			$(vala_depend) )
-	connman? ( >=dev-libs/glib-2.28:2[${MULTILIB_USEDEP}] )
-	networkmanager? ( >=dev-libs/glib-2.26:2[${MULTILIB_USEDEP}] )
+	connman? ( >=dev-libs/glib-2.34.3:2[${MULTILIB_USEDEP}] )
+	networkmanager? ( >=dev-libs/glib-2.34.3:2[${MULTILIB_USEDEP}] )
 	!net-libs/gupnp-vala
 "
 DEPEND="${RDEPEND}
 	>=dev-util/gtk-doc-am-1
 	sys-devel/gettext
-	virtual/pkgconfig[${MULTILIB_USEDEP}]
+	>=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}]
 "
 
 src_prepare() {
@@ -57,7 +57,7 @@ multilib_src_configure() {
 	use networkmanager && backend=network-manager
 
 	# fake connman.pc to avoid pulling it in unnecessarily (only dbus
-	# interface is used) and fix multilib.
+	# interface is used) and fix multilib. [fixed in vcs]
 	# https://bugzilla.gnome.org/show_bug.cgi?id=731457
 
 	ECONF_SOURCE=${S} \

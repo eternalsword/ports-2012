@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/mate-extra/mate-screensaver/mate-screensaver-1.8.0.ebuild,v 1.2 2014/06/07 16:39:49 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/mate-extra/mate-screensaver/mate-screensaver-1.8.0.ebuild,v 1.6 2014/07/07 23:18:35 tomwij Exp $
 
 EAPI="5"
 
@@ -11,18 +11,19 @@ inherit gnome2 multilib versionator
 MATE_BRANCH="$(get_version_component_range 1-2)"
 
 SRC_URI="http://pub.mate-desktop.org/releases/${MATE_BRANCH}/${P}.tar.xz"
-DESCRIPTION="Replaces xscreensaver, integrating with the MATE desktop."
+DESCRIPTION="Replaces xscreensaver, integrating with the MATE desktop"
 HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 IUSE="X consolekit kernel_linux libnotify opengl pam systemd"
 
 RDEPEND="
 	>=dev-libs/dbus-glib-0.71:0
 	>=dev-libs/glib-2.26:2
+	gnome-base/dconf:0
 	>=mate-base/libmatekbd-1.8:0
 	>=mate-base/mate-desktop-1.8:0
 	>=mate-base/mate-menus-1.6:0

@@ -1,18 +1,20 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/libav/libav-9999.ebuild,v 1.68 2014/06/16 22:03:07 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/libav/libav-9999.ebuild,v 1.74 2014/09/17 00:11:43 lu_zero Exp $
 
 EAPI=5
 
 if [[ ${PV} == *9999 ]] ; then
 	SCM="git-2"
-	EGIT_REPO_URI="git://git.libav.org/libav.git"
-	[[ ${PV%9999} != "" ]] && EGIT_BRANCH="release/${PV%.9999}"
+	: ${EGIT_REPO_URI:="git://git.libav.org/libav.git"}
+	if [[ ${PV%9999} != "" ]] ; then
+		: ${EGIT_BRANCH:="release/${PV%.9999}"}
+	fi
 fi
 
 inherit eutils flag-o-matic multilib multilib-minimal toolchain-funcs ${SCM}
 
-DESCRIPTION="Complete solution to record, convert and stream audio and video."
+DESCRIPTION="Complete solution to record, convert and stream audio and video"
 HOMEPAGE="http://libav.org/"
 if [[ ${PV} == *9999 ]] ; then
 	SRC_URI=""
@@ -28,8 +30,8 @@ SLOT="0/10"
 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos
 ~x64-solaris ~x86-solaris"
 IUSE="aac alsa amr bindist +bzip2 cdio cpudetection custom-cflags debug doc
-	+encode faac fdk frei0r +gpl gsm +hardcoded-tables ieee1394 jack jpeg2k mp3
-	+network openssl opus oss pic pulseaudio rtmp schroedinger sdl speex ssl
+	+encode faac fdk frei0r fontconfig +gpl gsm +hardcoded-tables ieee1394 jack jpeg2k
+	mp3 +network openssl opus oss pic pulseaudio rtmp schroedinger sdl speex ssl
 	static-libs test theora threads tools truetype v4l vaapi vdpau vorbis vpx X
 	wavpack webp x264 x265 xvid +zlib"
 
@@ -42,75 +44,77 @@ done
 
 RDEPEND="
 	!media-video/ffmpeg:0
-	alsa? ( media-libs/alsa-lib[${MULTILIB_USEDEP}] )
-	amr? ( media-libs/opencore-amr[${MULTILIB_USEDEP}] )
-	bzip2? ( app-arch/bzip2[${MULTILIB_USEDEP}] )
+	alsa? ( >=media-libs/alsa-lib-1.0.27.2[${MULTILIB_USEDEP}] )
+	amr? ( >=media-libs/opencore-amr-0.1.3-r1[${MULTILIB_USEDEP}] )
+	bzip2? ( >=app-arch/bzip2-1.0.6-r4[${MULTILIB_USEDEP}] )
 	cdio? (
 		|| (
-			dev-libs/libcdio-paranoia[${MULTILIB_USEDEP}]
+			>=dev-libs/libcdio-paranoia-0.90_p1-r1[${MULTILIB_USEDEP}]
 			<dev-libs/libcdio-0.90[-minimal,${MULTILIB_USEDEP}]
 		)
 	)
 	encode? (
-		aac? ( media-libs/vo-aacenc[${MULTILIB_USEDEP}] )
-		amr? ( media-libs/vo-amrwbenc[${MULTILIB_USEDEP}] )
-		faac? ( media-libs/faac[${MULTILIB_USEDEP}] )
-		fdk? ( media-libs/fdk-aac[${MULTILIB_USEDEP}] )
-		mp3? ( >=media-sound/lame-3.98.3[${MULTILIB_USEDEP}] )
+		aac? ( >=media-libs/vo-aacenc-0.1.3[${MULTILIB_USEDEP}] )
+		amr? ( >=media-libs/vo-amrwbenc-0.1.2-r1[${MULTILIB_USEDEP}] )
+		faac? ( >=media-libs/faac-1.28-r3[${MULTILIB_USEDEP}] )
+		fdk? ( >=media-libs/fdk-aac-0.1.2[${MULTILIB_USEDEP}] )
+		mp3? ( >=media-sound/lame-3.99.5-r1[${MULTILIB_USEDEP}] )
 		theora? (
 			>=media-libs/libtheora-1.1.1[encode,${MULTILIB_USEDEP}]
-			media-libs/libogg[${MULTILIB_USEDEP}]
+			>=media-libs/libogg-1.3.0[${MULTILIB_USEDEP}]
 		)
 		vorbis? (
-			media-libs/libvorbis[${MULTILIB_USEDEP}]
-			media-libs/libogg[${MULTILIB_USEDEP}]
+			>=media-libs/libvorbis-1.3.3-r1[${MULTILIB_USEDEP}]
+			>=media-libs/libogg-1.3.0[${MULTILIB_USEDEP}]
 		)
-		webp? ( media-libs/libwebp[${MULTILIB_USEDEP}] )
-		wavpack? ( media-sound/wavpack[${MULTILIB_USEDEP}] )
-		x264? ( >=media-libs/x264-0.0.20111017:=[${MULTILIB_USEDEP}] )
-		x265? ( >=media-libs/x265-1:=[${MULTILIB_USEDEP}] )
-		xvid? ( >=media-libs/xvid-1.1.0[${MULTILIB_USEDEP}] )
+		webp? ( >=media-libs/libwebp-0.3.0[${MULTILIB_USEDEP}] )
+		wavpack? ( >=media-sound/wavpack-4.60.1-r1[${MULTILIB_USEDEP}] )
+		x264? ( >=media-libs/x264-0.0.20130506:=[${MULTILIB_USEDEP}] )
+		x265? ( >=media-libs/x265-1.2:=[${MULTILIB_USEDEP}] )
+		xvid? ( >=media-libs/xvid-1.3.2-r1[${MULTILIB_USEDEP}] )
 	)
 	frei0r? ( media-plugins/frei0r-plugins )
-	gsm? ( >=media-sound/gsm-1.0.12-r1[${MULTILIB_USEDEP}] )
+	gsm? ( >=media-sound/gsm-1.0.13-r1[${MULTILIB_USEDEP}] )
 	ieee1394? (
-		media-libs/libdc1394[${MULTILIB_USEDEP}]
-		sys-libs/libraw1394[${MULTILIB_USEDEP}]
+		>=media-libs/libdc1394-2.2.1[${MULTILIB_USEDEP}]
+		>=sys-libs/libraw1394-2.1.0-r1[${MULTILIB_USEDEP}]
 	)
-	jack? ( media-sound/jack-audio-connection-kit[${MULTILIB_USEDEP}] )
-	jpeg2k? ( >=media-libs/openjpeg-1.3-r2:0[${MULTILIB_USEDEP}] )
-	opus? ( media-libs/opus[${MULTILIB_USEDEP}] )
-	pulseaudio? ( media-sound/pulseaudio[${MULTILIB_USEDEP}] )
-	rtmp? ( >=media-video/rtmpdump-2.2f[${MULTILIB_USEDEP}] )
+	jack? ( >=media-sound/jack-audio-connection-kit-0.121.3-r1[${MULTILIB_USEDEP}] )
+	jpeg2k? ( >=media-libs/openjpeg-1.5.0:0[${MULTILIB_USEDEP}] )
+	opus? ( >=media-libs/opus-1.0.2-r2[${MULTILIB_USEDEP}] )
+	pulseaudio? ( >=media-sound/pulseaudio-2.1-r1[${MULTILIB_USEDEP}] )
+	rtmp? ( >=media-video/rtmpdump-2.4_p20131018[${MULTILIB_USEDEP}] )
 	ssl? (
-		openssl? ( dev-libs/openssl[${MULTILIB_USEDEP}] )
-		!openssl? ( net-libs/gnutls[${MULTILIB_USEDEP}] )
+		openssl? ( >=dev-libs/openssl-1.0.1h-r2[${MULTILIB_USEDEP}] )
+		!openssl? ( >=net-libs/gnutls-2.12.23-r6[${MULTILIB_USEDEP}] )
 	)
-	sdl? ( >=media-libs/libsdl-1.2.13-r1[sound,video,${MULTILIB_USEDEP}] )
-	schroedinger? ( media-libs/schroedinger[${MULTILIB_USEDEP}] )
-	speex? ( >=media-libs/speex-1.2_beta3[${MULTILIB_USEDEP}] )
-	truetype? ( media-libs/freetype:2[${MULTILIB_USEDEP}] )
-	vaapi? ( x11-libs/libva[${MULTILIB_USEDEP}] )
-	vdpau? ( x11-libs/libvdpau[${MULTILIB_USEDEP}] )
-	vpx? ( >=media-libs/libvpx-0.9.6[${MULTILIB_USEDEP}] )
+	sdl? ( >=media-libs/libsdl-1.2.15-r4[sound,video,${MULTILIB_USEDEP}] )
+	schroedinger? ( >=media-libs/schroedinger-1.0.11-r1[${MULTILIB_USEDEP}] )
+	speex? ( >=media-libs/speex-1.2_rc1-r1[${MULTILIB_USEDEP}] )
+	truetype? (	>=media-libs/freetype-2.5.0.1:2[${MULTILIB_USEDEP}] )
+	fontconfig? ( >=media-libs/fontconfig-2.10[${MULTILIB_USEDEP}] )
+	vaapi? ( >=x11-libs/libva-1.2.1-r1[${MULTILIB_USEDEP}] )
+	vdpau? ( >=x11-libs/libvdpau-0.7[${MULTILIB_USEDEP}] )
+	vpx? ( >=media-libs/libvpx-1.2.0_pre20130625[${MULTILIB_USEDEP}] )
 	X? (
-		x11-libs/libX11[${MULTILIB_USEDEP}]
-		x11-libs/libXext[${MULTILIB_USEDEP}]
-		x11-libs/libXfixes[${MULTILIB_USEDEP}]
+		>=x11-libs/libX11-1.6.2[${MULTILIB_USEDEP}]
+		>=x11-libs/libXext-1.3.2[${MULTILIB_USEDEP}]
+		>=x11-libs/libXfixes-5.0.1[${MULTILIB_USEDEP}]
 	)
-	zlib? ( sys-libs/zlib[${MULTILIB_USEDEP}] )
+	zlib? ( >=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}] )
 "
 
 DEPEND="${RDEPEND}
 	>=sys-devel/make-3.81
 	doc? ( app-text/texi2html )
-	ieee1394? ( virtual/pkgconfig[${MULTILIB_USEDEP}] )
+	ieee1394? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
 	mmx? ( dev-lang/yasm )
-	rtmp? ( virtual/pkgconfig[${MULTILIB_USEDEP}] )
-	schroedinger? ( virtual/pkgconfig[${MULTILIB_USEDEP}] )
-	ssl? ( virtual/pkgconfig[${MULTILIB_USEDEP}] )
+	rtmp? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
+	schroedinger? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
+	ssl? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
 	test? ( sys-devel/bc )
-	truetype? ( virtual/pkgconfig[${MULTILIB_USEDEP}] )
+	truetype? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
+	fontconfig? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
 	v4l? ( sys-kernel/linux-headers )
 "
 
@@ -127,6 +131,7 @@ REQUIRED_USE="bindist? ( !faac !openssl !fdk )
 	rtmp? ( network )
 	amr? ( gpl ) aac? ( gpl ) x264? ( gpl ) X? ( gpl ) cdio? ( gpl ) x265? ( gpl )
 	test? ( encode zlib )
+	fontconfig? ( truetype )
 "
 
 # Test on live ebuild are not possible as they require trunk fate
@@ -137,6 +142,8 @@ MULTILIB_WRAPPED_HEADERS=(
 )
 
 src_prepare() {
+	epatch_user
+
 	# if we have snapshot then we need to hardcode the version
 	if [[ ${PV%_p*} != ${PV} ]]; then
 		sed -i -e "s/UNKNOWN/DATE-${PV#*_pre}/" "${S}/version.sh" || die
@@ -213,6 +220,7 @@ multilib_src_configure() {
 	# libavfilter options
 	multilib_is_native_abi && use frei0r && myconf+=( --enable-frei0r )
 	use truetype && myconf+=( --enable-libfreetype )
+	use fontconfig && myconf+=( --enable-libfontconfig )
 
 	# Threads; we only support pthread for now
 	use threads && myconf+=( --enable-pthreads )
@@ -277,7 +285,7 @@ multilib_src_configure() {
 		fi
 	fi
 
-	"${S}"/configure \
+	set -- "${S}"/configure \
 		--prefix="${EPREFIX}"/usr \
 		--libdir="${EPREFIX}"/usr/$(get_libdir) \
 		--shlibdir="${EPREFIX}"/usr/$(get_libdir) \
@@ -288,7 +296,9 @@ multilib_src_configure() {
 		--optflags="${CFLAGS}" \
 		--extra-cflags="${CFLAGS}" \
 		$(use_enable static-libs static) \
-		"${myconf[@]}" || die
+		"${myconf[@]}"
+	echo "${@}"
+	"${@}" || die
 }
 
 multilib_src_compile() {
@@ -303,6 +313,7 @@ multilib_src_compile() {
 
 multilib_src_install() {
 	emake DESTDIR="${D}" install install-man
+	use doc && dodoc doc/*.html
 
 	if use tools; then
 		dobin ${TOOLS[@]/#/tools/}
@@ -311,8 +322,6 @@ multilib_src_install() {
 
 multilib_src_install_all() {
 	dodoc Changelog README INSTALL
-	dodoc doc/*.txt
-	use doc && dodoc doc/*.html
 }
 
 multilib_src_test() {

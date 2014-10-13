@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-misc/fcgiwrap/fcgiwrap-1.1.0-r1.ebuild,v 1.1 2014/05/02 10:40:49 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/www-misc/fcgiwrap/fcgiwrap-1.1.0-r1.ebuild,v 1.4 2014/10/12 08:58:15 ago Exp $
 
 EAPI="5"
 
@@ -20,7 +20,7 @@ if [[ ${PV} == *9999* ]]; then
 	KEYWORDS=""
 else
 	SRC_URI="https://github.com/gnosek/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 x86"
 fi
 
 RDEPEND="dev-libs/fcgi"
@@ -30,6 +30,9 @@ DEPEND="${RDEPEND}
 DOCS=( README.rst )
 
 src_prepare() {
+	sed -e "s/-Werror//" \
+		-i configure.ac || die "sed failed"
+
 	sed -e '/man8dir = $(DESTDIR)/s/@prefix@//' \
 		-i Makefile.in || die "sed failed"
 	tc-export CC
