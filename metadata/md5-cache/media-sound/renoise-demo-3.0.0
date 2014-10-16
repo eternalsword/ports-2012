@@ -8,5 +8,5 @@ RDEPEND=!media-sound/renoise media-libs/alsa-lib
 RESTRICT=mirror strip
 SLOT=0
 SRC_URI=http://files.renoise.com/demo/Renoise_3_0_0_Demo_x86_64.tar.bz2
-_eclasses_=eutils	32548a82e42dc26e3312581476d2f20c	fdo-mime	0acfe1a88fd8751a1d5dc671168219fa	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0f1760274637a138b99bb649202ea402
+_eclasses_=eutils	32548a82e42dc26e3312581476d2f20c	fdo-mime	0acfe1a88fd8751a1d5dc671168219fa	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	6ce35cb0d56d962486c858d41604c820
 _md5_=fb876611699b096fd82af8a1d25e7968
