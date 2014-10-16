@@ -6460,7 +6460,7 @@ sys-devel/llvm:ncurses - Support querying terminal properties using ncurses' ter
 sys-devel/llvm:static-analyzer - Install the Clang static analyzer (requires USE=clang)
 sys-devel/llvm:udis86 - Enable support for dev-libs/udis86 disassembler library
 sys-devel/sparse:gtk - Build the test-inspect utility (requires x11-libs/gtk+ version 2)
-sys-devel/sparse:llvm - support llvm
+sys-devel/sparse:llvm - Build the sparse-llvm utility
 sys-devel/sparse:xml - Build the c2xml utility (requires dev-libs/libxml2).
 sys-firmware/seabios:binary - Use official upstream pre-built binaries
 sys-firmware/sigrok-firmware-fx2lafw:binary - Use official upstream pre-built binaries
@@ -6704,6 +6704,7 @@ sys-process/procps:modern-top - Enables new startup defaults of top. Keeps old d
 sys-process/procps:ncurses - Build programs that use ncurses: top, slabtop, watch
 virtual/mpi:romio - Enable romio, a high-performance portable MPI-IO
 virtual/mysql:embedded - Build embedded server (libmysqld)
+virtual/podofo-build:boost - Add support for boost
 virtual/udev:gudev - Build and install gudev support
 virtual/udev:hwdb - Build and install hwdb support
 virtual/udev:introspection - Build and install introspection support
