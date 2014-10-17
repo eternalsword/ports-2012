@@ -189,7 +189,6 @@ app-admin/puppet:shadow - Enable shadow support
 app-admin/rigo:passwordless-upgrade - Enable passwordless system upgrades if user is in the entropy group
 app-admin/rsyslog:dbi - Build the general database output module (requires dev-db/libdbi)
 app-admin/rsyslog:elasticsearch - Build the Elasticsearch output module (requires net-misc/curl)
-app-admin/rsyslog:extras - Add support for the UDP spoofing module (omudpspoof) using net-libs/libnet
 app-admin/rsyslog:gcrypt - Add support for encrypted log files using dev-libs/libgcrypt
 app-admin/rsyslog:jemalloc - Use dev-libs/jemalloc for allocations.
 app-admin/rsyslog:kerberos - Build the GSSAPI input and output module (requires virtual/krb5)
@@ -4317,6 +4316,8 @@ net-analyzer/nsca:crypt - Build support for crypted communication with nsca, thr
 net-analyzer/nsca:minimal - Only build and install the send_nsca command and not the daemon. This allows a very minimal install with no overhead when setting up a node.
 net-analyzer/openvas:pdf - Enable pdf report creation
 net-analyzer/pchar:pcap - Use the net-libs/libpcap library
+net-analyzer/pinger:gtk2 - Install the gtkpinger GUI utility based on x11-libs/gtk:2
+net-analyzer/pinger:gtk3 - Install the gtkpinger GUI utility based on x11-libs/gtk:3
 net-analyzer/pmacct:64bit - Use 64bit counters instead of 32bit ones
 net-analyzer/pmacct:mongodb - Add support for mongodb backend
 net-analyzer/pmacct:ulog - Enable ULOG support
@@ -6458,7 +6459,7 @@ sys-devel/llvm:ncurses - Support querying terminal properties using ncurses' ter
 sys-devel/llvm:static-analyzer - Install the Clang static analyzer (requires USE=clang)
 sys-devel/llvm:udis86 - Enable support for dev-libs/udis86 disassembler library
 sys-devel/sparse:gtk - Build the test-inspect utility (requires x11-libs/gtk+ version 2)
-sys-devel/sparse:llvm - support llvm
+sys-devel/sparse:llvm - Build the sparse-llvm utility
 sys-devel/sparse:xml - Build the c2xml utility (requires dev-libs/libxml2).
 sys-firmware/seabios:binary - Use official upstream pre-built binaries
 sys-firmware/sigrok-firmware-fx2lafw:binary - Use official upstream pre-built binaries
@@ -6702,6 +6703,7 @@ sys-process/procps:modern-top - Enables new startup defaults of top. Keeps old d
 sys-process/procps:ncurses - Build programs that use ncurses: top, slabtop, watch
 virtual/mpi:romio - Enable romio, a high-performance portable MPI-IO
 virtual/mysql:embedded - Build embedded server (libmysqld)
+virtual/podofo-build:boost - Add support for boost
 virtual/udev:gudev - Build and install gudev support
 virtual/udev:hwdb - Build and install hwdb support
 virtual/udev:introspection - Build and install introspection support
