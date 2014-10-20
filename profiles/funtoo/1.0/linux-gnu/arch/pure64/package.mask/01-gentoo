@@ -1,6 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/arch/amd64/no-multilib/package.mask,v 1.123 2012/12/19 10:17:57 pinkbyte Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/arch/amd64/no-multilib/package.mask,v 1.139 2014/10/02 10:29:30 ulm Exp $
 
 # AMD64 Team <amd64@gentoo.org>
 # Mask packages that rely on amd64 multilib
@@ -9,18 +9,15 @@ app-accessibility/perlbox-voice
 app-arch/stuffit
 app-benchmarks/cpuburn
 =app-editors/emacs-18*
+app-emulation/crossover-bin
 app-emulation/crossover-office-bin
 app-emulation/crossover-office-pro-bin
 app-emulation/playonlinux
 app-emulation/q4wine
-app-emulation/virtualbox
-app-emulation/virtualbox-extpack-oracle
-app-emulation/virtualbox-guest-additions
 app-emulation/vmware-player
 >=app-i18n/atokx3-3.0.0
 app-office/ooextras
 app-emulation/emul-linux-x86-baselibs
-app-emulation/emul-linux-x86-compat
 app-emulation/emul-linux-x86-cpplibs
 app-emulation/emul-linux-x86-db
 app-emulation/emul-linux-x86-gstplugins
@@ -38,6 +35,7 @@ app-emulation/emul-linux-x86-java
 app-emulation/winetricks
 app-emulation/wine-doors
 app-text/acroread
+app-office/lotus-notes
 dev-embedded/libftd2xx
 dev-embedded/openocd
 >=dev-java/sun-j2me-bin-2.5.2.01
@@ -49,8 +47,6 @@ dev-perl/Archive-Rar
 dev-python/skype4py
 dev-util/android-sdk-update-manager
 dev-util/biew
-dev-util/dialogblocks
-dev-util/helpblocks
 games-action/cs2d
 games-action/descent3
 games-action/descent3-demo
@@ -68,6 +64,7 @@ games-arcade/aquaria
 games-arcade/barbarian-bin
 games-arcade/jardinains
 games-arcade/gish-demo
+games-arcade/thinktanks-demo
 games-emulation/caps
 games-emulation/nestra
 games-emulation/zinc
@@ -88,6 +85,7 @@ games-fps/doom3-roe
 games-fps/doom3
 games-fps/enemy-territory-etpro
 games-fps/enemy-territory-fortress
+games-fps/enemy-territory-omnibot
 games-fps/enemy-territory-truecombat
 games-fps/enemy-territory
 games-fps/etqw-bin
@@ -146,25 +144,20 @@ games-strategy/majesty-demo
 games-strategy/savage-bin
 games-strategy/smac
 games-strategy/spaz
-games-strategy/x2
-games-strategy/x2-demo
 media-fonts/acroread-asianfonts
-media-gfx/picasa
-media-libs/realcodecs
-media-libs/win32codecs
 media-sound/aucdtect
 media-sound/shoutcast-server-bin
 media-sound/shoutcast-trans-bin
 media-sound/skype-call-recorder
 media-sound/ventrilo-server-bin
-media-tv/huludesktop
-media-tv/livestation
 media-video/binkplayer
 media-video/tsmuxer
 net-im/skype
 net-im/skypetab-ng
 net-misc/icaclient
 net-misc/ps3mediaserver
+net-print/cndrvcups-common-lb
+net-print/cndrvcups-lb
 sci-biology/foldingathome
 sci-electronics/eagle
 sci-chemistry/cara-bin
@@ -172,13 +165,12 @@ sci-chemistry/cyana
 sci-chemistry/icm
 sci-chemistry/icm-browser
 sci-chemistry/mars
-sci-geosciences/googleearth
 sci-libs/ipp
 sys-apps/memtest86
 sys-apps/memtest86+
 sys-libs/lib-compat-loki
-<www-plugins/adobe-flash-11.0.1.60_beta201107131
 www-plugins/nspluginwrapper
+www-plugins/pipelight
 
 # AMD64 Team; <amd64@gentoo.org>
 # grub-1 is not available on no-multilib-profiles
