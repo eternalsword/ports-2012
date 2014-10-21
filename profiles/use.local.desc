@@ -2037,6 +2037,7 @@ dev-python/mwlib-rl:pdftk - Enable support for app-text/pdftk, required to gener
 dev-python/pandas:R - Enable support for R via dev-python/rpy
 dev-python/pandas:excel - Pull a few Python packages for Microsoft Excel i/o
 dev-python/pandas:html - Enable HTML i/o via dev-python/beautifulsoup
+dev-python/psycopg:mxdatetime - Enable support for MX DateTime and use it instead of Python's built-in datetime module
 dev-python/py-amqp:extras - Install extra tools to generate initial Python mod from an AMQP XML file
 dev-python/pyhamcrest:numpy - Enable optional dependence on dev-python/numpy
 dev-python/pylons:genshi - Add optional genshi support
@@ -2076,6 +2077,8 @@ dev-python/translate-toolkit:subtitles - Support conversion between po and sub f
 dev-python/vatnumber:vies - Enable VIES
 dev-python/ws4py:client - Install client modules
 dev-python/ws4py:server - Install server modules
+dev-python/wxpython:doc - Install HTML wxWidgets docs and wxpython API reference.
+dev-python/wxpython:examples - Install interactive demo module browser and sample applets.
 dev-python/zsi:twisted - add support for dev-python/twisted
 dev-qt/assistant:exceptions - Add support for exceptions - like catching them inside the event loop (recommended by upstream)
 dev-qt/designer:declarative - Build the qdeclarativeview plugin
