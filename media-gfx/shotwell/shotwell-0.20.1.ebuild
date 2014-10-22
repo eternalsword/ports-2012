@@ -1,12 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/shotwell/shotwell-0.20.1.ebuild,v 1.1 2014/10/11 17:52:19 jlec Exp $
 
-EAPI=5
+EAPI="5"
 
 GCONF_DEBUG="no"
-VALA_MIN_API_VERSION="0.20"
-VALA_MAX_API_VERSION="0.22"
+VALA_MIN_API_VERSION="0.24"
+VALA_MAX_API_VERSION="0.26"
 
 inherit eutils gnome2 multilib toolchain-funcs vala versionator
 
@@ -17,7 +15,7 @@ SRC_URI="mirror://gnome/sources/${PN}/$(get_version_component_range 1-2)/${P}.ta
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~*"
 IUSE=""
 
 CORE_SUPPORTED_LANGUAGES="
@@ -33,9 +31,9 @@ RDEPEND="
 	app-text/gnome-doc-utils
 	>=dev-db/sqlite-3.5.9:3
 	>=dev-libs/dbus-glib-0.80
-	>=dev-libs/glib-2.30.0:2
-	>=dev-libs/json-glib-0.7.6
-	>=dev-libs/libgee-0.8.5:0.8
+	>=dev-libs/glib-2.42.0:2
+	>=dev-libs/json-glib-1.0.0
+	>=dev-libs/libgee-0.16.0:0.8
 	>=dev-libs/libxml2-2.6.32:2
 	>=dev-util/desktop-file-utils-0.13
 	gnome-base/dconf
@@ -47,11 +45,11 @@ RDEPEND="
 	>=media-libs/libexif-0.6.16:=
 	>=media-libs/libgphoto2-2.4.2:=
 	>=media-libs/libraw-0.13.2:=
-	>=net-libs/libsoup-2.26.0:2.4
+	>=net-libs/libsoup-2.48.0:2.4
 	>=net-libs/rest-0.7:0.7
 	>=net-libs/webkit-gtk-1.4:3
 	virtual/libgudev:=[introspection]
-	>=x11-libs/gtk+-3.6.0:3"
+	>=x11-libs/gtk+-3.14.0:3"
 DEPEND="${RDEPEND}
 	$(vala_depend)
 	>=sys-devel/m4-1.4.13"
