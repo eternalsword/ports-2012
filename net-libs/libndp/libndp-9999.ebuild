@@ -2,18 +2,16 @@
 
 EAPI="5"
 
-inherit autotools
+inherit autotools git-r3
 
 DESCRIPTION="Library for Neighbor Discovery Protocol"
 HOMEPAGE="https://github.com/jpirko/libndp"
-SRC_URI="https://github.com/jpirko/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+EGIT_REPO_URI="https://github.com/jpirko/${PN}.git"
 
-LICENSE="LGPL-2.1"
+LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS=""
 IUSE=""
-
-RESTRICT="mirror"
 
 RDEPEND=""
 DEPEND="${RDEPEND}"
