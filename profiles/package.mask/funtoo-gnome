@@ -115,9 +115,9 @@
 >=media-gfx/simple-scan-3.14.0
 >=media-libs/clutter-1.20.0
 >=media-libs/clutter-gtk-1.6.0
->=media-libs/gst-plugins-base-1.4.3
->=media-libs/gst-plugins-good-1.4.3
->=media-libs/gstreamer-1.4.3
+#>=media-libs/gst-plugins-base-1.4.3
+#>=media-libs/gst-plugins-good-1.4.3
+#>=media-libs/gstreamer-1.4.3
 >=media-libs/harfbuzz-0.9.35
 >=media-libs/libmediaart-0.7.0
 >=media-sound/gnome-music-3.14.1
