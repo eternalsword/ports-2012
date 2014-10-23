@@ -4410,6 +4410,11 @@ net-dns/opendnssec:external-hsm - Enables support for storing DNSSEC keys throug
 net-dns/opendnssec:opensc - Enables support for storing DNSSEC keys through a dev-libs/opensc PKCS#11 interface
 net-dns/opendnssec:signer - Enables signing capabilities for OpenDNSSEC
 net-dns/opendnssec:softhsm - Enables support for storing DNSSEC keys in a dev-libs/softhsm PKCS#11 object
+net-dns/openldap:experimental - Enable experimental backend options
+net-dns/openldap:minimal - Build libraries & userspace tools only. Does not install any server code.
+net-dns/openldap:odbc - Enable ODBC and SQL backend options
+net-dns/openldap:overlays - Enable contributed OpenLDAP overlays
+net-dns/openldap:smbkrb5passwd - Enable overlay for syncing ldap, unix and lanman passwords
 net-dns/pdns:botan - Make it possible to use the dev-libs/botan library for crypto-related stuff (like DNSSec) which can be significantly faster than PolarSSL.
 net-dns/pdns:cryptopp - Make it possible to use the dev-libs/crypto++ library for crypto-related stuff (like DNSSec) which can be significantly faster than PolarSSL.
 net-dns/pdns:mydns - Making it possible to use a MyDNS MySQL database with PowerDNS (not recommended for new deployments).
