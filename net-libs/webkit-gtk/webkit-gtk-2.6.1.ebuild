@@ -207,6 +207,7 @@ src_configure() {
 		$(cmake-utils_use_find_package introspection GobjectIntrospection)
 		$(cmake-utils_use_find_package opengl OpenGL)
 		-DPORT=GTK
+		-DENABLE_GTKDOC=ON
 		-DENABLE_PLUGIN_PROCESS_GTK2=ON
 		${ruby_interpreter}
 	)
