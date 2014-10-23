@@ -125,6 +125,7 @@
 >=media-sound/sound-juicer-3.14.0
 >=media-video/cheese-3.14.1
 >=media-video/totem-3.14.0
+>=media-video/mkvtoolnix-7.3.0
 >=net-im/empathy-3.12.7
 >=net-im/telepathy-mission-control-5.16.3
 >=net-libs/glib-networking-2.42.0
