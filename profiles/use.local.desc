@@ -1697,28 +1697,21 @@ dev-libs/ecore:tslib - Build with tslib support for touchscreen devices.
 dev-libs/ecore:wayland - Add support for dev-libs/wayland
 dev-libs/ecore:xprint - Enable X11 Xprint support
 dev-libs/eeze:utilities - Install some test utilities for mount/umount support in eeze
-dev-libs/efl:bmp - Enable WBMP image loader.
-dev-libs/efl:drm - Enable DRM engine.
-dev-libs/efl:eet - Enable Eet image loader.
-dev-libs/efl:egl - Enable EGL rendering.
-dev-libs/efl:fribidi - Enable bidirectional text support.
-dev-libs/efl:gles - Enable the OpenGL ES GL implementation.
-dev-libs/efl:glib - Enable dev-libs/glib support.
-dev-libs/efl:harfbuzz - Enable complex text shaping and layout support.
-dev-libs/efl:ibus - Enable Intelligent Input Bus.
-dev-libs/efl:ico - Enable Ico image loader.
-dev-libs/efl:jp2k - Enable JPEG 2000 image loader.
-dev-libs/efl:oldlua - USE dev-lang/lua instead of dev-lang/luajit
-dev-libs/efl:physics - Enable Bullet physics effects and support.
-dev-libs/efl:pixman - Enable PixMan for software rendering.
-dev-libs/efl:ppm - Enable PMAPS image loader.
-dev-libs/efl:psd - Enable PSD image loader.
-dev-libs/efl:scim - Enable Smart Common Input Method.
-dev-libs/efl:tga - Enable Tga image loader.
-dev-libs/efl:tslib - Enable x11-libs/tslib for touchscreen events.
-dev-libs/efl:v4l2 - Enable Video4Linux2 support.
-dev-libs/efl:webp - Enable WebP image loader.
-dev-libs/efl:xim - Enable X Input Method.
+dev-libs/efl:cxx-bindings - 
+dev-libs/efl:drm - 
+dev-libs/efl:egl - 
+dev-libs/efl:fribidi - 
+dev-libs/efl:gles - 
+dev-libs/efl:glib - 
+dev-libs/efl:harfbuzz - 
+dev-libs/efl:ibus - 
+dev-libs/efl:jp2k - 
+dev-libs/efl:physics - 
+dev-libs/efl:scim - 
+dev-libs/efl:tslib - 
+dev-libs/efl:v4l2 - 
+dev-libs/efl:webp - 
+dev-libs/efl:xim - 
 dev-libs/eina:default-mempool - By default use system's allocator (pass-through) instead of custom choice for Eina's own data structures.
 dev-libs/eina:mempool-buddy - Compile "buddy" memory pool allocation.
 dev-libs/eina:mempool-chained-pool - Compile "chained-pool" memory pool allocation.
@@ -2273,11 +2266,6 @@ dev-tex/dot2texi:pstricks - Enable pstricks support
 dev-util/android-ndk:legacy-toolchains - Install legacy toolchains
 dev-util/android-ndk:target-32 - Support for 32-bit targets
 dev-util/android-ndk:target-64 - Support for 64-bit targets
-dev-util/anjuta:devhelp - Enable devhelp integration
-dev-util/anjuta:glade - Build glade plugin for anjuta
-dev-util/anjuta:packagekit - Use packagekit to search for missing tools
-dev-util/anjuta:terminal - Enable terminal plugin based on x11-libs/vte
-dev-util/anjuta:vala - Enable support for the Vala programming language
 dev-util/apitrace:cli - Enable command line interface
 dev-util/apitrace:egl - Enable EGL support
 dev-util/catalyst:ccache - Enables ccache support
@@ -2287,7 +2275,6 @@ dev-util/cppcheck:htmlreport - install cppcheck-htmlreport
 dev-util/ctags:ada - Enable Ada support
 dev-util/cwdiff:a2ps - install app-text/a2ps for postscript output
 dev-util/cwdiff:mercurial - install hg wdiff alias for dev-vcs/mercurial
-dev-util/devhelp:gedit - Install plugin for app-editors/gedit
 dev-util/dialog:minimal - Disable library, install command-line program only
 dev-util/emilpro:system-binutils - Use the gentoo binutils instead of building against an unpatched vanilla version
 dev-util/fatrace:powertop - Add powetop integration
@@ -3280,7 +3267,7 @@ media-libs/coin:simage - Texture loading via media-libs/simage library
 media-libs/devil:allegro - Add support for Allegro
 media-libs/devil:nvtt - Add support for dev-util/nvidia-texture-tools
 media-libs/edje:cache - Enable caching
-media-libs/elementary:quicklaunch - Enable quick-launch support
+media-libs/elementary:quicklaunch - 
 media-libs/emotion:vlc - Enable support for the media-video/vlc player backend
 media-libs/esdl:image - Enable image support
 media-libs/ethumb:emotion - Add support for media-libs/emotion
@@ -7020,27 +7007,13 @@ x11-drivers/xf86-video-nouveau:glamor - Enable Glamor OpenGL 2D acceleration
 x11-drivers/xf86-video-openchrome:viaregtool - Install registers dumper tool
 x11-drivers/xf86-video-qxl:xspice - Build the xspice driver
 x11-libs/agg:gpc - Enable gpc polygon clipper library
-x11-libs/cairo:drm - Use Linux DRM for backend acceleration
-x11-libs/cairo:gallium - Use Mesa's Gallium backend for acceleration
-x11-libs/cairo:gles2 - Use OpenGL ES 2 backend for acceleration.
-x11-libs/cairo:glib - Compile with GLib Object System support
-x11-libs/cairo:legacy-drivers - Include the buggy gradients patch (for legacy drivers, such as nvidia-drivers older than 304.30)
-x11-libs/cairo:lto - Try to build with Link-Time Optimization if supported by the compiler. This is recommended by upstream, but can cause build failure in some environments and on machines with little memory.
-x11-libs/cairo:opengl - Use Mesa backend for acceleration
-x11-libs/cairo:openvg - Use OpenVG for backend acceleration
-x11-libs/cairo:valgrind - Built-in support to mark memory regions
-x11-libs/cairo:xlib-xcb - Use XCB renderer backend for acceleration over xlib
 x11-libs/colord-gtk:vala - Generate bindings for dev-lang/vala
 x11-libs/fltk:games - Builds and installs some extra games
 x11-libs/glamor:gles - Build glamor based on gles2
-x11-libs/gtk+:cloudprint - Enable printing via Google Cloud Print.
-x11-libs/gtk+:colord - Use x11-misc/colord for color management in printing
-x11-libs/gtk+:packagekit - Enable support for the distro-neutral package manager GUI app-admin/packagekit in application chooser
 x11-libs/gtk+extra:introspection - Use dev-libs/gobject-introspection for introspection
 x11-libs/gtkdatabox:glade - Build with libglade and glade-3 supports, which includes a glade's module for GtkDataBox widget
 x11-libs/gtkmathview:mathml - Install additional fonts for proper mathml support.
 x11-libs/gtkmathview:t1lib - Enable media-libs/t1lib support
-x11-libs/gtksourceview:glade - Install a glade catalog file
 x11-libs/libSM:uuid - Use UUID for session identification instead of IP address and system time.
 x11-libs/libXaw:deprecated - Install deprecated Xaw6 library.
 x11-libs/libXfont:bzip2 - Support bzip2 compressed PCF fonts.
@@ -7197,64 +7170,67 @@ x11-themes/zukitwo:gnome-shell - Install theme for gnome-base/gnome-shell
 x11-wm/compiz-fusion:emerald - Install the x11-wm/emerald package.
 x11-wm/compiz-fusion:unsupported - Install the x11-plugins/compiz-fusion-plugins-unsupported package.
 x11-wm/echinus:xrandr - Enable support for multihead configuration
-x11-wm/enlightenment:enlightenment_modules_access - Accessibility module designed to improve ease of use for the vision impaired and the blind
-x11-wm/enlightenment:enlightenment_modules_appmenu - Gadget that hold the toolbar of the foreground application
-x11-wm/enlightenment:enlightenment_modules_backlight - Backlight control slider gadget
-x11-wm/enlightenment:enlightenment_modules_battery - A gadget to visualize your battery status
-x11-wm/enlightenment:enlightenment_modules_bluez4 - Configure Bluetooth devices
-x11-wm/enlightenment:enlightenment_modules_clock - Nice clock gadget to show current time
-x11-wm/enlightenment:enlightenment_modules_comp - Enlightenment Composite Manager
-x11-wm/enlightenment:enlightenment_modules_conf-applications - Allows configuration of Ibar, Restart, and Startup applications
-x11-wm/enlightenment:enlightenment_modules_conf-comp - Configure default dialog properties
-x11-wm/enlightenment:enlightenment_modules_conf-dialogs - Configure default dialog properties
-x11-wm/enlightenment:enlightenment_modules_conf-display - Used to configure your screen
-x11-wm/enlightenment:enlightenment_modules_conf-edgebindings - Configure your edge bindings here
-x11-wm/enlightenment:enlightenment_modules_conf-interaction - Configure Mouse and Touch input
-x11-wm/enlightenment:enlightenment_modules_conf-intl - Used to select a default language
-x11-wm/enlightenment:enlightenment_modules_conf-keybindings - Key, Mouse and Button control settings
-x11-wm/enlightenment:enlightenment_modules_conf-menus - Configures menu behavior
-x11-wm/enlightenment:enlightenment_modules_conf-paths - Specifies the Enlightenment search paths and default directories
-x11-wm/enlightenment:enlightenment_modules_conf-performance - Used to configure certain performance related items as frame rates and cache settings
-x11-wm/enlightenment:enlightenment_modules_conf-randr - Used to configure your screen's resolution
-x11-wm/enlightenment:enlightenment_modules_conf-shelves - Shelf configuration dialog
-x11-wm/enlightenment:enlightenment_modules_conf-theme - Used to configure your theme preferences
-x11-wm/enlightenment:enlightenment_modules_conf-wallpaper2 - Used to configure your theme preferences
-x11-wm/enlightenment:enlightenment_modules_conf-window-manipulation - Configures window raise, resistance, and maximize policies
-x11-wm/enlightenment:enlightenment_modules_conf-window-remembers - Delete existing window remembers
-x11-wm/enlightenment:enlightenment_modules_connman - Control Wifi and wired networks as a user
-x11-wm/enlightenment:enlightenment_modules_contact - Enable the contact module
-x11-wm/enlightenment:enlightenment_modules_cpufreq - Gadget to monitor and change the CPU frequency
-x11-wm/enlightenment:enlightenment_modules_dropshadow - Module to add a dropshadow to windows
-x11-wm/enlightenment:enlightenment_modules_everything - The run command module provides an application launcher dialog
-x11-wm/enlightenment:enlightenment_modules_fileman - Enlightenment's integrated file manager
-x11-wm/enlightenment:enlightenment_modules_fileman-opinfo - Can be placed on the desktop or in a shelf
-x11-wm/enlightenment:enlightenment_modules_gadman - Module to manage gadgets on the desktop
-x11-wm/enlightenment:enlightenment_modules_ibar - Iconic application launcher
-x11-wm/enlightenment:enlightenment_modules_ibox - A home for your iconified applications
-x11-wm/enlightenment:enlightenment_modules_illume2 - Illume2 - next generation of illume - special WM mode for embedded devices and set of plugins with same purpose
-x11-wm/enlightenment:enlightenment_modules_mixer - A module to provide a mixer for changing volume
-x11-wm/enlightenment:enlightenment_modules_msgbus - DBus Extension
-x11-wm/enlightenment:enlightenment_modules_music-control - Control your music in your shelf
-x11-wm/enlightenment:enlightenment_modules_notification - notification-daemon alternative. Popup if an event occur
-x11-wm/enlightenment:enlightenment_modules_pager - Gadget to allow you to visualize your virtual desktops and the windows they contain
-x11-wm/enlightenment:enlightenment_modules_quickaccess - Enlightenment Quickaccess Launcher
-x11-wm/enlightenment:enlightenment_modules_shot - Simple screenshot+save/upload module
-x11-wm/enlightenment:enlightenment_modules_start - Enlightenment's "Start" button equivalent
-x11-wm/enlightenment:enlightenment_modules_syscon - This module provides a unified popup dialog for all the system actions in Enlightenment
-x11-wm/enlightenment:enlightenment_modules_systray - system tray that hold applications icons like Skype, Pidgin, Kopete and others
-x11-wm/enlightenment:enlightenment_modules_tasks - Gadget to allow you to switch tasks
-x11-wm/enlightenment:enlightenment_modules_teamwork - Enable teamwork module
-x11-wm/enlightenment:enlightenment_modules_temperature - Temperature monitor
-x11-wm/enlightenment:enlightenment_modules_tiling - Positions/resizes your windows tilingly
-x11-wm/enlightenment:enlightenment_modules_winlist - A module to show the list of client applications presently running
-x11-wm/enlightenment:enlightenment_modules_wizard - First Run Wizard
-x11-wm/enlightenment:enlightenment_modules_wl-desktop-shell - Enlightenment Wayland Desktop Shell
-x11-wm/enlightenment:enlightenment_modules_wl-screenshot - Enlightenment Wayland Screenshot module
-x11-wm/enlightenment:enlightenment_modules_xkbswitch - Keyboard layout configuration and switcher
-x11-wm/enlightenment:pango - Enable pango font rendering
-x11-wm/enlightenment:udev - Use sys-fs/udev to determine available devices
-x11-wm/enlightenment:ukit - Use upower/udisks to automount devices
-x11-wm/enlightenment:xrandr - Enable support for the X xrandr extension
+x11-wm/enlightenment:eeze - 
+x11-wm/enlightenment:egl - 
+x11-wm/enlightenment:enlightenment_modules_access - 
+x11-wm/enlightenment:enlightenment_modules_appmenu - 
+x11-wm/enlightenment:enlightenment_modules_backlight - 
+x11-wm/enlightenment:enlightenment_modules_battery - 
+x11-wm/enlightenment:enlightenment_modules_bluez4 - 
+x11-wm/enlightenment:enlightenment_modules_clock - 
+x11-wm/enlightenment:enlightenment_modules_conf-applications - 
+x11-wm/enlightenment:enlightenment_modules_conf-bindings - 
+x11-wm/enlightenment:enlightenment_modules_conf-comp - 
+x11-wm/enlightenment:enlightenment_modules_conf-dialogs - 
+x11-wm/enlightenment:enlightenment_modules_conf-display - 
+x11-wm/enlightenment:enlightenment_modules_conf-interaction - 
+x11-wm/enlightenment:enlightenment_modules_conf-intl - 
+x11-wm/enlightenment:enlightenment_modules_conf-menus - 
+x11-wm/enlightenment:enlightenment_modules_conf-paths - 
+x11-wm/enlightenment:enlightenment_modules_conf-performance - 
+x11-wm/enlightenment:enlightenment_modules_conf-randr - 
+x11-wm/enlightenment:enlightenment_modules_conf-shelves - 
+x11-wm/enlightenment:enlightenment_modules_conf-theme - 
+x11-wm/enlightenment:enlightenment_modules_conf-wallpaper2 - 
+x11-wm/enlightenment:enlightenment_modules_conf-window-manipulation - 
+x11-wm/enlightenment:enlightenment_modules_conf-window-remembers - 
+x11-wm/enlightenment:enlightenment_modules_connman - 
+x11-wm/enlightenment:enlightenment_modules_contact - 
+x11-wm/enlightenment:enlightenment_modules_cpufreq - 
+x11-wm/enlightenment:enlightenment_modules_everything - 
+x11-wm/enlightenment:enlightenment_modules_fileman - 
+x11-wm/enlightenment:enlightenment_modules_fileman-opinfo - 
+x11-wm/enlightenment:enlightenment_modules_gadman - 
+x11-wm/enlightenment:enlightenment_modules_ibar - 
+x11-wm/enlightenment:enlightenment_modules_ibox - 
+x11-wm/enlightenment:enlightenment_modules_illume2 - 
+x11-wm/enlightenment:enlightenment_modules_lokker - 
+x11-wm/enlightenment:enlightenment_modules_mixer - 
+x11-wm/enlightenment:enlightenment_modules_msgbus - 
+x11-wm/enlightenment:enlightenment_modules_music-control - 
+x11-wm/enlightenment:enlightenment_modules_notification - 
+x11-wm/enlightenment:enlightenment_modules_packagkit - 
+x11-wm/enlightenment:enlightenment_modules_pager - 
+x11-wm/enlightenment:enlightenment_modules_pager16 - 
+x11-wm/enlightenment:enlightenment_modules_quickaccess - 
+x11-wm/enlightenment:enlightenment_modules_shot - 
+x11-wm/enlightenment:enlightenment_modules_start - 
+x11-wm/enlightenment:enlightenment_modules_syscon - 
+x11-wm/enlightenment:enlightenment_modules_systray - 
+x11-wm/enlightenment:enlightenment_modules_tasks - 
+x11-wm/enlightenment:enlightenment_modules_teamwork - 
+x11-wm/enlightenment:enlightenment_modules_temperature - 
+x11-wm/enlightenment:enlightenment_modules_tiling - 
+x11-wm/enlightenment:enlightenment_modules_winlist - 
+x11-wm/enlightenment:enlightenment_modules_wizard - 
+x11-wm/enlightenment:enlightenment_modules_wl-desktop-shell - 
+x11-wm/enlightenment:enlightenment_modules_wl-drm - 
+x11-wm/enlightenment:enlightenment_modules_wl-fb - 
+x11-wm/enlightenment:enlightenment_modules_wl-screenshot - 
+x11-wm/enlightenment:enlightenment_modules_wl-x11 - 
+x11-wm/enlightenment:enlightenment_modules_xkbswitch - 
+x11-wm/enlightenment:pm-utils - 
+x11-wm/enlightenment:ukit - 
 x11-wm/fluxbox:bidi - Enable bidirectional language support with dev-libs/fribidi
 x11-wm/fluxbox:slit - Enables the fluxbox slit (or dock)
 x11-wm/fluxbox:toolbar - Enables the fluxbox toolbar
