@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.4.40.ebuild,v 1.4 2014/10/13 21:03:06 robbat2 Exp $
 
 EAPI="5"
 
@@ -19,7 +17,7 @@ SRC_URI="ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/${P}.tgz
 
 LICENSE="OPENLDAP GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~x86-solaris"
+KEYWORDS="*"
 
 IUSE_DAEMON="crypt icu samba slp tcpd experimental minimal"
 IUSE_BACKEND="+berkdb"
@@ -288,6 +286,9 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-2.2.14-perlthreadsfix.patch \
 		"${FILESDIR}"/${PN}-2.4.15-ppolicy.patch
 
+	# bug #525110
+	epatch "${FILESDIR}"/${P}-bdb-6.0.20.patch
+
 	# bug #116045 - still present in 2.4.28
 	epatch "${FILESDIR}"/${PN}-2.4.35-contrib-smbk5pwd.patch
 	# bug #408077 - samba4
@@ -310,9 +311,6 @@ src_prepare() {
 
 	# bug #420959
 	epatch "${FILESDIR}"/${PN}-2.4.31-gcc47.patch
-
-	# bug #421463
-	#epatch "${FILESDIR}"/${PN}-2.4.33-gnutls.patch # merged upstream
 
 	sed -i.orig \
 		-e '/IDOCS.*DESTDIR/s,/man/man1,/share/man/man1,g' \
