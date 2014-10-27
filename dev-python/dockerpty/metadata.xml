@@ -2,8 +2,9 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer>
-		<email>radhermit@gentoo.org</email>
-		<name>Tim Harder</name>
+		<email>alunduil@gentoo.org</email>
+		<name>Alex Brandt</name>
 	</maintainer>
-	<herd>tex</herd>
+	<longdescription lang="en">
+	</longdescription>
 </pkgmetadata>
