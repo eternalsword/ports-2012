@@ -1,10 +1,8 @@
-# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/system-config-printer-gnome/system-config-printer-gnome-1.3.13.ebuild,v 1.1 2013/10/30 18:05:19 pacho Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
-PYTHON_COMPAT=( python2_{6,7} )
+PYTHON_COMPAT=( python3_3 )
 PYTHON_REQ_USE="xml"
 
 inherit autotools gnome2 eutils python-single-r1 versionator
@@ -17,31 +15,37 @@ HOMEPAGE="http://cyberelk.net/tim/software/system-config-printer/"
 SRC_URI="http://cyberelk.net/tim/data/system-config-printer/${MY_V}/${MY_P}.tar.xz"
 
 LICENSE="GPL-2"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86"
+KEYWORDS="*"
 SLOT="0"
-IUSE="gnome-keyring"
+IUSE="gnome-keyring policykit +python_single_target_python3_3"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # Needs cups running, bug 284005
 RESTRICT="test"
 
-# Additional unhandled dependencies
-# gnome-extra/gnome-packagekit[${PYTHON_USEDEP}] with pygobject:2 ?
-# python samba client: smbc
-# selinux: needed for troubleshooting
 RDEPEND="
 	${PYTHON_DEPS}
-	~app-admin/system-config-printer-common-${PV}
-	dev-python/notify-python
+	!app-admin/system-config-printer-common
+	dev-libs/libxml2[python,${PYTHON_USEDEP}]
+	dev-python/dbus-python[${PYTHON_USEDEP}]
+	dev-python/pycairo[${PYTHON_USEDEP}]
 	>=dev-python/pycups-1.9.60[${PYTHON_USEDEP}]
-	>=dev-python/pygtk-2.4
-	gnome-keyring? ( gnome-base/libgnome-keyring )
+	dev-python/pycurl[${PYTHON_USEDEP}]
+	dev-python/pygobject:3[${PYTHON_USEDEP}]
+	gnome-keyring? ( gnome-base/libgnome-keyring[introspection] )
+	net-print/cups[dbus]
+	virtual/libusb:1
+	>=virtual/udev-172
+	x11-libs/gtk+:3[introspection]
+	x11-libs/libnotify[introspection]
+	x11-libs/pango[introspection]
 "
 DEPEND="${RDEPEND}
 	app-text/docbook-xml-dtd:4.1.2
 	>=app-text/xmlto-0.0.22
 	dev-util/desktop-file-utils
 	dev-util/intltool
+	policykit? ( >=sys-auth/polkit-0.104-r1 )
 	sys-devel/gettext
 	virtual/pkgconfig
 "
@@ -62,12 +66,6 @@ pkg_setup() {
 	python-single-r1_pkg_setup
 }
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PN}-1.3.13-split.patch
-	eautoreconf
-	gnome2_src_prepare
-}
-
 src_configure() {
 	local myconf
 
@@ -79,8 +77,8 @@ src_configure() {
 	fi
 
 	gnome2_src_configure \
-		--with-desktop-vendor=Gentoo \
-		--without-udev-rules \
+		--with-desktop-vendor=Funtoo \
+		--with-udev-rules \
 		${myconf}
 }
 
