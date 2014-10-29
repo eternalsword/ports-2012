@@ -1,8 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-boot/plymouth/plymouth-9999.ebuild,v 1.1 2014/07/06 18:16:51 maksbotan Exp $
 
-EAPI=5
+EAPI="5"
 
 SRC_URI="
 	http://dev.gentoo.org/~aidecoe/distfiles/${CATEGORY}/${PN}/gentoo-logo.png"
@@ -23,8 +21,8 @@ HOMEPAGE="http://cgit.freedesktop.org/plymouth/"
 LICENSE="GPL-2"
 SLOT="0"
 [[ ${PV} == 9999 ]] || \
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
-IUSE="debug gdm +gtk +libkms +pango static-libs"
+KEYWORDS="~*"
+IUSE="debug gdm +gtk +libkms +pango static-libs systemd"
 
 CDEPEND="
 	>=media-libs/libpng-1.2.16
@@ -34,6 +32,7 @@ CDEPEND="
 		x11-libs/cairo )
 	libkms? ( x11-libs/libdrm[libkms] )
 	pango? ( >=x11-libs/pango-1.21 )
+	systemd? ( sys-apps/systemd )
 "
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
@@ -58,12 +57,12 @@ src_configure() {
 		--with-system-root-install=no
 		--localstatedir=/var
 		--without-rhgb-compat-link
-		--enable-systemd-integration
 		$(use_enable debug tracing)
 		$(use_enable gtk gtk)
 		$(use_enable libkms drm)
 		$(use_enable pango)
 		$(use_enable gdm gdm-transition)
+		$(use_enable systemd systemd-integration)
 		)
 	autotools-utils_src_configure
 }
