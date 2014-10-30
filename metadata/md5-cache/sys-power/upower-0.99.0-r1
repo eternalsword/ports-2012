@@ -10,4 +10,4 @@ RDEPEND=>=dev-libs/dbus-glib-0.100 >=dev-libs/glib-2.30 dev-util/gdbus-codegen s
 SLOT=0/2
 SRC_URI=http://upower.freedesktop.org/releases/upower-0.99.0.tar.xz
 _eclasses_=eutils	32548a82e42dc26e3312581476d2f20c	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	systemd	b0daeef4b75b0130d34c62aa1930d21e	toolchain-funcs	6ce35cb0d56d962486c858d41604c820
-_md5_=e797b79f82be2d7cce913a8941e4cd42
+_md5_=676b220dc58fc27c3b728141f165e74e
