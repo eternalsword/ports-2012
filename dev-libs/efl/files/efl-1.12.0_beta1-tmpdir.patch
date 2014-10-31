@@ -1,0 +1,40 @@
+From e105abc99e717b84723ab35258375e27f17f8e82 Mon Sep 17 00:00:00 2001
+From: Stefan Schmidt <s.schmidt@samsung.com>
+Date: Wed, 29 Oct 2014 15:51:11 +0100
+Subject: eina_file: Give TMPDIR presedence over XDG_RUNTIME_DIR when defined
+
+XDG_RUNTIME_DIR gives us a nice securty benefit by only allowing the
+same user to read wand write files.
+
+In some configuration this is problematic though. If one looks at the
+bug report this fixes  for example you can see that there are build
+scripts that use a special build user.
+
+The way this has always worked on unix is that you can define your
+own tempdir with TMPDIR. When I was making the original change towards
+XDG_RUNTIME_DIR I expected some trouble with it but it worked quite
+well so far.
+
+To avoid breaking scripts out there and maybe configurations we
+haven't tested yet give TMPDIR precedence over XDG_RUNTIME_DIR.
+
+Fixes T1766
+
+diff --git a/src/lib/eina/eina_file_common.c b/src/lib/eina/eina_file_common.c
+index 2a2e3e4..5c2b87a 100644
+--- a/src/lib/eina/eina_file_common.c
++++ b/src/lib/eina/eina_file_common.c
+@@ -908,8 +908,8 @@ eina_file_mkstemp(const char *templatename, Eina_Tmpstr **path)
+ #if defined(HAVE_GETUID) && defined(HAVE_GETEUID)
+    if (getuid() == geteuid())
+ #endif
+-     tmpdir = getenv("XDG_RUNTIME_DIR");
+-   if (!tmpdir) tmpdir = getenv("TMPDIR");
++     tmpdir = getenv("TMPDIR");
++   if (!tmpdir) tmpdir = getenv("XDG_RUNTIME_DIR");
+    if (!tmpdir) tmpdir = "/tmp";
+ #else
+    tmpdir = (char *)evil_tmpdir_get();
+-- 
+cgit v0.10.1
+
