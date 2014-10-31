@@ -10,4 +10,4 @@ RDEPEND=>=dev-libs/glib-2.42.0:2 x11-libs/gdk-pixbuf:2 >=x11-libs/gtk+-3.14.0:3 
 SLOT=0
 SRC_URI=mirror://gnome/sources/gnome-session/3.14/gnome-session-3.14.0.tar.xz
 _eclasses_=autotools	ebea507d219855923e3438c953cf4ab8	eutils	32548a82e42dc26e3312581476d2f20c	fdo-mime	0acfe1a88fd8751a1d5dc671168219fa	gnome.org	8fef8f967214f56e08fa92d61163d891	gnome2	d6a3125760ce1a56efda628043f4acec	gnome2-utils	924d80d23c665d976484b8bfb50ae08b	libtool	52d0e17251d04645ffaa61bfdd858944	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	multiprocessing	d7f2985a2c76c365ee20269db5261414	toolchain-funcs	6ce35cb0d56d962486c858d41604c820	versionator	cd0bcdb170807e4a1984115e9d53a26f
-_md5_=d6317632536cd4946769a209f76021a1
+_md5_=2911de2c08bf9d8d922d42b653c875be
