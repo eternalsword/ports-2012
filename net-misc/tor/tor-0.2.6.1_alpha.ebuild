@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/tor/tor-0.2.5.9_rc.ebuild,v 1.1 2014/10/20 16:48:46 blueness Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/tor/tor-0.2.6.1_alpha.ebuild,v 1.1 2014/10/31 11:48:23 blueness Exp $
 
 EAPI="5"
 
@@ -17,13 +17,14 @@ S="${WORKDIR}/${MY_PF}"
 LICENSE="BSD GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~mips ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
-IUSE="-bufferevents +ecc nat-pmp selinux stats tor-hardening transparent-proxy threads test upnp web"
+IUSE="-bufferevents nat-pmp seccomp selinux stats tor-hardening transparent-proxy test upnp web"
 
 DEPEND="dev-libs/openssl
 	sys-libs/zlib
 	dev-libs/libevent
 	bufferevents? ( dev-libs/libevent[ssl] )
 	nat-pmp? ( net-libs/libnatpmp )
+	seccomp? ( sys-libs/libseccomp )
 	upnp? ( net-libs/miniupnpc )
 	selinux? ( sec-policy/selinux-tor )"
 RDEPEND="${DEPEND}"
@@ -42,26 +43,25 @@ src_configure() {
 	# will break tor, but does recommend against -fstrict-aliasing.
 	# We'll filter-flags them here as we encounter them.
 	filter-flags -fstrict-aliasing
+
+	# We disable libscrypt until I get it in the tree
 	econf \
 		--disable-buf-freelists \
+		--disable-libscrypt \
 		--enable-asciidoc \
+		--enable-mempools \
 		--docdir=/usr/share/doc/${PF} \
 		$(use_enable stats instrument-downloads) \
 		$(use_enable bufferevents) \
-		$(use_enable ecc curve25519) \
 		$(use_enable nat-pmp) \
+		$(use_enable seccomp) \
 		$(use_enable tor-hardening gcc-hardening) \
 		$(use_enable tor-hardening linker-hardening) \
 		$(use_enable transparent-proxy transparent) \
-		$(use_enable threads) \
 		$(use_enable upnp) \
 		$(use_enable web tor2web-mode) \
 		$(use_enable test unittests) \
 		$(use_enable test coverage)
-}
-
-src_test() {
-	emake check
 }
 
 src_install() {
