@@ -1525,6 +1525,7 @@ dev-java/icedtea:zero - Enable Zero assembler port (usually for non-HotSpot arch
 dev-java/icedtea-web:icedtea7 - Build icedtea-7 support in addition to icedtea-6 support. Requires icedtea{-bin}-7
 dev-java/icedtea-web:javascript - Enable support for using proxy auto config (PAC) files.
 dev-java/icedtea-web:nsplugin - Enable the browser plugin (NPPlugin).
+dev-java/icedtea-web:tagsoup - Depend on dev-java/tagsoup which allows parsing malformed .jnlp files
 dev-java/itext:rtf - Build and provide libraries for rich text format
 dev-java/itext:rups - Build and provide GUI for Reading/Updating PDF Syntax
 dev-java/jcs:admin - Enable JCS Admin servlets
@@ -4374,7 +4375,6 @@ net-analyzer/smokeping:telnet - Install dev-perl/Net-Telnet for telnet functiona
 net-analyzer/symon:perl - Enables a generic perl symux client
 net-analyzer/symon:symon - Enables the system monitor. Offers no functionality but monitoring and forwarding of measured data
 net-analyzer/symon:symux - Enables the multiplexer which stores incoming symon streams on disk in RRD (net-analyzer/rrdtool) files
-net-analyzer/tcpdump:chroot - Chroot into /var/lib/tcpdump when dropping privileges
 net-analyzer/tcpdump:drop-root - Drop privileges to tcpdump:tcpdump when run as root
 net-analyzer/tcpdump:smi - Build with net-libs/libsmi to load MIBs on the fly to decode SNMP packets
 net-analyzer/tcpflow:pcap - Use net-libs/libpcap for packet capturing
@@ -4887,6 +4887,8 @@ net-libs/liboauth:bindist - Alias for the nss USE flag, since there are license 
 net-libs/liboauth:curl - If enabled, net-misc/curl is used thorugh the libcurl library; if it's not, the curl command is used instead. Some features are only available when using the library, but using it as library requires matching SSL implementations.
 net-libs/liboauth:nss - Use Mozilla NSS (dev-libs/nss) as hash library; if this is disabled, dev-libs/openssl is used instead.
 net-libs/libosmocore:embedded - Build for embedded use and disable unsupported features
+net-libs/libpcap:canusb - Use virtual/libusb to support Controller Area Network over USB (CAN USB)
+net-libs/libpcap:netlink - Use dev-libs/libnl to put wireless interfaces in monitor mode.
 net-libs/libprotoident:tools - Build and install command-line tools
 net-libs/libproxy:gnome - Enable support for reading proxy settings from GNOME
 net-libs/libproxy:kde - Enable support for reading proxy settings from KDE
