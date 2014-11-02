@@ -6745,6 +6745,7 @@ sys-process/procps:ncurses - Build programs that use ncurses: top, slabtop, watc
 virtual/mpi:romio - Enable romio, a high-performance portable MPI-IO
 virtual/mysql:embedded - Build embedded server (libmysqld)
 virtual/podofo-build:boost - Add support for boost
+virtual/postgresql:server - Disable to install PostgreSQL libraries and clients only
 virtual/udev:gudev - Build and install gudev support
 virtual/udev:hwdb - Build and install hwdb support
 virtual/udev:introspection - Build and install introspection support
