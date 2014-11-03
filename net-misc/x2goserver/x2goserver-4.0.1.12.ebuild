@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/x2goserver/x2goserver-4.0.1.15.ebuild,v 1.4 2014/08/22 09:26:25 voyageur Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/x2goserver/x2goserver-4.0.1.12.ebuild,v 1.5 2014/08/22 09:26:25 voyageur Exp $
 
 EAPI=4
 inherit eutils multilib systemd toolchain-funcs user
@@ -11,12 +11,13 @@ SRC_URI="http://code.x2go.org/releases/source/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="+fuse postgres +sqlite"
+KEYWORDS="amd64 x86"
+IUSE="+doc +fuse postgres +sqlite"
 
 REQUIRED_USE="|| ( postgres sqlite )"
 
-DEPEND=""
+# Requires man2html, only provided by sys-apps/man
+DEPEND="doc? ( sys-apps/man )"
 RDEPEND="dev-perl/Capture-Tiny
 	dev-perl/Config-Simple
 	dev-perl/File-BaseDir
@@ -43,8 +44,10 @@ pkg_setup() {
 src_prepare() {
 	# Multilib clean
 	sed -e "/^LIBDIR=/s/lib/$(get_libdir)/" -i Makefile */Makefile || die "multilib sed failed"
-	# Skip man2html build
-	sed -e "s/build-indep: build_man2html/build-indep:/" -i Makefile */Makefile || die "man2html sed failed"
+	# Skip man2html build if needed
+	if ! use doc; then
+		sed -e "s/build-indep: build_man2html/build-indep:/" -i Makefile */Makefile || die "man2html sed failed"
+	fi
 	# Use nxagent directly
 	sed -i -e "/NX_TEMP=/s/x2goagent/nxagent/" x2goserver/bin/x2gostartagent || die "sed failed"
 }
@@ -58,8 +61,6 @@ src_install() {
 
 	fowners root:x2goprint /usr/bin/x2goprint
 	fperms 2755 /usr/bin/x2goprint
-	fperms 0750 /etc/sudoers.d
-	fperms 0440 /etc/sudoers.d/x2goserver
 	dosym /usr/share/applications /etc/x2go/applications
 
 	newinitd "${FILESDIR}"/${PN}.init x2gocleansessions

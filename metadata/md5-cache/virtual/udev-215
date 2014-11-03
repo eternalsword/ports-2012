@@ -1,8 +1,7 @@
 DEFINED_PHASES=-
 DESCRIPTION=Virtual to select between different udev daemon providers
 EAPI=5
-IUSE=+gudev +static-libs
 KEYWORDS=*
 RDEPEND=>=sys-fs/eudev-1.3
 SLOT=0
-_md5_=f0a8aed10d7b05d314a88bd37b31ef53
+_md5_=4d6d5a2f7a347a475d95452d938b3026

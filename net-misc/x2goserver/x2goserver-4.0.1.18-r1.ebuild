@@ -1,7 +1,9 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/net-misc/x2goserver/x2goserver-4.0.1.18-r1.ebuild,v 1.1 2014/10/23 08:35:58 voyageur Exp $
 
 EAPI=4
-inherit eutils multilib toolchain-funcs user
+inherit eutils multilib systemd toolchain-funcs user
 
 DESCRIPTION="The X2Go server"
 HOMEPAGE="http://www.x2go.org"
@@ -9,30 +11,43 @@ SRC_URI="http://code.x2go.org/releases/source/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="~amd64 ~x86"
 IUSE="+fuse postgres +sqlite"
 
 REQUIRED_USE="|| ( postgres sqlite )"
 
-DEPEND="virtual/man"
-RDEPEND="dev-perl/Config-Simple
+DEPEND=""
+RDEPEND="dev-perl/Capture-Tiny
+	dev-perl/Config-Simple
+	dev-perl/File-BaseDir
+	dev-perl/File-ReadBackwards
 	media-fonts/font-cursor-misc
 	media-fonts/font-misc-misc
-	net-misc/nx
-	net-misc/openssh[-hpn]
+	>=net-misc/nx-3.5.0.25
+	net-misc/openssh
 	x11-apps/xauth
+	x11-apps/xhost
+	x11-apps/xwininfo
 	fuse? ( sys-fs/sshfs-fuse )
 	postgres? ( dev-perl/DBD-Pg )
 	sqlite? ( dev-perl/DBD-SQLite )"
 
 pkg_setup() {
-	enewuser x2gouser -1 -1 /var/lib/x2go
-	enewuser x2goprint -1 -1 /var/spool/x2goprint
+	# Force the group creation, #479650
+	enewgroup x2gouser
+	enewgroup x2goprint
+	enewuser x2gouser -1 -1 /var/lib/x2go x2gouser
+	enewuser x2goprint -1 -1 /var/spool/x2goprint x2goprint
 }
 
 src_prepare() {
+	# Bug #524350
+	epatch "${FILESDIR}"/${P}-prevent_bash_failures_xsession.patch
+
 	# Multilib clean
 	sed -e "/^LIBDIR=/s/lib/$(get_libdir)/" -i Makefile */Makefile || die "multilib sed failed"
+	# Skip man2html build
+	sed -e "s/build-indep: build_man2html/build-indep:/" -i Makefile */Makefile || die "man2html sed failed"
 	# Use nxagent directly
 	sed -i -e "/NX_TEMP=/s/x2goagent/nxagent/" x2goserver/bin/x2gostartagent || die "sed failed"
 }
@@ -46,9 +61,12 @@ src_install() {
 
 	fowners root:x2goprint /usr/bin/x2goprint
 	fperms 2755 /usr/bin/x2goprint
+	fperms 0750 /etc/sudoers.d
+	fperms 0440 /etc/sudoers.d/x2goserver
 	dosym /usr/share/applications /etc/x2go/applications
 
 	newinitd "${FILESDIR}"/${PN}.init x2gocleansessions
+	systemd_dounit "${FILESDIR}"/x2gocleansessions.service
 }
 
 pkg_postinst() {
