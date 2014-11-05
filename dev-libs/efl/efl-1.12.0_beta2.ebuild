@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit eutils autotools
+inherit eutils
 
 RESTRICT="test"
 
@@ -103,11 +103,6 @@ DEPEND="${COMMON_DEP}
 	test? ( dev-libs/check )"
 
 S="${WORKDIR}/${P/_/-}"
-
-src_prepare() {
-	epatch "${FILESDIR}"/${P}-tmpdir.patch
-	eautoreconf
-}
 
 src_configure() {
 	local config=()
