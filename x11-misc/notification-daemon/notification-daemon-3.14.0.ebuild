@@ -12,18 +12,21 @@ SLOT="0"
 KEYWORDS="*"
 IUSE=""
 
-RDEPEND=">=dev-libs/glib-2.28
-	x11-libs/gtk+:3
+RDEPEND="
+	>=dev-libs/glib-2.28
+	>=x11-libs/gtk+-3.8:3
 	sys-apps/dbus
 	media-libs/libcanberra[gtk3]
 	>=x11-libs/libnotify-0.7
 	x11-libs/libX11
 	!x11-misc/notify-osd
-	!x11-misc/qtnotifydaemon"
+	!x11-misc/qtnotifydaemon
+"
 DEPEND="${RDEPEND}
 	dev-util/intltool
 	sys-devel/gettext
-	virtual/pkgconfig"
+	virtual/pkgconfig
+"
 
 DOCS=( AUTHORS ChangeLog NEWS )
 
