@@ -29,21 +29,32 @@ IUSE="${IUSE_DAEMON} ${IUSE_BACKEND} ${IUSE_OVERLAY} ${IUSE_OPTIONAL} ${IUSE_CON
 
 REQUIRED_USE="cxx? ( sasl )"
 
+# always list newer first
+# Do not add any AGPL-3 BDB here!
+# See bug 525110, comment 15.
+BDB_SLOTS='5.3 5.1 4.8 4.7 4.6 4.5 4.4'
+BDB_PKGS=''
+for _slot in $BDB_SLOTS; do BDB_PKGS="${BDB_PKGS} sys-libs/db:${_slot}" ; done
+
 # openssl is needed to generate lanman-passwords required by samba
-RDEPEND="icu? ( dev-libs/icu:= )
+CDEPEND="icu? ( dev-libs/icu:= )
 	ssl? ( !gnutls? ( >=dev-libs/openssl-1.0.1h-r2[${MULTILIB_USEDEP}] )
 		gnutls? ( >=net-libs/gnutls-2.12.23-r6[${MULTILIB_USEDEP}] >=dev-libs/libgcrypt-1.5.3:0[${MULTILIB_USEDEP}] ) )
 	sasl? ( dev-libs/cyrus-sasl:= )
 	!minimal? (
 		sys-devel/libtool
-		sys-libs/e2fsprogs-libs 
+		sys-libs/e2fsprogs-libs
+		>=dev-db/lmdb-0.9.14
 		tcpd? ( sys-apps/tcp-wrappers )
 		odbc? ( !iodbc? ( dev-db/unixODBC )
 			iodbc? ( dev-db/libiodbc ) )
 		slp? ( net-libs/openslp )
 		perl? ( dev-lang/perl[-build(-)] )
 		samba? ( dev-libs/openssl )
-		berkdb? ( sys-libs/db )
+		berkdb? (
+			<sys-libs/db-6.0:=
+			|| ( ${BDB_PKGS} )
+			)
 		smbkrb5passwd? (
 			dev-libs/openssl
 			kerberos? ( app-crypt/heimdal )
@@ -51,14 +62,15 @@ RDEPEND="icu? ( dev-libs/icu:= )
 		kerberos? ( virtual/krb5 )
 		cxx? ( dev-libs/cyrus-sasl:= )
 	)
-	selinux? ( sec-policy/selinux-ldap )
 	abi_x86_32? (
 		!<=app-emulation/emul-linux-x86-baselibs-20140508-r3
 		!app-emulation/emul-linux-x86-baselibs[-abi_x86_32(-)]
 	)"
-DEPEND="${RDEPEND}
+DEPEND="${CDEPEND}
 	sys-apps/groff"
-
+RDEPEND="${CDEPEND}
+	selinux? ( sec-policy/selinux-ldap )
+"
 # for tracking versions
 OPENLDAP_VERSIONTAG=".version-tag"
 OPENLDAP_DEFAULTDIR_VERSIONTAG="/var/lib/openldap-data"
@@ -99,9 +111,6 @@ MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/SaslInteractionHandler.h
 	/usr/include/StringList.h
 	/usr/include/TlsOptions.h
-
-	# USE=-minimal
-	/usr/include/lmdb.h
 )
 
 openldap_filecount() {
@@ -190,7 +199,13 @@ openldap_find_versiontags() {
 	if [ "${have_files}" == "1" -a -f "${SLAPD_PATH}" ]; then
 		OLDVER="$(/usr/bin/ldd ${SLAPD_PATH} \
 			| awk '/libdb-/{gsub("^libdb-","",$1);gsub(".so$","",$1);print $1}')"
-		NEWVER="$(use berkdb && db_findver sys-libs/db)"
+		if use berkdb; then
+			# find which one would be used
+			for bdb_slot in $BDB_SLOTS ; do
+				NEWVER="$(db_findver "=sys-libs/db-${bdb_slot}*")"
+				[[ -n "$NEWVER" ]] && break
+			done
+		fi
 		local fail=0
 		if [ -z "${OLDVER}" -a -z "${NEWVER}" ]; then
 			:
@@ -286,9 +301,6 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-2.2.14-perlthreadsfix.patch \
 		"${FILESDIR}"/${PN}-2.4.15-ppolicy.patch
 
-	# bug #525110
-	epatch "${FILESDIR}"/${P}-bdb-6.0.20.patch
-
 	# bug #116045 - still present in 2.4.28
 	epatch "${FILESDIR}"/${PN}-2.4.35-contrib-smbk5pwd.patch
 	# bug #408077 - samba4
@@ -312,11 +324,12 @@ src_prepare() {
 	# bug #420959
 	epatch "${FILESDIR}"/${PN}-2.4.31-gcc47.patch
 
-	sed -i.orig \
-		-e '/IDOCS.*DESTDIR/s,/man/man1,/share/man/man1,g' \
-		-e '/ILIBS.*DESTDIR/s,/lib,/$(LIBDIR),g' \
-		"${S}"/libraries/liblmdb/Makefile \
-		|| die "Failed to fix LMDB manpage install location"
+	# bug #421463
+	#epatch "${FILESDIR}"/${PN}-2.4.33-gnutls.patch # merged upstream
+
+	# unbundle lmdb
+	epatch "${FILESDIR}"/${P}-mdb-unbundle.patch
+	rm -rf "${S}"/libraries/liblmdb
 
 	cd "${S}"/build || die
 	einfo "Making sure upstream build strip does not do stripping too early"
@@ -330,6 +343,7 @@ src_prepare() {
 		"${S}"/tests/scripts/* || die "sed failed"
 
 	cd "${S}" || die
+
 	AT_NOEAUTOMAKE=yes eautoreconf
 }
 
@@ -387,12 +401,11 @@ multilib_src_configure() {
 		if use berkdb ; then
 			einfo "Using Berkeley DB for local backend"
 			myconf+=( --enable-bdb --enable-hdb )
+			DBINCLUDE=$(db_includedir $BDB_SLOTS)
+			einfo "Using $DBINCLUDE for sys-libs/db version"
 			# We need to include the slotted db.h dir for FreeBSD
-			append-cppflags -I$(db_includedir)
+			append-cppflags -I${DBINCLUDE}
 		else
-			ewarn
-			ewarn "Note: if you disable berkdb, you can only use remote-backends!"
-			ewarn
 			myconf+=( --disable-bdb --disable-hdb )
 		fi
 		for backend in dnssrv ldap mdb meta monitor null passwd relay shell sock; do
@@ -435,7 +448,7 @@ multilib_src_configure() {
 
 	else
 		myconf+=(
-		    --disable-backends
+			--disable-backends
 			--disable-slapd
 			--disable-bdb
 			--disable-hdb
@@ -510,11 +523,6 @@ multilib_src_compile() {
 			emake \
 				CC="${CC}" CXX="${CXX}"
 		fi
-
-		# LMDB tools
-		cp -ral "${S}"/libraries/liblmdb "${BUILD_DIR}"/libraries/liblmdb || die
-		cd "${BUILD_DIR}"/libraries/liblmdb || die
-		emake CC="${CC}" CXX="${CXX}" OPT="${CFLAGS}" prefix="${EPREFIX}/usr" DESTDIR="${D}" SHELL="${EPREFIX}"/bin/bash LIBDIR="$(get_libdir)"
 
 		if use smbkrb5passwd ; then
 			einfo "Building contrib-module: smbk5pwd"
@@ -623,7 +631,7 @@ multilib_src_compile() {
 multilib_src_test() {
 	if multilib_is_native_abi; then
 		cd tests || die
-		make tests || die "make tests failed"
+		emake tests || die "make tests failed"
 	fi
 }
 
@@ -633,11 +641,6 @@ multilib_src_install() {
 	use static-libs || prune_libtool_files --all
 
 	if ! use minimal && multilib_is_native_abi; then
-		# LMDB tools
-		cd "${BUILD_DIR}"/libraries/liblmdb || die
-		dodir /usr/include /usr/lib /usr/bin /usr/share/man/man1 # otherwise this will make them files :-(
-		emake CC="${CC}" CXX="${CXX}" OPT="${CFLAGS}" prefix="${EPREFIX}/usr" DESTDIR="${D}" SHELL="${EPREFIX}"/bin/bash LIBDIR="$(get_libdir)" install
-
 		# openldap modules go here
 		# TODO: write some code to populate slapd.conf with moduleload statements
 		keepdir /usr/$(get_libdir)/openldap/openldap/
@@ -671,7 +674,7 @@ multilib_src_install() {
 
 		# install our own init scripts and systemd unit files
 		einfo "Install init scripts"
-		newinitd "${FILESDIR}"/slapd-initd-2.4.40 slapd
+		newinitd "${FILESDIR}"/slapd-initd-2.4.40-r1 slapd
 		newconfd "${FILESDIR}"/slapd-confd-2.4.28-r1 slapd
 		einfo "Install systemd service"
 		systemd_dounit "${FILESDIR}"/slapd.service
@@ -746,23 +749,20 @@ multilib_src_install() {
 		docinto back-shell ; dodoc "${S}"/servers/slapd/back-shell/searchexample*
 		docinto back-perl ; dodoc "${S}"/servers/slapd/back-perl/SampleLDAP.pm
 
-		docinto liblmdb ; dodoc "${S}"/libraries/liblmdb/{sample*txt,CHANGES,COPYRIGHT,LICENSE}
-		doman "${S}"/libraries/liblmdb/*.1
-
 		dosbin "${S}"/contrib/slapd-tools/statslog
 		newdoc "${S}"/contrib/slapd-tools/README README.statslog
 	fi
 }
 
 multilib_src_install_all() {
-	dodoc ANNOUNCEMENT CHANGES COPYRIGHT README 
+	dodoc ANNOUNCEMENT CHANGES COPYRIGHT README
 	docinto rfc ; dodoc doc/rfc/*.txt
 }
 
 pkg_preinst() {
 	# keep old libs if any
 	preserve_old_lib /usr/$(get_libdir)/{liblber,libldap_r,liblber}-2.3$(get_libname 0)
-	# bug 440470, only display the getting started help there was no openldap before, 
+	# bug 440470, only display the getting started help there was no openldap before,
 	# or we are going to a non-minimal build
 	! has_version net-nds/openldap || has_version 'net-nds/openldap[minimal]'
 	OPENLDAP_PRINT_MESSAGES=$((! $?))
