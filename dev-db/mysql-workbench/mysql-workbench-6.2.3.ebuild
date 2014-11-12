@@ -69,6 +69,7 @@ src_prepare() {
 	## Patch CMakeLists.txt
 	epatch "${FILESDIR}/${PN}-6.2.3-CMakeLists.patch" \
 		"${FILESDIR}/${PN}-6.1.7-wbcopytables.patch" \
+                "${FILESDIR}/${PN}-6.1.7-glibfix.patch" \
 		"${FILESDIR}/${PN}-6.1.7-mysql_options4.patch"
 
 	## remove hardcoded CXXFLAGS
