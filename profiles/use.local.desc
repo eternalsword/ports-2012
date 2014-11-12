@@ -5332,6 +5332,7 @@ net-misc/openvswitch:modules - Build kernel modules
 net-misc/openvswitch:monitor - Build zope monitor interface
 net-misc/openvswitch:pyside - Include PySide Support
 net-misc/openvswitch:ssl - Build with SSL support
+net-misc/owncloud-client:nautilus - Install the gnome-base/nautilus extension
 net-misc/owncloud-client:sftp - Enable sftp transfer support via net-libs/libssh
 net-misc/pavuk:hammer - Turn on chunky/hammer mode (DoS) in pavuk: when specified, pavuk will include features to stress test web sites using an ultrahigh performancereplay mechanism
 net-misc/plowshare:view-captcha - View captcha with aview
