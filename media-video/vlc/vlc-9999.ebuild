@@ -125,7 +125,7 @@ RDEPEND="
 		sid? ( media-libs/libsidplay:2 )
 		skins? ( x11-libs/libXext:0 x11-libs/libXpm:0 x11-libs/libXinerama:0 )
 		speex? ( media-libs/speex:0 )
-		svg? ( >=gnome-base/librsvg-2.9:2 >=x11-libs/cairo-1.13.1:0 )
+		svg? ( >=gnome-base/librsvg-2.9:2 >=x11-libs/cairo-1.12.16:0 )
 		swscale? ( virtual/ffmpeg:0 )
 		taglib? ( >=media-libs/taglib-1.9:0 sys-libs/zlib:0 )
 		theora? ( >=media-libs/libtheora-1.0_beta3:0 )
