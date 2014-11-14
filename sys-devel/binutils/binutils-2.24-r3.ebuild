@@ -5,4 +5,4 @@ PATCHVER="1.4"
 ELF2FLT_VER=""
 inherit toolchain-binutils
 
-KEYWORDS="~*"
+KEYWORDS="*"
