@@ -173,8 +173,15 @@ toolchain-glibc_src_install() {
 		version_is_at_least 2.16 || nscd_args+=( -e 's: --foreground : :' )
 		sed -i "${nscd_args[@]}" "${ED}"/etc/init.d/nscd
 
-		systemd_dounit nscd/nscd.service || die
-		systemd_newtmpfilesd nscd/nscd.tmpfiles nscd.conf || die
+		# Newer versions of glibc include the nscd.service themselves.
+		# TODO: Drop the $FILESDIR copy once 2.19 goes stable.
+		if version_is_at_least 2.19 ; then
+			systemd_dounit nscd/nscd.service || die
+			systemd_newtmpfilesd nscd/nscd.tmpfiles nscd.conf || die
+		else
+			systemd_dounit "${FILESDIR}"/nscd.service || die
+			systemd_newtmpfilesd "${FILESDIR}"/nscd.tmpfilesd nscd.conf || die
+		fi
 	else
 		# Do this since extra/etc/*.conf above might have nscd.conf.
 		rm -f "${ED}"/etc/nscd.conf
