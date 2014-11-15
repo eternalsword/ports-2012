@@ -1,8 +1,6 @@
 # Modified by Funtoo Linux Core Team
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=4
-
 inherit eutils versionator toolchain-funcs flag-o-matic gnuconfig multilib systemd unpacker multiprocessing
 
 DESCRIPTION="GNU libc6 (also called glibc2) C library"
