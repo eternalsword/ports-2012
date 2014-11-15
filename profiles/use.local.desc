@@ -2578,6 +2578,7 @@ games-roguelike/stone-soup:luajit - Use dev-lang/luajit as scripting backend ins
 games-roguelike/stone-soup:ncurses - Enable for console (uses ncurses) based build. (can be enabled on top of tiles)
 games-roguelike/stone-soup:tiles - Enable for graphical (tiled) build. (can be enabled on top of ncurses)
 games-roguelike/tomenet:server - Compile server support
+games-rpg/a-bird-story:bundled-libs - Use bundled libraries
 games-rpg/arx-fatalis-data:gog - Extract the data from the GOG.com installer.
 games-rpg/arx-libertatis:c++0x - Build ROOT using the C++11 standard.
 games-rpg/arx-libertatis:crash-reporter - Build a dev-qt/qtgui-based tool that allows to submit crash information to the upstream backtracker.
@@ -6998,6 +6999,8 @@ x11-base/xorg-server:xnest - Build the Xnest server
 x11-base/xorg-server:xorg - Build the Xorg X server (HIGHLY RECOMMENDED)
 x11-base/xorg-server:xvfb - Build the Xvfb server
 x11-drivers/nvidia-drivers:X - Install the X.org driver, OpenGL libraries, XvMC libraries, and VDPAU libraries
+x11-drivers/nvidia-drivers:gtk2 - Install nvidia-settings with support for GTK+ 2
+x11-drivers/nvidia-drivers:gtk3 - Install nvidia-settings with support for GTK+ 3
 x11-drivers/nvidia-drivers:pax_kernel - PaX patches from the PaX project
 x11-drivers/nvidia-drivers:tools - Install additional tools such as nvidia-settings
 x11-drivers/nvidia-drivers:uvm - Install the Unified Memory kernel module (nvidia-uvm) for sharing memory between CPU and GPU in CUDA programs
