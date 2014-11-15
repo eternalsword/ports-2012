@@ -221,8 +221,8 @@ src_prepare() {
 		sed -i 's/ifndef __FAST_MATH__/if 0/g' configure.ac || die
 	fi
 
-	# _FORTIFY_SOURCE is set to 2 by default on Gentoo, remove redefine warnings.
-	sed -i '/_FORTIFY_SOURCE.*, 2,/d' configure.ac || die
+#	# _FORTIFY_SOURCE is set to 2 by default on Gentoo, remove redefine warnings.
+#	sed -i '/_FORTIFY_SOURCE.*, 2,/d' configure.ac || die
 
 	# Bootstrap when we are on a git checkout.
 	if [[ "${PV%9999}" != "${PV}" ]] ; then
