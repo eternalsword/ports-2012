@@ -1,20 +1,22 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="5"
-MY_EXTRAS_VER="20140924-1913Z"
+MY_EXTRAS_VER="20141019-1948Z"
 
 inherit toolchain-funcs mysql-multilib
 # only to make repoman happy. it is really set in the eclass
 IUSE="$IUSE"
 
 # REMEMBER: also update eclass/mysql*.eclass before committing!
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~hppa ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x64-solaris ~x86-solaris"
+KEYWORDS="~*"
 
 # When MY_EXTRAS is bumped, the index should be revised to exclude these.
 EPATCH_EXCLUDE=''
 
 DEPEND="|| ( >=sys-devel/gcc-3.4.6 >=sys-devel/gcc-apple-4.0 )"
-RDEPEND="${RDEPEND}"
+RDEPEND="${RDEPEND}
+	!minimal? ( !prefix? ( dev-db/mysql-init-scripts ) )
+"
 
 # Official test instructions:
 # USE='-cluster embedded extraengine perl ssl static-libs community' \

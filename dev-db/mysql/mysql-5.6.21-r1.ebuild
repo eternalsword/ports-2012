@@ -2,28 +2,24 @@
 
 EAPI="5"
 
-MY_EXTRAS_VER="20140801-1950Z"
+MY_EXTRAS_VER="20141019-1948Z"
 MY_PV="${PV//_alpha_pre/-m}"
 MY_PV="${MY_PV//_/-}"
 
-# Build type
-BUILD="cmake"
-
-inherit toolchain-funcs mysql-v2
+inherit toolchain-funcs mysql-multilib
 # only to make repoman happy. it is really set in the eclass
 IUSE="$IUSE"
 
-# Define the mysql-extras source
-EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/mysql-extras.git"
-
 # REMEMBER: also update eclass/mysql*.eclass before committing!
-KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 ~s390 ~sh sparc x86 ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x64-solaris ~x86-solaris"
+KEYWORDS="~*"
 
 # When MY_EXTRAS is bumped, the index should be revised to exclude these.
 EPATCH_EXCLUDE=''
 
 DEPEND="|| ( >=sys-devel/gcc-3.4.6 >=sys-devel/gcc-apple-4.0 )"
-RDEPEND="${RDEPEND}"
+RDEPEND="${RDEPEND}
+	!minimal? ( !prefix? ( dev-db/mysql-init-scripts ) )
+"
 
 # Please do not add a naive src_unpack to this ebuild
 # If you want to add a single patch, copy the ebuild to an overlay
@@ -34,7 +30,12 @@ RDEPEND="${RDEPEND}"
 # FEATURES='test userpriv -usersandbox' \
 # ebuild mysql-X.X.XX.ebuild \
 # digest clean package
-src_test() {
+multilib_src_test() {
+
+	if ! multilib_is_native_abi ; then
+		einfo "Server tests not available on non-native abi".
+		return 0;
+	fi
 
 	local TESTDIR="${CMAKE_BUILD_DIR}/mysql-test"
 	local retstatus_unit
@@ -61,6 +62,10 @@ src_test() {
 
 		# Ensure that parallel runs don't die
 		export MTR_BUILD_THREAD="$((${RANDOM} % 100))"
+		# Enable parallel testing, auto will try to detect number of cores
+		# You may set this by hand.
+		# The default maximum is 8 unless MTR_MAX_PARALLEL is increased
+		export MTR_PARALLEL="${MTR_PARALLEL:-auto}"
 
 		# create directories because mysqladmin might right out of order
 		mkdir -p "${T}"/var-tests{,/log}
@@ -68,46 +73,48 @@ src_test() {
 		# create symlink for the tests to find mysql_tzinfo_to_sql
 		ln -s "${CMAKE_BUILD_DIR}/sql/mysql_tzinfo_to_sql" "${S}/sql/"
 
-		# These are failing in MySQL 5.5 for now and are believed to be
+		# These are failing in MySQL 5.5/5.6 for now and are believed to be
 		# false positives:
 		#
 		# main.information_schema, binlog.binlog_statement_insert_delayed,
-		# main.mysqld--help-notwin
+		# funcs_1.is_triggers funcs_1.is_tables_mysql,
+		# funcs_1.is_columns_mysql, binlog.binlog_mysqlbinlog_filter,
+		# perfschema.binlog_edge_mix, perfschema.binlog_edge_stmt,
+		# mysqld--help-notwin, funcs_1.is_triggers, funcs_1.is_tables_mysql, funcs_1.is_columns_mysql
+		# perfschema.binlog_edge_stmt, perfschema.binlog_edge_mix, binlog.binlog_mysqlbinlog_filter
 		# fails due to USE=-latin1 / utf8 default
 		#
 		# main.mysql_client_test:
 		# segfaults at random under Portage only, suspect resource limits.
 		#
-		# sys_vars.plugin_dir_basic
-		# fails because PLUGIN_DIR is set to MYSQL_LIBDIR64/plugin
-		# instead of MYSQL_LIBDIR/plugin
-		#
-		# main.flush_read_lock_kill
-		# fails because of unknown system variable 'DEBUG_SYNC'
-		#
-		# main.openssl_1
-		# error message changing
-		# -mysqltest: Could not open connection 'default': 2026 SSL connection
-		#  error: ASN: bad other signature confirmation
-		# +mysqltest: Could not open connection 'default': 2026 SSL connection
-		#  error: error:00000001:lib(0):func(0):reason(1)
-		#
-		# main.mysql_tzinfo_to_sql_symlink
-		# fails due to missing mysql_test/std_data/zoneinfo/GMT file from archive
-
-		for t in main.mysql_client_test \
-			binlog.binlog_statement_insert_delayed main.information_schema \
-			main.mysqld--help-notwin main.flush_read_lock_kill \
-			sys_vars.plugin_dir_basic main.openssl_1 mysql_tzinfo_to_sql_symlink ; do
-				mysql-v2_disable_test  "$t" "False positives in Gentoo"
+		# rpl.rpl_plugin_load
+		# fails due to included file not listed in expected result
+		# appears to be poor planning
+		for t in \
+			binlog.binlog_mysqlbinlog_filter \
+			binlog.binlog_statement_insert_delayed \
+			funcs_1.is_columns_mysql \
+			funcs_1.is_tables_mysql \
+			funcs_1.is_triggers \
+			main.information_schema \
+			main.mysql_client_test \
+			main.mysqld--help-notwinfuncs_1.is_triggers \
+			perfschema.binlog_edge_mix \
+			perfschema.binlog_edge_stmt \
+			rpl.rpl_plugin_load \
+		; do
+				mysql-multilib_disable_test  "$t" "False positives in Gentoo"
 		done
 
 		# Run mysql tests
 		pushd "${TESTDIR}"
 
+		# Set file limits higher so tests run
+		ulimit -n 3000
+
 		# run mysql-test tests
 		perl mysql-test-run.pl --force --vardir="${T}/var-tests" \
-			--testcase-timeout=30
+			--suite-timeout=5000
 		retstatus_tests=$?
 		[[ $retstatus_tests -eq 0 ]] || eerror "tests failed"
 		has usersandbox $FEATURES && eerror "Some tests may fail with FEATURES=usersandbox"
