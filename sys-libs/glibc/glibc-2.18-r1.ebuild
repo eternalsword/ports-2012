@@ -1,15 +1,16 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/glibc/glibc-2.18-r1.ebuild,v 1.4 2014/04/05 16:05:07 vapier Exp $
 
-inherit eutils versionator toolchain-funcs flag-o-matic gnuconfig multilib unpacker multiprocessing
+inherit eutils versionator toolchain-funcs flag-o-matic gnuconfig multilib systemd unpacker multiprocessing
 
 DESCRIPTION="GNU libc6 (also called glibc2) C library"
 HOMEPAGE="http://www.gnu.org/software/libc/libc.html"
 
 LICENSE="LGPL-2.1+ BSD HPND ISC inner-net rc PCRE"
-KEYWORDS="*"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
 RESTRICT="strip" # strip ourself #46186
 EMULTILIB_PKG="true"
-EBLIT_VER=2.18
 
 # Configuration variables
 RELEASE_VER=""
@@ -23,6 +24,7 @@ case ${PV} in
 	RELEASE_VER=${PV}
 	;;
 esac
+GCC_BOOTSTRAP_VER="4.7.3-r1"
 PATCH_VER="4"                                  # Gentoo patchset
 NPTL_KERN_VER=${NPTL_KERN_VER:-"2.6.16"}       # min kernel version nptl requires
 
@@ -87,19 +89,19 @@ else
 		!vanilla? ( sys-libs/timezone-data )"
 fi
 
+upstream_uris() {
+	echo mirror://gnu/glibc/$1 ftp://sourceware.org/pub/glibc/{releases,snapshots}/$1 mirror://gentoo/$1
+}
+gentoo_uris() {
+	local devspace="HTTP~vapier/dist/URI HTTP~azarah/glibc/URI"
+	devspace=${devspace//HTTP/http://dev.gentoo.org/}
+	echo mirror://gentoo/$1 ${devspace//URI/$1}
+}
 SRC_URI=$(
-	upstream_uris() {
-		echo mirror://gnu/glibc/$1 ftp://sourceware.org/pub/glibc/{releases,snapshots}/$1 mirror://gentoo/$1
-	}
-	gentoo_uris() {
-		local devspace="HTTP~vapier/dist/URI HTTP~azarah/glibc/URI"
-		devspace=${devspace//HTTP/http://dev.gentoo.org/}
-		echo mirror://gentoo/$1 ${devspace//URI/$1}
-	}
-
 	[[ -z ${EGIT_REPO_URIS} ]] && upstream_uris ${P}.tar.xz
 	[[ -n ${PATCH_VER}      ]] && gentoo_uris ${P}-patches-${PATCH_VER}.tar.bz2
 )
+SRC_URI+=" ${GCC_BOOTSTRAP_VER:+multilib? ( $(gentoo_uris gcc-${GCC_BOOTSTRAP_VER}-multilib-bootstrap.tar.bz2) )}"
 
 # eblit-include [--skip] <function> [version]
 eblit-include() {
@@ -110,14 +112,14 @@ eblit-include() {
 	local e v func=$1 ver=$2
 	[[ -z ${func} ]] && die "Usage: eblit-include <function> [version]"
 	for v in ${ver:+-}${ver} -${PVR} -${PV} "" ; do
-		e="${FILESDIR}/eblits-${EBLIT_VER}/${func}${v}.eblit"
+		e="${FILESDIR}/eblits/${func}${v}.eblit"
 		if [[ -e ${e} ]] ; then
 			source "${e}"
 			return 0
 		fi
 	done
 	${skipable} && return 0
-	die "Could not locate requested eblit '${func}' in ${FILESDIR}/eblits-${EBLIT-VER}/"
+	die "Could not locate requested eblit '${func}' in ${FILESDIR}/eblits/"
 }
 
 # eblit-run-maybe <function>
@@ -143,7 +145,7 @@ src_install() { eblit-run src_install ; }
 
 # FILESDIR might not be available during binpkg install
 for x in setup {pre,post}inst ; do
-	e="${FILESDIR}/eblits-${EBLIT_VER}/pkg_${x}.eblit"
+	e="${FILESDIR}/eblits/pkg_${x}.eblit"
 	if [[ -e ${e} ]] ; then
 		. "${e}"
 		eval "pkg_${x}() { eblit-run pkg_${x} ; }"
@@ -152,13 +154,14 @@ done
 
 eblit-src_unpack-pre() {
 	GLIBC_PATCH_EXCLUDE+=" 00_all_0012-mips-add-clock_-g-s-ettime-symbol-compat-hacks.patch" #456912 #481438
+	[[ -n ${GCC_BOOTSTRAP_VER} ]] && use multilib && unpack gcc-${GCC_BOOTSTRAP_VER}-multilib-bootstrap.tar.bz2
 }
 
 eblit-src_unpack-post() {
 	if use hardened ; then
 		cd "${S}"
 		einfo "Patching to get working PIE binaries on PIE (hardened) platforms"
-		gcc-specs-pie && epatch "${FILESDIR}"/2.18/glibc-2.17-hardened-pie.patch
+		gcc-specs-pie && epatch "${FILESDIR}"/2.17/glibc-2.17-hardened-pie.patch
 		epatch "${FILESDIR}"/2.10/glibc-2.10-hardened-configure-picdefault.patch
 		epatch "${FILESDIR}"/2.18/glibc-2.18-hardened-inittls-nosysenter.patch
 
