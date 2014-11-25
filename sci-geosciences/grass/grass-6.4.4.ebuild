@@ -1,11 +1,9 @@
-# Distributed under the terms of the GNU General Public License v2
-
 EAPI=4
 
 PYTHON_DEPEND="python? 2"
 WANT_AUTOCONF="2.1"
 
-inherit eutils gnome2 multilib python versionator wxwidgets base autotools
+inherit eutils gnome2 multilib python versionator wxwidgets autotools
 
 MY_PM=${PN}$(get_version_component_range 1-2 ${PV})
 MY_PM=${MY_PM/.}
@@ -18,11 +16,7 @@ SRC_URI="http://grass.osgeo.org/${MY_PM}/source/${MY_P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="6"
 KEYWORDS="*"
-IUSE="X cairo cxx ffmpeg fftw gmath jpeg motif mysql nls odbc opengl png postgres python readline sqlite tiff truetype wxwidgets"
-
-TCL_DEPS="
-	>=dev-lang/tcl-8.5
-	>=dev-lang/tk-8.5"
+IUSE="+X +cairo cxx ffmpeg fftw gmath jpeg motif mysql nls odbc opengl png postgres python readline sqlite +tiff truetype +wxwidgets"
 
 RDEPEND="
 	>=app-admin/eselect-1.2
@@ -43,7 +37,6 @@ RDEPEND="
 	odbc? ( dev-db/unixODBC )
 	opengl? (
 		virtual/opengl
-		${TCL_DEPS}
 	)
 	png? ( media-libs/libpng )
 	postgres? ( >=dev-db/postgresql-base-8.4 )
@@ -71,8 +64,6 @@ RDEPEND="
 				)
 			)
 		)
-		!python? ( ${TCL_DEPS} )
-		!wxwidgets? ( ${TCL_DEPS} )
 	)"
 
 DEPEND="${RDEPEND}
@@ -90,13 +81,8 @@ S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-pkgconf.patch
-	"${FILESDIR}"/${PN}-6.4.1-libav-0.8.patch
-	"${FILESDIR}"/${PN}-6.4.2-ffmpeg-1.patch
-	"${FILESDIR}"/${PN}-6.4.2-configure.patch
-	"${FILESDIR}"/${PN}-6.4.2-libav-9.patch
-	"${FILESDIR}"/iostream_cpp470.patch
-## FL-1753
-	"${FILESDIR}"/${PN}-tk86-fix.patch 
+	"${FILESDIR}"/animate-wish.patch
+	"${FILESDIR}"/wxpy3.0-compat.patch
 )
 
 REQUIRED_USE="
@@ -134,7 +120,8 @@ pkg_setup() {
 
 src_prepare() {
 	use opengl || epatch "${FILESDIR}"/${PN}-6.4.0-html-nonviz.patch
-	base_src_prepare
+	epatch ${PATCHES[@]}
+	epatch_user
 	eautoconf
 }
 
@@ -142,7 +129,8 @@ src_configure() {
 	local myconf TCL_LIBDIR
 
 	if use X; then
-		TCL_LIBDIR="/usr/$(get_libdir)/tcl8.5"
+		. /usr/lib/tclConfig.sh
+		TCL_LIBDIR="/usr/$(get_libdir)/tcl$TCL_VERSION"
 		myconf+="
 			--with-tcltk-libs=${TCL_LIBDIR}
 			$(use_with motif)
@@ -215,7 +203,8 @@ src_configure() {
 
 src_compile() {
 	# we don't want to link against embeded mysql lib
-	base_src_compile MYSQLDLIB=""
+	# working around the fucked up build system
+	emake MYSQLDLIB="" || true
 }
 
 src_install() {
