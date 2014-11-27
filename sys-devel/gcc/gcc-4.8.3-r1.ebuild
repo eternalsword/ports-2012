@@ -109,7 +109,7 @@ pkg_setup() {
 		CXXFLAGS="$CFLAGS"
 	else
 		BINPATH=${PREFIX}/${CTARGET}/gcc-bin/${GCC_CONFIG_VER}
-		[[ {$CATEGORY/cross-} != ${CATEGORY} ]] && CTARGET=${CATEGORY/cross-}
+		[[ ${CATEGORY} == cross-* ]] && CTARGET=${CATEGORY/cross-}
 	fi
 	LIBPATH=${PREFIX}/lib/gcc/${CTARGET}/${GCC_CONFIG_VER}
 	STDCXX_INCDIR=${LIBPATH}/include/g++-v${GCC_BRANCH_VER}
@@ -145,8 +145,9 @@ src_prepare() {
 	if ! use vanilla; then
 		# The following patch allows pie/ssp specs to be changed via environment
 		# variable, which is needed for gcc-config to allow switching of compilers:
-
-		[[ ${CHOST} == ${CTARGET} ]] && cat "${FILESDIR}"/gcc-spec-env-r1.patch | patch -p1 || die "patch fail"
+		if ! is_crosscompile; then
+			cat "${FILESDIR}"/gcc-spec-env-r1.patch | patch -p1 || die "patch fail"
+		fi
 
 		# Prevent libffi from being installed
 		sed -i -e 's/\(install.*:\) install-.*recursive/\1/' "${S}"/libffi/Makefile.in || die
