@@ -1745,6 +1745,7 @@ dev-libs/folks:telepathy - Load contacts from the Telepathy framework
 dev-libs/folks:tracker - Load contacts from app-misc/tracker index
 dev-libs/folks:utils - Build the folks-inspect utility
 dev-libs/folks:zeitgeist - Add support for Zeitgeist event tracking system
+dev-libs/fstrm:utils - Build fstrm utility programs
 dev-libs/gecode:gist - Enable Gist, the Gecode Interactive Search Tool
 dev-libs/gf2x:bindist - Disable automatic fine-tuning to local processor features like pclmul or sse2.
 dev-libs/gmp:pgo - after building gmp, run some tests against to produce faster libraries -- this option will double the compile time
