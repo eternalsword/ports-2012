@@ -8,6 +8,6 @@ KEYWORDS=~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh
 LICENSE=vim
 RDEPEND=|| ( >=app-editors/vim-7.3 >=app-editors/gvim-7.3 )
 SLOT=0
-SRC_URI=mirror://gentoo/gentoo-syntax-20141102.tar.bz2 http://dev.gentoo.org/~radhermit/vim/gentoo-syntax-20141102.tar.bz2
+SRC_URI=mirror://gentoo/gentoo-syntax-20141129.tar.bz2 http://dev.gentoo.org/~radhermit/vim/gentoo-syntax-20141129.tar.bz2
 _eclasses_=vim-doc	1c18baeec98cec3287524cbf2fee2bd2	vim-plugin	286547e90fbbc4c841eee80cd73e646c
-_md5_=a6976ae10dd4f9fc0ff20a1a4e382d66
+_md5_=49d491fdc4ac24af9e3e6e0b6bf546c6
