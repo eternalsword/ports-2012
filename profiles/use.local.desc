@@ -3039,11 +3039,6 @@ mail-filter/postfwd:tools - Install additional tools for testing postfwd
 mail-filter/postgrey:targrey - Enables the targrey patch
 mail-filter/qmail-scanner:spamassassin - Build faster mail-filter/spamassassin checks into qmail-scanner
 mail-filter/spamassassin:qmail - Build qmail functionality and docs
-mail-filter/spamassassin-fuzzyocr:amavis - Enable support for mail-filter/amavisd-new
-mail-filter/spamassassin-fuzzyocr:gocr - Enable support for the gocr OCR engine
-mail-filter/spamassassin-fuzzyocr:logrotate - Install support files for app-admin/logrotate
-mail-filter/spamassassin-fuzzyocr:ocrad - Enable support for the ocrad OCR engine
-mail-filter/spamassassin-fuzzyocr:tesseract - Enable support for the tesseract OCR engine
 mail-filter/spamdyke:tls - Enables TLS protocol for spamdyke
 mail-filter/zdkimfilter:debug - Log process and signal information. Also leave the child process running for gdb examination.
 mail-filter/zdkimfilter:mysql - MySQL client based statistics based storage.
@@ -4844,12 +4839,14 @@ net-irc/unrealircd:topicisnuhost - Enable displaying nick!user@host as topic set
 net-irc/unrealircd:usermod - Enable /set* and /chg* commands
 net-irc/weechat:alias - Enable plugin for alias control.
 net-irc/weechat:charset - Enable encoding conversions.
+net-irc/weechat:exec - Enable exec plugin.
 net-irc/weechat:fifo - Enable FIFO support (sh pipes).
 net-irc/weechat:irc - Enable IRC protocol support.
 net-irc/weechat:logger - Enable support for logging.
 net-irc/weechat:relay - Enable relay plugin (experimental)
 net-irc/weechat:rmodifier - Enable rmodifier plugin.
 net-irc/weechat:scripts - Build infrastructure for scripting.
+net-irc/weechat:trigger - Enable trigger plugin.
 net-irc/weechat:xfer - Enable xfer plugin support.
 net-irc/znc:daemon - Allow znc to run as a system-wide service. Installs an init script and creates a znc user:group.
 net-libs/aqbanking:chipcard - Enable support for DDV/RSA-chipcards
