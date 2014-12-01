@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/shadow/shadow-4.2.1.ebuild,v 1.1 2014/06/16 05:52:43 vapier Exp $
+# $Header$
 
 EAPI=4
 
@@ -8,11 +8,11 @@ inherit eutils libtool toolchain-funcs pam multilib
 
 DESCRIPTION="Utilities to deal with user accounts"
 HOMEPAGE="http://shadow.pld.org.pl/ http://pkg-shadow.alioth.debian.org/"
-SRC_URI="http://pkg-shadow.alioth.debian.org/releases/${P}.tar.xz"
+SRC_URI="http://pkg-shadow.alioth.debian.org/releases/${P}.tar.bz2"
 
 LICENSE="BSD GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
+KEYWORDS="*"
 IUSE="acl audit cracklib nls pam selinux skey xattr"
 
 RDEPEND="acl? ( sys-apps/acl )
@@ -27,7 +27,6 @@ RDEPEND="acl? ( sys-apps/acl )
 	nls? ( virtual/libintl )
 	xattr? ( sys-apps/attr )"
 DEPEND="${RDEPEND}
-	app-arch/xz-utils
 	nls? ( sys-devel/gettext )"
 RDEPEND="${RDEPEND}
 	pam? ( >=sys-auth/pambase-20120417 )"
