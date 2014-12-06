@@ -11,7 +11,7 @@ HOMEPAGE="https://wiki.gnome.org/Apps/Sudoku"
 
 LICENSE="LGPL-2+"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="*"
 IUSE=""
 
 RDEPEND="
@@ -24,6 +24,7 @@ RDEPEND="
 	x11-libs/pango[introspection]
 "
 DEPEND="${RDEPEND}
+	$(vala_depend)
 	app-text/yelp-tools
 	dev-util/appdata-tools
 	>=dev-util/intltool-0.50

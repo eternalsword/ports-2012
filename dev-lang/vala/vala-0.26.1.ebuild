@@ -10,11 +10,11 @@ HOMEPAGE="https://wiki.gnome.org/Vala"
 
 LICENSE="LGPL-2.1"
 SLOT="0.26"
-KEYWORDS="~*"
+KEYWORDS="*"
 IUSE="test"
 
 RDEPEND="
-	>=dev-libs/glib-2.18:2
+	>=dev-libs/glib-2.24:2
 	>=dev-libs/vala-common-${PV}
 "
 DEPEND="${RDEPEND}

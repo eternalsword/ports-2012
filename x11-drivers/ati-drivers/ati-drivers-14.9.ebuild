@@ -14,13 +14,13 @@ FOLDER_PREFIX="common/"
 IUSE="+vaapi debug +modules multilib qt4 static-libs pax_kernel"
 
 LICENSE="AMD GPL-2 QPL-1.0"
-KEYWORDS=""
+KEYWORDS="*"
 
 RESTRICT="bindist test"
 
 PDEPEND="vaapi? ( x11-libs/xvba-video )"
 RDEPEND="
-	<=x11-base/xorg-server-1.15.49[-minimal]
+	<x11-base/xorg-server-1.16[-minimal]
 	>=app-admin/eselect-opengl-1.0.7
 	app-admin/eselect-opencl
 	sys-power/acpid
@@ -33,16 +33,16 @@ RDEPEND="
 	virtual/glu
 	multilib? (
 			|| (
-				>=virtual/glu-9.0-r1[abi_x86_32]
+				virtual/glu[abi_x86_32]
 				app-emulation/emul-linux-x86-opengl
 			)
 			|| (
 				(
-					>=x11-libs/libX11-1.6.2[abi_x86_32]
-					>=x11-libs/libXext-1.3.2[abi_x86_32]
-					>=x11-libs/libXinerama-1.1.3[abi_x86_32]
-					>=x11-libs/libXrandr-1.4.2[abi_x86_32]
-					>=x11-libs/libXrender-0.9.8[abi_x86_32]
+					x11-libs/libX11[abi_x86_32]
+					x11-libs/libXext[abi_x86_32]
+					x11-libs/libXinerama[abi_x86_32]
+					x11-libs/libXrandr[abi_x86_32]
+					x11-libs/libXrender[abi_x86_32]
 				)
 				app-emulation/emul-linux-x86-xlibs
 			)
@@ -291,13 +291,13 @@ src_prepare() {
 	# compile fix for AGP-less kernel, bug #435322
 	epatch "${FILESDIR}"/ati-drivers-12.9-KCL_AGP_FindCapsRegisters-stub.patch
 
-	# Compile fix for kernel typesafe uid types #469160
-	#epatch "${FILESDIR}/typesafe-kuid.diff"
-
 	epatch "${FILESDIR}/ati-drivers-13.8-beta-include-seq_file.patch"
 
 	# Fix #483400
 	epatch "${FILESDIR}/fgl_glxgears-do-not-include-glATI.patch"
+
+	# Fix #524658
+	epatch "${FILESDIR}/fix-the-linux-3.17-no_hotplug-error.patch"
 
 	# Compile fix, https://bugs.gentoo.org/show_bug.cgi?id=454870
 	use pax_kernel && epatch "${FILESDIR}/const-notifier-block.patch"

@@ -11,14 +11,14 @@ HOMEPAGE="https://wiki.gnome.org/Apps/LaTeXila"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="*"
 IUSE="+latexmk rubber"
 
 COMMON_DEPEND="
 	app-text/enchant
 	>=app-text/gtkspell-3.0.4:3
 	>=dev-libs/glib-2.42.0:2
-	dev-libs/libgee:0
+	dev-libs/libgee:0.8
 	gnome-base/gsettings-desktop-schemas
 	>=x11-libs/gtk+-3.14.0:3
 	>=x11-libs/gtksourceview-3.14.0:3.0

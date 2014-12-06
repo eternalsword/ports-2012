@@ -12,7 +12,7 @@ HOMEPAGE="https://wiki.gnome.org/Apps/Gitg"
 
 LICENSE="|| ( GPL-2 GPL-3 )"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="*"
 IUSE="debug glade +python"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
@@ -26,7 +26,7 @@ RDEPEND="
 	>=dev-libs/glib-2.42.0:2
 	>=dev-libs/gobject-introspection-1.42.0
 	dev-libs/libgit2[threads]
-	>=dev-libs/libgit2-glib-0.0.22
+	>=dev-libs/libgit2-glib-0.0.20
 	>=dev-libs/libpeas-1.12.0[gtk]
 	>=gnome-base/gsettings-desktop-schemas-3.14.0
 	|| (

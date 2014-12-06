@@ -1,29 +1,28 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/freerdp/freerdp-9999.1.ebuild,v 1.19 2014/08/06 00:49:04 floppym Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/freerdp/freerdp-9999.1.ebuild,v 1.22 2014/11/26 01:00:24 floppym Exp $
 
 EAPI="5"
 
 inherit cmake-utils vcs-snapshot
 
 if [[ ${PV} != 9999* ]]; then
-	COMMIT="780d451afad21a22d2af6bd030ee71311856f038"
+	COMMIT="7a6c6b7436c2fcb02a38bf89e0b3efcdb43f2ef5"
 	SRC_URI="https://github.com/FreeRDP/FreeRDP/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 else
-	inherit git-2
+	inherit git-r3
 	SRC_URI=""
 	EGIT_REPO_URI="git://github.com/FreeRDP/FreeRDP.git
 		https://github.com/FreeRDP/FreeRDP.git"
-	KEYWORDS=""
 fi
 
 DESCRIPTION="Free implementation of the Remote Desktop Protocol"
 HOMEPAGE="http://www.freerdp.com/"
 
 LICENSE="Apache-2.0"
-SLOT="0"
-IUSE="alsa +client cups debug directfb doc ffmpeg gstreamer jpeg
+SLOT="0/1.2"
+IUSE="alsa +client cups debug doc ffmpeg gstreamer jpeg
 	pulseaudio server smartcard sse2 test usb X xinerama xv"
 
 RDEPEND="
@@ -47,7 +46,6 @@ RDEPEND="
 			xv? ( x11-libs/libXv )
 		)
 	)
-	directfb? ( dev-libs/DirectFB )
 	ffmpeg? ( virtual/ffmpeg )
 	gstreamer? (
 		media-libs/gstreamer:1.0
@@ -88,7 +86,6 @@ src_configure() {
 		$(cmake-utils_use_with cups CUPS)
 		$(cmake-utils_use_with debug DEBUG_ALL)
 		$(cmake-utils_use_with doc MANPAGES)
-		$(cmake-utils_use_with directfb DIRECTFB)
 		$(cmake-utils_use_with ffmpeg FFMPEG)
 		$(cmake-utils_use_with gstreamer GSTREAMER_1_0)
 		$(cmake-utils_use_with jpeg JPEG)

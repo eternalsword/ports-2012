@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/util-linux/util-linux-2.24.2.ebuild,v 1.4 2014/06/18 20:46:09 mgorny Exp $
 
 EAPI="4"
 
@@ -125,10 +123,10 @@ multilib_src_configure() {
 
 multilib_src_compile() {
 	if multilib_is_native_abi; then
-		default
+		emake -j1
 	else
 		# build libraries only
-		emake -f Makefile -f - mylibs \
+		emake -j1 -f Makefile -f - mylibs \
 			<<< 'mylibs: $(usrlib_exec_LTLIBRARIES) $(pkgconfig_DATA)'
 	fi
 }
@@ -139,9 +137,9 @@ multilib_src_test() {
 
 multilib_src_install() {
 	if multilib_is_native_abi; then
-		default
+		emake -j1 DESTDIR="${D}" install
 	else
-		emake DESTDIR="${D}" install-usrlib_execLTLIBRARIES \
+		emake -j1 DESTDIR="${D}" install-usrlib_execLTLIBRARIES \
 			install-pkgconfigDATA install-uuidincHEADERS \
 			install-nodist_blkidincHEADERS install-nodist_mountincHEADERS
 	fi

@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/eutils.eclass,v 1.437 2014/09/19 17:09:05 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/eutils.eclass,v 1.440 2014/11/15 09:49:10 vapier Exp $
 
 # @ECLASS: eutils.eclass
 # @MAINTAINER:
@@ -231,7 +231,7 @@ evar_pop() {
 # A common example is to disable shell globbing so that special meaning/care
 # may be used with variables/arguments to custom functions.  That would be:
 # @CODE
-#		eshopts_push -s noglob
+#		eshopts_push -o noglob
 #		for x in ${foo} ; do
 #			if ...some check... ; then
 #				eshopts_pop
@@ -903,10 +903,11 @@ make_desktop_entry() {
 				;;
 		esac
 	fi
-	if [ "${SLOT}" == "0" ] ; then
+	local slot=${SLOT%/*}
+	if [[ ${slot} == "0" ]] ; then
 		local desktop_name="${PN}"
 	else
-		local desktop_name="${PN}-${SLOT}"
+		local desktop_name="${PN}-${slot}"
 	fi
 	local desktop="${T}/$(echo ${exec} | sed 's:[[:space:]/:]:_:g')-${desktop_name}.desktop"
 	#local desktop=${T}/${exec%% *:-${desktop_name}}.desktop
@@ -1438,7 +1439,7 @@ make_wrapper() {
 	fi
 	# We don't want to quote ${bin} so that people can pass complex
 	# things as ${bin} ... "./someprog --args"
-	printf 'exec %s "$@"\n' "${bin/#\//${EPREFIX}\/}"
+	printf 'exec %s "$@"\n' "${bin/#\//${EPREFIX}/}"
 	) > "${tmpwrapper}"
 	chmod go+rx "${tmpwrapper}"
 

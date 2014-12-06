@@ -46,6 +46,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${P}-session-chooser.patch
 	epatch "${FILESDIR}"/${P}-fix-slimlock-nopam-v2.patch
 	epatch "${FILESDIR}"/${P}-drop-zlib.patch
+	epatch "${FILESDIR}"/${P}-freetype.patch
 
 	if use elibc_FreeBSD; then
 		sed -i -e 's/"-DHAVE_SHADOW"/"-DNEEDS_BASENAME"/' CMakeLists.txt \

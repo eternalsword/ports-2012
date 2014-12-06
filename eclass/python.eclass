@@ -59,7 +59,7 @@ fi
 _CPYTHON2_GLOBALLY_SUPPORTED_ABIS=(2.6 2.7)
 _CPYTHON3_GLOBALLY_SUPPORTED_ABIS=(3.1 3.2 3.3 3.4 3.5)
 _JYTHON_GLOBALLY_SUPPORTED_ABIS=(2.7-jython)
-_PYPY_GLOBALLY_SUPPORTED_ABIS=(2.7-pypy-2.0)
+_PYPY_GLOBALLY_SUPPORTED_ABIS=(2.7-pypy 3.2-pypy)
 _PYTHON_GLOBALLY_SUPPORTED_ABIS=(${_CPYTHON2_GLOBALLY_SUPPORTED_ABIS[@]} ${_CPYTHON3_GLOBALLY_SUPPORTED_ABIS[@]} ${_JYTHON_GLOBALLY_SUPPORTED_ABIS[@]} ${_PYPY_GLOBALLY_SUPPORTED_ABIS[@]})
 
 # ================================================================================================
@@ -103,15 +103,18 @@ _python_check_python_abi_matching() {
 			[[ "${PYTHON_ABI}" =~ ^[[:digit:]]+\.[[:digit:]]+$ && "${PYTHON_ABI}" == ${pattern%-cpython} ]]
 		elif [[ "${pattern}" == *"-jython" ]]; then
 			[[ "${PYTHON_ABI}" == ${pattern} ]]
-		elif [[ "${pattern}" == *"-pypy-"* ]]; then
+		elif [[ "${pattern}" == *"-pypy" ]]; then
 			[[ "${PYTHON_ABI}" == ${pattern} ]]
+		# Deprecated syntax of Python ABIs patterns.
+		elif has "${EAPI:-0}" 0 1 2 3 4 4-python 5 5-progress && [[ "${pattern}" == *"-pypy-*" ]]; then
+			[[ "${PYTHON_ABI}" == ${pattern%-*} ]]
 		else
 			if [[ "${PYTHON_ABI}" =~ ^[[:digit:]]+\.[[:digit:]]+$ ]]; then
 				[[ "${PYTHON_ABI}" == ${pattern} ]]
 			elif [[ "${PYTHON_ABI}" =~ ^[[:digit:]]+\.[[:digit:]]+-jython$ ]]; then
 				[[ "${PYTHON_ABI%-jython}" == ${pattern} ]]
-			elif [[ "${PYTHON_ABI}" =~ ^[[:digit:]]+\.[[:digit:]]+-pypy-[[:digit:]]+\.[[:digit:]]+$ ]]; then
-				[[ "${PYTHON_ABI%-pypy-*}" == ${pattern} ]]
+			elif [[ "${PYTHON_ABI}" =~ ^[[:digit:]]+\.[[:digit:]]+-pypy$ ]]; then
+				[[ "${PYTHON_ABI%-pypy}" == ${pattern} ]]
 			else
 				die "${FUNCNAME}(): Unrecognized Python ABI '${PYTHON_ABI}'"
 			fi
@@ -134,22 +137,29 @@ _python_implementation() {
 		return 0
 	elif [[ "${CATEGORY}/${PN}" =~ ^dev-lang/jython$ ]]; then
 		return 0
-	elif [[ "${CATEGORY}/${PN}" =~ ^(dev-python/pypy|dev-python/pypy-bin)$ ]]; then
+	elif [[ "${CATEGORY}/${PN}" =~ ^dev-lang/pypy$ ]]; then
 		return 0
 	else
 		return 1
 	fi
 }
 
+# @ECLASS-VARIABLE: PYTHON_ABI_TYPE
+# @DESCRIPTION:
+# Specification of type of Python ABIs.
+#
+# Valid values:
+#   multiple
+
 _python_package_supporting_installation_for_multiple_python_abis() {
 	if has "${EAPI:-0}" 0 1 2 3 || { has "${EAPI:-0}" 4 5 && has "${PYTHON_ECLASS_API}" 0; }; then
-		if [[ -n "${PYTHON_MULTIPLE_ABIS}" || -n "${SUPPORT_PYTHON_ABIS}" ]]; then
+		if [[ "${PYTHON_ABI_TYPE}" == "multiple" || -n "${PYTHON_MULTIPLE_ABIS}" || -n "${SUPPORT_PYTHON_ABIS}" ]]; then
 			return 0
 		else
 			return 1
 		fi
 	else
-		if [[ -n "${PYTHON_MULTIPLE_ABIS}" ]]; then
+		if [[ "${PYTHON_ABI_TYPE}" == "multiple" || -n "${PYTHON_MULTIPLE_ABIS}" ]]; then
 			return 0
 		else
 			return 1
@@ -514,8 +524,12 @@ _python_parse_dependencies_in_new_EAPIs() {
 							output_value+="${output_value:+ }python_abis_${PYTHON_ABI}? ( dev-lang/python:${PYTHON_ABI}$(_get_matched_USE_dependencies) )"
 						elif [[ "${PYTHON_ABI}" =~ ^[[:digit:]]+\.[[:digit:]]+-jython$ ]]; then
 							output_value+="${output_value:+ }python_abis_${PYTHON_ABI}? ( dev-lang/jython:${PYTHON_ABI%-jython}$(_get_matched_USE_dependencies) )"
-						elif [[ "${PYTHON_ABI}" =~ ^[[:digit:]]+\.[[:digit:]]+-pypy-[[:digit:]]+\.[[:digit:]]+$ ]]; then
-							output_value+="${output_value:+ }python_abis_${PYTHON_ABI}? ( virtual/pypy:${PYTHON_ABI#*-pypy-}$(_get_matched_USE_dependencies) )"
+						elif [[ "${PYTHON_ABI}" =~ ^[[:digit:]]+\.[[:digit:]]+-pypy$ ]]; then
+							if has "${EAPI:-0}" 4-python; then
+								output_value+="${output_value:+ }python_abis_${PYTHON_ABI}? ( dev-lang/pypy:python-${PYTHON_ABI%-pypy}$(_get_matched_USE_dependencies) )"
+							else
+								output_value+="${output_value:+ }python_abis_${PYTHON_ABI}? ( dev-lang/pypy:python-${PYTHON_ABI%-pypy}=$(_get_matched_USE_dependencies) )"
+							fi
 						fi
 					fi
 				done
@@ -590,7 +604,6 @@ _python_parse_dependencies_in_new_EAPIs() {
 if _python_implementation; then
 	DEPEND=">=app-admin/eselect-python-20091230 >=app-shells/bash-4"
 	RDEPEND="${DEPEND}"
-	PDEPEND="app-admin/python-updater"
 fi
 
 if has "${EAPI:-0}" 0 1 2 3 || { has "${EAPI:-0}" 4 5 && has "${PYTHON_ECLASS_API}" 0; }; then
@@ -915,7 +928,7 @@ _python_prepare_jython() {
 }
 
 _python_abi-specific_local_scope() {
-	[[ " ${FUNCNAME[@]:2} " =~ " "(_python_final_sanity_checks|python_execute_function|python_mod_optimize|python_mod_cleanup|python_generate_cffi_modules)" " ]]
+	[[ " ${FUNCNAME[@]:2} " =~ " "(_python_final_sanity_checks|python_execute_function|python_byte-compile_modules|python_clean_byte-compiled_modules|python_generate_cffi_modules)" " ]]
 }
 
 _python_initialize_prefix_variables() {
@@ -1213,7 +1226,7 @@ EOF
 	"$@"
 }
 
-_PYTHON_SHEBANG_BASE_PART_REGEX='^#![[:space:]]*([^[:space:]]*/usr/bin/env[[:space:]]+)?([^[:space:]]*/)?(jython|pypy-c|python)'
+_PYTHON_SHEBANG_BASE_PART_REGEX='^#![[:space:]]*([^[:space:]]*/usr/bin/env[[:space:]]+)?([^[:space:]]*/)?(jython|pypy-python|python)'
 
 # @FUNCTION: python_convert_shebangs
 # @USAGE: [-q|--quiet] [-r|--recursive] [-x|--only-executables] [--] <Python_ABI|Python_version> <file|directory> [files|directories]
@@ -1293,7 +1306,7 @@ python_convert_shebangs() {
 				einfo "Converting shebang in '${file}'"
 			fi
 
-			sed -e "1s:^#![[:space:]]*\([^[:space:]]*/usr/bin/env[[:space:]]\)\?[[:space:]]*\([^[:space:]]*/\)\?\(jython\|pypy-c\|python\)\([[:digit:]]\+\(\.[[:digit:]]\+\)\?\)\?\(\$\|[[:space:]].*\):#!\1\2${python_interpreter}\6:" -i "${file}" || die "Conversion of shebang in '${file}' failed"
+			sed -e "1s:^#![[:space:]]*\([^[:space:]]*/usr/bin/env[[:space:]]\)\?[[:space:]]*\([^[:space:]]*/\)\?\(jython\|pypy-python\|python\)\([[:digit:]]\+\(\.[[:digit:]]\+\)\?\)\?\(\$\|[[:space:]].*\):#!\1\2${python_interpreter}\6:" -i "${file}" || die "Conversion of shebang in '${file}' failed"
 		fi
 	done
 
@@ -1410,7 +1423,7 @@ python_clean_installation_image() {
 
 if ! { has "${EAPI:-0}" 0 1 2 3 || { has "${EAPI:-0}" 4 5 && has "${PYTHON_ECLASS_API}" 0; }; }; then
 	if [[ -n "${SUPPORT_PYTHON_ABIS}" ]]; then
-		eerror "Use PYTHON_MULTIPLE_ABIS variable instead of SUPPORT_PYTHON_ABIS variable."
+		eerror "Use PYTHON_ABI_TYPE=\"multiple\" variable instead of SUPPORT_PYTHON_ABIS variable."
 		die "SUPPORT_PYTHON_ABIS variable is banned"
 	fi
 	if [[ -n "${RESTRICT_PYTHON_ABIS}" ]]; then
@@ -1422,6 +1435,7 @@ fi
 # @ECLASS-VARIABLE: PYTHON_MULTIPLE_ABIS
 # @DESCRIPTION:
 # Set this to indicate that current package supports installation for multiple Python ABIs.
+# Deprecated in favor of PYTHON_ABI_TYPE="multiple".
 
 # @ECLASS-VARIABLE: PYTHON_RESTRICTED_ABIS
 # @DESCRIPTION:
@@ -1524,7 +1538,7 @@ _python_calculate_PYTHON_ABIS() {
 		fi
 	else
 		if [[ -n "${SUPPORT_PYTHON_ABIS}" ]]; then
-			eerror "Use PYTHON_MULTIPLE_ABIS variable instead of SUPPORT_PYTHON_ABIS variable."
+			eerror "Use PYTHON_ABI_TYPE=\"multiple\" variable instead of SUPPORT_PYTHON_ABIS variable."
 			die "SUPPORT_PYTHON_ABIS variable is banned"
 		fi
 		if [[ -n "${RESTRICT_PYTHON_ABIS}" ]]; then
@@ -2077,24 +2091,13 @@ import sys
 
 cpython_ABI_re = re.compile(r"^(\d+\.\d+)$")
 jython_ABI_re = re.compile(r"^(\d+\.\d+)-jython$")
-pypy_ABI_re = re.compile(r"^\d+\.\d+-pypy-(\d+\.\d+)$")
+pypy_ABI_re = re.compile(r"^(\d+\.\d+)-pypy$")
 cpython_interpreter_re = re.compile(r"^python(\d+\.\d+)$")
 jython_interpreter_re = re.compile(r"^jython(\d+\.\d+)$")
-pypy_interpreter_re = re.compile(r"^pypy-c(\d+\.\d+)$")
+pypy_interpreter_re = re.compile(r"^pypy-python(\d+\.\d+)$")
 cpython_shebang_re = re.compile(r"^#![ \t]*(?:${EPREFIX}/usr/bin/python|(?:${EPREFIX})?/usr/bin/env[ \t]+(?:${EPREFIX}/usr/bin/)?python)")
-python_shebang_options_re = re.compile(r"^#![ \t]*${EPREFIX}/usr/bin/(?:jython|pypy-c|python)(?:\d+(?:\.\d+)?)?[ \t]+(-\S)")
+python_shebang_options_re = re.compile(r"^#![ \t]*${EPREFIX}/usr/bin/(?:jython|pypy-python|python)(?:\d+(?:\.\d+)?)?[ \t]+(-\S)")
 python_verification_output_re = re.compile("^GENTOO_PYTHON_TARGET_SCRIPT_PATH supported\n$")
-
-pypy_versions_mapping = {
-$(for ((i = 0; i < "${#_PYPY_GLOBALLY_SUPPORTED_ABIS[@]}"; i++)); do
-	PYTHON_ABI="${_PYPY_GLOBALLY_SUPPORTED_ABIS[${i}]}"
-	echo -en "\t\"${PYTHON_ABI#*-pypy-}\": \"${PYTHON_ABI%-pypy-*}\""
-	if [[ "${i}" -lt "$((${#_PYPY_GLOBALLY_SUPPORTED_ABIS[@]} - 1))" ]]; then
-		echo -n ","
-	fi
-	echo
-done)
-}
 
 def get_PYTHON_ABI(python_interpreter):
 	cpython_matched = cpython_interpreter_re.match(python_interpreter)
@@ -2105,7 +2108,7 @@ def get_PYTHON_ABI(python_interpreter):
 	elif jython_matched is not None:
 		PYTHON_ABI = jython_matched.group(1) + "-jython"
 	elif pypy_matched is not None:
-		PYTHON_ABI = pypy_versions_mapping[pypy_matched.group(1)] + "-pypy-" + pypy_matched.group(1)
+		PYTHON_ABI = pypy_matched.group(1) + "-pypy"
 	else:
 		PYTHON_ABI = None
 	return PYTHON_ABI
@@ -2119,7 +2122,7 @@ def get_python_interpreter(PYTHON_ABI):
 	elif jython_matched is not None:
 		python_interpreter = "jython" + jython_matched.group(1)
 	elif pypy_matched is not None:
-		python_interpreter = "pypy-c" + pypy_matched.group(1)
+		python_interpreter = "pypy" + pypy_matched.group(1)
 	else:
 		python_interpreter = None
 	return python_interpreter
@@ -2660,7 +2663,7 @@ sys.stdout.write(".".join(str(x) for x in sys.version_info[:2]))
 if platform.system()[:4] == "Java":
 	sys.stdout.write("-jython")
 elif hasattr(platform, "python_implementation") and platform.python_implementation() == "PyPy":
-	sys.stdout.write("-pypy-" + ".".join(str(x) for x in sys.pypy_version_info[:2]))'
+	sys.stdout.write("-pypy")'
 
 _python_get_implementation() {
 	local ignore_invalid="0"
@@ -2692,7 +2695,7 @@ _python_get_implementation() {
 		echo "CPython"
 	elif [[ "$1" =~ ^[[:digit:]]+\.[[:digit:]]+-jython$ ]]; then
 		echo "Jython"
-	elif [[ "$1" =~ ^[[:digit:]]+\.[[:digit:]]+-pypy-[[:digit:]]+\.[[:digit:]]+$ ]]; then
+	elif [[ "$1" =~ ^[[:digit:]]+\.[[:digit:]]+-pypy$ ]]; then
 		echo "PyPy"
 	else
 		if [[ "${ignore_invalid}" == "0" ]]; then
@@ -2813,7 +2816,7 @@ PYTHON() {
 		elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "Jython" ]]; then
 			python_interpreter="jython${PYTHON_ABI%-jython}"
 		elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "PyPy" ]]; then
-			python_interpreter="pypy-c${PYTHON_ABI#*-pypy-}"
+			python_interpreter="pypy-python${PYTHON_ABI%-pypy}"
 		fi
 
 		if [[ "${absolute_path_output}" == "1" ]]; then
@@ -2917,7 +2920,7 @@ python_get_implementational_package() {
 		elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "Jython" ]]; then
 			echo "=dev-lang/jython-${PYTHON_ABI%-jython}*"
 		elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "PyPy" ]]; then
-			echo "=virtual/pypy-${PYTHON_ABI#*-pypy-}*"
+			echo "=dev-lang/pypy-${PYTHON_ABI%-pypy}*"
 		fi
 	else
 		if [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "CPython" ]]; then
@@ -2925,7 +2928,7 @@ python_get_implementational_package() {
 		elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "Jython" ]]; then
 			echo "dev-lang/jython:${PYTHON_ABI%-jython}"
 		elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "PyPy" ]]; then
-			echo "virtual/pypy:${PYTHON_ABI#*-pypy-}"
+			echo "dev-lang/pypy:${PYTHON_ABI%-pypy}"
 		fi
 	fi
 }
@@ -2983,7 +2986,7 @@ python_get_includedir() {
 	elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "Jython" ]]; then
 		echo "${prefix}usr/share/jython-${PYTHON_ABI%-jython}/Include"
 	elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "PyPy" ]]; then
-		echo "${prefix}usr/${_PYTHON_MULTILIB_LIBDIR}/pypy${PYTHON_ABI#*-pypy-}/include"
+		echo "${prefix}usr/${_PYTHON_MULTILIB_LIBDIR}/pypy-python${PYTHON_ABI%-pypy}/include"
 	fi
 }
 
@@ -2996,7 +2999,7 @@ python_get_includedir() {
 python_get_libdir() {
 	_python_check_python_pkg_setup_execution
 
-	local base_path="0" final_ABI="0" prefix PYTHON_ABI="${PYTHON_ABI}"
+	local base_path="0" final_ABI="0" prefix PYTHON_ABI="${PYTHON_ABI}" version
 
 	while (($#)); do
 		case "$1" in
@@ -3040,7 +3043,12 @@ python_get_libdir() {
 	elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "Jython" ]]; then
 		echo "${prefix}usr/share/jython-${PYTHON_ABI%-jython}/Lib"
 	elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "PyPy" ]]; then
-		echo "${prefix}usr/${_PYTHON_MULTILIB_LIBDIR}/pypy${PYTHON_ABI#*-pypy-}/lib-python/${PYTHON_ABI%-pypy-*}"
+		if [[ "${PYTHON_ABI}" == 2.7-pypy ]]; then
+			version="2.7"
+		elif [[ "${PYTHON_ABI}" == 3.*-pypy ]]; then
+			version="3"
+		fi
+		echo "${prefix}usr/${_PYTHON_MULTILIB_LIBDIR}/pypy-python${PYTHON_ABI%-pypy}/lib-python/${version}"
 	fi
 }
 
@@ -3097,7 +3105,7 @@ python_get_sitedir() {
 	elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "Jython" ]]; then
 		echo "${prefix}usr/share/jython-${PYTHON_ABI%-jython}/Lib/site-packages"
 	elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "PyPy" ]]; then
-		echo "${prefix}usr/${_PYTHON_MULTILIB_LIBDIR}/pypy${PYTHON_ABI#*-pypy-}/site-packages"
+		echo "${prefix}usr/${_PYTHON_MULTILIB_LIBDIR}/pypy-python${PYTHON_ABI%-pypy}/site-packages"
 	fi
 }
 
@@ -3219,8 +3227,12 @@ python_get_extension_module_suffix() {
 	elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "Jython" ]]; then
 		die "${FUNCNAME}(): Jython does not support extension modules"
 	elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "PyPy" ]]; then
-		extension_module_suffix="${PYTHON_ABI##*-}"
-		extension_module_suffix=".pypy-${extension_module_suffix/./}.so"
+		extension_module_suffix="$(python_get_version $([[ "${final_ABI}" == "1" ]] && echo -f))"
+		if [[ "${PYTHON_ABI}" == 2.*-pypy ]]; then
+			extension_module_suffix=".pypy-${extension_module_suffix/./}.so"
+		else
+			extension_module_suffix=".pypy${PYTHON_ABI%.*-pypy}-${extension_module_suffix/./}.so"
+		fi
 	fi
 
 	echo "${extension_module_suffix}"
@@ -3316,14 +3328,15 @@ python_get_version() {
 			if [[ -n "${PYTHON_ABI}" && "${final_ABI}" == "0" ]]; then
 				if [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "CPython" ]]; then
 					echo "${PYTHON_ABI}"
+					return
 				elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "Jython" ]]; then
 					echo "${PYTHON_ABI%-jython}"
+					return
 				elif [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "PyPy" ]]; then
-					echo "${PYTHON_ABI#*-pypy-}"
+					:
 				fi
-				return
 			fi
-			python_command="from sys import version_info; print('.'.join(str(x) for x in version_info[:2]))"
+			python_command="import sys; print('.'.join(str(x) for x in getattr(sys, 'pypy_version_info', sys.version_info)[:2]))"
 		fi
 
 		if [[ "${final_ABI}" == "1" ]]; then
@@ -3376,8 +3389,8 @@ python_get_implementation_and_version() {
 		fi
 	fi
 
-	if [[ "${PYTHON_ABI}" =~ ^[[:digit:]]+\.[[:digit:]]+-[[:alnum:]]+-[[:digit:]]+\.[[:digit:]]+$ ]]; then
-		echo "$(_python_get_implementation "${PYTHON_ABI}") ${PYTHON_ABI##*-} (Python ${PYTHON_ABI%%-*})"
+	if [[ "$(_python_get_implementation "${PYTHON_ABI}")" == "PyPy" ]]; then
+		echo "PyPy $(python_get_version) (Python ${PYTHON_ABI%%-*})"
 	else
 		echo "$(_python_get_implementation "${PYTHON_ABI}") ${PYTHON_ABI%%-*}"
 	fi
@@ -3626,11 +3639,20 @@ python_execute_trial() {
 # ======================= FUNCTIONS FOR HANDLING OF BYTE-COMPILED MODULES ========================
 # ================================================================================================
 
-# @FUNCTION: python_enable_pyc
+# @FUNCTION: python_enable_byte-compilation
 # @DESCRIPTION:
-# Tell Python to automatically recompile modules to .pyc/.pyo if the
-# timestamps/version stamps have changed.
-python_enable_pyc() {
+# Enable byte-compilation of *.py Python modules to *.pyc / *.pyo Python modules during:
+# - Importation
+# - Installation by Distutils
+#
+# Importational byte-compilation occurs when any of the following properties of *.py Python module
+# does not match value cached in header of *.pyc / *.pyo Python module:
+# - Magic number
+# - Time of last modification of data
+# - Size (Python >=3.3)
+#
+# Byte-compilation should be enabled temporarily and only when it is absolutely necessary.
+python_enable_byte-compilation() {
 	_python_check_python_pkg_setup_execution
 
 	if [[ "$#" -ne 0 ]]; then
@@ -3640,12 +3662,20 @@ python_enable_pyc() {
 	unset PYTHONDONTWRITEBYTECODE
 }
 
-# @FUNCTION: python_disable_pyc
+# @FUNCTION: python_disable_byte-compilation
 # @DESCRIPTION:
-# Tell Python not to automatically recompile modules to .pyc/.pyo
-# even if the timestamps/version stamps do not match. This is done
-# to protect sandbox.
-python_disable_pyc() {
+# Disable byte-compilation of *.py Python modules to *.pyc / *.pyo Python modules during:
+# - Importation
+# - Installation by Distutils
+#
+# Importational byte-compilation occurs when any of the following properties of *.py Python module
+# does not match value cached in header of *.pyc / *.pyo Python module:
+# - Magic number
+# - Time of last modification of data
+# - Size (Python >=3.3)
+#
+# Byte-compilation should be disabled to avoid sandbox violations.
+python_disable_byte-compilation() {
 	_python_check_python_pkg_setup_execution
 
 	if [[ "$#" -ne 0 ]]; then
@@ -3655,11 +3685,11 @@ python_disable_pyc() {
 	export PYTHONDONTWRITEBYTECODE="1"
 }
 
-_python_clean_compiled_modules() {
+_python_clean_byte-compiled_modules() {
 	_python_initialize_prefix_variables
 	_python_set_color_variables
 
-	[[ "${FUNCNAME[1]}" =~ ^(python_mod_optimize|python_mod_cleanup)$ ]] || die "${FUNCNAME}(): Invalid usage"
+	[[ "${FUNCNAME[1]}" =~ ^(python_byte-compile_modules|python_clean_byte-compiled_modules)$ ]] || die "${FUNCNAME}(): Invalid usage"
 
 	local base_module_name compiled_file compiled_files=() dir path py_file root
 
@@ -3745,14 +3775,14 @@ _python_clean_compiled_modules() {
 	done
 }
 
-# @FUNCTION: python_mod_optimize
+# @FUNCTION: python_byte-compile_modules
 # @USAGE: [-A|--ABIs-patterns Python_ABIs] [--allow-evaluated-non-sitedir-paths] [-d directory] [-f] [-l] [-q] [-x regular_expression] [--] <file|directory> [files|directories]
 # @DESCRIPTION:
 # Byte-compile specified Python modules.
 # -d, -f, -l, -q and -x options passed to this function are passed to compileall.py.
 #
 # This function can be used only in pkg_postinst() phase.
-python_mod_optimize() {
+python_byte-compile_modules() {
 	if [[ "${EBUILD_PHASE}" != "postinst" ]]; then
 		die "${FUNCNAME}() can be used only in pkg_postinst() phase"
 	fi
@@ -3895,7 +3925,7 @@ python_mod_optimize() {
 					if ! has "$(_python_get_implementation "${PYTHON_ABI}")" Jython PyPy; then
 						"$(PYTHON)" -O -m compileall -f "${options[@]}" "${dirs[@]}" &> /dev/null || exit_status="1"
 					fi
-					_python_clean_compiled_modules "${dirs[@]}"
+					_python_clean_byte-compiled_modules "${dirs[@]}"
 				fi
 				if ((${#site_packages_files[@]})) || ((${#evaluated_files[@]})); then
 					for file in "${site_packages_files[@]}"; do
@@ -3908,7 +3938,7 @@ python_mod_optimize() {
 					if ! has "$(_python_get_implementation "${PYTHON_ABI}")" Jython PyPy; then
 						"$(PYTHON)" -O -m py_compile "${files[@]}" &> /dev/null || exit_status="1"
 					fi
-					_python_clean_compiled_modules "${files[@]}"
+					_python_clean_byte-compiled_modules "${files[@]}"
 				fi
 				eend "${exit_status}"
 				if [[ -n "${stderr}" ]]; then
@@ -3948,14 +3978,14 @@ python_mod_optimize() {
 				if ! has "$(_python_get_implementation "${PYTHON_ABI}")" Jython PyPy; then
 					"$(PYTHON ${PYTHON_ABI})" -O -m compileall -f "${options[@]}" "${other_dirs[@]}" &> /dev/null || exit_status="1"
 				fi
-				_python_clean_compiled_modules "${other_dirs[@]}"
+				_python_clean_byte-compiled_modules "${other_dirs[@]}"
 			fi
 			if ((${#other_files[@]})); then
 				stderr+="${stderr:+$'\n'}$("$(PYTHON ${PYTHON_ABI})" -m py_compile "${other_files[@]}" 2>&1)" || exit_status="1"
 				if ! has "$(_python_get_implementation "${PYTHON_ABI}")" Jython PyPy; then
 					"$(PYTHON ${PYTHON_ABI})" -O -m py_compile "${other_files[@]}" &> /dev/null || exit_status="1"
 				fi
-				_python_clean_compiled_modules "${other_files[@]}"
+				_python_clean_byte-compiled_modules "${other_files[@]}"
 			fi
 			eend "${exit_status}"
 			if [[ -n "${stderr}" ]]; then
@@ -3974,10 +4004,10 @@ python_mod_optimize() {
 			fi
 		fi
 	else
-		# Deprecated part of python_mod_optimize()
+		# Deprecated part of python_byte-compile_modules()
 		ewarn
 		ewarn "Deprecation Warning: Usage of ${FUNCNAME}() in packages not supporting installation"
-		ewarn "for multiple Python ABIs in EAPI <=2 is deprecated and will be disallowed on 2011-08-01."
+		ewarn "for multiple Python ABIs in EAPI <=2 is deprecated and will be disallowed on 2016-01-01."
 		ewarn "Use EAPI >=3 and call ${FUNCNAME}() with paths having appropriate syntax."
 		ewarn "The ebuild needs to be fixed. Please report a bug, if it has not been already reported."
 		ewarn
@@ -4039,26 +4069,26 @@ python_mod_optimize() {
 		if ((${#mydirs[@]})); then
 			"$(PYTHON ${PYTHON_ABI})" "${myroot}$(python_get_libdir)/compileall.py" "${myopts[@]}" "${mydirs[@]}" || return_code="1"
 			"$(PYTHON ${PYTHON_ABI})" -O "${myroot}$(python_get_libdir)/compileall.py" "${myopts[@]}" "${mydirs[@]}" &> /dev/null || return_code="1"
-			_python_clean_compiled_modules "${mydirs[@]}"
+			_python_clean_byte-compiled_modules "${mydirs[@]}"
 		fi
 
 		if ((${#myfiles[@]})); then
 			"$(PYTHON ${PYTHON_ABI})" "${myroot}$(python_get_libdir)/py_compile.py" "${myfiles[@]}" || return_code="1"
 			"$(PYTHON ${PYTHON_ABI})" -O "${myroot}$(python_get_libdir)/py_compile.py" "${myfiles[@]}" &> /dev/null || return_code="1"
-			_python_clean_compiled_modules "${myfiles[@]}"
+			_python_clean_byte-compiled_modules "${myfiles[@]}"
 		fi
 
 		eend "${return_code}"
 	fi
 }
 
-# @FUNCTION: python_mod_cleanup
+# @FUNCTION: python_clean_byte-compiled_modules
 # @USAGE: [-A|--ABIs-patterns Python_ABIs] [--allow-evaluated-non-sitedir-paths] [--] <file|directory> [files|directories]
 # @DESCRIPTION:
 # Delete orphaned byte-compiled Python modules corresponding to specified Python modules.
 #
 # This function can be used only in pkg_postrm() phase.
-python_mod_cleanup() {
+python_clean_byte-compiled_modules() {
 	if [[ "${EBUILD_PHASE}" != "postrm" ]]; then
 		die "${FUNCNAME}() can be used only in pkg_postrm() phase"
 	fi
@@ -4151,10 +4181,10 @@ python_mod_cleanup() {
 			shift
 		done
 	else
-		# Deprecated part of python_mod_cleanup()
+		# Deprecated part of python_clean_byte-compiled_modules()
 		ewarn
 		ewarn "Deprecation Warning: Usage of ${FUNCNAME}() in packages not supporting installation"
-		ewarn "for multiple Python ABIs in EAPI <=2 is deprecated and will be disallowed on 2011-08-01."
+		ewarn "for multiple Python ABIs in EAPI <=2 is deprecated and will be disallowed on 2016-01-01."
 		ewarn "Use EAPI >=3 and call ${FUNCNAME}() with paths having appropriate syntax."
 		ewarn "The ebuild needs to be fixed. Please report a bug, if it has not been already reported."
 		ewarn
@@ -4163,7 +4193,7 @@ python_mod_cleanup() {
 		search_paths=("${search_paths[@]/#/${root}/}")
 	fi
 
-	_python_clean_compiled_modules "${search_paths[@]}"
+	_python_clean_byte-compiled_modules "${search_paths[@]}"
 }
 
 # ================================================================================================
@@ -4298,3 +4328,23 @@ _python_clean_cffi_modules() {
 # ================================================================================================
 # ===================================== DEPRECATED FUNCTIONS =====================================
 # ================================================================================================
+
+# Scheduled for deletion on 2016-01-01.
+python_enable_pyc() {
+	python_enable_byte-compilation "$@"
+}
+
+# Scheduled for deletion on 2016-01-01.
+python_disable_pyc() {
+	python_disable_byte-compilation "$@"
+}
+
+# Scheduled for deletion on 2016-01-01.
+python_mod_optimize() {
+	python_byte-compile_modules "$@"
+}
+
+# Scheduled for deletion on 2016-01-01.
+python_mod_cleanup() {
+	python_clean_byte-compiled_modules "$@"
+}

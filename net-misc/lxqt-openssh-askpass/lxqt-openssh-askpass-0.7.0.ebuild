@@ -1,12 +1,12 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/lxqt-openssh-askpass/lxqt-openssh-askpass-0.7.0.ebuild,v 1.3 2014/05/29 14:51:12 mrueg Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/lxqt-openssh-askpass/lxqt-openssh-askpass-0.7.0.ebuild,v 1.5 2014/11/16 12:43:49 jauhien Exp $
 
 EAPI=5
 inherit cmake-utils
 
 DESCRIPTION="LXQt OpenSSH user password prompt tool"
-HOMEPAGE="http://www.lxqt.org/"
+HOMEPAGE="http://lxqt.org/"
 
 if [[ ${PV} = *9999* ]]; then
 	inherit git-r3
@@ -24,7 +24,7 @@ S=${WORKDIR}
 DEPEND="dev-qt/qtcore:4
 	dev-qt/qtdbus:4
 	dev-qt/qtgui:4
-	lxqt-base/liblxqt"
+	~lxqt-base/liblxqt-${PV}"
 RDEPEND="${DEPEND}"
 
 src_install(){

@@ -1,12 +1,12 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/lxqt-base/lxqt-about/lxqt-about-0.7.0.ebuild,v 1.2 2014/05/29 08:01:38 mrueg Exp $
+# $Header: /var/cvsroot/gentoo-x86/lxqt-base/lxqt-about/lxqt-about-0.7.0.ebuild,v 1.4 2014/11/16 12:42:27 jauhien Exp $
 
 EAPI=5
 inherit cmake-utils
 
 DESCRIPTION="LXQt about dialog"
-HOMEPAGE="http://www.lxqt.org/"
+HOMEPAGE="http://lxqt.org/"
 
 if [[ ${PV} = *9999* ]]; then
 	inherit git-r3
@@ -21,5 +21,5 @@ LICENSE="GPL-2 LGPL-2.1+"
 SLOT="0"
 
 DEPEND="dev-qt/qtgui:4
-	lxqt-base/liblxqt"
+	~lxqt-base/liblxqt-${PV}"
 RDEPEND="${DEPEND}"

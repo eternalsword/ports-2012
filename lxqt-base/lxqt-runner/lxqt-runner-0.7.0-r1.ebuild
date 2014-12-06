@@ -1,12 +1,12 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/lxqt-base/lxqt-runner/lxqt-runner-0.7.0-r1.ebuild,v 1.2 2014/05/29 08:24:15 mrueg Exp $
+# $Header: /var/cvsroot/gentoo-x86/lxqt-base/lxqt-runner/lxqt-runner-0.7.0-r1.ebuild,v 1.5 2014/11/16 12:42:27 jauhien Exp $
 
 EAPI=5
 inherit cmake-utils
 
 DESCRIPTION="LXQt quick launcher"
-HOMEPAGE="http://www.lxqt.org/"
+HOMEPAGE="http://lxqt.org/"
 
 if [[ ${PV} = *9999* ]]; then
 	inherit git-r3
@@ -24,10 +24,10 @@ RDEPEND="dev-qt/qtcore:4
 	dev-qt/qtdbus:4
 	dev-qt/qtgui:4
 	dev-qt/qtscript:4
-	lxqt-base/liblxqt
-	lxqt-base/lxqt-globalkeys
+	~lxqt-base/liblxqt-${PV}
+	~lxqt-base/lxqt-globalkeys-${PV}
 	>=lxde-base/menu-cache-0.5.1
-	razorqt-base/libqtxdg
+	~dev-libs/libqtxdg-0.5.3
 	x11-libs/libX11"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"

@@ -1,12 +1,12 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/lxqt-base/lxqt-config/lxqt-config-0.7.0-r1.ebuild,v 1.3 2014/10/17 10:06:57 jauhien Exp $
+# $Header: /var/cvsroot/gentoo-x86/lxqt-base/lxqt-config/lxqt-config-0.7.0-r1.ebuild,v 1.6 2014/11/16 12:42:27 jauhien Exp $
 
 EAPI=5
 inherit cmake-utils
 
 DESCRIPTION="LXQt system configuration control center"
-HOMEPAGE="http://www.lxqt.org/"
+HOMEPAGE="http://lxqt.org/"
 
 if [[ ${PV} = *9999* ]]; then
 	inherit git-r3
@@ -22,8 +22,8 @@ SLOT="0"
 
 DEPEND="dev-qt/qtcore:4
 	dev-qt/qtgui:4
-	lxqt-base/liblxqt
-	razorqt-base/libqtxdg
+	~lxqt-base/liblxqt-${PV}
+	~dev-libs/libqtxdg-0.5.3
 	sys-libs/zlib
 	x11-libs/libXcursor
 	x11-libs/libXfixes"

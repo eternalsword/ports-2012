@@ -1,9 +1,10 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/libssh2/libssh2-1.4.3-r1.ebuild,v 1.3 2014/10/12 10:14:34 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/libssh2/libssh2-1.4.3-r1.ebuild,v 1.7 2014/12/02 12:59:07 pacho Exp $
 
 EAPI="5"
 
+AUTOTOOLS_AUTORECONF=true
 inherit autotools-multilib
 
 DESCRIPTION="Library implementing the SSH2 protocol"
@@ -12,7 +13,7 @@ SRC_URI="http://www.${PN}.org/download/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-solaris"
+KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-solaris"
 IUSE="gcrypt static-libs test zlib"
 
 DEPEND="!gcrypt? ( >=dev-libs/openssl-1.0.1h-r2[${MULTILIB_USEDEP}] )
@@ -26,8 +27,7 @@ PATCHES=( "${FILESDIR}"/${PN}-1.4.2-pkgconfig.patch )
 
 src_prepare() {
 	sed -i -e 's|mansyntax.sh||g' tests/Makefile.am || die
-	eautomake
-	multilib_src_prepare
+	autotools-multilib_src_prepare
 }
 
 multilib_src_configure() {

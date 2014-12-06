@@ -3,7 +3,7 @@
 EAPI="5"
 GCONF_DEBUG="yes"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python{2_7,3_2,3_3,3_4} )
 
 inherit gnome2 multilib-minimal python-any-r1
 
@@ -13,7 +13,7 @@ HOMEPAGE="https://wiki.gnome.org/LibSoup"
 LICENSE="LGPL-2+"
 SLOT="2.4"
 IUSE="debug +introspection samba ssl test"
-KEYWORDS="~*"
+KEYWORDS="*"
 
 RDEPEND="
 	>=dev-libs/glib-2.42.0:2[${MULTILIB_USEDEP}]

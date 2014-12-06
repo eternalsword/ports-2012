@@ -197,26 +197,37 @@ distutils_src_prepare() {
 	fi
 
 	_python_check_python_pkg_setup_execution
-
-	local distribute_setup_existence="0" ez_setup_existence="0"
+	_python_set_color_variables
 
 	if [[ "$#" -ne 0 ]]; then
 		die "${FUNCNAME}() does not accept arguments"
 	fi
 
-	# Delete ez_setup files to prevent packages from installing Setuptools on their own.
-	[[ -d ez_setup || -f ez_setup.py ]] && ez_setup_existence="1"
-	rm -fr ez_setup*
-	if [[ "${ez_setup_existence}" == "1" ]]; then
-		echo "def use_setuptools(*args, **kwargs): pass" > ez_setup.py
-	fi
+	local distribute_setup_existence ez_setup_existence setup_file
 
-	# Delete distribute_setup files to prevent packages from installing Distribute on their own.
-	[[ -d distribute_setup || -f distribute_setup.py ]] && distribute_setup_existence="1"
-	rm -fr distribute_setup*
-	if [[ "${distribute_setup_existence}" == "1" ]]; then
-		echo "def use_setuptools(*args, **kwargs): pass" > distribute_setup.py
-	fi
+	echo " ${_GREEN}*${_NORMAL} ${_BLUE}Preparing Distutils build system...${_NORMAL}"
+
+	for setup_file in "${DISTUTILS_SETUP_FILES[@]-setup.py}"; do
+		_distutils_prepare_current_working_directory "${setup_file}"
+
+		distribute_setup_existence="0" ez_setup_existence="0"
+
+		# Delete ez_setup files to prevent packages from installing Setuptools on their own.
+		[[ -d ez_setup || -f ez_setup.py ]] && ez_setup_existence="1"
+		rm -fr ez_setup*
+		if [[ "${ez_setup_existence}" == "1" ]]; then
+			echo "def use_setuptools(*args, **kwargs): pass" > ez_setup.py
+		fi
+
+		# Delete distribute_setup files to prevent packages from installing Distribute on their own.
+		[[ -d distribute_setup || -f distribute_setup.py ]] && distribute_setup_existence="1"
+		rm -fr distribute_setup*
+		if [[ "${distribute_setup_existence}" == "1" ]]; then
+			echo "def use_setuptools(*args, **kwargs): pass" > distribute_setup.py
+		fi
+
+		_distutils_restore_current_working_directory "${setup_file}"
+	done
 
 	if [[ -n "${DISTUTILS_USE_SEPARATE_SOURCE_DIRECTORIES}" ]]; then
 		python_copy_sources
@@ -430,7 +441,7 @@ distutils_src_install() {
 				einfo "        $(echo "${line}" | sed -e "s/.*types\.ModuleType('\([^']\+\)').*/\1/")"
 			done < "${nspkg_pth_file}"
 			if ! has "${EAPI:-0}" 2 3; then
-				rm -f "${nspkg_pth_file}" || die "Deletion of '${nspkg_pth_file}' failed"
+				rm "${nspkg_pth_file}" || die "Deletion of '${nspkg_pth_file}' failed"
 			fi
 		done
 		einfo
@@ -459,8 +470,8 @@ distutils_src_install() {
 # @FUNCTION: distutils_pkg_postinst
 # @DESCRIPTION:
 # The distutils pkg_postinst function. This function is exported.
-# When PYTHON_MODULES variable is set, then this function calls python_mod_optimize() with modules
-# specified in PYTHON_MODULES variable. Otherwise it calls python_mod_optimize() with module, whose
+# When PYTHON_MODULES variable is set, then this function calls python_byte-compile_modules() with modules
+# specified in PYTHON_MODULES variable. Otherwise it calls python_byte-compile_modules() with module, whose
 # name is equal to name of current package, if this module exists.
 distutils_pkg_postinst() {
 	if [[ "${EBUILD_PHASE}" != "postinst" ]]; then
@@ -493,15 +504,15 @@ distutils_pkg_postinst() {
 	fi
 
 	if [[ -n "${PYTHON_MODULES}" ]]; then
-		python_mod_optimize ${PYTHON_MODULES}
+		python_byte-compile_modules ${PYTHON_MODULES}
 	fi
 }
 
 # @FUNCTION: distutils_pkg_postrm
 # @DESCRIPTION:
 # The distutils pkg_postrm function. This function is exported.
-# When PYTHON_MODULES variable is set, then this function calls python_mod_cleanup() with modules
-# specified in PYTHON_MODULES variable. Otherwise it calls python_mod_cleanup() with module, whose
+# When PYTHON_MODULES variable is set, then this function calls python_clean_byte-compiled_modules() with modules
+# specified in PYTHON_MODULES variable. Otherwise it calls python_clean_byte-compiled_modules() with module, whose
 # name is equal to name of current package, if this module exists.
 distutils_pkg_postrm() {
 	if [[ "${EBUILD_PHASE}" != "postrm" ]]; then
@@ -534,7 +545,7 @@ distutils_pkg_postrm() {
 	fi
 
 	if [[ -n "${PYTHON_MODULES}" ]]; then
-		python_mod_cleanup ${PYTHON_MODULES}
+		python_clean_byte-compiled_modules ${PYTHON_MODULES}
 	fi
 }
 

@@ -12,7 +12,7 @@ HOMEPAGE="http://live.gnome.org/Gucharmap"
 
 LICENSE="GPL-3"
 SLOT="2.90"
-KEYWORDS="~*"
+KEYWORDS="*"
 IUSE="cjk +introspection test vala"
 REQUIRED_USE="vala? ( introspection )"
 
@@ -28,6 +28,7 @@ RDEPEND="${COMMON_DEPEND}
 "
 DEPEND="${RDEPEND}
 	app-text/yelp-tools
+	dev-util/appdata-tools
 	dev-util/desktop-file-utils
 	>=dev-util/gtk-doc-am-1
 	>=dev-util/intltool-0.40

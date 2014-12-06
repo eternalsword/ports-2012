@@ -11,7 +11,7 @@ HOMEPAGE="https://wiki.gnome.org/action/show/Apps/Seahorse"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="*"
 IUSE=""
 
 COMMON_DEPEND="
@@ -23,7 +23,7 @@ COMMON_DEPEND="
 	>=gnome-base/nautilus-3.14.0
 	x11-libs/gtk+:3
 	>=x11-libs/libcryptui-3.9.90
-	>=x11-libs/libnotify-0.76.0:=
+	>=x11-libs/libnotify-0.7.0:=
 	|| (
 		=app-crypt/gnupg-1.4*
 		=app-crypt/gnupg-2.0* )

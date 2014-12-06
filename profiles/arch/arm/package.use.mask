@@ -1,6 +1,35 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/arch/arm/package.use.mask,v 1.220 2014/10/18 18:15:52 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/arch/arm/package.use.mask,v 1.229 2014/11/29 20:06:42 maekke Exp $
+
+# Markus Meier <maekke@gentoo.org> (29 Nov 2014)
+# Unkeyworded deps, bug #518742
+dev-python/ipython doc
+dev-python/oct2py doc
+
+# Patrick Lauer <patrick@gentoo.org> (19 Nov 2014)
+# Missing keywords #529820
+app-office/libreoffice collada
+
+# Michael Weber <xmw@gentoo.org> (15 Nov 2014)
+# missing keywords on media-libs/libharu
+www-client/netsurf pdf-writer
+
+# Markus Meier <maekke@gentoo.org> (14 Nov 2014)
+# Unkeyworded deps, bug #511532
+net-im/prosody libevent mysql postgres sqlite
+
+# Michael Palimaka <kensington@gentoo.org> (25 Oct 2014)
+# Unkeyworded deps, bug #525558
+kde-base/systemsettings kscreen
+
+# Alexis Ballier <aballier@gentoo.org> (24 Oct 2014)
+# sci-libs/hdf is not supported on arm
+sci-libs/netcdf hdf
+
+# Markus Meier <maekke@gentoo.org> (23 Oct 2014)
+# Unkeyworded deps, bug #523468
+net-misc/networkmanager teamd
 
 # Markus Meier <maekke@gentoo.org> (24 Sep 2014)
 # Unkeyworded deps, bug #519618
@@ -33,10 +62,6 @@ mail-filter/opendkim opendbx
 # Markus Meier <maekke@gentoo.org> (04 May 2014)
 # Unkeyworded deps, bug #507896
 dev-qt/qt-mobility messaging
-
-# Andreas K. Huettel <dilfridge@gentoo.org> (3 May 2014)
-# Missing keywords, should only be a transitionary problem
-kde-base/baloo alternatekcm
 
 # Julian Ospald <hasufell@gentoo.org> (20 Apr 2014)
 # Missing keywords, bug #508226
@@ -279,7 +304,6 @@ kde-base/okular ebook chm
 kde-base/kstars indi
 kde-base/kdeutils-meta floppy
 kde-base/kdenetwork-meta ppp
-kde-base/kdesdk-misc extras
 kde-base/smokeqt qscintilla qwt
 kde-base/qtruby qscintilla qwt
 kde-base/perlqt qscintilla qwt

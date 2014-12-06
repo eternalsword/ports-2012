@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/ming/ming-0.4.5.ebuild,v 1.2 2014/08/29 20:31:03 axs Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/ming/ming-0.4.5.ebuild,v 1.6 2014/11/26 00:09:28 dilfridge Exp $
 
 EAPI=5
 
@@ -99,7 +99,7 @@ src_install() {
 
 	autotools-utils_src_install INSTALLDIRS="vendor"
 
-	fixlocalpod
+	perl_delete_localpod
 
 	if use php; then
 		cd "${S}"/php_ext
@@ -108,13 +108,13 @@ src_install() {
 }
 
 pkg_postinst() {
-	use perl && perl-module_pkg_postinst
+	:
 }
 
 pkg_prerm() {
-	use perl && perl-module_pkg_prerm
+	:
 }
 
 pkg_postrm() {
-	use perl && perl-module_pkg_postrm
+	:
 }

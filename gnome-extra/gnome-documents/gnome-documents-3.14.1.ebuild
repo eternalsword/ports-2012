@@ -11,11 +11,11 @@ HOMEPAGE="https://wiki.gnome.org/Apps/Documents"
 LICENSE="GPL-2+"
 SLOT="0"
 IUSE=""
-KEYWORDS="~*"
+KEYWORDS="*"
 
 # Need gdk-pixbuf-2.25 for gdk_pixbuf_get_pixels_with_length
 COMMON_DEPEND="
-	>=app-misc/tracker-1.22.0:=
+	>=app-misc/tracker-1.2.0:=
 	>=app-text/evince-3.14.0[introspection]
 	dev-libs/gjs
 	>=dev-libs/glib-2.42.0:2

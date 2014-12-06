@@ -5,7 +5,7 @@ EAPI=5
 inherit cmake-utils toolchain-funcs
 
 SRC_URI="http://poppler.freedesktop.org/${P}.tar.xz"
-KEYWORDS="~*"
+KEYWORDS="*"
 SLOT="0/46"
 
 DESCRIPTION="PDF rendering library based on the xpdf-3.0 code base"
@@ -82,6 +82,7 @@ src_configure() {
 
 	cmake-utils_src_configure
 }
+src_compile() { cmake-utils_src_compile -j1; }
 
 src_install() {
 	cmake-utils_src_install

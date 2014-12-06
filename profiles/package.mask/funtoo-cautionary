@@ -1,3 +1,10 @@
+# FL-1855, mask usbutils-008, until we sort udev failure.
+
+>sys-apps/usbutils-007
+
+# Do not let live ebuild of gentoo-syntax installs:
+=app-vim/gentoo-syntax-9999*
+
 # Dantrell B. (10 Aug 2014)
 # Depends on sys-devel/gcc[gcj] which newer versions of gcc in Funtoo do not have
 #  Build against a version of gcc that does or use app-text/mcpdf instead
@@ -18,7 +25,7 @@ app-admin/eselect-sh
 # mask back python-3.4, this one not really fine to have installed. Also it become a default python version in stages.
 # Next time, allow to unmask only stable version of python with a consequent change of default PYTHON_ABIS. THis is 
 # FL-1274, FL-1265
->dev-lang/python-3.3.5-r1000
+>=dev-lang/python-3.4
 
 # Non bug commit. New gentoo-functions ebuild pulled into update list because of newer python-updater.
 # gentoo-funtions ebuild is a replacement of base shell functions, provided by OpenRC's /etc/init.d/functions.sh
@@ -26,9 +33,6 @@ app-admin/eselect-sh
 # latest python-updater to avoid mess.
 >app-admin/python-updater-0.11
 
-#  Cautionary mask latest bash and readline, until it's time to update
->=app-shells/bash-4.3
->=sys-libs/readline-6.3
 # Ryan Harris (23 Jul 2013)
 # Mask phoronix-test-suite due to security concerns
 # Packages should not try to run emerge on their own
@@ -47,10 +51,6 @@ sys-fs/zfs-fuse
 # 1.12 now pretty safe to use, we will keep 1.13 masked FL-499
 # Oleg Vinichenko (8 Sep 2013) FL-710, stabilize automake-1.13.4
 >sys-devel/automake-1.13.4
-
-# Oleg Vinichenko (17 Dec 2012)
-# mask >dev-perl/Net-DNS-0.680.0 due to FL-275
->dev-perl/Net-DNS-0.680.0
 
 # Oleg Vinichenko (4 Nov 2012)
 # mask dangerous baselayout-2.2.0-r2

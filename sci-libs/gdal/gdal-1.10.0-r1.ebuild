@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-libs/gdal/gdal-1.10.0-r1.ebuild,v 1.2 2014/07/09 03:18:52 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-libs/gdal/gdal-1.10.0-r1.ebuild,v 1.4 2014/11/17 23:22:48 dilfridge Exp $
 
 EAPI=5
 
@@ -42,7 +42,7 @@ RDEPEND="
 	pdf? ( app-text/poppler )
 	perl? ( dev-lang/perl )
 	png? ( media-libs/libpng )
-	postgres? ( >=dev-db/postgresql-base-8.4 )
+	postgres? ( >=virtual/postgresql-8.4 )
 	python? ( dev-python/numpy )
 	ruby? ( dev-lang/ruby:1.9 )
 	sqlite? ( dev-db/sqlite:3 )
@@ -269,7 +269,7 @@ src_install() {
 		popd > /dev/null
 	fi
 
-	use perl && fixlocalpod
+	use perl && perl_delete_localpod
 
 	dodoc Doxyfile HOWTO-RELEASE NEWS
 

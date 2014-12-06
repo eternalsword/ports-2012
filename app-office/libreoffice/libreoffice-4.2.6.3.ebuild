@@ -1,8 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.2.6.3.ebuild,v 1.12 2014/09/19 08:35:12 ago Exp $
 
-EAPI=5
+EAPI="5"
 
 KDE_REQUIRED="optional"
 QT_MINIMAL="4.7.4"
@@ -71,7 +69,7 @@ unset ADDONS_URI
 unset EXT_URI
 unset ADDONS_SRC
 
-IUSE="bluetooth +branding +cups dbus debug eds firebird gnome gstreamer +gtk
+IUSE="bluetooth branding +cups dbus debug eds firebird gnome gstreamer +gtk
 gtk3 jemalloc kde mysql odk opengl postgres telepathy test +vba vlc +webdav"
 
 LO_EXTS="nlpsolver scripting-beanshell scripting-javascript wiki-publisher"
@@ -89,7 +87,7 @@ unset lo_xt
 LICENSE="|| ( LGPL-3 MPL-1.1 )"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="amd64 ~arm ~ppc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="*"
 
 COMMON_DEPEND="
 	${PYTHON_DEPS}
@@ -116,7 +114,6 @@ COMMON_DEPEND="
 	dev-libs/expat
 	>=dev-libs/hyphen-2.7.1
 	>=dev-libs/icu-4.8.1.1:=
-	>=dev-libs/libatomic_ops-7.2d
 	=dev-libs/liborcus-0.5*
 	>=dev-libs/nspr-4.8.8
 	>=dev-libs/nss-3.12.9
@@ -170,7 +167,7 @@ COMMON_DEPEND="
 		virtual/glu
 		virtual/opengl
 	)
-	postgres? ( >=dev-db/postgresql-base-9.0[kerberos] )
+	postgres? ( >=virtual/postgresql-9.0[kerberos] )
 	telepathy? (
 		dev-libs/glib:2
 		>=net-libs/telepathy-glib-0.18.0
@@ -203,6 +200,7 @@ fi
 #        after everything upstream is under gbuild
 #        as dmake execute tests right away
 DEPEND="${COMMON_DEPEND}
+	>=dev-libs/libatomic_ops-7.2d
 	>=dev-libs/libxml2-2.7.8
 	dev-libs/libxslt
 	dev-perl/Archive-Zip
@@ -276,7 +274,7 @@ pkg_pretend() {
 
 	# Ensure pg version but we have to be sure the pg is installed (first
 	# install on clean system)
-	if use postgres && has_version dev-db/postgresql-base; then
+	if use postgres && has_version virtual/postgresql; then
 		 pgslot=$(postgresql-config show)
 		 if [[ ${pgslot//.} < 90 ]] ; then
 			eerror "PostgreSQL slot must be set to 9.0 or higher."
@@ -469,7 +467,6 @@ src_configure() {
 		--disable-online-update \
 		--disable-systray \
 		--with-alloc=$(use jemalloc && echo "jemalloc" || echo "system") \
-		--with-build-version="Gentoo official package" \
 		--enable-extension-integration \
 		--with-external-dict-dir="${EPREFIX}/usr/share/myspell" \
 		--with-external-hyph-dir="${EPREFIX}/usr/share/myspell" \
@@ -478,7 +475,7 @@ src_configure() {
 		--with-lang="" \
 		--with-parallelism=${jbs} \
 		--with-system-ucpp \
-		--with-vendor="Gentoo Foundation" \
+		--with-vendor="Funtoo Linux" \
 		--with-x \
 		--without-afms \
 		--without-fonts \

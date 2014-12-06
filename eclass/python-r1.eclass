@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/python-r1.eclass,v 1.76 2014/08/18 08:56:06 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/python-r1.eclass,v 1.79 2014/11/22 02:38:21 sping Exp $
 
 # @ECLASS: python-r1
 # @MAINTAINER:
@@ -14,7 +14,9 @@
 # packages supporting being installed for multiple Python
 # implementations.
 #
-# This eclass sets correct IUSE and REQUIRED_USE. It exports PYTHON_DEPS
+# This eclass sets correct IUSE. Modification of REQUIRED_USE has to
+# be done by the author of the ebuild (but PYTHON_REQUIRED_USE is
+# provided for convenience, see below). python-r1 exports PYTHON_DEPS
 # and PYTHON_USEDEP so you can create correct dependencies for your
 # package easily. It also provides methods to easily run a command for
 # each enabled Python implementation and duplicate the sources for them.
@@ -262,7 +264,7 @@ _python_validate_useflags() {
 #
 # Example:
 # @CODE
-# PYTHON_COMPAT=( python{2_7,3_2} )
+# PYTHON_COMPAT=( python{2_7,3_4} )
 # DEPEND="doc? ( dev-python/epydoc[$(python_gen_usedep 'python2*')] )"
 # @CODE
 #
@@ -305,7 +307,7 @@ python_gen_usedep() {
 #
 # Example:
 # @CODE
-# PYTHON_COMPAT=( python{2_7,3_2} )
+# PYTHON_COMPAT=( python{2_7,3_4} )
 # REQUIRED_USE="doc? ( || ( $(python_gen_useflags python2*) ) )"
 # @CODE
 #
@@ -565,7 +567,7 @@ _python_check_USE_PYTHON() {
 
 			local abi
 			case "${impl}" in
-				pypy|python3_4)
+				pypy|pypy3|python3_4)
 					# unsupported in python.eclass
 					continue
 					;;

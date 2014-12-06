@@ -3,7 +3,7 @@
 EAPI="5"
 GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python2_{6,7} python3_{2,3} )
+PYTHON_COMPAT=( python2_7 python3_{3,4} )
 
 inherit gnome2 python-any-r1 virtualx
 
@@ -67,7 +67,7 @@ COMMON_DEPEND="
 	v4l? (
 		media-plugins/gst-plugins-v4l2:1.0
 		>=media-video/cheese-3.4:=
-		virtual/udev[gudev] )
+		virtual/libgudev:= )
 "
 
 # >=empathy-3.4 is incompatible with telepathy-rakia-0.6, bug #403861

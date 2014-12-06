@@ -1,12 +1,12 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/go/go-1.3.3.ebuild,v 1.4 2014/10/17 18:02:04 zlogene Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/go/go-1.3.3.ebuild,v 1.7 2014/11/21 09:55:17 radhermit Exp $
 
 EAPI=5
 
 export CTARGET=${CTARGET:-${CHOST}}
 
-inherit bash-completion-r1 elisp-common eutils
+inherit bash-completion-r1 elisp-common toolchain-funcs eutils
 
 if [[ ${PV} = 9999 ]]; then
 	EHG_REPO_URI="https://go.googlecode.com/hg"
@@ -27,14 +27,14 @@ IUSE="emacs vim-syntax zsh-completion"
 DEPEND=""
 RDEPEND="emacs? ( virtual/emacs )
 	vim-syntax? ( || ( app-editors/vim app-editors/gvim ) )
-	zsh-completion? ( app-shells/zsh-completion )"
+	zsh-completion? ( app-shells/gentoo-zsh-completions )"
 
 # The tools in /usr/lib/go should not cause the multilib-strict check to fail.
 QA_MULTILIB_PATHS="usr/lib/go/pkg/tool/.*/.*"
 
 # The go language uses *.a files which are _NOT_ libraries and should not be
 # stripped.
-STRIP_MASK="/usr/lib/go/pkg/linux*/*.a /usr/lib/go/pkg/freebsd*/*.a"
+STRIP_MASK="/usr/lib/go/pkg/linux*/*.a /usr/lib/go/pkg/freebsd*/*.a /usr/lib/go/pkg/darwin*/*.a"
 
 if [[ ${PV} != 9999 ]]; then
 	S="${WORKDIR}"/go
@@ -57,6 +57,7 @@ src_compile()
 	then
 		export GOARM=5
 	fi
+	tc-export CC
 
 	cd src
 	./make.bash || die "build failed"
@@ -89,6 +90,7 @@ src_install()
 	doins -r doc include lib pkg src
 
 	dobashcomp misc/bash/go
+	bashcomp_alias go {5,6,8}{g,l} gccgo gofmt
 
 	if use emacs; then
 		elisp-install ${PN} misc/emacs/*.el misc/emacs/*.elc
