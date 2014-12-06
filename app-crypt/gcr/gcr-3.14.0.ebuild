@@ -6,7 +6,7 @@ VALA_MIN_API_VERSION="0.20"
 VALA_USE_DEPEND="vapigen"
 PYTHON_COMPAT=( python2_7 )
 
-inherit gnome2 python-any-r1 vala virtualx
+inherit gnome2 python-any-r1 vala virtualx eutils
 
 DESCRIPTION="Libraries for cryptographic UIs and accessing PKCS#11 modules"
 HOMEPAGE="https://developer.gnome.org/gcr/"
@@ -50,6 +50,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}/Makefile.am.diff"
 	# Disable stupid flag changes
 	sed -e 's/CFLAGS="$CFLAGS -g"//' \
 		-e 's/CFLAGS="$CFLAGS -O0"//' \
