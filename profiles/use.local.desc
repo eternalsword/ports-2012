@@ -250,7 +250,6 @@ app-antivirus/clamav:clamdtop - A Top like tool which shows what clamd is curren
 app-antivirus/clamav:metadata-analysis-api - Enables collection of file property metadata using ClamAV API for analysis by ClamAV bytecode programs.
 app-arch/cabextract:extra-tools - Install experimental tools: wince_info and wince_rename for examining and processing Windows CE installation cabinet header files; cabinfo for examining the structure of a cab file.
 app-arch/cfv:bittorrent - Enable support for checking .torrent files
-app-arch/dpkg:dselect - Build the dselect package-management frontend
 app-arch/dpkg:update-alternatives - Install update-alternatives
 app-arch/dump:ermt - encrypted rmt support
 app-arch/engrampa:caja - Enable engrampa to integrate with mate-base/caja by providing entries in its context menu
@@ -765,6 +764,7 @@ app-leechcraft/lc-azoth:sarin - Build Sarin, Tox protocol support module. Please
 app-leechcraft/lc-azoth:shx - Build shell command executor plugin
 app-leechcraft/lc-azoth:standardstyles - Build support for standard Azoth styles engine
 app-leechcraft/lc-azoth:vader - Bulid Vader, the MRIM (Mail.Ru Agent) protocol support plugin
+app-leechcraft/lc-azoth:velvetbird - Build support for protocols provided by libpurple
 app-leechcraft/lc-azoth:woodpecker - Build Woodpecker, the Twitter client plugin
 app-leechcraft/lc-azoth:xtazy - Build Xtazy for publishing currently playing tune
 app-leechcraft/lc-blasq:deathnote - Support LiveJournal FotoBilder service
@@ -7024,6 +7024,11 @@ x11-base/xorg-server:unwind - Enable libunwind usage for backtraces
 x11-base/xorg-server:xnest - Build the Xnest server
 x11-base/xorg-server:xorg - Build the Xorg X server (HIGHLY RECOMMENDED)
 x11-base/xorg-server:xvfb - Build the Xvfb server
+x11-drivers/ati-drivers:disable-watermark - Do a potentially dangerous binary search and replace to disable watermark
+x11-drivers/ati-drivers:modules - Build the kernel modules
+x11-drivers/ati-drivers:pax_kernel - Enable pax kernel specific patches
+x11-drivers/ati-drivers:qt4 - Install qt4 dependent optional tools (e.g Catalyst Control Panel)
+x11-drivers/ati-drivers:vaapi - Enabled Video Acceleration API
 x11-drivers/nvidia-drivers:X - Install the X.org driver, OpenGL libraries, XvMC libraries, and VDPAU libraries
 x11-drivers/nvidia-drivers:gtk2 - Install nvidia-settings with support for GTK+ 2
 x11-drivers/nvidia-drivers:gtk3 - Install nvidia-settings with support for GTK+ 3
