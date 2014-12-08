@@ -150,6 +150,9 @@ src_prepare() {
 	# https://bugs.webkit.org/show_bug.cgi?id=130837
 	epatch "${FILESDIR}"/${PN}-2.6.0-atomic-ppc.patch
 
+	# Fix gtkdoc-scan crashing on invalid header files
+	epatch "${FILESDIR}"/${PN}-2.6-gtkdoc-scan.patch
+
 	gnome2_src_prepare
 }
 
