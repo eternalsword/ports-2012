@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/mesa/mesa-10.2.8.ebuild,v 1.3 2014/12/08 18:22:29 mattst88 Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/mesa/mesa-10.3.5.ebuild,v 1.2 2014/12/08 18:50:55 mattst88 Exp $
 
 EAPI=5
 
@@ -22,7 +22,7 @@ MY_PN="${PN/m/M}"
 MY_P="${MY_PN}-${PV/_/-}"
 MY_SRC_P="${MY_PN}Lib-${PV/_/-}"
 
-FOLDER="${PV/.0_rc*/}"
+FOLDER="${PV/.0/}"
 
 DESCRIPTION="OpenGL-like graphic library for Linux"
 HOMEPAGE="http://mesa3d.sourceforge.net/"
@@ -58,6 +58,7 @@ REQUIRED_USE="
 	openvg? ( egl gallium )
 	opencl? (
 		gallium
+		llvm
 		video_cards_r600? ( r600-llvm-compiler )
 		video_cards_radeon? ( r600-llvm-compiler )
 		video_cards_radeonsi? ( r600-llvm-compiler )
@@ -84,7 +85,7 @@ REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 "
 
-LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.54"
+LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.56"
 # keep correct libdrm and dri2proto dep
 # keep blocks in rdepend for binpkg
 RDEPEND="
@@ -118,6 +119,7 @@ RDEPEND="
 				) )
 		)
 		>=sys-devel/llvm-3.3-r3:=[${MULTILIB_USEDEP}]
+		video_cards_radeonsi? ( >=sys-devel/llvm-3.4.2:=[${MULTILIB_USEDEP}] )
 	)
 	opencl? (
 				app-admin/eselect-opencl
@@ -148,8 +150,8 @@ DEPEND="${RDEPEND}
 		video_cards_radeonsi? ( sys-devel/llvm[video_cards_radeon] )
 	)
 	opencl? (
-				>=sys-devel/llvm-3.3-r3:=[${MULTILIB_USEDEP}]
-				>=sys-devel/clang-3.3:=[${MULTILIB_USEDEP}]
+				>=sys-devel/llvm-3.4.2:=[${MULTILIB_USEDEP}]
+				>=sys-devel/clang-3.4.2:=[${MULTILIB_USEDEP}]
 				>=sys-devel/gcc-4.6
 	)
 	sys-devel/bison
@@ -206,9 +208,6 @@ src_prepare() {
 
 	# relax the requirement that r300 must have llvm, bug 380303
 	epatch "${FILESDIR}"/${PN}-10.2-dont-require-llvm-for-r300.patch
-
-	# allow sysfs to serve pci ids instead of libudev
-	epatch "${FILESDIR}"/${PN}-10.2-sysfs-instead-of-libudev.patch
 
 	# fix for hardened pax_kernel, bug 240956
 	[[ ${PV} != 9999* ]] && epatch "${FILESDIR}"/glx_ro_text_segm.patch
