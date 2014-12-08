@@ -150,9 +150,6 @@ src_prepare() {
 	# https://bugs.webkit.org/show_bug.cgi?id=130837
 	epatch "${FILESDIR}"/${PN}-2.6.0-atomic-ppc.patch
 
-	# Fix gtkdoc-scan crashing on invalid header files
-	epatch "${FILESDIR}"/${PN}-2.6-gtkdoc-scan.patch
-
 	gnome2_src_prepare
 }
 
@@ -210,7 +207,7 @@ src_configure() {
 		$(cmake-utils_use_find_package introspection GobjectIntrospection)
 		$(cmake-utils_use_find_package opengl OpenGL)
 		-DPORT=GTK
-		-DENABLE_GTKDOC=ON
+		-DENABLE_GTKDOC=OFF
 		-DENABLE_PLUGIN_PROCESS_GTK2=ON
 		${ruby_interpreter}
 	)
