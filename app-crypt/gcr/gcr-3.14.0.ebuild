@@ -50,6 +50,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}/Makefile.am.diff"
 	# Disable stupid flag changes
 	sed -e 's/CFLAGS="$CFLAGS -g"//' \
 		-e 's/CFLAGS="$CFLAGS -O0"//' \
