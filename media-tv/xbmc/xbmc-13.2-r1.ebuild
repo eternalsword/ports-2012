@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-tv/xbmc/xbmc-13.1.ebuild,v 1.1 2014/07/30 08:34:55 vapier Exp $
 
 EAPI="5"
 
@@ -23,7 +21,7 @@ case ${PV} in
 	MY_P="${PN}-${MY_PV}"
 	SRC_URI="https://github.com/xbmc/xbmc/archive/${MY_PV}.tar.gz -> ${P}.tar.gz
 		!java? ( mirror://gentoo/${P}-generated-addons.tar.xz )"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="*"
 	S=${WORKDIR}/${MY_P}
 	;;
 *|*_p*)
@@ -31,7 +29,7 @@ case ${PV} in
 	MY_P="${PN}-${MY_PV}"
 	SRC_URI="http://mirrors.xbmc.org/releases/source/${MY_P}.tar.gz
 		http://mirrors.xbmc.org/releases/source/${MY_P}-generated-addons.tar.xz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="*"
 
 	S=${WORKDIR}/${MY_P}-${CODENAME}
 	;;
@@ -76,7 +74,6 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	media-libs/jbigkit
 	>=media-libs/libass-0.9.7
 	bluray? ( media-libs/libbluray )
-	css? ( media-libs/libdvdcss )
 	media-libs/libmad
 	media-libs/libmodplug
 	media-libs/libmpeg2
@@ -104,6 +101,9 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	webserver? ( net-libs/libmicrohttpd[messages] )
 	sftp? ( net-libs/libssh[sftp] )
 	net-misc/curl
+	media-libs/libsidplay
+	media-libs/libhdhomerun
+	media-libs/libdvdread[css?]
 	samba? ( >=net-fs/samba-3.4.6[smbclient(+)] )
 	bluetooth? ( net-wireless/bluez )
 	sys-apps/dbus
@@ -142,7 +142,7 @@ DEPEND="${COMMON_DEPEND}
 	X? ( x11-proto/xineramaproto )
 	dev-util/cmake
 	x86? ( dev-lang/nasm )
-	java? ( virtual/jre )"
+	java? ( virtual/jre dev-java/groovy )"
 # Force java for latest git version to avoid having to hand maintain the
 # generated addons package.  #488118
 [[ ${PV} == "9999" ]] && DEPEND+=" virtual/jre"
@@ -163,6 +163,10 @@ src_unpack() {
 }
 
 src_prepare() {
+	# Debian patches:
+	epatch "${FILESDIR}"/debian/*
+
+	# Gentoo patches:
 	epatch "${FILESDIR}"/${PN}-9999-nomythtv.patch
 	epatch "${FILESDIR}"/${PN}-9999-no-arm-flags.patch #400617
 	# The mythtv patch touches configure.ac, so force a regen
