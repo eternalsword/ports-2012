@@ -2,14 +2,17 @@
 
 EAPI=5
 
+inherit autotools
+
 DESCRIPTION="Pulseaudio Volume Control, GTK based mixer for Pulseaudio"
 HOMEPAGE="http://freedesktop.org/software/pulseaudio/pavucontrol/"
-SRC_URI="http://freedesktop.org/software/pulseaudio/${PN}/${P}.tar.xz"
+SRC_URI="http://build.funtoo.org/distfiles/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ppc ~ppc64 ~sparc x86 ~x86-fbsd"
+KEYWORDS="*"
 IUSE="nls"
+S=$WORKDIR/$PN
 
 RDEPEND="
 	>=dev-cpp/gtkmm-3.0:3.0
@@ -25,7 +28,10 @@ DEPEND="${RDEPEND}
 		sys-devel/gettext
 		)
 "
-
+src_prepare() {
+	eautoreconf || die
+	touch doc/README || die
+}
 src_configure() {
 	econf \
 		--docdir=/usr/share/doc/${PF} \
