@@ -1,10 +1,10 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libpng/libpng-1.5.18-r1.ebuild,v 1.2 2014/07/22 12:46:07 ssuominen Exp $
-
-# this ebuild is only for the libpng15.so.15 SONAME for ABI compat
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libpng/libpng-1.5.21.ebuild,v 1.3 2014/12/23 09:03:53 ago Exp $
 
 EAPI=5
+
+# this ebuild is only for the libpng15.so.15 SONAME for ABI compat
 
 inherit eutils libtool multilib-minimal
 
@@ -24,6 +24,8 @@ RDEPEND="sys-libs/zlib:=[${MULTILIB_USEDEP}]
 		!app-emulation/emul-linux-x86-baselibs[-abi_x86_32(-)] )"
 DEPEND="${RDEPEND}
 	app-arch/xz-utils"
+
+DOCS=""
 
 pkg_setup() {
 	local _preserved_lib=${EROOT}/usr/$(get_libdir)/libpng15.so.15
