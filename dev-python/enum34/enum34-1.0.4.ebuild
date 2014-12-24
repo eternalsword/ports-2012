@@ -1,9 +1,9 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/enum34/enum34-1.0.ebuild,v 1.4 2014/12/24 03:28:28 idella4 Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-python/enum34/enum34-1.0.4.ebuild,v 1.2 2014/12/24 03:28:28 idella4 Exp $
 
 EAPI=5
-PYTHON_COMPAT=( python2_7 python{3_3,3_4} pypy pypy3 )
+PYTHON_COMPAT=( python2_7 python3_3 pypy )  # Do NOT add python3_4—see DESCRIPTION
 
 inherit distutils-r1
 
