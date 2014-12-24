@@ -8,5 +8,5 @@ LICENSE=GPL-2
 RDEPEND=sys-apps/portage >=app-portage/gentoolkit-0.2.8 dev-python/setuptools dev-python/beautifulsoup:python-2 dev-lang/python[xml] dev-lang/python dev-lang/python[xml]
 SLOT=0
 SRC_URI=http://dev.gentoo.org/~hwoarang/distfiles/euscan-0.1.0.tar.gz
-_eclasses_=distutils	1d4421a318fd0c6baeb5c4ab29d35eb1	python	28bc323c495f2a2710d389a73ab85893
+_eclasses_=distutils	df819d3f1fd57ec63461c1364d27da26	python	ec91b6a4215ab6b0d02c003a915d98a0
 _md5_=bf12dab2ef2d1739253d7166d0e90534
