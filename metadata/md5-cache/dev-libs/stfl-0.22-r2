@@ -9,5 +9,5 @@ LICENSE=LGPL-3
 RDEPEND=sys-libs/ncurses[unicode] perl? ( dev-lang/perl ) ruby? ( dev-lang/ruby ) python? ( dev-lang/python ) dev-lang/perl:=[-build(-)]
 SLOT=0
 SRC_URI=http://www.clifford.at/stfl/stfl-0.22.tar.gz
-_eclasses_=eutils	6faef4c127028ccbba3a11400d24ae34	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	multiprocessing	d7f2985a2c76c365ee20269db5261414	perl-module	64e9b3f9fbef3c18fb02c41aa4141145	python	ec91b6a4215ab6b0d02c003a915d98a0	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac	unpacker	f300a7ca9131b1024a79762e8edd3c52
+_eclasses_=eutils	6faef4c127028ccbba3a11400d24ae34	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	multiprocessing	d7f2985a2c76c365ee20269db5261414	perl-module	64e9b3f9fbef3c18fb02c41aa4141145	python	fa9fa8ec51fe0ed453e3498d15a70a6c	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac	unpacker	f300a7ca9131b1024a79762e8edd3c52
 _md5_=c519b8550e95723b52580ddd88e09665

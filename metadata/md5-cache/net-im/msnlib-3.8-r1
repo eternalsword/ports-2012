@@ -9,5 +9,5 @@ LICENSE=MIT
 RDEPEND==dev-lang/python-2* tk? ( =dev-lang/python-2*[tk] )
 SLOT=0
 SRC_URI=http://blitiri.com.ar/p/msnlib/files/3.8/msnlib-3.8.tar.bz2
-_eclasses_=distutils	df819d3f1fd57ec63461c1364d27da26	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python	ec91b6a4215ab6b0d02c003a915d98a0	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
+_eclasses_=distutils	df819d3f1fd57ec63461c1364d27da26	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python	fa9fa8ec51fe0ed453e3498d15a70a6c	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
 _md5_=2445dd8b19c43f5e1a95c277a36b8565

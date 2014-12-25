@@ -10,5 +10,5 @@ RDEPEND=bluez? ( net-wireless/bluez:= ) >=net-libs/libbtbb-2014.02.2:= net-libs/
 REQUIRED_USE=dfu? ( python ) specan? ( python ) ubertooth1-firmware? ( dfu ) python? ( || ( dfu specan ) )
 SLOT=0
 SRC_URI=https://github.com/greatscottgadgets/ubertooth/releases/download/2014-04-R1/ubertooth-2014-04-R1.tar.xz
-_eclasses_=cmake-utils	396338f483cf8c05d1ce3e0e3a90ca5b	distutils	df819d3f1fd57ec63461c1364d27da26	eutils	6faef4c127028ccbba3a11400d24ae34	flag-o-matic	eda1c0b5ba85b3eeb555a071d69eb819	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python	ec91b6a4215ab6b0d02c003a915d98a0	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
+_eclasses_=cmake-utils	396338f483cf8c05d1ce3e0e3a90ca5b	distutils	df819d3f1fd57ec63461c1364d27da26	eutils	6faef4c127028ccbba3a11400d24ae34	flag-o-matic	eda1c0b5ba85b3eeb555a071d69eb819	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python	fa9fa8ec51fe0ed453e3498d15a70a6c	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
 _md5_=c39ee000c475b20931f58224d204a00c

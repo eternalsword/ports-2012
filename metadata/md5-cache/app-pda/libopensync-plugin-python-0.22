@@ -8,5 +8,5 @@ LICENSE=LGPL-2.1
 RDEPEND=~app-pda/libopensync-0.22 dev-libs/glib:2 =dev-lang/python-2*
 SLOT=0
 SRC_URI=http://www.opensync.org/download/releases/0.22/libopensync-plugin-python-0.22.tar.bz2
-_eclasses_=python	ec91b6a4215ab6b0d02c003a915d98a0
+_eclasses_=python	fa9fa8ec51fe0ed453e3498d15a70a6c
 _md5_=8e6f928094971bcd2df8510cdaa45c17

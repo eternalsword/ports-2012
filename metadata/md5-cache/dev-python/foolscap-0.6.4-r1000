@@ -10,5 +10,5 @@ RDEPEND=dev-python/twisted-core[python_abis_2.6?,python_abis_2.7?,python_abis_2.
 REQUIRED_USE=|| ( python_abis_2.6 python_abis_2.7 python_abis_2.7-pypy )
 SLOT=0
 SRC_URI=http://foolscap.lothar.com/releases/foolscap-0.6.4.tar.gz
-_eclasses_=distutils	df819d3f1fd57ec63461c1364d27da26	python	ec91b6a4215ab6b0d02c003a915d98a0
+_eclasses_=distutils	df819d3f1fd57ec63461c1364d27da26	python	fa9fa8ec51fe0ed453e3498d15a70a6c
 _md5_=489319901da6d402dc95d54afdfa892e
