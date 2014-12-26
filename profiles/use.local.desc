@@ -2373,9 +2373,12 @@ dev-util/intel-ocl-sdk:android - Install android related files
 dev-util/intel-ocl-sdk:bundled_libs - Keep bundled-libs (not recommended)
 dev-util/intel-ocl-sdk:tools - Install Intel Offline Compiler
 dev-util/kdevelop:cmake - Enable support for CMake build system
+dev-util/kdevelop:gdbui - Enable GUI for attaching GDB to a running process
 dev-util/kdevelop:okteta - Enable hex editor plugin
 dev-util/kdevelop:qthelp - Enable support for QtHelp documentation browsing
 dev-util/kdevelop:reviewboard - Enable reviewboard support
+dev-util/kdevplatform:classbrowser - Enable the class browser plugin
+dev-util/kdevplatform:konsole - Enable kde-base/konsole integration
 dev-util/kdevplatform:reviewboard - Enable reviewboard support
 dev-util/ltrace:unwind - Use sys-libs/libunwind for frame unwinding support
 dev-util/lttng-tools:ust - Support LTTng-UST (Userspace Tracing)
