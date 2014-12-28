@@ -9,5 +9,5 @@ LICENSE=LGPL-2.1
 RDEPEND=dev-libs/glib:2 >=media-gfx/exiv2-0.21
 SLOT=0
 SRC_URI=http://www.yorba.org/download/gexiv2/0.6/libgexiv2_0.6.0.tar.xz
-_eclasses_=eutils	6faef4c127028ccbba3a11400d24ae34	multibuild	188cedebf7a8e614147e30ad01e9ce8f	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python-r1	eae88679eedc980fa294f323d44387d2	python-utils-r1	af785b18ba64fd8cf8b60f6039927fa8	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac	versionator	cd0bcdb170807e4a1984115e9d53a26f
+_eclasses_=eutils	6faef4c127028ccbba3a11400d24ae34	multibuild	188cedebf7a8e614147e30ad01e9ce8f	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python-r1	eae88679eedc980fa294f323d44387d2	python-utils-r1	b8df2e405c0b53b95107d7f8493e4687	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac	versionator	cd0bcdb170807e4a1984115e9d53a26f
 _md5_=92ea9bc32cbd9f28fbac36043961e347
