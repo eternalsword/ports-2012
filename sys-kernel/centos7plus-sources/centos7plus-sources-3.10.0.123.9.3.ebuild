@@ -12,7 +12,7 @@ detect_version
 detect_arch
 
 KV_CLASSIC="${KV_MAJOR}.${KV_MINOR}.${KV_PATCH}"
-KV_RHEL="${PV/3.10.0.}.el7"
+KV_RHEL="${PV/3.10.0.}.el7.centos.plus"
 KV_COMPLETE="linux-${KV_CLASSIC}-${KV_RHEL}"
 
 KV_FULL="${KV_FULL/linux/rhel7}"
@@ -21,7 +21,7 @@ EXTRAVERSION="${EXTRAVERSION/linux/rhel7}"
 DESCRIPTION="Red Hat Enterprise Linux kernel sources"
 HOMEPAGE="http://www.redhat.com/"
 
-SRC_URI="http://vault.centos.org/7.0.1406/updates/Source/SPackages/kernel-${KV_CLASSIC}-${KV_RHEL}.src.rpm -> ${P}.src.rpm"
+SRC_URI="http://vault.centos.org/7.0.1406/centosplus/Source/SPackages/kernel-plus-${KV_CLASSIC}-${KV_RHEL}.src.rpm -> ${P}.src.rpm"
 
 RESTRICT="mirror"
 
@@ -35,9 +35,9 @@ S="${WORKDIR}/linux-${KV_FULL}"
 
 src_unpack() {
 	rpm_src_unpack || die
-	unpack "./${KV_COMPLETE}.tar.xz" || die
-	mv "${WORKDIR}/${KV_COMPLETE}" "${S}" || die
-	rm "${WORKDIR}/${KV_COMPLETE}.tar.xz" \
+	unpack "./${KV_COMPLETE/.centos.plus/}.tar.xz" || die
+	mv "${WORKDIR}/${KV_COMPLETE/.centos.plus/}" "${S}" || die
+	rm "${WORKDIR}/${KV_COMPLETE/.centos.plus/}.tar.xz" \
 		"${WORKDIR}/debrand-rh-i686-cpu.patch" \
 		"${WORKDIR}/debrand-rh_taint.patch" \
 		"${WORKDIR}/debrand-single-cpu.patch" \
