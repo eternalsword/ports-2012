@@ -1,9 +1,9 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-apache/passenger/passenger-4.0.53.ebuild,v 1.2 2014/12/29 07:32:00 graaff Exp $
+# $Header: /var/cvsroot/gentoo-x86/www-apache/passenger/passenger-4.0.56.ebuild,v 1.1 2014/12/29 07:30:40 graaff Exp $
 
 EAPI=5
-USE_RUBY="ruby19 ruby20"
+USE_RUBY="ruby19 ruby20 ruby21"
 
 inherit apache-module flag-o-matic multilib ruby-ng toolchain-funcs
 
@@ -99,6 +99,8 @@ all_ruby_install() {
 
 	# Patch in the correct libdir
 	sed -i -e 's:/usr/lib/:/usr/'$(get_libdir)'/:' "${D}${APACHE_MODULES_CONFDIR}/30_mod_${PN}.conf" || die
+
+	dodoc CHANGELOG README.md
 }
 
 each_ruby_install() {
