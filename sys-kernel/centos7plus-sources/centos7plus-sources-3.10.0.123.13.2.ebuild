@@ -15,8 +15,8 @@ KV_CLASSIC="${KV_MAJOR}.${KV_MINOR}.${KV_PATCH}"
 KV_RHEL="${PV/3.10.0.}.el7.centos.plus"
 KV_COMPLETE="linux-${KV_CLASSIC}-${KV_RHEL}"
 
-KV_FULL="${KV_FULL/linux/rhel7}"
-EXTRAVERSION="${EXTRAVERSION/linux/rhel7}"
+KV_FULL="${KV_FULL/linux/centos7plus}"
+EXTRAVERSION="${EXTRAVERSION/linux/centos7plus}"
 
 DESCRIPTION="Red Hat Enterprise Linux kernel sources"
 HOMEPAGE="http://www.redhat.com/"
