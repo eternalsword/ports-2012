@@ -7,7 +7,7 @@ ETYPE="sources"
 K_DEBLOB_AVAILABLE="0"
 K_SECURITY_UNSUPPORTED="1"
 
-inherit kernel-2 rpm
+inherit eutils kernel-2 rpm
 detect_version
 detect_arch
 
@@ -47,6 +47,8 @@ src_unpack() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}/${P}.patch"
+
 	sed -e "s;^\(EXTRAVERSION =\).*;\1 ${EXTRAVERSION};g" \
 		-i "${S}/Makefile" || die
 }
