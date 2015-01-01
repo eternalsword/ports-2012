@@ -1568,6 +1568,7 @@ dev-java/icedtea:pax_kernel - For building when running a PaX enabled kernel.
 dev-java/icedtea:systemtap - Enable SystemTap probes in HotSpot.
 dev-java/icedtea:webstart - Enable Web Start support (via NetX).
 dev-java/icedtea:zero - Enable Zero assembler port (usually for non-HotSpot architectures)
+dev-java/icedtea-bin:webstart - Provide javaws command through symlink to icedtea-web
 dev-java/icedtea-web:icedtea7 - Build icedtea-7 support in addition to icedtea-6 support. Requires icedtea{-bin}-7
 dev-java/icedtea-web:javascript - Enable support for using proxy auto config (PAC) files.
 dev-java/icedtea-web:nsplugin - Enable the browser plugin (NPPlugin).
@@ -4939,6 +4940,11 @@ net-libs/c-client:doc - Install RFCs related to IMAP
 net-libs/c-client:topal - Enable support for net-mail/topal for use with mail-client/alpine
 net-libs/courier-authlib:vpopmail - Enable vpopmail support
 net-libs/cvm:vpopmail - Enable vpopmail support
+net-libs/gnutls:bindist - Disallow building LZO support, because of a license incompatibility with dev-libs/lzo.
+net-libs/gnutls:crywrap - Build the crywrap TLS proxy service
+net-libs/gnutls:dane - Build libgnutls-dane, implementing DNS-based Authentication of Named Entities. Requires net-dns/unbound.
+net-libs/gnutls:nettle - Use dev-libs/nettle as crypto backend
+net-libs/gnutls:pkcs11 - Add support for PKCS#11 through app-crypt/p11-kit
 net-libs/gtk-vnc:gtk3 - Build the gtk3 gtk-vnc library and other gtk3 assets
 net-libs/gtk-vnc:introspection - Use dev-libs/gobject-introspection for introspection
 net-libs/gtk-vnc:vala - Enable bindings for dev-lang/vala
