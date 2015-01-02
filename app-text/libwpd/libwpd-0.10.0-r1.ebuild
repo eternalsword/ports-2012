@@ -1,4 +1,6 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/app-text/libwpd/libwpd-0.10.0-r1.ebuild,v 1.1 2014/12/27 22:01:47 dilfridge Exp $
 
 EAPI=5
 
@@ -10,7 +12,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.xz"
 
 LICENSE="|| ( LGPL-2.1 MPL-2.0 )"
 SLOT="0.10"
-KEYWORDS="~*"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~x86 ~x86-fbsd"
 IUSE="doc test +tools"
 
 RDEPEND="dev-libs/librevenge"
@@ -19,7 +21,8 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )
 	test? ( dev-util/cppunit )
 "
-RDEPEND="${RDEPEND} !=app-text/libwpd-0.10.0"
+RDEPEND="${RDEPEND}
+	!<app-text/libwpd-0.8.14-r1"
 
 src_configure() {
 	econf \
