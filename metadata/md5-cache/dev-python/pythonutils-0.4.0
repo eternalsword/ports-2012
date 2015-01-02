@@ -8,5 +8,5 @@ LICENSE=BSD
 RDEPEND==dev-lang/python-2*
 SLOT=0
 SRC_URI=http://www.voidspace.org.uk/downloads/pythonutils-0.4.0.zip
-_eclasses_=distutils	df819d3f1fd57ec63461c1364d27da26	python	fa9fa8ec51fe0ed453e3498d15a70a6c
+_eclasses_=distutils	2d484830b6e5aa7a840ba17d755dd55b	python	3f6d74b5384dbeef63d932c2b6f9b61a
 _md5_=c9c5a36467338c1a60f2eba07800d5cb

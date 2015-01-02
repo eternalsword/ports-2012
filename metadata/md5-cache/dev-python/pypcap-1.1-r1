@@ -9,5 +9,5 @@ LICENSE=BSD
 RDEPEND=net-libs/libpcap =dev-lang/python-2*
 SLOT=0
 SRC_URI=http://pypcap.googlecode.com/files/pypcap-1.1.tar.gz
-_eclasses_=distutils	df819d3f1fd57ec63461c1364d27da26	eutils	f99a767f569b1f0731b3a1edd17c1d11	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python	fa9fa8ec51fe0ed453e3498d15a70a6c	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
+_eclasses_=distutils	2d484830b6e5aa7a840ba17d755dd55b	eutils	f99a767f569b1f0731b3a1edd17c1d11	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python	3f6d74b5384dbeef63d932c2b6f9b61a	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
 _md5_=046729db211a08218512176010695323
