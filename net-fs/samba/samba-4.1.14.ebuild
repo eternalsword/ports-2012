@@ -1,11 +1,12 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-fs/samba/samba-4.1.14.ebuild,v 1.2 2015/01/03 17:28:06 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-fs/samba/samba-4.1.14.ebuild,v 1.4 2015/01/03 19:54:54 mgorny Exp $
 
 EAPI=5
-PYTHON_COMPAT=( python2_{6,7} )
+PYTHON_COMPAT=( python2_7 )
+PYTHON_REQ_USE='threads(+)'
 
-inherit python-r1 waf-utils multilib linux-info systemd
+inherit python-single-r1 waf-utils multilib linux-info systemd
 
 MY_PV="${PV/_rc/rc}"
 MY_P="${PN}-${MY_PV}"
@@ -30,13 +31,13 @@ CDEPEND="${PYTHON_DEPS}
 	dev-libs/popt
 	sys-libs/readline
 	virtual/libiconv
-	dev-python/subunit
+	dev-python/subunit[${PYTHON_USEDEP}]
 	sys-apps/attr
 	sys-libs/libcap
-	>=sys-libs/ntdb-1.0[python]
+	>=sys-libs/ntdb-1.0[python,${PYTHON_USEDEP}]
 	>=sys-libs/ldb-1.1.17
-	>=sys-libs/tdb-1.2.12[python]
-	>=sys-libs/talloc-2.0.8[python]
+	>=sys-libs/tdb-1.2.12[python,${PYTHON_USEDEP}]
+	>=sys-libs/talloc-2.0.8[python,${PYTHON_USEDEP}]
 	>=sys-libs/tevent-0.9.18
 	sys-libs/zlib
 	virtual/pam
@@ -58,7 +59,8 @@ RDEPEND="${CDEPEND}
 	selinux? ( sec-policy/selinux-samba )
 "
 
-REQUIRED_USE="ads? ( acl ldap )"
+REQUIRED_USE="ads? ( acl ldap )
+	${PYTHON_REQUIRED_USE}"
 
 RESTRICT="mirror"
 
@@ -70,12 +72,14 @@ CONFDIR="${FILESDIR}/$(get_version_component_range 1-2)"
 PATCHES=(
 	"${FILESDIR}/${PN}-4.1.14-named.conf.dlz.patch"
 	"${FILESDIR}/${PN}-4.0.19-automagic_aio_fix.patch"
+	# support libsystemd (instead of libsystemd-daemon), bug #526362
+	"${FILESDIR}/${PN}-4.1.14-libsystemd.patch"
 )
 
 WAF_BINARY="${S}/buildtools/bin/waf"
 
 pkg_setup() {
-	python_export_best
+	python-single-r1_pkg_setup
 	if use aio; then
 		if ! linux_config_exists || ! linux_chkconfig_present AIO; then
 				ewarn "You must enable AIO support in your kernel config, "
