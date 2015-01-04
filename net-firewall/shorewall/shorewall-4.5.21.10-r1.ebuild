@@ -1,4 +1,6 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/net-firewall/shorewall/shorewall-4.5.21.10-r1.ebuild,v 1.1 2014/11/18 11:12:24 xmw Exp $
 
 EAPI="5"
 
@@ -30,7 +32,7 @@ SRC_URI="
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
 IUSE="doc"
 
 DEPEND="
