@@ -2347,6 +2347,8 @@ dev-util/apitrace:egl - Enable EGL support
 dev-util/catalyst:ccache - Enables ccache support
 dev-util/coccigrep:vim - Install the coccigrep vim plugin
 dev-util/codeblocks:contrib - Build additional contrib components
+dev-util/codelite:clang - Enable LLVM C Compiler support
+dev-util/codelite:sftp - Enable SFTP connection support
 dev-util/cppcheck:htmlreport - install cppcheck-htmlreport
 dev-util/ctags:ada - Enable Ada support
 dev-util/cwdiff:a2ps - install app-text/a2ps for postscript output
@@ -4932,6 +4934,7 @@ net-irc/weechat:trigger - Enable trigger plugin.
 net-irc/weechat:xfer - Enable xfer plugin support.
 net-irc/znc:daemon - Allow znc to run as a system-wide service. Installs an init script and creates a znc user:group.
 net-libs/aqbanking:chipcard - Enable support for DDV/RSA-chipcards
+net-libs/aqbanking:ebics - Enable support for Electronic Banking Internet Communication Standard (EBICS)
 net-libs/axtls:cgi-lua - Enables lua backed cgi for axhttpd server
 net-libs/axtls:cgi-php - Enables php backed cgi for axhttpd server
 net-libs/axtls:httpd - Enables axhttpd web server component
