@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile configure install prepare test unpack
+DEPEND=sci-libs/octomap sci-libs/flann dev-libs/boost:=[threads] sci-libs/libccd virtual/pkgconfig >=dev-vcs/git-1.8.2.1 sys-devel/make >=dev-util/cmake-2.8.12 userland_GNU? ( >=sys-apps/findutils-4.4.0 )
+DESCRIPTION=The Flexible Collision Library
+EAPI=5
+HOMEPAGE=http://gamma.cs.unc.edu/FCL/
+IUSE=sse
+LICENSE=BSD
+RDEPEND=sci-libs/octomap sci-libs/flann dev-libs/boost:=[threads] sci-libs/libccd
+SLOT=0
+_eclasses_=cmake-utils	396338f483cf8c05d1ce3e0e3a90ca5b	eutils	f99a767f569b1f0731b3a1edd17c1d11	flag-o-matic	c263990f1b677b0f0be0a3299f179762	git-r3	f908736fc2f2912c118910333ea303f4	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
+_md5_=ca37c66a3faf8a83aae54adf157594d2

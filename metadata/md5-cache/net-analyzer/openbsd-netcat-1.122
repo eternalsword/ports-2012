@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install prepare
+DEPEND=!net-analyzer/gnu-netcat !net-analyzer/netcat !net-analyzer/netcat6 dev-libs/libbsd sys-libs/glibc
+DESCRIPTION=OpenBSD rewrite of netcat, including support for IPv6, proxies, and Unix sockets
+EAPI=5
+HOMEPAGE=http://openbsd.cs.toronto.edu/cgi-bin/cvsweb/src/usr.bin/nc/
+KEYWORDS=~*
+LICENSE=BSD
+RDEPEND=!net-analyzer/gnu-netcat !net-analyzer/netcat !net-analyzer/netcat6 dev-libs/libbsd sys-libs/glibc
+RESTRICT=mirror
+SLOT=0
+SRC_URI=http://build.funtoo.org/distfiles/openbsd-netcat/openbsd-netcat-1.122.tar.xz
+_eclasses_=eutils	f99a767f569b1f0731b3a1edd17c1d11	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
+_md5_=13e25c56373d790a9d38e0716abb15f0

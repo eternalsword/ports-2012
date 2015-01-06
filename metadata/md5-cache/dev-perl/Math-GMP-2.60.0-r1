@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile configure install prepare test unpack
+DEPEND=dev-libs/gmp dev-lang/perl:=[-build(-)]
+DESCRIPTION=High speed arbitrary size integer math
+EAPI=5
+HOMEPAGE=http://search.cpan.org/dist/Math-GMP/
+KEYWORDS=alpha amd64 hppa ~mips ppc x86
+LICENSE=LGPL-2
+RDEPEND=dev-libs/gmp dev-lang/perl:=[-build(-)]
+SLOT=0
+SRC_URI=mirror://cpan/authors/id/T/TU/TURNSTEP/Math-GMP-2.06.tar.gz
+_eclasses_=eutils	f99a767f569b1f0731b3a1edd17c1d11	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	multiprocessing	d7f2985a2c76c365ee20269db5261414	perl-module	64e9b3f9fbef3c18fb02c41aa4141145	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac	unpacker	f300a7ca9131b1024a79762e8edd3c52
+_md5_=1d47f13c4993e8a2dad1d543ad5df00d

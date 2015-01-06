@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile configure install prepare unpack
+DEPEND=dev-lang/lua qt4? ( dev-qt/qtgui:4 dev-qt/qtcore:4 ) dev-libs/boost virtual/pkgconfig
+DESCRIPTION=converts source code to formatted text ((X)HTML, RTF, (La)TeX, XSL-FO, XML) with syntax highlight
+EAPI=4
+HOMEPAGE=http://www.andre-simon.de/
+IUSE=examples qt4
+KEYWORDS=~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos
+LICENSE=GPL-3
+RDEPEND=dev-lang/lua qt4? ( dev-qt/qtgui:4 dev-qt/qtcore:4 )
+SLOT=0
+SRC_URI=http://www.andre-simon.de/zip/highlight-3.12.tar.bz2
+_eclasses_=base	b04101a46711cfa66c7484a27d64d5ef	eutils	f99a767f569b1f0731b3a1edd17c1d11	flag-o-matic	c263990f1b677b0f0be0a3299f179762	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	qmake-utils	9e0174de733aecba0a7e66b2b01841d2	qt4-r2	bf2c644de4b91ad965c46735fbbd4a39	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
+_md5_=87bb9eebb2f5936b78adbdeb01afbbc0
