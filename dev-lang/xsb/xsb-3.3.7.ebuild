@@ -1,12 +1,12 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/xsb/xsb-3.3.6.ebuild,v 1.4 2015/01/09 14:32:09 keri Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/xsb/xsb-3.3.7.ebuild,v 1.1 2015/01/09 15:40:44 keri Exp $
 
 EAPI=2
 
 MY_P="XSB${PV//./}"
 
-PATCHSET_VER="1"
+PATCHSET_VER="0"
 
 inherit eutils autotools java-pkg-opt-2
 
@@ -17,7 +17,7 @@ SRC_URI="http://xsb.sourceforge.net/downloads/${MY_P}.tar.gz
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="curl debug examples iodbc java mysql odbc pcre threads xml"
 
 RDEPEND="curl? ( net-misc/curl )
