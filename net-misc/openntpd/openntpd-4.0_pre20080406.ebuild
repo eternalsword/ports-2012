@@ -1,12 +1,13 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/openntpd/openntpd-20080406-r9.ebuild,v 1.4 2014/11/02 09:10:58 swift Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/openntpd/openntpd-4.0_pre20080406.ebuild,v 1.2 2015/01/12 18:01:31 ottxor Exp $
 
 EAPI=5
 
 inherit autotools eutils toolchain-funcs systemd user
 
-MY_P="${P/-/_}p"
+MY_PV=${PV##*pre}
+MY_P="${PN}_${MY_PV}p"
 DEB_VER="6"
 DESCRIPTION="Lightweight NTP server ported from OpenBSD"
 HOMEPAGE="http://www.openntpd.org/"
@@ -49,9 +50,9 @@ src_prepare() {
 	sed -i '/NTPD_USER/s:_ntp:ntp:' ntpd.h || die
 
 	epatch "${WORKDIR}"/debian/patches/*.patch
-	epatch "${FILESDIR}/${P}-pidfile.patch"
-	epatch "${FILESDIR}/${P}-signal.patch"
-	epatch "${FILESDIR}/${P}-dns-timeout.patch"
+	epatch "${FILESDIR}/${PN}-${MY_PV}-pidfile.patch"
+	epatch "${FILESDIR}/${PN}-${MY_PV}-signal.patch"
+	epatch "${FILESDIR}/${PN}-${MY_PV}-dns-timeout.patch"
 	sed -i 's:debian:gentoo:g' ntpd.conf || die
 	eautoreconf # deb patchset touches .ac files and such
 }
@@ -67,10 +68,10 @@ src_install() {
 	default
 	rmdir "${ED}"/{var/empty,var}
 
-	newinitd "${FILESDIR}/${PN}.init.d-${PV}-r6" ntpd
-	newconfd "${FILESDIR}/${PN}.conf.d-${PV}-r6" ntpd
+	newinitd "${FILESDIR}/${PN}.init.d-${MY_PV}-r6" ntpd
+	newconfd "${FILESDIR}/${PN}.conf.d-${MY_PV}-r6" ntpd
 
-	systemd_newunit "${FILESDIR}/${PN}.service-${PV}-r4" ntpd.service
+	systemd_newunit "${FILESDIR}/${PN}.service-${MY_PV}-r4" ntpd.service
 }
 
 pkg_config() {
