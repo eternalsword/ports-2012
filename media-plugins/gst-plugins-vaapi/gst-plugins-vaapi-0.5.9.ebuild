@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-plugins/gst-plugins-vaapi/gst-plugins-vaapi-0.5.9.ebuild,v 1.1 2015/01/13 12:27:51 pacho Exp $
 
 EAPI="5"
 inherit eutils multilib-minimal
@@ -12,7 +10,7 @@ SRC_URI="http://www.freedesktop.org/software/vaapi/releases/${MY_PN}/${MY_PN}-${
 
 LICENSE="LGPL-2.1"
 SLOT="1.0"
-KEYWORDS="~amd64"
+KEYWORDS="*"
 IUSE="+X opengl wayland"
 
 RDEPEND="
@@ -37,6 +35,7 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 multilib_src_configure() {
 	ECONF_SOURCE=${S} \
 	econf \
+		--disable-builtin-libvpx \
 		--disable-static \
 		--enable-drm \
 		$(use_enable opengl glx) \
