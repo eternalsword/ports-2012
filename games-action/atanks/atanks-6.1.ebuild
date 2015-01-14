@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-action/atanks/atanks-5.9.ebuild,v 1.1 2014/04/23 21:11:10 mr_bones_ Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-action/atanks/atanks-6.1.ebuild,v 1.1 2015/01/14 06:08:19 mr_bones_ Exp $
 
 EAPI=5
 inherit eutils gnome2-utils games
@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~ppc ~x86"
 IUSE=""
 
 DEPEND="media-libs/allegro:0[X]"
-RDEPEND="${DEPEND}"
+RDEPEND=${DEPEND}
 
 src_prepare() {
 	find . -type f -name ".directory" -exec rm -vf '{}' +
