@@ -4,19 +4,18 @@
 
 EAPI="5-progress"
 PYTHON_ABI_TYPE="multiple"
-PYTHON_TESTS_FAILURES_TOLERANT_ABIS="*-jython"
+PYTHON_TESTS_FAILURES_TOLERANT_ABIS="*"
 DISTUTILS_SRC_TEST="py.test"
 
-inherit distutils mercurial
+inherit distutils
 
 DESCRIPTION="Setuptools is a collection of extensions to Distutils"
 HOMEPAGE="https://pythonhosted.org/setuptools/ https://bitbucket.org/pypa/setuptools https://pypi.python.org/pypi/setuptools"
-SRC_URI=""
-EHG_REPO_URI="https://bitbucket.org/pypa/setuptools"
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="PSF-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="*"
 IUSE="test"
 
 DEPEND="test? ( $(python_abi_depend virtual/python-mock) )"
