@@ -28,9 +28,11 @@ depend() {
 		if [ "${warn_addr:+set}" = "set" ]; then
 			need net 
 			ewarn "You are binding an interface in ListenAddress statement in your sshd_config!"
-			ewarn "You must add rc_need=\"net.FOO\" to your /etc/conf.d/sshd"
-			ewarn "where FOO is the interface(s) providing the following address(es):"
+			ewarn "You must add rc_need=\"netif.foo\" to your /etc/conf.d/sshd"
+			ewarn "where foo is the interface(s) providing the following address(es):"
 			ewarn "${warn_addr}"
+			ewarn "Please, follow wiki guide on network-dependent services:"
+			ewarn "http://www.funtoo.org/Networking#Network-Dependent_Services"
 		fi
 		unset warn_addr
 	fi
