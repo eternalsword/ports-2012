@@ -1,8 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-wm/windowmaker/windowmaker-0.95.3-r1.ebuild,v 1.2 2012/08/14 00:43:00 chithanh Exp $
 
-EAPI=4
+EAPI=5
 inherit autotools eutils
 
 DESCRIPTION="The fast and light GNUstep window manager"
@@ -12,8 +10,8 @@ SRC_URI=" http://windowmaker.org/pub/source/release/${P/windowm/WindowM}.tar.gz
 
 SLOT="0"
 LICENSE="GPL-2"
-IUSE="gif jpeg nls png tiff modelock xinerama xrandr"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
+IUSE="gif imagemagick jpeg modelock nls png tiff webp xinerama xrandr"
+KEYWORDS="*"
 
 DEPEND="media-libs/fontconfig
 	>=x11-libs/libXft-2.1.0
@@ -21,9 +19,11 @@ DEPEND="media-libs/fontconfig
 	x11-libs/libXt
 	x11-libs/libXv
 	gif? ( >=media-libs/giflib-4.1.0-r3 )
-	png? ( media-libs/libpng:0 )
+	imagemagick? ( media-gfx/imagemagick )
 	jpeg? ( virtual/jpeg )
+	png? ( media-libs/libpng:0= )
 	tiff? ( media-libs/tiff:0 )
+	webp? ( media-libs/libwebp )
 	xinerama? ( x11-libs/libXinerama )
 	xrandr? ( x11-libs/libXrandr )"
 RDEPEND="${DEPEND}
@@ -41,8 +41,13 @@ src_prepare() {
 		fi;
 	done;
 
-	epatch "${FILESDIR}"/${P}-fix_underlinking.patch
-	eautoreconf
+   	epatch "${FILESDIR}"/${PN}-0.95.3-fix_underlinking.patch
+    # FL-1958
+    if use webp ; then
+        epatch "${FILESDIR}"/${PN}-0.95.6-Fix_libWebP_detection.patch
+    fi
+
+    eautoreconf
 }
 
 src_configure() {
@@ -50,10 +55,10 @@ src_configure() {
 
 	# image format types
 	# xpm is provided by X itself
-	myconf="--enable-xpm $(use_enable png) $(use_enable jpeg) $(use_enable gif) $(use_enable tiff)"
+	myconf="--enable-xpm $(use_enable imagemagick magick) $(use_enable jpeg) $(use_enable gif) $(use_enable png) $(use_enable tiff) $(use_enable webp)"
 
 	# non required X capabilities
-	myconf="${myconf} $(use_enable modelock) $(use_enable xrandr) $(use_enable xinerama)"
+	myconf="${myconf} $(use_enable modelock) $(use_enable xrandr randr) $(use_enable xinerama)"
 
 	if use nls; then
 		[[ -z $LINGUAS ]] && export LINGUAS="`ls po/*.po | sed 's:po/\(.*\)\.po$:\1:'`"
