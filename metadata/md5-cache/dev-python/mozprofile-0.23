@@ -9,6 +9,6 @@ LICENSE=MPL-2.0
 RDEPEND=dev-python/manifestparser[python_abis_2.7?,python_abis_2.7-pypy?] >=dev-python/mozfile-1.0[python_abis_2.7?,python_abis_2.7-pypy?] dev-python/mozlog[python_abis_2.7?,python_abis_2.7-pypy?] dev-python/setuptools[python_abis_2.7?,python_abis_2.7-pypy?] ( python_abis_2.7? ( dev-lang/python:2.7[sqlite] ) python_abis_2.7-pypy? ( dev-lang/pypy:python-2.7=[sqlite] ) )
 REQUIRED_USE=|| ( python_abis_2.7 python_abis_2.7-pypy )
 SLOT=0
-SRC_URI=mirror://pypi/m/mozprofile/mozprofile-0.22.tar.gz
+SRC_URI=mirror://pypi/m/mozprofile/mozprofile-0.23.tar.gz
 _eclasses_=distutils	2d484830b6e5aa7a840ba17d755dd55b	python	3f6d74b5384dbeef63d932c2b6f9b61a
-_md5_=1378dae94c5714c9a6bcaa12b4465cc8
+_md5_=920303ba0652ff306111e388bf191fb2
