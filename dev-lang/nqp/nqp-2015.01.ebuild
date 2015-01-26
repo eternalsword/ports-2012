@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/nqp/nqp-2014.12.ebuild,v 1.3 2015/01/26 04:14:32 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/nqp/nqp-2015.01.ebuild,v 1.2 2015/01/26 04:14:32 patrick Exp $
 
 EAPI=5
 
@@ -9,7 +9,7 @@ RESTRICT="test"
 
 inherit eutils multilib versionator
 
-GITCRAP=64e7d41
+GITCRAP=bba0461
 PARROT_VERSION="6.7.0"
 
 DESCRIPTION="Not Quite Perl, a Perl 6 bootstrapping compiler"

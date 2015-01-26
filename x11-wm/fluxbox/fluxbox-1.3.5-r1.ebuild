@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-wm/fluxbox/fluxbox-1.3.6-r1.ebuild,v 1.2 2015/01/26 05:00:18 idella4 Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-wm/fluxbox/fluxbox-1.3.5-r1.ebuild,v 1.1 2015/01/26 02:37:31 idella4 Exp $
 
 EAPI=5
 inherit eutils flag-o-matic toolchain-funcs prefix
@@ -9,7 +9,7 @@ IUSE="nls xinerama bidi +truetype +imlib +slit +toolbar vim-syntax"
 
 DESCRIPTION="Fluxbox is an X11 window manager featuring tabs and an iconbar"
 
-SRC_URI="mirror://sourceforge/fluxbox/${P}.tar.xz"
+SRC_URI="mirror://sourceforge/fluxbox/${P}.tar.lzma"
 HOMEPAGE="http://www.fluxbox.org"
 SLOT="0"
 LICENSE="MIT"
@@ -42,9 +42,9 @@ src_prepare() {
 	# We need to be able to include directories rather than just plain
 	# files in menu [include] items. This patch will allow us to do clever
 	# things with style ebuilds.
-	epatch "${FILESDIR}"/gentoo_style_location-1.1.x.patch
+	epatch "${FILESDIR}/gentoo_style_location-1.1.x.patch"
 	# Fix the semantic issue of icon paths, bug #536370
-	epatch "${FILESDIR}"/1.3.5-generate_menu-printf-fix.patch
+	epatch "${FILESDIR}"/${PV}-generate_menu-printf-fix.patch
 
 	eprefixify util/fluxbox-generate_menu.in
 
@@ -69,7 +69,7 @@ src_configure() {
 		$(use_enable imlib imlib2) \
 		$(use_enable nls) \
 		$(use_enable slit ) \
-		$(use_enable toolbar systray ) \
+		$(use_enable toolbar ) \
 		$(use_enable truetype xft) \
 		$(use_enable xinerama) \
 		--sysconfdir="${EPREFIX}"/etc/X11/${PN} \
