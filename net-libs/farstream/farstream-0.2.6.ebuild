@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/farstream/farstream-0.2.6.ebuild,v 1.1 2015/01/26 12:31:05 pacho Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -14,7 +12,7 @@ HOMEPAGE="http://www.freedesktop.org/wiki/Software/Farstream"
 SRC_URI="http://freedesktop.org/software/farstream/releases/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2.1+"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="*"
 IUSE="+introspection msn test upnp"
 
 SLOT="0.2"
@@ -50,6 +48,7 @@ pkg_setup() {
 }
 
 src_configure() {
+	unset DISPLAY
 	plugins="fsrawconference,fsrtpconference,fsfunnel,fsrtcpfilter,fsvideoanyrate"
 	use msn && plugins="${plugins},fsmsnconference"
 	gnome2_src_configure \
