@@ -334,6 +334,7 @@ fi
 
 # prefix: first need to implement something for #196294
 RDEPEND="${DEPEND}
+	!minimal? ( !prefix? ( dev-db/mysql-init-scripts ) )
 	selinux? ( sec-policy/selinux-mysql )
 "
 
@@ -586,12 +587,12 @@ mysql-v2_pkg_postinst() {
 	mysql_init_vars
 
 	# Check FEATURES="collision-protect" before removing this
-	[[ -d "${EROOT}${MY_LOGDIR}" ]] || install -d -m0750 -o mysql -g mysql "${EROOT}${MY_LOGDIR}"
+	[[ -d "${ROOT}${MY_LOGDIR}" ]] || install -d -m0750 -o mysql -g mysql "${ROOT}${MY_LOGDIR}"
 
 	# Secure the logfiles
-	touch "${EROOT}${MY_LOGDIR}"/mysql.{log,err}
-	chown mysql:mysql "${EROOT}${MY_LOGDIR}"/mysql*
-	chmod 0660 "${EROOT}${MY_LOGDIR}"/mysql*
+	touch "${ROOT}${MY_LOGDIR}"/mysql.{log,err}
+	chown mysql:mysql "${ROOT}${MY_LOGDIR}"/mysql*
+	chmod 0660 "${ROOT}${MY_LOGDIR}"/mysql*
 
 	# Minimal builds don't have the MySQL server
 	if ! use minimal ; then
@@ -700,9 +701,9 @@ mysql-v2_pkg_config() {
 	fi
 
 	if [[ ( -n "${MY_DATADIR}" ) && ( "${MY_DATADIR}" != "${old_MY_DATADIR}" ) ]]; then
-		local MY_DATADIR_s="${EROOT}/${MY_DATADIR}"
+		local MY_DATADIR_s="${ROOT}/${MY_DATADIR}"
 		MY_DATADIR_s="${MY_DATADIR_s%%/}"
-		local old_MY_DATADIR_s="${EROOT}/${old_MY_DATADIR}"
+		local old_MY_DATADIR_s="${ROOT}/${old_MY_DATADIR}"
 		old_MY_DATADIR_s="${old_MY_DATADIR_s%%/}"
 
 		if [[ ( -d "${old_MY_DATADIR_s}" ) && ( "${old_MY_DATADIR_s}" != / ) ]]; then
@@ -739,11 +740,11 @@ mysql-v2_pkg_config() {
 	MYSQL_LOG_BIN="$(mysql-v2_getoptval mysqld log-bin)"
 	MYSQL_LOG_BIN=${MYSQL_LOG_BIN%/*}
 
-	if [[ ! -d "${EROOT}"/$MYSQL_TMPDIR ]]; then
+	if [[ ! -d "${ROOT}"/$MYSQL_TMPDIR ]]; then
 		einfo "Creating MySQL tmpdir $MYSQL_TMPDIR"
 		install -d -m 770 -o mysql -g mysql "${ROOT}"/$MYSQL_TMPDIR
 	fi
-	if [[ ! -d "${EROOT}"/$MYSQL_LOG_BIN ]]; then
+	if [[ ! -d "${ROOT}"/$MYSQL_LOG_BIN ]]; then
 		einfo "Creating MySQL log-bin directory $MYSQL_LOG_BIN"
 		install -d -m 770 -o mysql -g mysql "${ROOT}"/$MYSQL_LOG_BIN
 	fi
@@ -754,7 +755,7 @@ mysql-v2_pkg_config() {
 
 	if [[ -d "${ROOT}/${MY_DATADIR}/mysql" ]] ; then
 		ewarn "You have already a MySQL database in place."
-		ewarn "(${EROOT}/${MY_DATADIR}/*)"
+		ewarn "(${ROOT}/${MY_DATADIR}/*)"
 		ewarn "Please rename or delete it if you wish to replace it."
 		die "MySQL database already exists!"
 	fi
@@ -787,7 +788,7 @@ mysql-v2_pkg_config() {
 	# see http://bugs.mysql.com/bug.php?id=31312
 	use prefix && options="${options} --defaults-file=${MY_SYSCONFDIR}/my.cnf"
 
-	local help_tables="${EROOT}${MY_SHAREDSTATEDIR}/fill_help_tables.sql"
+	local help_tables="${ROOT}${MY_SHAREDSTATEDIR}/fill_help_tables.sql"
 	[[ -r "${help_tables}" ]] \
 	&& cp "${help_tables}" "${TMPDIR}/fill_help_tables.sql" \
 	|| touch "${TMPDIR}/fill_help_tables.sql"
@@ -829,7 +830,7 @@ mysql-v2_pkg_config() {
 	#cmd="'${EROOT}/usr/share/mysql/scripts/mysql_install_db' '--basedir=${EPREFIX}/usr' ${options}"
 	cmd=${EROOT}usr/share/mysql/scripts/mysql_install_db
 	[[ -f ${cmd} ]] || cmd=${EROOT}usr/bin/mysql_install_db
-	cmd="'$cmd' '--basedir=${EPREFIX}/usr' ${options} '--datadir=${EROOT}/${MY_DATADIR}' '--tmpdir=${EROOT}/${MYSQL_TMPDIR}'"
+	cmd="'$cmd' '--basedir=${EPREFIX}/usr' ${options} '--datadir=${ROOT}/${MY_DATADIR}' '--tmpdir=${ROOT}/${MYSQL_TMPDIR}'"
 	einfo "Command: $cmd"
 	eval $cmd \
 		>"${TMPDIR}"/mysql_install_db.log 2>&1
@@ -838,10 +839,10 @@ mysql-v2_pkg_config() {
 		die "Failed to run mysql_install_db. Please review ${EPREFIX}/var/log/mysql/mysqld.err AND ${TMPDIR}/mysql_install_db.log"
 	fi
 	popd &>/dev/null
-	[[ -f "${EROOT}/${MY_DATADIR}/mysql/user.frm" ]] \
+	[[ -f "${ROOT}/${MY_DATADIR}/mysql/user.frm" ]] \
 	|| die "MySQL databases not installed"
-	chown -R mysql:mysql "${EROOT}/${MY_DATADIR}" 2>/dev/null
-	chmod 0750 "${EROOT}/${MY_DATADIR}" 2>/dev/null
+	chown -R mysql:mysql "${ROOT}/${MY_DATADIR}" 2>/dev/null
+	chmod 0750 "${ROOT}/${MY_DATADIR}" 2>/dev/null
 
 	# Filling timezones, see
 	# http://dev.mysql.com/doc/mysql/en/time-zone-support.html
@@ -858,13 +859,13 @@ mysql-v2_pkg_config() {
 		$(use prefix || echo --user=mysql) \
 		--log-warnings=0 \
 		--basedir=${EROOT}/usr \
-		--datadir=${EROOT}/${MY_DATADIR} \
+		--datadir=${ROOT}/${MY_DATADIR} \
 		--max_allowed_packet=8M \
 		--net_buffer_length=16K \
 		--default-storage-engine=MyISAM \
 		--socket=${socket} \
 		--pid-file=${pidfile}
-		--tmpdir=${EROOT}/${MYSQL_TMPDIR}"
+		--tmpdir=${ROOT}/${MYSQL_TMPDIR}"
 	#einfo "About to start mysqld: ${mysqld}"
 	ebegin "Starting mysqld"
 	einfo "Command ${mysqld}"
@@ -913,5 +914,6 @@ mysql-v2_pkg_config() {
 # @DESCRIPTION:
 # Remove mysql symlinks.
 mysql-v2_pkg_postrm() {
+
 	: # mysql_lib_symlinks "${ED}"
 }

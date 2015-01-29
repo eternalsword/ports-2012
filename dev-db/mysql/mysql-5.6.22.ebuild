@@ -1,8 +1,10 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/dev-db/mysql/mysql-5.6.22.ebuild,v 1.9 2015/01/25 10:19:08 ago Exp $
 
 EAPI="5"
 
-MY_EXTRAS_VER="20150127-1351Z"
+MY_EXTRAS_VER="20141203-2105Z"
 MY_PV="${PV//_alpha_pre/-m}"
 MY_PV="${MY_PV//_/-}"
 
@@ -11,15 +13,13 @@ inherit toolchain-funcs mysql-multilib
 IUSE="$IUSE"
 
 # REMEMBER: also update eclass/mysql*.eclass before committing!
-KEYWORDS="~*"
+KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ppc ppc64 ~s390 ~sh sparc x86 ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x64-solaris ~x86-solaris"
 
 # When MY_EXTRAS is bumped, the index should be revised to exclude these.
 EPATCH_EXCLUDE=''
 
 DEPEND="|| ( >=sys-devel/gcc-3.4.6 >=sys-devel/gcc-apple-4.0 )"
-RDEPEND="${RDEPEND}
-	!minimal? ( !prefix? ( dev-db/mysql-init-scripts ) )
-"
+RDEPEND="${RDEPEND}"
 
 # Please do not add a naive src_unpack to this ebuild
 # If you want to add a single patch, copy the ebuild to an overlay
@@ -37,7 +37,7 @@ multilib_src_test() {
 		return 0;
 	fi
 
-	local TESTDIR="${CMAKE_BUILD_DIR}/mysql-test"
+	local TESTDIR="${BUILD_DIR}/mysql-test"
 	local retstatus_unit
 	local retstatus_tests
 
@@ -71,7 +71,7 @@ multilib_src_test() {
 		mkdir -p "${T}"/var-tests{,/log}
 
 		# create symlink for the tests to find mysql_tzinfo_to_sql
-		ln -s "${CMAKE_BUILD_DIR}/sql/mysql_tzinfo_to_sql" "${S}/sql/"
+		ln -s "${BUILD_DIR}/sql/mysql_tzinfo_to_sql" "${S}/sql/"
 
 		# These are failing in MySQL 5.5/5.6 for now and are believed to be
 		# false positives:
@@ -90,6 +90,11 @@ multilib_src_test() {
 		# rpl.rpl_plugin_load
 		# fails due to included file not listed in expected result
 		# appears to be poor planning
+		#
+		# main.mysqlhotcopy_archive main.mysqlhotcopy_myisam
+		# fails due to bad cleanup of previous tests when run in parallel
+		# The tool is deprecated anyway
+		# Bug 532288
 		for t in \
 			binlog.binlog_mysqlbinlog_filter \
 			binlog.binlog_statement_insert_delayed \
@@ -98,10 +103,11 @@ multilib_src_test() {
 			funcs_1.is_triggers \
 			main.information_schema \
 			main.mysql_client_test \
-			main.mysqld--help-notwinfuncs_1.is_triggers \
+			main.mysqld--help-notwin \
 			perfschema.binlog_edge_mix \
 			perfschema.binlog_edge_stmt \
 			rpl.rpl_plugin_load \
+			main.mysqlhotcopy_archive main.mysqlhotcopy_myisam \
 		; do
 				mysql-multilib_disable_test  "$t" "False positives in Gentoo"
 		done
