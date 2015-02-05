@@ -3765,10 +3765,12 @@ media-sound/deadbeef:libnotify - Notification daemon support plugin
 media-sound/deadbeef:libsamplerate - Sample rate conversion plugin
 media-sound/deadbeef:m3u - m3u playlist plugin
 media-sound/deadbeef:mac - Monkey's Audio plugin
+media-sound/deadbeef:mad - MPEG-1/2/2.5 Layer 3 (MP3) support through mad/libmad
 media-sound/deadbeef:midi - midi support (via timidity) plugin
 media-sound/deadbeef:mms - Microsoft Media Server (MMS) plugin
 media-sound/deadbeef:mono2stereo - mono2stereo plugin
-media-sound/deadbeef:mp3 - MPEG-1/2/2.5 Layer 3 (MP3) plugin
+media-sound/deadbeef:mp3 - MPEG-1/2/2.5 Layer 3 (MP3) support plugin. It is a virtual use for mad/libmad or mpg123/libmpg123 starting from 0.6.3 version
+media-sound/deadbeef:mpg123 - MPEG-1/2/2.5 Layer 3 (MP3) support through mpg123/libmpg123
 media-sound/deadbeef:nls - Native Language Support (NLS)
 media-sound/deadbeef:nullout - NULL output plugin
 media-sound/deadbeef:oss - Open Sound System (OSS) output plugin
