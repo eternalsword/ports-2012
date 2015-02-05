@@ -2,7 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer>
-		<email>gkeys@gentoo.org</email>
-		<name>Gentoo-keys Project Team</name>
+		<email>cedk@gentoo.org</email>
+		<name>Cédric Krier</name>
 	</maintainer>
+	<longdescription lang="en">
+		A cached-property for decorating methods in classes.
+	</longdescription>
 </pkgmetadata>
