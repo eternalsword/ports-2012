@@ -1,9 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/mkvtoolnix/mkvtoolnix-7.3.0.ebuild,v 1.1 2014/10/23 01:48:14 radhermit Exp $
 
 EAPI=5
-WX_GTK_VER="3.0"
 inherit eutils multilib toolchain-funcs versionator wxwidgets multiprocessing autotools
 
 DESCRIPTION="Tools to create, alter, and inspect Matroska files"
@@ -12,19 +9,8 @@ SRC_URI="http://www.bunkus.org/videotools/mkvtoolnix/sources/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
-IUSE="debug pch qt5 wxwidgets"
-
-ruby_atom() {
-	local ruby_slot=${1/ruby/}
-	ruby_slot="${ruby_slot:0:1}.${ruby_slot:1:2}"
-	echo "dev-lang/ruby:${ruby_slot}"
-}
-
-# hacks to avoid using the ruby eclasses since this requires something similar
-# to the python-any-r1 eclass for ruby which currently doesn't exist
-RUBY_IMPLS=( ruby19 ruby20 ruby21 )
-RUBY_BDEPS="$(for ruby_impl in "${RUBY_IMPLS[@]}"; do echo $(ruby_atom ${ruby_impl}); done)"
+KEYWORDS="*"
+IUSE="debug pch qt4 wxwidgets"
 
 RDEPEND="
 	>=dev-libs/libebml-1.3.0:=
@@ -37,15 +23,14 @@ RDEPEND="
 	sys-apps/file
 	>=sys-devel/gcc-4.6
 	sys-libs/zlib
-	qt5? (
-		dev-qt/qtcore:5
-		dev-qt/qtgui:5
+	qt4? (
+		dev-qt/qtcore:4
+		dev-qt/qtgui:4
 	)
-	wxwidgets? ( x11-libs/wxGTK:${WX_GTK_VER}[X] )
+	wxwidgets? ( x11-libs/wxGTK:2.8[X] )
 "
 DEPEND="${RDEPEND}
-	|| ( ${RUBY_BDEPS} )
-	sys-devel/gettext
+	dev-lang/ruby
 	virtual/pkgconfig
 "
 
@@ -60,18 +45,9 @@ pkg_pretend() {
 }
 
 src_prepare() {
-	local ruby_impl
-	for ruby_impl in "${RUBY_IMPLS[@]}"; do
-		if has_version "$(ruby_atom ${ruby_impl})"; then
-			export RUBY=${ruby_impl}
-			break
-		fi
-	done
-
-	[[ -z ${RUBY} ]] && die "No available ruby implementations to build with"
-
 	epatch "${FILESDIR}"/${PN}-5.8.0-system-pugixml.patch \
 		"${FILESDIR}"/${PN}-5.8.0-boost-configure.patch
+	epatch "${FILESDIR}"/${PN}-boost-1.56.patch	
 	eautoreconf
 }
 
@@ -79,13 +55,14 @@ src_configure() {
 	local myconf
 
 	if use wxwidgets ; then
+		WX_GTK_VER="2.8"
 		need-wxwidgets unicode
 		myconf="--with-wx-config=${WX_CONFIG}"
 	fi
 
 	econf \
 		$(use_enable debug) \
-		$(use_enable qt5 qt) \
+		$(use_enable qt4 qt) \
 		$(use_enable wxwidgets) \
 		$(usex pch "" --disable-precompiled-headers) \
 		${myconf} \
@@ -97,13 +74,13 @@ src_configure() {
 }
 
 src_compile() {
-	"${RUBY}" ./drake V=1 -j$(makeopts_jobs) || die
+	./drake V=1 -j$(makeopts_jobs) || die
 }
 
 src_install() {
-	DESTDIR="${D}" "${RUBY}" ./drake -j$(makeopts_jobs) install || die
+	DESTDIR="${D}" ./drake -j$(makeopts_jobs) install || die
 
-	dodoc AUTHORS ChangeLog README.md TODO
+	dodoc AUTHORS ChangeLog README TODO
 	doman doc/man/*.1
 
 	use wxwidgets && docompress -x /usr/share/doc/${PF}/guide

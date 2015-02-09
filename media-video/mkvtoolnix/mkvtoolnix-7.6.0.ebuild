@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/mkvtoolnix/mkvtoolnix-7.6.0.ebuild,v 1.1 2015/02/08 23:54:40 radhermit Exp $
 
 EAPI=5
 WX_GTK_VER="3.0"
@@ -12,7 +10,7 @@ SRC_URI="http://www.bunkus.org/videotools/mkvtoolnix/sources/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="~*"
 IUSE="debug pch qt5 wxwidgets"
 
 ruby_atom() {
