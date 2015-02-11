@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-wireless/yatebts/yatebts-4.0.0.ebuild,v 1.5 2015/02/11 15:31:51 zerochaos Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-wireless/yatebts/yatebts-4.0.0-r1.ebuild,v 1.1 2015/02/11 17:33:29 zerochaos Exp $
 
 EAPI=5
 
@@ -33,6 +33,8 @@ fi
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-dont-mess-with-cflags.patch
+	epatch "${FILESDIR}"/${PN}-sgsnggsn-inetutils-hostname-fix.diff
+	epatch "${FILESDIR}"/${PN}-bladeRF-transceiver_revert_init_order.patch
 	eautoreconf
 }
 
