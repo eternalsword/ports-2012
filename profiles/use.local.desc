@@ -2108,7 +2108,6 @@ dev-python/pypy3:sandbox - Enable sandboxing functionality
 dev-python/pypy3:shadowstack - Use a shadow stack for finding GC roots
 dev-python/pypy3-bin:shadowstack - Use a shadow stack for finding GC roots
 dev-python/pyrax:keyring - adds support for the keyring auth backend
-dev-python/pytables:contrib - Install user-contributed files
 dev-python/python-stdnum:vies - Enable VIES
 dev-python/pyzor:gevent - Enable support for the gevent based handler
 dev-python/pyzor:mysql - Enables mysql support
