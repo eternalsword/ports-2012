@@ -1113,7 +1113,7 @@ app-text/pdf2djvu:graphicsmagick - Enable media-gfx/graphicsmagick support
 app-text/pdfgrep:unac - Removing accents and ligatures before search
 app-text/pelican:markdown - Markdown support
 app-text/podofo:boost - Add support for boost
-app-text/qpdfview:fitz - Use experimental fitz rendering instead of poppler
+app-text/qpdfview:fitz - Use experimental fitz rendering, provided by app-text/mupdf, instead of poppler
 app-text/qpdfview:synctex - Add support for searching TeX sources
 app-text/sgmltools-lite:jadetex - Add support for app-text/jadetex (for processing tex files produced by the TeX backend of Jade)
 app-text/stardict:espeak - Enable text to speech synthesizer using espeak engine
