@@ -1659,28 +1659,6 @@ dev-lang/path64:debugger - Build PathDB
 dev-lang/path64:native - Use EKOPath/Path64 for bootstraping
 dev-lang/path64:valgrind - Use dev-util/valgrind for memory debbuging
 dev-lang/perl:ithreads - Enable Perl threads, has some compatibility problems
-dev-lang/php:cli - Enable CLI SAPI
-dev-lang/php:embed - Enable embed SAPI
-dev-lang/php:enchant - Add supports Enchant spelling library.
-dev-lang/php:fileinfo - Add fileinfo extension support
-dev-lang/php:filter - Add filter extension support
-dev-lang/php:fpm - Enable the FastCGI Process Manager SAPI
-dev-lang/php:gd - Adds support for gd (bundled with PHP)
-dev-lang/php:hash - Enable the hash extension
-dev-lang/php:intl - Enables the intl extension for extended internalization support
-dev-lang/php:json - Enable JSON support
-dev-lang/php:ldap-sasl - Add SASL support for the PHP LDAP extension
-dev-lang/php:libmysqlclient - Use libmyslclient driver for mysql, mysqli, PDO_Mysql (not recommended)
-dev-lang/php:mysqlnd - Use native driver for mysql, mysqli, PDO_Mysql
-dev-lang/php:opcache - Enables built-in opcode cache, replacing pecl-apc et.al
-dev-lang/php:pdo - Enable the bundled PDO extensions
-dev-lang/php:phar - Enables the phar extension to provide phar archive support
-dev-lang/php:sqlite2 - Add sqlite2 support. Will be removed
-dev-lang/php:vpx - Enable webp suppoprt for GD
-dev-lang/php:xmlreader - Enable XMLReader support
-dev-lang/php:xmlwriter - Enable XMLWriter support
-dev-lang/php:xslt - Enable the XSL extension
-dev-lang/php:zip - Enable ZIP file support
 dev-lang/polyml:portable - Build the portable interpreter version of Poly/ML instead of native.
 dev-lang/qu-prolog:pedro - Pedro subscription/notification communications system
 dev-lang/rakudo:moar - Build the MoarVM backend (experimental)
@@ -4277,25 +4255,24 @@ media-video/vdr:alternatechannel - Use alternate channel on record
 media-video/vdr:bidi - fribid support, for languages, written from right to left
 media-video/vdr:ddepgentry - remove duplicate EPG entries
 media-video/vdr:dvlvidprefer - controls video-dir choice on recording
-media-video/vdr:graphtft - support for grapftft plugin up from vdr-graphtft-0.1.7
+media-video/vdr:graphtft - support for media-plugins/vdr-grapftftplugin up from vdr-graphtft-0.1.7
 media-video/vdr:html - Install HTML documentation
 media-video/vdr:jumpingseconds - skip seconds in played records
 media-video/vdr:jumpplay - Enables automatic jumping over cut marks while watching a recording
 media-video/vdr:kbd - enable keyboard support as remote device
 media-video/vdr:mainmenuhooks - Allows to replace main menu entries by some special plugins (like epgsearch, extrecmenu, ...)
-media-video/vdr:menuorg - Enables support for the menuorg-plugin
+media-video/vdr:menuorg - Enables support for the media-plugins/vdr-menuorg
 media-video/vdr:menuselection - adds support for menu hotkeys of double digits
 media-video/vdr:naludump - Removes NALU fill data from h.264-Streams of TS files
-media-video/vdr:permashift - permanent timeshift by recording live TV on hard disk, need plugin vdr-permashift
-media-video/vdr:permashift_v1 - permanent timeshift by recording live TV on RAM, need plugin >=vdr-permashift-1
-media-video/vdr:pinplugin - Support for pin plugin
+media-video/vdr:permashift - permanent timeshift by recording live TV on hard disk, need plugin media-plugins/vdr-vdr-permashift
+media-video/vdr:permashift_v1 - permanent timeshift by recording live TV on RAM, need plugin >=mediaplugins/vdr-permashift-1
+media-video/vdr:pinplugin - Support for media-plugins/vdr-pin
 media-video/vdr:resumereset - rreset resume of EOF
-media-video/vdr:rotor - Enable support for plugin vdr-rotor for dish-positioner.
-media-video/vdr:setup - Enable support for the plugin vdr-setup
-media-video/vdr:ttxtsubs - support for ttxtsubs plugin
+media-video/vdr:rotor - Enable support for plugin media-plugins/vdr-rotor for dish-positioner.
+media-video/vdr:ttxtsubs - support for media-pugins/vdr-ttxtsubs
 media-video/vdr:vasarajanauloja - replacement for the liemikuutio patch, adds some nice must haves features
 media-video/vdr:wareagleicon - Replace original icon set in menu
-media-video/vdr:yaepg - Enables support for the plugin vdr-yaepg
+media-video/vdr:yaepg - Enables support for the media-plugins/vdr-yaepg
 media-video/winki:mjpeg - Enables mjpegtools support
 media-video/x264-encoder:10bit - Set output bit depth to 10
 media-video/x264-encoder:avs - enable AvxSynth support in the AviSynth input module
