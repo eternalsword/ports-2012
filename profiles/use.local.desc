@@ -1659,6 +1659,28 @@ dev-lang/path64:debugger - Build PathDB
 dev-lang/path64:native - Use EKOPath/Path64 for bootstraping
 dev-lang/path64:valgrind - Use dev-util/valgrind for memory debbuging
 dev-lang/perl:ithreads - Enable Perl threads, has some compatibility problems
+dev-lang/php:cli - Enable CLI SAPI
+dev-lang/php:embed - Enable embed SAPI
+dev-lang/php:enchant - Add supports Enchant spelling library.
+dev-lang/php:fileinfo - Add fileinfo extension support
+dev-lang/php:filter - Add filter extension support
+dev-lang/php:fpm - Enable the FastCGI Process Manager SAPI
+dev-lang/php:gd - Adds support for gd (bundled with PHP)
+dev-lang/php:hash - Enable the hash extension
+dev-lang/php:intl - Enables the intl extension for extended internalization support
+dev-lang/php:json - Enable JSON support
+dev-lang/php:ldap-sasl - Add SASL support for the PHP LDAP extension
+dev-lang/php:libmysqlclient - Use libmyslclient driver for mysql, mysqli, PDO_Mysql (not recommended)
+dev-lang/php:mysqlnd - Use native driver for mysql, mysqli, PDO_Mysql
+dev-lang/php:opcache - Enables built-in opcode cache, replacing pecl-apc et.al
+dev-lang/php:pdo - Enable the bundled PDO extensions
+dev-lang/php:phar - Enables the phar extension to provide phar archive support
+dev-lang/php:sqlite2 - Add sqlite2 support. Will be removed
+dev-lang/php:vpx - Enable webp suppoprt for GD
+dev-lang/php:xmlreader - Enable XMLReader support
+dev-lang/php:xmlwriter - Enable XMLWriter support
+dev-lang/php:xslt - Enable the XSL extension
+dev-lang/php:zip - Enable ZIP file support
 dev-lang/polyml:portable - Build the portable interpreter version of Poly/ML instead of native.
 dev-lang/qu-prolog:pedro - Pedro subscription/notification communications system
 dev-lang/rakudo:moar - Build the MoarVM backend (experimental)
