@@ -10,4 +10,4 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=https://gitorious.org/deadbeef-sm-plugins/bs2b/archive/a1961cd2f0686a7bdf0915f1fc7d62b5aba369bd.tar.gz -> deadbeef-bs2b-20110319.tar.gz
 _eclasses_=deadbeef-plugins	f9df5f7a19973b1c7fa4d8f12d6ae26c	eutils	998e5931fb95b10a6a11ec796ada2759	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=ed4eb89d5ea22e6b91919d50e4f69f4b
+_md5_=f9e9cb821dc3dd45400f7c39e0b366ef

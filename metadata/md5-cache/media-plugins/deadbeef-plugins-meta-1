@@ -7,4 +7,4 @@ KEYWORDS=*
 LICENSE=metapackage
 PDEPEND=archive? ( media-plugins/deadbeef-archive-reader ) bookmark-manager? ( media-plugins/deadbeef-bookmark-manager ) bs2b? ( media-plugins/deadbeef-bs2b ) decast? ( media-plugins/deadbeef-decast ) filebrowser? ( media-plugins/deadbeef-fb ) gnome-mmkeys? ( media-plugins/deadbeef-gnome-mmkeys ) infobar? ( media-plugins/deadbeef-infobar ) jack? ( media-plugins/deadbeef-jack ) mpris? ( media-plugins/deadbeef-mpris ) musical-spectrum? ( media-plugins/deadbeef-musical-spectrum ) opus? ( media-plugins/deadbeef-opus ) replaygain-control? ( media-plugins/deadbeef-replaygain-control ) spectrogram? ( media-plugins/deadbeef-spectrogram ) stereo-widener? ( media-plugins/deadbeef-stereo-widener ) vk? ( media-plugins/deadbeef-vk ) vu-meter? ( media-plugins/deadbeef-vu-meter ) waveform-seekbar? ( media-plugins/deadbeef-waveform-seekbar )
 SLOT=0
-_md5_=a228df595d8e0f0c997970f8b87c8243
+_md5_=c631d21b3bb91a339c34ae8d65de8b10

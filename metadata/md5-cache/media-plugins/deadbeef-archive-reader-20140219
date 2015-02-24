@@ -9,4 +9,4 @@ RDEPEND=media-sound/deadbeef
 RESTRICT=mirror
 SLOT=0
 _eclasses_=deadbeef-plugins	f9df5f7a19973b1c7fa4d8f12d6ae26c	eutils	998e5931fb95b10a6a11ec796ada2759	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	subversion	c12bdf4fcc82f86ad89b14c8f76c4026	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=fe6e544af69cde948cd258feca473d48
+_md5_=0aee19ef8b844be982b05fd6d04ca092

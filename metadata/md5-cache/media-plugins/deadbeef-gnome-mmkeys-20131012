@@ -10,4 +10,4 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/barthez/deadbeef-gnome-mmkeys/archive/8e95cd380ba457fe6b666e5e704aa823d5eca1fa.tar.gz -> deadbeef-gnome-mmkeys-20131012.tar.gz
 _eclasses_=deadbeef-plugins	f9df5f7a19973b1c7fa4d8f12d6ae26c	eutils	998e5931fb95b10a6a11ec796ada2759	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=9d05f3f61c2e35d6e34aa4b5459a194d
+_md5_=9e7f9d61cfd9e16e6b123b24768d285b

@@ -10,4 +10,4 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=https://gitorious.org/deadbeef-sm-plugins/jack/archive/62d1e6ac0452b7baa92fcc75b59bcb960df06da8.tar.gz -> deadbeef-jack-20110321.tar.gz
 _eclasses_=deadbeef-plugins	f9df5f7a19973b1c7fa4d8f12d6ae26c	eutils	998e5931fb95b10a6a11ec796ada2759	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=e5facb55c58d7602617c16987012a82a
+_md5_=fb4446b90d6b138d52c9c3f571cb0d87

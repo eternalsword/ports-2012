@@ -10,4 +10,4 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=https://gitorious.org/deadbeef-sm-plugins/stereo-widener/archive/d3990d772b02cdc6206f067748f5d1f9650616fb.tar.gz -> deadbeef-stereo-widener-20110319.tar.gz
 _eclasses_=deadbeef-plugins	f9df5f7a19973b1c7fa4d8f12d6ae26c	eutils	998e5931fb95b10a6a11ec796ada2759	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=0fe24efb15518c2442660927bab2cddb
+_md5_=e0bcf5985630fa5ff5c78b73a17cf825
