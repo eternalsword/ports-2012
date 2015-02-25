@@ -1,15 +1,15 @@
 DEFINED_PHASES=configure install prepare
-DEPEND=!<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.13:1.13 >=sys-devel/automake-1.15:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4 media-sound/deadbeef gtk2? ( media-sound/deadbeef[gtk2] ) gtk3? ( media-sound/deadbeef[gtk3] )
+DEPEND=!media-plugins/deadbeef-librarybrowser !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.13:1.13 >=sys-devel/automake-1.15:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4 media-sound/deadbeef gtk2? ( media-sound/deadbeef[gtk2] ) gtk3? ( media-sound/deadbeef[gtk3] )
 DESCRIPTION=DeaDBeeF filebrowser plugin
 EAPI=5
 HOMEPAGE=http://sourceforge.net/projects/deadbeef-fb
 IUSE=debug +gtk2 gtk3
 KEYWORDS=~*
 LICENSE=GPL-2
-RDEPEND=media-sound/deadbeef gtk2? ( media-sound/deadbeef[gtk2] ) gtk3? ( media-sound/deadbeef[gtk3] )
+RDEPEND=!media-plugins/deadbeef-librarybrowser media-sound/deadbeef gtk2? ( media-sound/deadbeef[gtk2] ) gtk3? ( media-sound/deadbeef[gtk3] )
 REQUIRED_USE=|| ( gtk2 gtk3 )
 RESTRICT=mirror
 SLOT=0
 SRC_URI=mirror://sourceforge/deadbeef-fb/deadbeef-fb_20141028_src.tar.gz -> deadbeef-fb-20141028.tar.gz
 _eclasses_=autotools	8fc2dd333ef9346c906ffd9a523d8211	deadbeef-plugins	f9df5f7a19973b1c7fa4d8f12d6ae26c	eutils	998e5931fb95b10a6a11ec796ada2759	libtool	52d0e17251d04645ffaa61bfdd858944	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=eee1a735d640a7878f2d6a0537c18e41
+_md5_=8e6ac774874f09c7557a01cb426ff837

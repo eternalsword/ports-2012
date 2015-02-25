@@ -436,10 +436,6 @@ app-editors/gvim:racket - Enable support for Scheme using dev-lang/racket
 app-editors/jasspa-microemacs:nanoemacs - Build NanoEmacs instead of MicroEmacs
 app-editors/joe:xterm - Enable full xterm clipboard support
 app-editors/leafpad:emacs - Enable Emacs key theme
-app-editors/nano:debug - Enable debug messages and assert warnings. Note that these will all be sent straight to stderr rather than some logging facility.
-app-editors/nano:justify - Enable justify/unjustify functions for text formatting.
-app-editors/nano:magic - Add magic file support (sys-apps/file) to automatically detect appropriate syntax highlighting
-app-editors/nano:minimal - Disable all fancy features, including ones that otherwise have a dedicated USE flag (such as spelling).
 app-editors/ne:tinfo - Link against libtinfo from sys-libs/ncurses
 app-editors/tea:aspell - Enable spellchecking using app-text/aspell
 app-editors/tea:hunspell - Enable spellchecking using app-text/hunspell
@@ -3578,11 +3574,14 @@ media-plugins/deadbeef-plugins-meta:archive - Reading media files from archived 
 media-plugins/deadbeef-plugins-meta:bookmark-manager - Resume playing files (after closing player) from the last timestamp
 media-plugins/deadbeef-plugins-meta:bs2b - bs2b dsp support. Useful for headphones
 media-plugins/deadbeef-plugins-meta:decast - Subscription for the podcasts
+media-plugins/deadbeef-plugins-meta:filebrowser - File browser plugin
 media-plugins/deadbeef-plugins-meta:gnome-mmkeys - Gnome multimedia keys support
 media-plugins/deadbeef-plugins-meta:infobar - Download and show lyrics
 media-plugins/deadbeef-plugins-meta:jack - Jack audio support
+media-plugins/deadbeef-plugins-meta:librarybrowser - File browser plugin that resemble foobar2k music library
 media-plugins/deadbeef-plugins-meta:mpris - MPRIS support
 media-plugins/deadbeef-plugins-meta:musical-spectrum - Draws musical spectrum for current track
+media-plugins/deadbeef-plugins-meta:opus - Ogg opus decoder support
 media-plugins/deadbeef-plugins-meta:replaygain-control - Advanced control of replaygain
 media-plugins/deadbeef-plugins-meta:spectrogram - Draws spectrogram for current track
 media-plugins/deadbeef-plugins-meta:stereo-widener - Widens stereo
