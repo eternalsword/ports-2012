@@ -10,4 +10,4 @@ RDEPEND=dev-libs/glib aac? ( media-libs/faad2 ) adplug? ( media-libs/adplug ) al
 REQUIRED_USE=converter? ( || ( gtk2 gtk3 ) ) cover-imlib2? ( cover ) cover-network? ( cover curl ) cover? ( || ( gtk2 gtk3 ) ) lastfm? ( curl ) mp3? ( || ( mad mpg123 ) ) playlist-browser? ( || ( gtk2 gtk3 ) ) || ( alsa oss pulseaudio nullout )
 SLOT=0
 _eclasses_=autotools	8fc2dd333ef9346c906ffd9a523d8211	eutils	998e5931fb95b10a6a11ec796ada2759	fdo-mime	0acfe1a88fd8751a1d5dc671168219fa	git-r3	a00948a17a774db5e36bc0247c598097	gnome2-utils	4a0252e64a2520ff31387a5cfe92c849	l10n	33bde4fb0cfd3a21a277b66bfd837e19	libtool	52d0e17251d04645ffaa61bfdd858944	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=6bb469ebb6e625ee1c82ecb33de61b34
+_md5_=07ce1177933a8986513f313c2d2c654d

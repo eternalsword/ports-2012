@@ -8,4 +8,4 @@ RDEPEND=>=media-libs/opusfile-0.5[float,http] media-libs/libogg media-sound/dead
 RESTRICT=mirror strip
 SLOT=0
 _eclasses_=deadbeef-plugins	f9df5f7a19973b1c7fa4d8f12d6ae26c	eutils	998e5931fb95b10a6a11ec796ada2759	git-r3	a00948a17a774db5e36bc0247c598097	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=97314976fc04e5744875335171a42b04
+_md5_=5833a14c639258be1030f6f71a137883
