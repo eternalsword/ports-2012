@@ -6718,9 +6718,6 @@ sys-kernel/ck-sources:experimental - Allow experimental code. Can break or degra
 sys-kernel/ck-sources:urwlocks - Use upgradable read/write locks in place of the grq spinlock. (EXPERIMENTAL)
 sys-kernel/debian-sources:binary - Builds and installs kernel automatically
 sys-kernel/debian-sources:rt - Applies the CONFIG_PREEMPT_RT patch series
-sys-kernel/dracut:debug - Module installing additional tools like strace, file editor, ssh and more
-sys-kernel/dracut:device-mapper - Set of helper modules providing support for device mapper. You need to enable this only if emerge says so.
-sys-kernel/dracut:net - Set of helper modules providing networking support. You need to enable this only if emerge says so.
 sys-kernel/genkernel-next:cryptsetup - Enable support for Luks disk enrcyption using sys-fs/cryptsetup
 sys-kernel/genkernel-next:dmraid - Enable support for DMRAID (include dmraid dependency)
 sys-kernel/genkernel-next:gpg - Enable support for GPG (include gnupg dependency)
