@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/diamond/diamond-4.0.ebuild,v 1.4 2015/03/02 13:19:23 grobian Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/diamond/diamond-9999.ebuild,v 1.3 2015/03/02 13:19:23 grobian Exp $
 
 EAPI=5
 
