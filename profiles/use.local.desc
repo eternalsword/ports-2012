@@ -3779,6 +3779,7 @@ media-sound/deadbeef:gtk2 - GTK2 based user interface
 media-sound/deadbeef:gtk3 - GTK3 based user interface
 media-sound/deadbeef:hotkeys - Hotkeys support plugin
 media-sound/deadbeef:lastfm - Last.fm scrobbling plugin
+media-sound/deadbeef:libav - Libav plugin
 media-sound/deadbeef:libnotify - Notification daemon support plugin
 media-sound/deadbeef:libsamplerate - Sample rate conversion plugin
 media-sound/deadbeef:m3u - m3u playlist plugin
@@ -6264,6 +6265,7 @@ sci-visualization/paraview:nvcontrol - Add NVCONTROL support for OpenGL options
 sci-visualization/paraview:plugins - Build and install additional plugins
 sci-visualization/veusz:emf - Add FITS format via dev-python/pyemf
 sci-visualization/veusz:fits - Add FITS format via dev-python/astropy
+sci-visualization/veusz:minuit - Use Minuit during fitting viadev-python/pyminuit
 sci-visualization/veusz:vo - Add Virtual Observatory tools via dev-python/astropy
 sci-visualization/visit:cgns - Builds the reader for the CFD General Notation System file format.
 sci-visualization/visit:silo - Adds support for reading .silo files.

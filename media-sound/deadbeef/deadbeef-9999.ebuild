@@ -38,6 +38,7 @@ LICENSE="BSD
 	gtk3? ( GPL-2 )
 	hotkeys? ( ZLIB )
 	lastfm? ( GPL-2 )
+	libav? ( GPL-2 )
 	libnotify? ( GPL-2 )
 	libsamplerate? ( GPL-2 )
 	m3u? ( ZLIB )
@@ -75,6 +76,7 @@ REQUIRED_USE="converter? ( || ( gtk2 gtk3 ) )
 	cover-imlib2? ( cover )
 	cover-network? ( cover curl )
 	cover? ( || ( gtk2 gtk3 ) )
+	ffmpeg? ( !libav )
 	lastfm? ( curl )
 	mp3? ( || ( mad mpg123 ) )
 	playlist-browser? ( || ( gtk2 gtk3 ) )
@@ -93,7 +95,8 @@ RDEPEND="dev-libs/glib
 		virtual/jpeg
 		x11-libs/gdk-pixbuf[jpeg] )
 	curl? ( net-misc/curl )
-	ffmpeg? ( virtual/ffmpeg )
+	ffmpeg? ( media-video/ffmpeg:0= )
+	libav? ( media-video/libav:0= )
 	flac? ( media-libs/flac )
 	gme? ( sys-libs/zlib )
 	gtk2? ( dev-libs/atk
@@ -187,6 +190,7 @@ src_configure() {
 		$(use_enable gtk3) \
 		$(use_enable hotkeys) \
 		$(use_enable lastfm lfm) \
+		$(use_enable libav ffmpeg) \
 		$(use_enable libnotify notify) \
 		$(use_enable libsamplerate src) \
 		$(use_enable m3u) \
