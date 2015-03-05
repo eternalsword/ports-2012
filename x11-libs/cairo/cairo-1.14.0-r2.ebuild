@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/cairo/cairo-1.12.18-r1.ebuild,v 1.8 2015/03/05 19:13:33 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/cairo/cairo-1.14.0-r2.ebuild,v 1.1 2015/03/05 18:22:53 tetromino Exp $
 
 EAPI=5
 
@@ -12,7 +12,7 @@ if [[ ${PV} == *9999* ]]; then
 	SRC_URI=""
 else
 	SRC_URI="http://cairographics.org/releases/${P}.tar.xz"
-	KEYWORDS="~alpha amd64 arm ~arm64 hppa ia64 ~m68k ~mips ppc ~ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 fi
 
 DESCRIPTION="A vector graphics library with cross-device output support"
@@ -87,6 +87,16 @@ MULTILIB_WRAPPED_HEADERS=(
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-1.12.18-disable-test-suite.patch
 	epatch "${FILESDIR}"/${PN}-respect-fontconfig.patch
+
+	# fixed in 1.14 branch
+	epatch "${FILESDIR}"/${P}-align-64bit-types.patch
+
+	# fixed in master branch
+	epatch "${FILESDIR}"/${PN}-1.14.0-CFF-unaligned-access.patch
+	epatch "${FILESDIR}"/${PN}-1.14.0-tor-scan-converter-do_fullrow-intersection.patch #541326
+	epatch "${FILESDIR}"/${PN}-1.14.0-xlib-0-sized-glyph.patch
+	epatch "${FILESDIR}"/${PN}-1.14.0-xcb-0-sized-glyph.patch
+	epatch "${FILESDIR}"/${PN}-1.14.0-image-negative-span-length.patch
 
 	# tests and perf tools require X, bug #483574
 	if ! use X; then
