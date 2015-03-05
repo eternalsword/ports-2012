@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-tv/kodi/kodi-14.1.ebuild,v 1.3 2015/02/28 18:06:15 vapier Exp $
 
 EAPI="5"
 
@@ -22,7 +20,7 @@ case ${PV} in
 	MY_P="${PN}-${MY_PV}"
 	SRC_URI="http://mirrors.kodi.tv/releases/source/${MY_PV}-${CODENAME}.tar.gz -> ${P}.tar.gz
 		http://mirrors.kodi.tv/releases/source/${MY_P}-generated-addons.tar.xz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="~*"
 
 	S=${WORKDIR}/xbmc-${PV}-${CODENAME}
 	;;
@@ -77,6 +75,7 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	joystick? ( media-libs/libsdl2 )
 	>=media-libs/taglib-1.8
 	media-libs/libvorbis
+	media-libs/sdl-image
 	media-libs/tiff
 	pulseaudio? ( media-sound/pulseaudio )
 	media-sound/wavpack
