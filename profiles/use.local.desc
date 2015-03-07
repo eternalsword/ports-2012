@@ -2777,7 +2777,6 @@ gnome-extra/gnome-commander:taglib - Add metadata support for ID3, Vorbis, FLAC 
 gnome-extra/gnome-do-plugins:banshee - Enables the Banshee (media-sound/banshee) plugin
 gnome-extra/gnome-dvb-daemon:totem - Build a plugin for media-video/totem
 gnome-extra/gnome-dvb-daemon:vala - Add support for dev-lang/vala
-gnome-extra/libgda:bindist - Disable support for dev-db/firebird database which is not GPL compatible.
 gnome-extra/libgda:canvas - Enable support for x11-libs/goocanvas
 gnome-extra/libgda:http - Enable embedded net-libs/libsoup based server
 gnome-extra/libgda:json - Enable support for JSON format
