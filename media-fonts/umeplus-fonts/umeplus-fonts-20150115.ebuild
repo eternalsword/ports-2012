@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-fonts/umeplus-fonts/umeplus-fonts-20131109.ebuild,v 1.2 2015/03/07 16:00:30 yngwin Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-fonts/umeplus-fonts/umeplus-fonts-20150115.ebuild,v 1.1 2015/03/07 16:06:17 yngwin Exp $
 
 EAPI="5"
 inherit font
@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/mdk-ut/${P}.tar.lzma"
 
 LICENSE="mplus-fonts public-domain"
 SLOT="0"
-KEYWORDS="amd64 x86 ~ppc-macos ~x86-macos"
+KEYWORDS="~amd64 ~x86 ~ppc-macos ~x86-macos"
 IUSE=""
 RESTRICT="binchecks strip"
 
