@@ -7,5 +7,5 @@ LICENSE=GPL-2
 RESTRICT=mirror strip
 SLOT=3.14.35-KS.01
 SRC_URI=http://xyinn.org/gentoo/kernels/3.14.35-KS.01/kernel-3.14.35-KS.01.tar.xz
-_eclasses_=eutils	998e5931fb95b10a6a11ec796ada2759	mount-boot	ea24b511b0ad59831d0151aa634dfad2	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	a3db8057ea0903a9ebea4e46aab28ff9
+_eclasses_=eutils	998e5931fb95b10a6a11ec796ada2759	mount-boot	ea24b511b0ad59831d0151aa634dfad2	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	3a1969a45ff85b026c4e0fa3aa2ab443
 _md5_=8729a754dc53c9ed5e4aabeadb490485
