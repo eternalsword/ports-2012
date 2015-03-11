@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-haskell/gio/gio-0.13.0.3.ebuild,v 1.3 2015/03/11 09:24:27 gienah Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-haskell/glib/glib-0.13.1.0.ebuild,v 1.1 2015/03/11 08:47:41 gienah Exp $
 
 EAPI=5
 
@@ -10,24 +10,26 @@ EAPI=5
 CABAL_FEATURES="lib profile haddock hoogle hscolour nocabaldep"
 inherit haskell-cabal
 
-DESCRIPTION="Binding to the GIO"
+DESCRIPTION="Binding to the GLIB library for Gtk2Hs"
 HOMEPAGE="http://projects.haskell.org/gtk2hs/"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0/${PV}"
 KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
-IUSE=""
+IUSE="+closure_signals"
 
-RDEPEND=">=dev-haskell/glib-0.13.0.0:=[profile?] <dev-haskell/glib-0.14:=[profile?]
-	dev-haskell/mtl:=[profile?]
-	>=dev-lang/ghc-7.4.1:=
+RDEPEND=">=dev-haskell/text-1.0.0.0:=[profile?] <dev-haskell/text-1.3:=[profile?]
+	>=dev-haskell/utf8-string-0.2:=[profile?] <dev-haskell/utf8-string-1.1:=[profile?]
+	>=dev-lang/ghc-7.8.1:=
 	dev-libs/glib:2
 "
 DEPEND="${RDEPEND}
-	>=dev-haskell/cabal-1.18
 	>=dev-haskell/gtk2hs-buildtools-0.13.0.3:0=
 	virtual/pkgconfig
 "
 
-PATCHES=("${FILESDIR}/${PN}-0.13.0.4-ghc-7.10.patch")
+src_configure() {
+	haskell-cabal_src_configure \
+		$(cabal_flag closure_signals closure_signals)
+}

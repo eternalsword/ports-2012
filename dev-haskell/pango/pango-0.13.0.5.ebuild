@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-haskell/gio/gio-0.13.0.3.ebuild,v 1.3 2015/03/11 09:24:27 gienah Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-haskell/pango/pango-0.13.0.5.ebuild,v 1.1 2015/03/11 08:50:38 gienah Exp $
 
 EAPI=5
 
@@ -10,7 +10,7 @@ EAPI=5
 CABAL_FEATURES="lib profile haddock hoogle hscolour nocabaldep"
 inherit haskell-cabal
 
-DESCRIPTION="Binding to the GIO"
+DESCRIPTION="Binding to the Pango text rendering engine"
 HOMEPAGE="http://projects.haskell.org/gtk2hs/"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
@@ -19,10 +19,13 @@ SLOT="0/${PV}"
 KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE=""
 
-RDEPEND=">=dev-haskell/glib-0.13.0.0:=[profile?] <dev-haskell/glib-0.14:=[profile?]
+RDEPEND=">=dev-haskell/cairo-0.13.0.0:=[profile?] <dev-haskell/cairo-0.14:=[profile?]
+	>=dev-haskell/glib-0.13.0.0:=[profile?] <dev-haskell/glib-0.14:=[profile?]
 	dev-haskell/mtl:=[profile?]
+	>=dev-haskell/text-0.11.0.6:=[profile?] <dev-haskell/text-1.3:=[profile?]
 	>=dev-lang/ghc-7.4.1:=
-	dev-libs/glib:2
+	x11-libs/cairo
+	x11-libs/pango
 "
 DEPEND="${RDEPEND}
 	>=dev-haskell/cabal-1.18
@@ -30,4 +33,10 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 "
 
-PATCHES=("${FILESDIR}/${PN}-0.13.0.4-ghc-7.10.patch")
+src_prepare() {
+	sed -i -e 's/import System.Exit/import System.Exit (exitWith, ExitCode(..))/' \
+		SetupWrapper.hs || die
+	# workaround for module order
+	cabal_chdeps \
+		'other-modules:' 'exposed-modules:'
+}
