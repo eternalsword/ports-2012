@@ -193,7 +193,7 @@ REQUIRED_USE="
 	cddb? ( cdda )
 	dvb? ( dvbpsi )
 	dxva2? ( avcodec )
-	ffmpeg? ( avcodec avformat swscale !libav? ( postproc ) )
+	ffmpeg? ( avcodec avformat swscale )
 	fontconfig? ( truetype )
 	gnutls? ( gcrypt )
 	httpd? ( lua )
