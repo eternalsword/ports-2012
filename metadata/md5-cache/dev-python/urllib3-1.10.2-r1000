@@ -11,4 +11,4 @@ REQUIRED_USE=|| ( python_abis_2.6 python_abis_2.7 python_abis_3.1 python_abis_3.
 SLOT=0
 SRC_URI=mirror://pypi/u/urllib3/urllib3-1.10.2.tar.gz
 _eclasses_=distutils	2d484830b6e5aa7a840ba17d755dd55b	python	3f6d74b5384dbeef63d932c2b6f9b61a
-_md5_=8647829b276afbe85192eb829904d5a6
+_md5_=77499b7e1b133b9f44c6b83c14208b12
