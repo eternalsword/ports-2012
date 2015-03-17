@@ -310,6 +310,7 @@ src_configure() {
 		--enable-vlc \
 		--docdir=/usr/share/doc/${PF} \
 		--disable-dependency-tracking \
+		--disable-freerdp
 		--disable-optimizations \
 		--disable-update-check \
 		--enable-fast-install \
@@ -390,7 +391,6 @@ src_configure() {
 		$(use_enable projectm) \
 		$(use_enable pulseaudio pulse) \
 		${qt_flag} \
-		$(use_enable rdp freerdp) \
 		$(use_enable rtsp realrtsp) \
 		$(use_enable run-as-root) \
 		$(use_enable samba smbclient) \
