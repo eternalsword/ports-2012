@@ -310,7 +310,7 @@ src_configure() {
 		--enable-vlc \
 		--docdir=/usr/share/doc/${PF} \
 		--disable-dependency-tracking \
-		--disable-freerdp
+		--disable-freerdp \
 		--disable-optimizations \
 		--disable-update-check \
 		--enable-fast-install \
