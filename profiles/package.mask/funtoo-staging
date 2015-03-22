@@ -1,3 +1,10 @@
+# FL-2197: FL-2198: openssl/openssh updates. Test and update passed ok, just a cautionary test masks.
+=net-misc/openssh-6.8_p-r1
+=dev-libs/openssl-0.9.8z_p6
+=dev-libs/openssl-1.0.1m
+
+
+
 # libtool and libltdl bump, masked for testing
 =sys-devel/libtool-2.4.6
 =dev-libs/libltdl-2.4.6
@@ -20,6 +27,7 @@
 
 # FL-696: FL-1314: FL-1310: FL-1920. Adding latest llvm-3.6.0 to mesa friends list. It compiles fine with latest mesa, but this require an opengl-redesigned ebuilds. It much easier to not yet allow llvm update.
 # masked xorg for new-design opengl. FL-2177 (duplicate report FL-2178).
+>dev-libs/libclc-0.0.1_pre20141027
 >sys-devel/clang-3.5.1-r100
 >sys-devel/llvm-3.5.1
 >app-admin/eselect-opengl-1.2.7
