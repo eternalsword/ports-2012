@@ -259,6 +259,17 @@ src_prepare() {
 	# Fix up broken audio when skipping using a fixed reversed bisected commit.
 	epatch "${FILESDIR}"/${PN}-2.1.0-TomWij-bisected-PA-broken-underflow.patch
 
+	# Support for <ffmpeg-2.5.
+	epatch "${FILESDIR}"/${PN}-2.2.x-ffmpeg-lower-then-2.5.patch
+
+	# Remove Werror flag(s)
+	sed -e "s;-Werror;;" \
+		-i "${S}/aclocal.m4" \
+		-i "${S}/configure.ac" \
+		-i "${S}/configure" \
+		-i "${S}/m4/visibility.m4" \
+		-i "${S}/doc/libvlc/vlc-thumb.c" || die
+
 	# Don't use --started-from-file when not using dbus.
 	if ! use dbus ; then
 		sed -i 's/ --started-from-file//' share/vlc.desktop.in || die
@@ -270,11 +281,6 @@ src_prepare() {
 
 	# Disable automatic running of tests.
 	find . -name 'Makefile.in' -exec sed -i 's/\(..*\)check-TESTS/\1/' {} \; || die
-
-	# Remove Werror flag(s)
-	local find_werror_files
-	find_werror_files=`find "${S}" -type f -exec grep -q '-Werror' {} \; -print`
-	sed -e "s;-Werror;;" -i "${find_werror_files}" || die
 
 	# If qtchooser is installed, it may break the build, because moc,rcc and uic binaries for wrong qt version may be used.
 	# Setting QT_SELECT environment variable will enforce correct binaries.
