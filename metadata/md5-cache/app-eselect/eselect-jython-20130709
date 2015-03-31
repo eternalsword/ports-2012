@@ -1,0 +1,8 @@
+DEFINED_PHASES=install
+DESCRIPTION=Manages multiple Jython versions
+HOMEPAGE=http://www.funtoo.org/Package:Eselect_(Jython)
+KEYWORDS=*
+LICENSE=GPL-2
+RDEPEND=>=app-eselect/eselect-1.3.5
+SLOT=0
+_md5_=832fc663795e6d916d9f8dcadc8b2477

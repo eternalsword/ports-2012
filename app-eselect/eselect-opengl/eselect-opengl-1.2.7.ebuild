@@ -1,6 +1,6 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-eselect/eselect-opengl/eselect-opengl-1.2.7.ebuild,v 1.1 2015/03/31 16:53:09 ulm Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-eselect/eselect-opengl/eselect-opengl-1.2.7.ebuild,v 1.16 2014/12/10 03:32:04 patrick Exp $
 
 EAPI=4
 
@@ -26,12 +26,11 @@ KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~amd64-fbs
 IUSE=""
 
 DEPEND="app-arch/xz-utils"
-RDEPEND=">=app-admin/eselect-1.2.4
+RDEPEND=">=app-eselect/eselect-1.2.4
 		 !<media-libs/mesa-8.0.3-r1
 		 !<x11-proto/glproto-1.4.15-r1
 		 !=media-libs/mesa-10.3.4-r1
-		 !=media-libs/mesa-10.3.5-r1
-		 !>=media-libs/mesa-10.3.7-r2
+		 !>=media-libs/mesa-10.3.5-r1
 		 !>=x11-proto/glproto-1.4.17-r1
 		 !=x11-base/xorg-server-1.16.2-r1"
 
