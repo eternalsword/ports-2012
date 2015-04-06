@@ -570,6 +570,7 @@ app-emulation/qemu:alsa - Enable alsa output for sound emulation
 app-emulation/qemu:curl - Support ISOs / -cdrom directives vis HTTP or HTTPS.
 app-emulation/qemu:fdt - Enables firmware device tree support
 app-emulation/qemu:glusterfs - Enables GlusterFS cluster fileystem via sys-cluster/glusterfs
+app-emulation/qemu:gtk2 - Use gtk-2 instead of gtk-3
 app-emulation/qemu:iscsi - Enable direct iSCSI support via net-libs/libiscsi instead of indirectly via the Linux block layer that sys-block/open-iscsi does.
 app-emulation/qemu:jpeg - Enable jpeg image support for the VNC console server
 app-emulation/qemu:ncurses - Enable the ncurses-based console
@@ -1181,6 +1182,9 @@ app-vim/youcompleteme:clang - Enable semantic support for C-family languages usi
 dev-cpp/glog:gflags - Use dev-cpp/gflags for flag parsing
 dev-cpp/glog:unwind - Use sys-libs/libunwind for stack unwinding instead of glibc/gcc (may be more reliable on x86_64)
 dev-cpp/libcmis:man - Build and install man pages.
+dev-cpp/libjson-rpc-cpp:http-client - Build support for HTTP client using dev-util/curl
+dev-cpp/libjson-rpc-cpp:http-server - Build support for HTTP server using net-libs/libmicrohttpd
+dev-cpp/libjson-rpc-cpp:stubgen - Build header stub code generator (needed for development and when pregenerated headers are not bundled)
 dev-cpp/pficommon:fcgi - Build FCGI feature
 dev-cpp/pficommon:mprpc - Build MessagePack RPC feature
 dev-cpp/websocketpp:boost - Use dev-libs/boost instead of C++11
@@ -1369,6 +1373,7 @@ dev-haskell/authenticate:network-uri - Get Network.URI from the network-uri pack
 dev-haskell/biosff:fclip - Build the fclip executable.
 dev-haskell/biosff:flower - Build the flower executable.
 dev-haskell/biosff:frecover - Build the frecover executable.
+dev-haskell/c2hs:regression - run regression tests
 dev-haskell/cabal-install:noprefs - Ignore 'preferred-versions' file from hackage's tarball.
 dev-haskell/certificate:executable - Build the executable
 dev-haskell/cgi:extensible-exceptions-in-base - Required to be enabled for >=dev-lang/ghc-7.
@@ -1380,6 +1385,7 @@ dev-haskell/citeproc-hs:hexpat - use dev-haskell/hexpat instead of dev-haskell/x
 dev-haskell/citeproc-hs:network - use dev-haskell/network and dev-haskell/http to retrieve CSL file from URIs
 dev-haskell/citeproc-hs:small_base - Choose the new smaller, split-up base package.
 dev-haskell/citeproc-hs:unicode_collation - Use Haskell bindings to the dev-libs/icu
+dev-haskell/clock:llvm - Compile via LLVM.
 dev-haskell/cmdargs:quotation - Build quote module
 dev-haskell/cmdargs:testprog - Build the test program
 dev-haskell/comonad:containers - You can disable the use of the `containers` package using `-f-containers`. Disabing this is an unsupported configuration, but it may be useful for accelerating builds in sandboxes for expert users.
@@ -1417,6 +1423,7 @@ dev-haskell/hashtables:unsafe-tricks - turn on unsafe GHC tricks
 dev-haskell/haskeline:legacy-encoding - Use legacy iconv encoding for POSIX. This is only intended for testing.
 dev-haskell/haskeline:libiconv - Explicitly link against the libiconv library.
 dev-haskell/haskeline:terminfo - Use the terminfo package for POSIX consoles.
+dev-haskell/hdbc-odbc:buildstresstest - Build stress test
 dev-haskell/highlighting-kate:executable - Build the Highlight executable.
 dev-haskell/highlighting-kate:pcre-light - Use the pcre-light library instead of regex-pcre-builtin.
 dev-haskell/hlint:gpl - Use GPL libraries, specifically hscolour.
@@ -1821,6 +1828,7 @@ dev-libs/libcec:xrandr - Enable detection of active HDMI using xrandr extensions
 dev-libs/libcgroup:daemon - Install the configuration tools and init/config files.
 dev-libs/libcgroup:tools - Install the cgroup rules processing daemon and init/config files.
 dev-libs/libclsync:extra-hardened - Enable extra security checks. This may hurt performance.
+dev-libs/libdbusmenu:gtk3 - Enable support for GTK+3
 dev-libs/libdbusmenu:introspection - Use dev-libs/gobject-introspection for introspection
 dev-libs/libdivecomputer:tools - Install tools that can be used to test the library.
 dev-libs/libdynd:cuda - Enable NVIDIA CUDA toolkit support
@@ -3076,7 +3084,6 @@ mail-client/mutt:tokyocabinet - Enable tokyocabinet database backend for header 
 mail-client/nail:kerberos - If network is enabled, this adds support for GSSAPI login on IMAP through virtual/kerberos.
 mail-client/nail:net - Enable support for network protocols (POP, IMAP and SMTP). If you only need to send mail with the local Transport Agent, disabling this will get you support for only /usr/sbin/sendmail call.
 mail-client/nail:ssl - If network is enabled, this adds support for S/MIME and SSL/TLS-powered protocols through dev-libs/openssl.
-mail-client/novell-groupwise-client:novell-jre - Use the Java Runtime Environment provided by Novell
 mail-client/squirrelmail:filter - Enable mail-filter/amavisd-new filtering
 mail-client/sylpheed:oniguruma - Use dev-libs/oniguruma for regular expression
 mail-client/thunderbird:bindist - Disable official Thunderbird branding (icons, name) which are not binary-redistributable according to upstream.
@@ -3194,11 +3201,9 @@ media-fonts/culmus:ancient - Install ancient semitic scripts
 media-fonts/culmus:fancy - Install fancy fonts
 media-fonts/culmus:fontforge - Use media-gfx/fontforge to build fonts from source
 media-fonts/culmus:taamey - Install taamey fonts
-media-fonts/culmus-ancient:fontforge - Use media-gfx/fontforge to build fonts from source
 media-fonts/dejavu:fontforge - Use media-gfx/fontforge to build fonts from source
 media-fonts/intlfonts:bdf - Installs BDF fonts in addition to PCF
 media-fonts/liberation-fonts:fontforge - Use media-gfx/fontforge to build fonts from source
-media-fonts/libertine:opentype - Prefer installing OpenType over TrueType fonts
 media-fonts/montecarlo:bdf - Install BDF fonts in addition to PCF
 media-fonts/mplus-outline-fonts:ipafont - Generates new fonts merged with media-fonts/ja-ipafonts
 media-fonts/sil-charis:compact - Use more compactly spaced font
@@ -7042,7 +7047,6 @@ www-misc/litmus:libproxy - Support for automatic proxy configuratino management 
 www-misc/litmus:libxml2 - Use dev-libs/libxml2 to parse XML
 www-misc/litmus:pkcs11 - Support for PKCS #11 through PaKChoiS (dev-libs/pakchois).
 www-misc/monitorix:apcupsd - Make use of a daemon that controls APC UPSes with sys-power/apcupsd.
-www-misc/monitorix:evms - Make use of utilities for the IBM Enterprise Volume Management System with sys-fs/evms.
 www-misc/monitorix:hddtemp - Use SMART to monitor the temperature of hard drives with app-admin/hddtemp.
 www-misc/monitorix:httpd - Enables the CGI webserver with any package that satisfies virtual/httpd-cgi.
 www-misc/monitorix:lm_sensors - Additional hardware mnitoring sensors with sys-apps/lm_sensors.
@@ -7480,6 +7484,7 @@ xfce-extra/xfce4-mpc-plugin:libmpd - Build using media-libs/libmpd backend, inst
 xfce-extra/xfce4-playercontrol-plugin:audacious - Enable Audacious support
 xfce-extra/xfce4-playercontrol-plugin:mpd - Enable Music Player Daemon support
 xfce-extra/xfce4-power-manager:lxpanel - Build the applet for lxde-base/lxpanel, you can set XFCE_PLUGINS="" if you don't want the Xfce dependencies.
+xfce-extra/xfce4-pulseaudio-plugin:keybinder - Enable support for global hotkeys using dev-libs/keybdiner.
 xfce-extra/xfce4-soundmenu-plugin:glyr - Enable music metadata searchengine support using media-libs/glyr
 xfce-extra/xfce4-soundmenu-plugin:keybinder - Enable shortcut support using dev-libs/keybinder
 xfce-extra/xfce4-soundmenu-plugin:lastfm - Enable last.fm support using media-libs/libclastfm
