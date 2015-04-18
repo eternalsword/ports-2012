@@ -11,4 +11,4 @@ REQUIRED_USE=|| ( python_abis_2.6 python_abis_2.7 python_abis_3.1 python_abis_3.
 SLOT=0
 SRC_URI=mirror://pypi/p/python-hglib/python-hglib-1.6.tar.gz
 _eclasses_=distutils	2d484830b6e5aa7a840ba17d755dd55b	python	bd2efc5baa5cbe6861c6b75670d38171
-_md5_=f8ea15d803f0bae716a7d4e8b7965b35
+_md5_=e97307518112c43b1a03acef13eb2c70
