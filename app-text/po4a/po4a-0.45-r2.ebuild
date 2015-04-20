@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-text/po4a/po4a-0.45-r2.ebuild,v 1.1 2014/11/29 19:02:05 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-text/po4a/po4a-0.45-r2.ebuild,v 1.3 2015/04/02 18:27:05 mr_bones_ Exp $
 
 EAPI=5
 
@@ -17,7 +17,7 @@ SRC_URI="mirror://debian/pool/main/p/po4a/${PN}_${PV}.orig.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris ~x86-solaris"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris ~x86-solaris"
 IUSE="test"
 
 RDEPEND="dev-perl/SGMLSpm
@@ -58,7 +58,7 @@ src_prepare() {
 	einfo "Your LINGUAS lists the following languages: $LINGUAS"
 	einfo "Removing locale files not listed in it ..."
 
-	# perl_rm_files also updates the Manifest file 
+	# perl_rm_files also updates the Manifest file
 	# and therefore silences Perl as to .po files we're about to clean
 	perl_rm_files "${locales_to_remove[@]}"
 }

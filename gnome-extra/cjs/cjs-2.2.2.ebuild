@@ -1,11 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-extra/cjs/cjs-2.2.2.ebuild,v 1.1 2014/11/11 12:51:53 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/gnome-extra/cjs/cjs-2.2.2.ebuild,v 1.4 2015/04/08 17:56:31 mgorny Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit autotools gnome2 pax-utils python-any-r1 virtualx
 
@@ -16,7 +16,7 @@ SRC_URI="https://github.com/linuxmint/cjs/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="MIT || ( MPL-1.1 LGPL-2+ GPL-2+ )"
 SLOT="0"
 IUSE="examples test"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 RDEPEND="
 	>=dev-lang/spidermonkey-1.8.5:0

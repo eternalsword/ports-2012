@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-emulation/dolphin/dolphin-9999.ebuild,v 1.15 2014/12/07 22:10:22 twitch153 Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-emulation/dolphin/dolphin-9999.ebuild,v 1.23 2015/03/09 21:07:44 twitch153 Exp $
 
 EAPI=5
 
@@ -26,12 +26,13 @@ SLOT="0"
 IUSE="alsa ao bluetooth doc ffmpeg +lzo openal opengl openmp portaudio pulseaudio"
 
 RDEPEND=">=media-libs/glew-1.10
-	>=media-libs/libsdl-1.2[joystick]
 	>=media-libs/libsfml-2.1
 	>=net-libs/miniupnpc-1.8
-	sys-libs/readline
+	sys-libs/readline:=
 	x11-libs/libXext
 	x11-libs/libXrandr
+	media-libs/libsdl2[haptic,joystick]
+	net-libs/polarssl[havege]
 	alsa? ( media-libs/alsa-lib )
 	ao? ( media-libs/libao )
 	bluetooth? ( net-wireless/bluez )
@@ -69,41 +70,44 @@ src_prepare() {
 
 	# Remove automatic dependencies to prevent building without flags enabled.
 	if use !alsa; then
-		sed -i -e '^/include(FindALSA/d' CMakeLists.txt || die
+		sed -i -e '/include(FindALSA/d' CMakeLists.txt || die
 	fi
 	if use !ao; then
-		sed -i -e '/^check_lib(AO/d' CMakeLists.txt || die
+		sed -i -e '/check_lib(AO/d' CMakeLists.txt || die
 	fi
 	if use !bluetooth; then
-		sed -i -e '/^check_lib(BLUEZ/d' CMakeLists.txt || die
+		sed -i -e '/check_lib(BLUEZ/d' CMakeLists.txt || die
 	fi
 	if use !openal; then
-		sed -i -e '/^include(FindOpenAL/d' CMakeLists.txt || die
+		sed -i -e '/include(FindOpenAL/d' CMakeLists.txt || die
 	fi
 	if use !portaudio; then
 		sed -i -e '/CMAKE_REQUIRED_LIBRARIES portaudio/d' CMakeLists.txt || die
 	fi
 	if use !pulseaudio; then
-		sed -i -e '/^check_lib(PULSEAUDIO/d' CMakeLists.txt || die
+		sed -i -e '/check_lib(PULSEAUDIO/d' CMakeLists.txt || die
 	fi
 
 	# Remove ALL the bundled libraries, aside from:
 	# - SOIL: The sources are not public.
 	# - Bochs-disasm: Don't know what it is.
 	# - GL: A custom gl.h file is used.
-	# - polarssl: Not fully supported yet.
-	# - gtest: No idea. Removal causes build failure.
+	# - enet: Not fully supported yet.
+	# - gtest: Their build set up solely relies on the build in gtest.
+	# - xxhash: Not on the tree.
 	mv Externals/SOIL . || die
 	mv Externals/Bochs_disasm . || die
-	mv Externals/polarssl . || die
 	mv Externals/GL . || die
+	mv Externals/enet . || die
 	mv Externals/gtest . || die
+	mv Externals/xxhash . || die
 	rm -r Externals/* || die "Failed to delete Externals dir."
 	mv Bochs_disasm Externals || die
 	mv SOIL Externals || die
-	mv polarssl Externals || die
 	mv GL Externals || die
+	mv enet Externals || die
 	mv gtest Externals || die
+	mv xxhash Externals || die
 }
 
 src_configure() {
@@ -135,7 +139,7 @@ src_install() {
 	fi
 
 	doicon Installer/dolphin-emu.xpm
-	make_desktop_entry "dolphin-emu" "Dolphin" "Dolphin" "Game;"
+	make_desktop_entry "dolphin-emu" "Dolphin Emulator" "dolphin-emu" "Game;Emulator;"
 
 	prepgamesdirs
 }

@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/goffice/goffice-0.10.18.ebuild,v 1.1 2014/10/01 12:36:08 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/goffice/goffice-0.10.18.ebuild,v 1.9 2015/03/25 14:06:13 tetromino Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -13,7 +13,7 @@ HOMEPAGE="http://git.gnome.org/browse/goffice/"
 
 LICENSE="GPL-2"
 SLOT="0.10"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x64-solaris"
+KEYWORDS="alpha amd64 ~arm ia64 ~mips ppc ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x64-solaris"
 IUSE="+introspection"
 
 # Build fails with -gtk
@@ -36,6 +36,10 @@ RDEPEND="
 		>=gnome-extra/libgsf-1.14.23:= )
 "
 DEPEND="${RDEPEND}
+	dev-lang/perl
+	virtual/perl-Getopt-Long
+	virtual/perl-IO-Compress
+	virtual/perl-Compress-Raw-Zlib
 	>=dev-util/gtk-doc-am-1.12
 	>=dev-util/intltool-0.35
 	virtual/pkgconfig

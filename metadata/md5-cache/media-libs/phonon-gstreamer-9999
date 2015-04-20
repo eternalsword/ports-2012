@@ -8,5 +8,5 @@ LICENSE=LGPL-2.1
 RDEPEND=dev-libs/glib:2 dev-libs/libxml2:2 media-libs/gstreamer:1.0 media-libs/gst-plugins-base:1.0 media-plugins/gst-plugins-meta:1.0[alsa?,ogg,vorbis] >=media-libs/phonon-4.7.80[qt4?,qt5?] qt4? ( dev-qt/qtcore:4[glib] dev-qt/qtgui:4[glib] dev-qt/qtopengl:4 ) qt5? ( dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtopengl:5 dev-qt/qtwidgets:5 ) virtual/opengl network? ( media-plugins/gst-plugins-soup:1.0 )
 REQUIRED_USE=|| ( qt4 qt5 )
 SLOT=0
-_eclasses_=cmake-utils	45538b73614586305b3fdd978a3d11fa	eutils	6faef4c127028ccbba3a11400d24ae34	flag-o-matic	eda1c0b5ba85b3eeb555a071d69eb819	git-r3	f908736fc2f2912c118910333ea303f4	multibuild	757b75042dff1b26ecd28d67a6021b3f	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	multiprocessing	d7f2985a2c76c365ee20269db5261414	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=04c3183e9c441bd785699dd993066f37
+_eclasses_=cmake-utils	01f9e06341e2a4616ea41cfc9d65536a	eutils	9fb270e417e0e83d64ca52586c4a79de	flag-o-matic	c263990f1b677b0f0be0a3299f179762	git-r3	a00948a17a774db5e36bc0247c598097	multibuild	188cedebf7a8e614147e30ad01e9ce8f	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92
+_md5_=fc9316c8e20c6b39babc4defda35eac8

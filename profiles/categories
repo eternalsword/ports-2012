@@ -11,6 +11,7 @@ app-doc
 app-editors
 app-emacs
 app-emulation
+app-eselect
 app-forensics
 app-i18n
 app-laptop
@@ -77,6 +78,7 @@ java-virtuals
 kde-base
 kde-frameworks
 kde-misc
+kde-plasma
 lxde-base
 lxqt-base
 mail-client
@@ -113,9 +115,6 @@ net-voip
 net-wireless
 net-zope
 perl-core
-razorqt-base
-rox-base
-rox-extra
 sci-astronomy
 sci-biology
 sci-calculators

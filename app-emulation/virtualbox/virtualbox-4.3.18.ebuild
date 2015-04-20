@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/virtualbox/virtualbox-4.3.18.ebuild,v 1.1 2014/10/12 17:03:56 polynomial-c Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/virtualbox/virtualbox-4.3.18.ebuild,v 1.3 2015/03/29 20:58:20 zerochaos Exp $
 
 EAPI=5
 
@@ -19,7 +19,7 @@ HOMEPAGE="http://www.virtualbox.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="+additions alsa doc extensions headless java pam pulseaudio +opengl python +qt4 +sdk vboxwebsrv vnc"
 
 RDEPEND="!app-emulation/virtualbox-bin
@@ -27,9 +27,9 @@ RDEPEND="!app-emulation/virtualbox-bin
 	dev-libs/libIDL
 	>=dev-libs/libxslt-1.1.19
 	net-misc/curl
-	dev-libs/openssl
+	dev-libs/openssl:0=
 	dev-libs/libxml2
-	media-libs/libpng
+	media-libs/libpng:0=
 	media-libs/libvpx
 	sys-libs/zlib
 	>=virtual/udev-171
@@ -70,7 +70,7 @@ DEPEND="${RDEPEND}
 	alsa? ( >=media-libs/alsa-lib-1.0.13 )
 	!headless? ( x11-libs/libXinerama )
 	pulseaudio? ( media-sound/pulseaudio )
-	vboxwebsrv? ( net-libs/gsoap[-gnutls] )
+	vboxwebsrv? ( net-libs/gsoap[-gnutls(-)] )
 	${PYTHON_DEPS}"
 PDEPEND="additions? ( ~app-emulation/virtualbox-additions-${PV} )
 	extensions? ( =app-emulation/virtualbox-extpack-oracle-${PV}* )"
@@ -214,6 +214,9 @@ src_compile() {
 	# and strip all flags
 	# strip-flags
 
+	MAKEJOBS=$(echo ${MAKEOPTS} | egrep -o '(\-j|\-\-jobs)(=?|[[:space:]]*)[[:digit:]]+')
+	MAKELOAD=$(echo ${MAKEOPTS} | egrep -o '(\-l|\-\-load-average)(=?|[[:space:]]*)[[:digit:]]+')
+	MAKEOPTS="${MAKEJOBS} ${MAKELOAD}"
 	MAKE="kmk" emake \
 		VBOX_BUILD_PUBLISHER=_Gentoo \
 		TOOL_GCC3_CC="$(tc-getCC)" TOOL_GCC3_CXX="$(tc-getCXX)" \

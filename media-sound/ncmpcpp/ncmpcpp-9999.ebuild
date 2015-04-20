@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/ncmpcpp/ncmpcpp-9999.ebuild,v 1.6 2014/11/24 16:07:19 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/ncmpcpp/ncmpcpp-9999.ebuild,v 1.9 2015/03/04 17:21:13 jer Exp $
 
 EAPI=5
 
-inherit autotools bash-completion-r1 eutils git-r3
+inherit autotools eutils git-r3
 
 DESCRIPTION="featureful ncurses based MPD client inspired by ncmpc"
 HOMEPAGE="http://ncmpcpp.rybczak.net/"
@@ -18,9 +18,9 @@ IUSE="clock curl outputs taglib unicode visualizer"
 RDEPEND="
 	>=media-libs/libmpdclient-2.1
 	curl? ( net-misc/curl )
-	dev-libs/boost[nls]
+	dev-libs/boost:=[nls,threads]
 	sys-libs/ncurses[unicode?]
-	sys-libs/readline
+	sys-libs/readline:*
 	taglib? ( media-libs/taglib )
 	visualizer? ( sci-libs/fftw:3.0 )
 "
@@ -51,8 +51,6 @@ src_install() {
 	default
 
 	dodoc doc/{bindings,config}
-
-	newbashcomp doc/${PN}-completion.bash ${PN}
 }
 
 pkg_postinst() {

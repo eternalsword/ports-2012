@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/pandas/pandas-9999.ebuild,v 1.5 2014/12/08 08:57:36 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-python/pandas/pandas-9999.ebuild,v 1.10 2015/04/15 06:34:24 jlec Exp $
 
 EAPI=5
 
@@ -9,14 +9,14 @@ PYTHON_COMPAT=( python2_7 python3_{3,4} )
 inherit distutils-r1 eutils flag-o-matic git-r3 virtualx
 
 DESCRIPTION="Powerful data structures for data analysis and statistics"
-HOMEPAGE="http://pandas.sourceforge.net/"
+HOMEPAGE="http://pandas.pydata.org/"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/pydata/pandas.git"
 
 SLOT="0"
 LICENSE="BSD"
 KEYWORDS=""
-IUSE="doc examples excel html test R"
+IUSE="doc excel html test R"
 
 EXTRA_DEPEND="
 	>=dev-python/google-api-python-client-1.2.0[$(python_gen_usedep python2_7 pypy)]
@@ -40,7 +40,7 @@ DEPEND="${CDEPEND}
 		dev-python/lxml[${PYTHON_USEDEP}]
 		dev-python/matplotlib[${PYTHON_USEDEP}]
 		>=dev-python/openpyxl-1.6.1[${PYTHON_USEDEP}]
-		<dev-python/openpyxl-2.0[${PYTHON_USEDEP}]
+		dev-python/openpyxl[${PYTHON_USEDEP}]
 		>=dev-python/pytables-3.0.0[${PYTHON_USEDEP}]
 		dev-python/pytz[${PYTHON_USEDEP}]
 		dev-python/rpy[${PYTHON_USEDEP}]
@@ -52,6 +52,7 @@ DEPEND="${CDEPEND}
 		)
 	test? (
 		${EXTRA_DEPEND}
+		dev-python/beautifulsoup:4[${PYTHON_USEDEP}]
 		dev-python/nose[${PYTHON_USEDEP}]
 		x11-misc/xclip
 		x11-misc/xsel
@@ -79,14 +80,12 @@ RDEPEND="${CDEPEND}
 	R? ( dev-python/rpy[${PYTHON_USEDEP}] )"
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-0.15.1-skip-tz-test.patch
+	"${FILESDIR}"/${PN}-0.15.2-zoneinfo.patch
 )
 
 python_prepare_all() {
-	if use doc; then
-		# Prevent un-needed download during build
-		sed -e "/^              'sphinx.ext.intersphinx',/d" -i doc/source/conf.py || die
-	fi
+	# Prevent un-needed download during build
+	sed -e "/^              'sphinx.ext.intersphinx',/d" -i doc/source/conf.py || die
 
 	distutils-r1_python_prepare_all
 }
@@ -101,30 +100,13 @@ python_compile_all() {
 	fi
 }
 
-_python_compile() {
-	# https://github.com/pydata/pandas/issues/8033
-	if ! python_is_python3; then
-		local CFLAGS=${CFLAGS}
-		local CXXFLAGS=${CXXFLAGS}
-		export CFLAGS
-		export CXXFLAGS
-		append-cflags -fno-strict-aliasing
-		append-cxxflags -fno-strict-aliasing
-	fi
-
-	distutils-r1_python_compile
-}
-
-src_test() {
-	local DISTUTILS_NO_PARALLEL_BUILD=1
-	distutils-r1_src_test
-}
-
 python_test() {
+	local test_pandas='not network and not disabled'
+	[[ -n "${FAST_PANDAS}" ]] && test_pandas+=' and not slow'
 	pushd  "${BUILD_DIR}"/lib > /dev/null
 	VIRTUALX_COMMAND="nosetests"
 	PYTHONPATH=. MPLCONFIGDIR=. HOME=. \
-		virtualmake --verbosity=3 -A 'not network and not disabled' pandas
+		virtualmake --verbosity=3 -A "${test_pandas}" pandas
 	popd > /dev/null
 }
 
@@ -136,7 +118,6 @@ python_install_all() {
 		einfo "statsmodels next and re-emerge pandas with USE doc"
 	fi
 
-	use examples && local EXAMPLES=( examples/. )
 	distutils-r1_python_install_all
 }
 
@@ -144,6 +125,6 @@ pkg_postinst() {
 	local x
 	elog "Please install"
 	for x in ${EXTRA_DEPEND}; do
-		optfeature "additional functionality" ${x%%[*}
+		optfeature "additional functionality" "${x%%[*}"
 	done
 }

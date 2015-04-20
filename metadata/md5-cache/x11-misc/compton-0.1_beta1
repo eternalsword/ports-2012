@@ -1,14 +1,14 @@
 DEFINED_PHASES=compile install setup
-DEPEND=python_targets_python3_3? ( >=dev-lang/python-3.3.2-r2:3.3 ) dev-lang/python-exec:=[python_targets_python3_3(-)?,-python_single_target_python3_3(-)] dev-libs/libconfig x11-libs/libX11 x11-libs/libXcomposite x11-libs/libXdamage x11-libs/libXext x11-libs/libXfixes x11-libs/libXrandr x11-libs/libXrender dbus? ( sys-apps/dbus ) opengl? ( virtual/opengl ) pcre? ( dev-libs/libpcre:3 ) app-text/asciidoc virtual/pkgconfig x11-proto/xproto drm? ( x11-libs/libdrm )
+DEPEND=python_targets_python3_3? ( >=dev-lang/python-3.3.2-r2:3.3 ) >=dev-lang/python-exec-2:=[python_targets_python3_3(-)?,-python_single_target_python3_3(-)] dev-libs/libconfig x11-libs/libX11 x11-libs/libXcomposite x11-libs/libXdamage x11-libs/libXext x11-libs/libXfixes x11-libs/libXrandr x11-libs/libXrender dbus? ( sys-apps/dbus ) opengl? ( virtual/opengl ) pcre? ( dev-libs/libpcre:3 ) app-text/asciidoc virtual/pkgconfig x11-proto/xproto drm? ( x11-libs/libdrm )
 DESCRIPTION=A compositor for X, and a fork of xcompmgr-dana
 EAPI=5
 HOMEPAGE=http://github.com/chjj/compton
 IUSE=dbus +drm opengl +pcre python_targets_python3_3
 KEYWORDS=~amd64 ~x86
 LICENSE=MIT
-RDEPEND=python_targets_python3_3? ( >=dev-lang/python-3.3.2-r2:3.3 ) dev-lang/python-exec:=[python_targets_python3_3(-)?,-python_single_target_python3_3(-)] dev-libs/libconfig x11-libs/libX11 x11-libs/libXcomposite x11-libs/libXdamage x11-libs/libXext x11-libs/libXfixes x11-libs/libXrandr x11-libs/libXrender dbus? ( sys-apps/dbus ) opengl? ( virtual/opengl ) pcre? ( dev-libs/libpcre:3 ) x11-apps/xprop x11-apps/xwininfo
+RDEPEND=python_targets_python3_3? ( >=dev-lang/python-3.3.2-r2:3.3 ) >=dev-lang/python-exec-2:=[python_targets_python3_3(-)?,-python_single_target_python3_3(-)] dev-libs/libconfig x11-libs/libX11 x11-libs/libXcomposite x11-libs/libXdamage x11-libs/libXext x11-libs/libXfixes x11-libs/libXrandr x11-libs/libXrender dbus? ( sys-apps/dbus ) opengl? ( virtual/opengl ) pcre? ( dev-libs/libpcre:3 ) x11-apps/xprop x11-apps/xwininfo
 REQUIRED_USE=|| ( python_targets_python3_3 )
 SLOT=0
 SRC_URI=https://github.com/chjj/compton/archive/v0.1_beta1.tar.gz -> compton-0.1_beta1.tar.gz
-_eclasses_=eutils	6faef4c127028ccbba3a11400d24ae34	multibuild	757b75042dff1b26ecd28d67a6021b3f	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	multiprocessing	d7f2985a2c76c365ee20269db5261414	python-r1	a2dac9ffff107078f25147aac958a68f	python-utils-r1	d5328656d500f65898a5f51634722f61	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=b77697a636aae8c5f78e7edd702c6305
+_eclasses_=eutils	9fb270e417e0e83d64ca52586c4a79de	multibuild	188cedebf7a8e614147e30ad01e9ce8f	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python-r1	6d3a3cb5705b9fff1aeb7cfa4e3336fe	python-utils-r1	096f8247eae93026af13ab88cf4305cd	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92
+_md5_=87372973f1bf4d90e3ba14cfc34cd15a

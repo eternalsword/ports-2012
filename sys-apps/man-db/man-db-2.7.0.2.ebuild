@@ -15,9 +15,9 @@ SRC_URI="http://download.savannah.nongnu.org/releases/man-db/${P}.tar.xz
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="*"
-IUSE="berkdb +gdbm nls static-libs zlib"
+IUSE="berkdb +gdbm lzma nls static-libs zlib"
 
-RDEPEND="dev-libs/libpipeline
+RDEPEND=">=dev-libs/libpipeline-1.3.0
 	berkdb? ( sys-libs/db )
 	gdbm? ( sys-libs/gdbm )
 	!berkdb? ( !gdbm? ( sys-libs/gdbm ) )
@@ -29,7 +29,8 @@ DEPEND="${RDEPEND}
 	nls? (
 		app-text/po4a
 		sys-devel/gettext
-	)"
+	)
+	virtual/pkgconfig"	
 
 pkg_setup() {
 	# Create user now as Makefile in src_install does setuid/chown

@@ -1,9 +1,9 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/ruby-gdk3/ruby-gdk3-2.2.3.ebuild,v 1.1 2014/12/07 05:36:39 naota Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/ruby-gdk3/ruby-gdk3-2.2.3.ebuild,v 1.3 2015/04/11 15:31:18 graaff Exp $
 
 EAPI=5
-USE_RUBY="ruby19 ruby20 ruby21"
+USE_RUBY="ruby19 ruby20 ruby21 ruby22"
 
 inherit ruby-ng-gnome2
 
@@ -17,6 +17,7 @@ RDEPEND="${RDEPEND} x11-libs/gtk+:3"
 ruby_add_bdepend ">=dev-ruby/ruby-glib2-${PV}"
 ruby_add_rdepend ">=dev-ruby/ruby-gdkpixbuf2-${PV}
 	>=dev-ruby/ruby-atk-${PV}
+	>=dev-ruby/ruby-cairo-gobject-${PV}
 	>=dev-ruby/ruby-pango-${PV}"
 
 each_ruby_configure() {

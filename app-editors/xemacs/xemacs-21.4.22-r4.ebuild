@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-editors/xemacs/xemacs-21.4.22-r4.ebuild,v 1.10 2014/12/04 08:40:09 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-editors/xemacs/xemacs-21.4.22-r4.ebuild,v 1.13 2015/03/31 17:41:09 ulm Exp $
 
 # Note: xemacs currently does not work with a hardened profile. If you
 # want to use xemacs on a hardened profile then compile with the
@@ -30,7 +30,7 @@ RDEPEND="
 	>=dev-libs/openssl-0.9.6
 	>=media-libs/audiofile-0.2.3
 	gpm? ( >=sys-libs/gpm-1.19.6 )
-	postgres? ( virtual/postgresql )
+	postgres? ( dev-db/postgresql )
 	ldap? ( net-nds/openldap )
 	nas? ( media-libs/nas )
 	X? ( $X_DEPEND !Xaw3d? ( !neXt? ( x11-libs/libXaw ) ) )
@@ -40,13 +40,13 @@ RDEPEND="
 	Xaw3d? ( x11-libs/libXaw3d )
 	neXt? ( x11-libs/neXtaw )
 	xface? ( media-libs/compface )
-	tiff? ( media-libs/tiff )
-	png? ( >=media-libs/libpng-1.2 )
-	jpeg? ( virtual/jpeg )
+	tiff? ( media-libs/tiff:0 )
+	png? ( >=media-libs/libpng-1.2:0 )
+	jpeg? ( virtual/jpeg:0 )
 	canna? ( app-i18n/canna )
 	!amd64? ( freewnn? ( app-i18n/freewnn ) )
 	>=sys-libs/ncurses-5.2
-	>=app-admin/eselect-emacs-1.15"
+	>=app-eselect/eselect-emacs-1.15"
 
 DEPEND="${RDEPEND}"
 

@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/llvm/llvm-3.5.0.ebuild,v 1.6 2014/11/26 16:13:33 voyageur Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-devel/llvm/llvm-3.5.0.ebuild,v 1.15 2015/04/16 11:55:18 voyageur Exp $
 
 EAPI=5
 
@@ -19,7 +19,7 @@ SRC_URI="http://llvm.org/releases/${PV}/${P}.src.tar.xz
 
 LICENSE="UoI-NCSA"
 SLOT="0/3.5"
-KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x64-freebsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
+KEYWORDS="amd64 arm ppc ppc64 ~sparc x86 ~amd64-fbsd ~x86-fbsd ~x64-freebsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
 IUSE="clang debug doc gold libedit +libffi multitarget ncurses ocaml python
 	+static-analyzer test xml video_cards_radeon
 	kernel_Darwin kernel_FreeBSD"
@@ -49,7 +49,7 @@ DEPEND="${COMMON_DEPEND}
 	|| ( >=sys-devel/gcc-3.0 >=sys-devel/gcc-apple-4.2.1
 		( >=sys-freebsd/freebsd-lib-9.1-r10 sys-libs/libcxx )
 	)
-	|| ( >=sys-devel/binutils-2.18 >=sys-devel/binutils-apple-3.2.3 )
+	|| ( >=sys-devel/binutils-2.18 >=sys-devel/binutils-apple-5.1 )
 	clang? ( xml? ( virtual/pkgconfig ) )
 	doc? ( dev-python/sphinx )
 	libffi? ( virtual/pkgconfig )
@@ -75,7 +75,6 @@ S=${WORKDIR}/${P}.src
 CMAKE_MAKEFILE_GENERATOR=emake
 
 pkg_pretend() {
-		$(tc-is-static-only && echo --disable-shared) \
 	# in megs
 	# !clang !debug !multitarget -O2       400
 	# !clang !debug  multitarget -O2       550
@@ -95,7 +94,7 @@ pkg_pretend() {
 		ewarn
 
 		(( build_size *= 14 ))
-	elif is-flagq -g || is-flagq -ggdb; then
+	elif is-flagq '-g?(gdb)?([1-9])'; then
 		ewarn "The C++ compiler -g option is known to increase the size of the package"
 		ewarn "considerably. If you run out of space, please consider removing it."
 		ewarn
@@ -203,6 +202,7 @@ multilib_src_configure() {
 		--enable-keep-symbols
 		--enable-shared
 		--with-optimize-option=
+		$(tc-is-static-only && echo --disable-shared)
 		$(use_enable !debug optimized)
 		$(use_enable debug assertions)
 		$(use_enable debug expensive-checks)
@@ -438,7 +438,8 @@ multilib_src_install() {
 	if [[ ${CHOST} == *-darwin* ]] ; then
 		eval $(grep PACKAGE_VERSION= configure)
 		[[ -n ${PACKAGE_VERSION} ]] && libpv=${PACKAGE_VERSION}
-		for lib in lib{EnhancedDisassembly,LLVM-${libpv},LTO,profile_rt,clang}.dylib LLVMHello.dylib clang/${libpv}/lib/darwin/libclang_rt.asan_osx_dynamic.dylib; do
+		libpvminor=${libpv%.[0-9]*}
+		for lib in lib{EnhancedDisassembly,LLVM-${libpv},LTO,profile_rt,clang}.dylib LLVMHello.dylib clang/${libpv}/lib/darwin/libclang_rt.asan_{osx,iossim}_dynamic.dylib; do
 			# libEnhancedDisassembly is Darwin10 only, so non-fatal
 			# + omit clang libs if not enabled
 			[[ -f ${ED}/usr/lib/${lib} ]] || continue
@@ -451,7 +452,7 @@ multilib_src_install() {
 		done
 		for f in "${ED}"/usr/bin/* "${ED}"/usr/lib/lib*.dylib "${ED}"/usr/lib/clang/${libpv}/lib/darwin/*.dylib ; do
 			# omit clang libs if not enabled
-			[[ -f ${ED}/usr/lib/${lib} ]] || continue
+			[[ -f "${f}" ]] || continue
 
 			scanmacho -BF'%n#f' "${f}" | tr ',' '\n' | \
 			while read odylib ; do
@@ -462,6 +463,9 @@ multilib_src_install() {
 						;;
 					*/libLLVM-${libpv}.dylib)
 						ndylib="${EPREFIX}"/usr/lib/libLLVM-${libpv}.dylib
+						;;
+					*/libLLVM-${libpvminor}.dylib)
+						ndylib="${EPREFIX}"/usr/lib/libLLVM-${libpvminor}.dylib
 						;;
 					*/libLTO.dylib)
 						ndylib="${EPREFIX}"/usr/lib/libLTO.dylib

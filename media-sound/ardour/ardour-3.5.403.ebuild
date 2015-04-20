@@ -1,9 +1,13 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/ardour/ardour-3.5.403.ebuild,v 1.3 2014/10/27 15:58:35 nativemad Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/ardour/ardour-3.5.403.ebuild,v 1.6 2015/01/29 18:52:23 mgorny Exp $
 
 EAPI=5
-inherit eutils toolchain-funcs flag-o-matic waf-utils
+
+PYTHON_COMPAT=( python2_7 )
+PYTHON_REQ_USE='threads(+)'
+
+inherit eutils toolchain-funcs flag-o-matic python-any-r1 waf-utils
 
 DESCRIPTION="Digital Audio Workstation"
 HOMEPAGE="http://ardour.org/"
@@ -19,7 +23,7 @@ fi
 
 LICENSE="GPL-2"
 SLOT="3"
-IUSE="altivec debug doc nls lv2 sse"
+IUSE="altivec doc nls lv2 cpu_flags_x86_sse"
 
 RDEPEND="media-libs/aubio
 	media-libs/liblo
@@ -61,6 +65,7 @@ RDEPEND="media-libs/aubio
 	)"
 
 DEPEND="${RDEPEND}
+	${PYTHON_DEPS}
 	virtual/pkgconfig
 	nls? ( sys-devel/gettext )
 	doc? ( app-doc/doxygen[dot] )"
@@ -85,13 +90,12 @@ src_prepare(){
 	fi
 	epatch "${FILESDIR}"/${PN}-3.5.7-syslibs.patch
 	epatch "${FILESDIR}"/${PN}-3.5.403-sse.patch
-	sed 's/python/python2/' -i waf
 	sed 's/'FLAGS\'\,\ compiler_flags'/'FLAGS\'\,\ \'\''/g' -i "${S}"/wscript
 	append-flags "-lboost_system"
 }
 
 src_configure() {
-	if use sse; then
+	if use cpu_flags_x86_sse; then
 		MARCH=$(get-flag march)
 		for ARCHWOSSE in i686 i486; do
 			if [[ ${MARCH} = ${ARCHWOSSE} ]]; then
@@ -112,10 +116,10 @@ src_configure() {
 		--destdir="${D}" \
 		--prefix=/usr \
 		--configdir=/etc \
+		--optimize \
 		$(use lv2 && echo "--lv2" || echo "--no-lv2") \
 		$(use nls && echo "--nls" || echo "--no-nls") \
-		$(use debug && echo "--stl-debug" || echo "--optimize") \
-		$({ use altivec || use sse; } && echo "--fpu-optimization" || echo "--no-fpu-optimization") \
+		$({ use altivec || use cpu_flags_x86_sse; } && echo "--fpu-optimization" || echo "--no-fpu-optimization") \
 		$(use doc && echo "--docs")
 }
 

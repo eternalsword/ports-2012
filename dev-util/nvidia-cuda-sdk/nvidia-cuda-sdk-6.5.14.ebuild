@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/nvidia-cuda-sdk/nvidia-cuda-sdk-6.5.14.ebuild,v 1.6 2014/11/18 12:32:56 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-util/nvidia-cuda-sdk/nvidia-cuda-sdk-6.5.14.ebuild,v 1.9 2015/01/26 07:12:37 jlec Exp $
 
 EAPI=5
 
@@ -17,7 +17,7 @@ SRC_URI="
 
 LICENSE="CUDPP"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
 IUSE="debug +doc +examples opencl +cuda"
 
 RDEPEND="
@@ -28,6 +28,7 @@ RDEPEND="
 		media-libs/glew
 		virtual/mpi
 		>=x11-drivers/nvidia-drivers-340.32[uvm]
+		x86? ( <x11-drivers/nvidia-drivers-346.35[uvm] )
 		)"
 DEPEND="${RDEPEND}"
 

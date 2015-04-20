@@ -1,11 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/pygresql/pygresql-4.1.1-r1.ebuild,v 1.3 2014/11/03 11:34:15 titanofold Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-db/pygresql/pygresql-4.1.1-r1.ebuild,v 1.11 2015/04/08 18:45:26 mgorny Exp $
 
 EAPI=5
 
 POSTGRES_COMPAT=( 9.{0,1,2,3} )
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1
 
@@ -17,14 +17,14 @@ SRC_URI="mirror://pypi/P/PyGreSQL/${MY_P}.tgz"
 
 LICENSE="POSTGRESQL"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~sparc ~x86"
+KEYWORDS="alpha amd64 hppa ia64 ~ppc sparc x86"
 IUSE="doc"
 
 DEPEND="|| (
-	virtual/postgresql:9.3
-	virtual/postgresql:9.2
-	virtual/postgresql:9.1
-	virtual/postgresql:9.0
+	dev-db/postgresql:9.3
+	dev-db/postgresql:9.2
+	dev-db/postgresql:9.1
+	dev-db/postgresql:9.0
 )"
 
 RDEPEND="${DEPEND}"

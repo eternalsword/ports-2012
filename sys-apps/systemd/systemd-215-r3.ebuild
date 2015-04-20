@@ -1,11 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/systemd/systemd-215-r3.ebuild,v 1.15 2014/12/07 12:30:33 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/systemd/systemd-215-r3.ebuild,v 1.17 2015/04/08 18:27:32 mgorny Exp $
 
 EAPI=5
 
 AUTOTOOLS_PRUNE_LIBTOOL_FILES=all
-PYTHON_COMPAT=( python{2_7,3_2,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 inherit autotools-utils bash-completion-r1 linux-info multilib \
 	multilib-minimal pam python-single-r1 systemd toolchain-funcs udev \
 	user
@@ -101,7 +101,7 @@ src_prepare() {
 pkg_pretend() {
 	local CONFIG_CHECK="~AUTOFS4_FS ~BLK_DEV_BSG ~CGROUPS ~DEVTMPFS ~DMIID
 		~EPOLL ~FANOTIFY ~FHANDLE ~INOTIFY_USER ~IPV6 ~NET ~NET_NS ~PROC_FS
-		~SECCOMP ~SIGNALFD ~SYSFS ~TIMERFD ~TMPFS_XATTR
+		~SECCOMP ~SIGNALFD ~SYSFS ~TIMERFD ~TMPFS_XATTR ~DEVPTS_MULTIPLE_INSTANCES
 		~!IDE ~!SYSFS_DEPRECATED ~!SYSFS_DEPRECATED_V2
 		~!GRKERNSEC_PROC"
 

@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-backup/bacula/bacula-7.0.5-r1.ebuild,v 1.1 2014/11/28 09:59:29 tomjbe Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-backup/bacula/bacula-7.0.5-r1.ebuild,v 1.7 2015/04/19 07:03:22 pacho Exp $
 
 EAPI="5"
 
-inherit eutils multilib qt4-r2 systemd user
+inherit eutils multilib qt4-r2 systemd user libtool
 
 MY_PV=${PV/_beta/-b}
 MY_P=${PN}-${MY_PV}
@@ -15,13 +15,13 @@ SRC_URI="mirror://sourceforge/bacula/${MY_P}.tar.gz"
 
 LICENSE="AGPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~sparc ~x86"
+KEYWORDS="amd64 ppc sparc x86"
 IUSE="acl bacula-clientonly bacula-nodir bacula-nosd examples ipv6 logwatch mysql postgres qt4 readline +sqlite3 ssl static tcpd vim-syntax X"
 
 DEPEND="
 	dev-libs/gmp
 	!bacula-clientonly? (
-		postgres? ( virtual/postgresql[threads] )
+		postgres? ( dev-db/postgresql[threads] )
 		mysql? ( virtual/mysql )
 		sqlite3? ( dev-db/sqlite:3 )
 		!bacula-nodir? ( virtual/mta )
@@ -149,6 +149,12 @@ src_prepare() {
 	if use bacula-clientonly; then
 		sed -i -e 's/bacula/root/' platforms/systemd/bacula.conf.in || die
 	fi
+
+	# fix bundled libtool (bug 466696)
+	# But first move directory with M4 macros out of the way.
+	# It is only needed by i autoconf and gives errors during elibtoolize.
+	mv autoconf/libtool autoconf/libtool1 || die
+	elibtoolize
 }
 
 src_configure() {

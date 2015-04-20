@@ -1,13 +1,13 @@
 DEFINED_PHASES=compile configure install prepare test unpack
-DEPEND=dev-libs/json-glib media-sound/deadbeef[curl] sys-devel/make >=dev-util/cmake-2.8.12 userland_GNU? ( >=sys-apps/findutils-4.4.0 ) media-sound/deadbeef gtk2? ( media-sound/deadbeef[gtk2] ) gtk3? ( media-sound/deadbeef[gtk3] ) >=dev-vcs/git-1.8.2.1
+DEPEND=dev-libs/json-glib:0 media-sound/deadbeef:0[curl] sys-devel/make >=dev-util/cmake-2.8.12 userland_GNU? ( >=sys-apps/findutils-4.4.0 ) media-sound/deadbeef:0 gtk2? ( media-sound/deadbeef:0[gtk2] ) gtk3? ( media-sound/deadbeef:0[gtk3] ) >=dev-vcs/git-1.8.2.1
 DESCRIPTION=DeaDBeeF plugin for listening music from vkontakte.com
 EAPI=5
 HOMEPAGE=https://github.com/scorpp/db-vk
 IUSE=+gtk2 gtk3
 LICENSE=GPL-2
-RDEPEND=dev-libs/json-glib media-sound/deadbeef[curl] media-sound/deadbeef gtk2? ( media-sound/deadbeef[gtk2] ) gtk3? ( media-sound/deadbeef[gtk3] )
+RDEPEND=dev-libs/json-glib:0 media-sound/deadbeef:0[curl] media-sound/deadbeef:0 gtk2? ( media-sound/deadbeef:0[gtk2] ) gtk3? ( media-sound/deadbeef:0[gtk3] )
 REQUIRED_USE=|| ( gtk2 gtk3 )
 RESTRICT=mirror
 SLOT=0
-_eclasses_=cmake-utils	45538b73614586305b3fdd978a3d11fa	deadbeef-plugins	7c8fe03766edd0d6acdc92e6fc07974d	eutils	6faef4c127028ccbba3a11400d24ae34	flag-o-matic	eda1c0b5ba85b3eeb555a071d69eb819	git-r3	f908736fc2f2912c118910333ea303f4	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	0dfbfa13f57c6184f4728d12ac002aac
-_md5_=fb9d102935b7da9a2a8c767af1d93a50
+_eclasses_=cmake-utils	01f9e06341e2a4616ea41cfc9d65536a	deadbeef-plugins	5b20c71759a8715ad73146268a59e3dd	eutils	9fb270e417e0e83d64ca52586c4a79de	flag-o-matic	c263990f1b677b0f0be0a3299f179762	git-r3	a00948a17a774db5e36bc0247c598097	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92
+_md5_=fb7884c293e9c18aa975fd95cd896f04

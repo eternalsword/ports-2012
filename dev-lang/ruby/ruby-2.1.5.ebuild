@@ -1,4 +1,6 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/ruby/ruby-2.1.5.ebuild,v 1.4 2015/03/31 18:33:50 ulm Exp $
 
 EAPI=5
 
@@ -32,8 +34,8 @@ SRC_URI="mirror://ruby/2.1/${MY_P}.tar.xz
 		 http://dev.gentoo.org/~flameeyes/ruby-team/${PN}-patches-${PATCHSET}.tar.bz2"
 
 LICENSE="|| ( Ruby-BSD BSD-2 )"
-KEYWORDS="~*"
-IUSE="berkdb debug doc examples gdbm ipv6 +rdoc rubytests socks5 ssl xemacs ncurses +readline sse2"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd"
+IUSE="berkdb debug doc examples gdbm ipv6 +rdoc rubytests socks5 ssl xemacs ncurses +readline cpu_flags_x86_sse2"
 
 RDEPEND="
 	berkdb? ( sys-libs/db )
@@ -45,20 +47,20 @@ RDEPEND="
 	dev-libs/libyaml
 	virtual/libffi
 	sys-libs/zlib
-	>=app-admin/eselect-ruby-20131227
+	>=app-eselect/eselect-ruby-20131227
 	!<dev-ruby/rdoc-3.9.4
 	!<dev-ruby/rubygems-1.8.10-r1"
 
 DEPEND="${RDEPEND}"
 PDEPEND="
-	virtual/rubygems:ruby21
+	virtual/rubygems[ruby_targets_ruby21]
 	>=dev-ruby/json-1.8.1[ruby_targets_ruby21]
 	>=dev-ruby/rake-0.9.6[ruby_targets_ruby21]
 	rdoc? ( >=dev-ruby/rdoc-4.0.1[ruby_targets_ruby21] )
 	xemacs? ( app-xemacs/ruby-modes )"
 
 src_prepare() {
-	if use sse2 ; then
+	if use cpu_flags_x86_sse2 ; then
 		excluded_patches="012_no_forced_sse2.patch"
 	fi
 

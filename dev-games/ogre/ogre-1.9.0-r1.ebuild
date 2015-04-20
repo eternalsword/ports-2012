@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-games/ogre/ogre-1.9.0-r1.ebuild,v 1.1 2014/11/05 19:37:37 hasufell Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-games/ogre/ogre-1.9.0-r1.ebuild,v 1.3 2015/04/03 08:14:33 aballier Exp $
 
 EAPI=5
 CMAKE_REMOVE_MODULES="yes"
@@ -14,7 +14,7 @@ SRC_URI="https://bitbucket.org/sinbad/ogre/get/v${PV//./-}.tar.bz2 -> ${P}.tar.b
 
 LICENSE="MIT public-domain"
 SLOT="0/1.9.0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~arm ~x86"
 
 # gles1 currently broken wrt bug #418201
 # gles1 does not even build wrt bug #506058
@@ -30,7 +30,6 @@ REQUIRED_USE="threads? ( ^^ ( boost poco tbb ) )
 RESTRICT="test" #139905
 
 RDEPEND="
-	dev-libs/tinyxml
 	media-libs/freetype:2
 	virtual/opengl
 	virtual/glu
@@ -49,6 +48,7 @@ RDEPEND="
 		poco? ( dev-libs/poco )
 		tbb? ( dev-cpp/tbb )
 	)
+	tools? ( dev-libs/tinyxml[stl] )
 	zip? ( sys-libs/zlib dev-libs/zziplib )"
 DEPEND="${RDEPEND}
 	x11-proto/xf86vidmodeproto
@@ -63,6 +63,9 @@ src_prepare() {
 	sed -i \
 		-e '/CONFIGURATIONS/s:CONFIGURATIONS Release.*::' \
 		CMake/Utils/OgreConfigTargets.cmake || die
+
+	# make sure we're not using the included tinyxml
+	rm -f Tools/XMLConverter/{include,src}/tiny*.*
 
 	# Fix some path issues
 	epatch "${FILESDIR}/${P}-remove_resource_path_to_bindir.patch" \

@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/avogadro/avogadro-1.1.0.ebuild,v 1.4 2014/01/06 09:50:11 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/avogadro/avogadro-1.1.0.ebuild,v 1.6 2015/04/08 18:22:13 mgorny Exp $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit cmake-utils eutils python-single-r1
 
@@ -15,7 +15,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="+glsl python sse2 test"
+IUSE="+glsl python cpu_flags_x86_sse2 test"
 
 RDEPEND="
 	>=sci-chemistry/openbabel-2.3.0
@@ -51,7 +51,7 @@ src_configure() {
 		-DQT_MKSPECS_RELATIVE=share/qt4/mkspecs
 		$(cmake-utils_use_enable glsl)
 		$(cmake-utils_use_enable test TESTS)
-		$(cmake-utils_use_with sse2 SSE2)
+		$(cmake-utils_use_with cpu_flags_x86_sse2 SSE2)
 		$(cmake-utils_use_enable python)
 	)
 

@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-strategy/gwp/gwp-0.4.0-r3.ebuild,v 1.1 2014/12/02 16:09:07 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-strategy/gwp/gwp-0.4.0-r3.ebuild,v 1.4 2015/02/14 03:49:34 mr_bones_ Exp $
 
 EAPI=5
 GCONF_DEBUG="yes"
@@ -14,25 +14,22 @@ SRC_URI="http://gwp.lunix.com.ar/releases/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="nls opengl python"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
-RDEPEND="
-	x11-libs/gtk+:2
+RDEPEND="x11-libs/gtk+:2
 	gnome-base/libgnomeui
 	gnome-base/libglade
-	app-text/scrollkeeper
+	app-text/rarian
 	dev-libs/libpcre
 	nls? ( virtual/libintl )
 	opengl? ( x11-libs/gtkglext )
 	python? ( ${PYTHON_DEPS}
-		dev-python/pygtk[${PYTHON_USEDEP}] )
-"
+		dev-python/pygtk[${PYTHON_USEDEP}] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	nls? ( sys-devel/gettext )
-"
+	nls? ( sys-devel/gettext )"
 
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
@@ -58,7 +55,7 @@ src_configure() {
 }
 
 src_install() {
-	DOCS="AUTHORS ChangeLog CHANGES README TODO"
+	DOCS="AUTHORS ChangeLog CHANGES README TODO" \
 	gnome2_src_install
 	rm -rf "${D}"/usr/share/doc/gwp
 }

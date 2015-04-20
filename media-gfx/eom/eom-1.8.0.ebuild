@@ -1,11 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/eom/eom-1.8.0.ebuild,v 1.6 2014/10/26 04:22:20 leio Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-gfx/eom/eom-1.8.0.ebuild,v 1.8 2015/04/08 17:58:14 mgorny Exp $
 
 EAPI="5"
 
 GCONF_DEBUG="yes"
-PYTHON_COMPAT=( python2_{6,7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit gnome2 python-single-r1 versionator
 
@@ -56,6 +56,10 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40:*
 	sys-devel/gettext:*
 	virtual/pkgconfig:*"
+
+pkg_setup() {
+	use python && python-single-r1_pkg_setup
+}
 
 src_configure() {
 	gnome2_src_configure \
