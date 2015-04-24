@@ -11,7 +11,7 @@ RTM_NAME="JSS_${PV//./_}_RTM"
 DESCRIPTION="Network Security Services for Java (JSS)"
 HOMEPAGE="http://www.mozilla.org/projects/security/pki/jss/"
 SRC_URI="ftp://ftp.mozilla.org/pub/mozilla.org/security/jss/releases/${RTM_NAME}/src/jss-${PV}.tar.bz2
-	mirror://funtoo/distfiles/jss-${PV}-fedora-ubuntu.tar.xz"
+	mirror://funtoo/jss-${PV}-fedora-ubuntu.tar.xz"
 LICENSE="|| ( MPL-1.1 GPL-2 LGPL-2.1 )"
 SLOT="3.4"
 KEYWORDS="*"
