@@ -1,8 +1,6 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/vlc/vlc-2.2.0.ebuild,v 1.4 2015/03/03 11:48:44 lu_zero Exp $
 
-EAPI="5"
+EAPI=5
 
 SCM=""
 if [ "${PV%9999}" != "${PV}" ] ; then
@@ -32,7 +30,7 @@ else
 fi
 
 LICENSE="LGPL-2.1 GPL-2"
-SLOT="0/5-7" # vlc - vlccore
+SLOT="0/5-8"  #vlc - vlccore
 
 if [ "${PV%9999}" = "${PV}" ] ; then
 	KEYWORDS="~*"
@@ -312,8 +310,10 @@ src_configure() {
 	fi
 
 	local qt_flag=""
-	if use qt4 || use qt5 ; then
-		qt_flag="--enable-qt"
+	if use qt4 ; then
+		qt_flag="--enable-qt4"
+	elif use qt5 ; then
+		qt_flag="--enable-qt5"
 	fi
 
 	econf \
