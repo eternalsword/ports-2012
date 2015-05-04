@@ -2020,7 +2020,6 @@ dev-perl/DBIx-Class:admin - Modules required for the DBIx::Class administrative 
 dev-perl/DBIx-Class:admin_script - Modules required for the CLI DBIx::Class interface dbicadmin
 dev-perl/DBIx-Class:deploy - Modules required for "deploy" in DBIx::Class::Storage::DBI and "deploymen_statements" in DBIx::Class::Storage::DBI
 dev-perl/DBIx-Class:replicated - Modules required for DBIx::Class::Storage::DBI::Replicated
-dev-perl/Eidetic:auth - Enables dev-perl/Apache-AuthTicket based cookie authentication
 dev-perl/File-HomeDir:xdg - Ensure XDG Semantics for returned paths via x11-misc/xdg-user-dirs
 dev-perl/GD:animgif - Enable animated gif support
 dev-perl/Graphics-ColorNames:recommended - Install recommended support modules
@@ -6802,6 +6801,8 @@ sys-kernel/aufs-sources:experimental - Apply experimental patches; for more info
 sys-kernel/aufs-sources:module - Patch kernel to allow aufs being build as a module.
 sys-kernel/aufs-sources:vanilla - Use vanilla kernel sources without applying genpatches. WARNING: This flag will drop all support from the Gentoo Kernel Security team
 sys-kernel/bliss-initramfs:luks - Encryption support
+sys-kernel/bliss-initramfs:lvm - Logical Volume support
+sys-kernel/bliss-initramfs:raid - RAID support
 sys-kernel/bliss-initramfs:zfs - ZFS support
 sys-kernel/ck-sources:bfsonly - BFS by itself vs the full ck patchset
 sys-kernel/ck-sources:deblob - Remove binary blobs from kernel sources to provide libre license compliance.
