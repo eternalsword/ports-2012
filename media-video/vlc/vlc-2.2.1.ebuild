@@ -317,9 +317,9 @@ src_configure() {
 
 	local qt_flag=""
 	if use qt4 ; then
-		qt_flag="--enable-qt4"
+		qt_flag="--enable-qt=4"
 	elif use qt5 ; then
-		qt_flag="--enable-qt5"
+		qt_flag="--enable-qt=5"
 	fi
 
 	econf \

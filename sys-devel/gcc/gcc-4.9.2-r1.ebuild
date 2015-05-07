@@ -26,7 +26,7 @@ fi
 # be used. Minispecs are compiler definitions that are installed that can be used to 
 # select various permutations of the hardened compiler, as well as a non-hardened
 # compiler, and are typically selected via Gentoo's gcc-config tool.
-PIE_VER="0.6.1"
+PIE_VER="0.6.2"
 SPECS_VER="0.2.0"
 SPECS_GCC_VER="4.4.3"
 SPECS_A="gcc-${SPECS_GCC_VER}-specs-${SPECS_VER}.tar.bz2"
@@ -35,15 +35,15 @@ PIE_A="gcc-${PV}-piepatches-v${PIE_VER}.tar.bz2"
 GMP_VER="6.0.0"
 GMP_EXTRAVER="a"
 MPFR_VER="3.1.2"
-MPC_VER="1.0.2"
+MPC_VER="1.0.3"
 
 # Graphite support:
-CLOOG_VER="0.18.1"
-ISL_VER="0.12.2"
+CLOOG_VER="0.18.3"
+ISL_VER="0.14.1"
 
 # GENTOO_PATCH_VER specifies the version of Gentoo's patches being applied to this
 # gcc version.
-GENTOO_PATCH_VER="1.0"
+GENTOO_PATCH_VER="1.4"
 GENTOO_PATCH_VER_A="gcc-${PV}-patches-${GENTOO_PATCH_VER}.tar.bz2"
 
 GCC_A="gcc-${PV}.tar.bz2"
@@ -57,7 +57,7 @@ SRC_URI="$SRC_URI mirror://gnu/gmp/gmp-${GMP_VER}${GMP_EXTRAVER}.tar.xz"
 SRC_URI="$SRC_URI hardened? ( mirror://gentoo/${SPECS_A} mirror://gentoo/${PIE_A} )"
 
 # Graphite support:
-SRC_URI="$SRC_URI graphite? ( mirror://gnu/cloog-${CLOOG_VER}.tar.gz mirror://gnu/isl-${ISL_VER}.tar.bz2 )"
+SRC_URI="$SRC_URI graphite? ( mirror://gnu/cloog-${CLOOG_VER}.tar.gz http://isl.gforge.inria.fr/isl-${ISL_VER}.tar.bz2 )"
 
 DESCRIPTION="The GNU Compiler Collection"
 
@@ -153,26 +153,8 @@ src_prepare() {
 
 		cat "${FILESDIR}"/gcc-4.6.4-fix-libgcc-s-path-with-vsrl.patch | patch -p1 || die "patch fail"
 
-		# The following patches from gentoo are applied
-		gentoo_patches="09_all_default-ssp.patch
-			10_all_default-fortify-source.patch
-			11_all_default-warn-format-security.patch
-			12_all_default-warn-trampolines.patch
-			13_all_default-color.patch
-			15_all_libgfortran-Werror.patch
-			16_all_libgomp-Werror.patch
-			17_all_libitm-Werror.patch
-			18_all_libatomic-Werror.patch
-			19_all_libbacktrace-Werror.patch
-			50_all_libiberty-asprintf.patch
-			51_all_libiberty-pic.patch
-			53_all_libitm-no-fortify-source.patch
-			67_all_gcc-poison-system-directories.patch
-			74_all_gcc49_cloog-dl.patch
-			90_all_pr55930-dependency-tracking.patch"
-
-		for gentoo_patch in $gentoo_patches; do
-			cat "${WORKDIR}/patch/$gentoo_patch" | patch -p1 || die "patch failed: $gentoo_patch"
+		for gentoo_patch in $(ls ${WORKDIR}/patch/??_all*.patch); do
+			patch -p1 < $gentoo_patch || die "patch failed: $gentoo_patch"
 		done
 
 		# Hardened patches
