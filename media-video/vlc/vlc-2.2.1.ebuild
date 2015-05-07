@@ -35,19 +35,19 @@ SLOT="0/5-8" # vlc - vlccore
 if [ "${PV%9999}" = "${PV}" ] ; then
 	KEYWORDS="~*"
 else
-	KEYWORDS=""
+	KEYWORDS="~*"
 fi
 
 IUSE="a52 aalib alsa altivec atmo +audioqueue avahi +avcodec
 	+avformat bidi bluray cdda cddb chromaprint dbus dc1394 debug
 	directfb directx dts dvb +dvbpsi dvd dxva2 elibc_glibc +encode faad fdk
 	fluidsynth +ffmpeg flac fontconfig +gcrypt gme gnome gnutls
-	growl httpd ieee1394 jack jpeg kate kde libass libav libcaca libnotify
-	libsamplerate libtiger linsys libtar lirc live lua
+	growl httpd ieee1394 jack jpeg kate kde libass libcaca libnotify
+	+libsamplerate libtiger linsys libtar lirc live lua
 	macosx-dialog-provider macosx-eyetv macosx-quartztext macosx-qtkit
 	matroska media-library cpu_flags_x86_mmx modplug mp3 mpeg
-	mtp musepack ncurses neon ogg omxil opencv opengl optimisememory opus oss
-	png postproc projectm pulseaudio +qt4 qt5 rdp rtsp run-as-root samba
+	mtp musepack ncurses neon ogg omxil opencv opengl optimisememory opus
+	oss png postproc projectm pulseaudio +qt4 qt5 rdp rtsp run-as-root samba
 	schroedinger sdl sdl-image sftp shout sid skins speex cpu_flags_x86_sse svg +swscale
 	taglib theora tremor truetype twolame udev upnp vaapi v4l vcdx vdpau
 	vlm vnc vorbis vpx wma-fixed +X x264 x265 +xcb xml xv zvbi"
@@ -62,14 +62,8 @@ RDEPEND="
 		aalib? ( media-libs/aalib:0 )
 		alsa? ( >=media-libs/alsa-lib-1.0.24:0 )
 		avahi? ( >=net-dns/avahi-0.6:0[dbus] )
-		avcodec? (
-			!libav? ( media-video/ffmpeg:0= )
-			libav? ( >=media-video/libav-11:0= )
-		)
-		avformat? (
-			!libav? ( media-video/ffmpeg:0= )
-			libav? ( media-video/libav:0= )
-		)
+		avcodec? ( media-video/ffmpeg )
+		avformat? ( media-video/ffmpeg )
 		bidi? ( >=dev-libs/fribidi-0.10.4:0 )
 		bluray? ( >=media-libs/libbluray-0.3:0 )
 		cddb? ( >=media-libs/libcddb-1.2:0 )
@@ -115,12 +109,9 @@ RDEPEND="
 		opencv? ( >media-libs/opencv-2:0 )
 		opengl? ( virtual/opengl:0 >=x11-libs/libX11-1.3.99.901:0 )
 		opus? ( >=media-libs/opus-1.0.3:0 )
-		oss? ( media-sound/oss:0 )
+		oss? ( media-sound/oss )
 		png? ( media-libs/libpng:0= sys-libs/zlib:0 )
-		postproc? (
-			!libav? ( >=media-video/ffmpeg-2.2:0= )
-			libav? ( media-libs/libpostproc:0= )
-		)
+		postproc? ( >=media-video/ffmpeg-2.2 )
 		projectm? ( media-libs/libprojectm:0 media-fonts/dejavu:0 )
 		pulseaudio? ( >=media-sound/pulseaudio-1:0 )
 		qt4? ( >=dev-qt/qtgui-4.6:4 >=dev-qt/qtcore-4.6:4 )
@@ -136,10 +127,7 @@ RDEPEND="
 		skins? ( x11-libs/libXext:0 x11-libs/libXpm:0 x11-libs/libXinerama:0 )
 		speex? ( media-libs/speex:0 )
 		svg? ( >=gnome-base/librsvg-2.9:2 >=x11-libs/cairo-1.13.1:0 )
-		swscale? (
-			!libav? ( media-video/ffmpeg:0= )
-			libav? ( media-video/libav:0= )
-		)
+		swscale? ( media-video/ffmpeg )
 		taglib? ( >=media-libs/taglib-1.9:0 sys-libs/zlib:0 )
 		theora? ( >=media-libs/libtheora-1.0_beta3:0 )
 		tremor? ( media-libs/tremor:0 )
@@ -149,21 +137,13 @@ RDEPEND="
 		udev? ( >=virtual/udev-142:0 )
 		upnp? ( net-libs/libupnp:0 )
 		v4l? ( media-libs/libv4l:0 )
-		vaapi? (
-			x11-libs/libva:0[X,drm]
-			!libav? ( media-video/ffmpeg:0=[vaapi] )
-			libav? ( media-video/libav:0=[vaapi] )
-		)
+		vaapi? ( x11-libs/libva:0[X,drm] media-video/ffmpeg:0=[vaapi] )
 		vcdx? ( >=dev-libs/libcdio-0.78.2:0 >=media-video/vcdimager-0.7.22:0 )"
 
 # Temporarily block non-live FFMPEG versions as they break vdpau, 9999 works;
 # thus we'll have to wait for a new release there.
 RDEPEND="${RDEPEND}
-		vdpau? (
-			>=x11-libs/libvdpau-0.6:0
-			!libav? ( >=media-video/ffmpeg-1.2:0= )
-			libav? ( >=media-video/libav-10:0= )
-		)
+		vdpau? ( >=x11-libs/libvdpau-0.6:0 >=media-video/ffmpeg-2.2 )
 		vnc? ( >=net-libs/libvncserver-0.9.9:0 )
 		vorbis? ( >=media-libs/libvorbis-1.1:0 )
 		vpx? ( media-libs/libvpx:0 )
@@ -254,25 +234,17 @@ src_prepare() {
 	# Patch up incompatibilities and reconfigure autotools.
 	epatch "${FILESDIR}"/${PN}-9999-libva-1.2.1-compat.patch
 
-	# https://bugs.gentoo.org/show_bug.cgi?id=542414
+	# Patch for bug 542414
 	epatch "${FILESDIR}"/${PN}-2.2.0-rdp-1.2.0.patch
 
-	# https://bugs.gentoo.org/show_bug.cgi?id=541928
+	# Patch for bug 541928
 	epatch "${FILESDIR}"/${PN}-2.2.0-xcb_vdpau.patch
 
 	# Fix up broken audio when skipping using a fixed reversed bisected commit.
 	epatch "${FILESDIR}"/${PN}-2.1.0-TomWij-bisected-PA-broken-underflow.patch
 
-	# https://bugs.gentoo.org/show_bug.cgi?id=541678
+	# Bug #541678
 	epatch "${FILESDIR}"/qt4-select.patch
-
-	# Remove Werror flag(s)
-	sed -e "s;-Werror;;" \
-		-i "${S}/aclocal.m4" \
-		-i "${S}/configure.ac" \
-		-i "${S}/configure" \
-		-i "${S}/m4/visibility.m4" \
-		-i "${S}/doc/libvlc/vlc-thumb.c" || die
 
 	# Don't use --started-from-file when not using dbus.
 	if ! use dbus ; then
@@ -401,7 +373,7 @@ src_configure() {
 		$(use_enable opengl glspectrum) \
 		$(use_enable opus) \
 		$(use_enable optimisememory optimize-memory) \
-		$(use_enable oss)
+		$(use_enable oss) \
 		$(use_enable png) \
 		$(use_enable postproc) \
 		$(use_enable projectm) \
@@ -462,6 +434,7 @@ src_configure() {
 		--disable-mmal-codec \
 		--disable-mmal-vout \
 		--disable-opensles \
+		--disable-oss \
 		--disable-quicktime \
 		--disable-rpi-omxil \
 		--disable-shine \
