@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-analyzer/zabbix/zabbix-2.2.5.ebuild,v 1.8 2015/05/06 21:42:24 mattm Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-analyzer/zabbix/zabbix-2.2.9.ebuild,v 1.1 2015/05/06 21:42:24 mattm Exp $
 
 EAPI="5"
 
@@ -16,7 +16,7 @@ SRC_URI="http://prdownloads.sourceforge.net/zabbix/${MY_P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 WEBAPP_MANUAL_SLOT="yes"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="agent java curl frontend ipv6 jabber ldap libxml2 mysql openipmi oracle postgres proxy server ssh snmp sqlite odbc static"
 
 COMMON_DEPEND="snmp? ( net-analyzer/net-snmp )
@@ -44,7 +44,6 @@ RDEPEND="${COMMON_DEPEND}
 	java?	(
 		>=virtual/jre-1.4
 		dev-java/slf4j-api
-		dev-java/json-simple
 	)
 	frontend? (
 		>=dev-lang/php-5.3.0[bcmath,ctype,sockets,gd,truetype,xml,session,xmlreader,xmlwriter,nls,sysvipc,unicode]
@@ -63,7 +62,6 @@ java_prepare() {
 	rm -v *.jar || die
 
 	java-pkg_jar-from slf4j-api
-	java-pkg_jar-from json-simple
 }
 
 src_prepare() {
@@ -346,7 +344,7 @@ src_install() {
 		src/zabbix_java/lib/logback-console.xml \
 		src/zabbix_java/lib/logback-core-0.9.27.jar \
 		src/zabbix_java/lib/logback.xml \
-		src/zabbix_java/lib/org-json-2010-12-28.jar \
+		src/zabbix_java/lib/android-json-4.3_r3.1.jar \
 		src/zabbix_java/lib/slf4j-api-1.6.1.jar
 	   exeinto /${ZABBIXJAVA_BASE}/
 	   doexe \
