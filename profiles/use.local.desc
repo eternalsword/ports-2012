@@ -4998,13 +4998,13 @@ net-libs/c-client:doc - Install RFCs related to IMAP
 net-libs/c-client:topal - Enable support for net-mail/topal for use with mail-client/alpine
 net-libs/courier-authlib:vpopmail - Enable vpopmail support
 net-libs/cvm:vpopmail - Enable vpopmail support
-net-libs/gnutls:bindist - Disallow building LZO support, because of a license incompatibility with dev-libs/lzo.
+net-libs/gnutls:bindist - Disallow building LZO support, because of a license incompatibility with dev-libs/lzo
 net-libs/gnutls:crywrap - Build the crywrap TLS proxy service
-net-libs/gnutls:dane - Build libgnutls-dane, implementing DNS-based Authentication of Named Entities. Requires net-dns/unbound.
+net-libs/gnutls:dane - Build libgnutls-dane, implementing DNS-based Authentication of Named Entities. Requires net-dns/unbound
 net-libs/gnutls:nettle - Use dev-libs/nettle as crypto backend
-net-libs/gnutls:openssl - Build openssl compatibility libraries.
+net-libs/gnutls:openssl - Build openssl compatibility libraries
 net-libs/gnutls:pkcs11 - Add support for PKCS#11 through app-crypt/p11-kit
-net-libs/gnutls:tools - Build extra tools.
+net-libs/gnutls:tools - Build extra tools
 net-libs/gtk-vnc:gtk3 - Build the gtk3 gtk-vnc library and other gtk3 assets
 net-libs/h323plus:aec - Enable acoustic echo cancellation
 net-libs/h323plus:sound - Enable audio codecs
