@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-drivers/nvidia-drivers/nvidia-drivers-349.16.ebuild,v 1.2 2015/04/21 19:30:06 jer Exp $
 
 EAPI=5
 
@@ -253,6 +251,8 @@ src_install() {
 		exeinto "$(get_udevdir)"
 		doexe "${FILESDIR}"/nvidia-udev.sh
 		udev_newrules "${FILESDIR}"/nvidia.udev-rule 99-nvidia.rules
+		use uvm && udev_newrules "${FILESDIR}"/nvidia.uvm-rule 100-nvidia.rules
+
 	elif use kernel_FreeBSD; then
 		if use x86-fbsd; then
 			insinto /boot/modules
