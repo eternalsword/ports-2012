@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/attr/attr-2.4.47-r2.ebuild,v 1.1 2015/05/10 16:31:06 vapier Exp $
 
 EAPI="4"
 
@@ -12,7 +10,7 @@ SRC_URI="mirror://nongnu/${PN}/${P}.src.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-linux ~arm-linux ~x86-linux"
+KEYWORDS="*"
 IUSE="nls static-libs"
 
 DEPEND="nls? ( sys-devel/gettext )
@@ -59,7 +57,7 @@ multilib_src_install() {
 		gen_usr_ldscript -a attr
 		# the man-pages packages provides the man2 files
 		# note: man-pages are installed by TOOL_SUBDIRS
-		rm -r "${ED}"/usr/share/man/man2 "${ED}"/usr/share/man/man5/attr.5 || die
+		rm -r "${ED}"/usr/share/man/man2 || die
 	fi
 }
 
