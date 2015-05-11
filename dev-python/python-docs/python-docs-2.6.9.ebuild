@@ -9,7 +9,7 @@ HOMEPAGE="http://www.python.org/doc/"
 SRC_URI="http://www.python.org/ftp/python/doc/${PV}/python-${PV}-docs-html.tar.bz2"
 
 LICENSE="PSF-2"
-SLOT="3.0"
+SLOT="2.6"
 KEYWORDS="*"
 IUSE=""
 
