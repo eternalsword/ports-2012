@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/cryptsetup/cryptsetup-1.6.6.ebuild,v 1.12 2015/04/12 18:13:44 vapier Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python{2_7,3_3,3_4} )
@@ -14,7 +12,7 @@ SRC_URI="mirror://kernel/linux/utils/${PN}/v$(get_version_component_range 1-2)/$
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
+KEYWORDS="*"
 CRYPTO_BACKENDS="+gcrypt kernel nettle openssl"
 # we don't support nss since it doesn't allow cryptsetup to be built statically
 # and it's missing ripemd160 support so it can't provide full backward compatibility
@@ -26,7 +24,7 @@ REQUIRED_USE="^^ ( ${CRYPTO_BACKENDS//+/} )
 LIB_DEPEND="dev-libs/libgpg-error[static-libs(+)]
 	dev-libs/popt[static-libs(+)]
 	sys-apps/util-linux[static-libs(+)]
-	gcrypt? ( dev-libs/libgcrypt:0=[static-libs(+)] )
+	gcrypt? ( >=dev-libs/libgcrypt-1.6.3-r1 dev-libs/libgcrypt:0=[static-libs(+)] )
 	nettle? ( >=dev-libs/nettle-2.4[static-libs(+)] )
 	openssl? ( dev-libs/openssl[static-libs(+)] )
 	pwquality? ( dev-libs/libpwquality[static-libs(+)] )
@@ -104,12 +102,6 @@ src_install() {
 }
 
 pkg_postinst() {
-	if use gcrypt ; then
-		elog "If you were using the whirlpool hash with libgcrypt, you might be impacted"
-		elog "by broken code in <libgcrypt-1.6.0 versions.  See this page for more details:"
-		elog "https://code.google.com/p/cryptsetup/wiki/FrequentlyAskedQuestions#8._Issues_with_Specific_Versions_of_cryptsetup"
-	fi
-
 	if [[ -z ${REPLACING_VERSIONS} ]] ; then
 		elog "Please see the example for configuring a LUKS mountpoint"
 		elog "in /etc/conf.d/dmcrypt"
