@@ -436,7 +436,6 @@ src_configure() {
 		--disable-mmal-codec \
 		--disable-mmal-vout \
 		--disable-opensles \
-		--disable-oss \
 		--disable-quicktime \
 		--disable-rpi-omxil \
 		--disable-shine \
