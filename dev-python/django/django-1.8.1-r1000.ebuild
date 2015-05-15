@@ -10,16 +10,17 @@ PYTHON_RESTRICTED_ABIS="2.6 3.1"
 PYTHON_TESTS_RESTRICTED_ABIS="*-jython"
 WEBAPP_NO_AUTO_INSTALL="yes"
 
-inherit bash-completion-r1 distutils git-2 webapp
+inherit bash-completion-r1 distutils eutils versionator webapp
+
+MY_P="Django-${PV}"
 
 DESCRIPTION="High-level Python web framework"
 HOMEPAGE="https://www.djangoproject.com/ https://github.com/django/django https://pypi.python.org/pypi/Django"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/django/django"
+SRC_URI="https://www.djangoproject.com/m/releases/$(get_version_component_range 1-2)/${MY_P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="*"
 IUSE="doc sqlite test"
 
 RDEPEND="$(python_abi_depend -e "*-jython" dev-python/imaging)
@@ -27,6 +28,8 @@ RDEPEND="$(python_abi_depend -e "*-jython" dev-python/imaging)
 	$(python_abi_depend dev-python/sqlparse)"
 DEPEND="${RDEPEND}
 	doc? ( $(python_abi_depend dev-python/sphinx) )"
+
+S="${WORKDIR}/${MY_P}"
 
 WEBAPP_MANUAL_SLOT="yes"
 
@@ -37,6 +40,8 @@ pkg_setup() {
 
 src_prepare() {
 	distutils_src_prepare
+
+	epatch "${FILESDIR}/${P}-gis_tests.patch"
 
 	# Disable invalid warning.
 	sed -e "s/overlay_warning = True/overlay_warning = False/" -i setup.py
