@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/newlib/newlib-2.2.0.ebuild,v 1.4 2015/05/18 16:40:17 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/newlib/newlib-2.2.0.20150423.ebuild,v 1.1 2015/05/18 17:18:04 vapier Exp $
 
 EAPI="4"
 
@@ -11,7 +11,9 @@ if [[ ${PV} == "9999" ]] ; then
 	inherit git-r3
 else
 	SRC_URI="ftp://sourceware.org/pub/newlib/${P}.tar.gz"
-	KEYWORDS="-* arm hppa m68k ~mips ppc ppc64 sh sparc x86"
+	if [[ ${PV} != *.201[5-9]???? ]] ; then
+		KEYWORDS="-* ~arm ~hppa ~m68k ~mips ~ppc ~ppc64 ~sh ~sparc ~x86"
+	fi
 fi
 
 export CBUILD=${CBUILD:-${CHOST}}
@@ -29,9 +31,6 @@ LICENSE="NEWLIB LIBGLOSS GPL-2"
 SLOT="0"
 IUSE="nls threads unicode crosscompile_opts_headers-only"
 RESTRICT="strip"
-
-# Handle the SLOT changes. #497344
-RDEPEND="!<${CATEGORY}/${PN}-2.1.0"
 
 NEWLIBBUILD="${WORKDIR}/build"
 
