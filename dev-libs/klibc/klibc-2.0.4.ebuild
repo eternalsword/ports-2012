@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/klibc/klibc-2.0.4.ebuild,v 1.1 2014/11/24 02:23:25 radhermit Exp $
 
 # Robin H. Johnson <robbat2@gentoo.org>, 12 Nov 2007:
 # This still needs major work.
@@ -53,7 +51,7 @@ SRC_URI="
 LICENSE="|| ( GPL-2 LGPL-2 )"
 KEYWORDS="~alpha ~amd64 ~arm ~ia64 -mips ~ppc ~ppc64 ~sparc ~x86"
 SLOT="0"
-IUSE="debug test custom-cflags"
+IUSE="debug test"
 
 DEPEND="dev-lang/perl"
 RDEPEND="${DEPEND}"
@@ -191,11 +189,7 @@ src_compile() {
 		libdir="/usr/${libdir}" \
 		mandir="/usr/share/man" \
 		T="${T}" \
-		$(use custom-cflags || echo SKIP_)HOSTCFLAGS="${CFLAGS}" \
-		$(use custom-cflags || echo SKIP_)HOSTLDFLAGS="${LDFLAGS}" \
-		$(use custom-cflags || echo SKIP_)KLIBCOPTFLAGS="${CFLAGS}" \
 		${myargs} || die "Compile failed!"
-
 		#SHLIBDIR="/${libdir}" \
 
 	ARCH="${myARCH}" ABI="${myABI}"
@@ -242,9 +236,6 @@ src_install() {
 		libdir="/usr/${libdir}" \
 		mandir="/usr/share/man" \
 		T="${T}" \
-		$(use custom-cflags || echo SKIP_)HOSTCFLAGS="${CFLAGS}" \
-		$(use custom-cflags || echo SKIP_)HOSTLDFLAGS="${LDFLAGS}" \
-		$(use custom-cflags || echo SKIP_)KLIBCOPTFLAGS="${CFLAGS}" \
 		${myargs} \
 		install || die "Install failed!"
 
