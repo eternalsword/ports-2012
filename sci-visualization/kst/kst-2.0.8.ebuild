@@ -1,16 +1,16 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-visualization/kst/kst-2.0.7.ebuild,v 1.2 2015/02/28 18:49:24 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-visualization/kst/kst-2.0.8.ebuild,v 1.1 2015/04/10 15:23:54 pesa Exp $
 
-EAPI=4
+EAPI=5
 
-CMAKE_USE_DIR=${S}/cmake
-MY_PN="Kst"
 inherit cmake-utils multilib
 
-DESCRIPTION="Fast real-time large-dataset viewing and plotting tool for KDE4"
+MY_P=Kst-${PV}
+
+DESCRIPTION="Fast real-time large-dataset viewing and plotting tool"
 HOMEPAGE="http://kst.kde.org/"
-SRC_URI="mirror://sourceforge/${PN}/${MY_PN}-${PV}.tar.gz"
+SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
 LICENSE="GPL-2 LGPL-2 FDL-1.2"
 SLOT="0"
@@ -23,15 +23,16 @@ RESTRICT="test"
 
 RDEPEND="
 	qt4? (
+		dev-qt/designer:4
 		dev-qt/qtcore:4
-		|| ( ( >=dev-qt/qtgui-4.8.5:4 dev-qt/designer:4 ) <dev-qt/qtgui-4.8.5:4 )
+		dev-qt/qtgui:4
 		dev-qt/qtopengl:4
 		dev-qt/qtsvg:4
 	)
 	qt5? (
+		dev-qt/designer:5
 		dev-qt/qtconcurrent:5
 		dev-qt/qtcore:5
-		dev-qt/designer:5
 		dev-qt/qtgui:5
 		dev-qt/qtnetwork:5
 		dev-qt/qtopengl:5
@@ -48,12 +49,13 @@ DEPEND="${RDEPEND}
 	test? ( dev-qt/qttest:4 )
 "
 
-DOCS=( AUTHORS ChangeLog )
-PATCHES=( "${FILESDIR}/${PN}-2.0.7-cfitsio-includes.patch" )
+S=${WORKDIR}/${MY_P}
+
+DOCS=( AUTHORS README.kstScript )
 
 src_configure() {
 	local mycmakeargs=(
-		-Dkst_install_libdir=$(get_libdir)
+		-Dkst_install_libdir="$(get_libdir)"
 		-Dkst_pch=OFF
 		-Dkst_release=$(usex debug OFF ON)
 		-Dkst_rpath=OFF
