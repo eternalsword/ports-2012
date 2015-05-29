@@ -1,7 +1,4 @@
-# Copyright 2010-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-p2p/bitcoin-qt/bitcoin-qt-0.10.2.ebuild,v 1.1 2015/05/27 01:40:54 blueness Exp $
-
 EAPI=5
 
 BITCOINCORE_COMMITHASH="d8ac90184254fea3a7f4991fd0529dfbd750aea0"
@@ -17,7 +14,7 @@ inherit bitcoincore eutils fdo-mime gnome2-utils kde4-functions qt4-r2
 DESCRIPTION="An end-user Qt GUI for the Bitcoin crypto-currency"
 LICENSE="MIT GPL-3 LGPL-2.1 || ( CC-BY-SA-3.0 LGPL-2.1 )"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~*"
 
 RDEPEND="
 	dev-libs/protobuf
@@ -25,7 +22,7 @@ RDEPEND="
 		media-gfx/qrencode
 	)
 	qt4? ( dev-qt/qtgui:4 )
-	qt5? ( dev-qt/qtgui:5 )
+	qt5? ( dev-qt/qtgui:5 dev-qt/linguist-tools:5 dev-qt/qtnetwork:5 dev-qt/qtwidgets:5 )
 	dbus? (
 		qt4? ( dev-qt/qtdbus:4 )
 		qt5? ( dev-qt/qtdbus:5 )
@@ -70,7 +67,7 @@ src_configure() {
 	bitcoincore_conf \
 		$(use_with dbus qtdbus)  \
 		$(use_with qrcode qrencode)  \
-		$(usex 1stclassmsg --enable-first-class-messaging)  \
+		$(usex 1stclassmsg --enable-first-class-messaging "")  \
 		--with-gui=$(usex qt5 qt5 qt4)
 }
 
