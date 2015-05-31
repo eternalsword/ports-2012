@@ -1,4 +1,6 @@
+# Copyright 2010-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/net-p2p/bitcoin-qt/bitcoin-qt-0.10.0-r1.ebuild,v 1.5 2015/05/29 11:21:31 blueness Exp $
 
 EAPI=5
 
@@ -14,7 +16,7 @@ inherit bitcoincore eutils fdo-mime gnome2-utils kde4-functions qt4-r2
 DESCRIPTION="An end-user Qt GUI for the Bitcoin crypto-currency"
 LICENSE="MIT GPL-3 LGPL-2.1 || ( CC-BY-SA-3.0 LGPL-2.1 )"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="~amd64 ~arm ~arm64 ~x86 ~amd64-linux ~x86-linux"
 
 RDEPEND="
 	dev-libs/protobuf
@@ -22,7 +24,7 @@ RDEPEND="
 		media-gfx/qrencode
 	)
 	qt4? ( dev-qt/qtgui:4 )
-	qt5? ( dev-qt/qtgui:5 dev-qt/linguist-tools:5 dev-qt/qtnetwork:5 dev-qt/qtwidgets:5 )
+	qt5? ( dev-qt/qtgui:5 )
 	dbus? (
 		qt4? ( dev-qt/qtdbus:4 )
 		qt5? ( dev-qt/qtdbus:5 )
@@ -58,6 +60,13 @@ src_prepare() {
 	sed "/${filt}/d" -i 'src/qt/bitcoin_locale.qrc'
 	sed "s/locale\/${filt}/bitcoin.qrc/" -i 'src/Makefile.qt.include'
 	einfo "Languages -- Enabled:$yeslang -- Disabled:$nolang"
+
+	if has_version '>=dev-libs/leveldb-1.18-r1'; then
+		# Newer leveldb has changed header location.
+		sed -i \
+			-e '/#include/s:memenv.h:leveldb/helpers/memenv.h:' \
+			src/leveldbwrapper.cpp || die
+	fi
 
 	bitcoincore_autoreconf
 }
