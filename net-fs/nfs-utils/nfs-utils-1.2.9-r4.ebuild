@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-fs/nfs-utils/nfs-utils-1.2.9-r3.ebuild,v 1.8 2014/11/02 08:54:13 swift Exp $
 
 EAPI="4"
 
@@ -12,7 +10,7 @@ SRC_URI="mirror://sourceforge/nfs/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 arm arm64 hppa ia64 ~mips ppc ppc64 s390 sh sparc x86"
+KEYWORDS="*"
 IUSE="caps ipv6 kerberos +libmount nfsdcld +nfsidmap +nfsv4 nfsv41 selinux tcpd +uuid"
 REQUIRED_USE="kerberos? ( nfsv4 )"
 RESTRICT="test" #315573
@@ -57,6 +55,7 @@ DEPEND="${DEPEND_COMMON}
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-1.1.4-mtab-sym.patch
 	epatch "${FILESDIR}"/${PN}-1.2.8-cross-build.patch
+	epatch "${FILESDIR}"/${PN}-1.3.0-gcc-4.9.patch
 
 	sed \
 		-e "/^sbindir/s:= := \"${EPREFIX}\":g" \
