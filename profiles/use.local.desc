@@ -158,6 +158,8 @@ app-admin/diradm:automount - Support for automount data in LDAP
 app-admin/diradm:irixpasswd - Support for storing separate IRIX passwords
 app-admin/ego:zsh-completion - Enable ZSH completion
 app-admin/elektra:gcov - Enable coverage support
+app-admin/elektra:ini - Enable ini support
+app-admin/elektra:keytometa - Enable keytometa support
 app-admin/elektra:simpleini - Enable simpleini support
 app-admin/elektra:uname - Enable uname information for the key database
 app-admin/elektra:yajl - Enable yajl support
@@ -1615,6 +1617,7 @@ dev-java/jdbc-mysql:log4j - Enable log4 support
 dev-java/jdbc-oracle-bin:dms - Enable support for the Oracle Dynamic Monitoring Service
 dev-java/jdbc-oracle-bin:ons - Enable support for the Oracle Notification Services (ONS) deamon
 dev-java/jfreechart:servlet - Build a servlet using the servlet API.
+dev-java/jfreesvg:debug - Enable debugging during compilation.
 dev-java/jna:awt - Enables support for Java AWT
 dev-java/jna:nio-buffers - Enables support for NIO buffers
 dev-java/jython:readline - Use GNU readline instead of jline
@@ -6092,7 +6095,7 @@ sci-geosciences/qlandkartegt:rmap - Enable support for TwoNav RMAP file format
 sci-geosciences/viking:libexif - Use media-libs/libexif for EXIF support
 sci-geosciences/viking:magic - Use libmagic to determine mimetypes
 sci-geosciences/viking:mapnik - Enable a layer based on sci-geosciences/mapnik
-sci-geosciences/viking:sqlite3 - Enable MBTiles support based on dev-db/sqlite
+sci-geosciences/viking:sqlite - Enable MBTiles support based on dev-db/sqlite
 sci-geosciences/xtide:gps - Use sci-geosciences/gpsd
 sci-libs/ViSP:demos - Installs demo programs.
 sci-libs/ViSP:dmtx - Enables barcode data matrix support.
