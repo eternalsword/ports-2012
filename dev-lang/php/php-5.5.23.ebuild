@@ -1,12 +1,12 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/php/php-5.6.7.ebuild,v 1.4 2015/04/17 04:55:28 phajdan.jr Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/php/php-5.5.23.ebuild,v 1.12 2015/04/17 09:46:51 ago Exp $
 
 EAPI=5
 
 inherit eutils autotools flag-o-matic versionator depend.apache apache-module db-use libtool systemd
 
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
 
 function php_get_uri ()
 {
@@ -307,9 +307,6 @@ src_prepare() {
 		sed -e 's|PHP_ADD_LIBRARY(k5crypto, 1, $1)||g' -i acinclude.m4 \
 			|| die "Failed to fix heimdal crypt library reference"
 	fi
-
-	# Fix build with libvpx-1.4.0, bug #545952 .
-	epatch "${FILESDIR}/${PN}-libvpx.patch"
 
 	#Add user patches #357637
 	epatch_user
