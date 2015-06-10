@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/libnl/libnl-3.2.26.ebuild,v 1.2 2015/04/08 17:51:55 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/libnl/libnl-3.2.24-r1.ebuild,v 1.2 2015/04/08 17:51:55 mgorny Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 python3_{3,4} )
@@ -12,7 +12,7 @@ NL_P=${P/_/-}
 DESCRIPTION="A collection of libraries providing APIs to netlink protocol based Linux kernel interfaces"
 HOMEPAGE="http://www.infradead.org/~tgr/libnl/"
 SRC_URI="
-	https://github.com/thom311/${PN}/releases/download/${PN}${PV//./_}/${P}.tar.gz
+	http://www.infradead.org/~tgr/${PN}/files/${NL_P}.tar.gz
 "
 LICENSE="LGPL-2.1 utils? ( GPL-2 )"
 SLOT="3"
