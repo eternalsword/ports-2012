@@ -1,40 +1,31 @@
-# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-geosciences/gmt/gmt-4.5.9.ebuild,v 1.1 2013/02/02 06:40:13 patrick Exp $
 
-EAPI=4
+EAPI=5
 
 AUTOTOOLS_AUTORECONF=yes
 
 inherit autotools-utils multilib
 
-GSHHS="gshhs-2.2.0"
+GSHHG="gshhg-gmt-2.3.4"
 
 DESCRIPTION="Powerful map generator"
 HOMEPAGE="http://gmt.soest.hawaii.edu/"
-SRC_URI="
-	mirror://gmt/${P}.tar.bz2
-	mirror://gmt/${GSHHS}.tar.bz2
-	gmttria? ( mirror://gmt/${P}-non-gpl.tar.bz2 )"
+SRC_URI="ftp://ftp.soest.hawaii.edu/gmt/${P}-src.tar.bz2 ftp://ftp.soest.hawaii.edu/gmt/${GSHHG}.tar.gz
+	gmttria? ( ftp://ftp.soest.hawaii.edu/gmt/${P}-non-gpl-src.tar.bz2 )"
 
 LICENSE="GPL-2 gmttria? ( Artistic )"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="debug +gdal gmttria +metric mex +netcdf octave postscript"
+KEYWORDS="*"
+IUSE="debug +gdal gmttria metric +mex +netcdf +octave postscript"
 
 RDEPEND="
 	!sci-biology/probcons
 	gdal? ( sci-libs/gdal )
 	netcdf? ( >=sci-libs/netcdf-4.1 )
-	octave? ( sci-mathematics/octave )"
-DEPEND="${RDEPEND}"
-
-S="${WORKDIR}/GMT${PV}"
-
-# mex can use matlab too which i can't test
-REQUIRED_USE="
-	mex? ( octave )
+	octave? ( sci-mathematics/octave )
+	postscript? ( app-text/ghostscript-gpl )
 "
+DEPEND="${RDEPEND}"
 
 # hand written make files that are not parallel safe
 MAKEOPTS+=" -j1"
@@ -47,12 +38,7 @@ PATCHES=(
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
 src_prepare() {
-	mv -f "${WORKDIR}/share/"* "${S}/share/" || die
-
 	tc-export AR RANLIB
-
-	autotools-utils_src_prepare
-
 	eautoreconf
 }
 
@@ -63,16 +49,17 @@ src_configure() {
 		--datadir=/usr/share/${P}
 		--docdir=/usr/share/doc/${PF}
 		--disable-update
-		--disable-matlab
 		--disable-xgrid
 		--disable-debug
+		--enable-shared
+		--enable-flock
 		$(use_enable gdal)
+		$(use_enable metric US)
+		$(use_enable mex)
 		$(use_enable netcdf)
 		$(use_enable octave)
 		$(use_enable debug devdebug)
-		$(use_enable !metric US)
 		$(use_enable postscript eps)
-		$(use_enable mex)
 		$(use_enable gmttria triangle)
 		)
 	autotools-utils_src_configure
