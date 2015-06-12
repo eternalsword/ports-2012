@@ -1820,10 +1820,6 @@ dev-libs/elfutils:utils - Install command-line utilities (all the eu-* programs)
 dev-libs/fampp2:stlport - Include support for dev-libs/STLport
 dev-libs/fcgi:html - Install HTML documentation
 dev-libs/ferrisloki:stlport - Include support for dev-libs/STLport
-dev-libs/folks:telepathy - Load contacts from the Telepathy framework
-dev-libs/folks:tracker - Load contacts from app-misc/tracker index
-dev-libs/folks:utils - Build the folks-inspect utility
-dev-libs/folks:zeitgeist - Add support for Zeitgeist event tracking system
 dev-libs/fstrm:utils - Build fstrm utility programs
 dev-libs/gecode:gist - Enable Gist, the Gecode Interactive Search Tool
 dev-libs/gf2x:bindist - Disable automatic fine-tuning to local processor features like pclmul or sse2.
@@ -3483,9 +3479,6 @@ media-libs/gegl:webp - Enable support for media-libs/libwebp
 media-libs/giflib:rle - Build converters for RLE format (utah raster toolkit)
 media-libs/glfw:egl - Use EGL instead of GLX for GL context creation
 media-libs/gmtk:dconf - Enable support for gnome-base/dconf
-media-libs/grilo:network - Enable network access for media discovery using net-libs/libsoup
-media-libs/grilo:playlist - Enable support for playlists through dev-libs/totem-pl-parser
-media-libs/grilo:vala - Generate bindings for dev-lang/vala
 media-libs/gst-plugins-bad:egl - Enable EGL support
 media-libs/gst-plugins-bad:gles2 - Enable GLES2 support
 media-libs/gst-plugins-base:ivorbis - Enable integer based vorbis decoder.
@@ -3698,16 +3691,6 @@ media-plugins/emotion_generic_players:vlc - Enable Video Lan Client (VLC) backen
 media-plugins/frei0r-plugins:facedetect - Enables building of facedetect plugin, which depends on media-libs/opencv
 media-plugins/frei0r-plugins:scale0tilt - Enables building of scale0tilt and vectorscope plugins, which depend on media-libs/gavl
 media-plugins/gkrellmpc:threads - Use separate thread to init connection (unsafe)
-media-plugins/grilo-plugins:daap - Enable dmap support through net-libs/libdmapsharing
-media-plugins/grilo-plugins:flickr - Enable Flickr support
-media-plugins/grilo-plugins:freebox - Build support for viewing TV channels using Freebox
-media-plugins/grilo-plugins:gnome-online-accounts - Enable net-libs/gnome-online-accounts support
-media-plugins/grilo-plugins:pocket - Support for showing content from Pocket
-media-plugins/grilo-plugins:subtitles - Enables support for subtitle from OpenSubtitles
-media-plugins/grilo-plugins:thetvdb - Build support for thetvdb.com
-media-plugins/grilo-plugins:tracker - Build support for content discovery using the app-misc/tracker indexer
-media-plugins/grilo-plugins:vimeo - Build support for Vimeo content discovery using net-libs/libsoup and dev-libs/libgcrypt
-media-plugins/grilo-plugins:youtube - Build support for YouTube content discovery using dev-libs/libgdata
 media-plugins/gst-plugins-gl:libvisual - Enable visualization effects via media-libs/libvisual
 media-plugins/gst-plugins-meta:http - Enable http streaming via net-libs/libsoup
 media-plugins/gst-plugins-meta:libvisual - Enable visualization effects via media-libs/libvisual
