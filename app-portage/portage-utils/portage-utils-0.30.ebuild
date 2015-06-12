@@ -1,27 +1,22 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-portage/portage-utils/portage-utils-0.53.ebuild,v 1.3 2015/02/20 01:37:30 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-portage/portage-utils/portage-utils-0.30.ebuild,v 1.4 2015/02/21 15:47:17 mgorny Exp $
 
-EAPI="4"
+EAPI="3"
 
-inherit flag-o-matic toolchain-funcs eutils
+inherit flag-o-matic toolchain-funcs
 
 DESCRIPTION="small and fast portage helper tools written in C"
-HOMEPAGE="https://wiki.gentoo.org/wiki/Portage-utils"
-SRC_URI="mirror://gentoo/${P}.tar.xz
-	http://dev.gentoo.org/~vapier/dist/${P}.tar.xz"
+HOMEPAGE="https://wiki.gentoo.org/wiki/Q_applets"
+SRC_URI="mirror://gentoo/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x64-freebsd ~x86-freebsd ~hppa-hpux ~ia64-hpux ~x86-interix ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
-IUSE="nls static"
+KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x64-freebsd ~x86-freebsd ~hppa-hpux ~ia64-hpux ~x86-interix ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+IUSE="static"
 
 DEPEND="app-arch/xz-utils"
 RDEPEND=""
-
-src_prepare() {
-	epatch_user
-}
 
 src_configure() {
 	use static && append-ldflags -static
@@ -36,17 +31,14 @@ src_configure() {
 	fi
 }
 
-src_compile() {
-	emake NLS=$(usex nls)
-}
-
 src_install() {
-	default
+	emake install DESTDIR="${D}" || die
+	prepalldocs
 
 	exeinto /etc/portage/bin
-	doexe "${FILESDIR}"/post_sync
+	doexe "${FILESDIR}"/post_sync || die
 	insinto /etc/portage/postsync.d
-	doins "${FILESDIR}"/q-reinitialize
+	doins "${FILESDIR}"/q-reinitialize || die
 
 	# Portage fixes shebangs, we just need to fix the paths in the files
 	sed -i \
