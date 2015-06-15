@@ -1,8 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-text/a2ps/a2ps-4.14-r3.ebuild,v 1.9 2013/05/04 19:04:06 vapier Exp $
 
-EAPI=4
+EAPI=5
 inherit autotools elisp-common eutils flag-o-matic
 
 DESCRIPTION="Any to PostScript filter"
@@ -12,7 +10,7 @@ SRC_URI="mirror://gnu/${PN}/${P}.tar.gz
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
+KEYWORDS="*"
 IUSE="emacs latex linguas_ja nls static-libs userland_BSD userland_GNU vanilla"
 
 RESTRICT=test
@@ -39,6 +37,10 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-4.13c-locale-gentoo.diff
 	# this will break
 	#epatch "${FILESDIR}/${PN}-4.13c-stdarg.patch"
+
+	# fix texinfo-5.
+	epatch "${FILESDIR}"/${P}-texinfo5.patch
+
 	use vanilla || epatch "${FILESDIR}"/${PN}-4.13-stdout.diff
 	if use linguas_ja; then
 		epatch "${DISTDIR}"/${P}-ja_nls.patch.gz
