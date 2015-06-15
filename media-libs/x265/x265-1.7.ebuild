@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/x265/x265-1.7.ebuild,v 1.2 2015/05/22 12:20:07 aballier Exp $
 
 EAPI=5
 
@@ -13,7 +11,7 @@ else
 	SRC_URI="
 		https://bitbucket.org/multicoreware/x265/downloads/${PN}_${PV}.tar.gz
 		http://ftp.videolan.org/pub/videolan/x265/${PN}_${PV}.tar.gz"
-	KEYWORDS="~amd64 ~arm ~hppa ~ppc64 ~x86"
+	KEYWORDS="~*"
 fi
 
 DESCRIPTION="Library for encoding video streams into the H.265/HEVC format"
@@ -51,7 +49,7 @@ multilib_src_configure() {
 		-DLIB_INSTALL_DIR="$(get_libdir)"
 	)
 
-	if [ "${ABI}" = x86 ] ; then
+	if [ "${ABI}" = "${DEFAULT_ABI}" ] ; then
 		use 10bit && ewarn "Disabling 10bit support on x86 as it does not build (or requires to disable assembly optimizations)"
 		mycmakeargs+=( -DHIGH_BIT_DEPTH=OFF )
 	fi
