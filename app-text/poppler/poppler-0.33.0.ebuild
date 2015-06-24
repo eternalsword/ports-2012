@@ -7,19 +7,18 @@ inherit cmake-utils toolchain-funcs
 if [[ "${PV}" == "9999" ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="git://git.freedesktop.org/git/${PN}/${PN}"
-	KEYWORDS=""
 	SLOT="0/9999"
 else
 	SRC_URI="http://poppler.freedesktop.org/${P}.tar.xz"
 	KEYWORDS="~*"
-	SLOT="0/50"   # CHECK THIS WHEN BUMPING!!! SUBSLOT IS libpoppler.so SOVERSION
+	SLOT="0/52"   # CHECK THIS WHEN BUMPING!!! SUBSLOT IS libpoppler.so SOVERSION
 fi
 
 DESCRIPTION="PDF rendering library based on the xpdf-3.0 code base"
 HOMEPAGE="http://poppler.freedesktop.org/"
 
 LICENSE="GPL-2"
-IUSE="cairo cjk curl cxx debug doc +introspection +jpeg jpeg2k +lcms png qt4 qt5 tiff +utils"
+IUSE="cairo cjk curl cxx debug doc +introspection +jpeg +jpeg2k +lcms png qt4 qt5 tiff +utils"
 
 # No test data provided
 RESTRICT="test"
@@ -35,7 +34,7 @@ COMMON_DEPEND="
 	)
 	curl? ( net-misc/curl )
 	jpeg? ( virtual/jpeg:0 )
-	jpeg2k? ( media-libs/openjpeg:0 )
+	jpeg2k? ( media-libs/openjpeg:2= )
 	lcms? ( media-libs/lcms:2 )
 	png? ( media-libs/libpng:0= )
 	qt4? (
@@ -60,8 +59,20 @@ DOCS=(AUTHORS NEWS README README-XPDF TODO)
 
 PATCHES=(
 	"${FILESDIR}/${PN}-0.26.0-qt5-dependencies.patch"
+	"${FILESDIR}/${PN}-0.28.1-fix-multilib-configuration.patch"
 	"${FILESDIR}/${PN}-0.28.1-respect-cflags.patch"
-	"${FILESDIR}/${PN}-0.28.1-fix-multilib-configuration.patch" )
+	"${FILESDIR}/${PN}-0.33.0-openjpeg2.patch"
+)
+
+src_prepare() {
+	cmake-utils_src_prepare
+
+	# Clang doesn't grok this flag, the configure nicely tests that, but
+	# cmake just uses it, so remove it if we use clang
+	if [[ ${CC} == clang ]] ; then
+		sed -i -e 's/-fno-check-new//' cmake/modules/PopplerMacros.cmake || die
+	fi
+}
 
 src_configure() {
 	local mycmakeargs=(
@@ -74,7 +85,6 @@ src_configure() {
 		-DENABLE_XPDF_HEADERS=ON
 		$(cmake-utils_use_enable curl LIBCURL)
 		$(cmake-utils_use_enable cxx CPP)
-		$(cmake-utils_use_enable jpeg2k LIBOPENJPEG)
 		$(cmake-utils_use_enable utils)
 		$(cmake-utils_use_with cairo)
 		$(cmake-utils_use_with introspection GObjectIntrospection)
@@ -84,6 +94,11 @@ src_configure() {
 		$(cmake-utils_use_find_package qt5 Qt5Core)
 		$(cmake-utils_use_with tiff)
 	)
+	if use jpeg2k; then
+		mycmakeargs+=(-DENABLE_LIBOPENJPEG=openjpeg2)
+	else
+		mycmakeargs+=(-DENABLE_LIBOPENJPEG=)
+	fi
 	if use lcms; then
 		mycmakeargs+=(-DENABLE_CMS=lcms2)
 	else
@@ -100,7 +115,8 @@ src_compile() {
 src_install() {
 	cmake-utils_src_install
 
-	if use cairo && use doc; then
+	# live version doesn't provide html documentation
+	if use cairo && use doc && [[ ${PV} != 9999 ]]; then
 		# For now install gtk-doc there
 		insinto /usr/share/gtk-doc/html/poppler
 		doins -r "${S}"/glib/reference/html/*
