@@ -10,7 +10,7 @@ if [[ "${PV}" == "9999" ]] ; then
 	SLOT="0/9999"
 else
 	SRC_URI="http://poppler.freedesktop.org/${P}.tar.xz"
-	KEYWORDS="~*"
+	KEYWORDS="*"
 	SLOT="0/52"   # CHECK THIS WHEN BUMPING!!! SUBSLOT IS libpoppler.so SOVERSION
 fi
 
