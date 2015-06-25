@@ -1,8 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-editors/xmlcopyeditor/xmlcopyeditor-1.2.0.12.ebuild,v 1.1 2014/01/12 10:53:42 hwoarang Exp $
 
-EAPI="4"
+EAPI=5
 
 WX_GTK_VER="2.8"
 
@@ -15,7 +13,7 @@ SRC_URI="mirror://sourceforge/xml-copy-editor/${P}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
+KEYWORDS="*"
 IUSE="aqua guidexml"
 
 RDEPEND=">=dev-libs/libxml2-2.7.3-r1
@@ -25,17 +23,12 @@ RDEPEND=">=dev-libs/libxml2-2.7.3-r1
 	app-text/aspell
 	!aqua? ( x11-libs/wxGTK:2.8[X] )
 	aqua? ( x11-libs/wxGTK:2.8[aqua] )"
-DEPEND="${RDEPEND}
-	dev-libs/boost"
+
+DEPEND="${RDEPEND} dev-libs/boost"
 
 DOCS=( AUTHORS ChangeLog README NEWS )
 
 src_prepare() {
-	# fix desktop file
-	sed -i  -e '/Categories/s/Application;//' \
-		-e '/Icon/s/.png//' \
-		-e 's/\r//g' \
-		"src/${PN}.desktop" || die "sed on src/${PN}.desktop failed"
 	# bug #440744
 	sed -i  -e 's/ -Wall -g -fexceptions//g' \
 		-e '/CXXFLAGS/s/CPPFLAGS/CXXFLAGS/' \
@@ -52,5 +45,4 @@ src_install() {
 			newins "${TEMPLATE}" "${TEMPLATE##*/}"
 		done
 	fi
-
 }
