@@ -9,4 +9,4 @@ RDEPEND=x11-libs/cairo[xcb] x11-libs/pango >=dev-python/xcffib-0.3.0 >=dev-pytho
 REQUIRED_USE=widget-mpris? ( dbus ) widget-keyboardkbdd? ( dbus ) widget-google-calendar? ( python_abis_2.7 ) widget-wlan? ( python_abis_2.7 ) || ( python_abis_2.7 python_abis_3.3 python_abis_3.4 )
 SLOT=0
 _eclasses_=distutils	2d484830b6e5aa7a840ba17d755dd55b	git-2	e28f0d8a9b321431b1e699782851b827	python	2cc08291ed8a5cd6b4791b24b0056357
-_md5_=baa46af8bc31676237173c5e61af9fa1
+_md5_=457384ab15efb9880cff2b9ae3156a6b
