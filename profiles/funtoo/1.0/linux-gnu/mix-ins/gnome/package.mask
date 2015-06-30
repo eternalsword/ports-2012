@@ -21,7 +21,7 @@
 >=dev-libs/atk-2.15.0
 >=dev-libs/gdl-3.15.0
 >=dev-libs/gjs-1.43.0
->=dev-libs/glib-2.43.0
+>dev-libs/glib-2.44.1
 >=dev-libs/gobject-introspection-1.43.0
 >=dev-libs/gobject-introspection-common-1.43.0
 >=dev-libs/libgdata-0.17.0
@@ -38,7 +38,7 @@
 >=dev-python/pygobject-3.15.0
 >=dev-util/anjuta-3.15.0
 >=dev-util/devhelp-3.15.0
->=dev-util/gdbus-codegen-2.43.0
+>dev-util/gdbus-codegen-2.44.1-r1000
 >=dev-util/gnome-devel-docs-3.15.1
 >=dev-vcs/gitg-3.15.0
 >=games-arcade/gnome-nibbles-3.15.1
