@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-firewall/xtables-addons/xtables-addons-2.6.ebuild,v 1.1 2014/09/30 21:35:28 blueness Exp $
 
 EAPI="5"
 
@@ -12,7 +10,7 @@ SRC_URI="mirror://sourceforge/xtables-addons/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="*"
 IUSE="modules"
 
 MODULES="quota2 psd pknock lscan length2 ipv4options ipp2p iface gradm geoip fuzzy condition tarpit sysrq logmark ipmark echo dnetmap dhcpmac delude chaos account"
@@ -122,6 +120,11 @@ XA_get_module_name() {
 src_prepare() {
 	XA_qa_check
 	XA_has_something_to_build
+
+	if kernel_is gt 4 0; then
+		epatch "${FILESDIR}"/delude.patch
+		epatch "${FILESDIR}"/tarpit.patch
+	fi
 
 	local mod module_name
 	if use modules; then
