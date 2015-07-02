@@ -1,4 +1,6 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/gnome-extra/cinnamon/cinnamon-2.4.6.ebuild,v 1.4 2015/06/20 02:32:11 tetromino Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -22,7 +24,7 @@ SLOT="0"
 IUSE="+l10n +networkmanager" #+bluetooth
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-KEYWORDS="*"
+KEYWORDS="amd64 x86"
 
 COMMON_DEPEND="
 	app-misc/ca-certificates
@@ -53,6 +55,9 @@ COMMON_DEPEND="
 	>=x11-libs/libXfixes-5.0
 	>=x11-wm/muffin-2.4[introspection]
 	${PYTHON_DEPS}
+	networkmanager? (
+		gnome-base/libgnome-keyring
+		>=net-misc/networkmanager-0.8.999[introspection] )
 "
 #bluetooth? ( >=net-wireless/gnome-bluetooth-3.1:=[introspection] )
 
@@ -69,6 +74,7 @@ COMMON_DEPEND="
 # 9. gnome-icon-theme-symbolic needed for various icons
 # 10. pygobject needed for menu editor
 # 11. nemo - default file manager, tightly integrated with cinnamon
+# 12. polkit-gnome - explicitly autostarted by us
 # TODO(lxnay): fix error: libgnome-desktop/gnome-rr-labeler.h: No such file or directory
 RDEPEND="${COMMON_DEPEND}
 	>=gnome-base/dconf-0.4.1
@@ -100,7 +106,14 @@ RDEPEND="${COMMON_DEPEND}
 	>=gnome-extra/nemo-2.4
 	>=gnome-extra/cinnamon-control-center-2.4
 	>=gnome-extra/cinnamon-screensaver-2.4
+
+	gnome-extra/polkit-gnome
+
 	l10n? ( >=gnome-extra/cinnamon-translations-2.4 )
+	networkmanager? (
+		gnome-extra/nm-applet
+		net-misc/mobile-broadband-provider-info
+		sys-libs/timezone-data )
 "
 #bluetooth? ( net-wireless/cinnamon-bluetooth )
 
@@ -112,9 +125,6 @@ DEPEND="${COMMON_DEPEND}
 	gnome-base/gnome-common
 	!!=dev-lang/spidermonkey-1.8.2*
 "
-PDEPEND="networkmanager? (
-		gnome-extra/nm-applet[introspection]
-		)"
 # libmozjs.so is picked up from /usr/lib while compiling, so block at build-time
 # https://bugs.gentoo.org/show_bug.cgi?id=360413
 
