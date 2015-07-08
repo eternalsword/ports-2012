@@ -1,20 +1,18 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/freecad/freecad-0.14.3702-r1.ebuild,v 1.5 2015/04/08 17:58:14 mgorny Exp $
 
-EAPI=5
+EAPI="5-progress"
+PYTHON_ABI_TYPE="single"
+PYTHON_RESTRICTED_ABIS="3* *-jython *-pypy"
 
-PYTHON_COMPAT=( python2_7 )
-
-inherit cmake-utils eutils fortran-2 multilib python-single-r1
+inherit cmake-utils eutils fortran-2 multilib python
 
 DESCRIPTION="QT based Computer Aided Design application"
 HOMEPAGE="http://www.freecadweb.org/"
-SRC_URI="mirror://sourceforge/free-cad/${P}.tar.gz"
+SRC_URI="mirror://sourceforge/free-cad/${PN}_0.15.4671.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~*"
 IUSE=""
 
 COMMON_DEPEND="dev-cpp/eigen:3
@@ -23,9 +21,7 @@ COMMON_DEPEND="dev-cpp/eigen:3
 	dev-libs/libf2c
 	dev-libs/libspnav[X]
 	dev-libs/xerces-c[icu]
-	dev-python/matplotlib
-	dev-python/pyside[X]
-	dev-python/shiboken
+	$(python_abi_depend	dev-python/matplotlib dev-python/pyside[X] dev-python/pyside-tools dev-python/shiboken)
 	dev-qt/designer:4
 	dev-qt/qtgui:4
 	dev-qt/qtopengl:4
@@ -41,16 +37,15 @@ COMMON_DEPEND="dev-cpp/eigen:3
 	${PYTHON_DEPS}"
 RDEPEND="${COMMON_DEPEND}
 	dev-qt/assistant:4
-	dev-python/pycollada
-	dev-python/pivy
-	dev-python/pyopencl
-	dev-python/numpy"
+	$(python_abi_depend dev-python/numpy)
+	dev-python/pycollada dev-python/pivy dev-python/pyopencl"
+
 DEPEND="${COMMON_DEPEND}
 	>=dev-lang/swig-2.0.4-r1:0"
 
 # http://bugs.gentoo.org/show_bug.cgi?id=352435
 # http://www.gentoo.org/foundation/en/minutes/2011/20110220_trustees.meeting_log.txt
-RESTRICT="bindist mirror"
+RESTRICT="bindist"
 
 # TODO:
 #   DEPEND and RDEPEND:
@@ -59,14 +54,14 @@ RESTRICT="bindist mirror"
 
 pkg_setup() {
 	fortran-2_pkg_setup
-	python-single-r1_pkg_setup
+	python_pkg_setup
 }
 
 src_prepare() {
 	einfo remove bundled libs
 	rm -rf src/3rdParty/{boost,Pivy*}
 
-	epatch "${FILESDIR}"/${P}-install-paths.patch
+	#epatch "${FILESDIR}"/${P}-install-paths.patch
 
 	#bug 518996
 	sed -e "/LibDir = /s:'lib':'"$(get_libdir)"':g" \
@@ -135,6 +130,8 @@ src_install() {
 	# disable compression of QT assistant help files
 	>> "${ED}"usr/share/doc/${P}/freecad.qhc.ecompress.skip
 	>> "${ED}"usr/share/doc/${P}/freecad.qch.ecompress.skip
+}
 
-	python_optimize "${ED}"usr/{$(get_libdir),share}/${P}/Mod/
+pkg_postinst() {
+	python_mod_optimize "${ED}"usr/{$(get_libdir),share}/${P}/Mod/
 }
