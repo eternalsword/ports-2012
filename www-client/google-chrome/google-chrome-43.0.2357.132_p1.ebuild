@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-client/google-chrome/google-chrome-43.0.2357.132_p1.ebuild,v 1.1 2015/07/07 22:13:36 floppym Exp $
 
 EAPI="5"
 
@@ -23,16 +21,16 @@ MY_P="${MY_PN}_${PV/_p/-}"
 
 SRC_URI="
 	amd64? (
-		http://dl.google.com/linux/chrome/deb/pool/main/g/${MY_PN}/${MY_P}_amd64.deb
+		mirror://funtoo/google-chrome/${MY_PN}/${MY_P}_amd64.deb
 	)
 	x86? (
-		http://dl.google.com/linux/chrome/deb/pool/main/g/${MY_PN}/${MY_P}_i386.deb
+		mirror://funtoo/google-chrome/${MY_PN}/${MY_P}_i386.deb
 	)
 "
 
 LICENSE="google-chrome"
 SLOT="0"
-KEYWORDS="-* ~amd64 ~x86"
+KEYWORDS="*"
 IUSE="+plugins"
 RESTRICT="bindist mirror strip"
 
@@ -98,11 +96,6 @@ For other desktop environments, try one of the following:
 Please notice the bundled flash player (PepperFlash).
 You can (de)activate all flash plugins via chrome://plugins
 "
-
-pkg_nofetch() {
-	eerror "Please wait 24 hours and sync your tree before reporting a bug for google-chrome fetch failures."
-}
-
 pkg_setup() {
 	chromium_suid_sandbox_check_kernel_config
 }
