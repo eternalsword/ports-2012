@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-firewall/xtables-addons/xtables-addons-2.6.ebuild,v 1.5 2015/07/07 02:53:17 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-firewall/xtables-addons/xtables-addons-2.7.ebuild,v 1.5 2015/07/07 02:53:17 patrick Exp $
 
 EAPI="5"
 
@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/xtables-addons/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="modules"
 
 MODULES="quota2 psd pknock lscan length2 ipv4options ipp2p iface gradm geoip fuzzy condition tarpit sysrq logmark ipmark echo dnetmap dhcpmac delude chaos account"
@@ -137,9 +137,7 @@ src_prepare() {
 	XA_qa_check
 	XA_has_something_to_build
 
-	# Bug #553630#c0.  tarpit fails on linux-4.1 and above.
 	# Bug #553630#c2.  echo fails on linux-4 and above.
-	XA_known_failure "tarpit" 4.1
 	XA_known_failure "echo" 4
 
 	local mod module_name

@@ -1,9 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-firewall/xtables-addons/xtables-addons-2.6.ebuild,v 1.5 2015/07/07 02:53:17 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-firewall/xtables-addons/xtables-addons-1.37.ebuild,v 1.7 2011/09/25 15:49:11 swegener Exp $
 
-EAPI="5"
-
+EAPI="4"
 inherit eutils linux-info linux-mod multilib
 
 DESCRIPTION="extensions not yet accepted in the main kernel/iptables (patch-o-matic(-ng) successor)"
@@ -15,44 +14,28 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="modules"
 
-MODULES="quota2 psd pknock lscan length2 ipv4options ipp2p iface gradm geoip fuzzy condition tarpit sysrq logmark ipmark echo dnetmap dhcpmac delude chaos account"
+REQUIRED_USE="
+	xtables_addons_ipset4? ( !xtables_addons_ipset6 )
+	xtables_addons_ipset6? ( !xtables_addons_ipset4 )"
+
+MODULES="quota2 psd pknock lscan length2 ipv4options ipset6 ipset4 ipp2p iface gradm geoip fuzzy condition tee tarpit sysrq steal rawnat logmark ipmark echo dnetmap dhcpmac delude checksum chaos account"
 
 for mod in ${MODULES}; do
 	IUSE="${IUSE} xtables_addons_${mod}"
 done
 
-DEPEND=">=net-firewall/iptables-1.4.5"
+DEPEND=">=net-firewall/iptables-1.4.3"
 
 RDEPEND="${DEPEND}
-	xtables_addons_geoip? (
-		app-arch/unzip
-		dev-perl/Text-CSV_XS
-		virtual/perl-Getopt-Long
-	)
-"
+	xtables_addons_ipset4? ( !net-firewall/ipset )
+	xtables_addons_ipset6? (
+		!net-firewall/ipset
+		net-libs/libmnl )
+	xtables_addons_geoip? ( virtual/perl-Getopt-Long
+		dev-perl/Text-CSV_XS )"
 
 DEPEND="${DEPEND}
 	virtual/linux-sources"
-
-SKIP_MODULES=""
-
-# XA_kernel_check tee "2 6 32"
-XA_check4internal_module() {
-	local mod=${1}
-	local version=${2}
-	local kconfigname=${3}
-
-	if use xtables_addons_${mod} && kernel_is -gt ${version}; then
-		ewarn "${kconfigname} should be provided by the kernel. Skipping its build..."
-		if ! linux_chkconfig_present ${kconfigname}; then
-			ewarn "Please enable ${kconfigname} target in your kernel
-			configuration or disable checksum module in ${PN}."
-		fi
-		# SKIP_MODULES in case we need to disable building of everything
-		# like having this USE disabled
-		SKIP_MODULES+=" ${mod}"
-	fi
-}
 
 pkg_setup()	{
 	if use modules; then
@@ -63,10 +46,22 @@ pkg_setup()	{
 		linux-mod_pkg_setup
 
 		if ! linux_chkconfig_present IPV6; then
-			SKIP_IPV6_MODULES="ip6table_rawpost"
+			SKIP_IPV6_MODULES="ip6table_rawpost ipset6"
 			ewarn "No IPV6 support in kernel. Disabling: ${SKIP_IPV6_MODULES}"
 		fi
-		kernel_is -lt 3 7 && die "${P} requires kernel version >= 3.7, if you have older kernel please use 1.x version instead"
+		if (use xtables_addons_ipset4 || use xtables_addons_ipset6) &&
+			kernel_is -lt 2 6 35; then
+			die "${PN} with ipset requires kernel version >= 2.6.35"
+		fi
+		kernel_is -lt 2 6 29 && die "${PN} requires kernel version >= 2.6.29"
+		if use xtables_addons_tee && kernel_is -gt 2 6 35; then
+			CONFIG_CHECK="NETFILTER_XT_TARGET_TEE"
+			ERROR_NETFILTER_XT_TARGET_TEE="Please enable TEE target in your kernel."
+			# SKIP_MODULES in case we need to disable building of everything
+			# like having this USE disabled
+			SKIP_MODULES="tee"
+			ewarn "TEE modules is provided by kernel. Skipping its build..."
+		fi
 	fi
 }
 
@@ -119,35 +114,17 @@ XA_get_module_name() {
 	done
 }
 
-# Die on modules known to fail on certain kernel version.
-XA_known_failure() {
-	local module_name=$1
-	local KV_max=$2
-
-	if use xtables_addons_${module_name} && kernel_is ge ${KV_max//./ }; then
-		eerror
-		eerror "XTABLES_ADDONS=${module_name} fails to build on linux ${KV_max} or above."
-		eerror "Either remove XTABLES_ADDONS=${module_name} or use an earlier version of the kernel."
-		eerror
-		die
-	fi
-}
-
 src_prepare() {
 	XA_qa_check
 	XA_has_something_to_build
-
-	# Bug #553630#c0.  tarpit fails on linux-4.1 and above.
-	# Bug #553630#c2.  echo fails on linux-4 and above.
-	XA_known_failure "tarpit" 4.1
-	XA_known_failure "echo" 4
 
 	local mod module_name
 	if use modules; then
 		MODULE_NAMES="compat_xtables(xtables_addons:${S}/extensions:)"
 	fi
 	for mod in ${MODULES}; do
-		if ! has ${mod} ${SKIP_MODULES} && use xtables_addons_${mod}; then
+		has ${mod} ${SKIP_MODULES} && continue
+		if use xtables_addons_${mod}; then
 			sed "s/\(build_${mod}=\).*/\1m/I" -i mconfig || die
 			if use modules; then
 				for module_name in $(XA_get_module_name ${mod}); do
@@ -177,7 +154,7 @@ src_configure() {
 
 src_compile() {
 	emake CFLAGS="${CFLAGS}" CC="$(tc-getCC)" V=1
-	use modules && BUILD_PARAMS="V=1" BUILD_TARGETS="modules" linux-mod_src_compile
+	use modules && BUILD_TARGETS="modules" linux-mod_src_compile
 }
 
 src_install() {

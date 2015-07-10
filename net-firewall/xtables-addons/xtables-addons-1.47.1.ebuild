@@ -1,6 +1,6 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-firewall/xtables-addons/xtables-addons-2.6.ebuild,v 1.5 2015/07/07 02:53:17 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-firewall/xtables-addons/xtables-addons-1.47.1.ebuild,v 1.5 2013/04/01 16:47:30 pinkbyte Exp $
 
 EAPI="5"
 
@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="modules"
 
-MODULES="quota2 psd pknock lscan length2 ipv4options ipp2p iface gradm geoip fuzzy condition tarpit sysrq logmark ipmark echo dnetmap dhcpmac delude chaos account"
+MODULES="quota2 psd pknock lscan length2 ipv4options ipp2p iface gradm geoip fuzzy condition tee tarpit sysrq steal rawnat logmark ipmark echo dnetmap dhcpmac delude checksum chaos account"
 
 for mod in ${MODULES}; do
 	IUSE="${IUSE} xtables_addons_${mod}"
@@ -66,7 +66,10 @@ pkg_setup()	{
 			SKIP_IPV6_MODULES="ip6table_rawpost"
 			ewarn "No IPV6 support in kernel. Disabling: ${SKIP_IPV6_MODULES}"
 		fi
-		kernel_is -lt 3 7 && die "${P} requires kernel version >= 3.7, if you have older kernel please use 1.x version instead"
+		kernel_is -lt 2 6 32 && die "${PN} requires kernel version >= 2.6.32"
+		kernel_is -ge 3 7 && die "${PN} requires kernel version < 3.7"
+		XA_check4internal_module tee "2 6 35" NETFILTER_XT_TARGET_TEE
+		XA_check4internal_module checksum "2 6 36" NETFILTER_XT_TARGET_CHECKSUM
 	fi
 }
 
@@ -119,28 +122,9 @@ XA_get_module_name() {
 	done
 }
 
-# Die on modules known to fail on certain kernel version.
-XA_known_failure() {
-	local module_name=$1
-	local KV_max=$2
-
-	if use xtables_addons_${module_name} && kernel_is ge ${KV_max//./ }; then
-		eerror
-		eerror "XTABLES_ADDONS=${module_name} fails to build on linux ${KV_max} or above."
-		eerror "Either remove XTABLES_ADDONS=${module_name} or use an earlier version of the kernel."
-		eerror
-		die
-	fi
-}
-
 src_prepare() {
 	XA_qa_check
 	XA_has_something_to_build
-
-	# Bug #553630#c0.  tarpit fails on linux-4.1 and above.
-	# Bug #553630#c2.  echo fails on linux-4 and above.
-	XA_known_failure "tarpit" 4.1
-	XA_known_failure "echo" 4
 
 	local mod module_name
 	if use modules; then
