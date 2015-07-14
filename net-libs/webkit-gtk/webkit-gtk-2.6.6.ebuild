@@ -35,7 +35,7 @@ REQUIRED_USE="
 RDEPEND="
 	dev-db/sqlite:3=
 	>=dev-libs/glib-2.36:2
-	>=dev-libs/icu-3.8.1-r1:=
+	>=dev-libs/icu-3.8.1-r1:=[-c++11]
 	>=dev-libs/libxml2-2.8:2
 	>=dev-libs/libxslt-1.1.7
 	>=media-libs/fontconfig-2.8:1.0
