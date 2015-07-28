@@ -3514,6 +3514,7 @@ media-libs/freetype:utils - Install utilities and examples from ft2demos
 media-libs/freeverb3:audacious - Build Audacious plugin
 media-libs/freeverb3:forcefpu - Disable assembly code
 media-libs/freeverb3:plugdouble - Build plugins in double precision mode (default is float)
+media-libs/ganv:fdgl - Use experimental force-directed graph layout
 media-libs/gd:webp - Enable support for the webp format
 media-libs/gegl:introspection - Use dev-libs/gobject-introspection for introspection.
 media-libs/gegl:lensfun - Enable support for media-libs/lensfun.
@@ -4048,6 +4049,8 @@ media-sound/ncmpc:song-screen - Enable song viewer screen
 media-sound/ncmpcpp:clock - Enable clock screen
 media-sound/ncmpcpp:outputs - Enable outputs screen
 media-sound/ncmpcpp:visualizer - Enable visualizer screen with sound wave/frequency spectrum modes
+media-sound/patchage:jack-dbus - Use Jack via D-Bus instead of libjack
+media-sound/patchage:session - Include experimental Jack session management (save/restore) support
 media-sound/pianobooster:fluidsynth - Enable Fluidsynth MIDI software synthesis
 media-sound/picard:acoustid - Use media-libs/chromaprint for acoustic fingerprinting
 media-sound/pithos:appindicator - Enable usage of appindicator to export menu options in to unity
@@ -7634,6 +7637,7 @@ x11-wm/windowmaker:modelock - Enable XKB language status lock support. README sa
 x11-wm/windowmaker:vdesktop - Enable dynamic virtual desktop (conflicts with software that works on the edges of the screen)
 x11-wm/windowmaker:webp - Enables WebP image format support using media-libs/libwebp
 x11-wm/windowmaker:xrandr - Enable XRandR window extension support
+x11-wm/wmfs:imlib2 - Enable image support through media-libs/imlib2
 x11-wm/xmonad:default-term - Pull terminal specified in default xmonad config to be a bit less hostile by default.
 x11-wm/xmonad:no-autorepeat-keys - Allow ignoring of keyboard autorepeat.
 x11-wm/xpra:client - Build client-side code
