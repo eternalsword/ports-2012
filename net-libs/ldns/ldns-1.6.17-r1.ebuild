@@ -11,7 +11,7 @@ SRC_URI="http://www.nlnetlabs.nl/downloads/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="~*"
 IUSE="dane doc +ecdsa gost python +ssl static-libs vim-syntax"
 
 # configure will die if ecdsa is enabled and ssl is not
@@ -38,6 +38,10 @@ MULTILIB_CHOST_TOOLS=(
 
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
+}
+
+src_prepare() {
+	epatch "${FILESDIR}"/${PN}-1.6.17_perl-5.22_fix.patch
 }
 
 multilib_src_configure() {
