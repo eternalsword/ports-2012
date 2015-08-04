@@ -251,8 +251,17 @@ src_configure() {
 		else
 			if [[ ${CTARGET} == armv[67]* ]]; then
 				case ${CTARGET} in
-					armv6*) confgcc+=" --with-fpu=vfp" ;;
-					armv7*) confgcc+=" --with-fpu=vfpv3-d16" ;;
+					armv6*)
+						confgcc+=" --with-fpu=vfp"
+					;;
+					armv7*)
+						realfpu=$( echo ${CFLAGS} | sed 's/.*mfpu.\([^ ]*\).*/\1/')
+						if [[ "x${realfpu}" == "x" ]];then
+							confgcc+=" --with-fpu=vfpv3-d16"
+						else
+							confgcc+=" --with-fpu=${realfpu}"
+						fi
+					;;
 				esac
 			fi
 			float="hard"
