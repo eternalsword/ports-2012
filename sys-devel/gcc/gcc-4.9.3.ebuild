@@ -255,8 +255,9 @@ src_configure() {
 						confgcc+=" --with-fpu=vfp"
 					;;
 					armv7*)
-						realfpu=$( echo ${CFLAGS} | sed 's/.*mfpu.\([^ ]*\).*/\1/')
-						if [[ "x${realfpu}" == "x" ]];then
+						realfpu=$( echo ${CFLAGS} | sed 's/.*mfpu=\([^ ]*\).*/\1/')
+						if [[ "$realfpu" == "$CFLAGS" ]] ;then
+							# if sed fails to extract, then it's not set, use default:
 							confgcc+=" --with-fpu=vfpv3-d16"
 						else
 							confgcc+=" --with-fpu=${realfpu}"
