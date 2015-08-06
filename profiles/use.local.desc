@@ -6657,6 +6657,7 @@ sys-block/sas3ircu:efi - Install EFI variant as well
 sys-block/tgt:fcoe - Add support for FCoE protocol
 sys-block/tgt:fcp - Add support for new FC protocol
 sys-block/tgt:ibmvio - Add support for IBM Virtual I/O
+sys-block/tgt:rbd - Add support for ceph block devices
 sys-boot/bliss-boot:extlinux - extlinux support
 sys-boot/bliss-boot:gpt - Ability to create, delete, and/or modify a GPT layout.
 sys-boot/bliss-boot:grub2 - GRUB 2 support
