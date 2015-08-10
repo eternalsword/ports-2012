@@ -118,11 +118,11 @@ src_configure() {
 		--disable-installed-tests \
 		--disable-pst-import \
 		--enable-canberra \
-		$(use_enable bogofilter) \
+		$(use_with bogofilter) \
 		$(use_enable crypt libcryptui) \
 		$(use_enable highlight text-highlight) \
 		$(use_enable map contact-maps) \
-		$(use_enable spamassassin) \
+		$(use_with spamassassin) \
 		$(use_enable spell gtkspell) \
 		$(use_enable ssl nss) \
 		$(use_enable ssl smime) \
