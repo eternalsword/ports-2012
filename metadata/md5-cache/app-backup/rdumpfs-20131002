@@ -9,4 +9,4 @@ RDEPEND=net-misc/rsync[xattr?]
 SLOT=0
 SRC_URI=https://github.com/chneukirchen/rdumpfs/archive/b7e8e7b0efd9d73344e022e204f2e99e6321136e.tar.gz -> rdumpfs-20131002.tar.gz
 _eclasses_=vcs-snapshot	44b6b8243ccf493ad3259e80815454ef
-_md5_=e6e9d819e291078d967fd970da41e898
+_md5_=2f7547c0f8f872b8d4fa1828a53bad47

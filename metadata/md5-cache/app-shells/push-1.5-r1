@@ -7,4 +7,4 @@ LICENSE=BSD
 SLOT=0
 SRC_URI=http://github.com/vaeth/push/tarball/1.5 -> push-1.5.tar.gz
 _eclasses_=vcs-snapshot	44b6b8243ccf493ad3259e80815454ef
-_md5_=766bfe8c7b31271dfeabccb37e77ecaf
+_md5_=195e846133210e3550ae34f5e2975ec8

@@ -9,4 +9,4 @@ RDEPEND=app-i18n/librime
 SLOT=0
 SRC_URI=http://dl.bintray.com/lotem/rime/brise-0.35.tar.gz
 _eclasses_=vcs-snapshot	44b6b8243ccf493ad3259e80815454ef
-_md5_=9e9e84d02ec1228af97d8d3b9e092af6
+_md5_=51b1b2fc3d8eb9e3b60d6d79d1b07a00
