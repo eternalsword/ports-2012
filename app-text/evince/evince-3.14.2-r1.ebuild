@@ -12,7 +12,7 @@ HOMEPAGE="https://wiki.gnome.org/Apps/Evince"
 LICENSE="GPL-2+ CC-BY-SA-3.0"
 # subslot = evd3.(suffix of libevdocument3)-evv3.(suffix of libevview3)
 SLOT="0/evd3.4-evv3.3"
-IUSE="djvu dvi gnome +introspection libsecret nautilus nsplugin +postscript t1lib tiff xps"
+IUSE="djvu dvi gnome +introspection libsecret nautilus +postscript t1lib tiff xps"
 KEYWORDS="*"
 
 # Since 2.26.2, can handle poppler without cairo support. Make it optional ?
@@ -87,7 +87,6 @@ src_configure() {
 		$(use_enable gnome libgnome-desktop) \
 		$(use_enable introspection) \
 		$(use_enable nautilus) \
-		$(use_enable nsplugin browser-plugin) \
 		$(use_enable postscript ps) \
 		$(use_enable t1lib) \
 		$(use_enable tiff) \
