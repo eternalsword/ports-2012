@@ -1,13 +1,13 @@
 DEFINED_PHASES=compile configure install postinst postrm preinst prepare setup
-DEPEND=>=dev-lang/perl-5.6.1 ssl? ( >=dev-libs/openssl-0.9.7d ) emacs? ( virtual/emacs ) java? ( >=virtual/jdk-1.2 ) odbc? ( dev-db/unixODBC ) wxwidgets? ( x11-libs/wxGTK:2.8[X,opengl] virtual/glu ) sctp? ( net-misc/lksctp-tools ) tk? ( dev-lang/tk ) !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.13:1.13 >=sys-devel/automake-1.15:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4 java? ( >=dev-java/java-config-2.1.9-r1 ) virtual/pkgconfig
+DEPEND=>=dev-lang/perl-5.6.1 ssl? ( >=dev-libs/openssl-0.9.7d ) emacs? ( virtual/emacs ) java? ( >=virtual/jdk-1.2 ) odbc? ( dev-db/unixODBC ) wxwidgets? ( x11-libs/wxGTK:2.8[X,opengl] virtual/glu ) sctp? ( net-misc/lksctp-tools ) tk? ( dev-lang/tk ) !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.15:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4 java? ( >=dev-java/java-config-2.2.0 ) virtual/pkgconfig
 DESCRIPTION=Erlang programming language, runtime environment, and large collection of libraries
 EAPI=4
 HOMEPAGE=http://www.erlang.org/
 IUSE=compat-ethread doc emacs halfword hipe java kpoll odbc smp sctp ssl systemd tk wxwidgets elibc_FreeBSD java
-KEYWORDS=~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x64-solaris
+KEYWORDS=alpha amd64 ~arm ~ia64 ppc ~ppc64 sparc x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x64-solaris
 LICENSE=ErlPL-1.1
-RDEPEND=>=dev-lang/perl-5.6.1 ssl? ( >=dev-libs/openssl-0.9.7d ) emacs? ( virtual/emacs ) java? ( >=virtual/jdk-1.2 ) odbc? ( dev-db/unixODBC ) java? ( >=dev-java/java-config-2.1.9-r1 )
+RDEPEND=>=dev-lang/perl-5.6.1 ssl? ( >=dev-libs/openssl-0.9.7d ) emacs? ( virtual/emacs ) java? ( >=virtual/jdk-1.2 ) odbc? ( dev-db/unixODBC ) java? ( >=dev-java/java-config-2.2.0 )
 SLOT=0
 SRC_URI=http://www.erlang.org/download/otp_src_17.5.tar.gz http://erlang.org/download/otp_doc_man_17.5.tar.gz doc? ( http://erlang.org/download/otp_doc_html_17.5.tar.gz )
-_eclasses_=autotools	999c8f6cf5d91495cb0779588f20716c	elisp-common	1aa23b3de5dae55456fa2071428eb5bf	eutils	9fb270e417e0e83d64ca52586c4a79de	java-pkg-opt-2	f9bbbe5092225a2059aa9e6a3a2b52f1	java-utils-2	2257adeaac9408ab545ef49ae751bae6	libtool	52d0e17251d04645ffaa61bfdd858944	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	systemd	b0daeef4b75b0130d34c62aa1930d21e	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92	versionator	cd0bcdb170807e4a1984115e9d53a26f	wxwidgets	6d6eec2685256d35511e7b6d5461bec9
-_md5_=545d404fbee44e1d040383d73d3885c4
+_eclasses_=autotools	8056957fdccf2b3cd6e282a4b4551d1a	elisp-common	73c48c11ad6a6494eda0d0cca848c8fa	eutils	351a78113be5b393c09a2c948701ad36	java-pkg-opt-2	4a567b4a22dd2dc61b77c056d29353a5	java-utils-2	7c8af272d218f7b7df22fd16bb0bfb63	libtool	7f78cd7d403808a350c9ae23f5821fb4	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	systemd	b0daeef4b75b0130d34c62aa1930d21e	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	versionator	99ae9d758cbe7cfed19170e7d48f5a9c	wxwidgets	6712758caa92e836a735c1281b34e70e
+_md5_=b849632d05e0b40412363b46c741e2b4

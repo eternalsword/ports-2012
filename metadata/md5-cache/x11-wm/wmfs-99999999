@@ -1,11 +1,11 @@
-DEFINED_PHASES=configure prepare unpack
-DEPEND=!x11-wm/wmfs2 x11-libs/libSM x11-libs/libX11 x11-libs/libXft imlib2? ( media-libs/imlib2 ) xinerama? ( x11-libs/libXinerama ) xrandr? ( x11-libs/libXrandr ) >=dev-vcs/git-1.8.2.1
-DESCRIPTION=Windows Manager From Scratch
+DEFINED_PHASES=configure install prepare unpack
+DEPEND=media-libs/freetype media-libs/imlib2[X] x11-libs/libX11 x11-libs/libXft x11-libs/libXinerama x11-libs/libXrandr virtual/pkgconfig x11-proto/randrproto x11-proto/xineramaproto x11-proto/xproto >=dev-vcs/git-1.8.2.1
+DESCRIPTION=Window Manager From Scratch, A tiling window manager highly configurable
 EAPI=5
-HOMEPAGE=http://wmfs.info
-IUSE=imlib2 xinerama xrandr
+HOMEPAGE=https://github.com/xorg62/wmfs
+IUSE=+imlib2 +xinerama
 LICENSE=BSD
-RDEPEND=!x11-wm/wmfs2 x11-libs/libSM x11-libs/libX11 x11-libs/libXft imlib2? ( media-libs/imlib2 ) xinerama? ( x11-libs/libXinerama ) xrandr? ( x11-libs/libXrandr )
+RDEPEND=media-libs/freetype media-libs/imlib2[X] x11-libs/libX11 x11-libs/libXft x11-libs/libXinerama x11-libs/libXrandr
 SLOT=0
-_eclasses_=eutils	9fb270e417e0e83d64ca52586c4a79de	git-r3	a00948a17a774db5e36bc0247c598097	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92
-_md5_=8751e634981904a3ade743fdd38e8beb
+_eclasses_=eutils	351a78113be5b393c09a2c948701ad36	git-r3	d112773018bfed1c4d9e30848045c51c	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361
+_md5_=f6066c7f612afa3f1bc993f8c9c0dca5

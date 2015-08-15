@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-firewall/ipt_netflow/ipt_netflow-2.1.ebuild,v 1.1 2015/02/18 09:54:35 pinkbyte Exp $
+# $Id$
 
 EAPI=5
 MY_PN="${PN/_/-}"
@@ -13,7 +13,7 @@ SRC_URI="mirror://sourceforge/${MY_PN}/${MY_P}.tgz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 IUSE="debug snmp"
 
@@ -52,6 +52,9 @@ src_prepare() {
 
 	# bug #455984
 	epatch "${FILESDIR}/${PN}-2.0-configure.patch"
+
+	# bug #552476
+	epatch "${FILESDIR}/${PN}-2.1-linux-3.19.patch"
 
 	epatch_user
 }

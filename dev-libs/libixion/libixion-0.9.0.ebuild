@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/libixion/libixion-0.9.0.ebuild,v 1.2 2015/04/06 11:42:50 dilfridge Exp $
+# $Id$
 
 EAPI=5
 
@@ -19,12 +19,12 @@ HOMEPAGE="https://gitlab.com/ixion/ixion"
 LICENSE="MIT"
 SLOT="0/0.10"
 [[ ${PV} == 9999 ]] || \
-KEYWORDS="~amd64 ~arm ~ppc ~x86"
+KEYWORDS="amd64 ~arm ~ppc x86"
 
 IUSE="static-libs"
 
 RDEPEND="${PYTHON_DEPS}
-	dev-libs/boost:=
+	dev-libs/boost:=[threads]
 "
 DEPEND="${RDEPEND}
 	>=dev-util/mdds-0.12.0:=

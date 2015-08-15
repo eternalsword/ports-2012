@@ -10,7 +10,7 @@ HOMEPAGE="http://www.amd.com"
 RUN="${WORKDIR}/fglrx-14.501.1003/amd-driver-installer-14.501.1003-x86.x86_64.run"
 SLOT="1"
 INSTALLER="amd-catalyst-omega-14.12-linux-run-installers.zip"
-DRIVERS_URI="http://build.funtoo.org/distfiles/$INSTALLER"
+DRIVERS_URI="mirror://funtoo/$INSTALLER"
 XVBA_SDK_URI="http://developer.amd.com/wordpress/media/2012/10/xvba-sdk-0.74-404001.tar.gz"
 GLES_SDK_URI="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/gles_sdk.zip"
 SRC_URI="${DRIVERS_URI} ${XVBA_SDK_URI} ${GLES_SDK_URI}"
@@ -36,21 +36,13 @@ RDEPEND="
 	x11-libs/libXrender
 	virtual/glu
 	abi_x86_32? (
-			|| (
 				virtual/glu[abi_x86_32]
-				app-emulation/emul-linux-x86-opengl
-			)
-			|| (
-				(
-					x11-libs/libX11[abi_x86_32]
-					x11-libs/libXext[abi_x86_32]
-					x11-libs/libXinerama[abi_x86_32]
-					x11-libs/libXrandr[abi_x86_32]
-					x11-libs/libXrender[abi_x86_32]
+				x11-libs/libX11[abi_x86_32]
+				x11-libs/libXext[abi_x86_32]
+				x11-libs/libXinerama[abi_x86_32]
+				x11-libs/libXrandr[abi_x86_32]
+				x11-libs/libXrender[abi_x86_32]
 				)
-				app-emulation/emul-linux-x86-xlibs
-			)
-	)
 	qt4? (
 			x11-libs/libICE
 			x11-libs/libSM
@@ -159,7 +151,7 @@ QA_DT_HASH="
 	usr/lib\(32\|64\)\?/OpenCL/vendors/amd/libOpenCL.so.1
 "
 
-pkg_pretend() {
+pre_src_compile() {
 	local CONFIG_CHECK="~MTRR ~!DRM ACPI PCI_MSI !LOCKDEP !PAX_KERNEXEC_PLUGIN_METHOD_OR"
 	use amd64 && CONFIG_CHECK+=" COMPAT"
 

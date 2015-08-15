@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/archive-tar-minitar/archive-tar-minitar-0.5.4-r1.ebuild,v 1.11 2015/03/26 14:01:35 ago Exp $
+# $Id$
 
 EAPI=5
 USE_RUBY="ruby19 ruby20"
@@ -31,7 +31,7 @@ RUBY_PATCHES=(
 
 all_ruby_prepare() {
 	# ignore faulty metadata
-	rm ../metadata || die
+	rm -f ../metadata || die
 
 	# Fix tests by using ruby19+ compatible code.
 	# Avoid failing tests.

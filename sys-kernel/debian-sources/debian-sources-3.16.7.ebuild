@@ -5,10 +5,10 @@ EAPI=5
 inherit check-reqs eutils mount-boot
 
 SLOT=$PVR
-CKV=3.16.7-ckt7
+CKV=3.16.7-ckt11
 KV_FULL=${PN}-${PVR}
-EXTRAVERSION=-ckt7-1
-KERNEL_ARCHIVE="linux_${PV}-ckt7.orig.tar.xz"
+EXTRAVERSION=-ckt11-1
+KERNEL_ARCHIVE="linux_${PV}-ckt11.orig.tar.xz"
 PATCH_ARCHIVE="linux_${PV}${EXTRAVERSION}.debian.tar.xz"
 RESTRICT="binchecks strip mirror"
 # based on : http://packages.ubuntu.com/maverick/linux-image-2.6.35-22-server
@@ -18,7 +18,7 @@ IUSE="binary rt"
 DEPEND="binary? ( >=sys-kernel/genkernel-3.4.40.7 )"
 DESCRIPTION="Debian Sources (and optional binary kernel)"
 HOMEPAGE="http://www.debian.org"
-SRC_URI="http://build.funtoo.org/distfiles/${KERNEL_ARCHIVE} http://build.funtoo.org/distfiles/${PATCH_ARCHIVE}"
+SRC_URI="mirror://funtoo/${KERNEL_ARCHIVE} mirror://funtoo/${PATCH_ARCHIVE}"
 S="$WORKDIR/linux-${CKV}"
 
 get_patch_list() {
@@ -146,7 +146,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	if use binary && [[ -h "${ROOT}"usr/src/linux ]]; then 
+	if use binary && [[ -h "${ROOT}"usr/src/linux ]]; then
 		rm "${ROOT}"usr/src/linux
 	fi
 

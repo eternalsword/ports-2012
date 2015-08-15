@@ -9,4 +9,4 @@ RDEPEND=app-i18n/librime
 SLOT=0
 SRC_URI=http://rimeime.googlecode.com/files/brise-0.32.tar.gz
 _eclasses_=vcs-snapshot	44b6b8243ccf493ad3259e80815454ef
-_md5_=4bbdbc3a0e82a458b0c37f0f5fd89e2c
+_md5_=cafcf0cdfc35023a64f65da0639beaf2

@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/selinux-policy-2.eclass,v 1.31 2015/04/04 17:11:35 perfinion Exp $
+# $Id$
 
 # Eclass for installing SELinux policy, and optionally
 # reloading the reference-policy based modules.
@@ -63,7 +63,7 @@
 # using a single variable, rather than having to set the packagename_LIVE_REPO
 # variable for each and every SELinux policy module package they want to install.
 # The default value is Gentoo's hardened-refpolicy repository.
-: ${SELINUX_GIT_REPO:="git://git.overlays.gentoo.org/proj/hardened-refpolicy.git https://git.overlays.gentoo.org/gitroot/proj/hardened-refpolicy.git"};
+: ${SELINUX_GIT_REPO:="git://anongit.gentoo.org/proj/hardened-refpolicy.git https://anongit.gentoo.org/git/proj/hardened-refpolicy.git"};
 
 # @ECLASS-VARIABLE: SELINUX_GIT_BRANCH
 # @DESCRIPTION:
@@ -76,10 +76,10 @@
 
 extra_eclass=""
 case ${BASEPOL} in
-	9999)	extra_eclass="git-2";
+	9999)	extra_eclass="git-r3";
 			EGIT_REPO_URI="${SELINUX_GIT_REPO}";
 			EGIT_BRANCH="${SELINUX_GIT_BRANCH}";
-			EGIT_SOURCEDIR="${WORKDIR}/refpolicy";;
+			EGIT_CHECKOUT_DIR="${WORKDIR}/refpolicy";;
 esac
 
 inherit eutils ${extra_eclass}
@@ -122,7 +122,7 @@ case "${EAPI:-0}" in
 	*) : ;;
 esac
 
-EXPORT_FUNCTIONS "src_unpack src_prepare src_compile src_install pkg_postinst pkg_postrm"
+EXPORT_FUNCTIONS src_unpack src_prepare src_compile src_install pkg_postinst pkg_postrm
 
 # @FUNCTION: selinux-policy-2_src_unpack
 # @DESCRIPTION:
@@ -132,7 +132,7 @@ selinux-policy-2_src_unpack() {
 	then
 		unpack ${A}
 	else
-		git-2_src_unpack
+		git-r3_src_unpack
 	fi
 }
 

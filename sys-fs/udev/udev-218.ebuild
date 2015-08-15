@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/udev/udev-218.ebuild,v 1.1 2014/12/17 17:17:42 williamh Exp $
+# $Id$
 
 EAPI=5
 
@@ -63,7 +63,8 @@ if [[ ${PV} = 9999* ]]; then
 fi
 RDEPEND="${COMMON_DEPEND}
 	!<sys-fs/lvm2-2.02.103
-	!<sec-policy/selinux-base-2.20120725-r10"
+	!<sec-policy/selinux-base-2.20120725-r10
+	gudev? ( !dev-libs/libgudev )"
 PDEPEND=">=sys-apps/hwids-20140304[udev]
 	>=sys-fs/udev-init-scripts-26"
 
@@ -204,6 +205,12 @@ multilib_src_configure() {
 		--with-rootprefix=
 		$(multilib_is_native_abi && echo "--with-rootlibdir=/$(get_libdir)")
 	)
+
+	if ! multilib_is_native_abi; then
+		econf_args+=(
+			MOUNT_{CFLAGS,LIBS}=' '
+		)
+	fi
 
 	# Use pregenerated copies when possible wrt #480924
 	[[ ${PV} = 9999* ]] || econf_args+=( --disable-manpages )

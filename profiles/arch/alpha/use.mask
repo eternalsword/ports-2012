@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation.
 # Distributed under the terms of the GNU General Public License, v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/arch/alpha/use.mask,v 1.93 2015/02/01 14:20:53 yngwin Exp $
+# $Id$
 
 # Unmask the flag which corresponds to ARCH.
 -alpha
@@ -73,6 +73,7 @@ emf
 mono
 ocamlopt
 webm
+openexr
 
 # Stuff we don't want
 afs
@@ -169,11 +170,6 @@ mpd
 
 # USE=d seems to break gcc-4.1.2 (#178896)
 d
-
-# USE=audit masked prior to testing on alpha, arm, hppa, ppc64, s390, sh.
-# Bug #184563, 18 Sep 2007
-# Robin H. Johnson <robbat2@gentoo.org>
-audit
 
 # This works
 -x264

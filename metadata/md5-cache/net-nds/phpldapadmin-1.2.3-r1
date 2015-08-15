@@ -9,5 +9,5 @@ LICENSE=GPL-2
 RDEPEND=dev-lang/php[hash,ldap,session,xml,nls] || ( <dev-lang/php-5.3[pcre] >=dev-lang/php-5.3 ) virtual/httpd-php >=app-admin/webapp-config-1.50.15
 SLOT=1.2.3-r1
 SRC_URI=mirror://sourceforge/phpldapadmin/phpldapadmin-1.2.3.tgz
-_eclasses_=depend.php	df169a364e191b840b695604097e3c21	eutils	9fb270e417e0e83d64ca52586c4a79de	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	phpconfutils	e108303831029e5b8a9d24b991b1d62a	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92	webapp	25b9b1696f5e698711f47d45c3d45e3e
-_md5_=e0a55ddf82d1c949361b2454765710a2
+_eclasses_=depend.php	c595f1a83ba4052bfe96c06daee20004	eutils	351a78113be5b393c09a2c948701ad36	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	webapp	2442891c368d310c1d3fe77d9c77fe5b
+_md5_=e68c5c41e06716f1a5f7c9fc8abb11e4

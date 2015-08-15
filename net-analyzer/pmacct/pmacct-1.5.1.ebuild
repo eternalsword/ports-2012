@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-analyzer/pmacct/pmacct-1.5.1.ebuild,v 1.1 2015/03/04 23:46:45 jer Exp $
+# $Id$
 
 EAPI=5
 inherit toolchain-funcs
@@ -11,7 +11,7 @@ SRC_URI="http://www.pmacct.net/${P/_}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="amd64 ppc x86"
 IUSE="64bit debug geoip ipv6 mongodb mysql postgres sqlite threads ulog"
 
 RDEPEND="
@@ -51,6 +51,8 @@ src_configure() {
 		$(use_enable sqlite sqlite3) \
 		$(use_enable threads) \
 		$(use_enable ulog) \
+		$(usex mysql "--with-mysql-includes=$(mysql_config --variable=pkgincludedir)" '') \
+		$(usex mysql "--with-mysql-libs=$(mysql_config --variable=pkglibdir)" '') \
 		--disable-debug
 }
 

@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-cpp/websocketpp/websocketpp-0.5.0.ebuild,v 1.1 2015/02/17 20:09:11 johu Exp $
+# $Id$
 
 EAPI=5
 
@@ -15,7 +15,7 @@ LICENSE="BSD"
 SLOT="0"
 IUSE="boost test"
 
-DEPEMD=""
+DEPEND=""
 RDEPEND="${DEPEND}
 	boost? ( dev-libs/boost )
 "

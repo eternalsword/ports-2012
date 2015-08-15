@@ -1,43 +1,58 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
-EAPI="5"
+EAPI=5
+inherit eutils git-r3
 
-inherit git-r3
-
-EGIT_REPO_URI="https://github.com/xorg62/wmfs.git"
-EGIT_BRANCH="wmfs1"
-
-DESCRIPTION="Windows Manager From Scratch"
-HOMEPAGE="http://wmfs.info"
+DESCRIPTION="Window Manager From Scratch, A tiling window manager highly configurable"
+HOMEPAGE="https://github.com/xorg62/wmfs"
+EGIT_REPO_URI="${HOMEPAGE}"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE="imlib2 xinerama xrandr"
+IUSE="+imlib2 +xinerama"
 
-RDEPEND="!x11-wm/wmfs2
-	x11-libs/libSM
+RDEPEND="
+	media-libs/freetype
+	media-libs/imlib2[X]
 	x11-libs/libX11
 	x11-libs/libXft
-	imlib2? ( media-libs/imlib2 )
-	xinerama? ( x11-libs/libXinerama )
-	xrandr? ( x11-libs/libXrandr )"
-
-DEPEND="${RDEPEND}"
+	x11-libs/libXinerama
+	x11-libs/libXrandr
+"
+DEPEND="
+	${RDEPEND}
+	virtual/pkgconfig
+	x11-proto/randrproto
+	x11-proto/xineramaproto
+	x11-proto/xproto
+"
 
 src_prepare() {
-	sed -e "s;PREFIX=/usr/local;PREFIX=/usr;g" \
-		-i "${S}/configure" || die
+	epatch \
+		"${FILESDIR}"/${PN}-99999999-desktop.patch
 
-	sed -e 's;MANPREFIX="$PREFIX/man";MANPREFIX=/usr/share/man;g' \
-		-i "${S}/configure" || die
-
-	sed -e 's;XDG_CONFIG_DIR="$PREFIX/etc/xdg";XDG_CONFIG_DIR=/etc/xdg;g' \
-		-i "${S}/configure" || die
+	sed -i -e '/^which dpkg/s|.*|false|g' configure || die
 }
 
 src_configure() {
-	econf $(use_with imlib2) \
-		$(use_with xinerama) \
-		$(use_with xrandr)
+	# not autotools based
+	local ECHO
+	for ECHO in echo ''; do
+		${ECHO} sh configure \
+			$(usex xinerama '' --without-xinerama) \
+			$(usex imlib2 '' --without-imlib2) \
+			--prefix /usr \
+			--man-prefix /usr/share/man \
+			--xdg-config-dir /etc/xdg \
+			|| die
+	done
+}
+
+src_install() {
+	default
+	rm -r "${D}"/usr/share/${PN}
+	dodoc README
 }

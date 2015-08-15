@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-apps/otrs/otrs-3.2.8.ebuild,v 1.1 2013/06/25 07:27:22 patrick Exp $
+# $Id$
 
 EAPI=2
 
@@ -58,7 +58,7 @@ RDEPEND="${DEPEND}
 	dev-perl/XML-Parser
 
 	virtual/perl-MIME-Base64
-	>=virtual/perl-CGI-3.33
+	>=dev-perl/CGI-3.33
 	virtual/perl-libnet
 	virtual/perl-Digest-MD5
 	>=virtual/perl-Digest-SHA-5.48

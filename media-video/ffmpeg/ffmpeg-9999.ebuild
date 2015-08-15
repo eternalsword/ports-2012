@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/ffmpeg/ffmpeg-9999.ebuild,v 1.188 2015/03/17 08:15:35 aballier Exp $
+# $Id$
 
 EAPI="5"
 
@@ -90,8 +90,9 @@ FFMPEG_FLAG_MAP=(
 # Same as above but for encoders, i.e. they do something only with USE=encode.
 FFMPEG_ENCODER_FLAG_MAP=(
 	aac:libvo-aacenc amrenc:libvo-amrwbenc mp3:libmp3lame
-	aacplus:libaacplus faac:libfaac theora:libtheora twolame:libtwolame
-	wavpack:libwavpack webp:libwebp x264:libx264 x265:libx265 xvid:libxvid
+	aacplus:libaacplus faac:libfaac snappy:libsnappy theora:libtheora
+	twolame:libtwolame wavpack:libwavpack webp:libwebp x264:libx264 x265:libx265
+	xvid:libxvid
 )
 
 IUSE="
@@ -164,6 +165,7 @@ RDEPEND="
 		amrenc? ( >=media-libs/vo-amrwbenc-0.1.2-r1[${MULTILIB_USEDEP}] )
 		faac? ( >=media-libs/faac-1.28-r3[${MULTILIB_USEDEP}] )
 		mp3? ( >=media-sound/lame-3.99.5-r1[${MULTILIB_USEDEP}] )
+		snappy? ( >=app-arch/snappy-1.1.2-r1[${MULTILIB_USEDEP}] )
 		theora? (
 			>=media-libs/libtheora-1.1.1[encode,${MULTILIB_USEDEP}]
 			>=media-libs/libogg-1.3.0[${MULTILIB_USEDEP}]
@@ -172,7 +174,7 @@ RDEPEND="
 		wavpack? ( >=media-sound/wavpack-4.60.1-r1[${MULTILIB_USEDEP}] )
 		webp? ( >=media-libs/libwebp-0.3.0[${MULTILIB_USEDEP}] )
 		x264? ( >=media-libs/x264-0.0.20130506:=[${MULTILIB_USEDEP}] )
-		x265? ( >=media-libs/x265-1.2:=[${MULTILIB_USEDEP}] )
+		x265? ( >=media-libs/x265-1.6:=[${MULTILIB_USEDEP}] )
 		xvid? ( >=media-libs/xvid-1.3.2-r1[${MULTILIB_USEDEP}] )
 	)
 	fdk? ( >=media-libs/fdk-aac-0.1.3:=[${MULTILIB_USEDEP}] )
@@ -403,9 +405,7 @@ multilib_src_configure() {
 		--cc="$(tc-getCC)" \
 		--cxx="$(tc-getCXX)" \
 		--ar="$(tc-getAR)" \
-		--optflags="${CFLAGS}" \
-		--extra-cflags="${CFLAGS}" \
-		--extra-cxxflags="${CXXFLAGS}" \
+		--optflags=" " \
 		$(use_enable static-libs static) \
 		"${myconf[@]}"
 	echo "${@}"

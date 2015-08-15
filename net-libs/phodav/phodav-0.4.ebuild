@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/phodav/phodav-0.4.ebuild,v 1.7 2015/03/22 15:17:06 nativemad Exp $
+# $Id$
 
 EAPI=5
 
@@ -13,11 +13,12 @@ DESCRIPTION="WebDav server implementation using libsoup"
 HOMEPAGE="https://wiki.gnome.org/phodav"
 
 LICENSE="LGPL-2.1+"
-SLOT="0"
-KEYWORDS="~alpha amd64 arm ~ppc ~ppc64 ~x86"
+SLOT="1.0"
+KEYWORDS="alpha amd64 arm ppc ppc64 x86"
 IUSE="avahi spice systemd"
 
-RDEPEND="dev-libs/glib
+RDEPEND="
+	dev-libs/glib:2
 	net-libs/libsoup:2.4
 	dev-libs/libxml2
 	avahi? ( net-dns/avahi )"

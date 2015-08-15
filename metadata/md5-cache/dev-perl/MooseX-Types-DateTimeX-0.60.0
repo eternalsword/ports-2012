@@ -1,5 +1,5 @@
 DEFINED_PHASES=compile configure install prepare test unpack
-DEPEND=dev-perl/Moose >=dev-perl/MooseX-Types-0.04 >=dev-perl/namespace-clean-0.08 >=dev-perl/Time-Duration-Parse-0.06 >=dev-perl/MooseX-Types-DateTime-ButMaintained-0.04 >=dev-perl/DateTimeX-Easy-0.085 test? ( >=dev-perl/Test-use-ok-0.02 >=dev-perl/Test-Exception-0.27 ) dev-lang/perl:=[-build(-)]
+DEPEND=dev-perl/Moose >=dev-perl/MooseX-Types-0.04 >=dev-perl/namespace-clean-0.08 >=dev-perl/Time-Duration-Parse-0.06 >=dev-perl/MooseX-Types-DateTime-ButMaintained-0.04 >=dev-perl/DateTimeX-Easy-0.085 test? ( || ( >=virtual/perl-Test-Simple-1.1.10 >=dev-perl/Test-use-ok-0.02 ) >=dev-perl/Test-Exception-0.27 ) dev-lang/perl:=[-build(-)]
 DESCRIPTION=DateTime related constraints and coercions for Moose
 EAPI=5
 HOMEPAGE=http://search.cpan.org/dist/MooseX-Types-DateTimeX/
@@ -9,5 +9,5 @@ LICENSE=|| ( Artistic GPL-1+ )
 RDEPEND=dev-perl/Moose >=dev-perl/MooseX-Types-0.04 >=dev-perl/namespace-clean-0.08 >=dev-perl/Time-Duration-Parse-0.06 >=dev-perl/MooseX-Types-DateTime-ButMaintained-0.04 >=dev-perl/DateTimeX-Easy-0.085 dev-lang/perl:=[-build(-)]
 SLOT=0
 SRC_URI=mirror://cpan/authors/id/E/EC/ECARROLL/MooseX-Types-DateTimeX-0.06.tar.gz
-_eclasses_=eutils	9fb270e417e0e83d64ca52586c4a79de	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	multiprocessing	d7f2985a2c76c365ee20269db5261414	perl-module	84facbe8709eb9211eb49df229eb5219	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92	unpacker	f300a7ca9131b1024a79762e8edd3c52
-_md5_=1ccab15e48bd4b2d0a82fa9d467dc352
+_eclasses_=eutils	351a78113be5b393c09a2c948701ad36	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	multiprocessing	d769539d9bace6eaca30af23bc2b4dde	perl-module	b37d70740b27d7c9cdde04679a6b2ba7	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	unpacker	1ca344bd9b922a7f8084a3fa02933b79
+_md5_=1933f9fd5a16b82380a532d25fd7b6d2

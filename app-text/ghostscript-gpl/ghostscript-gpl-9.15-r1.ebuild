@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-text/ghostscript-gpl/ghostscript-gpl-9.15-r1.ebuild,v 1.3 2015/03/22 07:18:33 ulm Exp $
+# $Id$
 
 EAPI=5
 
@@ -19,7 +19,7 @@ SRC_URI="
 
 LICENSE="AGPL-3 CPL-1.0"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
 IUSE="cups dbus djvu gtk idn linguas_de static-libs X"
 RESTRICT="djvu? ( bindist )"
 
@@ -176,15 +176,15 @@ src_configure() {
 }
 
 src_compile() {
-
-	emake so all
+	# -j1 needed because of bug #550926
+	emake -j1 so all
 
 	cd "${S}/ijs"
 	emake
 }
 
 src_install() {
-	emake DESTDIR="${D}" install-so install
+	emake -j1 DESTDIR="${D}" install-so install
 
 	if use djvu ; then
 		dobin gsdjvu
@@ -195,7 +195,7 @@ src_install() {
 	mv -f "${D}/usr/bin/gsc" "${D}/usr/bin/gs" || die
 
 	cd "${S}/ijs"
-	emake DESTDIR="${D}" install
+	emake -j1 DESTDIR="${D}" install
 
 	# rename the original cidfmap to cidfmap.GS
 	mv "${D}/usr/share/ghostscript/${PVM}/Resource/Init/cidfmap"{,.GS} || die

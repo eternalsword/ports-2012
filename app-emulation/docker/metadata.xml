@@ -17,10 +17,17 @@
 		<email>xarthisius@gentoo.org</email>
 		<name>Kacper Kowalik</name>
 	</maintainer>
+	<maintainer>
+		<email>alunduil@gentoo.org</email>
+		<name>Alex Brandt</name>
+	</maintainer>
 	<use>
 		<flag name="aufs">
 			Enables dependencies for the "aufs" graph driver, including
 			necessary kernel flags.
+		</flag>
+		<flag name="apparmor">
+			Enable AppArmor support.
 		</flag>
 		<flag name="btrfs">
 			Enables dependencies for the "btrfs" graph driver, including
@@ -33,6 +40,10 @@
 			Enables dependencies for the "devicemapper" graph driver, including
 			necessary kernel flags.
 		</flag>
+		<flag name="experimental">
+			Enable features labelled by upstream to be of "experimental"
+			quality and not yet ready for general consumption.
+		</flag>
 		<flag name="overlay">
 			Enables dependencies for the "overlay" graph driver, including
 			necessary kernel flags.
@@ -41,4 +52,7 @@
 			Enables dependencies for the "lxc" execution driver.
 		</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">docker/docker</remote-id>
+	</upstream>
 </pkgmetadata>

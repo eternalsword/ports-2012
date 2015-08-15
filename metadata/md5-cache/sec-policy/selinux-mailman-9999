@@ -1,10 +1,10 @@
 DEFINED_PHASES=compile install postinst postrm prepare unpack
-DEPEND=dev-vcs/git >=sys-apps/policycoreutils-2.0.82 >=sec-policy/selinux-base-policy-9999 sys-devel/m4 >=sys-apps/checkpolicy-2.0.21
+DEPEND=>=dev-vcs/git-1.8.2.1 >=sys-apps/policycoreutils-2.0.82 >=sec-policy/selinux-base-policy-9999 sys-devel/m4 >=sys-apps/checkpolicy-2.0.21
 DESCRIPTION=SELinux policy for mailman
 EAPI=5
 HOMEPAGE=https://wiki.gentoo.org/wiki/Project:SELinux
 LICENSE=GPL-2
 RDEPEND=>=sys-apps/policycoreutils-2.0.82 >=sec-policy/selinux-base-policy-9999
 SLOT=0
-_eclasses_=eutils	9fb270e417e0e83d64ca52586c4a79de	git-2	e28f0d8a9b321431b1e699782851b827	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	selinux-policy-2	a6753968a2a6567cd31154d6428719c7	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92
-_md5_=f92ca167069f85c3c92188707a08b192
+_eclasses_=eutils	351a78113be5b393c09a2c948701ad36	git-r3	d112773018bfed1c4d9e30848045c51c	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	selinux-policy-2	beb92ccd0cd9505f4b0151a601885ba6	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361
+_md5_=ffc71a1f13af5c4664f62c13d09d596b

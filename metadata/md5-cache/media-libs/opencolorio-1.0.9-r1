@@ -4,12 +4,12 @@ DESCRIPTION=A color management framework for visual effects and animation
 EAPI=5
 HOMEPAGE=http://opencolorio.org/
 IUSE=doc opengl pdf python cpu_flags_x86_sse2 test python_targets_python2_7
-KEYWORDS=~amd64 ~x86
+KEYWORDS=amd64 x86
 LICENSE=BSD
 RDEPEND=opengl? ( media-libs/lcms:2 >=media-libs/openimageio-1.1.0 media-libs/glew media-libs/freeglut virtual/opengl ) python? ( >=dev-lang/python-2.7.5-r2:2.7 >=dev-lang/python-exec-2:=[python_targets_python2_7(-)?,-python_single_target_jython2_5(-),-python_single_target_jython2_7(-),-python_single_target_pypy(-),-python_single_target_pypy3(-),-python_single_target_python3_3(-),-python_single_target_python3_4(-),python_single_target_python2_7(+)] ) >=dev-cpp/yaml-cpp-0.5 dev-libs/tinyxml
 REQUIRED_USE=doc? ( python )
 RESTRICT=test
 SLOT=0
 SRC_URI=https://github.com/imageworks/OpenColorIO/archive/v1.0.9.tar.gz -> opencolorio-1.0.9.tar.gz http://dev.gentoo.org/~pinkbyte/distfiles/patches/opencolorio-1.0.9-yaml-0.5-compat.patch.bz2
-_eclasses_=cmake-utils	01f9e06341e2a4616ea41cfc9d65536a	eutils	9fb270e417e0e83d64ca52586c4a79de	flag-o-matic	c263990f1b677b0f0be0a3299f179762	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python-single-r1	7a178335dbd6ea7f50ed4e3e1c13c1e4	python-utils-r1	096f8247eae93026af13ab88cf4305cd	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92	vcs-snapshot	44b6b8243ccf493ad3259e80815454ef
-_md5_=dfa9c6bfdbe07560f06d68e2880d6d66
+_eclasses_=cmake-utils	01f9e06341e2a4616ea41cfc9d65536a	eutils	351a78113be5b393c09a2c948701ad36	flag-o-matic	02090c5a622458303e6bf68837ac6b96	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	python-single-r1	626346d3c54afb66571061bbd4c53f25	python-utils-r1	c595450196ccd7d3fac66424be096ffc	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	vcs-snapshot	44b6b8243ccf493ad3259e80815454ef
+_md5_=247cd28c368c10fb0d641b6995d1aa4a

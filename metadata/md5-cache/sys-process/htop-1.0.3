@@ -1,5 +1,5 @@
 DEFINED_PHASES=compile configure install prepare setup test
-DEPEND=sys-libs/ncurses[unicode?] virtual/pkgconfig !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.13:1.13 >=sys-devel/automake-1.15:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
+DEPEND=sys-libs/ncurses[unicode?] || ( >=dev-lang/python-2.7.5-r2:2.7 ) virtual/pkgconfig !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.15:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
 DESCRIPTION=interactive process viewer
 EAPI=5
 HOMEPAGE=http://hisham.hm/htop/
@@ -9,5 +9,5 @@ LICENSE=BSD GPL-2
 RDEPEND=sys-libs/ncurses[unicode?]
 SLOT=0
 SRC_URI=http://hisham.hm/htop/releases/1.0.3/htop-1.0.3.tar.gz
-_eclasses_=autotools	999c8f6cf5d91495cb0779588f20716c	autotools-utils	6f381431305797b69527d7fba3b6495f	eutils	9fb270e417e0e83d64ca52586c4a79de	libtool	52d0e17251d04645ffaa61bfdd858944	linux-info	2b8c53f6065bdee2d757472215a3088f	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python-any-r1	da352ea9da8eb9bf158d56cca65d6c82	python-utils-r1	096f8247eae93026af13ab88cf4305cd	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92	versionator	cd0bcdb170807e4a1984115e9d53a26f
-_md5_=a95056532f8f2b05f012e340af57ed30
+_eclasses_=autotools	8056957fdccf2b3cd6e282a4b4551d1a	autotools-utils	106d29d66151588cad8ee4f31122cffb	eutils	351a78113be5b393c09a2c948701ad36	libtool	7f78cd7d403808a350c9ae23f5821fb4	linux-info	8f92e5ac1a1da684c5450b1b21a1f56a	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	python-any-r1	fdd97a8376ac7d4e15c8e254b06915fd	python-utils-r1	c595450196ccd7d3fac66424be096ffc	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=45dcedfd4036de6b6145cecde99bc980

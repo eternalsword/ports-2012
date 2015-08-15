@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/django-haystack/django-haystack-2.3.1.ebuild,v 1.1 2015/04/08 07:37:50 jlec Exp $
+# $Id$
 
 EAPI=5
 
@@ -31,6 +31,7 @@ DEPEND="${RDEPEND}
 		dev-python/python-dateutil[${PYTHON_USEDEP}]
 		dev-python/whoosh[${PYTHON_USEDEP}]
 	)
+	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
 	"
 
 RESTRICT="test"

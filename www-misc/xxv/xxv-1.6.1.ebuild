@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-misc/xxv/xxv-1.6.1.ebuild,v 1.9 2015/03/01 13:29:06 hd_brummy Exp $
+# $Id$
 
 EAPI="5"
 
@@ -22,7 +22,7 @@ RDEPEND=">=media-video/vdr-1.2.6
 	media-video/vdr2jpeg
 	media-fonts/corefonts
 	virtual/mysql
-	virtual/perl-CGI
+	dev-perl/CGI
 	virtual/perl-Digest-MD5
 	virtual/perl-Getopt-Long
 	virtual/perl-MIME-Base64

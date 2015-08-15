@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/arch/amd64/no-multilib/package.mask,v 1.141 2015/04/19 01:36:16 creffett Exp $
+# $Id$
 
 # AMD64 Team <amd64@gentoo.org>
 # Mask packages that rely on amd64 multilib
@@ -17,23 +17,7 @@ app-emulation/q4wine
 app-emulation/vmware-player
 >=app-i18n/atokx3-3.0.0
 app-office/ooextras
-app-emulation/emul-linux-x86-baselibs
-app-emulation/emul-linux-x86-cpplibs
-app-emulation/emul-linux-x86-db
-app-emulation/emul-linux-x86-gstplugins
-app-emulation/emul-linux-x86-gtklibs
-app-emulation/emul-linux-x86-gtkmmlibs
-app-emulation/emul-linux-x86-jna
-app-emulation/emul-linux-x86-medialibs
-app-emulation/emul-linux-x86-motif
-app-emulation/emul-linux-x86-opengl
-app-emulation/emul-linux-x86-qtlibs
-app-emulation/emul-linux-x86-sdl
-app-emulation/emul-linux-x86-soundlibs
-app-emulation/emul-linux-x86-xlibs
-app-emulation/emul-linux-x86-java
 app-emulation/winetricks
-app-emulation/wine-doors
 app-text/acroread
 app-office/lotus-notes
 dev-embedded/libftd2xx
@@ -127,7 +111,6 @@ games-rpg/nwn-data
 games-rpg/nwn-penultima
 games-rpg/nwn-penultimarerolled
 games-rpg/nwn-shadowlordsdreamcatcherdemon
-games-rpg/rain-slick
 games-rpg/sacred-gold
 games-server/etqw-ded
 games-server/nwn-ded

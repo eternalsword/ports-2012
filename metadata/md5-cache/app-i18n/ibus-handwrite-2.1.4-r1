@@ -4,11 +4,11 @@ DESCRIPTION=hand write recognition/input using ibus IM engine
 EAPI=5
 HOMEPAGE=http://code.google.com/p/ibus-handwrite/
 IUSE=nls +zinnia python_targets_python2_7
-KEYWORDS=~amd64 ~x86
+KEYWORDS=amd64 x86
 LICENSE=GPL-3
 RDEPEND=zinnia? ( app-i18n/zinnia app-i18n/zinnia-tomoe ) >=app-i18n/ibus-1.3.0 >=x11-libs/gtk+-2.10 x11-libs/gtkglext
 REQUIRED_USE=python_targets_python2_7
 SLOT=0
 SRC_URI=http://ibus-handwrite.googlecode.com/files/ibus-handwrite-2.1.4.tar.bz2
-_eclasses_=autotools	999c8f6cf5d91495cb0779588f20716c	autotools-utils	6f381431305797b69527d7fba3b6495f	eutils	9fb270e417e0e83d64ca52586c4a79de	libtool	52d0e17251d04645ffaa61bfdd858944	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python-single-r1	7a178335dbd6ea7f50ed4e3e1c13c1e4	python-utils-r1	096f8247eae93026af13ab88cf4305cd	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92
-_md5_=20c6c590b3f1a3072be3b6a98567e7b5
+_eclasses_=autotools	8056957fdccf2b3cd6e282a4b4551d1a	autotools-utils	106d29d66151588cad8ee4f31122cffb	eutils	351a78113be5b393c09a2c948701ad36	libtool	7f78cd7d403808a350c9ae23f5821fb4	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	python-single-r1	626346d3c54afb66571061bbd4c53f25	python-utils-r1	c595450196ccd7d3fac66424be096ffc	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361
+_md5_=5be41f265771f0b4ea7f364427ef0e62

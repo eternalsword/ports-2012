@@ -1,12 +1,37 @@
-#FL-2265: mask gnutls-3.4. Broken ebuild
+# Precaution mask for newer ncurses-6.0 (needed tested). gentoo-x86 didn't set mask
+>=sys-libs/ncurses-6.0
+
+# FL-2704: mask very latet mongodb (and newer), until boost also unmasked.
+>dev-db/mongodb-3.0.4
+
+# FL-2678: mask xbmc. kodi is a new and working version.
+# Users with installed version and not planning to update xbmc need to put this entry to package.unmask
+media-tv/xbmc
+
+# FL-2641: mask damaged libcgroup ebuild.
+=dev-libs/libcgroup-0.41-r1
+
+# FL-2631: mask opencv-3.0, breaks certain packages:
+>media-libs/opencv-2.4.10
+
+
+# FL-2621: mask broken version of pstoedit (from last working)
+>media-gfx/pstoedit-3.62
+
+# FL-2600: rise mask for gnupg.
+>app-crypt/gnupg-2.0.28
+
+# mask sys-apps/makedev. This one collides with baselayout, makedev is part of baselayout.
+sys-apps/makedev
+
+#FL-2265: mask gnutls-3.410. Broken ebuild
 =net-libs/gnutls-3.4.0*
 
 #FL-2161: mask samba-4, until it's deps get better shape
 >net-fs/samba-3.6.25
 
 # FL-1703: these versions of crossdev is a forkbomb(s)
-=sys-devel/crossdev-20140917
-=sys-devel/crossdev-20141030
+>=sys-devel/crossdev-20140917
 
 # Mask the very latest layman, which using a a portage repository configs. Not yet in Funtoo.
 >app-portage/layman-2.2.0-r7
@@ -18,26 +43,12 @@
 # Cautionary mask dev-lang/swig-3.0.3, failures reported.
 >dev-lang/swig-3.0.2
 
-# Protect newest automake and autoconf
->sys-devel/automake-1.14.1
->sys-devel/autoconf-2.69
-
-
 # Protect against beta OpenRC
 >=sys-apps/openrc-0.12.5
 
 # mask latest nfs-utils, there is major change in netmount/nfsmount in latest openrc. nfs-utils using new scripts and has higher openrc dependency. This can be removed with openrc update
 
 >net-fs/nfs-utils-1.3.0-r1
-
-# FL-1884: mask oracle java-1.8, brings incompatibility:
-#>dev-java/oracle-jdk-bin-1.7.0.76
-#>dev-java/oracle-jre-bin-1.7.0.76
-#>virtual/jdk-1.7.0-r1
-#>virtual/jre-1.7.0-r1
-
-# FL-1880: mask handbrake, higher than 0.9.9
->media-video/handbrake-0.9.9-r1
 
 # FL-1855, mask usbutils-008, until we sort udev failure.
 
@@ -51,12 +62,6 @@
 #  Build against a version of gcc that does or use app-text/mcpdf instead
 # Ref FL-970, FL-1351 and FL-1424
 app-text/pdftk
-
-# Dantrell B. (2 Aug 2014)
-# Selectively mask versions of net-irc/hexchat
-# Ref FL-584 and FL-1435
-=net-irc/hexchat-2.10.0*
-=net-irc/hexchat-2.9.6*
 
 # Daniel Robbins (28 Jun 2014)
 # FL-738: can break building of multiple packages (erlang, nginx, glibc, possibly guile (FL-919)
@@ -102,11 +107,6 @@ dev-python/pyxml
 # mask sys-apps/man as part of a workaround to get
 # man-db to merge smoothly:
 sys-apps/man
-
-# Daniel Robbins <drobbins@funtoo.org> (28 Dec 2009)
-# Requested by slashbeast (Piotr Karbowski) in #funtoo due to /etc/cron.hourly
-# running up to 4 times per hour:
-=sys-process/cronbase-0.3.3*
 
 # Ryan Harris
 # Mask paludis and pkgcore. Not supported on funtoo at this time

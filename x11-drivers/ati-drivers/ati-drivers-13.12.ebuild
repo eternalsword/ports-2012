@@ -8,11 +8,11 @@ DESCRIPTION="Ati precompiled drivers for Radeon Evergreen (HD5000 Series) and ne
 HOMEPAGE="http://www.amd.com"
 RUN="${WORKDIR}/amd-catalyst-13.12-linux-x86.x86_64.run"
 SLOT="1"
-DRIVERS_URI="mirror://gentoo/amd-catalyst-13.12-linux-x86.x86_64.zip http://build.funtoo.org/distfiles/amd-catalyst-13.12-linux-x86.x86_64.zip"
+DRIVERS_URI="mirror://gentoo/amd-catalyst-13.12-linux-x86.x86_64.zip mirror://funtoo/amd-catalyst-13.12-linux-x86.x86_64.zip"
 XVBA_SDK_URI="http://developer.amd.com/wordpress/media/2012/10/xvba-sdk-0.74-404001.tar.gz"
 SRC_URI="${DRIVERS_URI} ${XVBA_SDK_URI}"
 FOLDER_PREFIX="common/"
-IUSE="+vaapi debug +modules multilib qt4 static-libs pax_kernel"
+IUSE="+vaapi debug +modules abi_x86_32 qt4 static-libs pax_kernel"
 
 LICENSE="AMD GPL-2 QPL-1.0"
 KEYWORDS="*"
@@ -33,19 +33,12 @@ RDEPEND="
 	x11-libs/libXrandr
 	x11-libs/libXrender
 	virtual/glu
-	multilib? (
-			app-emulation/emul-linux-x86-opengl
-			|| (
-				(
-					x11-libs/libX11[abi_x86_32]
+	abi_x86_32? (	x11-libs/libX11[abi_x86_32]
 					x11-libs/libXext[abi_x86_32]
 					x11-libs/libXinerama[abi_x86_32]
 					x11-libs/libXrandr[abi_x86_32]
 					x11-libs/libXrender[abi_x86_32]
 				)
-				app-emulation/emul-linux-x86-xlibs
-			)
-	)
 	qt4? (
 			x11-libs/libICE
 			x11-libs/libSM
@@ -149,7 +142,7 @@ QA_DT_HASH="
 	usr/lib\(32\|64\)\?/OpenCL/vendors/amd/libOpenCL.so.1
 "
 
-pkg_pretend() {
+pre_src_compile() {
 	local CONFIG_CHECK="~MTRR ~!DRM ACPI PCI_MSI !LOCKDEP !PAX_KERNEXEC_PLUGIN_METHOD_OR"
 	use amd64 && CONFIG_CHECK+=" COMPAT"
 

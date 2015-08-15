@@ -33,6 +33,7 @@
 #  * all_ruby_configure
 
 # @ECLASS-VARIABLE: USE_RUBY
+# @DEFAULT_UNSET
 # @REQUIRED
 # @DESCRIPTION:
 # This variable contains a space separated list of targets (see above) a package
@@ -71,7 +72,7 @@
 # (e.g. selenium's firefox driver extension). When set this argument is
 # passed to "grep -E" to remove reporting of these shared objects.
 
-inherit eutils java-utils-2 multilib toolchain-funcs
+inherit eutils java-utils-2 multilib toolchain-funcs ruby-utils
 
 EXPORT_FUNCTIONS src_unpack src_prepare src_configure src_compile src_test src_install pkg_setup
 
@@ -98,46 +99,7 @@ esac
 # Set `comparator' and `version' to include a comparator (=, >=, etc.) and a
 # version string to the returned string
 ruby_implementation_depend() {
-	local rubypn=
-	local rubyslot=
-
-	case $1 in
-		ruby18)
-			rubypn="dev-lang/ruby"
-			rubyslot=":1.8"
-			;;
-		ruby19)
-			rubypn="dev-lang/ruby"
-			rubyslot=":1.9"
-			;;
-		ruby20)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.0"
-			;;
-		ruby21)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.1"
-			;;
-		ruby22)
-			rubypn="dev-lang/ruby"
-			rubyslot=":2.2"
-			;;
-		ree18)
-			rubypn="dev-lang/ruby-enterprise"
-			rubyslot=":1.8"
-			;;
-		jruby)
-			rubypn="dev-java/jruby"
-			rubyslot=""
-			;;
-		rbx)
-			rubypn="dev-lang/rubinius"
-			rubyslot=""
-			;;
-		*) die "$1: unknown Ruby implementation"
-	esac
-
-	echo "$2${rubypn}$3${rubyslot}"
+	_ruby_implementation_depend $1
 }
 
 # @FUNCTION: ruby_samelib
@@ -339,7 +301,7 @@ _ruby_invoke_environment() {
 	old_S=${S}
 	case ${EAPI} in
 		4|4-python|5|5-progress)
-			if [ -z ${RUBY_S} ]; then
+			if [ -z "${RUBY_S}" ]; then
 				sub_S=${P}
 			else
 				sub_S=${RUBY_S}
@@ -353,7 +315,7 @@ _ruby_invoke_environment() {
 	# Special case, for the always-lovely GitHub fetches. With this,
 	# we allow the star glob to just expand to whatever directory it's
 	# called.
-	if [[ ${sub_S} = *"*"* ]]; then
+	if [[ "${sub_S}" = *"*"* ]]; then
 		case ${EAPI} in
 			2|3)
 				#The old method of setting S depends on undefined package
@@ -362,7 +324,7 @@ _ruby_invoke_environment() {
 				;;
 		esac
 		pushd "${WORKDIR}"/all &>/dev/null
-		sub_S=$(eval ls -d ${sub_S} 2>/dev/null)
+		sub_S=$(eval ls -d "${sub_S}" 2>/dev/null)
 		popd &>/dev/null
 	fi
 

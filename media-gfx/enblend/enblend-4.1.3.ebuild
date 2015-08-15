@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/enblend/enblend-4.1.3.ebuild,v 1.4 2014/12/20 16:28:53 maekke Exp $
+# $Id$
 
 EAPI=5
 
@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/enblend/${MY_P}.tar.gz"
 
 LICENSE="GPL-2 VIGRA"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ppc ~x86"
 IUSE="debug doc gpu image-cache openmp"
 
 REQUIRED_USE="openmp? ( !image-cache )"
@@ -26,23 +26,25 @@ RDEPEND="
 	>=media-libs/libpng-1.2.43:0=
 	>=media-libs/openexr-1.0:=
 	media-libs/plotutils[X]
-	media-libs/tiff
-	>=media-libs/vigra-1.8.0
+	media-libs/tiff:=
+	>=media-libs/vigra-1.8.0[openexr]
 	sci-libs/gsl
 	virtual/jpeg:0=
 	debug? ( dev-libs/dmalloc )
 	gpu? ( media-libs/freeglut )"
 DEPEND="${RDEPEND}
+	media-gfx/imagemagick
 	sys-apps/help2man
 	virtual/pkgconfig
 	doc? (
-		media-gfx/imagemagick
 		media-gfx/transfig
 		sci-visualization/gnuplot[gd]
 		virtual/latex-base
 	)"
 
 S="${WORKDIR}/${MY_P}"
+
+PATCHES=( "${FILESDIR}/${PN}-4.1.3-vigra_check.patch" )
 
 src_prepare() {
 	sed -i -e "/CXX_FLAGS/s:-O3::g" CMakeLists.txt || die

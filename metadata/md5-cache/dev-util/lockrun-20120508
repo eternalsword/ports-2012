@@ -5,5 +5,5 @@ HOMEPAGE=http://www.unixwiz.net/tools/lockrun.html
 KEYWORDS=amd64 hppa x86
 LICENSE=public-domain
 SLOT=0
-_eclasses_=multilib	3bf24e6abb9b76d9f6c20600f0b716bf	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92
-_md5_=0d4500b12c7e8834adc5e5d4ac19f0ec
+_eclasses_=multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361
+_md5_=7d024d5e610b857c08418daef7f27437

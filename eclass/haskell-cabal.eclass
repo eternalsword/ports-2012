@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/haskell-cabal.eclass,v 1.51 2015/04/04 20:33:05 slyfox Exp $
+# $Id$
 
 # @ECLASS: haskell-cabal.eclass
 # @MAINTAINER:
@@ -172,6 +172,8 @@ cabal-version() {
 cabal-bootstrap() {
 	local setupmodule
 	local cabalpackage
+	local setup_bootstrap_args=()
+
 	if [[ -f "${S}/Setup.lhs" ]]; then
 		setupmodule="${S}/Setup.lhs"
 	elif [[ -f "${S}/Setup.hs" ]]; then
@@ -192,8 +194,16 @@ cabal-bootstrap() {
 	cabalpackage=Cabal-$(cabal-version)
 	einfo "Using cabal-$(cabal-version)."
 
+	if $(ghc-supports-threaded-runtime); then
+		# Cabal has a bug that deadlocks non-threaded RTS:
+		#     https://bugs.gentoo.org/537500
+		#     https://github.com/haskell/cabal/issues/2398
+		setup_bootstrap_args+=(-threaded)
+	fi
+
 	make_setup() {
 		set -- -package "${cabalpackage}" --make "${setupmodule}" \
+			"${setup_bootstrap_args[@]}" \
 			${HCFLAGS} \
 			${GHC_BOOTSTRAP_FLAGS} \
 			"$@" \
@@ -311,7 +321,15 @@ cabal-configure() {
 	has "${EAPI:-0}" 0 1 2 && ! use prefix && EPREFIX=
 
 	if [[ -n "${CABAL_USE_HADDOCK}" ]] && use doc; then
-		cabalconf+=(--with-haddock=${EPREFIX}/usr/bin/haddock)
+		# We use the bundled with GHC version if exists
+		# Haddock is very picky about index files
+		# it generates for ghc's base and other packages.
+		local p=${EPREFIX}/usr/bin/haddock-ghc-$(ghc-version)
+		if [[ -f $p ]]; then
+			cabalconf+=(--with-haddock="${p}")
+		else
+			cabalconf+=(--with-haddock=${EPREFIX}/usr/bin/haddock)
+		fi
 	fi
 	if [[ -n "${CABAL_USE_PROFILE}" ]] && use profile; then
 		cabalconf+=(--enable-library-profiling)
@@ -469,12 +487,9 @@ cabal-pkg() {
 #     CABAL_CORE_LIB_GHC_PV="7.10.* PM:7.8.4-r1".
 cabal-is-dummy-lib() {
 	local bin_ghc_version=$(ghc-version)
-	local pm_ghc_p=$(best_version dev-lang/ghc)
-	local pm_ghc_version version
+	local pm_ghc_version=$(ghc-pm-version)
 
-	pm_ghc_version=PM:${pm_ghc_p#dev-lang/ghc-}
-
-	for version in ${CABAL_CORE_LIB_GHC_PV[*]}; do
+	for version in ${CABAL_CORE_LIB_GHC_PV}; do
 		[[ "${bin_ghc_version}" == ${version} ]] && return 0
 		[[ "${pm_ghc_version}"  == ${version} ]] && return 0
 	done

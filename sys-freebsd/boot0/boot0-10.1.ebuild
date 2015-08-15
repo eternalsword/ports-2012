@@ -1,8 +1,8 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-freebsd/boot0/boot0-10.1.ebuild,v 1.2 2015/03/15 18:18:23 mgorny Exp $
+# $Id$
 
-EAPI=3
+EAPI=5
 
 inherit bsdmk freebsd flag-o-matic toolchain-funcs
 
@@ -13,15 +13,17 @@ IUSE="bzip2 ieee1394 tftp zfs"
 
 if [[ ${PV} != *9999* ]]; then
 	KEYWORDS="~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
-	SRC_URI="http://dev.gentoo.org/~mgorny/dist/freebsd/${RV}/${SYS}.tar.xz
-		http://dev.gentoo.org/~mgorny/dist/freebsd/${RV}/${LIB}.tar.xz
-		http://dev.gentoo.org/~mgorny/dist/freebsd/${RV}/${CONTRIB}.tar.xz"
 fi
+
+EXTRACTONLY="
+	sys/
+	lib/
+	contrib/bzip2/
+"
 
 RDEPEND=""
 DEPEND="=sys-freebsd/freebsd-mk-defs-${RV}*
-	=sys-freebsd/freebsd-lib-${RV}*
-	!sparc-fbsd? ( sys-devel/clang )"
+	=sys-freebsd/freebsd-lib-${RV}*"
 
 S="${WORKDIR}/sys/boot"
 
@@ -42,7 +44,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	use sparc-fbsd || export CC=clang
 	sed -e '/-mno-align-long-strings/d' \
 		-i "${S}"/i386/boot2/Makefile \
 		-i "${S}"/i386/gptboot/Makefile \
@@ -59,9 +60,10 @@ src_compile() {
 		freebsd_src_compile
 		cd "${S}/userboot/zfs" || die
 		freebsd_src_compile
-		cd "${S}/libstand32" || die
-		freebsd_src_compile
 	fi
+
+	cd "${S}/libstand32" || die
+	freebsd_src_compile
 
 	# bug542676
 	if [[ $(tc-getCC) == *clang* ]]; then

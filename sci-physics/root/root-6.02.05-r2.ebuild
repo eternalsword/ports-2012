@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-6.02.05-r2.ebuild,v 1.3 2015/04/15 08:48:36 bircoph Exp $
+# $Id$
 
 EAPI=5
 
@@ -118,7 +118,7 @@ DOC_DIR="/usr/share/doc/${P}"
 OC_UNSUPPORTED="6.8.0"
 
 die_compiler() {
-	eerror "You are using a $(tc-getCXX) without C++$1 capabilities"
+	eerror "You are using a $(tc-getCXX)-$5 without C++$1 capabilities"
 	die "Need one of the following C++$1 capable compilers:\n"\
 		"    >=sys-devel/gcc[cxx]-$2\n"\
 		"    >=sys-devel/clang-$3\n"\
@@ -131,23 +131,26 @@ die_compiler() {
 # $3 - clang++
 # $4 - icc/icpc
 check_compiler() {
+	local ver
 	case "$(tc-getCXX)" in
 		*clang++*)
-			version_is_at_least "$3" "$(has_version sys-devel/clang)" || die_compiler "$1" "$2" "$3" "$4"
+			ver="$(best_version sys-devel/clang | sed 's:sys-devel/clang-::')"
 		;;
 		*g++*)
-			version_is_at_least "$2" "$(gcc-version)" || die_compiler "$1" "$2" "$3" "$4"
+			ver="$(gcc-version)"
 		;;
 		*icc*|*icpc*)
-			version_is_at_least "$4" "$(has_version dev-lang/icc)" || die_compiler "$1" "$2" "$3" "$4"
+			ver="$(best_version dev-lang/icc | sed 's:dev-lang/icc-::')"
 			eerror "ROOT-6 is known not to build with ICC."
 			eerror "Please report any isuses upstream."
 		;;
 		*)
 			ewarn "You are using an unsupported compiler."
 			ewarn "Please report any issues upstream."
+			return 0
 		;;
 	esac
+	version_is_at_least "$3" "${ver}" || die_compiler "$1" "$2" "$3" "$4" "${ver}"
 }
 
 pkg_setup() {
@@ -212,7 +215,7 @@ src_prepare() {
 	# This can be done only at install stage, when files are placed
 	# as appropriate. Premature modification of makepch.sh will
 	# broke build process, however.
-	cp "etc/dictpch/makepch.sh" "etc/dictpch/makepch-gentoo.sh" || die
+	#cp "etc/dictpch/makepch.sh" "etc/dictpch/makepch-gentoo.sh" || die
 
 	epatch \
 		"${FILESDIR}"/${PN}-5.28.00b-glibc212.patch \
@@ -226,8 +229,8 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
 		"${FILESDIR}"/${PN}-6.00.01-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-6.00.01-prop-flags.patch \
-		"${FILESDIR}"/${PN}-6.02.05-dictpch.patch \
 		"${FILESDIR}"/${PN}-6.02.05-xrootd4.patch
+		#"${FILESDIR}"/${PN}-6.02.05-dictpch.patch \
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -423,19 +426,20 @@ cleanup_install() {
 	use examples || rm -r ${DOC_DIR#/}/examples || die
 
 	# clean hardcoded sandbox paths
-	rm etc/root/dictpch/allCppflags.txt.tmp || die
-	sed -i "s|${S}/||" etc/root/cling/llvm/Config/llvm-config.h || die
+	#rm etc/root/dictpch/allCppflags.txt.tmp || die
+	#sed -i "s|${S}/||" etc/root/cling/llvm/Config/llvm-config.h || die
 	# regenerate pch for Gentoo headers layout
-	rm "etc/root/allDict.cxx.pch" || die
-	sed -i 's|etc/dictpch|etc/root/dictpch|' etc/root/dictpch/allLinkDefs.h || die
-	sed -i 's|etc/cling|etc/root/cling|' etc/root/dictpch/allHeaders.h || die
-	sed -i "s|ROOTDIR_TEMPLATE|${ED}|" etc/root/dictpch/makepch-gentoo.sh || die
-	etc/root/dictpch/makepch-gentoo.sh etc/root/allDict.cxx.pch || die "PCH generation failed"
+	#rm "etc/root/allDict.cxx.pch" || die
+	#sed -i 's|etc/dictpch|etc/root/dictpch|' etc/root/dictpch/allLinkDefs.h || die
+	#sed -i 's|etc/cling|etc/root/cling|' etc/root/dictpch/allHeaders.h || die
+	#sed -i "s|ROOTDIR_TEMPLATE|${ED}|" etc/root/dictpch/makepch-gentoo.sh || die
+	#etc/root/dictpch/makepch-gentoo.sh etc/root/allDict.cxx.pch || die "PCH generation failed"
 }
 
 src_install() {
 	ROOTSYS="${S}" emake DESTDIR="${D}" install
-	dodoc README.md
+	insinto "${DOC_DIR}"
+	doins README.md
 
 	echo "LDPATH=${EPREFIX%/}/usr/$(get_libdir)/root" > 99root
 	use pythia8 && echo "PYTHIA8=${EPREFIX%/}/usr" >> 99root

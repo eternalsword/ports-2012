@@ -1,24 +1,36 @@
-#FL-2287: timezone-data update, masked for testing.
-=sys-libs/timezone-data-2015c-r1
+# FL-2694: testing in ARM for the moment. Plan to unmask for x86 after testing
+=dev-libs/icu-55.1-r1002
+
+# FL-2401: pulseaudio-6 update. Masked for testing
+=media-sound/pulseaudio-6.0
+
+# FL-2555, FL-2541, FL-2491, masked version of networkmanager with DNS/resolv.conf fix attempt
+>net-misc/networkmanager-1.0.2
+
+# mask back autogen-5.18.5. failure at xml2ag compilation. Reported upstream
+=sys-devel/autogen-5.18.5
+
+# Keep the most recent masks in a reverse chrono order
+# newest on top
+# keep mask for debian-sources-4.0.4. This kernel need test, before it goes to stage3.
+=sys-kernel/debian-sources-4.0.4
+
+# Masked for testing
+>=app-admin/ego-0.9.8
+
+# Mask latest revision of openconnect. We are not yet updated openrc to utilize it
+# new init script. FL-2369
+>net-misc/openconnect-7.06
+
+# nvidia CUDA tests
+=x11-drivers/nvidia-drivers-349.16-r2
 
 # FL-2232: Not fully-baked version of xorg-server. Masking.
 >=x11-base/xorg-server-1.17
 
-# FL-2220: new grub-legacy ebuild. masked for testing
-=sys-boot/grub-legacy-0.97-r14
-
 # libtool and libltdl bump, masked for testing
 =sys-devel/libtool-2.4.6
 =dev-libs/libltdl-2.4.6
-
-# FL-971: dhcpcd-6.8.1, masked for testing
-=net-misc/dhcpcd-6.8.1
-
-# Fl-2033, nginx-1.7.8, masked for testing
-=www-servers/nginx-1.7.8-r1
-
-#FL-1767: add bluez-5.27, masked for testing
-=net-wireless/bluez-5.27
 
 # FL-1761: new rebased Portage, needs a lot of testing
 >=sys-apps/portage-2.3.7
@@ -26,14 +38,3 @@
 # FL-1729: eudev update, this ebuild masked, kernel older 2.6.39 version unsupported
 # openvz require older version of eudev and kmod
 =sys-fs/eudev-2.1.1
-
-# grass-6.4.4 with wxpython GUI, masked for testing:
-=sci-geosciences/grass-6.4.4
-
-# Keep the most recent masks in a reverse chrono order
-# newest on top
-
-# Dantrell B. (22 Aug 2014)
-# Masked for testing
-# Ref FL-1483
->=net-libs/rb_libtorrent-1.0.1

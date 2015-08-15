@@ -6,5 +6,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="sourceforge">tiled</remote-id>
+		<remote-id type="github">bjorn/tiled</remote-id>
 	</upstream>
 </pkgmetadata>

@@ -1,8 +1,22 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/arch/hppa/package.use.mask,v 1.157 2015/03/21 09:37:48 jer Exp $
+# $Id$
 
 # DON'T TOUCH THIS FILE. Instead, file a bug and assign it to <hppa@gentoo.org>.
+
+# Jeroen Roovers <jer@gentoo.org> (3 Jul 2015) 
+# net-libs/nghttp2 fails to compile (bug #552898)
+net-libs/nghttp2 cxx
+
+# Jeroen Roovers <jer@gentoo.org> (17 May 2015)
+# Mask USE=rados for net-analyzer/rrdtool since sys-cluster/ceph is not
+# keyworded (bug #549516)
+net-analyzer/rrdtool rados
+
+# Jeroen Roovers <jer@gentoo.org> (26 Apr 2015)
+# Contact us if you want or have an HPPA cluster with dev-db/mariadb
+# (bug #544378)
+dev-db/mariadb garbd
 
 # Mike Frysinger <vapier@gentoo.org> (16 Mar 2015)
 # Needs sci-physics/bullet tested #499974
@@ -12,10 +26,6 @@ dev-libs/efl physics
 # dev-python/gevent requires dev-python/greenlet which has not been ported to
 # HPPA (bug #538510)
 dev-python/pyzor gevent
-
-# Jeroen Roovers <jer@gentoo.org> (29 Nov 2014)
-# Needs dev-libs/protobuf{-c} which has not been ported to HPPA (bug #531068)
-net-dns/unbound dnstap
 
 # Jeroen Roovers <jer@gentoo.org> (19 Oct 2014)
 # requires dev-python/restkit which requires
@@ -53,10 +63,6 @@ sys-libs/libunwind libatomic
 # Jeroen Roovers <jer@gentoo.org> (23 Jul 2013)
 # graphite is not implemented on HPPA
 sys-devel/gcc graphite
-
-# Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org> (28 May 2013)
-# depends on sys-devel/llvm[video_cards_radeon]
-media-libs/mesa r600-llvm-compiler
 
 # Julian Ospald <hasufell@gentoo.org> (31 Mar 2013)
 # depends on mono

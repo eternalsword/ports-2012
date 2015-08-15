@@ -11,5 +11,5 @@ REQUIRED_USE=?? ( fermi kepler )
 RESTRICT=userpriv
 SLOT=0
 SRC_URI=http://icl.cs.utk.edu/projectsfiles/magma/downloads/magma-1.4.0.tar.gz
-_eclasses_=cuda	2ba75c44d72d2b0b1fe31e2e2dc42d0e	eutils	9fb270e417e0e83d64ca52586c4a79de	flag-o-matic	c263990f1b677b0f0be0a3299f179762	fortran-2	e18b1135d4c478b5c81b23698c483030	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	python-any-r1	da352ea9da8eb9bf158d56cca65d6c82	python-utils-r1	096f8247eae93026af13ab88cf4305cd	toolchain-funcs	c961250d50160cd37d6b7fd9e8429c92	versionator	cd0bcdb170807e4a1984115e9d53a26f
-_md5_=e9bd24d8772dfbc45a896d3391957cb9
+_eclasses_=cuda	005e306be76ac11f3468389ef2e4da10	eutils	351a78113be5b393c09a2c948701ad36	flag-o-matic	02090c5a622458303e6bf68837ac6b96	fortran-2	e18b1135d4c478b5c81b23698c483030	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	python-any-r1	fdd97a8376ac7d4e15c8e254b06915fd	python-utils-r1	c595450196ccd7d3fac66424be096ffc	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=508b86eaafe93879f0b30ad3901af891

@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/meld/meld-3.12.3.ebuild,v 1.3 2015/03/15 13:20:06 pacho Exp $
+# $Id$
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -13,14 +13,14 @@ inherit gnome2 distutils-r1
 DESCRIPTION="A graphical diff and merge tool"
 HOMEPAGE="http://meldmerge.org/"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 RDEPEND="
 	${PYTHON_DEPS}
-	>=dev-libs/glib-2.34:2
+	>=dev-libs/glib-2.36:2
 	dev-python/dbus-python[${PYTHON_USEDEP}]
 	>=dev-python/pygobject-3.8:3[cairo,${PYTHON_USEDEP}]
 	gnome-base/gsettings-desktop-schemas

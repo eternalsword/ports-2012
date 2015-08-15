@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-text/texlive/texlive-2014.ebuild,v 1.1 2014/11/03 07:01:53 aballier Exp $
+# $Id$
 
 EAPI="5"
 
@@ -10,7 +10,7 @@ SRC_URI=""
 
 LICENSE="metapackage"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~s390 ~sh ~x86 ~x86-fbsd ~x64-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~mips ppc ~ppc64 ~s390 ~sh x86 ~x86-fbsd ~x64-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 IUSE="cjk context detex dvi2tty extra epspdf games graphics
 humanities jadetex luatex metapost music omega pdfannotextractor png pstricks publishers
 science tex4ht texi2html truetype xetex xindy xml X"
@@ -70,7 +70,6 @@ RDEPEND="${DEPEND}
 			>=dev-tex/g-brief-4.0.2
 			>=dev-tex/envlab-1.2-r1
 			>=dev-tex/europecv-20060424-r1
-			>=dev-tex/mh-20111011
 			>=dev-tex/svninfo-0.7.3-r1
 		>=${TEXLIVE_CAT}/texlive-mathextra-${PV}
 		>=${TEXLIVE_CAT}/texlive-plainextra-${PV}

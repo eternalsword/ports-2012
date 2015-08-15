@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/openbabel-python/openbabel-python-2.3.2.ebuild,v 1.13 2015/03/02 09:22:30 ago Exp $
+# $Id$
 
 EAPI=5
 
@@ -12,7 +12,7 @@ DESCRIPTION="Python bindings for OpenBabel (including Pybel)"
 HOMEPAGE="http://openbabel.sourceforge.net/"
 SRC_URI="mirror://sourceforge/openbabel/openbabel-${PV}.tar.gz"
 
-KEYWORDS="amd64 ~arm ppc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ppc x86 ~amd64-linux ~x86-linux"
 SLOT="0"
 LICENSE="GPL-2"
 IUSE=""
@@ -59,6 +59,7 @@ src_configure() {
 			-DPYTHON_BINDINGS=ON
 			-DPYTHON_EXECUTABLE=${PYTHON}
 			-DPYTHON_INCLUDE_DIR="${EPREFIX}/usr/include/${EPYTHON}"
+			-DPYTHON_INCLUDE_PATH="${EPREFIX}/usr/include/${EPYTHON}"
 			-DPYTHON_LIBRARY="${EPREFIX}/usr/$(get_libdir)/lib${EPYTHON}.so"
 			-DENABLE_TESTS=ON"
 

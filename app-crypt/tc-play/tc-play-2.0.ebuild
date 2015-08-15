@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-crypt/tc-play/tc-play-2.0.ebuild,v 1.1 2014/06/07 17:07:32 alonbl Exp $
+# $Id$
 
 EAPI=5
 
@@ -15,11 +15,12 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="openssl"
 
-DEPEND="dev-libs/libgpg-error
+DEPEND="
+	dev-libs/libgpg-error
 	sys-fs/lvm2
 	sys-apps/util-linux
 	dev-libs/libgcrypt:0
-	openssl? ( dev-libs/openssl )"
+	openssl? ( dev-libs/openssl:0 )"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {

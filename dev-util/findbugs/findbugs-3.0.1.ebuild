@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/findbugs/findbugs-3.0.1.ebuild,v 1.2 2015/03/16 14:24:51 chewi Exp $
+# $Id$
 
 EAPI=5
 
@@ -19,7 +19,7 @@ IUSE="test"
 
 CDEPEND="dev-java/ant-core:0
 	dev-java/apple-java-extensions-bin:0
-	dev-java/asm:4
+	>=dev-java/asm-5:4
 	>=dev-java/bcel-6:0
 	dev-java/commons-lang:2.1
 	dev-java/dom4j:1
@@ -60,7 +60,8 @@ java_prepare() {
 		"${FILESDIR}/0001-Support-bcel-6.0-RC3-instead-of-a-random-snapshot.patch" \
 		"${FILESDIR}/0002-Don-t-bundle-anything-in-the-annotations-jar.patch" \
 		"${FILESDIR}/0003-JDK-1.8-works-fine-for-me.patch" \
-		"${FILESDIR}/0004-Don-t-clean-before-generating-docs.patch"
+		"${FILESDIR}/0004-Don-t-clean-before-generating-docs.patch" \
+		"${FILESDIR}/0005-Don-t-require-git-to-build.patch"
 
 	# Remove bundled jars.
 	find -name "*.jar" -delete || die

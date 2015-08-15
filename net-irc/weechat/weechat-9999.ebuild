@@ -1,10 +1,10 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-irc/weechat/weechat-9999.ebuild,v 1.39 2015/04/01 20:52:24 radhermit Exp $
+# $Id$
 
 EAPI=5
 PYTHON_COMPAT=( python{2_7,3_3,3_4} )
-inherit python-single-r1 multilib cmake-utils
+inherit eutils python-single-r1 multilib cmake-utils
 
 if [[ ${PV} == "9999" ]] ; then
 	inherit git-r3
@@ -23,6 +23,7 @@ SLOT="0"
 NETWORKS="+irc"
 PLUGINS="+alias +charset +exec +fifo +logger +relay +scripts +spell +trigger +xfer"
 #INTERFACES="+ncurses gtk"
+# dev-lang/v8 was dropped from Gentoo so we can't enable javascript support
 SCRIPT_LANGS="guile lua +perl +python ruby tcl"
 LANGS=" cs de es fr hu it ja pl pt_BR ru tr"
 IUSE="doc nls +ssl test ${LANGS// / linguas_} ${SCRIPT_LANGS} ${PLUGINS} ${INTERFACES} ${NETWORKS}"
@@ -57,12 +58,19 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS.asciidoc ChangeLog.asciidoc ReleaseNotes.asciidoc README.asciidoc"
 
+# tests need to be fixed to not use system plugins if weechat is already installed
+RESTRICT="test"
+
+PATCHES=( "${FILESDIR}"/${PN}-1.2-tinfo.patch )
+
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
 }
 
 src_prepare() {
 	local i
+
+	epatch "${PATCHES[@]}"
 
 	# fix libdir placement
 	sed -i \

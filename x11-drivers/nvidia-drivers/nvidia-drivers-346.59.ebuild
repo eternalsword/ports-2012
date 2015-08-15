@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-drivers/nvidia-drivers/nvidia-drivers-346.59.ebuild,v 1.2 2015/04/15 04:56:51 jer Exp $
 
 EAPI=5
 
@@ -62,14 +60,9 @@ RDEPEND="
 		<x11-base/xorg-server-1.17.99:=
 		>=x11-libs/libvdpau-0.3-r1
 		multilib? (
-			|| (
-				 (
 					>=x11-libs/libX11-1.6.2[abi_x86_32]
 					>=x11-libs/libXext-1.3.2[abi_x86_32]
 				 )
-				app-emulation/emul-linux-x86-xlibs
-			)
-		)
 	)
 "
 
@@ -96,19 +89,6 @@ pkg_pretend() {
 		ewarn ""
 		ewarn "Do not file a bug report about this."
 	fi
-
-	# Since Nvidia ships 3 different series of drivers, we need to give the user
-	# some kind of guidance as to what version they should install. This tries
-	# to point the user in the right direction but can't be perfect. check
-	# nvidia-driver.eclass
-	nvidia-driver-check-warning
-
-	# Kernel features/options to check for
-	CONFIG_CHECK="~ZONE_DMA ~MTRR ~SYSVIPC ~!LOCKDEP"
-	use x86 && CONFIG_CHECK+=" ~HIGHMEM"
-
-	# Now do the above checks
-	use kernel_linux && check_extra_config
 }
 
 pkg_setup() {
@@ -179,6 +159,21 @@ src_prepare() {
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
+}
+
+pre_src_compile() {
+	# Since Nvidia ships 3 different series of drivers, we need to give the user
+	# some kind of guidance as to what version they should install. This tries
+	# to point the user in the right direction but can't be perfect. check
+	# nvidia-driver.eclass
+	nvidia-driver-check-warning
+
+	# Kernel features/options to check for
+	CONFIG_CHECK="~ZONE_DMA ~MTRR ~SYSVIPC ~!LOCKDEP"
+	use x86 && CONFIG_CHECK+=" ~HIGHMEM"
+
+	# Now do the above checks
+	use kernel_linux && check_extra_config
 }
 
 src_compile() {

@@ -6,7 +6,7 @@
 #
 # Licensed under the GNU General Public License, v2
 #
-# $Header: /var/cvsroot/gentoo-x86/eclass/java-utils-2.eclass,v 1.158 2015/04/14 14:08:34 chewi Exp $
+# $Id$
 
 # @ECLASS: java-utils-2.eclass
 # @MAINTAINER:
@@ -43,7 +43,7 @@ has "${EAPI}" 0 1 && JAVA_PKG_PORTAGE_DEP=">=sys-apps/portage-2.1.2.7"
 # This is a convience variable to be used from the other java eclasses. This is
 # the version of java-config we want to use. Usually the latest stable version
 # so that ebuilds can use new features without depending on specific versions.
-JAVA_PKG_E_DEPEND=">=dev-java/java-config-2.1.9-r1 ${JAVA_PKG_PORTAGE_DEP}"
+JAVA_PKG_E_DEPEND=">=dev-java/java-config-2.2.0 ${JAVA_PKG_PORTAGE_DEP}"
 has source ${JAVA_PKG_IUSE} && JAVA_PKG_E_DEPEND="${JAVA_PKG_E_DEPEND} source? ( app-arch/zip )"
 
 # @ECLASS-VARIABLE: JAVA_PKG_WANT_BOOTCLASSPATH
@@ -124,6 +124,20 @@ JAVA_PKG_ALLOW_VM_CHANGE=${JAVA_PKG_ALLOW_VM_CHANGE:="yes"}
 # emerge bar to be compatible with 1.3
 # @CODE
 #	JAVA_PKG_WANT_TARGET=1.3 emerge bar
+# @CODE
+
+# @ECLASS-VARIABLE: JAVA_RM_FILES
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# An array containing a list of files to remove. If defined, this array will be
+# automatically handed over to java-pkg_rm_files for processing during the
+# src_prepare phase.
+#
+# @CODE
+#	JAVA_RM_FILES=(
+#		path/to/File1.java
+#		DELETEME.txt
+#	)
 # @CODE
 
 # @VARIABLE: JAVA_PKG_COMPILER_DIR
@@ -217,6 +231,73 @@ java-pkg_doexamples() {
 	dosym "${dest}" "${JAVA_PKG_SHAREPATH}/examples" || die
 }
 
+# @FUNCTION: java-pkg_addres
+# @USAGE: <jar> <dir> [<find arguments> ...]
+# @DESCRIPTION:
+# Adds resource files to an existing jar.
+# It is important that the directory given is actually the root of the
+# corresponding resource tree. The target directory as well as
+# sources.lst, MANIFEST.MF, *.class, *.jar, and *.java files are
+# automatically excluded. Symlinks are always followed. Additional
+# arguments are passed through to find.
+#
+# @CODE
+#	java-pkg_addres ${PN}.jar resources ! -name "*.html"
+# @CODE
+#
+# @param $1 - jar file
+# @param $2 - resource tree directory
+# @param $* - arguments to pass to find
+java-pkg_addres() {
+	debug-print-function ${FUNCNAME} $*
+
+	[[ ${#} -lt 2 ]] && die "at least two arguments needed"
+
+	local jar=$(realpath "$1" || die "realpath $1 failed")
+	local dir="$2"
+	shift 2
+
+	pushd "${dir}" > /dev/null || die "pushd ${dir} failed"
+	find -L -type f ! -path "./target/*" ! -path "./sources.lst" ! -name "MANIFEST.MF" ! -regex ".*\.\(class\|jar\|java\)" "${@}" -print0 | xargs -0 jar uf "${jar}" || die "jar failed"
+	popd > /dev/null || die "popd failed"
+}
+
+# @FUNCTION: java-pkg_rm_files
+# @USAGE: java-pkg_rm_files File1.java File2.java ...
+# @DESCRIPTION:
+# Remove unneeded files in ${S}.
+#
+# Every now and then, you'll run into situations whereby a file needs removing,
+# be it a unit test or a regular java class.
+#
+# You can use this function by either:
+# - calling it yourself in java_prepare() and feeding java-pkg_rm_files with
+# the list of files you wish to remove.
+# - defining an array in the ebuild named JAVA_RM_FILES with the list of files
+# you wish to remove.
+#
+# Both way work and it is left to the developer's preferences. If the
+# JAVA_RM_FILES array is defined, it will be automatically handed over to
+# java-pkg_rm_files during the src_prepare phase.
+#
+# See java-utils-2_src_prepare.
+#
+# @CODE
+#	java-pkg_rm_files File1.java File2.java
+# @CODE
+#
+# @param $* - list of files to remove.
+java-pkg_rm_files() {
+	debug-print-function ${FUNCNAME} $*
+	local IFS="\n"
+	for filename in "$@"; do
+		[[ ! -f "${filename}" ]] && die "${filename} is not a regular file. Aborting."
+		einfo "Removing unneeded file ${filename}"
+		rm -f "${S}/${filename}" || die "cannot remove ${filename}"
+		eend $?
+	done
+}
+
 # @FUNCTION: java-pkg_dojar
 # @USAGE: <jar1> [<jar2> ...]
 # @DESCRIPTION:
@@ -280,18 +361,6 @@ java-pkg_dojar() {
 	done
 
 	java-pkg_do_write_
-}
-
-# @FUNCTION: depend-java-query
-# @INTERNAL
-# @DESCRIPTION:
-# Wrapper for the depend-java-query binary to enable passing USE in env.
-# Using env variables keeps this eclass working with java-config versions that
-# do not handle use flags.
-depend-java-query() {
-	# Used to have a which call here but it caused endless loops for some people
-	# that had some weird bashrc voodoo for which.
-	USE="${USE}" /usr/bin/depend-java-query "${@}"
 }
 
 # @FUNCTION: java-pkg_regjar
@@ -412,7 +481,7 @@ java-pkg_doso() {
 			# install if it isn't a symlink
 			if [[ ! -L "${lib}" ]] ; then
 				INSDESTTREE="${JAVA_PKG_LIBDEST}" \
-					INSOPTIONS="${LIBOPTIONS}" \
+					INSOPTIONS="-m0755" \
 					doins "${lib}" || die "failed to install ${lib}"
 				java-pkg_append_ JAVA_PKG_LIBRARY "${JAVA_PKG_LIBDEST}"
 				debug-print "Installing ${lib} to ${JAVA_PKG_LIBDEST}"
@@ -920,7 +989,7 @@ java-pkg_jar-from() {
 					java-pkg_record-jar_ --build-only "${target_pkg}" "${jar}"
 				fi
 			fi
-			# otherwise, if the current jar is the target jar, link it
+		# otherwise, if the current jar is the target jar, link it
 		elif [[ "${jar_name}" == "${target_jar}" ]] ; then
 			[[ -f "${destjar}" ]]  && rm "${destjar}"
 			ln -snf "${jar}" "${destjar}" \
@@ -929,7 +998,7 @@ java-pkg_jar-from() {
 				if [[ -z "${build_only}" ]]; then
 					java-pkg_record-jar_ "${target_pkg}" "${jar}"
 				else
-					java-pkg_record-jar_ --build-only "${target_jar}" "${jar}"
+					java-pkg_record-jar_ --build-only "${target_pkg}" "${jar}"
 				fi
 			fi
 			popd > /dev/null
@@ -1514,7 +1583,7 @@ java-pkg_get-target() {
 java-pkg_get-javac() {
 	debug-print-function ${FUNCNAME} $*
 
-
+	java-pkg_init-compiler_
 	local compiler="${GENTOO_COMPILER}"
 
 	local compiler_executable
@@ -1533,18 +1602,15 @@ java-pkg_get-javac() {
 			export JAVAC=${old_javac}
 
 			if [[ -z ${compiler_executable} ]]; then
-				echo "JAVAC is empty or undefined in ${compiler_env}"
-				return 1
+				die "JAVAC is empty or undefined in ${compiler_env}"
 			fi
 
 			# check that it's executable
 			if [[ ! -x ${compiler_executable} ]]; then
-				echo "${compiler_executable} doesn't exist, or isn't executable"
-				return 1
+				die "${compiler_executable} doesn't exist, or isn't executable"
 			fi
 		else
-			echo "Could not find environment file for ${compiler}"
-			return 1
+			die "Could not find environment file for ${compiler}"
 		fi
 	fi
 	echo ${compiler_executable}
@@ -1569,15 +1635,9 @@ java-pkg_javac-args() {
 	debug-print "want target: ${want_target}"
 
 	if [[ -z "${want_source}" || -z "${want_target}" ]]; then
-		debug-print "could not find valid -source/-target values for javac"
-		echo "Could not find valid -source/-target values for javac"
-		return 1
+		die "Could not find valid -source/-target values for javac"
 	else
-		if java-pkg_is-vm-version-ge "1.4"; then
-			echo "${source_str} ${target_str}"
-		else
-			echo "${target_str}"
-		fi
+		echo "${source_str} ${target_str}"
 	fi
 }
 
@@ -1764,18 +1824,21 @@ ejunit4() {
 # src_prepare Searches for bundled jars
 # Don't call directly, but via java-pkg-2_src_prepare!
 java-utils-2_src_prepare() {
-	[[ ${EBUILD_PHASE} == prepare ]] &&
-		java-pkg_func-exists java_prepare && java_prepare
+	java-pkg_func-exists java_prepare && java_prepare
 
-	# Remember that eant will call this unless called via Portage
-	if [[ ! -e "${T}/java-utils-2_src_prepare-run" ]] && is-java-strict; then
+	# Check for files in JAVA_RM_FILES array.
+	if [[ ${JAVA_RM_FILES[@]} ]]; then
+		debug-print "$FUNCNAME: removing unneeded files"
+		java-pkg_rm_files "${JAVA_RM_FILES[@]}"
+	fi
+
+	if is-java-strict; then
 		echo "Searching for bundled jars:"
 		java-pkg_find-normal-jars || echo "None found."
 		echo "Searching for bundled classes (no output if none found):"
 		find "${WORKDIR}" -name "*.class"
 		echo "Search done."
 	fi
-	touch "${T}/java-utils-2_src_prepare-run"
 }
 
 # @FUNCTION: java-utils-2_pkg_preinst
@@ -1784,18 +1847,13 @@ java-utils-2_src_prepare() {
 # Don't call directly, but via java-pkg-2_pkg_preinst!
 java-utils-2_pkg_preinst() {
 	if is-java-strict; then
+		if [[ ! -e "${JAVA_PKG_ENV}" ]] || has ant-tasks ${INHERITED}; then
+			return
+		fi
+
 		if has_version dev-java/java-dep-check; then
-			[[ -e "${JAVA_PKG_ENV}" ]] || return
 			local output=$(GENTOO_VM= java-dep-check --image "${D}" "${JAVA_PKG_ENV}")
-			if [[ ${output} && has_version <=dev-java/java-dep-check-0.2 ]]; then
-				ewarn "Possibly unneeded dependencies found in package.env:"
-				for dep in ${output}; do
-					ewarn "\t${dep}"
-				done
-			fi
-			if [[ ${output} && has_version >dev-java/java-dep-check-0.2 ]]; then
-				ewarn "${output}"
-			fi
+			[[ ${output} ]] && ewarn "${output}"
 		else
 			eerror "Install dev-java/java-dep-check for dependency checking"
 		fi
@@ -1823,7 +1881,6 @@ eant() {
 
 	if [[ ${EBUILD_PHASE} = compile ]]; then
 		java-ant-2_src_configure
-		java-utils-2_src_prepare
 	fi
 
 	if ! has java-ant-2 ${INHERITED}; then
@@ -1909,8 +1966,10 @@ eant() {
 
 	if [[ ${EBUILD_PHASE} = "test" ]]; then
 		antflags="${antflags} -DJunit.present=true"
-		[[ ${ANT_TASKS} = *ant-junit* ]] && gcp="${gcp} junit"
 		getjarsarg="--with-dependencies"
+
+		local re="\bant-junit4?([-:]\S+)?\b"
+		[[ ${ANT_TASKS} =~ ${re} ]] && gcp+=" ${BASH_REMATCH[0]}"
 	else
 		antflags="${antflags} -Dmaven.test.skip=true"
 	fi
@@ -1918,17 +1977,15 @@ eant() {
 	local cp
 
 	for atom in ${gcp}; do
-		cp="${cp}:$(java-pkg_getjars ${getjarsarg} ${atom})"
+		cp+=":$(java-pkg_getjars ${getjarsarg} ${atom})"
 	done
 
-	[[ -n "${EANT_NEEDS_TOOLS}" ]] && cp="${cp}:$(java-config --tools)"
+	[[ ${EANT_NEEDS_TOOLS} ]] && cp+=":$(java-config --tools)"
+	[[ ${EANT_GENTOO_CLASSPATH_EXTRA} ]] && cp+=":${EANT_GENTOO_CLASSPATH_EXTRA}"
 
-	if [[ ${cp} ]]; then
+	if [[ ${cp#:} ]]; then
 		# It seems ant does not like single quotes around ${cp}
-		cp=${cp#:}
-		[[ ${EANT_GENTOO_CLASSPATH_EXTRA} ]] && \
-			cp="${cp}:${EANT_GENTOO_CLASSPATH_EXTRA}"
-		antflags="${antflags} -Dgentoo.classpath=\"${cp}\""
+		antflags="${antflags} -Dgentoo.classpath=\"${cp#:}\""
 	fi
 
 	[[ -n ${JAVA_PKG_DEBUG} ]] && echo ant ${antflags} "${@}"
@@ -1944,21 +2001,11 @@ eant() {
 ejavac() {
 	debug-print-function ${FUNCNAME} $*
 
-	java-pkg_init-compiler_
-
 	local compiler_executable
 	compiler_executable=$(java-pkg_get-javac)
-	if [[ ${?} != 0 ]]; then
-		eerror "There was a problem determining compiler: ${compiler_executable}"
-		die "get-javac failed"
-	fi
 
 	local javac_args
 	javac_args="$(java-pkg_javac-args)"
-	if [[ ${?} != 0 ]]; then
-		eerror "There was a problem determining JAVACFLAGS: ${javac_args}"
-		die "java-pkg_javac-args failed"
-	fi
 
 	[[ -n ${JAVA_PKG_DEBUG} ]] && echo ${compiler_executable} ${javac_args} "${@}"
 	${compiler_executable} ${javac_args} "${@}" || die "ejavac failed"
@@ -2176,14 +2223,11 @@ java-pkg_init-compiler_() {
 				continue
 			fi
 
-			# -source was introduced in 1.3, so only check 1.3 and on
-			if version_is_at_least "${desired_soure}" "1.3"; then
-				# Verify that the compiler supports source
-				local supported_source=$(source ${compiler_env} 1>/dev/null 2>&1; echo ${SUPPORTED_SOURCE})
-				if ! has ${desired_source} ${supported_source}; then
-					ewarn "${compiler} does not support -source ${desired_source}, skipping"
-					continue
-				fi
+			# Verify that the compiler supports source
+			local supported_source=$(source ${compiler_env} 1>/dev/null 2>&1; echo ${SUPPORTED_SOURCE})
+			if ! has ${desired_source} ${supported_source}; then
+				ewarn "${compiler} does not support -source ${desired_source}, skipping"
+				continue
 			fi
 
 			# if you get here, then the compiler should be good to go
@@ -2567,10 +2611,6 @@ java-pkg_switch-vm() {
 		export JAVA=$(java-config --java)
 		export JAVAC=$(java-config --javac)
 		JAVACFLAGS="$(java-pkg_javac-args)"
-		if [[ ${?} != 0 ]]; then
-			eerror "There was a problem determining JAVACFLAGS: ${JAVACFLAGS}"
-			die "java-pkg_javac-args failed"
-		fi
 		[[ -n ${JAVACFLAGS_EXTRA} ]] && JAVACFLAGS="${JAVACFLAGS_EXTRA} ${JAVACFLAGS}"
 		export JAVACFLAGS
 
@@ -2673,7 +2713,8 @@ java-pkg_verify-classes() {
 # @INTERNAL
 # @DESCRIPTION:
 # Check that a package being used in jarfrom, getjars and getjar is contained
-# within DEPEND or RDEPEND.
+# within DEPEND or RDEPEND with the correct SLOT. See this mail for details:
+# https://archives.gentoo.org/gentoo-dev/message/dcb644f89520f4bbb61cc7bbe45fdf6e
 # @CODE
 # Parameters:
 # $1 - empty - check both vars; "runtime" or "build" - check only
@@ -2695,9 +2736,10 @@ java-pkg_ensure-dep() {
 	# * The target package first has any dots escaped, e.g. foo-1.2
 	#   becomes foo-1\.2.
 	#
-	# * sed then looks at the component following the last - character,
-	#   or the whole string if there is no - character. It uses this to
-	#   build a new regexp with two significant branches.
+	# * sed then looks at the component following the last - or :
+	#   character, or the whole string if there is no - or :
+	#   character. It uses this to build a new regexp with two
+	#   significant branches.
 	#
 	# * The first checks for the whole target package string, optionally
 	#   followed by a version number, and then :0.
@@ -2706,36 +2748,36 @@ java-pkg_ensure-dep() {
 	#   string, optionally followed by a version number, followed by the
 	#   aforementioned component, treating that as a SLOT.
 	#
-	local stripped_pkg=/$(sed -r 's/-?([^-]+)$/(\0(-[^:]+)?:0|(-[^:]+)?:\1)/' <<< "${target_pkg//./\\.}")\\b
+	local stripped_pkg=/$(sed -r 's/[-:]?([^-:]+)$/(\0(-[^:]+)?:0|(-[^:]+)?:\1)/' <<< "${target_pkg//./\\.}")\\b
 
 	debug-print "Matching against: ${stripped_pkg}"
+
+	# Uncomment the lines below once we've dealt with more of these
+	# otherwise we'll be tempted to turn JAVA_PKG_STRICT off while
+	# getting hit with a wave of bug reports. :(
 
 	if [[ ${limit_to} != runtime && ! ( "${DEPEND}" =~ $stripped_pkg ) ]]; then
 		dev_error="The ebuild is attempting to use ${target_pkg}, which is not "
 		dev_error+="declared with a SLOT in DEPEND."
-		if is-java-strict; then
-			die "${dev_error}"
-		else
-			eqawarn "${dev_error}"
-			# Uncomment this once we've dealt with more of these or
-			# we'll get hit with a wave of bug reports. :(
+#		if is-java-strict; then
+#			die "${dev_error}"
+#		else
+			eqawarn "java-pkg_ensure-dep: ${dev_error}"
 #			eerror "Because you have ${target_pkg} installed,"
 #			eerror "the package will build without problems, but please"
 #			eerror "report this to http://bugs.gentoo.org."
-		fi
+#		fi
 	elif [[ ${limit_to} != build && ! ( "${RDEPEND}${PDEPEND}" =~ ${stripped_pkg} ) ]]; then
 		dev_error="The ebuild is attempting to use ${target_pkg}, which is not "
 		dev_error+="declared with a SLOT in [RP]DEPEND and --build-only wasn't given."
-		if is-java-strict; then
-			die "${dev_error}"
-		else
-			eqawarn "${dev_error}"
-			# Uncomment this once we've dealt with more of these or
-			# we'll get hit with a wave of bug reports. :(
+#		if is-java-strict; then
+#			die "${dev_error}"
+#		else
+			eqawarn "java-pkg_ensure-dep: ${dev_error}"
 #			eerror "The package will build without problems, but may fail to run"
 #			eerror "if you don't have ${target_pkg} installed,"
 #			eerror "so please report this to http://bugs.gentoo.org."
-		fi
+#		fi
 	fi
 }
 
