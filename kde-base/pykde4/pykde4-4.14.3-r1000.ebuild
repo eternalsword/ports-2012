@@ -14,12 +14,12 @@ DESCRIPTION="Python bindings for KDE4"
 HOMEPAGE="http://techbase.kde.org/Development/Languages/Python"
 
 KEYWORDS="*"
-IUSE="akonadi debug doc examples nepomuk"
+IUSE="akonadi debug doc examples"
 
 RDEPEND="
 	$(python_abi_depend ">=dev-python/PyQt4-4.9.5:0=[X,dbus,declarative,script,sql,svg,webkit]")
 	$(python_abi_depend ">=dev-python/sip-4.14:0=")
-	$(add_kdebase_dep kdelibs 'nepomuk?,opengl')
+	$(add_kdebase_dep kdelibs 'opengl')
 	akonadi? ( $(add_kdebase_dep kdepimlibs) )
 	nepomuk? ( >=dev-libs/soprano-2.9.0 )
 "
