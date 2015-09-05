@@ -54,7 +54,7 @@ SRC_URI="$SRC_URI http://www.mpfr.org/mpfr-${MPFR_VER}/mpfr-${MPFR_VER}.tar.xz"
 SRC_URI="$SRC_URI mirror://gnu/gmp/gmp-${GMP_VER}${GMP_EXTRAVER}.tar.xz"
 
 #Hardened Support:
-SRC_URI="$SRC_URI hardened? ( mirror://gentoo/${SPECS_A} mirror://gentoo/${PIE_A} )"
+SRC_URI="$SRC_URI hardened? ( mirror://funtoo/gcc/${SPECS_A} mirror://funtoo/gcc/${PIE_A} )"
 
 # Graphite support:
 SRC_URI="$SRC_URI graphite? ( mirror://gnu/cloog-${CLOOG_VER}.tar.gz http://isl.gforge.inria.fr/isl-${ISL_VER}.tar.bz2 )"
