@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -14,7 +12,7 @@ if [[ "${PV}" == "9999" ]] ; then
 	KEYWORDS=""
 else
 	SRC_URI="http://www.openprinting.org/download/${PN}/${P}.tar.xz"
-	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-fbsd ~m68k-mint"
+	KEYWORDS="~*"
 fi
 DESCRIPTION="Cups PDF filters"
 HOMEPAGE="http://www.linuxfoundation.org/collaborate/workgroups/openprinting/pdfasstandardprintjobformat"
@@ -42,7 +40,7 @@ RDEPEND="
 	tiff? ( media-libs/tiff:0 )
 	zeroconf? ( net-dns/avahi[dbus] )
 "
-DEPEND="${RDEPEND}"
+DEPEND="dev-util/gdbus-codegen ${RDEPEND}"
 
 src_prepare() {
 	base_src_prepare
@@ -63,7 +61,7 @@ src_configure() {
 		$(use_with png) \
 		$(use_with tiff) \
 		--with-rcdir=no \
- 		--with-browseremoteprotocols=DNSSD,CUPS \
+		--with-browseremoteprotocols=DNSSD,CUPS \
 		--without-php
 }
 
