@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright owners: Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # @ECLASS: perl-module.eclass
 # @MAINTAINER:
@@ -18,7 +17,7 @@ inherit eutils multiprocessing unpacker
 PERL_EXPF="src_unpack src_prepare src_configure src_compile src_test src_install"
 
 case "${EAPI:-0}" in
-	5)
+	5|5-progress)
 		[[ ${CATEGORY} == "perl-core" ]] && \
 			PERL_EXPF+=" pkg_postinst pkg_postrm"
 
