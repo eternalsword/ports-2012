@@ -16,12 +16,11 @@ LICENSE="LGPL-2"
 SLOT="2"
 KEYWORDS="*"
 IUSE="numpy"
-
 RDEPEND="numpy? ( $(python_abi_depend -e "*-pypy-*" dev-python/numpy) )"
 DEPEND="${RDEPEND}
 	app-arch/unzip"
 
-S="${WORKDIR}/Polygon-${PV}"
+S="${WORKDIR}/Polygon2-${PV}"
 
 PYTHON_CFLAGS=("2.* + -fno-strict-aliasing")
 

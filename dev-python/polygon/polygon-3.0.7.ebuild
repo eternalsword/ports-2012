@@ -21,7 +21,7 @@ RDEPEND="numpy? ( $(python_abi_depend dev-python/numpy) )"
 DEPEND="${RDEPEND}
 	app-arch/unzip"
 
-S="${WORKDIR}/Polygon-${PV}"
+S="${WORKDIR}/Polygon3-${PV}"
 
 DOCS="HISTORY doc/Polygon.txt"
 PYTHON_MODULES="Polygon"
