@@ -1329,6 +1329,8 @@ dev-db/percona-server:profiling - Add support for statement profiling (requires 
 dev-db/percona-server:server - Build the server program
 dev-db/percona-server:systemtap - Build support for profiling and tracing using dev-util/systemtap
 dev-db/percona-server:test - Install upstream testsuites for end use.
+dev-db/percona-server:tokudb - Add support for TokuDB storage engine
+dev-db/percona-server:tokudb-backup-plugin - Builds the TokuDB backup plugin
 dev-db/percona-server:tools - Build the command line tools (mysql, mysqldump, mysqladmin, etc)
 dev-db/pgadmin3:databasedesigner - Enable the Database Designer component
 dev-db/pgbouncer:libevent - Use libevent 2.0+ and evdns as the DNS backend
@@ -2002,9 +2004,6 @@ dev-libs/pkcs11-helper:nss - Enable NSS crypto engine
 dev-libs/ppl:lpsol - Build the ppl_lpsol linear programming problem solver
 dev-libs/pyzy:boost - Compile against dev-libs/boost libraries
 dev-libs/pyzy:opencc - Enable support for app-i18n/opencc
-dev-libs/soprano:raptor - Enables support for media-libs/raptor RDF parser/serializer.
-dev-libs/soprano:redland - Enables support for the dev-libs/redland storage backend (really slow one).
-dev-libs/soprano:virtuoso - Enables support for dev-db/virtuoso storage backend.
 dev-libs/starpu:cuda - Enable NVIDIA CUDA toolkit support
 dev-libs/starpu:gcc-plugin - Enable GCC extension plugin (experimental)
 dev-libs/starpu:opencl - Enable OpenCL support
@@ -3076,6 +3075,7 @@ kde-base/plasma-workspace:json - Enable JSON support via dev-libs/qjson
 kde-base/plasma-workspace:kdepim - KDE PIM integration via kde-base/kdepimlibs
 kde-base/plasma-workspace:qalculate - Enable Qalculate runner using sci-libs/libqalculate
 kde-base/powerdevil:pm-utils - Adds support for suspend/resume the system through sys-power/pm-utils
+kde-base/pykde4:akonadi - Compile bindings for Akonadi
 kde-base/qtruby:declarative - Compile bindings for dev-qt/qtdeclarative.
 kde-base/qtruby:phonon - Compile bindings for Phonon.
 kde-base/qtruby:qscintilla - Compile bindings for x11-libs/qscintilla.
@@ -3388,6 +3388,20 @@ media-gfx/album:themes - Install optional themes
 media-gfx/asymptote:boehm-gc - Enables using the Boehm-Demers-Weiser conservative garbage collector
 media-gfx/asymptote:offscreen - Enables off-screen rendering
 media-gfx/asymptote:sigsegv - Enables using dev-libs/libsigsegv
+media-gfx/blender:boost - Enable features depending on boost.
+media-gfx/blender:bullet - Enable Bullet (Physics Engine).
+media-gfx/blender:collada - Add support for Collada interchange format through media-libs/opencollada.
+media-gfx/blender:colorio - Enable OpenColorIO color management.
+media-gfx/blender:cycles - Build cycles renderer (requires media-libs/openimageio and dev-libs/boost).
+media-gfx/blender:dds - Adds DDS textures support to Blender.
+media-gfx/blender:doc - Build C and Python API documentation directly from the source code.
+media-gfx/blender:elbeem - Adds surface fluid simulation to Blender using El'Beem library.
+media-gfx/blender:game-engine - Adds Game Engine support to Blender.
+media-gfx/blender:ndof - Enable NDOF input devices (SpaceNavigator and friends).
+media-gfx/blender:openimageio - Enable OpenImageIO Support
+media-gfx/blender:opennl - Enable use of Open Numerical Library
+media-gfx/blender:player - Build the Blender Player. THis requires the Game engine.
+media-gfx/blender:redcode - This flag add support for RED CODE camera digital format (5K HD images *.r3d) - EXPERIMENTAL.
 media-gfx/comix:rar - Pulls app-arch/unrar for rar file support
 media-gfx/darktable:colord - Support color management using x11-misc/colord
 media-gfx/darktable:flickr - Add support for uploading photos to flickr
@@ -4057,6 +4071,7 @@ media-sound/mp3splt-gtk:gtk3 - Link against x11-libs/gtk+:3 instead of x11-libs/
 media-sound/mpd:adplug - Enable the AdPlug decoder plugin
 media-sound/mpd:cdio - Use libcdio for ISO9660 parsing support
 media-sound/mpd:curl - Support for web stream listening
+media-sound/mpd:eventfd - Use the eventfd function in MPD's event loop
 media-sound/mpd:faad - Use external faad library for AAC decoding
 media-sound/mpd:fifo - Support writing audio to a FIFO
 media-sound/mpd:fluidsynth - Enables Fluidsynth MIDI software synthesis (discouraged)
@@ -4065,7 +4080,6 @@ media-sound/mpd:gme - Enables support for media-libs/game-music-emu for playing 
 media-sound/mpd:id3tag - Support for ID3 tags
 media-sound/mpd:inotify - Use the Linux kernel inotify subsystem to notice changes to mpd music library
 media-sound/mpd:lame - Support for MP3 streaming via Icecast2
-media-sound/mpd:lastfmradio - Support listening to last.fm radio stations
 media-sound/mpd:libmpdclient - Enable support for remote mpd databases
 media-sound/mpd:libsoxr - Enable the libsoxr resampler
 media-sound/mpd:mpg123 - Enable support for mp3 decoding over media-sound/mpg123
@@ -4075,8 +4089,8 @@ media-sound/mpd:opus - Enable Opus codec support
 media-sound/mpd:pipe - Support writing audio to a pipe
 media-sound/mpd:recorder - Enables output plugin for recording radio streams
 media-sound/mpd:sid - Build with SID (Commodore 64 Audio) support
+media-sound/mpd:signalfd - Use the signalfd function in MPD's event loop
 media-sound/mpd:soundcloud - Build plugin to access soundcloud
-media-sound/mpd:soup - Use net-libs/libsoup for HTTP streaming
 media-sound/mpd:systemd - Enable support for systemd socket activation
 media-sound/mpd:twolame - Support twolame MPEG-2 encoding
 media-sound/mpd:wildmidi - Enable MIDI support via wildmidi
@@ -4468,6 +4482,24 @@ media-video/mplayer:vidix - Support for vidix video output
 media-video/mplayer:xanim - Enables support for xanim based codecs
 media-video/mplayer:xvmc - Enables X-Video Motion Compensation support
 media-video/mplayer:zoran - Enables ZR360[56]7/ZR36060 video output
+media-video/mpv:bluray - Enable playback of Blu-ray filesystems
+media-video/mpv:bs2b - Enable Bauer stereophonic-to-binaural headphone filter
+media-video/mpv:cdio - Enable CDDA support via dev-libs/libcdio-paranoia
+media-video/mpv:cli - Build mpv CLI player
+media-video/mpv:doc-pdf - Build documentation in pdf format
+media-video/mpv:drm - Enable Kernel Mode Setting / Direct Rendering Manager based video output
+media-video/mpv:egl - Enable EGL backend for X11 OpenGL video output (experimental)
+media-video/mpv:enca - Enable support for charset discovery and conversion using app-i18n/enca
+media-video/mpv:jpeg - Enable support for saving screenshots to JPEG format
+media-video/mpv:libguess - Enable support for charset discovery and conversion using app-i18n/libguess
+media-video/mpv:libmpv - Build mpv shared library
+media-video/mpv:lua - Enable Lua scripting, OSC (On Screen Controller) GUI and net-misc/youtube-dl hook-script
+media-video/mpv:luajit - Use dev-lang/luajit instead of dev-lang/lua
+media-video/mpv:pvr - Enable Video4Linux2 MPEG PVR
+media-video/mpv:raspberry-pi - Enable support for the Raspberry Pi
+media-video/mpv:rubberband - Enable high quality pitch correction via media-libs/rubberband
+media-video/mpv:sdl - Enable media-libs/libsdl2 based video and audio outputs
+media-video/mpv:vf-dlopen - Install additional video filters for using with -vf dlopen
 media-video/noad:libmpeg2 - Support for libmpeg2 library
 media-video/ogmrip:ogm - Support for OGM container format
 media-video/ogmrip:srt - Support for SRT subtitle format
@@ -6522,6 +6554,7 @@ sys-apps/busybox:mdev - Create the appropriate symlink in /sbin and install mdev
 sys-apps/busybox:sep-usr - Support a separate /usr without needing an initramfs by booting with init=/ginit
 sys-apps/busybox:static - Make the system rescue shell (/bin/bb) static so you can recover even when glibc is broken
 sys-apps/busybox:systemd - Support systemd
+sys-apps/coreutils:multicall - Build all tools into a single `coreutils` program akin to busybox to save space
 sys-apps/dbus:systemd - Build with sys-apps/systemd at_console support
 sys-apps/dmtcp:fast - Enable experimental performance options such as mmap allocator.
 sys-apps/dmtcp:trace - Enable ptrace support (only valid with debug enabled).
@@ -6562,6 +6595,7 @@ sys-apps/flashrom:tools - Install additional tools
 sys-apps/flashrom:usbblaster - Enable support for Altera USB-Blaster dongles
 sys-apps/flashrom:usbblaster_spi - Enable support for Altera USB-Blaster dongles
 sys-apps/flashrom:wiki - Enable wiki informations, like supported devices etc.
+sys-apps/gawk:mpfr - use mpfr for high precision arithmetic (-M / --bignum)
 sys-apps/gnome-disk-utility:fat - Include FAT16/FAT32 support (sys-fs/dosfstools)
 sys-apps/hwdata-gentoo:binary-drivers - Adds support for ATI/NVIDIA binary drivers
 sys-apps/hwloc:cuda - Enable CUDA device discovery
@@ -6760,6 +6794,9 @@ sys-cluster/corosync:infiniband - Enable Infiniband RDMA transport support
 sys-cluster/drbd:heartbeat - Enable Heartbeat integration
 sys-cluster/drbd:pacemaker - Enable Pacemaker integration
 sys-cluster/drbd:xen - Enable Xen integration
+sys-cluster/drbd-utils:heartbeat - Enable Heartbeat integration
+sys-cluster/drbd-utils:pacemaker - Enable Pacemaker integration
+sys-cluster/drbd-utils:xen - Enable Xen integration
 sys-cluster/galera:garbd - Install Galera Arbitrator - a stateless daemon which acts as a lightweight group member
 sys-cluster/gearmand:drizzle - Support dev-db/libdrizzle for the queue storage. This also adds support for MySQL storage.
 sys-cluster/gearmand:memcache - Support memcache daemon (via dev-libs/libmemcached) for the queue storage.
@@ -7062,7 +7099,7 @@ sys-libs/uclibc:savedconfig - Adds support for user defined configs
 sys-libs/uclibc:ssp - Force the use of ssp to be built into a hardened uclibc setup
 sys-libs/uclibc:uclibc-compat - Build uclibc with backwards compatible options
 sys-libs/uclibc:wordexp - Add support for word expansion (wordexp.h)
-sys-libs/zlib:minizip - Enable optional contributed library for handling zip files.
+sys-libs/zlib:minizip - include the minizip library for quick and dirty zip extraction
 sys-power/cpupower:cpufreq_bench - Build and install the cpufreq_bench binary
 sys-power/nut:ipmi - Support IPMI-based UPSes.
 sys-power/nut:ups_drivers_al175 - Driver for Eltek UPS models with AL175 alarm module
