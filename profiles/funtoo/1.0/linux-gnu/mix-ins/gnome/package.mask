@@ -136,7 +136,7 @@
 >=sci-geosciences/geocode-glib-3.15.0
 >=sci-geosciences/gnome-maps-3.15.1.2
 >=sys-apps/baobab-3.15.1
->=sys-auth/consolekit-0.9.2-r4
+>sys-auth/consolekit-0.4.6
 >=sys-libs/libosinfo-0.2.12
 >=www-client/epiphany-3.15.1
 >=x11-libs/gdk-pixbuf-2.32.0
