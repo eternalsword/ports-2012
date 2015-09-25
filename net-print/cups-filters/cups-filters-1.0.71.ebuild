@@ -1,4 +1,6 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI=5
 
@@ -12,7 +14,7 @@ if [[ "${PV}" == "9999" ]] ; then
 	KEYWORDS="alpha amd64 arm hppa ia64 ppc64 sparc x86"
 else
 	SRC_URI="http://www.openprinting.org/download/${PN}/${P}.tar.xz"
-	KEYWORDS="*"
+	KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~s390 sparc x86 ~amd64-fbsd ~m68k-mint"
 fi
 DESCRIPTION="Cups PDF filters"
 HOMEPAGE="http://www.linuxfoundation.org/collaborate/workgroups/openprinting/pdfasstandardprintjobformat"
@@ -63,7 +65,7 @@ src_configure() {
 		$(use_with png) \
 		$(use_with tiff) \
 		--with-rcdir=no \
-		--with-browseremoteprotocols=DNSSD,CUPS \
+ 		--with-browseremoteprotocols=DNSSD,CUPS \
 		--without-php
 }
 

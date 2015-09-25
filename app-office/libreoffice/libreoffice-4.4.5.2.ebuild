@@ -1,15 +1,16 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
-EAPI="5-progress"
+EAPI=5
 
 KDE_REQUIRED="optional"
 QT_MINIMAL="4.7.4"
 KDE_SCM="git"
 CMAKE_REQUIRED="never"
 
-PYTHON_ABI_TYPE="single"
-PYTHON_DEPEND="<<[threads,xml]>>"
-PYTHON_RESTRICTED_ABIS="3.1 3.2 *-jython *-pypy"
+PYTHON_COMPAT=( python2_7 python3_3 python3_4 )
+PYTHON_REQ_USE="threads,xml"
 
 # experimental ; release ; old
 # Usually the tarballs are moved a lot so this should make
@@ -26,7 +27,7 @@ BRANDING="${PN}-branding-gentoo-0.8.tar.xz"
 # PATCHSET="${P}-patchset-01.tar.xz"
 
 [[ ${PV} == *9999* ]] && SCM_ECLASS="git-r3"
-inherit base multiprocessing autotools bash-completion-r1 check-reqs eutils java-pkg-opt-2 kde4-base pax-utils python multilib toolchain-funcs flag-o-matic versionator ${SCM_ECLASS}
+inherit base multiprocessing autotools bash-completion-r1 check-reqs eutils java-pkg-opt-2 kde4-base pax-utils python-single-r1 multilib toolchain-funcs flag-o-matic versionator ${SCM_ECLASS}
 unset SCM_ECLASS
 
 DESCRIPTION="LibreOffice, a full office productivity suite"
@@ -89,9 +90,10 @@ unset lo_xt
 LICENSE="|| ( LGPL-3 MPL-1.1 )"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="*"
+KEYWORDS="amd64 ~arm x86 ~amd64-linux ~x86-linux"
 
 COMMON_DEPEND="
+	${PYTHON_DEPS}
 	app-arch/zip
 	app-arch/unzip
 	>=app-text/hunspell-1.3.2-r3
@@ -125,7 +127,7 @@ COMMON_DEPEND="
 	media-gfx/graphite2
 	>=media-libs/fontconfig-2.8.0
 	media-libs/freetype:2
-	>=media-libs/glew-1.10:=
+	>=media-libs/glew-1.10
 	>=media-libs/harfbuzz-0.9.18:=[icu(+)]
 	media-libs/lcms:2
 	>=media-libs/libpng-1.4:0=
@@ -243,17 +245,20 @@ PATCHES=(
 	# not upstreamable stuff
 	"${FILESDIR}/${PN}-4.4-system-pyuno.patch"
 
-	# from master branch
+	# from 5.0 branch
+	"${FILESDIR}/${PN}-4.3.5.2-remove-bashisms.patch" # bug 525454
 	"${FILESDIR}/${PN}-4.4.0.3-telepathy-build-fix.patch"
 	"${FILESDIR}/${PN}-4.4.1.2-add-kde4-open-url-script.patch"
-	"${FILESDIR}/${PN}-4.3.5.2-remove-bashisms.patch" # bug 525454
+	"${FILESDIR}/${PN}-4.4.4.3-improve-KDE4FilePicker.patch"
 	"${FILESDIR}/${PN}-4.4.4.3-fix-KDE4-FileDialog.patch"
 	"${FILESDIR}/${PN}-4.4.4.3-cleanup-IsNativeControlSupported.patch"
-	"${FILESDIR}/${PN}-4.4.4.3-improve-KDE4FilePicker.patch"
+
+	# from master branch
 	"${FILESDIR}/${PN}-4.4.5.2-fix-KDE4-listbox-regression.patch"
 )
 
 REQUIRED_USE="
+	${PYTHON_REQUIRED_USE}
 	bluetooth? ( dbus )
 	collada? ( gltf )
 	gnome? ( gtk )
@@ -297,7 +302,7 @@ pkg_pretend() {
 pkg_setup() {
 	java-pkg-opt-2_pkg_setup
 	kde4-base_pkg_setup
-	python_pkg_setup
+	python-single-r1_pkg_setup
 
 	[[ ${MERGE_TYPE} != binary ]] && check-reqs_pkg_setup
 }
@@ -339,8 +344,8 @@ src_prepare() {
 	# optimization flags
 	export GMAKE_OPTIONS="${MAKEOPTS}"
 	# System python 2.7 enablement:
-	export PYTHON_CFLAGS="-I${EPREFIX}$(python_get_includedir)"
-	export PYTHON_LIBS="$(python_get_library -l)"
+	export PYTHON_CFLAGS=$(python_get_CFLAGS)
+	export PYTHON_LIBS=$(python_get_LIBS)
 
 	if use collada; then
 		export OPENCOLLADA_CFLAGS="-I/usr/include/opencollada/COLLADABaseUtils -I/usr/include/opencollada/COLLADAFramework -I/usr/include/opencollada/COLLADASaxFrameworkLoader -I/usr/include/opencollada/GeneratedSaxParser"
@@ -486,7 +491,7 @@ src_configure() {
 		--with-lang="" \
 		--with-parallelism=$(makeopts_jobs) \
 		--with-system-ucpp \
-		--with-vendor="Funtoo Linux" \
+		--with-vendor="Gentoo Foundation" \
 		--with-x \
 		--without-fonts \
 		--without-myspell-dicts \
