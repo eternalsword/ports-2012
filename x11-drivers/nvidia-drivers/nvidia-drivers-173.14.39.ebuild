@@ -1,4 +1,6 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI=5
 
@@ -35,10 +37,9 @@ RDEPEND="
 	<x11-base/xorg-server-1.15.99:=
 	acpi? ( sys-power/acpid )
 	multilib? (
-				>=x11-libs/libX11-1.6.2[abi_x86_32]
-				>=x11-libs/libXext-1.3.2[abi_x86_32]
-			)
-
+		>=x11-libs/libX11-1.6.2[abi_x86_32]
+		>=x11-libs/libXext-1.3.2[abi_x86_32]
+	)
 	tools? (
 		dev-libs/atk
 		dev-libs/glib:2
