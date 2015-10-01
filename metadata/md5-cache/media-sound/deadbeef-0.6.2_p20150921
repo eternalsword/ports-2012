@@ -11,5 +11,5 @@ RDEPEND=dev-libs/glib:2 aac? ( media-libs/faad2:0 ) adplug? ( media-libs/adplug:
 REQUIRED_USE=cdparanoia? ( cdda ) converter? ( || ( gtk2 gtk3 ) ) cover-imlib2? ( cover ) cover-network? ( cover curl ) cover? ( || ( gtk2 gtk3 ) cover-network ) ffmpeg? ( !libav ) lastfm? ( curl ) mp3? ( || ( mad mpg123 ) ) playlist-browser? ( || ( gtk2 gtk3 ) ) shell-exec? ( || ( gtk2 gtk3 ) ) || ( alsa oss pulseaudio nullout )
 SLOT=0
 SRC_URI=https://github.com/Alexey-Yakovenko/deadbeef/archive/c43f4189849b1e94040abc63b3e2b1f27afbde91.tar.gz -> deadbeef-0.6.2_p20150921.tar.gz
-_eclasses_=autotools	7d16e72a943b4803ca9691b2ecf89216	eutils	351a78113be5b393c09a2c948701ad36	fdo-mime	92d07846ea8ea54172f8c0112a47ae3d	gnome2-utils	4a0252e64a2520ff31387a5cfe92c849	l10n	714aaf78929eade946da5eaff7d2001a	libtool	7f78cd7d403808a350c9ae23f5821fb4	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361
+_eclasses_=autotools	542bf3f83917668f3893f4da1ca238ff	eutils	43da5163ba106e87d22d2e7d6d67537f	fdo-mime	92d07846ea8ea54172f8c0112a47ae3d	gnome2-utils	4a0252e64a2520ff31387a5cfe92c849	l10n	714aaf78929eade946da5eaff7d2001a	libtool	7f78cd7d403808a350c9ae23f5821fb4	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	toolchain-funcs	1dfcad7b3f439dbc511d76c49f23da0d
 _md5_=c60c8136e5f3f721ef9695872860b6ca
