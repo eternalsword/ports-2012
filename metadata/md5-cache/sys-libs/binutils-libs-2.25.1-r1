@@ -10,4 +10,4 @@ RDEPEND=zlib? ( sys-libs/zlib[abi_x86_32(-)?,abi_x86_64(-)?,abi_x86_x32(-)?,abi_
 SLOT=0/2.25.1
 SRC_URI=mirror://gnu/binutils/binutils-2.25.1.tar.bz2 mirror://gentoo/binutils-2.25.1-patches-1.1.tar.xz
 _eclasses_=eutils	43da5163ba106e87d22d2e7d6d67537f	multibuild	188cedebf7a8e614147e30ad01e9ce8f	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	multilib-build	60244ad700ae25a353f08ed889b216a2	multilib-minimal	25cb388b79cf32cf140e5791dcfc3173	toolchain-funcs	1dfcad7b3f439dbc511d76c49f23da0d
-_md5_=c6b1d9762499d5d5d49c963d82402a99
+_md5_=c0ad18611a92205a1f356e309759b904
