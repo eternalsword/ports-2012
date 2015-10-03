@@ -1,8 +1,11 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI="5"
 
 KV_min=2.6.39
+WANT_AUTOMAKE=1.13
 
 inherit autotools eutils linux-info multilib multilib-minimal user
 
@@ -10,8 +13,8 @@ if [[ ${PV} = 9999* ]]; then
 	EGIT_REPO_URI="git://github.com/gentoo/eudev.git"
 	inherit git-2
 else
-	SRC_URI="http://dev.gentoo.org/~blueness/${PN}/${P}.tar.gz"
-	KEYWORDS="*"
+	SRC_URI="https://dev.gentoo.org/~blueness/${PN}/${P}.tar.gz"
+	KEYWORDS="~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 sparc ~x86"
 fi
 
 DESCRIPTION="Linux dynamic and persistent device naming support (aka userspace devfs)"
@@ -19,7 +22,7 @@ HOMEPAGE="https://github.com/gentoo/eudev"
 
 LICENSE="LGPL-2.1 MIT GPL-2"
 SLOT="0"
-IUSE="doc +gudev +hwdb +kmod introspection +keymap +modutils +rule-generator selinux +static-libs test"
+IUSE="doc gudev +hwdb +kmod introspection +keymap +modutils +rule-generator selinux static-libs test"
 
 COMMON_DEPEND=">=sys-apps/util-linux-2.20
 	gudev? ( >=dev-libs/glib-2.34.3:2[${MULTILIB_USEDEP}] )
@@ -48,12 +51,17 @@ DEPEND="${COMMON_DEPEND}
 	test? ( app-text/tree dev-lang/perl )"
 
 RDEPEND="${COMMON_DEPEND}
+	!<sys-fs/lvm2-2.02.103
 	!<sec-policy/selinux-base-2.20120725-r10
 	!sys-fs/udev
-	!sys-apps/systemd"
+	!sys-apps/systemd
+	gudev? ( !dev-libs/libgudev )"
 
-PDEPEND=">=sys-fs/udev-init-scripts-27-r1
-	hwdb? ( keymap? ( >=sys-apps/hwids-20140304[udev] ) )"
+PDEPEND=">=sys-fs/udev-init-scripts-26
+	hwdb? ( >=sys-apps/hwids-20140304[udev] )
+	keymap? ( >=sys-apps/hwids-20140304[udev] )"
+
+REQUIRED_USE="keymap? ( hwdb )"
 
 # The multilib-build.eclass doesn't handle situation where the installed headers
 # are different in ABIs. In this case, we install libgudev headers in native
@@ -105,8 +113,6 @@ src_prepare() {
 	else
 		echo 'EXTRA_DIST =' > docs/gtk-doc.make
 	fi
-	# This may break without WANT_AUTOMAKE=1.13, but we
-	# we want this so we can fix problems upstream.
 	eautoreconf
 }
 
@@ -129,6 +135,7 @@ multilib_src_configure() {
 		--with-html-dir="/usr/share/doc/${PF}/html"
 		--enable-split-usr
 		--exec-prefix=/
+
 		$(use_enable gudev)
 	)
 
@@ -266,12 +273,12 @@ pkg_postinst() {
 	elog
 	elog "For more information on eudev on Gentoo, writing udev rules, and"
 	elog "fixing known issues visit:"
-	elog "         http://www.gentoo.org/doc/en/udev-guide.xml"
+	elog "         https://www.gentoo.org/doc/en/udev-guide.xml"
 	elog
 
 	# http://cgit.freedesktop.org/systemd/systemd/commit/rules/50-udev-default.rules?id=3dff3e00e044e2d53c76fa842b9a4759d4a50e69
-	# http://bugs.gentoo.org/246847
-	# http://bugs.gentoo.org/514174
+	# https://bugs.gentoo.org/246847
+	# https://bugs.gentoo.org/514174
 	enewgroup input
 
 	# Update hwdb database in case the format is changed by udev version.
