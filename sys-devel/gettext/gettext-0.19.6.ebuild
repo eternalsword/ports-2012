@@ -1,8 +1,6 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI="4"
+EAPI="5"
 
 inherit flag-o-matic eutils multilib toolchain-funcs mono-env libtool java-pkg-opt-2 multilib-minimal
 
@@ -12,7 +10,7 @@ SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3 LGPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="*"
 IUSE="acl -cvs doc emacs git java nls +cxx ncurses openmp static-libs elibc_glibc elibc_musl"
 
 # only runtime goes multilib
@@ -20,7 +18,7 @@ DEPEND=">=virtual/libiconv-0-r1[${MULTILIB_USEDEP}]
 	dev-libs/libxml2
 	dev-libs/expat
 	acl? ( virtual/acl )
-	ncurses? ( sys-libs/ncurses )
+	ncurses? ( sys-libs/ncurses:0= )
 	java? ( >=virtual/jdk-1.4 )"
 RDEPEND="${DEPEND}
 	!git? ( cvs? ( dev-vcs/cvs ) )
