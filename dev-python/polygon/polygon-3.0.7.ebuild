@@ -1,49 +1,40 @@
-# Copyright owners: Gentoo Foundation
-#                   Arfrever Frehtes Taifersar Arahesis
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
-EAPI="4-python"
-PYTHON_MULTIPLE_ABIS="1"
-PYTHON_RESTRICTED_ABIS="2.* *-jython"
+EAPI=5
+PYTHON_COMPAT=( python3_{3,4} )
 
-inherit distutils
+inherit distutils-r1
 
 DESCRIPTION="Python package to handle polygonal shapes in 2D"
-HOMEPAGE="http://www.j-raedler.de/projects/polygon/ https://github.com/jraedler/Polygon3"
-SRC_URI="https://bitbucket.org/jraedler/polygon3/downloads/Polygon3-${PV}.zip"
+HOMEPAGE="http://www.j-raedler.de/projects/polygon"
+SRC_URI="https://www.bitbucket.org/jraedler/${PN}3/downloads/Polygon3-${PV}.zip"
 
 LICENSE="LGPL-2"
 SLOT="3"
-KEYWORDS="amd64 x86"
-IUSE="numpy"
+IUSE="examples"
+KEYWORDS="amd64 ppc x86"
 
-RDEPEND="numpy? ( $(python_abi_depend dev-python/numpy) )"
-DEPEND="${RDEPEND}
-	app-arch/unzip"
+DEPEND="app-arch/unzip"
 
-S="${WORKDIR}/Polygon3-${PV}"
+S=${WORKDIR}/Polygon3-${PV}
 
-DOCS="HISTORY doc/Polygon.txt"
-PYTHON_MODULES="Polygon"
+DOCS=( doc/{Polygon.txt,Polygon.pdf} )
 
-src_prepare() {
-	distutils_src_prepare
-
-	# Set NumPy include path.
-	sed \
-		-e '/print("NumPy extension not found!")/i\        withNumPy = False' \
-		-e "s/if withNumPy and numPyIncludePath:/if withNumPy:/" \
-		-e "s/inc.append(numPyIncludePath)/inc.append(numpy.get_include())/" \
-		-i setup.py
-
-	if ! use numpy; then
-		sed -e "s/withNumPy=True/withNumPy=False/" -i setup.py
+python_prepare_all() {
+	if use examples; then
+		mkdir examples || die
+		mv doc/{Examples.py,testpoly.gpf} examples || die
 	fi
+	distutils-r1_python_prepare_all
 }
 
-src_test() {
-	testing() {
-		python_execute PYTHONPATH="$(ls -d build-${PYTHON_ABI}/lib.*)" "$(PYTHON)" test/Test.py
-	}
-	python_execute_function testing
+python_test() {
+	${PYTHON} test/Test.py || die "Tests failed under ${EPYTHON}"
+}
+
+python_install_all() {
+	use examples && local EXAMPLES=( examples/. )
+	distutils-r1_python_install_all
 }

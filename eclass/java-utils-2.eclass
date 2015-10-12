@@ -1,11 +1,5 @@
-# Base eclass for Java packages
-#
-# Copyright (c) 2004-2005, Thomas Matthijs <axxo@gentoo.org>
-# Copyright (c) 2004, Karl Trygve Kalleberg <karltk@gentoo.org>
-# Copyright (c) 2004-2015, Gentoo Foundation
-#
-# Licensed under the GNU General Public License, v2
-#
+# Copyright 2004-2015 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 # @ECLASS: java-utils-2.eclass
@@ -2827,9 +2821,10 @@ is-java-strict() {
 
 # @FUNCTION: java-pkg_clean
 # @DESCRIPTION:
-# java package cleaner function, will remove all *.class and *.jar files
-# removing any bundled dependencies
+# Java package cleaner function. This will remove all *.class and *.jar
+# files, removing any bundled dependencies.
 java-pkg_clean() {
-	[[ -n "${JAVA_PKG_NO_CLEAN}" ]] &&
+	if [[ -z "${JAVA_PKG_NO_CLEAN}" ]]; then
 		find "${@}" '(' -name '*.class' -o -name '*.jar' ')' -type f -delete -print || die
+	fi
 }

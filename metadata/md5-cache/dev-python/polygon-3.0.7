@@ -1,14 +1,14 @@
-DEFINED_PHASES=compile install postinst postrm prepare setup test
-DEPEND=numpy? ( dev-python/numpy[python_abis_3.1?,python_abis_3.2?,python_abis_3.3?,python_abis_3.4?,python_abis_3.5?,python_abis_3.2-pypy?] ) app-arch/unzip ( python_abis_3.1? ( dev-lang/python:3.1 ) python_abis_3.2? ( dev-lang/python:3.2 ) python_abis_3.3? ( dev-lang/python:3.3 ) python_abis_3.4? ( dev-lang/python:3.4 ) python_abis_3.5? ( dev-lang/python:3.5 ) python_abis_3.2-pypy? ( dev-lang/pypy:python-3.2 ) )
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=app-arch/unzip python_targets_python3_3? ( >=dev-lang/python-3.3.2-r2:3.3 ) python_targets_python3_4? ( dev-lang/python:3.4 ) >=dev-lang/python-exec-2:=[python_targets_python3_3(-)?,python_targets_python3_4(-)?,-python_single_target_python3_3(-),-python_single_target_python3_4(-)]
 DESCRIPTION=Python package to handle polygonal shapes in 2D
-EAPI=4-python
-HOMEPAGE=http://www.j-raedler.de/projects/polygon/ https://github.com/jraedler/Polygon3
-IUSE=numpy python_abis_3.1 python_abis_3.2 python_abis_3.3 python_abis_3.4 python_abis_3.5 python_abis_3.2-pypy
-KEYWORDS=amd64 x86
+EAPI=5
+HOMEPAGE=http://www.j-raedler.de/projects/polygon
+IUSE=examples python_targets_python3_3 python_targets_python3_4
+KEYWORDS=amd64 ppc x86
 LICENSE=LGPL-2
-RDEPEND=numpy? ( dev-python/numpy[python_abis_3.1?,python_abis_3.2?,python_abis_3.3?,python_abis_3.4?,python_abis_3.5?,python_abis_3.2-pypy?] ) ( python_abis_3.1? ( dev-lang/python:3.1 ) python_abis_3.2? ( dev-lang/python:3.2 ) python_abis_3.3? ( dev-lang/python:3.3 ) python_abis_3.4? ( dev-lang/python:3.4 ) python_abis_3.5? ( dev-lang/python:3.5 ) python_abis_3.2-pypy? ( dev-lang/pypy:python-3.2 ) )
-REQUIRED_USE=|| ( python_abis_3.1 python_abis_3.2 python_abis_3.3 python_abis_3.4 python_abis_3.5 python_abis_3.2-pypy )
+RDEPEND=python_targets_python3_3? ( >=dev-lang/python-3.3.2-r2:3.3 ) python_targets_python3_4? ( dev-lang/python:3.4 ) >=dev-lang/python-exec-2:=[python_targets_python3_3(-)?,python_targets_python3_4(-)?,-python_single_target_python3_3(-),-python_single_target_python3_4(-)]
+REQUIRED_USE=|| ( python_targets_python3_3 python_targets_python3_4 )
 SLOT=3
-SRC_URI=https://bitbucket.org/jraedler/polygon3/downloads/Polygon3-3.0.7.zip
-_eclasses_=distutils	2d484830b6e5aa7a840ba17d755dd55b	python	2cc08291ed8a5cd6b4791b24b0056357
-_md5_=045815cb122b35d1370095b035941ec8
+SRC_URI=https://www.bitbucket.org/jraedler/polygon3/downloads/Polygon3-3.0.7.zip
+_eclasses_=distutils-r1	46506dd0dd992b3c89b0d00daabfd86c	eutils	43da5163ba106e87d22d2e7d6d67537f	multibuild	188cedebf7a8e614147e30ad01e9ce8f	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	multiprocessing	d769539d9bace6eaca30af23bc2b4dde	python-r1	32b376cbb100a3a8083b3a0de023e117	python-utils-r1	9c405693f1f355a718700c5cffffd9e5	toolchain-funcs	1dfcad7b3f439dbc511d76c49f23da0d
+_md5_=abb9c3555d7b32e83c56f2ccad4d88cf

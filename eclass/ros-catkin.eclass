@@ -63,7 +63,8 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 if [ -n "${CATKIN_DO_PYTHON_MULTIBUILD}" ] ; then
-	RDEPEND="${RDEPEND} dev-lang/python-exec:2"
+	RDEPEND="${RDEPEND} dev-lang/python-exec:2 ${PYTHON_DEPS}"
+	DEPEND="${DEPEND} ${PYTHON_DEPS}"
 fi
 
 # @ECLASS-VARIABLE: CATKIN_HAS_MESSAGES
@@ -124,7 +125,7 @@ if [ "${PV#9999}" != "${PV}" ] ; then
 	S=${WORKDIR}/${P}/${ROS_SUBDIR}
 else
 	SRC_URI="${ROS_REPO_URI}/archive/${VER_PREFIX}${PV%_*}${VER_SUFFIX}.tar.gz -> ${ROS_REPO_URI##*/}-${PV}.tar.gz"
-	S=${WORKDIR}/${VER_PREFIX}${ROS_REPO_URI##*/}-${PV}/${ROS_SUBDIR}
+	S=${WORKDIR}/${VER_PREFIX}${ROS_REPO_URI##*/}-${PV}${VER_SUFFIX}/${ROS_SUBDIR}
 fi
 
 HOMEPAGE="http://wiki.ros.org/${PN}"
@@ -201,8 +202,8 @@ ros-catkin_src_compile() {
 # Decorator around cmake-utils_src_test to ensure tests are built before running them.
 ros-catkin_src_test_internal() {
 	cd "${BUILD_DIR}" || die
-	if nonfatal emake tests -n &> /dev/null ; then
-		emake VERBOSE=1 tests
+	if nonfatal cmake-utils_src_make tests -n &> /dev/null ; then
+		cmake-utils_src_make tests
 	fi
 	cmake-utils_src_test "${@}"
 }
