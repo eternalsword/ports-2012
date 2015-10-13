@@ -34,7 +34,7 @@ COMMON_DEPEND="
 	x11-libs/pango[X]
 	virtual/opengl
 	systemd? ( >=sys-apps/systemd-183 )
-	!systemd? ( >=sys-power/upower-pm-utils-0.9.23 )
+	!systemd? ( || ( sys-power/upower sys-power/upower-pm-utils ) )
 "
 RDEPEND="${COMMON_DEPEND}
 	>=gnome-extra/cinnamon-desktop-2.6[systemd=]
