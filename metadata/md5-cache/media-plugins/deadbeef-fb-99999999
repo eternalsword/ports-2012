@@ -1,0 +1,13 @@
+DEFINED_PHASES=configure install prepare unpack
+DEPEND=!media-plugins/deadbeef-librarybrowser:0 !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.15:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4 media-sound/deadbeef:0 gtk2? ( media-sound/deadbeef:0[gtk2] ) gtk3? ( media-sound/deadbeef:0[gtk3] ) >=dev-vcs/git-1.8.2.1
+DESCRIPTION=DeaDBeeF filebrowser plugin
+EAPI=5
+HOMEPAGE=http://sourceforge.net/projects/deadbeef-fb
+IUSE=debug +gtk2 gtk3
+LICENSE=GPL-2
+RDEPEND=!media-plugins/deadbeef-librarybrowser:0 media-sound/deadbeef:0 gtk2? ( media-sound/deadbeef:0[gtk2] ) gtk3? ( media-sound/deadbeef:0[gtk3] )
+REQUIRED_USE=|| ( gtk2 gtk3 )
+RESTRICT=mirror
+SLOT=0
+_eclasses_=autotools	542bf3f83917668f3893f4da1ca238ff	deadbeef-plugins	5b20c71759a8715ad73146268a59e3dd	eutils	43da5163ba106e87d22d2e7d6d67537f	git-r3	eddac8fcf8e23a1d871890d0fb7dab8e	libtool	7f78cd7d403808a350c9ae23f5821fb4	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	toolchain-funcs	1dfcad7b3f439dbc511d76c49f23da0d
+_md5_=9d8ca3d0686a41f3a2361f5081f0a01d
