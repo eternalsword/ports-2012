@@ -10,4 +10,4 @@ RDEPEND=abi_x86_32? ( !app-emulation/emul-linux-x86-sdl[-abi_x86_32(-)] !<=app-e
 SLOT=0
 SRC_URI=ftp://ftp.lokigames.com/pub/open-source/smpeg/smpeg-0.4.4.tar.gz mirror://gentoo/smpeg-0.4.4-gtkm4.patch.bz2
 _eclasses_=autotools	542bf3f83917668f3893f4da1ca238ff	eutils	43da5163ba106e87d22d2e7d6d67537f	flag-o-matic	85dc1eac3c64d8141374490ed64122e5	libtool	7f78cd7d403808a350c9ae23f5821fb4	multibuild	188cedebf7a8e614147e30ad01e9ce8f	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	multilib-build	60244ad700ae25a353f08ed889b216a2	multilib-minimal	25cb388b79cf32cf140e5791dcfc3173	toolchain-funcs	1dfcad7b3f439dbc511d76c49f23da0d
-_md5_=6a1a5cb9f6db2b290fef08b254f349ee
+_md5_=92e96d331880a0aaa0751a9b9110a627
