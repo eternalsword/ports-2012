@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 
@@ -14,7 +12,7 @@ then
 	inherit git-2
 else
 	SRC_URI="https://dev.gentoo.org/~blueness/${PN}/${P}.tar.gz"
-	KEYWORDS="alpha"
+	KEYWORDS="*"
 fi
 
 DESCRIPTION="Linux dynamic and persistent device naming support (aka userspace devfs)"
