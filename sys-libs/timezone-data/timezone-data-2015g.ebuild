@@ -1,4 +1,6 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI="4"
 
@@ -13,8 +15,8 @@ SRC_URI="http://www.iana.org/time-zones/repository/releases/tzdata${data_ver}.ta
 
 LICENSE="BSD public-domain"
 SLOT="0"
-KEYWORDS="*"
-IUSE="nls +leaps_timezone elibc_FreeBSD elibc_glibc"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
+IUSE="nls leaps_timezone elibc_FreeBSD elibc_glibc"
 
 RDEPEND="!sys-libs/glibc[vanilla(+)]"
 
@@ -104,19 +106,20 @@ pkg_config() {
 	# make sure the /etc/localtime file does not get stale #127899
 	local tz src="${EROOT}etc/timezone" etc_lt="${EROOT}etc/localtime"
 
+	# If it's a symlink, assume the user knows what they're doing and
+	# they're managing it themselves. #511474
+	if [[ -L ${etc_lt} ]] ; then
+		einfo "Assuming your ${etc_lt} symlink is what you want; skipping update."
+		return 0
+	fi
+
 	tz=$(get_TIMEZONE) || return 0
 	if [[ ${tz} == "FOOKABLOIE" ]] ; then
 		elog "You do not have TIMEZONE set in ${src}."
 
 		if [[ ! -e ${etc_lt} ]] ; then
-			# if /etc/localtime is a symlink somewhere, assume they
-			# know what they're doing and they're managing it themselves
-			if [[ ! -L ${etc_lt} ]] ; then
-				cp -f "${EROOT}"/usr/share/zoneinfo/Factory "${etc_lt}"
-				elog "Setting ${etc_lt} to Factory."
-			else
-				elog "Assuming your ${etc_lt} symlink is what you want; skipping update."
-			fi
+			cp -f "${EROOT}"/usr/share/zoneinfo/Factory "${etc_lt}"
+			elog "Setting ${etc_lt} to Factory."
 		else
 			elog "Skipping auto-update of ${etc_lt}."
 		fi
@@ -128,13 +131,8 @@ pkg_config() {
 		elog "Your ${etc_lt} has been reset to Factory; enjoy!"
 		tz="Factory"
 	fi
-
-	if [[ -L ${etc_lt} ]]; then
-		einfo "Skipping symlinked ${etc_lt}"
-	else
-		einfo "Updating ${etc_lt} with ${EROOT}usr/share/zoneinfo/${tz}"
-		cp -f "${EROOT}"/usr/share/zoneinfo/"${tz}" "${etc_lt}"
-	fi
+	einfo "Updating ${etc_lt} with ${EROOT}usr/share/zoneinfo/${tz}"
+	cp -f "${EROOT}"/usr/share/zoneinfo/"${tz}" "${etc_lt}"
 }
 
 pkg_postinst() {
