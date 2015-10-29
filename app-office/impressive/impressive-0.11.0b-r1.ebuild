@@ -12,27 +12,34 @@ MY_PN="Impressive"
 
 DESCRIPTION="Stylish way of giving presentations with Python"
 HOMEPAGE="http://impressive.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${MY_PN}/${PV}/${MY_PN}-${PV}.tar.gz"
+SRC_URI="mirror://sourceforge/${PN}/${MY_PN}/${PV%b}/${MY_PN}-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
 RDEPEND="${PYTHON_DEPS}
-	!>=dev-python/pillow-3.0.0
 	app-text/pdftk
-	virtual/python-imaging[${PYTHON_USEDEP}]
 	dev-python/pygame[${PYTHON_USEDEP}]
-	dev-python/pyopengl[${PYTHON_USEDEP}]
-	x11-misc/xdg-utils
+	virtual/python-imaging[${PYTHON_USEDEP}]
 	x11-apps/xrandr
-	app-text/ghostscript-gpl
+	|| (
+		app-text/mupdf
+		app-text/poppler
+		app-text/ghostscript-gpl
+		)
 	|| ( media-fonts/dejavu media-fonts/corefonts )"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 S=${WORKDIR}/${MY_PN}-${PV}
+
+src_prepare() {
+	sed \
+		-e 's:tostring:tobytes:g' \
+		-i impressive.py || die
+}
 
 src_install() {
 	python_foreach_impl python_doscript ${PN}.py
@@ -45,4 +52,14 @@ src_install() {
 	doman impressive.1
 	dohtml impressive.html
 	dodoc changelog.txt demo.pdf
+}
+
+pkg_postinst() {
+	elog "The experience with ${PN} can be enhanced by folowing packages:"
+	optfeature "Starting web or e-mail hyperlinks from PDF documents" x11-misc/xdg-utils
+	optfeature "Sound and video playback" media-video/mplayer
+	optfeature "Sound and video playback" media-video/mplayer2
+	optfeature "Alternate PDF rendering" app-text/mupdf
+	optfeature "Alternate PDF rendering" app-text/poppler
+	optfeature "Alternate PDF rendering" app-text/ghostscript-gpl
 }
