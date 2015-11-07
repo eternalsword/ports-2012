@@ -10,6 +10,7 @@ PYTHON_REQ_USE="xml(+)"
 inherit distutils-r1 git-r3
 
 EGIT_REPO_URI="git://anongit.gentoo.org/proj/gentoolkit.git"
+EGIT_BRANCH="gentoolkit"
 
 DESCRIPTION="Collection of administration scripts for Gentoo"
 HOMEPAGE="https://www.gentoo.org/proj/en/portage/tools/index.xml"
