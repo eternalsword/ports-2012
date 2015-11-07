@@ -1,5 +1,5 @@
 #!/sbin/runscript
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -16,11 +16,11 @@ start() {
 		chown distcc:daemon /var/run/distccd
 	fi
 
-	# Load GCC_SPECS from profile.env bug #164818
-	GCC_SPECS="$(. /etc/profile.env; echo "${GCC_SPECS}")" \
-	PATH="$(gcc-config --get-bin-path):${PATH}" \
-	start-stop-daemon --start --quiet --exec "${DISTCCD_EXEC}" -- \
-		--daemon --pid-file "${DISTCCD_PIDFILE}" --user distcc \
+	# Load PATH and GCC_SPECS from gcc-config, bug #262773
+	eval "$(gcc-config -E)"
+
+	start-stop-daemon --start --quiet --exec "${DISTCCD_EXEC}" --user distcc -- \
+		--daemon --pid-file "${DISTCCD_PIDFILE}" \
 		${DISTCCD_OPTS}
 	eend $?
 }
