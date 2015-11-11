@@ -29,27 +29,41 @@ SRC_URI="
 LICENSE="Oracle-BCLA-JavaSE"
 SLOT="1.8"
 KEYWORDS="*"
-IUSE="X alsa fontconfig jce nsplugin pax_kernel selinux"
+IUSE="alsa +awt cups +fontconfig javafx jce nsplugin pax_kernel selinux"
 
-RESTRICT="mirror strip"
+RESTRICT="mirror preserve-libs strip"
 QA_PREBUILT="*"
 
-COMMON_DEP="
-	selinux? ( sec-policy/selinux-java )"
-RDEPEND="${COMMON_DEP}
-	X? (
-		x11-libs/libXext
-		x11-libs/libXi
-		x11-libs/libXrender
-		x11-libs/libXtst
-		x11-libs/libX11
+RDEPEND="!x64-macos? (
+		awt? (
+			x11-libs/libX11
+			x11-libs/libXext
+			x11-libs/libXi
+			x11-libs/libXrender
+		)
+		javafx? (
+			dev-libs/glib:2
+			dev-libs/libxml2:2
+			dev-libs/libxslt
+			media-libs/freetype:2
+			x11-libs/cairo
+			x11-libs/gtk+:2
+			x11-libs/libX11
+			x11-libs/libXtst
+			x11-libs/libXxf86vm
+			x11-libs/pango
+			virtual/opengl
+		)
 	)
 	alsa? ( media-libs/alsa-lib )
-	fontconfig? ( media-libs/fontconfig )
-	!prefix? ( sys-libs/glibc )"
-# scanelf won't create a PaX header, so depend on paxctl to avoid fallback
-# marking. #427642
-DEPEND="${COMMON_DEP}
+	cups? ( net-print/cups )
+	fontconfig? ( media-libs/fontconfig:1.0 )
+	!prefix? ( sys-libs/glibc:* )
+	selinux? ( sec-policy/selinux-java )"
+
+# A PaX header isn't created by scanelf so depend on paxctl to avoid
+# fallback marking. See bug #427642.
+DEPEND="app-arch/zip
 	jce? ( app-arch/unzip )
 	pax_kernel? ( sys-apps/paxctl )"
 
@@ -68,34 +82,91 @@ src_prepare() {
 	if use jce; then
 		mv "${WORKDIR}"/${JCE_DIR} lib/security/ || die
 	fi
+
+	# Remove the hook that calls Oracle's evil usage tracker. Not just
+	# because it's evil but because it breaks the sandbox during builds
+	# and we can't find any other feasible way to disable it or make it
+	# write somewhere else. See bug #559936 for details.
+	zip -d lib/rt.jar sun/misc/PostVMInitHook.class || die
 }
 
 src_install() {
 	local dest="/opt/${P}"
-	local ddest="${ED}${dest}"
+	local ddest="${ED}${dest#/}"
 
 	# Create files used as storage for system preferences.
 	mkdir .systemPrefs || die
 	touch .systemPrefs/.system.lock || die
 	touch .systemPrefs/.systemRootModFile || die
 
-	# We should not need the ancient plugin for Firefox 2 anymore, plus it has
-	# writable executable segments
-	if use x86; then
-		rm -vf lib/i386/libjavaplugin_oji.so \
-			lib/i386/libjavaplugin_nscp*.so
-		rm -vrf plugin/i386
-	fi
-	# Without nsplugin flag, also remove the new plugin
-	local arch=${ARCH};
-	use x86 && arch=i386;
-	if ! use nsplugin; then
-		rm -vf lib/${arch}/libnpjp2.so \
-			lib/${arch}/libjavaplugin_jni.so
+	if ! use alsa ; then
+		rm -vf lib/*/libjsoundalsa.* || die
 	fi
 
+	if ! use awt ; then
+		rm -vf lib/*/lib*{[jx]awt,splashscreen}* \
+		   bin/{javaws,policytool} || die
+	fi
+
+	if ! use javafx ; then
+		rm -vf lib/*/lib*{decora,fx,glass,prism}* \
+		   lib/*/libgstreamer-lite.* lib/{,ext/}*fx* || die
+	fi
+
+	if ! use nsplugin ; then
+		rm -vf lib/*/libnpjp2.* || die
+	else
+		local nsplugin=$(echo lib/*/libnpjp2.*)
+	fi
+
+	# Even though plugins linked against multiple ffmpeg versions are
+	# provided, they generally lag behind what Gentoo has available.
+	rm -vf lib/*/libavplugin* || die
+
+	dodoc COPYRIGHT
 	dodir "${dest}"
-	cp -pPR bin lib man "${ddest}" || die
+	cp -pPR	bin lib man "${ddest}" || die
+
+	if use jce ; then
+		dodir ${dest}/lib/security/strong-jce
+		mv "${ddest}"/lib/security/US_export_policy.jar \
+			"${ddest}"/lib/security/strong-jce || die
+		mv "${ddest}"/lib/security/local_policy.jar \
+			"${ddest}"/lib/security/strong-jce || die
+		dosym "${dest}"/lib/security/${JCE_DIR}/US_export_policy.jar \
+			"${dest}"/lib/security/US_export_policy.jar
+		dosym "${dest}"/lib/security/${JCE_DIR}/local_policy.jar \
+			"${dest}"/lib/security/local_policy.jar
+	fi
+
+	if use nsplugin ; then
+		install_mozilla_plugin "${dest}/${nsplugin}"
+	fi
+
+	# Install desktop file for the Java Control Panel.
+	# Using ${PN}-${SLOT} to prevent file collision with jre and or other slots.
+	# make_desktop_entry can't be used as ${P} would end up in filename.
+	newicon lib/desktop/icons/hicolor/48x48/apps/sun-jcontrol.png \
+		sun-jcontrol-${PN}-${SLOT}.png || die
+	sed -e "s#Name=.*#Name=Java Control Panel for Oracle JRE ${SLOT}#" \
+		-e "s#Exec=.*#Exec=/opt/${P}/bin/jcontrol#" \
+		-e "s#Icon=.*#Icon=sun-jcontrol-${PN}-${SLOT}#" \
+		-e "s#Application;##" \
+		-e "/Encoding/d" \
+		lib/desktop/applications/sun_java.desktop > \
+		"${T}"/jcontrol-${PN}-${SLOT}.desktop || die
+	domenu "${T}"/jcontrol-${PN}-${SLOT}.desktop
+
+	# Prune all fontconfig files so libfontconfig will be used and only install
+	# a Gentoo specific one if fontconfig is disabled.
+	# http://docs.oracle.com/javase/8/docs/technotes/guides/intl/fontconfig.html
+	rm "${ddest}"/lib/fontconfig.* || die
+	if ! use fontconfig ; then
+		cp "${FILESDIR}"/fontconfig.Gentoo.properties "${T}"/fontconfig.properties || die
+		eprefixify "${T}"/fontconfig.properties
+		insinto "${dest}"/lib/
+		doins "${T}"/fontconfig.properties
+	fi
 
 	# This needs to be done before CDS - #215225
 	java-vm_set-pax-markings "${ddest}"
@@ -116,51 +187,9 @@ src_install() {
 			${ddest}/bin/java -server -Xshare:dump || die
 			;;
 	esac
-	# Remove empty dirs we might have copied
+
+	# Remove empty dirs we might have copied.
 	find "${D}" -type d -empty -exec rmdir -v {} + || die
-
-	dodoc COPYRIGHT README
-
-	if use jce; then
-		dodir ${dest}/lib/security/strong-jce
-		mv "${ddest}"/lib/security/US_export_policy.jar \
-			"${ddest}"/lib/security/strong-jce || die
-		mv "${ddest}"/lib/security/local_policy.jar \
-			"${ddest}"/lib/security/strong-jce || die
-		dosym "${dest}"/lib/security/${JCE_DIR}/US_export_policy.jar \
-			"${dest}"/lib/security/US_export_policy.jar
-		dosym "${dest}"/lib/security/${JCE_DIR}/local_policy.jar \
-			"${dest}"/lib/security/local_policy.jar
-	fi
-
-	if use nsplugin; then
-		install_mozilla_plugin "${dest}"/lib/${arch}/libnpjp2.so
-	fi
-
-	# Install desktop file for the Java Control Panel.
-	# Using ${PN}-${SLOT} to prevent file collision with jre and or other slots.
-	# make_desktop_entry can't be used as ${P} would end up in filename.
-	newicon lib/desktop/icons/hicolor/48x48/apps/sun-jcontrol.png \
-		sun-jcontrol-${PN}-${SLOT}.png || die
-	sed -e "s#Name=.*#Name=Java Control Panel for Oracle JRE ${SLOT}#" \
-		-e "s#Exec=.*#Exec=/opt/${P}/bin/jcontrol#" \
-		-e "s#Icon=.*#Icon=sun-jcontrol-${PN}-${SLOT}#" \
-		-e "s#Application;##" \
-		-e "/Encoding/d" \
-		lib/desktop/applications/sun_java.desktop > \
-		"${T}"/jcontrol-${PN}-${SLOT}.desktop || die
-	domenu "${T}"/jcontrol-${PN}-${SLOT}.desktop
-
-	# Prune all fontconfig files so libfontconfig will be used and only install
-	# a Gentoo specific one if fontconfig is disabled.
-	# http://docs.oracle.com/javase/7/docs/technotes/guides/intl/fontconfig.html
-	rm "${ddest}"/lib/fontconfig.* || die
-	if ! use fontconfig; then
-		cp "${FILESDIR}"/fontconfig.Gentoo.properties "${T}"/fontconfig.properties || die
-		eprefixify "${T}"/fontconfig.properties
-		insinto "${dest}"/lib/
-		doins "${T}"/fontconfig.properties
-	fi
 
 	set_java_env
 	java-vm_revdep-mask
