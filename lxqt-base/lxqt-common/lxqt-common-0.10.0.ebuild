@@ -12,21 +12,16 @@ if [[ ${PV} = *9999* ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="git://git.lxde.org/git/lxde/${PN}.git"
 else
-	SRC_URI="http://downloads.lxqt.org/lxqt/lxqt/${PV}/${P}.tar.xz"
-	KEYWORDS="~amd64 ~arm ~x86"
+	SRC_URI="https://downloads.lxqt.org/lxqt/${PV}/${P}.tar.xz"
+	KEYWORDS="~amd64   ~x86"
 fi
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
 
-S=${WORKDIR}
-
-DEPEND="~lxqt-base/liblxqt-${PV}
-	dev-qt/qtcore:4
-	dev-qt/qtgui:4
-	dev-qt/qtsvg:4"
+DEPEND=">=lxqt-base/liblxqt-0.10.0"
 RDEPEND="${DEPEND}"
-PDEPEND="~lxqt-base/lxqt-session-${PV}"
+PDEPEND=">=lxqt-base/lxqt-session-0.10.0"
 
 src_install() {
 	cmake-utils_src_install
