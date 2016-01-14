@@ -1,6 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 GCONF_DEBUG="yes"
@@ -29,6 +27,7 @@ RDEPEND="
 	>=media-sound/pulseaudio-0.9.16:0=
 	sys-apps/dbus
 	>=sys-auth/polkit-0.97
+	|| ( >=sys-power/upower-0.9.11:= sys-power/upower-pm-utils )
 	x11-libs/gdk-pixbuf:2
 	>=x11-libs/gtk+-3.9.10:3
 	>=x11-libs/libnotify-0.7.3:0=
@@ -47,7 +46,7 @@ RDEPEND="
 		x11-libs/libXtst )
 	smartcard? ( >=dev-libs/nss-3.11.2 )
 	systemd? ( sys-apps/systemd:0= >=sys-power/upower-0.9.11:= )
-	!systemd? ( sys-auth/consolekit:0= sys-power/upower-pm-utils )
+	!systemd? ( sys-auth/consolekit:0= )
 "
 DEPEND="${RDEPEND}
 	dev-libs/libxml2:2
