@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -7,7 +7,7 @@ inherit eutils toolchain-funcs
 
 DESCRIPTION="Dockable system resources monitor applet for WindowMaker"
 HOMEPAGE="http://repo.or.cz/w/dockapps.git"
-SRC_URI="http://dev.gentoo.org/~voyageur/distfiles/${P/_beta/b}.tar.bz2"
+SRC_URI="https://dev.gentoo.org/~voyageur/distfiles/${P/_beta/b}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -24,6 +24,7 @@ S=${WORKDIR}/${P/_beta/b}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-Makefile.patch
+	epatch "${FILESDIR}"/${P}-list.patch
 }
 
 src_compile() {

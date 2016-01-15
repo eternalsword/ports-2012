@@ -12,14 +12,14 @@ inherit distutils
 
 DESCRIPTION="Interactive X11 vector drawing program"
 HOMEPAGE="http://www.skencil.org/"
-SRC_URI="http://sk1.googlecode.com/files/${P/_alpha/alpha_rev}.tar.gz"
+SRC_URI="https://sk1.googlecode.com/files/${P/_alpha/alpha_rev}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
 IUSE=""
 
-DEPEND="virtual/python-imaging
+DEPEND="dev-python/pillow
 	dev-python/pyxml
 	dev-python/reportlab
 	dev-lang/tk

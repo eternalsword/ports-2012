@@ -9,13 +9,13 @@ DISTUTILS_IN_SOURCE_BUILD=1
 inherit distutils-r1
 
 DESCRIPTION="Lightweight SOAP client (Jurko's fork) (py3 support) (active development)"
-HOMEPAGE="http://bitbucket.org/jurko/suds"
+HOMEPAGE="https://bitbucket.org/jurko/suds"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}-jurko/${PN}-jurko-${PV}.tar.bz2 -> ${P}.tar.bz2"
 S="${WORKDIR}/${PN}-jurko-${PV}"
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
 IUSE="doc test"
 
 REQUIRED_USE="doc? ( $(python_gen_useflags python2_7) )"
@@ -26,6 +26,10 @@ DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]
 RDEPEND=""
 
 DOCS=( README.rst notes/{argument_parsing.rst,readme.txt,traversing_client_data.rst} )
+
+pkg_setup() {
+	use doc && DISTUTILS_ALL_SUBPHASE_IMPLS=( python2.7 )
+}
 
 python_compile_all() {
 	# to say that it's both, because it kinda is...

@@ -14,7 +14,7 @@ DESCRIPTION="A utility for network discovery and security auditing"
 HOMEPAGE="http://nmap.org/"
 SRC_URI="
 	http://nmap.org/dist/${MY_P}.tar.bz2
-	http://dev.gentoo.org/~jer/nmap-logo-64.png
+	https://dev.gentoo.org/~jer/nmap-logo-64.png
 "
 
 LICENSE="GPL-2"
@@ -32,7 +32,7 @@ REQUIRED_USE="
 "
 
 RDEPEND="
-	dev-libs/liblinear
+	dev-libs/liblinear:=
 	dev-libs/libpcre
 	net-libs/libpcap[ipv6?]
 	zenmap? (

@@ -10,12 +10,12 @@ CABAL_FEATURES="bin lib profile haddock hoogle hscolour test-suite"
 inherit haskell-cabal
 
 DESCRIPTION="Conversion between formats used to represent mathematics"
-HOMEPAGE="http://github.com/jgm/texmath"
+HOMEPAGE="https://github.com/jgm/texmath"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="executable +network-uri"
 
 RDEPEND="dev-haskell/mtl:=[profile?]

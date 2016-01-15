@@ -12,11 +12,11 @@ TOMEE_PV="1.5.2"
 
 DESCRIPTION="Project GlassFish Enterprise JavaBean API"
 HOMEPAGE="https://glassfish.java.net/"
-SRC_URI="http://dev.gentoo.org/~tomwij/files/dist/${P}.tar.xz"
+SRC_URI="https://dev.gentoo.org/~tomwij/files/dist/${P}.tar.xz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 CDEPEND="java-virtuals/xmlrpc-api:0
 	java-virtuals/transaction-api:0"

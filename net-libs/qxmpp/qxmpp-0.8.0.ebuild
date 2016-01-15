@@ -7,12 +7,12 @@ EAPI=5
 inherit qt4-r2 multilib
 
 DESCRIPTION="A cross-platform C++ XMPP client library based on the Qt framework"
-HOMEPAGE="http://code.google.com/p/qxmpp/"
+HOMEPAGE="https://code.google.com/p/qxmpp/"
 SRC_URI="http://download.qxmpp.org/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux"
+KEYWORDS="amd64 ~x86 ~amd64-linux"
 IUSE="debug doc +speex test theora vpx"
 
 RDEPEND="dev-qt/qtcore:4

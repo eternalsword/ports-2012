@@ -8,8 +8,8 @@ KDE_HANDBOOK="optional"
 inherit kde4-base
 
 DESCRIPTION="KDE multi-protocol IM client"
-HOMEPAGE="http://kopete.kde.org http://www.kde.org/applications/internet/kopete"
-KEYWORDS="amd64 ~arm ppc x86 ~amd64-linux ~x86-linux"
+HOMEPAGE="https://kopete.kde.org https://www.kde.org/applications/internet/kopete"
+KEYWORDS="amd64 ~arm ppc ppc64 x86 ~amd64-linux ~x86-linux"
 IUSE="debug ssl v4l"
 
 # tests hang, last checked for 4.2.96
@@ -65,7 +65,7 @@ IUSE="${IUSE} ${PLUGINS} ${PROTOCOLS}"
 
 COMMONDEPEND="
 	$(add_kdebase_dep kdelibs 'zeroconf?')
-	$(add_kdebase_dep kdepimlibs)
+	$(add_kdeapps_dep kdepimlibs)
 	dev-libs/libpcre
 	>=dev-qt/qtgui-4.4.0:4[mng]
 	media-libs/phonon[qt4]
@@ -78,7 +78,7 @@ COMMONDEPEND="
 	groupwise? ( app-crypt/qca:2[qt4(+)] )
 	jingle? (
 		dev-libs/expat
-		dev-libs/openssl
+		dev-libs/openssl:0
 		>=media-libs/mediastreamer-2.3.0
 		media-libs/speex
 		net-libs/libsrtp

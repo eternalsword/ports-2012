@@ -11,7 +11,7 @@ CONFVER="1.9"
 DESCRIPTION="Enhanced version of the Berkeley C shell (csh)"
 HOMEPAGE="http://www.tcsh.org/"
 SRC_URI="ftp://ftp.astron.com/pub/tcsh/${P}.tar.gz
-	http://www.gentoo.org/~grobian/distfiles/tcsh-gentoo-patches-r${CONFVER}.tar.bz2"
+	https://www.gentoo.org/~grobian/distfiles/tcsh-gentoo-patches-r${CONFVER}.tar.bz2"
 
 LICENSE="BSD"
 SLOT="0"
@@ -38,7 +38,7 @@ src_prepare() {
 	# fix dependency on ncurses[tinfo], #459484
 	sed \
 		-e "s:\(ncurses\):\1 tinfo:g" \
-		-i configure.in || die
+		-i configure.in || die
 
 	eautoreconf
 
@@ -77,8 +77,7 @@ src_configure() {
 	econf \
 		--prefix="${EPREFIX:-/}" \
 		--datarootdir='${prefix}/usr/share' \
-		$(use_enable nls) \
-		|| die
+		$(use_enable nls)
 }
 
 src_install() {

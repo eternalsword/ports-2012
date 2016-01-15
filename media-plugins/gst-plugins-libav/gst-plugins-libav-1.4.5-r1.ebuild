@@ -12,7 +12,7 @@ SRC_URI="http://gstreamer.freedesktop.org/src/${MY_PN}/${MY_PN}-${PV}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="1.0"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 sparc x86 ~amd64-fbsd ~x86-fbsd"
+KEYWORDS="ia64 ppc"
 IUSE="libav +orc"
 
 RDEPEND="
@@ -42,7 +42,7 @@ multilib_src_configure() {
 	econf \
 		--disable-maintainer-mode \
 		--with-package-name="Gentoo GStreamer ebuild" \
-		--with-package-origin="http://www.gentoo.org" \
+		--with-package-origin="https://www.gentoo.org" \
 		--disable-fatal-warnings \
 		--with-system-libav \
 		$(use_enable orc)

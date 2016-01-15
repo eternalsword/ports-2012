@@ -3,6 +3,7 @@
 # $Id$
 
 EAPI=5
+JAVA_PKG_IUSE="doc source"
 
 inherit eutils java-pkg-2 java-pkg-simple
 
@@ -12,7 +13,7 @@ SRC_URI="https://repo1.maven.org/maven2/javax/enterprise/${PN}/${PV}/${P}-source
 
 LICENSE="Apache-2.0"
 SLOT="1.2"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 IUSE=""
 

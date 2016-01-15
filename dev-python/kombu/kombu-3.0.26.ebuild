@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python{2_7,3_3,3_4} pypy )
 inherit distutils-r1
 
 DESCRIPTION="AMQP Messaging Framework for Python"
-HOMEPAGE="http://pypi.python.org/pypi/kombu https://github.com/celery/kombu"
+HOMEPAGE="https://pypi.python.org/pypi/kombu https://github.com/celery/kombu"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
@@ -61,7 +61,7 @@ PATCHES=( "${FILESDIR}"/${PN}-NA-tests-fix.patch \
 		"${FILESDIR}"/${P}-pymongo-test-fix.patch )
 
 python_prepare_all() {
-	https://github.com/celery/kombu/issues/246
+	# https://github.com/celery/kombu/issues/246
 	sed -e 's:kombu.transports:kombu.transport:' -i funtests/tests/test_django.py
 	distutils-r1_python_prepare_all
 }

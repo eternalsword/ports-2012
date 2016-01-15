@@ -10,12 +10,12 @@ CABAL_FEATURES="bin lib profile haddock hoogle hscolour test-suite"
 inherit haskell-cabal
 
 DESCRIPTION="Library for creating and modifying zip archives"
-HOMEPAGE="http://github.com/jgm/zip-archive"
+HOMEPAGE="https://github.com/jgm/zip-archive"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0/${PV}"
-KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha amd64 ~ia64 ~ppc ~ppc64 ~sparc x86 ~x86-fbsd"
 IUSE="executable"
 
 RDEPEND=">=dev-haskell/binary-0.5:=[profile?]

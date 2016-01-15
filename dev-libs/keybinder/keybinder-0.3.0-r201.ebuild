@@ -9,12 +9,12 @@ PYTHON_COMPAT=( python2_7 )
 inherit eutils python-single-r1
 
 DESCRIPTION="A library for registering global keyboard shortcuts"
-HOMEPAGE="http://kaizer.se/wiki/keybinder/"
-SRC_URI="http://kaizer.se/publicfiles/${PN}/${P}.tar.gz"
+HOMEPAGE="https://github.com/engla/keybinder"
+SRC_URI="mirror://gentoo/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~x86"
 IUSE="+introspection lua python"
 
 RDEPEND=">=x11-libs/gtk+-2.20:2

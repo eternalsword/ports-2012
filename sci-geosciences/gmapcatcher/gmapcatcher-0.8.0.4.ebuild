@@ -8,8 +8,8 @@ PYTHON_COMPAT=( python2_7 )
 inherit distutils-r1
 
 DESCRIPTION="An offline viewer for different map providers"
-HOMEPAGE="http://code.google.com/p/gmapcatcher/"
-SRC_URI="http://gmapcatcher.googlecode.com/files/mapcatcher_${PV}.tar.gz"
+HOMEPAGE="https://code.google.com/p/gmapcatcher/"
+SRC_URI="https://gmapcatcher.googlecode.com/files/mapcatcher_${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -20,7 +20,7 @@ RDEPEND="x11-libs/gtk+:2
 	dev-python/pygtk[${PYTHON_USEDEP}]
 	dev-python/pygobject[${PYTHON_USEDEP}]
 	dev-python/pycairo[${PYTHON_USEDEP}]
-	virtual/python-imaging[${PYTHON_USEDEP}]"
+	dev-python/pillow[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
 
 S=${WORKDIR}/mapcatcher-${PV}

@@ -19,7 +19,7 @@ fi
 
 LICENSE="GPL-2"
 SLOT="4"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="debug calendar doc hbci ofx quotes"
 
 COMMON_DEPEND="
@@ -27,7 +27,7 @@ COMMON_DEPEND="
 	>=app-office/libalkimia-4.3.2
 	dev-libs/gmp:0
 	dev-libs/libgpg-error
-	$(add_kdebase_dep kdepimlibs)
+	$(add_kdeapps_dep kdepimlibs)
 	x11-misc/shared-mime-info
 	calendar? ( dev-libs/libical:= )
 	hbci? (

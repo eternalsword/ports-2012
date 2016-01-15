@@ -10,12 +10,12 @@ KDE_SCM="svn"
 inherit kde4-meta
 
 DESCRIPTION="KDE web development - link validity checker"
-HOMEPAGE="http://www.kde.org/applications/development/klinkstatus/"
+HOMEPAGE="https://www.kde.org/applications/development/klinkstatus/"
 KEYWORDS="amd64 ~arm ppc ppc64 x86 ~amd64-linux ~x86-linux"
 IUSE="debug tidy"
 
 DEPEND="
-	$(add_kdebase_dep kdepimlibs)
+	$(add_kdeapps_dep kdepimlibs)
 	tidy? ( app-text/htmltidy )
 "
 RDEPEND="${DEPEND}"

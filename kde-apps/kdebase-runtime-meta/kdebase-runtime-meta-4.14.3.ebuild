@@ -7,12 +7,13 @@ inherit kde4-meta-pkg
 
 DESCRIPTION="Merge this to pull in all kdebase-runtime-derived packages"
 KEYWORDS="amd64 ~arm ppc ppc64 x86 ~amd64-linux ~x86-linux"
-IUSE="crash-reporter +handbook minimal nepomuk"
+IUSE="crash-reporter +handbook minimal"
 
 RDEPEND="
 	$(add_kdeapps_dep kcmshell)
 	$(add_kdeapps_dep kdebase-data)
 	$(add_kdeapps_dep kdebase-desktoptheme)
+	$(add_kdeapps_dep kdebase-kioslaves)
 	$(add_kdeapps_dep kdebase-menu)
 	$(add_kdeapps_dep kdebase-menu-icons)
 	$(add_kdeapps_dep kdebugdialog)
@@ -45,11 +46,9 @@ RDEPEND="
 		kde-plasma/khelpcenter:5[compat(+)]
 	) )
 	minimal? ( $(add_kdeapps_dep solid-runtime '-bluetooth') )
-	nepomuk? ( $(add_kdeapps_dep nepomuk) )
 	!minimal? (
 		$(add_kdeapps_dep attica)
 		$(add_kdeapps_dep kcontrol)
-		$(add_kdeapps_dep kdebase-kioslaves)
 		$(add_kdeapps_dep knetattach)
 	)
 "

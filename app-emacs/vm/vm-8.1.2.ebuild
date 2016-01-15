@@ -10,7 +10,7 @@ MY_PV="${PV/_/-}"
 MY_P="${PN}-${MY_PV}"
 DESCRIPTION="The VM mail reader for Emacs"
 HOMEPAGE="http://www.nongnu.org/viewmail/"
-SRC_URI="http://launchpad.net/vm/${PV%.*}.x/${MY_PV}/+download/${MY_P}.tgz"
+SRC_URI="https://launchpad.net/vm/${PV%.*}.x/${MY_PV}/+download/${MY_P}.tgz"
 
 LICENSE="GPL-2+"
 SLOT="0"
@@ -30,6 +30,7 @@ src_prepare() {
 		elog "Excluding vm-pcrisis.el since the \"bbdb\" USE flag is not set."
 		epatch "${FILESDIR}/${PN}-8.0-no-pcrisis.patch"
 	fi
+	epatch "${FILESDIR}/${P}-texinfo-5.patch"
 }
 
 src_configure() {

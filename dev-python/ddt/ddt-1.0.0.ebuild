@@ -9,12 +9,12 @@ PYTHON_COMPAT=( python2_7 python3_3 python3_4 )
 inherit distutils-r1
 
 DESCRIPTION="A library to multiply test cases"
-HOMEPAGE="http://pypi.python.org/pypi/ddt https://github.com/txels/ddt"
+HOMEPAGE="https://pypi.python.org/pypi/ddt https://github.com/txels/ddt"
 SRC_URI="mirror://pypi/d/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND=""

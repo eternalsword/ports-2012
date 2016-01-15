@@ -52,7 +52,7 @@ COMMON_DEPEND="
 	ayatana? ( dev-libs/libindicate-qt )
 	cdda? ( dev-libs/libcdio )
 	ipod? ( >=media-libs/libgpod-0.8.0 )
-	lastfm? ( >=media-libs/liblastfm-1 )
+	lastfm? ( >=media-libs/liblastfm-1[qt4(+)] )
 	mtp? ( >=media-libs/libmtp-1.0.0 )
 	moodbar? ( sci-libs/fftw:3.0 )
 	projectm? ( media-libs/glew )
@@ -88,8 +88,9 @@ DOCS="Changelog"
 # https://github.com/clementine-player/Clementine/issues/3935
 RESTRICT="test"
 
+# Switch to ^ when we switch to EAPI=6.
 [[ ${PV} == *9999* ]] || \
-S="${WORKDIR}/${P^}"
+S="${WORKDIR}/C${P:1}"
 
 src_prepare() {
 	cmake-utils_src_prepare

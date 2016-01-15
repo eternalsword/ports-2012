@@ -10,12 +10,12 @@ CABAL_FEATURES="lib profile haddock hoogle hscolour"
 inherit haskell-cabal
 
 DESCRIPTION="Generic cryptography Public keys algorithm types"
-HOMEPAGE="http://github.com/vincenthz/hs-crypto-pubkey-types"
+HOMEPAGE="https://github.com/vincenthz/hs-crypto-pubkey-types"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND="dev-haskell/asn1-encoding:=[profile?]

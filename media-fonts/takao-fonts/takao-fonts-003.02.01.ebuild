@@ -7,11 +7,11 @@ inherit font
 MY_P="${PN}-ttf-${PV}"
 DESCRIPTION="A community developed derivatives of IPA Fonts"
 HOMEPAGE="https://launchpad.net/takao-fonts"
-SRC_URI="http://launchpad.net/${PN}/${PV%.*}/${PV}/+download/${MY_P}.tar.gz"
+SRC_URI="https://launchpad.net/${PN}/${PV%.*}/${PV}/+download/${MY_P}.tar.gz"
 
 LICENSE="IPAfont"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 S="${WORKDIR}/${MY_P}"

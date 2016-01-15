@@ -7,11 +7,11 @@ inherit bash-completion-r1 multilib
 
 DESCRIPTION="A ncurses based music player with plugin support for many formats"
 HOMEPAGE="http://cmus.github.io/"
-SRC_URI="http://github.com/cmus/cmus/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/cmus/cmus/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x86-solaris"
+KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x86-solaris"
 IUSE="aac alsa ao cue cdio cddb discid debug examples +flac jack libsamplerate
 	+mad mikmod modplug mp4 musepack opus oss pidgin pulseaudio tremor +unicode
 	+vorbis wavpack wma"

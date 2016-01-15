@@ -11,19 +11,19 @@ if [[ "${PV}" == "9999" ]] ; then
 	EGIT_URI_APPEND="${PN}"
 elif [[ *"${PV}" == *"_pre"* ]] ; then
 	MY_P=${P%%_*}
-	SRC_URI="http://download.enlightenment.org/pre-releases/${MY_P}.tar.xz"
+	SRC_URI="https://download.enlightenment.org/pre-releases/${MY_P}.tar.xz"
 	EKEY_STATE="snap"
 else
-	SRC_URI="http://download.enlightenment.org/rel/libs/${PN}/${MY_P}.tar.xz"
+	SRC_URI="https://download.enlightenment.org/rel/libs/${PN}/${MY_P}.tar.xz"
 	EKEY_STATE="snap"
 fi
 
-inherit enlightenment
+inherit enlightenment pax-utils
 
 DESCRIPTION="Enlightenment Foundation Libraries all-in-one package"
 
 LICENSE="BSD-2 GPL-2 LGPL-2.1 ZLIB"
-IUSE="+bmp debug drm +eet egl fbcon +fontconfig fribidi gif gles glib gnutls gstreamer harfbuzz +ico ibus jpeg2k neon oldlua opengl ssl physics pixman +png +ppm +psd pulseaudio scim sdl sound systemd tga tiff tslib v4l2 valgrind wayland webp X xim xine xpm"
+IUSE="+bmp debug drm +eet egl fbcon +fontconfig fribidi gif gles glib gnutls gstreamer harfbuzz +ico ibus jpeg2k libressl neon oldlua opengl ssl physics pixman +png +ppm +psd pulseaudio scim sdl sound systemd tga tiff tslib v4l2 valgrind wayland webp X xim xine xpm"
 
 REQUIRED_USE="
 	pulseaudio?	( sound )
@@ -48,7 +48,12 @@ RDEPEND="
 	gif? ( media-libs/giflib )
 	glib? ( dev-libs/glib:2 )
 	gnutls? ( net-libs/gnutls )
-	!gnutls? ( ssl? ( dev-libs/openssl:0 ) )
+	!gnutls? (
+		ssl? (
+			!libressl? ( dev-libs/openssl:0= )
+			libressl? ( dev-libs/libressl )
+		)
+	)
 	gstreamer? (
 		media-libs/gstreamer:1.0
 		media-libs/gst-plugins-base:1.0
@@ -57,7 +62,7 @@ RDEPEND="
 	ibus? ( app-i18n/ibus )
 	jpeg2k? ( media-libs/openjpeg:0 )
 	!oldlua? ( >=dev-lang/luajit-2.0.0 )
-	oldlua? ( dev-lang/lua )
+	oldlua? ( dev-lang/lua:* )
 	physics? ( >=sci-physics/bullet-2.80 )
 	pixman? ( x11-libs/pixman )
 	png? ( media-libs/libpng:0= )
@@ -69,11 +74,11 @@ RDEPEND="
 	)
 	sound? ( media-libs/libsndfile )
 	systemd? ( sys-apps/systemd )
-	tiff? ( media-libs/tiff:0 )
+	tiff? ( media-libs/tiff:0= )
 	tslib? ( x11-libs/tslib )
 	valgrind? ( dev-util/valgrind )
 	wayland? (
-		>=dev-libs/wayland-1.3.0
+		>=dev-libs/wayland-1.8.0
 		>=x11-libs/libxkbcommon-0.3.1
 		media-libs/mesa[gles2,wayland]
 	)
@@ -110,7 +115,7 @@ RDEPEND="
 	sys-apps/dbus
 	>=sys-apps/util-linux-2.20.0
 	sys-libs/zlib
-	virtual/jpeg
+	virtual/jpeg:0=
 
 	!dev-libs/ecore
 	!dev-libs/edbus
@@ -158,6 +163,19 @@ DEPEND="
 
 S=${WORKDIR}/${MY_P}
 
+src_prepare() {
+	enlightenment_src_prepare
+
+	# Remove stupid sleep command.
+	# Also back out gnu make hack that causes regen of Makefiles.
+	# Delete var setting that causes the build to abort.
+	sed -i \
+		-e '/sleep 10/d' \
+		-e '/^#### Work around bug in automake check macro$/,/^#### Info$/d' \
+		-e '/BARF_OK=/s:=.*:=:' \
+		configure || die
+}
+
 src_configure() {
 	if use ssl && use gnutls ; then
 		einfo "You enabled both USE=ssl and USE=gnutls, but only one can be used;"
@@ -175,7 +193,7 @@ src_configure() {
 		$(use_with X x)
 		--with-opengl=$(usex opengl full $(usex gles es none))
 		--with-glib=$(usex glib)
-		--enable-i-really-know-what-i-am-doing-and-that-this-will-probably-break-things-and-i-will-fix-them-myself-and-send-patches-aba
+		--enable-i-really-know-what-i-am-doing-and-that-this-will-probably-break-things-and-i-will-fix-them-myself-and-send-patches-abb
 
 		$(use_enable bmp image-loader-bmp)
 		$(use_enable bmp image-loader-wbmp)
@@ -238,6 +256,18 @@ src_configure() {
 	)
 
 	enlightenment_src_configure
+}
+
+src_compile() {
+	if host-is-pax && ! use oldlua ; then
+		# We need to build the lua code first so we can pax-mark it. #547076
+		local target='_e_built_sources_target_gogogo_'
+		printf '%s: $(BUILT_SOURCES)\n' "${target}" >> src/Makefile || die
+		emake -C src "${target}"
+		emake -C src bin/elua/elua
+		pax-mark m src/bin/elua/.libs/elua
+	fi
+	enlightenment_src_compile
 }
 
 src_install() {

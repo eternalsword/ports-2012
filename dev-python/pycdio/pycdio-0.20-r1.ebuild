@@ -3,12 +3,13 @@
 # $Id$
 
 EAPI=5
+
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1
+inherit distutils-r1 flag-o-matic
 
 DESCRIPTION="Python OO interface to libcdio (CD Input and Control library)"
-HOMEPAGE="http://savannah.gnu.org/projects/libcdio/ http://pypi.python.org/pypi/pycdio"
+HOMEPAGE="http://savannah.gnu.org/projects/libcdio/ https://pypi.python.org/pypi/pycdio"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
@@ -21,11 +22,10 @@ DEPEND="${RDEPEND}
 	dev-lang/swig
 	dev-python/setuptools[${PYTHON_USEDEP}]"
 
-CFLAGS="${CFLAGS} -fno-strict-aliasing"
-
 RESTRICT="test"  # currently tests fail
 
 python_prepare_all() {
+	append-cflags -fno-strict-aliasing
 	# Remove obsolete sys.path and adjust 'data' paths in examples.
 	sed -i \
 		-e "s:^sys.path.insert.*::" \

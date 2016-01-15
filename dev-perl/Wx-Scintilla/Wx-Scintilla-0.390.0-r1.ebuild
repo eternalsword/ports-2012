@@ -12,7 +12,7 @@ MODULE_VERSION=0.39
 inherit wxwidgets perl-module
 
 DESCRIPTION="Scintilla source code editing component for wxWidgets"
-SRC_URI+=" http://dev.gentoo.org/~tove/distfiles/dev-perl/${PN}-0.34-patches.tar.gz"
+SRC_URI+=" https://dev.gentoo.org/~tove/distfiles/dev-perl/${PN}-0.34-patches.tar.gz"
 
 LICENSE+=" HPND"
 SLOT="0"
@@ -22,6 +22,7 @@ IUSE=""
 RDEPEND="
 	dev-perl/Alien-wxWidgets
 	dev-perl/wxperl
+	x11-libs/wxGTK:${WX_GTK_VER}
 "
 DEPEND="${RDEPEND}
 	>=dev-perl/ExtUtils-XSpp-0.160.200

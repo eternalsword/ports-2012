@@ -4,11 +4,11 @@
 
 EAPI=5
 
-PYTHON_COMPAT="python2_7"
+PYTHON_COMPAT=( python2_7 )
 inherit distutils-r1
 
 DESCRIPTION="Automatic TV episode file renamer, data from thetvdb.com"
-HOMEPAGE="http://github.com/dbr/tvnamer"
+HOMEPAGE="https://github.com/dbr/tvnamer"
 SRC_URI="mirror://pypi/t/${PN}/${P}.tar.gz"
 
 LICENSE="public-domain"

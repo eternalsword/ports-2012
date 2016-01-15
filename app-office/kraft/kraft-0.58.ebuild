@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/kraft/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="4"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="debug"
 
 DEPEND="
@@ -22,7 +22,7 @@ DEPEND="
 	dev-qt/qtcore:4
 	dev-qt/qtgui:4
 	dev-qt/qtsql:4[mysql,sqlite]
-	$(add_kdebase_dep kdepimlibs)
+	$(add_kdeapps_dep kdepimlibs)
 "
 RDEPEND="${DEPEND}"
 

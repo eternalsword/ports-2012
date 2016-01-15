@@ -2,7 +2,7 @@ DEFINED_PHASES=compile configure install prepare test
 DEPEND=dev-python/setuptools[python_targets_python2_7(-)?,-python_single_target_python2_7(-)] doc? ( dev-python/sphinx[python_targets_python2_7(-)?,-python_single_target_python2_7(-)] ) test? ( >=dev-python/traits-4.1[python_targets_python2_7(-)?,-python_single_target_python2_7(-)] >=dev-python/traitsui-4.1[python_targets_python2_7(-)?,-python_single_target_python2_7(-)] sci-libs/scipy[python_targets_python2_7(-)?,-python_single_target_python2_7(-)] media-fonts/font-cursor-misc media-fonts/font-misc-misc x11-apps/xhost ) python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) >=dev-lang/python-exec-2:=[python_targets_python2_7(-)?,-python_single_target_python2_7(-)] test? ( !prefix? ( x11-base/xorg-server[xvfb] ) x11-apps/xhost )
 DESCRIPTION=Enthought Tool Suite: Scientific and mathematical tools
 EAPI=5
-HOMEPAGE=http://code.enthought.com/projects/sci_math/ http://pypi.python.org/pypi/scimath
+HOMEPAGE=http://code.enthought.com/projects/sci_math/ https://pypi.python.org/pypi/scimath
 IUSE=doc test python_targets_python2_7 test
 KEYWORDS=amd64 x86 ~amd64-linux ~x86-linux
 LICENSE=BSD
@@ -10,5 +10,5 @@ RDEPEND=>=dev-python/traits-4.1[python_targets_python2_7(-)?,-python_single_targ
 REQUIRED_USE=|| ( python_targets_python2_7 )
 SLOT=0
 SRC_URI=http://www.enthought.com/repo/ets/scimath-4.1.2.tar.gz
-_eclasses_=distutils-r1	0fbebe7ad62dbe4583baab75733f8aa0	eutils	351a78113be5b393c09a2c948701ad36	multibuild	188cedebf7a8e614147e30ad01e9ce8f	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	multiprocessing	d769539d9bace6eaca30af23bc2b4dde	python-r1	0cafc0cf4ff05a561eb084acb586152e	python-utils-r1	c595450196ccd7d3fac66424be096ffc	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	virtualx	7d550983f9b6adb3e7091f4090ddae2f
-_md5_=3ae40815e9225613af079973b017027a
+_eclasses_=distutils-r1	4e8ac1ba76ddacd8f7c0289aa586a34c	eutils	d9bd2ddd85a58e470b49ca997e255a4c	multibuild	742139c87a9fa3766f0c2b155e5522bf	multilib	3972ca401cf7dbb430df9995f5d8d580	multiprocessing	e32940a7b2a9992ad217eccddb84d548	python-r1	0f6937650a475d673baa5d0c8c0b37b3	python-utils-r1	30887c5e8630bbf27b5cf0fd74564323	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	virtualx	6c01101f3b4d92c77de3e8a77cc2418b
+_md5_=334d5da55a0596ba48cdc72aefefcbb8

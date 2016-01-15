@@ -15,7 +15,7 @@ MY_P="${PN}-${MY_PV}"
 
 DESCRIPTION="Fast lightweight tabbed filemanager"
 HOMEPAGE="http://pcmanfm.sourceforge.net/"
-SRC_URI="http://dev.gentoo.org/~hwoarang/distfiles/${MY_P}.tar.xz"
+SRC_URI="https://dev.gentoo.org/~hwoarang/distfiles/${MY_P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -44,7 +44,7 @@ DOC_CONTENTS="PCmanFM can optionally support the menu://applications/
 
 src_prepare() {
 	export LINGUAS="${LINGUAS:-${PLOCALE_BACKUP}}"
-	l10n_get_locales > ${S}/po/LINGUAS
+	l10n_get_locales > "${S}"/po/LINGUAS
 	epatch_user
 }
 

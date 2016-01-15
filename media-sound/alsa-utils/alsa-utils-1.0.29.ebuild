@@ -16,7 +16,7 @@ IUSE="doc +libsamplerate +ncurses nls selinux"
 
 CDEPEND=">=media-libs/alsa-lib-${PV}
 	libsamplerate? ( media-libs/libsamplerate )
-	ncurses? ( >=sys-libs/ncurses-5.7-r7 )"
+	ncurses? ( >=sys-libs/ncurses-5.7-r7:0= )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	doc? ( app-text/xmlto )"
@@ -24,6 +24,7 @@ RDEPEND="${CDEPEND}
 	selinux? ( sec-policy/selinux-alsa )"
 
 src_prepare() {
+	epatch "${FILESDIR}"/${P}-cross-compile.patch
 	epatch_user
 }
 

@@ -13,14 +13,14 @@ ARTWORK_PV="0.9.4"
 
 DESCRIPTION="Movie collection manager"
 HOMEPAGE="http://www.griffith.cc/"
-SRC_URI="http://launchpad.net/${PN}/trunk/${PV}/+download/${P}.tar.gz
-	http://dev.gentoo.org/~hwoarang/distfiles/${PN}-extra-artwork-${ARTWORK_PV}.tar.gz"
+SRC_URI="https://launchpad.net/${PN}/trunk/${PV}/+download/${P}.tar.gz
+	https://dev.gentoo.org/~hwoarang/distfiles/${PN}-extra-artwork-${ARTWORK_PV}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86 ~x86-fbsd"
 IUSE="doc"
 
-RDEPEND="virtual/python-imaging
+RDEPEND="dev-python/pillow
 	gnome-base/libglade
 	dev-python/pyxml
 	>=dev-python/pygtk-2.6.1:2

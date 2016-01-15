@@ -2,12 +2,45 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
+# Michael Weber <xmw@gentoo.org> (09 Jan 2016)
+# no arm support in media-libs/glfw
+app-text/mupdf opengl
+
+# Brian Evans <grknight@gentoo.org> (23 Nov 2015)
+# unmask galera for dev-db/mariadb
+>=dev-db/mariadb-10.1.0 -galera
+
+# Markus Meier <maekke@gentoo.org> (22 Nov 2015)
+# unmask scanner for net-print/hplip, bug #518456
+net-print/hplip -scanner kde
+media-gfx/xsane ocr
+
+# Pacho Ramos <pacho@gentoo.org> (15 Nov 2015)
+# Missing keywords
+>=media-plugins/grilo-plugins-0.2.16 upnp-av
+
+# Alexis Ballier <aballier@gentoo.org> (14 Nov 2015)
+# MMAL is available on the Raspberry Pi (armv6 & armv7 so far)
+media-video/ffmpeg -mmal
+
+# Markus Meier <maekke@gentoo.org> (10 Nov 2015)
+# unkeyworded deps, bug #555896
+sci-libs/armadillo mkl
+
+# Pawel Hajdan jr <phajdan.jr@gentoo.org> (15 Oct 2015)
+# Repoman reports dependency issues on arm.
+www-client/chromium system-ffmpeg
+
+# Markus Meier <maekke@gentoo.org> (10 Oct 2015)
+# unkeyworded deps, bug #552330
+app-portage/g-sorcery bson
+
 # Ben de Groot <yngwin@gentoo.org> (03 May 2015)
 # media-libs/rubberband lacks arm keyword, bug 548446
 media-video/mpv rubberband
 
 # Patrick Lauer <patrick@gentoo.org> (20 Apr 2015)
-# qt5/kf5 not keyworded on arm
+# kde-frameworks/*:5 not keyworded on arm
 net-irc/quassel qt5
 
 # Markos Chandras <hwoarang@gentoo.org> (18 Apr 2015)
@@ -85,10 +118,6 @@ net-im/prosody libevent mysql postgres sqlite
 # sci-libs/hdf is not supported on arm
 sci-libs/netcdf hdf
 
-# Markus Meier <maekke@gentoo.org> (23 Oct 2014)
-# Unkeyworded deps, bug #523468
-net-misc/networkmanager teamd
-
 # Markus Meier <maekke@gentoo.org> (24 Sep 2014)
 # Unkeyworded deps, bug #519618
 sys-block/fio glusterfs rbd
@@ -120,10 +149,6 @@ mail-filter/opendkim opendbx
 # Markus Meier <maekke@gentoo.org> (04 May 2014)
 # Unkeyworded deps, bug #507896
 dev-qt/qt-mobility messaging
-
-# Julian Ospald <hasufell@gentoo.org> (20 Apr 2014)
-# Missing keywords, bug #508226
-media-video/mpv sdl
 
 # S. Suominen <ssuominen@g.o> (17 Apr 2014)
 # First GTK+-3.x version of EasyTAG!
@@ -190,10 +215,6 @@ gnome-base/gnome classic extras
 # Missing keywords from dev-ml/lablgtk, bug #487722
 net-p2p/mldonkey gtk guionly
 
-# Tom Wijsman <TomWij@gentoo.org> (16 Oct 2013)
-# Mask luajit on ~media-video/mpv-0.2.0 because it only has amd64 x86 keywords. See bug #488318.
->=media-video/mpv-0.2.0 luajit
-
 # Pacho Ramos <pacho@gentoo.org> (22 Sep 2013)
 # Missing keywords, bug #484734
 media-sound/rhythmbox visualizer
@@ -217,7 +238,7 @@ media-gfx/fim graphicsmagick svg
 
 # Markus Meier <maekke@gentoo.org> (04 Aug 2013)
 # Unkeyworded deps, bug #474026
-app-admin/conky lua-cairo lua-imlib xmms2 audacious moc
+app-admin/conky audacious cmus irc lua-cairo lua-imlib lua-rsvg moc xmms2
 
 # Sergey Popov <pinkbyte@gentoo.org> (30 Jul 2013)
 # Not tested
@@ -277,7 +298,7 @@ dev-libs/xapian-bindings java
 
 # Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org> (20 Feb 2013)
 # Mask flags of calligra and dependencies due to lack of keywords
-app-office/calligra openexr postgres spacenav vc
+app-office/calligra color-management openexr postgres spacenav vc
 media-gfx/pstoedit emf
 
 # Rick Farina <zerochaos@gentoo.org> (05 Feb 2013)
@@ -390,8 +411,9 @@ app-admin/syslog-ng json
 net-misc/tinc vde
 
 # Davide Pesavento <pesa@gentoo.org> (30 Nov 2011)
-# JavaScriptCore JIT is supported only on amd64/arm/x86,
-# so it's masked in base profile and unmasked here.
+# The QML (V4) and JSC JITs are supported only on amd64/arm/x86,
+# so the flag is masked in the base profile and unmasked here.
+dev-qt/qtdeclarative -jit
 dev-qt/qtscript -jit
 dev-qt/qtwebkit -jit
 

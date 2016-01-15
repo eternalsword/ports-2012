@@ -40,10 +40,10 @@ if [[ ${KDE_BUILD_TYPE} == release ]] ; then
 	KEYWORDS="~amd64 ~arm ~x86"
 fi
 
-IUSE="attica +crypt +eigen +exif fftw +fontconfig freetds +glew +glib +gsf gsl
-import-filter +jpeg jpeg2k +kdcraw kde +kdepim +lcms marble mysql nepomuk
-+okular openexr +pdf postgres spacenav sybase test tiff +threads +truetype vc
-xbase +xml"
+IUSE="attica +crypt +eigen +exif fftw +fontconfig freetds +glib +gsf gsl
+import-filter +jpeg jpeg2k +kdcraw kde +kdepim +lcms marble mysql +okular
+openexr +pdf postgres spacenav sybase test tiff +threads +truetype vc xbase
++xml"
 
 # please do not sort here, order is same as in CMakeLists.txt
 CAL_FTS="words stage sheets author karbon krita kexi flow plan braindump"
@@ -73,12 +73,11 @@ RDEPEND="
 	!app-office/krita
 	!app-office/kspread
 	!app-office/kword
-	$(add_kdebase_dep kdelibs 'nepomuk?')
 	$(add_kdeapps_dep knewstuff)
 	dev-lang/perl
 	dev-libs/boost
 	dev-qt/qtcore:4[exceptions]
-	media-libs/libpng
+	media-libs/libpng:0
 	sys-libs/zlib
 	>=dev-qt/qtgui-4.8.1-r1:4
 	virtual/libiconv
@@ -89,15 +88,14 @@ RDEPEND="
 	fftw? ( sci-libs/fftw:3.0 )
 	fontconfig? ( media-libs/fontconfig )
 	freetds? ( dev-db/freetds )
-	glew? ( media-libs/glew )
 	glib? ( dev-libs/glib:2 )
 	gsf? ( gnome-extra/libgsf )
 	gsl? ( sci-libs/gsl )
 	import-filter? (
 		app-text/libetonyek
 		app-text/libodfgen
-		app-text/libwpd
-		app-text/libwpg
+		app-text/libwpd:*
+		app-text/libwpg:*
 		app-text/libwps
 		media-libs/libvisio
 	)
@@ -105,28 +103,30 @@ RDEPEND="
 	jpeg2k? ( media-libs/openjpeg:0 )
 	kdcraw? ( $(add_kdeapps_dep libkdcraw) )
 	kde? ( $(add_kdebase_dep kactivities) )
-	kdepim? ( $(add_kdebase_dep kdepimlibs) )
+	kdepim? ( $(add_kdeapps_dep kdepimlibs) )
 	lcms? (
 		media-libs/lcms:2
 		x11-libs/libX11
 	)
 	marble? ( $(add_kdeapps_dep marble) )
 	mysql? ( virtual/mysql )
-	nepomuk? ( dev-libs/soprano )
 	okular? ( $(add_kdeapps_dep okular) )
-	opengl? ( virtual/glu )
+	opengl? (
+		media-libs/glew
+		virtual/glu
+	)
 	openexr? ( media-libs/openexr )
 	pdf? (
 		app-text/poppler:=
 		media-gfx/pstoedit
 	)
 	postgres? (
-		dev-db/postgresql
+		dev-db/postgresql:*
 		dev-libs/libpqxx
 	)
 	spacenav? ( dev-libs/libspnav  )
 	sybase? ( dev-db/freetds )
-	tiff? ( media-libs/tiff )
+	tiff? ( media-libs/tiff:0 )
 	truetype? ( media-libs/freetype:2 )
 	vc? ( dev-libs/vc )
 	xbase? ( dev-db/xbase )
@@ -174,6 +174,7 @@ src_configure() {
 		"-DBUILD_active=OFF"         # we dont support active gui, maybe arm could
 		"-DCREATIVEONLY=OFF"
 		"-DPACKAGERS_BUILD=OFF"
+		"-DWITH_Soprano=OFF"
 	)
 
 	# regular options
@@ -185,7 +186,6 @@ src_configure() {
 		$(cmake-utils_use_with fftw FFTW3)
 		$(cmake-utils_use_with fontconfig Fontconfig)
 		$(cmake-utils_use_with freetds FreeTDS)
-		$(cmake-utils_use_with glew GLEW)
 		$(cmake-utils_use_with glib GLIB2)
 		$(cmake-utils_use_with gsl GSL)
 		$(cmake-utils_use_with import-filter LibEtonyek)
@@ -202,9 +202,9 @@ src_configure() {
 		$(cmake-utils_use_with lcms LCMS2)
 		$(cmake-utils_use_with marble Marble)
 		$(cmake-utils_use_with mysql MySQL)
-		$(cmake-utils_use_with nepomuk Soprano)
 		$(cmake-utils_use_with okular Okular)
 		$(cmake-utils_use_with openexr OpenEXR)
+		$(cmake-utils_use_with opengl GLEW)
 		$(cmake-utils_use_with opengl OpenGL)
 		$(cmake-utils_use_with pdf Poppler)
 		$(cmake-utils_use_with pdf Pstoedit)

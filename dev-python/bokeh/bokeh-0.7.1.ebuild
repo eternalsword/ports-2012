@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_3,3_4} )
+PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
 
 inherit distutils-r1 readme.gentoo
 
@@ -59,8 +59,6 @@ DEPEND="
 DOCS=( CHANGELOG QUICKSTART.md README.md )
 
 PATCHES=( "${FILESDIR}"/${P}-setup.patch )
-
-DISTUTILS_NO_PARALLEL_BUILD=1
 
 python_prepare_all() {
 	DOC_CONTENTS="websockets work only with python2_7"

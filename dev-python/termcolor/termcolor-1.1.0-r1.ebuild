@@ -3,12 +3,13 @@
 # $Id$
 
 EAPI=5
-PYTHON_COMPAT=( python{2_7,3_3,3_4} pypy )
+
+PYTHON_COMPAT=( python2_7 python3_{3,4,5} pypy )
 
 inherit distutils-r1
 
 DESCRIPTION="ANSII Color formatting for output in terminal"
-HOMEPAGE="http://pypi.python.org/pypi/termcolor"
+HOMEPAGE="https://pypi.python.org/pypi/termcolor"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"

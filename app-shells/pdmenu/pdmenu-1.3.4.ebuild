@@ -4,15 +4,15 @@
 
 EAPI=5
 
-inherit eutils
+inherit eutils toolchain-funcs
 
 DESCRIPTION="A simple console menu program"
 HOMEPAGE="http://joeyh.name/code/pdmenu/"
-SRC_URI="mirror://debian/pool/main/p/pdmenu/pdmenu_${PV}.tar.gz"
+SRC_URI="mirror://debian/pool/main/p/${PN}/pdmenu_${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~mips ~x86"
+KEYWORDS="amd64 mips x86"
 IUSE="nls gpm examples"
 
 DEPEND="
@@ -32,21 +32,22 @@ src_prepare() {
 }
 
 src_configure() {
-	econf \
+	CC=$(tc-getCC) econf \
 		$(use_with gpm) \
 		$(use_enable nls)
 }
 
+src_compile() {
+	emake CC=$(tc-getCC) || die
+}
+
 src_install() {
-	dobin pdmenu
-
+	dobin "${PN}"
 	dodoc doc/ANNOUNCE doc/BUGS doc/TODO
-
 	use examples && dodoc -r examples
-
-	mv doc/pdmenu.man doc/pdmenu.1 || die
-	mv doc/pdmenurc.man doc/pdmenurc.5 || die
-	doman doc/pdmenu.1 doc/pdmenurc.5
+	mv "doc/${PN}.man" "doc/${PN}.1" || die
+	mv "doc/${PN}rc.man" "doc/${PN}rc.5" || die
+	doman "doc/${PN}.1" "doc/${PN}rc.5"
 
 }
 

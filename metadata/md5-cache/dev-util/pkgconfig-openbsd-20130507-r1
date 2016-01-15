@@ -8,6 +8,6 @@ KEYWORDS=~amd64 ~x86
 LICENSE=ISC
 RDEPEND=virtual/perl-Getopt-Long pkg-config? ( !dev-util/pkgconfig !dev-util/pkgconf[pkg-config] ) dev-lang/perl:=[-build(-)]
 SLOT=0
-SRC_URI=http://dev.gentoo.org/~ssuominen/pkgconfig-openbsd-20130507.tar.xz pkg-config? ( http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz )
-_eclasses_=eutils	351a78113be5b393c09a2c948701ad36	multibuild	188cedebf7a8e614147e30ad01e9ce8f	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	multilib-build	60244ad700ae25a353f08ed889b216a2	multilib-minimal	25cb388b79cf32cf140e5791dcfc3173	multiprocessing	d769539d9bace6eaca30af23bc2b4dde	perl-module	b37d70740b27d7c9cdde04679a6b2ba7	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	unpacker	1ca344bd9b922a7f8084a3fa02933b79
-_md5_=afacc6cac6841e3bb65f29620c32fd0e
+SRC_URI=https://dev.gentoo.org/~ssuominen/pkgconfig-openbsd-20130507.tar.xz pkg-config? ( http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz )
+_eclasses_=eutils	d9bd2ddd85a58e470b49ca997e255a4c	multibuild	742139c87a9fa3766f0c2b155e5522bf	multilib	3972ca401cf7dbb430df9995f5d8d580	multilib-build	8fe2e81aeb36cdf8a6cc5f50443879cc	multilib-minimal	0224dee31c0f98405d572e14ad6dee65	multiprocessing	e32940a7b2a9992ad217eccddb84d548	perl-functions	bb696d2fa83d594dd8a900d0cb858a95	perl-module	f6f618e05c3182f044c96da774b0c4e9	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	unpacker	1d149d9bda7723e740cfd28118f27813
+_md5_=f0f59286d918196ba3a5203ae47d2f09

@@ -6,6 +6,8 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 
+WANT_AUTOMAKE="1.13"
+
 inherit python-single-r1 multilib pam linux-info autotools multilib-minimal systemd toolchain-funcs
 
 DESCRIPTION="System Security Services Daemon provides access to identity and authentication"
@@ -104,7 +106,7 @@ multilib_src_configure() {
 		--without-nscd
 		--with-unicode-lib="glib2"
 		--disable-rpath
-		--enable-silent-rules
+		--disable-silent-rules
 		--sbindir=/usr/sbin
 		$(multilib_native_use_with samba)
 		$(multilib_native_use_enable acl cifs-idmap-plugin)

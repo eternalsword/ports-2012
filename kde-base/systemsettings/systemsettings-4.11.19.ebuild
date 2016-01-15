@@ -12,9 +12,9 @@ VIRTUALDBUS_TEST="true"
 inherit kde4-meta
 
 DESCRIPTION="System settings utility"
-HOMEPAGE+=" http://userbase.kde.org/System_Settings"
-IUSE="debug gtk +kscreen nepomuk +usb"
-KEYWORDS="amd64 ~arm ppc ~ppc64 x86 ~amd64-linux ~x86-linux"
+HOMEPAGE+=" https://userbase.kde.org/System_Settings"
+IUSE="debug gtk +kscreen +usb"
+KEYWORDS="amd64 ~arm ppc ppc64 x86 ~amd64-linux ~x86-linux"
 
 COMMONDEPEND="
 	app-misc/strigi
@@ -46,7 +46,6 @@ RDEPEND="${COMMONDEPEND}
 	x11-misc/xkeyboard-config
 	gtk? ( kde-misc/kde-gtk-config )
 	kscreen? ( kde-misc/kscreen:4 )
-	nepomuk? ( $(add_kdeapps_dep nepomuk) )
 "
 
 KMEXTRA="

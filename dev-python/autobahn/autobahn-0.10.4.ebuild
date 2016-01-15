@@ -20,14 +20,14 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="test"
 
 RDEPEND="
-	>=dev-python/asyncio-0.2.1[$(python_gen_usedep python3*)]
-	>=dev-python/futures-2.1.5[$(python_gen_usedep python2*)]
+	$(python_gen_cond_dep 'virtual/python-asyncio[${PYTHON_USEDEP}]' 'python3*')
+	virtual/python-futures[${PYTHON_USEDEP}]
 	>=dev-python/lz4-0.2.1[${PYTHON_USEDEP}]
 	>=dev-python/msgpack-0.4.0[${PYTHON_USEDEP}]
 	>=dev-python/six-1.6.1[${PYTHON_USEDEP}]
 	>=dev-python/snappy-0.5[${PYTHON_USEDEP}]
 	>=dev-python/trollius-0.1.2[${PYTHON_USEDEP}]
-	>=dev-python/twisted-core-11.1[$(python_gen_usedep python2*)]
+	>=dev-python/twisted-core-11.1[$(python_gen_usedep 'python2*')]
 	>=dev-python/txaio-1.0.0[${PYTHON_USEDEP}]
 	>=dev-python/ujson-1.33[${PYTHON_USEDEP}]
 	>=dev-python/wsaccel-0.6.2[${PYTHON_USEDEP}]

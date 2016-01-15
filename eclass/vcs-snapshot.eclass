@@ -1,5 +1,6 @@
-# Copyright owners: Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 # @ECLASS: vcs-snapshot.eclass
 # @MAINTAINER:
@@ -24,18 +25,18 @@
 # @EXAMPLE:
 #
 # @CODE
-# EAPI=4
-# AUTOTOOLS_AUTORECONF=1
-# inherit autotools-utils vcs-snapshot
+# EAPI=6
+# inherit vcs-snapshot
 #
-# SRC_URI="http://github.com/example/${PN}/tarball/v${PV} -> ${P}.tar.gz"
+# SRC_URI="https://github.com/example/${PN}/tarball/v${PV} -> ${P}.tar.gz
+# 	https://github.com/example/${PN}-otherstuff/tarball/v${PV} -> ${P}-otherstuff.tar.gz""
 # @CODE
 #
-# and however the tarball was originally named, all files will appear
-# in ${WORKDIR}/${P}.
+# and however the tarballs were originally packed, all files will appear
+# in ${WORKDIR}/${P} and ${WORKDIR}/${P}-otherstuff respectively.
 
 case ${EAPI:-0} in
-	0|1|2|3|4|4-python|5|5-progress) ;;
+	0|1|2|3|4|5|6) ;;
 	*) die "vcs-snapshot.eclass API in EAPI ${EAPI} not yet established."
 esac
 

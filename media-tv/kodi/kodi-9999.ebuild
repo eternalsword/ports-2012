@@ -9,9 +9,9 @@ EAPI="5"
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="sqlite"
 
-inherit eutils python-single-r1 multiprocessing autotools
+inherit eutils linux-info python-single-r1 multiprocessing autotools toolchain-funcs
 
-CODENAME="Helix"
+CODENAME="Isengard"
 case ${PV} in
 9999)
 	EGIT_REPO_URI="https://github.com/eternalsword/xbmc.git"
@@ -23,7 +23,8 @@ case ${PV} in
 	MY_PV=${PV/_p/_r}
 	MY_P="${PN}-${MY_PV}"
 	SRC_URI="http://mirrors.kodi.tv/releases/source/${MY_PV}-${CODENAME}.tar.gz -> ${P}.tar.gz
-		http://mirrors.kodi.tv/releases/source/${MY_P}-generated-addons.tar.xz"
+		https://github.com/xbmc/xbmc/archive/${PV}-${CODENAME}.tar.gz -> ${P}.tar.gz
+		!java? ( http://mirrors.kodi.tv/releases/source/${MY_P}-generated-addons.tar.xz )"
 	KEYWORDS="~amd64 ~x86"
 
 	S=${WORKDIR}/xbmc-${PV}-${CODENAME}
@@ -52,7 +53,7 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	dev-libs/expat
 	dev-libs/fribidi
 	dev-libs/libcdio[-minimal]
-	cec? ( >=dev-libs/libcec-2.2 )
+	cec? ( >=dev-libs/libcec-3.0 )
 	dev-libs/libpcre[cxx]
 	dev-libs/libxml2
 	dev-libs/libxslt
@@ -69,25 +70,25 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	media-libs/jasper
 	media-libs/jbigkit
 	>=media-libs/libass-0.9.7
-	bluray? ( media-libs/libbluray )
+	bluray? ( >=media-libs/libbluray-0.7.0 )
 	css? ( media-libs/libdvdcss )
 	media-libs/libmad
 	media-libs/libmodplug
 	media-libs/libmpeg2
 	media-libs/libogg
-	media-libs/libpng
+	media-libs/libpng:0=
 	projectm? ( media-libs/libprojectm )
 	media-libs/libsamplerate
 	joystick? ( media-libs/libsdl2 )
 	>=media-libs/taglib-1.8
 	media-libs/libvorbis
-	media-libs/tiff
+	media-libs/tiff:0=
 	pulseaudio? ( media-sound/pulseaudio )
 	media-sound/wavpack
 	>=media-video/ffmpeg-2.6:=[encode]
 	rtmp? ( media-video/rtmpdump )
 	avahi? ( net-dns/avahi )
-	nfs? ( net-fs/libnfs )
+	nfs? ( net-fs/libnfs:= )
 	webserver? ( net-libs/libmicrohttpd[messages] )
 	sftp? ( net-libs/libssh[sftp] )
 	net-misc/curl
@@ -96,8 +97,8 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	dbus? ( sys-apps/dbus )
 	caps? ( sys-libs/libcap )
 	sys-libs/zlib
-	virtual/jpeg
-	usb? ( virtual/libusb )
+	virtual/jpeg:0=
+	usb? ( virtual/libusb:1 )
 	mysql? ( virtual/mysql )
 	opengl? (
 		virtual/glu
@@ -109,7 +110,7 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	)
 	vaapi? ( x11-libs/libva[opengl] )
 	vdpau? (
-		|| ( x11-libs/libvdpau >=x11-drivers/nvidia-drivers-180.51 )
+		|| ( >=x11-libs/libvdpau-1.1 >=x11-drivers/nvidia-drivers-180.51 )
 		media-video/ffmpeg[vdpau]
 	)
 	X? (
@@ -126,7 +127,9 @@ RDEPEND="${COMMON_DEPEND}
 DEPEND="${COMMON_DEPEND}
 	app-arch/xz-utils
 	dev-lang/swig
+	dev-libs/crossguid
 	dev-util/gperf
+	texturepacker? ( media-libs/giflib )
 	X? ( x11-proto/xineramaproto )
 	dev-util/cmake
 	x86? ( dev-lang/nasm )
@@ -136,7 +139,14 @@ DEPEND="${COMMON_DEPEND}
 # generated addons package.  #488118
 [[ ${PV} == "9999" ]] && DEPEND+=" virtual/jre"
 
+CONFIG_CHECK="~IP_MULTICAST"
+ERROR_IP_MULTICAST="
+In some cases Kodi needs to access multicast addresses.
+Please consider enabling IP_MULTICAST under Networking options.
+"
+
 pkg_setup() {
+	check_extra_config
 	python-single-r1_pkg_setup
 }
 
@@ -145,13 +155,17 @@ src_unpack() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-no-arm-flags.patch #400617
-	epatch "${FILESDIR}"/${P}-texturepacker.patch
+	epatch "${FILESDIR}"/${PN}-9999-no-arm-flags.patch #400617
+	epatch "${FILESDIR}"/${PN}-9999-texturepacker.patch
+	epatch_user #293109
 
 	# some dirs ship generated autotools, some dont
 	multijob_init
-	local d
-	for d in $(printf 'f:\n\t@echo $(BOOTSTRAP_TARGETS)\ninclude bootstrap.mk\n' | emake -f - f) ; do
+	local d dirs=(
+		tools/depends/native/TexturePacker/src/configure
+		$(printf 'f:\n\t@echo $(BOOTSTRAP_TARGETS)\ninclude bootstrap.mk\n' | emake -f - f)
+	)
+	for d in "${dirs[@]}" ; do
 		[[ -e ${d} ]] && continue
 		pushd ${d/%configure/.} >/dev/null || die
 		AT_NOELIBTOOLIZE="yes" AT_TOPLEVEL_EAUTORECONF="yes" \
@@ -161,7 +175,9 @@ src_prepare() {
 	multijob_finish
 	elibtoolize
 
-	[[ ${PV} == "9999" ]] && emake -f codegenerator.mk
+	if [[ ${PV} == "9999" ]] || use java ; then #558798
+		tc-env_build emake -f codegenerator.mk
+	fi
 
 	# Disable internal func checks as our USE/DEPEND
 	# stuff handles this just fine already #408395
@@ -175,8 +191,6 @@ src_prepare() {
 	sed -i \
 		-e '/dbus_connection_send_with_reply_and_block/s:-1:3000:' \
 		xbmc/linux/*.cpp || die
-
-	epatch_user #293109
 
 	# Tweak autotool timestamps to avoid regeneration
 	find . -type f -exec touch -r configure {} +

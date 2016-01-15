@@ -15,11 +15,11 @@ RUBY_FAKEGEM_EXTRADOC="README.markdown"
 inherit multilib ruby-fakegem
 
 DESCRIPTION="Implementation of John Gruber's Markdown"
-HOMEPAGE="http://github.com/rtomayko/rdiscount"
+HOMEPAGE="https://github.com/rtomayko/rdiscount"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 sparc x86 ~x86-fbsd"
 IUSE=""
 
 all_ruby_prepare() {

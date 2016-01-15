@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils qt4-r2
+inherit eutils qmake-utils
 
 DESCRIPTION="UNetbootin installs Linux/BSD distributions to a partition or USB drive"
 HOMEPAGE="https://github.com/unetbootin/unetbootin"
@@ -62,8 +62,10 @@ src_prepare() {
 
 src_configure() {
 	sed -i -e '/^RESOURCES/d' unetbootin.pro || die
-	lupdate ${PN}.pro || die
-	lrelease ${PN}.pro || die
+
+	UNBN_QTPATH="$(qt4_get_bindir)/"
+	"${UNBN_QTPATH}"lrelease ${PN}.pro || die
+
 	eqmake4 ${PN}.pro || die
 }
 

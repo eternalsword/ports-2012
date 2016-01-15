@@ -22,7 +22,7 @@ case ${PV} in
 	MY_P="${PN}-${MY_PV}"
 	SRC_URI="http://mirrors.kodi.tv/releases/source/${MY_PV}-${CODENAME}.tar.gz -> ${P}.tar.gz
 		http://mirrors.kodi.tv/releases/source/${MY_P}-generated-addons.tar.xz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 x86"
 
 	S=${WORKDIR}/xbmc-${PV}-${CODENAME}
 	;;
@@ -153,6 +153,9 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-9999-nomythtv.patch
 	epatch "${FILESDIR}"/${P}-no-arm-flags.patch #400617
 	epatch "${FILESDIR}"/${PN}-14.0-dvddemux-ffmpeg.patch #526992#36
+	epatch "${FILESDIR}"/${P}-gcc-5.patch #557300
+	epatch_user #293109
+
 	# The mythtv patch touches configure.ac, so force a regen
 	rm -f configure
 
@@ -183,8 +186,6 @@ src_prepare() {
 	sed -i \
 		-e '/dbus_connection_send_with_reply_and_block/s:-1:3000:' \
 		xbmc/linux/*.cpp || die
-
-	epatch_user #293109
 
 	# Tweak autotool timestamps to avoid regeneration
 	find . -type f -exec touch -r configure {} +

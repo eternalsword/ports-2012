@@ -13,7 +13,7 @@ if [[ ${PV} == "9999" ]] ; then
 else
 	inherit eutils versionator
 	SRC_URI="https://github.com/zfsonlinux/${PN}/archive/${P}.tar.gz
-		http://dev.gentoo.org/~ryao/dist/${P}-patches-${PR}.tar.xz"
+		https://dev.gentoo.org/~ryao/dist/${P}-patches-${PR}.tar.xz"
 	S="${WORKDIR}/${PN}-${P}"
 	KEYWORDS="~amd64 ~arm ~ppc ~ppc64"
 fi
@@ -79,7 +79,7 @@ src_prepare() {
 	fi
 
 	# splat is unnecessary unless we are debugging
-	use debug || sed -e 's/^subdir-m += splat$//' -i "${S}/module/Makefile.in"
+	use debug || { sed -e 's/^subdir-m += splat$//' -i "${S}/module/Makefile.in" || die ; }
 
 	# Set module revision number
 	[ ${PV} != "9999" ] && \

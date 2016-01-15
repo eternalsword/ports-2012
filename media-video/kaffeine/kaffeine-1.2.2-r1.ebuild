@@ -11,7 +11,7 @@ KDE_SCM="git"
 inherit kde4-base
 
 DESCRIPTION="KDE media player with digital TV support"
-HOMEPAGE="http://kaffeine.kde.org/"
+HOMEPAGE="https://kaffeine.kde.org/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2 FDL-1.2"
@@ -28,7 +28,10 @@ RDEPEND="${DEPEND}"
 
 DOCS=( Changelog NOTES )
 
-PATCHES=( "${FILESDIR}/${PN}-1.2.2-gcc4.7.patch" )
+PATCHES=(
+	"${FILESDIR}/${PN}-1.2.2-gcc4.7.patch"
+	"${FILESDIR}/${PN}-1.3.1-cmake34.patch"
+)
 
 src_configure() {
 	local mycmakeargs=(

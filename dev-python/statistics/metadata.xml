@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>python</herd>
+  <upstream>
+    <remote-id type="pypi">statistics</remote-id>
+    <maintainer status="unknown">
+      <email>stefano@digitalemagine.com</email>
+      <name>Stefano Crosta</name>
+    </maintainer>
+    <remote-id type="github">digitalemagine/py-statistics</remote-id>
+  </upstream>
+</pkgmetadata>

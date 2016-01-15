@@ -10,12 +10,12 @@ CABAL_FEATURES="lib profile haddock hoogle hscolour"
 inherit haskell-cabal
 
 DESCRIPTION="Render tasty output to XML for Jenkins"
-HOMEPAGE="http://github.com/ocharles/tasty-ant-xml"
+HOMEPAGE="https://github.com/ocharles/tasty-ant-xml"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND=">=dev-haskell/generic-deriving-1.6.2:=[profile?]

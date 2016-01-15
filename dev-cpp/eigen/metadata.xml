@@ -10,4 +10,7 @@
 		OpenGL apps, spreadsheets and other office apps, etc. Eigen is dedicated to
 		providing optimal speed with GCC.
 	</longdescription>
+	<upstream>
+		<remote-id type="bitbucket">eigen/eigen</remote-id>
+	</upstream>
 </pkgmetadata>

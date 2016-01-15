@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python2_7 python3_{3,4} )
 inherit distutils-r1
 
 DESCRIPTION="A Python library for accessing the Twitter API "
-HOMEPAGE="http://tweepy.github.com/"
+HOMEPAGE="https://tweepy.github.com/"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
@@ -19,7 +19,10 @@ IUSE="doc examples test"
 
 RESTRICT="test" 	#missing in tarball
 
-DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
+DEPEND="
+	dev-python/pip[${PYTHON_USEDEP}]
+	dev-python/setuptools[${PYTHON_USEDEP}]
+	"
 RDEPEND="
 	>=dev-python/requests-2.4.3[${PYTHON_USEDEP}]
 	>=dev-python/requests-oauthlib-0.4.1[${PYTHON_USEDEP}]

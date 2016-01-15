@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit cmake-utils python
+inherit cmake-utils python eutils
 
 if [[ ${PV} == 9999* ]] ; then
 	EGIT_REPO_URI="git://developer.intra2net.com/${PN}"
@@ -25,6 +25,7 @@ RDEPEND="virtual/libusb:0
 	cxx? ( dev-libs/boost )
 	python? ( dev-lang/python )"
 DEPEND="${RDEPEND}
+	python? ( dev-lang/swig )
 	doc? ( app-doc/doxygen )"
 
 src_prepare() {
@@ -34,6 +35,8 @@ src_prepare() {
 	sed -i \
 		-e '/SET(LIB_SUFFIX /d' \
 		CMakeLists.txt || die
+
+	epatch "${FILESDIR}"/${P}-cmake-{include,version}.patch
 }
 
 src_configure() {

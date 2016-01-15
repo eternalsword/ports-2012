@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 pypy )
 inherit distutils-r1
 
 DESCRIPTION="Rawdog - RSS Aggregator Without Delusions Of Grandeur"
-HOMEPAGE="http://offog.org/code/rawdog.html http://pypi.python.org/pypi/rawdog"
+HOMEPAGE="http://offog.org/code/rawdog.html https://pypi.python.org/pypi/rawdog"
 SRC_URI="http://offog.org/files/${P}.tar.gz"
 
 LICENSE="GPL-2"
@@ -18,8 +18,6 @@ IUSE=""
 
 DEPEND="dev-python/feedparser[${PYTHON_USEDEP}]"
 RDEPEND=""
-# Test run fails under multi threading
-DISTUTILS_NO_PARALLEL_BUILD=1
 
 python_test() {
 	# pypy fails half way through; meh

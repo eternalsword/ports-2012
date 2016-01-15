@@ -3,7 +3,8 @@
 # $Id$
 
 EAPI=5
-PYTHON_COMPAT=( python{2_7,3_3,3_4} )
+
+PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
 
 inherit eutils multibuild multilib python-r1 qmake-utils
 
@@ -14,20 +15,22 @@ HOMEPAGE="http://www.riverbankcomputing.com/software/pyqt/intro
 MY_PN="PyQt-gpl"
 if [[ ${PV} == *_pre* ]]; then
 	MY_P=${MY_PN}-${PV%_pre*}-snapshot-${REVISION}
-	SRC_URI="http://dev.gentoo.org/~pesa/distfiles/${MY_P}.tar.xz"
+	SRC_URI="https://dev.gentoo.org/~pesa/distfiles/${MY_P}.tar.xz"
 else
 	MY_P=${MY_PN}-${PV}
-	SRC_URI="http://www.riverbankcomputing.com/static/Downloads/${PN}/${MY_P}.tar.gz"
+	SRC_URI="mirror://sourceforge/pyqt/${MY_P}.tar.gz"
 fi
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~x86"
+KEYWORDS="amd64 arm ~x86"
 
 # TODO: QtBluetooth, QtLocation, QtNfc, QtWebEngineWidgets
 IUSE="dbus debug declarative designer doc examples gles2 gui help multimedia
 	network opengl positioning printsupport sensors serialport sql svg
 	testlib webchannel webkit websockets widgets x11extras xmlpatterns"
+
+# The requirements below were extracted from configure.py
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 	positioning? ( gui )

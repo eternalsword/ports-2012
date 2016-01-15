@@ -8,7 +8,7 @@ inherit distutils-r1
 
 DESCRIPTION="A static website and blog generator"
 HOMEPAGE="http://getnikola.com/"
-SRC_URI="http://dev.gentoo.org/~yngwin/distfiles/a-study-in-scarlet.txt"
+SRC_URI="https://dev.gentoo.org/~yngwin/distfiles/a-study-in-scarlet.txt"
 MY_PN="Nikola"
 
 if [[ ${PV} == *9999* ]]; then
@@ -39,7 +39,7 @@ RDEPEND="${DEPEND}
 	>=dev-python/requests-2.2.0[${PYTHON_USEDEP}]
 	>=dev-python/unidecode-0.04.16[${PYTHON_USEDEP}]
 	>=dev-python/yapsy-1.11.223[${PYTHON_USEDEP}]
-	virtual/python-imaging[${PYTHON_USEDEP}]
+	dev-python/pillow[${PYTHON_USEDEP}]
 	assets? ( >=dev-python/webassets-0.10.1[${PYTHON_USEDEP}] )
 	charts? ( ~dev-python/pygal-2.0.0[${PYTHON_USEDEP}] )
 	ghpages? ( >=dev-python/ghp-import-0.4.1[${PYTHON_USEDEP}] )

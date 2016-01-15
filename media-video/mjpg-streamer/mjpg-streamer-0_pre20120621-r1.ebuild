@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="MJPG-streamer takes JPGs from Linux-UVC compatible webcams"
 HOMEPAGE="http://sourceforge.net/projects/mjpg-streamer"
-SRC_URI="http://dev.gentoo.org/~aidecoe/distfiles/${CATEGORY}/${PN}/${P}.tar.bz2"
+SRC_URI="https://dev.gentoo.org/~aidecoe/distfiles/${CATEGORY}/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -32,7 +32,6 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	epatch "${FILESDIR}/${PV}-make-var-instead-of-cmd.patch"
 	epatch "${FILESDIR}/${PV}-to-work-with-kernel-3.18.patch"
-
 
 	local flag switch
 

@@ -10,7 +10,7 @@ inherit python-r1
 
 DESCRIPTION="DSSP Plugin for PyMOL"
 HOMEPAGE="http://www.biotec.tu-dresden.de/~hongboz/dssp_pymol/dssp_pymol.html"
-SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.py.xz"
+SRC_URI="https://dev.gentoo.org/~jlec/distfiles/${P}.py.xz"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -34,6 +34,6 @@ src_prepare() {
 
 src_install() {
 	python_moduleinto pmg_tk/startup
-	python_parallel_foreach_impl python_domodule ${P}.py
-	python_parallel_foreach_impl python_optimize
+	python_foreach_impl python_domodule ${P}.py
+	python_foreach_impl python_optimize
 }

@@ -8,12 +8,12 @@ PYTHON_COMPAT=( python{2_7,3_{3,4}} pypy pypy3 )
 inherit distutils-r1
 
 DESCRIPTION="py.test plugin for coverage reporting"
-HOMEPAGE="http://bitbucket.org/memedough/pytest-cov/overview"
+HOMEPAGE="https://bitbucket.org/memedough/pytest-cov/overview"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 ~arm arm64 ~hppa ia64 m68k ppc ppc64 s390 sh x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 ~arm arm64 ~hppa ia64 m68k ppc ppc64 s390 sh ~sparc x86 ~amd64-linux ~x86-linux"
 IUSE="test"
 
 RDEPEND="

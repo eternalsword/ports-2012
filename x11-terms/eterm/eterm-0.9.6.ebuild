@@ -8,14 +8,14 @@ inherit eutils autotools
 MY_P=Eterm-${PV}
 
 if [[ ${PV} == "9999" ]] ; then
-	ESVN_REPO_URI="http://svn.enlightenment.org/svn/e/trunk/eterm/Eterm"
+	ESVN_REPO_URI="https://svn.enlightenment.org/svn/e/trunk/eterm/Eterm"
 	inherit subversion
 	SRC_URI=""
 	KEYWORDS=""
 else
 	SRC_URI="http://www.eterm.org/download/${MY_P}.tar.gz
 		!minimal? ( http://www.eterm.org/download/Eterm-bg-${PV}.tar.gz )"
-	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~amd64-linux ~ppc-macos ~x86-macos"
+	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~ppc-macos ~x86-macos"
 fi
 
 DESCRIPTION="A vt102 terminal emulator for X"

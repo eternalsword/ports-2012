@@ -5,9 +5,9 @@
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1 eutils git-2 linux-info multilib user
+inherit distutils-r1 eutils git-r3 linux-info multilib user
 
-DESCRIPTION="A cloud computing fabric controller (main part of an IaaS system) written in Python"
+DESCRIPTION="Cloud computing fabric controller (main part of an IaaS system) in Python"
 HOMEPAGE="https://launchpad.net/nova"
 EGIT_REPO_URI="https://github.com/openstack/nova.git"
 EGIT_BRANCH="stable/kilo"
@@ -16,9 +16,10 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS=""
 IUSE="+compute compute-only iscsi +kvm +memcached mysql +novncproxy openvswitch postgres +rabbitmq sqlite test xen"
-REQUIRED_USE="!compute-only? ( || ( mysql postgres sqlite ) )
-						compute-only? ( compute !rabbitmq !memcached !mysql !postgres !sqlite )
-						compute? ( ^^ ( kvm xen ) )"
+REQUIRED_USE="
+	!compute-only? ( || ( mysql postgres sqlite ) )
+	compute-only? ( compute !rabbitmq !memcached !mysql !postgres !sqlite )
+	compute? ( ^^ ( kvm xen ) )"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
@@ -27,14 +28,13 @@ DEPEND="
 	app-admin/sudo
 	test? (
 		${RDEPEND}
-		>=dev-python/hacking-0.10.0[${PYTHON_USEDEP}]
-		<dev-python/hacking-0.11[${PYTHON_USEDEP}]
 		>=dev-python/coverage-3.6[${PYTHON_USEDEP}]
 		>=dev-python/fixtures-0.3.14[${PYTHON_USEDEP}]
 		<dev-python/fixtures-1.3.0[${PYTHON_USEDEP}]
 		>=dev-python/mock-1.0[${PYTHON_USEDEP}]
 		<dev-python/mock-1.1.0[${PYTHON_USEDEP}]
 		>=dev-python/mox3-0.7.0[${PYTHON_USEDEP}]
+		<dev-python/mox3-0.8.0[${PYTHON_USEDEP}]
 		dev-python/mysql-python[${PYTHON_USEDEP}]
 		dev-python/psycopg[${PYTHON_USEDEP}]
 		>=dev-python/python-barbicanclient-3.0.1[${PYTHON_USEDEP}]
@@ -94,7 +94,9 @@ RDEPEND="
 	>=dev-python/greenlet-0.3.2[${PYTHON_USEDEP}]
 	>=dev-python/pastedeploy-1.5.0-r1[${PYTHON_USEDEP}]
 	dev-python/paste[${PYTHON_USEDEP}]
-	~dev-python/sqlalchemy-migrate-0.9.5[${PYTHON_USEDEP}]
+	>=dev-python/sqlalchemy-migrate-0.9.5[${PYTHON_USEDEP}]
+	!~dev-python/sqlalchemy-migrate-0.9.8[${PYTHON_USEDEP}]
+	<dev-python/sqlalchemy-migrate-0.10.0[${PYTHON_USEDEP}]
 	>=dev-python/netaddr-0.7.12[${PYTHON_USEDEP}]
 	>=dev-python/paramiko-1.13.0[${PYTHON_USEDEP}]
 	dev-python/pyasn1[${PYTHON_USEDEP}]
@@ -104,7 +106,7 @@ RDEPEND="
 	<dev-python/jsonschema-3.0.0[${PYTHON_USEDEP}]
 	>=dev-python/python-cinderclient-1.1.0[${PYTHON_USEDEP}]
 	<dev-python/python-cinderclient-1.2.0[${PYTHON_USEDEP}]
-	>=dev-python/python-neutronclient-2.3.11[${PYTHON_USEDEP}]
+	>=dev-python/python-neutronclient-2.4.0[${PYTHON_USEDEP}]
 	<dev-python/python-neutronclient-2.5.0[${PYTHON_USEDEP}]
 	>=dev-python/python-glanceclient-0.15.0[${PYTHON_USEDEP}]
 	<dev-python/python-glanceclient-0.18.0[${PYTHON_USEDEP}]
@@ -115,7 +117,7 @@ RDEPEND="
 	<dev-python/stevedore-1.4.0[${PYTHON_USEDEP}]
 	>=dev-python/websockify-0.6.0[${PYTHON_USEDEP}]
 	<dev-python/websockify-0.7.0[${PYTHON_USEDEP}]
-	>=dev-python/oslo-concurrency-1.8.0[${PYTHON_USEDEP}]
+	>=dev-python/oslo-concurrency-1.8.2[${PYTHON_USEDEP}]
 	<dev-python/oslo-concurrency-1.9.0[${PYTHON_USEDEP}]
 	>=dev-python/oslo-config-1.9.3[${PYTHON_USEDEP}]
 	<dev-python/oslo-config-1.10.0[${PYTHON_USEDEP}]
@@ -126,6 +128,7 @@ RDEPEND="
 	>=dev-python/oslo-serialization-1.4.0[${PYTHON_USEDEP}]
 	<dev-python/oslo-serialization-1.5.0[${PYTHON_USEDEP}]
 	>=dev-python/oslo-utils-1.4.0[${PYTHON_USEDEP}]
+	!~dev-python/oslo-utils-1.4.1[${PYTHON_USEDEP}]
 	<dev-python/oslo-utils-1.5.0[${PYTHON_USEDEP}]
 	>=dev-python/oslo-db-1.7.0[${PYTHON_USEDEP}]
 	<dev-python/oslo-db-1.8.0[${PYTHON_USEDEP}]
@@ -180,9 +183,10 @@ pkg_setup() {
 	enewuser nova -1 -1 /var/lib/nova nova
 }
 
-python_prepare() {
-	distutils-r1_python_prepare
+python_prepare_all() {
+	sed -i '/^hacking/d' test-requirements.txt || die
 	sed -i 's/python/python2\.7/g' tools/config/generate_sample.sh || die
+	distutils-r1_python_prepare_all
 }
 
 python_compile() {
@@ -191,8 +195,6 @@ python_compile() {
 }
 
 python_test() {
-	# turn multiprocessing off, testr will use it --parallel
-	local DISTUTILS_NO_PARALLEL_BUILD=1
 	testr init
 	testr run --parallel || die "failed testsuite under python2.7"
 }

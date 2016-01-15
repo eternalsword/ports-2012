@@ -12,7 +12,7 @@ MY_P=${P}.r2792
 
 DESCRIPTION="Weak Signal Propagation Reporter"
 HOMEPAGE="http://www.physics.princeton.edu/pulsar/K1JT/wspr.html"
-SRC_URI="http://dev.gentoo.org/~tomjbe/distfiles/${MY_P}.tgz"
+SRC_URI="https://dev.gentoo.org/~tomjbe/distfiles/${MY_P}.tgz"
 LICENSE="GPL-2"
 
 SLOT="0"
@@ -20,9 +20,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	virtual/python-imaging[tk,${PYTHON_USEDEP}]
+	dev-python/pillow[tk,${PYTHON_USEDEP}]
 	<dev-python/numpy-1.9.0[${PYTHON_USEDEP}]
-	virtual/pmw[${PYTHON_USEDEP}]
+	virtual/python-pmw[${PYTHON_USEDEP}]
 	sci-libs/fftw:3.0
 	media-libs/hamlib
 	media-libs/portaudio

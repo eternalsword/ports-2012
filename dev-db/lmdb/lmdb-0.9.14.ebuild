@@ -22,13 +22,13 @@ RDEPEND="!=net-nds/openldap-2.4.40"
 S="${WORKDIR}/mdb-mdb/libraries/liblmdb"
 
 src_prepare() {
-	sed -i -e "s/^CC.*/CC = $(tc-getCC)/" \
-		-e "s/^CFLAGS.*/CFLAGS = ${CFLAGS}/" \
-		-e "s/ar rs/$(tc-getAR) rs/" \
-		-e "s:^prefix.*:prefix = /usr:" \
-		-e "s:/man/:/share/man/:" \
-		-e "/for f/s:lib:$(get_libdir):" \
-		-e "s:shared:shared -Wl,-soname,liblmdb.so.0:" \
+	sed -i -e "s!^CC.*!CC = $(tc-getCC)!" \
+		-e "s!^CFLAGS.*!CFLAGS = ${CFLAGS}!" \
+		-e "s!ar rs!$(tc-getAR) rs!" \
+		-e "s!^prefix.*!prefix = /usr!" \
+		-e "s!/man/!/share/man/!" \
+		-e "/for f/s!lib!$(get_libdir)!" \
+		-e "s!shared!shared -Wl,-soname,liblmdb.so.0!" \
 		"${S}/Makefile" || die
 }
 
@@ -37,15 +37,15 @@ src_configure() {
 }
 
 src_compile() {
-	emake LDLIBS+=" -pthread"
+	emake LDLIBS+=" -pthread" || die
 }
 
 src_install() {
-	mkdir -p "${D}"/usr/{bin,$(get_libdir),include,share/man/man1}
+	mkdir -p "${D}"/usr/{bin,$(get_libdir),include,share/man/man1} || die
 	default
 
 	mv "${D}"/usr/$(get_libdir)/liblmdb.so{,.0} || die
 	dosym liblmdb.so.0 /usr/$(get_libdir)/liblmdb.so
 
-	use static-libs || rm -f "${D}"/usr/$(get_libdir)/liblmdb.a
+	use static-libs || rm "${D}"/usr/$(get_libdir)/liblmdb.a || die
 }

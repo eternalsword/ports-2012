@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -6,10 +6,10 @@ EAPI=5
 
 DESCRIPTION="Open Handset Alliance's Android NDK (Native Dev Kit)"
 HOMEPAGE="http://developer.android.com/sdk/ndk/"
-SRC_URI="x86? ( target-32? ( http://dl.google.com/android/ndk/${PN}32-r${PV}-linux-x86.tar.bz2 )
-		target-64? ( http://dl.google.com/android/ndk/${PN}64-r${PV}-linux-x86.tar.bz2 ) )
-	amd64? ( target-32? ( http://dl.google.com/android/ndk/${PN}32-r${PV}-linux-x86_64.tar.bz2 )
-		target-64? (  http://dl.google.com/android/ndk/${PN}64-r${PV}-linux-x86_64.tar.bz2 ) )"
+SRC_URI="x86? ( target-32? ( https://dl.google.com/android/ndk/${PN}32-r${PV}-linux-x86.tar.bz2 )
+		target-64? ( https://dl.google.com/android/ndk/${PN}64-r${PV}-linux-x86.tar.bz2 ) )
+	amd64? ( target-32? ( https://dl.google.com/android/ndk/${PN}32-r${PV}-linux-x86_64.tar.bz2 )
+		target-64? (  https://dl.google.com/android/ndk/${PN}64-r${PV}-linux-x86_64.tar.bz2 ) )"
 
 LICENSE="android"
 SLOT="0"
@@ -26,6 +26,7 @@ S="${WORKDIR}/${PN}-r${PV}"
 ANDROID_NDK_DIR="opt/${PN}"
 
 QA_PREBUILT="*"
+PYTHON_UPDATER_IGNORE="1"
 
 src_configure() {
 	:

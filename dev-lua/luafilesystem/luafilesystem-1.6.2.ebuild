@@ -6,7 +6,7 @@ EAPI=5
 inherit multilib toolchain-funcs
 
 DESCRIPTION="File System Library for the Lua Programming Language"
-HOMEPAGE="http://keplerproject.github.com/luafilesystem/"
+HOMEPAGE="https://keplerproject.github.com/luafilesystem/"
 SRC_URI="mirror://github/keplerproject/luafilesystem/${P}.tar.gz"
 
 LICENSE="MIT"
@@ -19,11 +19,11 @@ RDEPEND="${DEPEND}"
 
 src_prepare() {
 	sed -i \
+		-e "s|gcc|$(tc-getCC)|" \
 		-e "s|/usr/local|/usr|" \
 		-e "s|/lib|/$(get_libdir)|" \
 		-e "s|-O2|${CFLAGS}|" \
 		-e "/^LIB_OPTION/s|= |= ${LDFLAGS} |" \
-		-e "s|gcc|$(tc-getCC)|" \
 		config || die
 }
 

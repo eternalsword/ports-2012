@@ -10,12 +10,12 @@ CABAL_FEATURES="lib profile haddock hoogle hscolour test-suite"
 inherit haskell-cabal
 
 DESCRIPTION="DES and 3DES primitives"
-HOMEPAGE="http://github.com/vincenthz/hs-crypto-cipher"
+HOMEPAGE="https://github.com/vincenthz/hs-crypto-cipher"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND="dev-haskell/byteable:=[profile?]

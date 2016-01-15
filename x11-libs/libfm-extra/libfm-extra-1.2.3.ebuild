@@ -10,9 +10,9 @@ MY_PN="libfm"
 MY_P="${MY_PN}-${MY_PV}"
 DESCRIPTION="A library for file management"
 HOMEPAGE="http://pcmanfm.sourceforge.net/"
-SRC_URI="http://dev.gentoo.org/~hwoarang/distfiles/${MY_P}.tar.xz"
+SRC_URI="https://dev.gentoo.org/~hwoarang/distfiles/${MY_P}.tar.xz"
 
-KEYWORDS="~alpha amd64 arm ~arm64 ~mips ppc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm ~arm64 ~mips ppc x86 ~amd64-linux ~x86-linux"
 LICENSE="GPL-2"
 SLOT="0/4.3.0" #copy ABI_VERSION because it seems upstream change it randomly
 IUSE=""

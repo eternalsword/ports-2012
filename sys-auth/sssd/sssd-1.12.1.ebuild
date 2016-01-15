@@ -6,6 +6,8 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
+WANT_AUTOMAKE="1.13"
+
 AUTOTOOLS_IN_SOURCE_BUILD=1
 AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_PRUNE_LIBTOOL_FILES=all
@@ -86,7 +88,7 @@ src_configure(){
 		--without-nscd
 		--with-unicode-lib="glib2"
 		--disable-rpath
-		--enable-silent-rules
+		--disable-silent-rules
 		--sbindir=/usr/sbin
 		--without-samba
 		$(use_enable acl cifs-idmap-plugin)

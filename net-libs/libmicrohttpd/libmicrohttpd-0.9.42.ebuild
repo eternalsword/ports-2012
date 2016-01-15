@@ -6,8 +6,8 @@ EAPI="5"
 
 MY_P="${P/_/}"
 
-DESCRIPTION="A small C library that makes it easy to run an HTTP server as part of another application"
-HOMEPAGE="http://www.gnu.org/software/libmicrohttpd/"
+DESCRIPTION="Small C library to run an HTTP server as part of another application"
+HOMEPAGE="https://www.gnu.org/software/libmicrohttpd/"
 SRC_URI="mirror://gnu/${PN}/${MY_P}.tar.gz"
 
 LICENSE="LGPL-2.1"
@@ -16,7 +16,7 @@ KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 sparc x86"
 IUSE="epoll messages ssl static-libs test"
 
 RDEPEND="ssl? (
-		dev-libs/libgcrypt:0
+		dev-libs/libgcrypt:0=
 		net-libs/gnutls
 	)"
 

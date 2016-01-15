@@ -11,8 +11,9 @@ RESTRICT_PYTHON_ABIS="3.* *-jython"
 inherit distutils
 
 DESCRIPTION="Provides r/w access to a wireless network card's capabilities using the Linux Wireless Extensions"
-HOMEPAGE="http://pypi.python.org/pypi/python-wifi https://developer.berlios.de/projects/pythonwifi"
-SRC_URI="mirror://berlios/${PN/-}/${P}.tar.bz2"
+HOMEPAGE="https://pypi.python.org/pypi/python-wifi https://developer.berlios.de/projects/pythonwifi"
+#SRC_URI="mirror://berlios/${PN/-}/${P}.tar.bz2"
+SRC_URI="mirror://gentoo/${P}.tar.bz2"
 
 SLOT="0"
 KEYWORDS="alpha amd64 hppa ia64 ~mips ppc ppc64 sparc x86"

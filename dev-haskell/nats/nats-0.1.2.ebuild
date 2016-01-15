@@ -10,7 +10,7 @@ CABAL_FEATURES="lib profile haddock hoogle hscolour"
 inherit haskell-cabal
 
 DESCRIPTION="Haskell 98 natural numbers"
-HOMEPAGE="http://github.com/ekmett/nats/"
+HOMEPAGE="https://github.com/ekmett/nats/"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="BSD"
@@ -18,7 +18,7 @@ SLOT="0/${PV}"
 KEYWORDS="amd64 x86"
 IUSE=""
 
-RDEPEND=">=dev-lang/ghc-6.10.4:=
+RDEPEND=">=dev-lang/ghc-6.10.4:= <dev-lang/ghc-7.10:=
 "
 DEPEND="${RDEPEND}
 	>=dev-haskell/cabal-1.8

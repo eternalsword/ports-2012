@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -10,17 +10,17 @@ EGIT_REPO_URI="git://git.savannah.gnu.org/${PN}.git
 inherit eutils git-2
 
 DESCRIPTION="Used to generate Makefile.in from Makefile.am"
-HOMEPAGE="http://www.gnu.org/software/automake/"
+HOMEPAGE="https://www.gnu.org/software/automake/"
 SRC_URI=""
 
-LICENSE="GPL-3"
+LICENSE="GPL-2"
 # Use Gentoo versioning for slotting.
 SLOT="${PV:0:4}"
 KEYWORDS=""
 IUSE=""
 
 RDEPEND="dev-lang/perl
-	>=sys-devel/automake-wrapper-9
+	>=sys-devel/automake-wrapper-10
 	>=sys-devel/autoconf-2.69
 	>=sys-apps/texinfo-4.7
 	sys-devel/gnuconfig"

@@ -1,5 +1,6 @@
-# Copyright owners: Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 # @ECLASS: fortran-2.eclass
 # @MAINTAINER:
@@ -25,6 +26,8 @@
 # inherit fortran-2
 #
 # FORTRAN_NEED_OPENMP=1
+
+if [[ ! ${_FORTRAN_2_CLASS} ]]; then
 
 # @ECLASS-VARIABLE: FORTRAN_NEED_OPENMP
 # @DESCRIPTION:
@@ -59,23 +62,48 @@ for _f_use in ${FORTRAN_NEEDED}; do
 	case ${_f_use} in
 		always)
 			DEPEND+=" virtual/fortran"
+			RDEPEND+=" virtual/fortran"
 			break
 			;;
 		no)
 			break
 			;;
+		test)
+			DEPEND+=" ${_f_use}? ( virtual/fortran )"
+			;;
 		*)
 			DEPEND+=" ${_f_use}? ( virtual/fortran )"
+			RDEPEND+=" ${_f_use}? ( virtual/fortran )"
 			;;
 	esac
 done
-RDEPEND="${DEPEND}"
+unset _f_use
+
+# @FUNCTION: fortran_int64_abi_fflags
+# @DESCRIPTION:
+# Return the Fortran compiler flag to enable 64 bit integers for
+# array indices
+# @CODE
+fortran_int64_abi_fflags() {
+	debug-print-function ${FUNCNAME} "${@}"
+
+	_FC=$(tc-getFC)
+	if [[ ${_FC} == *gfortran* ]]; then
+		echo "-fdefault-integer-8"
+	elif [[ ${_FC} == ifort ]]; then
+		echo "-integer-size 64"
+	else
+		die "Compiler flag for 64bit interger for ${_FC} unknown"
+	fi
+}
 
 # @FUNCTION: _fortran_write_testsuite
 # @INTERNAL
 # @DESCRIPTION:
 # writes fortran test code
 _fortran_write_testsuite() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	local filebase=${T}/test-fortran
 
 	# f77 code
@@ -102,6 +130,8 @@ _fortran_write_testsuite() {
 # Takes fortran compiler as first argument and dialect as second.
 # Checks whether the passed fortran compiler speaks the fortran dialect
 _fortran_compile_test() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	local filebase=${T}/test-fortran
 	local fcomp=${1}
 	local fdia=${2}
@@ -127,6 +157,8 @@ _fortran_compile_test() {
 # @DESCRIPTION:
 # See if the fortran supports OpenMP.
 _fortran-has-openmp() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	local flag
 	local filebase=${T}/test-fc-openmp
 	local fcode=${filebase}.f
@@ -154,6 +186,8 @@ _fortran-has-openmp() {
 # @DESCRIPTION:
 # Detailed description how to handle fortran support
 _fortran_die_msg() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	echo
 	eerror "Please install currently selected gcc version with USE=fortran."
 	eerror "If you intend to use a different compiler then gfortran, please"
@@ -169,6 +203,8 @@ _fortran_die_msg() {
 # Internal test function for working fortran compiler.
 # It is called in fortran-2_pkg_setup.
 _fortran_test_function() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	local dialect
 
 	: ${F77:=$(tc-getFC)}
@@ -207,23 +243,23 @@ _fortran_test_function() {
 # _The_ fortran-2_pkg_setup() code
 _fortran-2_pkg_setup() {
 	for _f_use in ${FORTRAN_NEEDED}; do
-   	case ${_f_use} in
-      	always)
+	case ${_f_use} in
+		always)
+			_fortran_test_function && break
+			;;
+		no)
+			einfo "Forcing fortran support off"
+			break
+			;;
+		*)
+			if use ${_f_use}; then
 				_fortran_test_function && break
-	         ;;
-   	   no)
-				einfo "Forcing fortran support off"
-				break
-	         ;;
-   	   *)
-				if use ${_f_use}; then
-					_fortran_test_function && break
-				else
-					unset FC
-					unset F77
-				fi
-   	      ;;
-	   esac
+			else
+				unset FC
+				unset F77
+			fi
+			;;
+		esac
 	done
 }
 
@@ -233,14 +269,16 @@ _fortran-2_pkg_setup() {
 # Setup functionality,
 # checks for a valid fortran compiler and optionally for its openmp support.
 fortran-2_pkg_setup() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	case ${EAPI:-0} in
 		0|1|2|3)
 			eqawarn "Support for EAPI < 4 will be removed from the"
-			eqawarn "fortran-2.eclass on 2013-09-30."
+			eqawarn "fortran-2.eclass in until 2013-09-30."
 			eqawarn "Please migrate your package to a higher EAPI"
 			eqawarn "or file a bug at https://bugs.gentoo.org"
 			_fortran-2_pkg_setup ;;
-		4|4-python|5|5-progress)
+		4|5)
 			if [[ ${MERGE_TYPE} != binary ]]; then
 				_fortran-2_pkg_setup
 			fi
@@ -249,7 +287,9 @@ fortran-2_pkg_setup() {
 }
 
 case ${EAPI:-0} in
-	0|1|2|3|4|4-python|5|5-progress) EXPORT_FUNCTIONS pkg_setup ;;
+	0|1|2|3|4|5|6) EXPORT_FUNCTIONS pkg_setup ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
 
+_FORTRAN_2_ECLASS=1
+fi

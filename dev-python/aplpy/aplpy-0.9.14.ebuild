@@ -12,7 +12,7 @@ MYPN=APLpy
 MYP=${MYPN}-${PV}
 
 DESCRIPTION="Astronomical Plotting Library in Python"
-HOMEPAGE="http://aplpy.github.com/"
+HOMEPAGE="https://aplpy.github.com/"
 SRC_URI="mirror://pypi/${MYPN:0:1}/${MYPN}/${MYP}.tar.gz"
 
 LICENSE="MIT"
@@ -25,7 +25,7 @@ RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/pyavm[${PYTHON_USEDEP}]
-	virtual/python-imaging[${PYTHON_USEDEP}]"
+	dev-python/pillow[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
 
 S=${WORKDIR}/${MYP}

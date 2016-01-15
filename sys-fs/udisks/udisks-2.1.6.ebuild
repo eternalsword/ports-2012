@@ -19,10 +19,10 @@ COMMON_DEPEND="
 	>=dev-libs/libatasmart-0.19
 	>=sys-auth/polkit-0.110
 	virtual/acl
-	virtual/libgudev:=
+	>=virtual/libgudev-165:=
 	virtual/udev
 	introspection? ( >=dev-libs/gobject-introspection-1.30:= )
-	systemd? ( sys-apps/systemd )
+	systemd? ( >=sys-apps/systemd-209 )
 "
 # gptfdisk -> src/udiskslinuxpartition.c -> sgdisk (see also #412801#c1)
 # util-linux -> mount, umount, swapon, swapoff (see also #403073)
@@ -41,6 +41,7 @@ DEPEND="${COMMON_DEPEND}
 	app-text/docbook-xsl-stylesheets
 	dev-libs/libxslt
 	>=dev-util/gdbus-codegen-2.32
+	>=dev-util/gtk-doc-am-1.3
 	dev-util/intltool
 	>=sys-kernel/linux-headers-3.1
 	virtual/pkgconfig
@@ -55,7 +56,7 @@ pkg_setup() {
 	if use amd64 || use arm || use ppc || use ppc64 || use x86; then
 		CONFIG_CHECK="~!IDE" #319829
 		CONFIG_CHECK+=" ~TMPFS_POSIX_ACL" #412377
-		CONFIG_CHECK+=" ~SWAP" # http://forums.gentoo.org/viewtopic-t-923640.html
+		CONFIG_CHECK+=" ~SWAP" # https://forums.gentoo.org/viewtopic-t-923640.html
 		CONFIG_CHECK+=" ~NLS_UTF8" #425562
 		kernel_is lt 3 10 && CONFIG_CHECK+=" ~USB_SUSPEND" #331065, #477278
 		linux-info_pkg_setup

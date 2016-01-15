@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 inherit distutils-r1
 
 DESCRIPTION="HTTP client mock for Python"
-HOMEPAGE="http://github.com/gabrielfalcao/httpretty"
+HOMEPAGE="https://github.com/gabrielfalcao/httpretty"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 KEYWORDS="~amd64 ~x86"
@@ -29,7 +29,6 @@ RDEPEND="dev-python/urllib3[${PYTHON_USEDEP}]
 # I believe we don't need unpackaged package markment
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]
 	test? ( ${RDEPEND} )"
-DISTUTILS_NO_PARALLEL_BUILD=1
 
 PATCHES=( "${FILESDIR}"/${P}-deps.patch )
 

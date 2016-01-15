@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI=5
-PYTHON_COMPAT=( python3_3 python3_4 )
+PYTHON_COMPAT=( python3_3 python3_4 python3_5 )
 PYTHON_REQ_USE="readline(+)"
 
 if [ "${PV}" = "9999" ]; then
@@ -19,12 +19,13 @@ fi
 inherit bash-completion-r1 distutils-r1
 
 DESCRIPTION="Command line interface to (Gentoo) Bugzilla"
-HOMEPAGE="http://www.github.com/williamh/pybugz"
+HOMEPAGE="https://www.github.com/williamh/pybugz"
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="zsh-completion"
 
-RDEPEND="${DEPEND}"
+DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
+RDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
 
 python_install_all() {
 	distutils-r1_python_install_all

@@ -10,7 +10,7 @@ inherit distutils
 
 DESCRIPTION="Flexible print quota and accounting package for use with CUPS and lpd"
 HOMEPAGE="http://www.pykota.com"
-SRC_URI="http://dev.gentoo.org/~dilfridge/distfiles/${P}.tar.xz"
+SRC_URI="https://dev.gentoo.org/~dilfridge/distfiles/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -25,7 +25,7 @@ DEPEND="dev-lang/python
 	ldap?     ( dev-python/python-ldap )
 	mysql?    ( dev-python/mysql-python )
 	postgres? ( dev-db/postgresql[server] dev-python/pygresql )
-	snmp?     ( net-analyzer/net-snmp =dev-python/pysnmp-3.4* )
+	snmp?     ( net-analyzer/net-snmp dev-python/pysnmp )
 	xml?      ( dev-python/jaxml )"
 RDEPEND="${DEPEND}"
 

@@ -118,19 +118,28 @@ REQUIRED_USE="
 
 DESCRIPTION="Scanner Access Now Easy - Backends"
 HOMEPAGE="http://www.sane-project.org/"
-if [[ ${PV} == *_pre* ]] ; then
+case ${PV} in
+9999)
+	EGIT_REPO_URI="git://anonscm.debian.org/sane/sane-backends.git"
+	inherit git-r3
+	;;
+*_pre*)
 	MY_P="${PN}-git${PV#*_pre}"
 	SRC_URI="http://www.sane-project.org/snapshots/${MY_P}.tar.gz
 		mirror://gentoo/${MY_P}.tar.gz"
 	S=${WORKDIR}/${MY_P}
-else
+	;;
+*)
 	MY_P=${P}
 	SRC_URI="https://alioth.debian.org/frs/download.php/file/3958/${P}.tar.gz"
-fi
+	;;
+esac
 
 LICENSE="GPL-2 public-domain"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+if [[ ${PV} != "9999" ]] ; then
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+fi
 
 RDEPEND="
 	sane_backends_dc210? ( >=virtual/jpeg-0-r2[${MULTILIB_USEDEP}] )
@@ -188,9 +197,10 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-1.0.24-automagic_systemd.patch \
 		"${FILESDIR}"/${PN}-1.0.24-systemd_pkgconfig.patch \
 		"${FILESDIR}"/${PN}-1.0.24-saned_pidfile_location.patch \
-		"${FILESDIR}"/${PN}-1.0.24-cross-compile.patch
+		"${FILESDIR}"/${PN}-1.0.24-cross-compile.patch \
+		"${FILESDIR}"/${PN}-1.0.25-disable-usb-tests.patch
 	# Fix for "make check".
-	sed -i -e 's/sane-backends 1.0.24git/sane-backends 1.0.24/' testsuite/tools/data/html*
+	sed -i -e 's/sane-backends 1.0.24/sane-backends 1.0.25git/' testsuite/tools/data/html*
 	mv configure.{in,ac} || die
 	AT_NOELIBTOOLIZE=yes eautoreconf
 }
@@ -240,7 +250,7 @@ multilib_src_configure() {
 	fi
 
 	# relative path must be used for tests to work properly
-	ECONF_SOURCE=../${MY_P} \
+	ECONF_SOURCE=${S} \
 	SANEI_JPEG="sanei_jpeg.o" SANEI_JPEG_LO="sanei_jpeg.lo" \
 	BACKENDS="${BACKENDS}" \
 	econf \

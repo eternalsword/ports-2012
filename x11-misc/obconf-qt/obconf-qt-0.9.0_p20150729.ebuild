@@ -12,7 +12,7 @@ if [[ ${PV} = *9999* ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="git://git.lxde.org/git/lxde/${PN}.git"
 else
-	SRC_URI="http://dev.gentoo.org/~jauhien/distfiles/${P}.tar.gz"
+	SRC_URI="https://dev.gentoo.org/~jauhien/distfiles/${P}.tar.gz"
 	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 fi
 
@@ -21,7 +21,6 @@ SLOT="0"
 
 RDEPEND="dev-libs/glib:2
 	dev-libs/libxml2
-	dev-qt/linguist-tools:5
 	dev-qt/qtcore:5
 	dev-qt/qtdbus:5
 	dev-qt/qtgui:5
@@ -37,4 +36,5 @@ RDEPEND="dev-libs/glib:2
 	x11-libs/pango
 "
 DEPEND="${RDEPEND}
+	dev-qt/linguist-tools:5
 	virtual/pkgconfig"

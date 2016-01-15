@@ -17,7 +17,7 @@ if [ ${PV} == "9999" ] ; then
 else
 	inherit eutils versionator
 	SRC_URI="https://github.com/zfsonlinux/${PN}/archive/${P}.tar.gz
-		http://dev.gentoo.org/~ryao/dist/${P}-patches-r1.tar.xz"
+		https://dev.gentoo.org/~ryao/dist/${P}-patches-r1.tar.xz"
 	S="${WORKDIR}/${PN}-${P}"
 	KEYWORDS="~amd64 ~arm ~ppc ~ppc64"
 fi
@@ -131,13 +131,13 @@ pkg_postinst() {
 		update_moduledb
 	fi
 
-	[ -e "${EROOT}/etc/runlevels/boot/zfs" ] \
+	[ -e "${EROOT}etc/runlevels/boot/zfs" ] \
 		|| ewarn 'You should add zfs to the boot runlevel.'
 
-	if [ -e "${EROOT}/etc/runlevels/shutdown/zfs-shutdown" ]
+	if [ -e "${EROOT}etc/runlevels/shutdown/zfs-shutdown" ]
 	then
 		einfo "The zfs-shutdown script is obsolete. Removing it from runlevel."
-		rm "${EROOT}/etc/runlevels/shutdown/zfs-shutdown"
+		rm "${EROOT}etc/runlevels/shutdown/zfs-shutdown"
 	fi
 
 }

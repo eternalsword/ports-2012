@@ -13,7 +13,7 @@ EAPI="5"
 # changes its ABI then this package will be rebuilt needlessly. Hence, such a
 # package is free _not_ to := depend on FFmpeg but I would strongly encourage
 # doing so since such a case is unlikely.
-FFMPEG_SUBSLOT=54.56.56
+FFMPEG_SUBSLOT=55.57.57
 
 SCM=""
 if [ "${PV#9999}" != "${PV}" ] ; then
@@ -42,6 +42,10 @@ LICENSE="
 		gpl? ( GPL-3 )
 		!gpl? ( LGPL-3 )
 	)
+	gmp? (
+		gpl? ( GPL-3 )
+		!gpl? ( LGPL-3 )
+	)
 	encode? (
 		aac? (
 			gpl? ( GPL-3 )
@@ -63,9 +67,9 @@ fi
 # or $(use_enable foo foo) if no :bar is set.
 # foo is added to IUSE.
 FFMPEG_FLAG_MAP=(
-		+bzip2:bzlib cpudetection:runtime-cpudetect debug doc gnutls +gpl
-		+hardcoded-tables +iconv lzma +network openssl +postproc
-		samba:libsmbclient sdl:ffplay vaapi vdpau X:xlib xcb:libxcb
+		+bzip2:bzlib cpudetection:runtime-cpudetect debug doc gcrypt gnutls gmp
+		+gpl +hardcoded-tables +iconv lzma +network openssl +postproc
+		samba:libsmbclient sdl:ffplay sdl vaapi vdpau X:xlib xcb:libxcb
 		xcb:libxcb-shm xcb:libxcb-xfixes +zlib
 		# libavdevice options
 		cdio:libcdio iec61883:libiec61883 ieee1394:libdc1394 libcaca openal
@@ -75,12 +79,13 @@ FFMPEG_FLAG_MAP=(
 		# decoders
 		amr:libopencore-amrwb amr:libopencore-amrnb fdk:libfdk-aac
 		jpeg2k:libopenjpeg bluray:libbluray celt:libcelt gme:libgme gsm:libgsm
-		modplug:libmodplug opus:libopus quvi:libquvi rtmp:librtmp ssh:libssh
+		mmal modplug:libmodplug opus:libopus quvi:libquvi librtmp ssh:libssh
 		schroedinger:libschroedinger speex:libspeex vorbis:libvorbis vpx:libvpx
 		zvbi:libzvbi
 		# libavfilter options
-		bs2b:libbs2b flite:libflite frei0r fribidi:libfribidi fontconfig ladspa
-		libass truetype:libfreetype
+		bs2b:libbs2b chromaprint flite:libflite frei0r fribidi:libfribidi
+		fontconfig ladspa libass truetype:libfreetype rubberband:librubberband
+		zimg:libzimg
 		# libswresample options
 		libsoxr
 		# Threads; we only support pthread for now but ffmpeg supports more
@@ -90,13 +95,13 @@ FFMPEG_FLAG_MAP=(
 # Same as above but for encoders, i.e. they do something only with USE=encode.
 FFMPEG_ENCODER_FLAG_MAP=(
 	aac:libvo-aacenc amrenc:libvo-amrwbenc mp3:libmp3lame
-	aacplus:libaacplus faac:libfaac snappy:libsnappy theora:libtheora
-	twolame:libtwolame wavpack:libwavpack webp:libwebp x264:libx264 x265:libx265
-	xvid:libxvid
+	aacplus:libaacplus faac:libfaac kvazaar:libkvazaar nvenc:nvenc
+	openh264:libopenh264 snappy:libsnappy theora:libtheora twolame:libtwolame
+	wavpack:libwavpack webp:libwebp x264:libx264 x265:libx265 xvid:libxvid
 )
 
 IUSE="
-	alsa +encode examples jack oss pic static-libs test v4l
+	alsa +encode examples jack libressl oss pic static-libs test v4l
 	${FFMPEG_FLAG_MAP[@]%:*}
 	${FFMPEG_ENCODER_FLAG_MAP[@]%:*}
 "
@@ -106,7 +111,7 @@ IUSE="
 ARM_CPU_FEATURES=( armv5te armv6 armv6t2 neon armvfp:vfp )
 MIPS_CPU_FEATURES=( mipsdspr1 mipsdspr2 mipsfpu )
 PPC_CPU_FEATURES=( altivec )
-X86_CPU_FEATURES_RAW=( 3dnow:amd3dnow 3dnowext:amd3dnowext avx:avx avx2:avx2 fma3:fma3 fma4:fma4 mmx:mmx mmxext:mmxext sse:sse sse2:sse2 sse3:sse3 ssse3:ssse3 sse4_1:sse4 sse4_2:sse42 xop:xop )
+X86_CPU_FEATURES_RAW=( 3dnow:amd3dnow 3dnowext:amd3dnowext aes:aesni avx:avx avx2:avx2 fma3:fma3 fma4:fma4 mmx:mmx mmxext:mmxext sse:sse sse2:sse2 sse3:sse3 ssse3:ssse3 sse4_1:sse4 sse4_2:sse42 xop:xop )
 X86_CPU_FEATURES=( ${X86_CPU_FEATURES_RAW[@]/#/cpu_flags_x86_} )
 X86_CPU_REQUIRED_USE="
 	cpu_flags_x86_avx2? ( cpu_flags_x86_avx )
@@ -114,6 +119,7 @@ X86_CPU_REQUIRED_USE="
 	cpu_flags_x86_fma3? ( cpu_flags_x86_avx )
 	cpu_flags_x86_xop?  ( cpu_flags_x86_avx )
 	cpu_flags_x86_avx?  ( cpu_flags_x86_sse4_2 )
+	cpu_flags_x86_aes? ( cpu_flags_x86_sse4_2 )
 	cpu_flags_x86_sse4_2?  ( cpu_flags_x86_sse4_1 )
 	cpu_flags_x86_sse4_1?  ( cpu_flags_x86_ssse3 )
 	cpu_flags_x86_ssse3?  ( cpu_flags_x86_sse3 )
@@ -148,7 +154,7 @@ CPU_FEATURES_MAP="
 	amd64:X86
 "
 
-FFTOOLS=( aviocat cws2fws ffescape ffeval ffhash fourcc2pixfmt graph2dot ismindex pktdumper qt-faststart trasher )
+FFTOOLS=( aviocat cws2fws ffescape ffeval ffhash fourcc2pixfmt graph2dot ismindex pktdumper qt-faststart sidxindex trasher )
 IUSE="${IUSE} ${FFTOOLS[@]/#/+fftools_}"
 
 RDEPEND="
@@ -159,12 +165,16 @@ RDEPEND="
 	bzip2? ( >=app-arch/bzip2-1.0.6-r4[${MULTILIB_USEDEP}] )
 	cdio? ( >=dev-libs/libcdio-paranoia-0.90_p1-r1[${MULTILIB_USEDEP}] )
 	celt? ( >=media-libs/celt-0.11.1-r1[${MULTILIB_USEDEP}] )
+	chromaprint? ( >=media-libs/chromaprint-1.2-r1[${MULTILIB_USEDEP}] )
 	encode? (
 		aac? ( >=media-libs/vo-aacenc-0.1.3[${MULTILIB_USEDEP}] )
 		aacplus? ( >=media-libs/libaacplus-2.0.2-r1[${MULTILIB_USEDEP}] )
 		amrenc? ( >=media-libs/vo-amrwbenc-0.1.2-r1[${MULTILIB_USEDEP}] )
 		faac? ( >=media-libs/faac-1.28-r3[${MULTILIB_USEDEP}] )
+		kvazaar? ( media-libs/kvazaar[${MULTILIB_USEDEP}] )
 		mp3? ( >=media-sound/lame-3.99.5-r1[${MULTILIB_USEDEP}] )
+		nvenc? ( >=media-video/nvenc-5 )
+		openh264? ( >=media-libs/openh264-1.4.0-r1[${MULTILIB_USEDEP}] )
 		snappy? ( >=app-arch/snappy-1.1.2-r1[${MULTILIB_USEDEP}] )
 		theora? (
 			>=media-libs/libtheora-1.1.1[encode,${MULTILIB_USEDEP}]
@@ -182,7 +192,9 @@ RDEPEND="
 	fontconfig? ( >=media-libs/fontconfig-2.10.92[${MULTILIB_USEDEP}] )
 	frei0r? ( media-plugins/frei0r-plugins )
 	fribidi? ( >=dev-libs/fribidi-0.19.6[${MULTILIB_USEDEP}] )
+	gcrypt? ( >=dev-libs/libgcrypt-1.6:0=[${MULTILIB_USEDEP}] )
 	gme? ( >=media-libs/game-music-emu-0.6.0[${MULTILIB_USEDEP}] )
+	gmp? ( >=dev-libs/gmp-6:0=[${MULTILIB_USEDEP}] )
 	gnutls? ( >=net-libs/gnutls-2.12.23-r6[${MULTILIB_USEDEP}] )
 	gsm? ( >=media-sound/gsm-1.0.13-r1[${MULTILIB_USEDEP}] )
 	iconv? ( >=virtual/libiconv-0-r1[${MULTILIB_USEDEP}] )
@@ -196,20 +208,25 @@ RDEPEND="
 		>=sys-libs/libraw1394-2.1.0-r1[${MULTILIB_USEDEP}]
 	)
 	jack? ( >=media-sound/jack-audio-connection-kit-0.121.3-r1[${MULTILIB_USEDEP}] )
-	jpeg2k? ( >=media-libs/openjpeg-1.5.0:0[${MULTILIB_USEDEP}] )
+	jpeg2k? ( >=media-libs/openjpeg-2:2[${MULTILIB_USEDEP}] )
 	libass? ( >=media-libs/libass-0.10.2[${MULTILIB_USEDEP}] )
 	libcaca? ( >=media-libs/libcaca-0.99_beta18-r1[${MULTILIB_USEDEP}] )
 	libsoxr? ( >=media-libs/soxr-0.1.0[${MULTILIB_USEDEP}] )
 	libv4l? ( >=media-libs/libv4l-0.9.5[${MULTILIB_USEDEP}] )
 	lzma? ( >=app-arch/xz-utils-5.0.5-r1[${MULTILIB_USEDEP}] )
+	mmal? ( media-libs/raspberrypi-userland )
 	modplug? ( >=media-libs/libmodplug-0.8.8.4-r1[${MULTILIB_USEDEP}] )
 	openal? ( >=media-libs/openal-1.15.1[${MULTILIB_USEDEP}] )
 	opengl? ( >=virtual/opengl-7.0-r1[${MULTILIB_USEDEP}] )
-	openssl? ( >=dev-libs/openssl-1.0.1h-r2[${MULTILIB_USEDEP}] )
+	openssl? (
+		!libressl? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
+		libressl? ( dev-libs/libressl[${MULTILIB_USEDEP}] )
+	)
 	opus? ( >=media-libs/opus-1.0.2-r2[${MULTILIB_USEDEP}] )
 	pulseaudio? ( >=media-sound/pulseaudio-2.1-r1[${MULTILIB_USEDEP}] )
 	quvi? ( media-libs/libquvi:0.4[${MULTILIB_USEDEP}] )
-	rtmp? ( >=media-video/rtmpdump-2.4_p20131018[${MULTILIB_USEDEP}] )
+	librtmp? ( >=media-video/rtmpdump-2.4_p20131018[${MULTILIB_USEDEP}] )
+	rubberband? ( >=media-libs/rubberband-1.8.1-r1[${MULTILIB_USEDEP}] )
 	samba? ( >=net-fs/samba-3.6.23-r1[${MULTILIB_USEDEP}] )
 	schroedinger? ( >=media-libs/schroedinger-1.0.11-r1[${MULTILIB_USEDEP}] )
 	sdl? ( >=media-libs/libsdl-1.2.15-r4[sound,video,${MULTILIB_USEDEP}] )
@@ -222,7 +239,7 @@ RDEPEND="
 		>=media-libs/libvorbis-1.3.3-r1[${MULTILIB_USEDEP}]
 		>=media-libs/libogg-1.3.0[${MULTILIB_USEDEP}]
 	)
-	vpx? ( >=media-libs/libvpx-1.2.0_pre20130625[${MULTILIB_USEDEP}] )
+	vpx? ( >=media-libs/libvpx-1.4.0:=[${MULTILIB_USEDEP}] )
 	X? (
 		>=x11-libs/libX11-1.6.2[${MULTILIB_USEDEP}]
 		>=x11-libs/libXext-1.3.2[${MULTILIB_USEDEP}]
@@ -230,6 +247,7 @@ RDEPEND="
 		>=x11-libs/libXv-1.0.10[${MULTILIB_USEDEP}]
 	)
 	xcb? ( >=x11-libs/libxcb-1.4[${MULTILIB_USEDEP}] )
+	zimg? ( media-libs/zimg[${MULTILIB_USEDEP}] )
 	zlib? ( >=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}] )
 	zvbi? ( >=media-libs/zvbi-0.2.35[${MULTILIB_USEDEP}] )
 	!media-video/qt-faststart
@@ -245,7 +263,7 @@ DEPEND="${RDEPEND}
 	ladspa? ( >=media-libs/ladspa-sdk-1.13-r2[${MULTILIB_USEDEP}] )
 	libv4l? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
 	cpu_flags_x86_mmx? ( >=dev-lang/yasm-1.2 )
-	rtmp? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
+	librtmp? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
 	schroedinger? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
 	test? ( net-misc/wget sys-devel/bc )
 	truetype? ( >=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}] )
@@ -277,7 +295,7 @@ REQUIRED_USE="
 	${GPL_REQUIRED_USE}
 	${CPU_REQUIRED_USE}"
 RESTRICT="
-	encode? ( faac? ( bindist ) aacplus? ( bindist ) )
+	encode? ( faac? ( bindist ) aacplus? ( bindist ) nvenc? ( bindist ) )
 	gpl? ( openssl? ( bindist ) fdk? ( bindist ) )
 "
 
@@ -309,7 +327,7 @@ multilib_src_configure() {
 		if use aac || use amrenc ; then
 			myconf+=( --enable-version3 )
 		fi
-		if use aacplus || use faac ; then
+		if use aacplus || use faac || use nvenc ; then
 			myconf+=( --enable-nonfree )
 		fi
 	else
@@ -330,6 +348,7 @@ multilib_src_configure() {
 
 	# Decoders
 	use amr && myconf+=( --enable-version3 )
+	use gmp && myconf+=( --enable-version3 )
 	use fdk && use gpl && myconf+=( --enable-nonfree )
 
 	for i in "${ffuse[@]#+}" ; do
@@ -366,11 +385,14 @@ multilib_src_configure() {
 	# We need to do this so that features of that CPU will be better used
 	# If they contain an unknown CPU it will not hurt since ffmpeg's configure
 	# will just ignore it.
-	for i in $(get-flag mcpu) $(get-flag mtune) $(get-flag march) ; do
+	for i in $(get-flag mcpu) $(get-flag march) $(get-flag mtune) ; do
 		[[ ${i} = native ]] && i="host" # bug #273421
 		myconf+=( --cpu=${i} )
 		break
 	done
+
+	# LTO support, bug #566282
+	is-flagq "-flto*" && myconf+=( "--enable-lto" )
 
 	# Mandatory configuration
 	myconf=(
@@ -405,7 +427,7 @@ multilib_src_configure() {
 		--cc="$(tc-getCC)" \
 		--cxx="$(tc-getCXX)" \
 		--ar="$(tc-getAR)" \
-		--optflags=" " \
+		--optflags="${CFLAGS}" \
 		$(use_enable static-libs static) \
 		"${myconf[@]}"
 	echo "${@}"

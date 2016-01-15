@@ -2,13 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=4
-
+EAPI=5
 inherit eutils games
 
 DESCRIPTION="A port of Jagged Alliance 2 to SDL"
 HOMEPAGE="http://tron.homeunix.org/ja2/"
-SRC_URI="http://dev.gentoo.org/~hasufell/distfiles/${P}.tar.xz
+SRC_URI="https://dev.gentoo.org/~hasufell/distfiles/${P}.tar.xz
 	http://tron.homeunix.org/ja2/editor.slf.gz"
 
 LICENSE="SFI-SCLA"
@@ -16,9 +15,10 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="cdinstall editor zlib"
 
-RDEPEND="media-libs/libsdl[X,sound,video]
-	cdinstall? ( games-strategy/ja2-stracciatella-data )
+DEPEND="media-libs/libsdl[X,sound,video]
 	zlib? ( sys-libs/zlib )"
+RDEPEND="${DEPEND}
+	cdinstall? ( games-strategy/ja2-stracciatella-data )"
 
 LANGS="linguas_de +linguas_en linguas_fr linguas_it linguas_nl linguas_pl linguas_ru linguas_ru_gold"
 IUSE="$IUSE $LANGS"

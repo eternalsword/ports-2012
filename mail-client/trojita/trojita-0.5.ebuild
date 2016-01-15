@@ -17,7 +17,7 @@ if [[ ${PV} == "9999" ]]; then
 	KEYWORDS=""
 else
 	SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 ~x86"
 	MY_LANGS="ar bs ca cs da de el en_GB es et fi fr ga gl hu ia it ja lt mr nb nds nl pl pt pt_BR ro sk sv tr ug uk zh_CN zh_TW"
 fi
 
@@ -30,7 +30,6 @@ done
 
 RDEPEND="
 	qt5? (
-		dev-qt/linguist-tools:5
 		dev-qt/qtgui:5
 		dev-qt/qtnetwork:5
 		dev-qt/qtsql:5[sqlite]
@@ -49,6 +48,7 @@ DEPEND="${RDEPEND}
 		qt5?	( dev-libs/qtkeychain[qt5] )
 		!qt5?	( dev-libs/qtkeychain[qt4] )
 	)
+	qt5? ( dev-qt/linguist-tools:5 )
 	test? (
 		qt5?	( dev-qt/qttest:5 )
 		!qt5?	( >=dev-qt/qttest-${QT4_REQUIRED}:4 )
@@ -60,6 +60,7 @@ DEPEND="${RDEPEND}
 "
 
 DOCS="README LICENSE"
+PATCHES=( "${FILESDIR}/${P}-qt5.5-includes.patch" )
 
 src_configure() {
 	local mycmakeargs=(

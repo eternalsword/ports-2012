@@ -14,7 +14,7 @@ SRC_URI="http://www.libsdl.org/release/${MY_P}.tar.gz"
 
 LICENSE="ZLIB"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm ~hppa ~ppc64 x86"
+KEYWORDS="alpha amd64 arm hppa ppc64 x86"
 
 IUSE="cpu_flags_x86_3dnow alsa altivec custom-cflags dbus fusionsound gles haptic +joystick cpu_flags_x86_mmx nas opengl oss pulseaudio +sound cpu_flags_x86_sse cpu_flags_x86_sse2 static-libs +threads tslib udev +video wayland X xinerama xscreensaver"
 REQUIRED_USE="
@@ -69,6 +69,10 @@ src_prepare() {
 	# https://bugzilla.libsdl.org/show_bug.cgi?id=1431
 	epatch "${FILESDIR}"/${P}-static-libs.patch \
 		"${FILESDIR}"/${P}-gles-wayland.patch
+	sed -i \
+		-e 's/configure.in/configure.ac/' \
+		Makefile.in || die
+	mv configure.{in,ac} || die
 	AT_M4DIR="/usr/share/aclocal acinclude" eautoreconf
 }
 

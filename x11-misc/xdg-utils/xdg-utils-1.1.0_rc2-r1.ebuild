@@ -10,7 +10,7 @@ MY_P=${P/_/-}
 DESCRIPTION="Portland utils for cross-platform/cross-toolkit/cross-desktop interoperability"
 HOMEPAGE="http://portland.freedesktop.org/"
 SRC_URI="http://people.freedesktop.org/~rdieter/${PN}/${MY_P}.tar.gz
-	http://dev.gentoo.org/~ssuominen/${P}-patchset-1.tar.xz"
+	https://dev.gentoo.org/~ssuominen/${P}-patchset-1.tar.xz"
 #SRC_URI="http://portland.freedesktop.org/download/${MY_P}.tar.gz"
 
 LICENSE="MIT"
@@ -23,8 +23,7 @@ RDEPEND="dev-util/desktop-file-utils
 	x11-apps/xprop
 	x11-apps/xset
 	perl? ( dev-perl/File-MimeInfo )"
-DEPEND="app-text/xmlto
-	|| ( www-client/links www-client/lynx virtual/w3m )"
+DEPEND=">=app-text/xmlto-0.0.26-r1[text(+)]"
 
 DOCS="README RELEASE_NOTES TODO" # ChangeLog is bogus, see git instead
 

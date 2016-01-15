@@ -7,8 +7,8 @@ EAPI=5
 inherit kde4-base
 
 DESCRIPTION="A Plasma widget displaying new and important email"
-HOMEPAGE="http://www.kde.org http://www.vizzzion.org"
-SRC_URI="http://dev.gentoo.org/~creffett/distfiles/${P}.tar.xz"
+HOMEPAGE="https://www.kde.org http://www.vizzzion.org"
+SRC_URI="https://dev.gentoo.org/~creffett/distfiles/${P}.tar.xz"
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="4"
@@ -17,12 +17,12 @@ IUSE="debug"
 
 DEPEND="
 	$(add_kdebase_dep kdelibs)
-	$(add_kdebase_dep kdepimlibs)
+	$(add_kdeapps_dep kdepimlibs)
 	app-office/akonadi-server
 	dev-qt/qtcore:4
 	dev-qt/qtgui:4
 	dev-qt/qtwebkit:4
 "
 RDEPEND="${DEPEND}
-	$(add_kdebase_dep kdepim-runtime)
+	$(add_kdeapps_dep kdepim-runtime)
 "

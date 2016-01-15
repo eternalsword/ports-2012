@@ -15,11 +15,11 @@ RUBY_FAKEGEM_GEMSPEC="${PN}.gemspec"
 inherit ruby-fakegem
 
 DESCRIPTION="All the stuff that isn't good enough for a real library"
-HOMEPAGE="http://github.com/flori/tins"
+HOMEPAGE="https://github.com/flori/tins"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 hppa ppc ppc64 x86"
+KEYWORDS="~alpha amd64 hppa ppc ppc64 ~sparc x86"
 IUSE=""
 
 ruby_add_bdepend "test? ( >=dev-ruby/test-unit-2.5.1-r1 ) "

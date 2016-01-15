@@ -12,7 +12,7 @@ inherit eutils confutils leechcraft
 DESCRIPTION="Core of LeechCraft, the modular network client"
 
 SLOT="0"
-KEYWORDS=" ~amd64 ~x86"
+KEYWORDS=" amd64 ~x86"
 IUSE="debug doc +sqlite postgres +qwt"
 
 COMMON_DEPEND=">=dev-libs/boost-1.46
@@ -30,7 +30,7 @@ DEPEND="${COMMON_DEPEND}
 RDEPEND="${COMMON_DEPEND}
 	dev-qt/qtsvg:4
 	|| (
-		kde-apps/oxygen-icons
+		kde-frameworks/oxygen-icons
 		x11-themes/kfaenza
 	 )"
 

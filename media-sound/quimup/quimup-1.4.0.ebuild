@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI=5
-inherit qmake-utils
+inherit eutils qmake-utils
 
 MY_P=${PN}_${PV}
 
@@ -13,7 +13,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}_src.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 ~x86"
 IUSE=""
 
 RDEPEND="dev-qt/qtcore:5
@@ -28,6 +28,10 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${PN} ${PV}"
 
 DOCS=( changelog FAQ.txt README )
+
+src_prepare() {
+	epatch "${FILESDIR}"/${P}-qdatastream.patch
+}
 
 src_configure() {
 	eqmake5

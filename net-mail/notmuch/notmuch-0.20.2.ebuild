@@ -15,8 +15,10 @@ HOMEPAGE="http://notmuchmail.org/"
 SRC_URI="${HOMEPAGE%/}/releases/${P}.tar.gz"
 
 LICENSE="GPL-3"
-SLOT="0"
-KEYWORDS="~amd64 ~x86"
+# Sub-slot corresponds to major wersion of libnotmuch.so.X.Y.  Bump of Y is
+# meant to be binary backward compatible.
+SLOT="0/4"
+KEYWORDS="amd64 x86"
 REQUIRED_USE="
 	nmbug? ( python )
 	python? ( ${PYTHON_REQUIRED_USE} )
@@ -30,6 +32,7 @@ CDEPEND="
 	>=dev-libs/gmime-2.6.7
 	!=dev-libs/gmime-2.6.19
 	<dev-libs/xapian-1.3
+	dev-python/sphinx[${PYTHON_USEDEP}]
 	>=sys-libs/zlib-1.2.5.2
 	sys-libs/talloc
 	debug? ( dev-util/valgrind )
@@ -39,8 +42,7 @@ CDEPEND="
 	"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen
-		python? ( dev-python/sphinx[${PYTHON_USEDEP}] ) )
+	doc? ( app-doc/doxygen )
 	test? ( app-misc/dtach || ( >=app-editors/emacs-23[libxml2]
 		>=app-editors/emacs-vcs-23[libxml2] ) sys-devel/gdb )
 	"

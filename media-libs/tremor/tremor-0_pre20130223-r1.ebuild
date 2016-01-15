@@ -10,11 +10,11 @@ inherit autotools eutils multilib-minimal
 
 DESCRIPTION="A fixed-point version of the Ogg Vorbis decoder (also known as libvorbisidec)"
 HOMEPAGE="http://wiki.xiph.org/Tremor"
-SRC_URI="http://dev.gentoo.org/~ssuominen/${P}.tar.xz"
+SRC_URI="https://dev.gentoo.org/~ssuominen/${P}.tar.xz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64 arm hppa ppc ppc64 sparc x86 ~amd64-fbsd"
+KEYWORDS="amd64 arm hppa ia64 ppc ppc64 sparc x86 ~amd64-fbsd"
 IUSE="low-accuracy static-libs"
 
 RDEPEND=">=media-libs/libogg-1.3.0:=[${MULTILIB_USEDEP}]"

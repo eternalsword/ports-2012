@@ -25,8 +25,6 @@ DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]
 		app-admin/sudo
 		test? (
 			${RDEPEND}
-			>=dev-python/hacking-0.10.0[${PYTHON_USEDEP}]
-			<dev-python/hacking-0.11[${PYTHON_USEDEP}]
 			>=dev-python/coverage-3.6[${PYTHON_USEDEP}]
 			>=dev-python/fixtures-0.3.14[${PYTHON_USEDEP}]
 			<dev-python/fixtures-1.3.0[${PYTHON_USEDEP}]
@@ -64,7 +62,7 @@ RDEPEND="
 	>=dev-python/netaddr-0.7.12[${PYTHON_USEDEP}]
 	>=dev-python/oslo-config-1.9.3[${PYTHON_USEDEP}]
 	<dev-python/oslo-config-1.10.0[${PYTHON_USEDEP}]
-	>=dev-python/oslo-concurrency-1.8.0[${PYTHON_USEDEP}]
+	>=dev-python/oslo-concurrency-1.8.2[${PYTHON_USEDEP}]
 	<dev-python/oslo-concurrency-1.9.0[${PYTHON_USEDEP}]
 	>=dev-python/oslo-context-0.2.0[${PYTHON_USEDEP}]
 	<dev-python/oslo-context-0.3.0[${PYTHON_USEDEP}]
@@ -81,6 +79,7 @@ RDEPEND="
 	>=dev-python/oslo-serialization-1.4.0[${PYTHON_USEDEP}]
 	<dev-python/oslo-serialization-1.5.0[${PYTHON_USEDEP}]
 	>=dev-python/oslo-utils-1.4.0[${PYTHON_USEDEP}]
+	!~dev-python/oslo-utils-1.4.1[${PYTHON_USEDEP}]
 	<dev-python/oslo-utils-1.5.0[${PYTHON_USEDEP}]
 	>=dev-python/osprofiler-0.3.0[${PYTHON_USEDEP}]
 	>=dev-python/paramiko-1.13.0[${PYTHON_USEDEP}]
@@ -119,6 +118,8 @@ RDEPEND="
 		<=dev-python/sqlalchemy-0.9.99[${PYTHON_USEDEP}]
 	)
 	>=dev-python/sqlalchemy-migrate-0.9.5[${PYTHON_USEDEP}]
+	!~dev-python/sqlalchemy-migrate-0.9.8[${PYTHON_USEDEP}]
+	<dev-python/sqlalchemy-migrate-0.10.0[${PYTHON_USEDEP}]
 	>=dev-python/stevedore-1.3.0[${PYTHON_USEDEP}]
 	<dev-python/stevedore-1.4.0[${PYTHON_USEDEP}]
 	>=dev-python/suds-0.4[${PYTHON_USEDEP}]
@@ -153,6 +154,11 @@ pkg_setup() {
 	enewuser cinder -1 -1 /var/lib/cinder cinder
 }
 
+python_prepare_all() {
+	sed -i '/^hacking/d' test-requirements.txt || die
+	distutils-r1_python_prepare_all
+}
+
 python_compile() {
 		distutils-r1_python_compile
 		mv cinder/test.py cinder/test.py.bak || die
@@ -175,6 +181,7 @@ python_install() {
 	done
 
 	insinto /etc/cinder
+	insopts -m0640 -o cinder -g cinder
 	newins "${S}/etc/cinder/cinder.conf.sample" "cinder.conf"
 	newins "${S}/etc/cinder/api-paste.ini" "api-paste.ini"
 	newins "${S}/etc/cinder/logging_sample.conf" "logging_sample.conf"

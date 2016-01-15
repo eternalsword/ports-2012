@@ -18,9 +18,9 @@ SLOT="0"
 KEYWORDS="amd64 ppc ppc64 x86"
 
 DEPEND=">=virtual/jdk-1.4
-		>=dev-java/concurrent-util-1.3.4:0"
+	>=dev-java/concurrent-util-1.3.4:0"
 RDEPEND=">=virtual/jre-1.4
-		 >=dev-java/concurrent-util-1.3.4:0"
+	>=dev-java/concurrent-util-1.3.4:0"
 
 S="${WORKDIR}/${PN}"
 

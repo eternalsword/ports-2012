@@ -21,9 +21,9 @@ RDEPEND="
 	dev-libs/libxdg-basedir
 	dev-db/sqlite:3
 	dev-games/ode
-	dev-lang/lua[deprecated]
-	virtual/jpeg
-	media-libs/libpng
+	dev-lang/lua:0[deprecated]
+	virtual/jpeg:0
+	media-libs/libpng:0
 	dev-libs/libxml2
 	media-libs/libsdl[joystick,opengl]
 	media-libs/sdl-mixer[vorbis]
@@ -51,11 +51,11 @@ src_prepare() {
 
 src_configure() {
 	# bug #289792
-	filter-flags -DdDOUBLE
-	has_version 'dev-games/ode[double-precision]' && append-flags -DdDOUBLE
+	filter-flags -DdDOUBLE -DdSINGLE
+	# bug #569624 - ode-0.13 needs one or the other defined
+	append-flags -Dd$(has_version 'dev-games/ode[double-precision]' && echo DOUBLE || echo SINGLE)
 
 	egamesconf \
-		--disable-dependency-tracking \
 		--enable-threads=posix \
 		$(use_enable nls) \
 		--localedir=/usr/share/locale \

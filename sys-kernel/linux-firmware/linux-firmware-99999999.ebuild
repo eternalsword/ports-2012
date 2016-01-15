@@ -16,7 +16,7 @@ else
 fi
 
 DESCRIPTION="Linux firmware files"
-HOMEPAGE="http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git"
+HOMEPAGE="https://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git"
 
 LICENSE="GPL-1 GPL-2 GPL-3 BSD freedist"
 SLOT="0"
@@ -60,7 +60,7 @@ RDEPEND="!savedconfig? (
 		!sys-firmware/iwl7260-ucode
 		!sys-firmware/iwl7265-ucode
 		!sys-firmware/iwl3160-7260-bt-ucode
-		!x11-drivers/radeon-ucode
+		!sys-firmware/radeon-ucode
 	)"
 #add anything else that collides to this
 

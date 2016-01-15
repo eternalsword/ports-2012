@@ -6,7 +6,7 @@ EAPI=5
 inherit eutils games
 
 DESCRIPTION="Japanese version of chess (commandline + X-Version)"
-HOMEPAGE="http://www.gnu.org/software/gnushogi/"
+HOMEPAGE="https://www.gnu.org/software/gnushogi/"
 SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="amd64 ppc x86"
 IUSE="X"
 
-RDEPEND="sys-libs/ncurses
+RDEPEND="sys-libs/ncurses:0
 	X? ( x11-libs/libXaw )"
 DEPEND="${RDEPEND}
 	>=sys-devel/bison-1.34

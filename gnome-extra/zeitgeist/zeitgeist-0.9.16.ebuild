@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -13,14 +13,14 @@ inherit autotools-utils bash-completion-r1 eutils python-r1 vala versionator
 DIR_PV=$(get_version_component_range 1-2)
 
 DESCRIPTION="Service to log activities and present to other apps"
-HOMEPAGE="http://launchpad.net/zeitgeist/"
-SRC_URI="http://launchpad.net/zeitgeist/${DIR_PV}/${PV}/+download/${P}.tar.xz
-	http://dev.gentoo.org/~eva/distfiles/${PN}/${P}.tar.xz"
+HOMEPAGE="https://launchpad.net/zeitgeist/"
+SRC_URI="https://launchpad.net/zeitgeist/${DIR_PV}/${PV}/+download/${P}.tar.xz
+	https://dev.gentoo.org/~eva/distfiles/${PN}/${P}.tar.xz"
 
 LICENSE="LGPL-2+ LGPL-3+ GPL-2+"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
-IUSE="+datahub downloads-monitor extensions +fts icu introspection nls plugins sql-debug telepathy"
+KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc x86"
+IUSE="+datahub downloads-monitor +fts icu introspection nls plugins sql-debug telepathy"
 
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
@@ -28,22 +28,17 @@ REQUIRED_USE="
 
 RDEPEND="
 	${PYTHON_DEPS}
-	!gnome-extra/zeitgeist-datahub
 	dev-libs/json-glib
 	dev-python/dbus-python[${PYTHON_USEDEP}]
-	dev-python/pygobject:2[${PYTHON_USEDEP}]
-	dev-python/pyxdg[${PYTHON_USEDEP}]
 	dev-python/rdflib[${PYTHON_USEDEP}]
 	media-libs/raptor:2
 	>=dev-libs/glib-2.35.4:2
 	>=dev-db/sqlite-3.7.11:3
 	sys-apps/dbus
 	datahub? ( x11-libs/gtk+:3 )
-	extensions? ( gnome-extra/zeitgeist-extensions  )
-	fts? ( dev-libs/xapian[inmemory] )
-	icu? ( dev-libs/dee[icu?,${PYTHON_USEDEP}] )
+	fts? ( dev-libs/xapian:0=[inmemory] )
+	icu? ( dev-libs/dee[icu?] )
 	introspection? ( dev-libs/gobject-introspection )
-	plugins? ( gnome-extra/zeitgeist-datasources )
 	telepathy? ( net-libs/telepathy-glib )
 "
 DEPEND="${RDEPEND}
@@ -51,6 +46,7 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35
 	virtual/pkgconfig
 "
+PDEPEND="plugins? ( gnome-extra/zeitgeist-datasources )"
 
 src_prepare() {
 	# pure-python module is better managed manually, see src_install

@@ -9,11 +9,11 @@ PYTHON_COMPAT=( python2_7 python3_{3,4} pypy )
 inherit distutils-r1
 
 DESCRIPTION="A non-validating SQL parser module for Python"
-HOMEPAGE="http://code.google.com/p/python-sqlparse/ https://github.com/andialbrecht/sqlparse"
+HOMEPAGE="https://code.google.com/p/python-sqlparse/ https://github.com/andialbrecht/sqlparse"
 SRC_URI="https://github.com/andialbrecht/sqlparse/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ppc ppc64 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm hppa ia64 ppc ppc64 sparc x86 ~amd64-linux ~x86-linux"
 LICENSE="BSD-2"
 IUSE="doc examples test"
 

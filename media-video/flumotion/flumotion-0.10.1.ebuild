@@ -23,10 +23,10 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 # media-plugins/gst-plugins-libpng:0.10
 # dev-python/twisted-web
 # dev-python/twisted-names
-# dev-python/imaging
+# dev-python/pillow
 
 # These are from README
-RDEPEND="
+RDEPEND="${PYTHON_DEPS}
 	dev-python/gst-python:0.10[${PYTHON_USEDEP}]
 	dev-python/kiwi[${PYTHON_USEDEP}]
 	dev-python/pycairo[${PYTHON_USEDEP}]
@@ -41,7 +41,7 @@ RDEPEND="
 "
 # These are from README and error and trial FEATURES="test" Import's
 DEPEND="${RDEPEND}
-	${PYTHON_DEPEND}
+	${PYTHON_DEPS}
 	dev-util/intltool
 	sys-devel/gettext
 	virtual/pkgconfig

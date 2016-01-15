@@ -3,15 +3,15 @@
 # $Id$
 
 EAPI=5
-inherit eutils multilib readme.gentoo toolchain-funcs qt4-r2
+inherit eutils multilib readme.gentoo toolchain-funcs qmake-utils qt4-r2
 
 MY_P="${P/lastfmplayer/lastfm}+dfsg"
 
 DESCRIPTION="A player for last.fm radio streams"
 HOMEPAGE="http://www.last.fm/help/player
 	http://www.mehercule.net/staticpages/index.php/lastfm"
-SRC_URI="http://dev.gentoo.org/~hwoarang/distfiles/lastfm-${PV}+dfsg.tar.gz
-	http://dev.gentoo.org/~hwoarang/distfiles/lastfm_${PV}+dfsg-2.debian.tar.gz
+SRC_URI="https://dev.gentoo.org/~hwoarang/distfiles/lastfm-${PV}+dfsg.tar.gz
+	https://dev.gentoo.org/~hwoarang/distfiles/lastfm_${PV}+dfsg-2.debian.tar.gz
 	dbus? ( http://glue.umd.edu/~rossatok/dbusextension-2.0.tar.bz2 )"
 
 LICENSE="GPL-2"
@@ -84,7 +84,7 @@ src_compile() {
 		einfo "Building DBUS plugin"
 		emake -C "${S}"/src/dbus || die "failed to build dbus extension"
 	fi
-	cd i18n; lrelease *.ts
+	cd i18n; "$(qt4_get_bindir)"/lrelease *.ts
 }
 
 src_install() {

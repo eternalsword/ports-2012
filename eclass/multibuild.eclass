@@ -1,7 +1,8 @@
-# Copyright owners: Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
-# @ECLASS: multibuild
+# @ECLASS: multibuild.eclass
 # @MAINTAINER:
 # Michał Górny <mgorny@gentoo.org>
 # @AUTHOR:
@@ -16,7 +17,7 @@ case "${EAPI:-0}" in
 	0|1|2|3)
 		die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}"
 		;;
-	4|4-python|5|5-progress)
+	4|5|6)
 		;;
 	*)
 		die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}"
@@ -145,6 +146,8 @@ multibuild_foreach_variant() {
 multibuild_parallel_foreach_variant() {
 	debug-print-function ${FUNCNAME} "${@}"
 
+	[[ ${EAPI} == [45] ]] || die "${FUNCNAME} is banned in EAPI ${EAPI}"
+
 	multibuild_foreach_variant "${@}"
 }
 
@@ -192,7 +195,7 @@ multibuild_copy_sources() {
 
 	_multibuild_create_source_copy() {
 		einfo "${MULTIBUILD_VARIANT}: copying to ${BUILD_DIR}"
-		cp -pr "${cp_args[@]}" \
+		cp -p -R "${cp_args[@]}" \
 			"${_MULTIBUILD_INITIAL_BUILD_DIR}" "${BUILD_DIR}" || die
 	}
 

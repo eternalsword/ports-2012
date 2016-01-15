@@ -4,7 +4,7 @@
 
 # @ECLASS: qmake-utils.eclass
 # @MAINTAINER:
-# Qt herd <qt@gentoo.org>
+# qt@gentoo.org
 # @AUTHOR:
 # Davide Pesavento <pesa@gentoo.org>
 # @BLURB: Common functions for qmake-based packages.
@@ -17,7 +17,8 @@
 if [[ -z ${_QMAKE_UTILS_ECLASS} ]]; then
 _QMAKE_UTILS_ECLASS=1
 
-inherit eutils multilib toolchain-funcs
+[[ ${EAPI:-0} == [012345] ]] && inherit multilib
+inherit eutils toolchain-funcs
 
 # @FUNCTION: qt4_get_bindir
 # @DESCRIPTION:

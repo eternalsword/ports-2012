@@ -10,12 +10,12 @@ CABAL_FEATURES="lib profile haddock hoogle hscolour"
 inherit haskell-cabal
 
 DESCRIPTION="Handle per-operating-system X.509 accessors and storage"
-HOMEPAGE="http://github.com/vincenthz/hs-certificate"
+HOMEPAGE="https://github.com/vincenthz/hs-certificate"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND="dev-haskell/mtl:=[profile?]

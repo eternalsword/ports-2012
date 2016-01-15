@@ -10,12 +10,12 @@ CABAL_FEATURES="lib profile haddock hoogle hscolour test-suite"
 inherit haskell-cabal
 
 DESCRIPTION="Streaming data processing library"
-HOMEPAGE="http://github.com/snoyberg/conduit"
+HOMEPAGE="https://github.com/snoyberg/conduit"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 x86"
+KEYWORDS="amd64 x86"
 IUSE="nohandles"
 
 RDEPEND=">=dev-haskell/lifted-base-0.1:=[profile?]

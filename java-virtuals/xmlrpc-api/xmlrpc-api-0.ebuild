@@ -7,11 +7,11 @@ EAPI="5"
 inherit java-virtuals-2
 
 DESCRIPTION="Virtual for XML RPC API (javax.xml.rpc)"
-HOMEPAGE="http://www.gentoo.org"
+HOMEPAGE="https://www.gentoo.org"
 
 LICENSE="public-domain"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 DEPEND=""
 RDEPEND="dev-java/glassfish-xmlrpc-api:0"

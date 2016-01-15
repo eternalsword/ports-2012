@@ -8,12 +8,12 @@ PYTHON_COMPAT=( python2_7 )
 inherit distutils-r1 eutils multilib systemd
 
 DESCRIPTION="EC2 initialisation magic"
-HOMEPAGE="http://launchpad.net/cloud-init"
-SRC_URI="http://launchpad.net/${PN}/trunk/${PV}/+download/${P}.tar.gz"
+HOMEPAGE="https://launchpad.net/cloud-init"
+SRC_URI="https://launchpad.net/${PN}/trunk/${PV}/+download/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="test"
 
 CDEPEND="

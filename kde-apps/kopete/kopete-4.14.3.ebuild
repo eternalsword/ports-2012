@@ -8,7 +8,7 @@ KDE_HANDBOOK="optional"
 inherit kde4-base
 
 DESCRIPTION="KDE multi-protocol IM client"
-HOMEPAGE="http://kopete.kde.org http://www.kde.org/applications/internet/kopete"
+HOMEPAGE="https://kopete.kde.org https://www.kde.org/applications/internet/kopete"
 KEYWORDS="amd64 ~arm ppc ppc64 x86 ~amd64-linux ~x86-linux"
 IUSE="debug ssl v4l"
 
@@ -66,7 +66,7 @@ IUSE="${IUSE} ${PLUGINS} ${PROTOCOLS}"
 COMMONDEPEND="
 	dev-libs/libpcre
 	$(add_kdebase_dep kdelibs 'zeroconf?')
-	$(add_kdebase_dep kdepimlibs)
+	$(add_kdeapps_dep kdepimlibs)
 	media-libs/qimageblitz
 	>=dev-qt/qtgui-4.4.0:4[mng]
 	!aqua? ( x11-libs/libXScrnSaver )

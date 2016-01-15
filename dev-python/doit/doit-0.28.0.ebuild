@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python{2_7,3_3,3_4} pypy )
 inherit eutils distutils-r1
 
 DESCRIPTION="Automation tool"
-HOMEPAGE="http://python-doit.sourceforge.net/ http://pypi.python.org/pypi/doit"
+HOMEPAGE="http://python-doit.sourceforge.net/ https://pypi.python.org/pypi/doit"
 SRC_URI="mirror://pypi/${PN::1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
@@ -26,9 +26,6 @@ DEPEND="test? ( ${RDEPEND}
 		dev-python/mock[${PYTHON_USEDEP}]
 		dev-python/pyflakes[${PYTHON_USEDEP}]
 		dev-python/coverage[${PYTHON_USEDEP}] )"
-
-PY27_REQUSE="$(python_gen_useflags 'python2.7')"
-REQUIRED_USE="doc? ( ${PY27_REQUSE} )"
 
 # Required for test phase
 DISTUTILS_IN_SOURCE_BUILD=1

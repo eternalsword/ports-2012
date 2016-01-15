@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -54,9 +54,13 @@ src_prepare() {
 	sed -i \
 		-e 's/-O2//' \
 		-e 's/-ggdb3//' \
+		-e 's#/usr/local#/usr#' \
 		Makefile || die 'sed Makefile failed.'
 	sed -i \
-		-e 's#https://www\.cyphertite\.com#http://www.gentoo.org/#' \
+		-e 's#/usr/local#/usr#' \
+		GNUmakefile || die 'sed GNUmakefile failed.'
+	sed -i \
+		-e 's#https://www\.cyphertite\.com#https://www.gentoo.org/#' \
 		-e "s#/usr/local#/usr#" \
 		../xombrero.h || die 'sed ../xombrero.c failed.'
 	sed -i \

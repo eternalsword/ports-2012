@@ -37,7 +37,7 @@
 # K_EXTRAEWARN			- same as K_EXTRAEINFO except using ewarn instead of einfo
 # K_SYMLINK				- if this is set, then forcably create symlink anyway
 #
-# K_BASE_VER			- for git-sources, declare the base version this patch is 
+# K_BASE_VER			- for git-sources, declare the base version this patch is
 #						  based off of.
 # K_DEFCONFIG			- Allow specifying a different defconfig target.
 #						  If length zero, defaults to "defconfig".
@@ -57,7 +57,7 @@
 #						  code. If empty, will be set to "1" if deblobbing is
 #						  possible. Test ONLY for "1".
 # K_DEBLOB_TAG     		- This will be the version of deblob script. It's a upstream SVN tag
-#						  such asw -gnu or -gnu1. 
+#						  such asw -gnu or -gnu1.
 # K_PREDEBLOBBED		- This kernel was already deblobbed elsewhere.
 #						  If false, either optional deblobbing will be available
 #						  or the license will note the inclusion of freedist
@@ -102,7 +102,7 @@ if [[ ${CTARGET} == ${CHOST} && ${CATEGORY/cross-} != ${CATEGORY} ]]; then
 	export CTARGET=${CATEGORY/cross-}
 fi
 
-HOMEPAGE="http://www.kernel.org/ http://www.gentoo.org/ ${HOMEPAGE}"
+HOMEPAGE="https://www.kernel.org/ https://www.gentoo.org/ ${HOMEPAGE}"
 : ${LICENSE:="GPL-2"}
 
 # This is the latest KV_PATCH of the deblob tool available from the
@@ -132,8 +132,19 @@ debug-print-kernel2-variables() {
 #Eclass functions only from here onwards ...
 #==============================================================
 handle_genpatches() {
-	local tarball
+	local tarball want_unipatch_list
 	[[ -z ${K_WANT_GENPATCHES} || -z ${K_GENPATCHES_VER} ]] && return 1
+
+	if [[ -n ${1} ]]; then
+		# set UNIPATCH_LIST_GENPATCHES only on explicit request
+		# since that requires 'use' call which can be used only in phase
+		# functions, while the function is also called in global scope
+		if [[ ${1} == --set-unipatch-list ]]; then
+			want_unipatch_list=1
+		else
+			die "Usage: ${FUNCNAME} [--set-unipatch-list]"
+		fi
+	fi
 
 	debug-print "Inside handle_genpatches"
 	local OKV_ARRAY
@@ -161,11 +172,11 @@ handle_genpatches() {
 			use_cond_start="experimental? ( "
 			use_cond_end=" )"
 
-			if use experimental ; then
+			if [[ -n ${want_unipatch_list} ]] && use experimental ; then
 				UNIPATCH_LIST_GENPATCHES+=" ${DISTDIR}/${tarball}"
 				debug-print "genpatches tarball: $tarball"
 			fi
-		else
+		elif [[ -n ${want_unipatch_list} ]]; then
 			UNIPATCH_LIST_GENPATCHES+=" ${DISTDIR}/${tarball}"
 			debug-print "genpatches tarball: $tarball"
 		fi
@@ -396,7 +407,7 @@ detect_version() {
 
 
 	fi
-	
+
 	debug-print-kernel2-variables
 
 	handle_genpatches
@@ -798,10 +809,13 @@ postinst_sources() {
 	# if we have USE=symlink, then force K_SYMLINK=1
 	use symlink && K_SYMLINK=1
 
-	# if we're using a deblobbed kernel, it's not supported
-	[[ $K_DEBLOB_AVAILABLE == 1 ]] && \
-		use deblob && \
-		K_SECURITY_UNSUPPORTED=deblob
+	# We do support security on a deblobbed kernel, bug #555878.
+	# If some particular kernel version doesn't have security
+	# supported because of USE=deblob or otherwise, one can still
+	# set K_SECURITY_UNSUPPORTED on a per ebuild basis.
+	#[[ $K_DEBLOB_AVAILABLE == 1 ]] && \
+	#	use deblob && \
+	#	K_SECURITY_UNSUPPORTED=deblob
 
 	# if we are to forcably symlink, delete it if it already exists first.
 	if [[ ${K_SYMLINK} > 0 ]]; then
@@ -854,7 +868,7 @@ postinst_sources() {
 	if [[ -n ${K_SECURITY_UNSUPPORTED} ]]; then
 		ewarn "This means that it is likely to be vulnerable to recent security issues."
 		ewarn "For specific information on why this kernel is unsupported, please read:"
-		ewarn "http://www.gentoo.org/proj/en/security/kernel.xml"
+		ewarn "https://wiki.gentoo.org/wiki/Project:Kernel_Security"
 	fi
 
 	# warn sparc users that they need to do cross-compiling with >= 2.6.25(bug #214765)
@@ -1001,11 +1015,11 @@ unipatch() {
 				done
 				UNIPATCH_DROP+=" $(basename ${j})"
 			done
-		else 
+		else
 			UNIPATCH_LIST_GENPATCHES+=" ${DISTDIR}/${tarball}"
 			debug-print "genpatches tarball: $tarball"
 
-			# check gcc version < 4.9.X uses patch 5000 and = 4.9.X uses patch 5010			
+			# check gcc version < 4.9.X uses patch 5000 and = 4.9.X uses patch 5010
 			if [[ $(gcc-major-version) -eq 4 ]] && [[ $(gcc-minor-version) -ne 9 ]]; then
 				# drop 5000_enable-additional-cpu-optimizations-for-gcc-4.9.patch
 				if [[ $UNIPATCH_DROP != *"5010_enable-additional-cpu-optimizations-for-gcc-4.9.patch"* ]]; then
@@ -1076,9 +1090,10 @@ unipatch() {
 			# https://bugs.gentoo.org/show_bug.cgi?id=507656                   #
 			####################################################################
 			if [[ ${PN} == "git-sources" ]] ; then
-				if [[ ${KV_MAJOR}${KV_PATCH} -ge 315 && ${RELEASETYPE} == -rc ]] ; then
+				if [[ ${KV_MAJOR} -gt 3 || ( ${KV_MAJOR} -eq 3 && ${KV_PATCH} -gt 15 ) &&
+					${RELEASETYPE} == -rc ]] ; then
 					ebegin "Applying ${i/*\//} (-p1)"
-					if [ $(patch -p1 --no-backup-if-mismatch -f < ${i} >> ${STDERR_T}) "$?" -eq 0 ]; then
+					if [ $(patch -p1 --no-backup-if-mismatch -f < ${i} >> ${STDERR_T}) "$?" -le 2 ]; then
 						eend 0
 						rm ${STDERR_T}
 						break
@@ -1228,6 +1243,8 @@ kernel-2_src_unpack() {
 	universal_unpack
 	debug-print "Doing unipatch"
 
+	# request UNIPATCH_LIST_GENPATCHES in phase since it calls 'use'
+	handle_genpatches --set-unipatch-list
 	[[ -n ${UNIPATCH_LIST} || -n ${UNIPATCH_LIST_DEFAULT} || -n ${UNIPATCH_LIST_GENPATCHES} ]] && \
 		unipatch "${UNIPATCH_LIST_DEFAULT} ${UNIPATCH_LIST_GENPATCHES} ${UNIPATCH_LIST}"
 

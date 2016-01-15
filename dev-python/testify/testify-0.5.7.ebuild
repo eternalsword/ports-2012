@@ -1,16 +1,16 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
 # Still appears to no support >=py3.3
-PYTHON_COMPAT=( python2_7 pypy )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 vcs-snapshot
 
 DESCRIPTION="A more pythonic replacement for the unittest module and nose"
-HOMEPAGE="https://github.com/Yelp/testify http://pypi.python.org/pypi/testify/"
+HOMEPAGE="https://github.com/Yelp/testify https://pypi.python.org/pypi/testify/"
 SRC_URI="mirror://pypi/${P:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="Apache-2.0"

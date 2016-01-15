@@ -10,12 +10,12 @@ CABAL_FEATURES="lib profile haddock hoogle hscolour"
 inherit haskell-cabal
 
 DESCRIPTION="Portable temporary file and directory support for Windows and Unix, based on code from Cabal"
-HOMEPAGE="http://www.github.com/feuerbach/temporary"
+HOMEPAGE="https://www.github.com/feuerbach/temporary"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND=">=dev-haskell/exceptions-0.6:=[profile?]

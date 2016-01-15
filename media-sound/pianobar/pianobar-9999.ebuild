@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -21,7 +21,7 @@ SLOT="0"
 IUSE="static-libs"
 
 RDEPEND="media-libs/libao
-	net-libs/gnutls
+	net-misc/curl
 	dev-libs/libgcrypt:0=
 	dev-libs/json-c
 	>=virtual/ffmpeg-9"
@@ -42,7 +42,7 @@ src_compile() {
 
 src_install() {
 	emake DESTDIR="${D}" PREFIX=/usr LIBDIR=/usr/$(get_libdir) DYNLINK=1 install
-	dodoc ChangeLog README
+	dodoc ChangeLog README.md
 
 	use static-libs || { rm "${D}"/usr/lib*/*.a || die; }
 

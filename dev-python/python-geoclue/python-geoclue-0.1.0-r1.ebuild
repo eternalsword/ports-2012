@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python2_7 )
 inherit distutils-r1 virtualx
 
 DESCRIPTION="Geoclue python module"
-HOMEPAGE="http://live.gnome.org/gtg/soc/python_geoclue/"
+HOMEPAGE="https://live.gnome.org/gtg/soc/python_geoclue/"
 SRC_URI="http://www.paulocabido.com/soc/${PN}/${P}.tar.gz"
 
 SLOT="0"
@@ -25,13 +25,8 @@ DEPEND="test? ( app-misc/geoclue:0 )"
 
 S="${WORKDIR}"/${PN}
 
-python_prepare_all() {
-	use test && DISTUTILS_NO_PARALLEL_BUILD=true
-	distutils-r1_python_prepare_all
-}
-
 python_test() {
 	VIRTUALX_COMMAND="${PYTHON}"
-	cd "${BUILD_DIR}" || die
+	cd "${BUILD_DIR}" || die
 	virtualmake "${S}"/tests/test.py
 }

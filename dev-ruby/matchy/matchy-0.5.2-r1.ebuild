@@ -6,6 +6,7 @@ EAPI=5
 
 MY_OWNER="mcmire"
 
+# ruby21: fails tests
 USE_RUBY="ruby19 ruby20"
 
 RUBY_FAKEGEM_RECIPE_DOC="rdoc"
@@ -16,7 +17,7 @@ RUBY_FAKEGEM_NAME="${MY_OWNER}-${PN}"
 inherit ruby-fakegem
 
 DESCRIPTION="RSpec-esque matchers for use in Test::Unit"
-HOMEPAGE="http://github.com/mcmire/matchy"
+HOMEPAGE="https://github.com/mcmire/matchy"
 
 LICENSE="MIT"
 SLOT="0"

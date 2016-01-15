@@ -103,7 +103,13 @@ if [[ -n "${CABAL_USE_HADDOCK}" ]]; then
 	IUSE="${IUSE} doc"
 	# don't require depend on itself to build docs.
 	# ebuild bootstraps docs from just built binary
-	[[ ${CATEGORY}/${PN} = "dev-haskell/haddock" ]] || DEPEND="${DEPEND} doc? ( dev-haskell/haddock )"
+	#
+	# starting from ghc-7.10.2 we install haddock bundled with
+	# ghc to keep links to base and ghc library, otherwise
+	# newer haddock versions change index format and can't
+	# read index files for packages coming with ghc.
+	[[ ${CATEGORY}/${PN} = "dev-haskell/haddock" ]] || \
+		DEPEND="${DEPEND} doc? ( || ( dev-haskell/haddock >=dev-lang/ghc-7.10.2 ) )"
 fi
 
 if [[ -n "${CABAL_USE_HSCOLOUR}" ]]; then
@@ -240,7 +246,7 @@ cabal-mksetup() {
 	rm -vf "${setupdir}"/Setup.{lhs,hs}
 	elog "Creating 'Setup.hs' for 'Simple' build type."
 
-	echo 'import Distribution.Simple; main = defaultMainWithHooks defaultUserHooks' \
+	echo 'import Distribution.Simple; main = defaultMain' \
 		> "${setup_src}" || die "failed to create default Setup.hs"
 }
 
@@ -517,13 +523,13 @@ haskell-cabal_pkg_setup() {
 haskell-cabal_src_configure() {
 	cabal-is-dummy-lib && return
 
-	pushd "${S}" > /dev/null
+	pushd "${S}" > /dev/null || die
 
 	cabal-bootstrap
 
 	cabal-configure "$@"
 
-	popd > /dev/null
+	popd > /dev/null || die
 }
 
 # exported function: nice alias
@@ -586,15 +592,15 @@ cabal_src_compile() {
 }
 
 haskell-cabal_src_compile() {
-	pushd "${S}" > /dev/null
+	pushd "${S}" > /dev/null || die
 
 	cabal_src_compile "$@"
 
-	popd > /dev/null
+	popd > /dev/null || die
 }
 
 haskell-cabal_src_test() {
-	pushd "${S}" > /dev/null
+	pushd "${S}" > /dev/null || die
 
 	if cabal-is-dummy-lib; then
 		einfo ">>> No tests for dummy library: ${CATEGORY}/${PF}"
@@ -605,7 +611,7 @@ haskell-cabal_src_test() {
 		./setup "$@" || die "cabal test failed"
 	fi
 
-	popd > /dev/null
+	popd > /dev/null || die
 }
 
 # exported function: cabal-style copy and register
@@ -629,11 +635,11 @@ cabal_src_install() {
 }
 
 haskell-cabal_src_install() {
-	pushd "${S}" > /dev/null
+	pushd "${S}" > /dev/null || die
 
 	cabal_src_install
 
-	popd > /dev/null
+	popd > /dev/null || die
 }
 
 haskell-cabal_pkg_postinst() {

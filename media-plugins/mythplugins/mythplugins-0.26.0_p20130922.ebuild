@@ -13,7 +13,7 @@ inherit eutils python
 DESCRIPTION="Official MythTV plugins"
 HOMEPAGE="http://www.mythtv.org"
 SRC_URI="ftp://ftp.osuosl.org/pub/mythtv/${MY_P}.tar.bz2
-	${BACKPORTS:+http://dev.gentoo.org/~rich0/distfiles/${MY_P}-${BACKPORTS}.tar.xz}"
+	${BACKPORTS:+https://dev.gentoo.org/~rich0/distfiles/${MY_P}-${BACKPORTS}.tar.xz}"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -36,7 +36,7 @@ DEPEND="!media-plugins/mytharchive
 	=media-tv/mythtv-${PV}*:=[python]
 	mytharchive? (
 		app-cdr/dvd+rw-tools
-		virtual/python-imaging:=
+		dev-python/pillow:=
 		media-video/dvdauthor
 		media-video/mjpegtools[png]
 		media-video/transcode

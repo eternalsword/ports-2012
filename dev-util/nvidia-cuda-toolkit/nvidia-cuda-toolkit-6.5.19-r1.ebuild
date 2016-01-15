@@ -23,13 +23,13 @@ IUSE="debugger doc eclipse profiler"
 DEPEND=""
 RDEPEND="${DEPEND}
 	<sys-devel/gcc-4.9[cxx]
-	>=x11-drivers/nvidia-drivers-343.22[uvm]
 	debugger? (
 		sys-libs/libtermcap-compat
 		sys-libs/ncurses[tinfo]
 		)
 	eclipse? ( >=virtual/jre-1.6 )
 	profiler? ( >=virtual/jre-1.6 )
+	amd64? ( >=x11-drivers/nvidia-drivers-343.22[uvm] )
 	x86? ( <x11-drivers/nvidia-drivers-346.35[uvm] )
 	"
 
@@ -47,7 +47,7 @@ pkg_setup() {
 		ewarn "Starting with version 6.5 NVIDIA dropped more and more"
 		ewarn "the support for 32bit linux."
 		ewarn "Be aware that bugfixes and new features may not be available."
-		ewarn "http://dev.gentoo.org/~jlec/distfiles/CUDA_Toolkit_Release_Notes.pdf"
+		ewarn "https://dev.gentoo.org/~jlec/distfiles/CUDA_Toolkit_Release_Notes.pdf"
 	fi
 }
 

@@ -10,7 +10,7 @@ sr@latin sv uk zh_CN zh_TW"
 inherit kde4-base
 
 DESCRIPTION="KDE Telepathy common library"
-HOMEPAGE="http://community.kde.org/Real-Time_Communication_and_Collaboration"
+HOMEPAGE="https://community.kde.org/Real-Time_Communication_and_Collaboration"
 if [[ ${PV} != *9999* ]]; then
 	SRC_URI="mirror://kde/stable/kde-telepathy/${PV}/src/${P}.tar.bz2"
 	KEYWORDS="~amd64 ~x86"
@@ -30,7 +30,7 @@ DEPEND="
 		>=net-libs/libotr-4.0.0
 	)
 	semantic-desktop? (
-		$(add_kdebase_dep kdepimlibs)
+		$(add_kdeapps_dep kdepimlibs)
 		>=net-libs/libkpeople-0.3.0:=
 	)
 "

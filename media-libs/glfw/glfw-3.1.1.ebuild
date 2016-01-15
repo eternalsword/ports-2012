@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 
 LICENSE="ZLIB"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="amd64 ~hppa x86"
 IUSE="egl examples"
 
 RDEPEND="x11-libs/libXrandr
@@ -19,6 +19,7 @@ RDEPEND="x11-libs/libXrandr
 	x11-libs/libXi
 	x11-libs/libXxf86vm
 	x11-libs/libXinerama
+	x11-libs/libXcursor
 	virtual/opengl"
 DEPEND="${RDEPEND}
 	virtual/glu"

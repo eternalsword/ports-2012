@@ -15,8 +15,8 @@ RESTRICT=test
 inherit flag-o-matic kde4-meta
 
 DESCRIPTION="KDE window manager"
-HOMEPAGE+=" http://userbase.kde.org/KWin"
-KEYWORDS="amd64 ~arm ppc ~ppc64 x86 ~amd64-linux ~x86-linux"
+HOMEPAGE+=" https://userbase.kde.org/KWin"
+KEYWORDS="amd64 ~arm ppc ppc64 x86 ~amd64-linux ~x86-linux"
 IUSE="debug gles opengl wayland"
 
 COMMONDEPEND="

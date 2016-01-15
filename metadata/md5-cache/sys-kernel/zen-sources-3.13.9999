@@ -2,11 +2,11 @@ DEFINED_PHASES=compile install postinst postrm preinst setup test unpack
 DEPEND=!build? ( sys-apps/sed >=sys-devel/binutils-2.11.90.0.31 ) dev-vcs/git
 DESCRIPTION=The Zen Kernel Live Sources
 EAPI=5
-HOMEPAGE=http://zen-kernel.org
+HOMEPAGE=https://zen-kernel.org
 IUSE=symlink build
 LICENSE=GPL-2 freedist
 RDEPEND=!build? ( >=sys-libs/ncurses-5.2 sys-devel/make dev-lang/perl sys-devel/bc )
 RESTRICT=binchecks strip
 SLOT=3.13.9999
-_eclasses_=eutils	351a78113be5b393c09a2c948701ad36	git-2	1bb87192831f668cd20d93ffb1689c94	kernel-2	58fa20f3bda6877b31f6672ca5baec4e	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	python-any-r1	fdd97a8376ac7d4e15c8e254b06915fd	python-utils-r1	c595450196ccd7d3fac66424be096ffc	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=2d56cc03e784213dd01d073f449fa569
+_eclasses_=eutils	d9bd2ddd85a58e470b49ca997e255a4c	git-2	df00117322129fb906bb0a53c3d6a020	kernel-2	ef694b0e1e5876dc1f8cb80992dd7cb9	multilib	3972ca401cf7dbb430df9995f5d8d580	python-any-r1	8eb13cdf35f6e43c48107b911900b2cc	python-utils-r1	30887c5e8630bbf27b5cf0fd74564323	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=605b73bac752225f3701931986fb5080

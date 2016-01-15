@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -13,7 +13,7 @@ MY_PN="${PN/linkchecker/LinkChecker}"
 MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="Check websites for broken links"
-HOMEPAGE="http://wummel.github.com/linkchecker/ http://pypi.python.org/pypi/linkchecker/"
+HOMEPAGE="https://wummel.github.com/linkchecker/ https://pypi.python.org/pypi/linkchecker/"
 SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
@@ -22,7 +22,7 @@ KEYWORDS="amd64 x86 ~ppc-macos ~x64-solaris"
 IUSE="gnome sqlite X"
 
 RDEPEND="
-	dev-python/dnspython[${PYTHON_USEDEP}]
+	virtual/python-dnspython[${PYTHON_USEDEP}]
 	>=dev-python/requests-2.2.1[${PYTHON_USEDEP}]
 	gnome? ( dev-python/pygtk:2[${PYTHON_USEDEP}] )
 	X? (

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-# @ECLASS: gnome-python-common-r1
+# @ECLASS: gnome-python-common-r1.eclass
 # @MAINTAINER:
 # GNOME team <gnome@gentoo.org>
 # @AUTHOR:
@@ -80,7 +80,7 @@ gnome-python-common-r1_src_configure() {
 	)
 
 	ECONF_SOURCE=${S} \
-	python_parallel_foreach_impl \
+	python_foreach_impl \
 		gnome2_src_configure "${myconf[@]}" "${@}"
 }
 

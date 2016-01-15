@@ -18,12 +18,12 @@ inherit eutils gnome2
 DESCRIPTION="A international dictionary supporting fuzzy and glob style matching"
 HOMEPAGE="http://stardict-4.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}-4/${P}.tar.bz2
-	pronounce? ( http://${PN}-3.googlecode.com/files/WyabdcRealPeopleTTS.tar.bz2 )
+	pronounce? ( https://${PN}-3.googlecode.com/files/WyabdcRealPeopleTTS.tar.bz2 )
 	qqwry? ( mirror://gentoo/QQWry.Dat.bz2 )"
 
 LICENSE="CPL-1.0 GPL-3 LGPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~arm ~arm64 ppc ~ppc64 sparc x86"
+KEYWORDS="amd64 ~arm ~arm64 ppc ppc64 sparc x86"
 IUSE="espeak gucharmap qqwry pronounce spell tools"
 
 RESTRICT="test"

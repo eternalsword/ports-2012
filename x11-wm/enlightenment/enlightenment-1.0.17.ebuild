@@ -2,22 +2,22 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="4"
+EAPI="5"
 if [[ ${PV} == *9999 ]] ; then
-	ESVN_REPO_URI="http://svn.enlightenment.org/svn/e/trunk/E16/e"
+	ESVN_REPO_URI="https://svn.enlightenment.org/svn/e/trunk/E16/e"
 	inherit subversion autotools
 	SRC_URI=""
 	#KEYWORDS=""
 	S=${WORKDIR}/e16/e
 else
 	SRC_URI="mirror://sourceforge/enlightenment/e16-${PV/_/-}.tar.gz"
-	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
+	KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 sh sparc x86 ~x86-fbsd"
 	S=${WORKDIR}/e16-${PV/_pre?}
 fi
 inherit eutils
 
 DESCRIPTION="Enlightenment Window Manager (e16)"
-HOMEPAGE="http://www.enlightenment.org/"
+HOMEPAGE="https://www.enlightenment.org/"
 
 LICENSE="BSD"
 SLOT="0"

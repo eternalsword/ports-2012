@@ -15,7 +15,7 @@ if [[ ${PV} == *9999* ]]; then
 	inherit git-r3
 	KEYWORDS=""
 else
-	SRC_URI="http://dev.gentoo.org/~hwoarang/distfiles/${MY_P}.tar.xz"
+	SRC_URI="https://dev.gentoo.org/~hwoarang/distfiles/${MY_P}.tar.xz"
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~mips ~ppc ~x86"
 fi
 
@@ -57,7 +57,7 @@ src_prepare() {
 	sed -i "s:-Werror::" configure.ac || die
 	eautoreconf
 	export LINGUAS="${LINGUAS:-${PLOCALE_BACKUP}}"
-	l10n_get_locales > ${S}/po/LINGUAS
+	l10n_get_locales > "${S}"/po/LINGUAS
 	epatch_user
 }
 

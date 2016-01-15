@@ -27,7 +27,7 @@ MYSQL_EXTRAS=""
 # Use "none" to disable it's use
 [[ ${MY_EXTRAS_VER} == "live" ]] && MYSQL_EXTRAS="git-r3"
 
-inherit eutils flag-o-matic ${MYSQL_EXTRAS} mysql-cmake mysql_fx versionator \
+inherit eutils systemd flag-o-matic ${MYSQL_EXTRAS} mysql-cmake mysql_fx versionator \
 	toolchain-funcs user cmake-utils multilib-minimal
 
 #
@@ -170,9 +170,9 @@ SRC_URI="${SERVER_URI}"
 if [[ ${MY_EXTRAS_VER} != "live" && ${MY_EXTRAS_VER} != "none" ]]; then
 	SRC_URI="${SRC_URI}
 		mirror://gentoo/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
-		http://dev.gentoo.org/~robbat2/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
-		http://dev.gentoo.org/~jmbsvicetto/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
-		http://dev.gentoo.org/~grknight/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2"
+		https://dev.gentoo.org/~robbat2/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
+		https://dev.gentoo.org/~jmbsvicetto/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
+		https://dev.gentoo.org/~grknight/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2"
 fi
 
 DESCRIPTION="A fast, multi-threaded, multi-user SQL database server"
@@ -190,10 +190,12 @@ if [[ ${PN} == "percona-server" ]]; then
 	DESCRIPTION="An enhanced, drop-in replacement for MySQL from the Percona team"
 fi
 LICENSE="GPL-2"
-SLOT="0/${SUBSLOT:=0}"
+SLOT="0/${SUBSLOT:-0}"
 
-IUSE="+community cluster debug embedded extraengine jemalloc latin1
-	+perl profiling selinux ssl systemtap static static-libs tcmalloc test"
+IUSE="debug embedded extraengine jemalloc latin1 libressl +openssl
+	+perl profiling selinux systemtap static static-libs tcmalloc test yassl"
+
+REQUIRED_USE="^^ ( yassl openssl libressl )"
 
 ### Begin readline/libedit
 ### If the world was perfect, we would use external libedit on both to have a similar experience
@@ -210,6 +212,9 @@ IUSE="+community cluster debug embedded extraengine jemalloc latin1
 #	mysql_check_version_range "7.2 to 7.2.99.99"  ; then
 #	IUSE="bindist ${IUSE}"
 #fi
+
+# Tests always fail when libressl is enabled due to hard-coded ciphers in the tests
+RESTRICT="libressl? ( test )"
 
 if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 	IUSE="bindist ${IUSE}"
@@ -230,6 +235,9 @@ if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]]; then
 	# MariaDB 10.1 introduces InnoDB/XtraDB compression with external libraries
 	# Choices are bzip2, lz4, lzma, lzo.  bzip2 and lzma enabled by default as they are system libraries
 	mysql_version_is_at_least "10.1.1" && IUSE="${IUSE} innodb-lz4 innodb-lzo"
+
+	# It can also compress with app-arch/snappy
+	mysql_version_is_at_least "10.1.7" && IUSE="${IUSE} innodb-snappy"
 
 	# 10.1.2 introduces a cracklib password checker
 	mysql_version_is_at_least "10.1.1" && IUSE="${IUSE} cracklib"
@@ -258,7 +266,7 @@ fi
 
 REQUIRED_USE="
 	${REQUIRED_USE} tcmalloc? ( !jemalloc ) jemalloc? ( !tcmalloc )
-	 static? ( !ssl )"
+	 static? ( yassl )"
 
 #
 # DEPENDENCIES:
@@ -268,7 +276,6 @@ REQUIRED_USE="
 # These are used for both runtime and compiletime
 # MULTILIB_USEDEP only set for libraries used by the client library
 DEPEND="
-	ssl? ( >=dev-libs/openssl-1.0.0:0=[${MULTILIB_USEDEP},static-libs?] )
 	kernel_linux? (
 		sys-process/procps:0=
 		dev-libs/libaio:0=
@@ -284,20 +291,23 @@ DEPEND="
 if [[ ${HAS_TOOLS_PATCH} ]] ; then
 	DEPEND+="
 		client-libs? (
-			ssl? ( >=dev-libs/openssl-1.0.0:0=[${MULTILIB_USEDEP},static-libs?] )
+			openssl? ( >=dev-libs/openssl-1.0.0:0=[${MULTILIB_USEDEP},static-libs?] )
+			libressl? ( dev-libs/libressl:0=[${MULTILIB_USEDEP},static-libs?] )
 			>=sys-libs/zlib-1.2.3:0=[${MULTILIB_USEDEP},static-libs?]
 		)
 		!client-libs? (
-			ssl? ( >=dev-libs/openssl-1.0.0:0=[static-libs?] )
+			openssl? ( >=dev-libs/openssl-1.0.0:0=[static-libs?] )
+			libressl? ( dev-libs/libressl:0=[static-libs?] )
 			>=sys-libs/zlib-1.2.3:0=[static-libs?]
 		)
-		tools? ( sys-libs/ncurses ) embedded? ( sys-libs/ncurses )
+		tools? ( sys-libs/ncurses:0= ) embedded? ( sys-libs/ncurses:0= )
 	"
 else
 	DEPEND+="
-		ssl? ( >=dev-libs/openssl-1.0.0:0=[${MULTILIB_USEDEP},static-libs?] )
+		openssl? ( >=dev-libs/openssl-1.0.0:0=[${MULTILIB_USEDEP},static-libs?] )
+		libressl? ( dev-libs/libressl:0=[${MULTILIB_USEDEP},static-libs?] )
 		>=sys-libs/zlib-1.2.3:0=[${MULTILIB_USEDEP},static-libs?]
-		sys-libs/ncurses[${MULTILIB_USEDEP}]
+		sys-libs/ncurses:0=[${MULTILIB_USEDEP}]
 	"
 fi
 
@@ -364,6 +374,7 @@ if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 		"
 
 	mysql_version_is_at_least "10.1.2" && DEPEND="${DEPEND} cracklib? ( sys-libs/cracklib:0= )"
+	mysql_version_is_at_least "10.1.7" && DEPEND="${DEPEND} innodb-snappy? ( app-arch/snappy )"
 fi
 
 if [[ ${PN} == "percona-server" ]] ; then
@@ -492,15 +503,22 @@ mysql-multilib_disable_test() {
 # Perform some basic tests and tasks during pkg_pretend phase:
 mysql-multilib_pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]] ; then
-		if use_if_iuse tokudb && [[ $(gcc-major-version) -lt 4 || \
-			$(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 7 ]] ; then
+		local GCC_MAJOR_SET=$(gcc-major-version)
+		local GCC_MINOR_SET=$(gcc-minor-version)
+		if use_if_iuse tokudb && [[ ${GCC_MAJOR_SET} -lt 4 || \
+			${GCC_MAJOR_SET} -eq 4 && ${GCC_MINOR_SET} -lt 7 ]] ; then
 			eerror "${PN} with tokudb needs to be built with gcc-4.7 or later."
 			eerror "Please use gcc-config to switch to gcc-4.7 or later version."
 			die
 		fi
-	fi
-	if use_if_iuse cluster && [[ "${PN}" != "mysql-cluster" ]]; then
-		die "NDB Cluster support has been removed from all packages except mysql-cluster"
+		# Bug 565584.  InnoDB now requires atomic functions introduced with gcc-4.7 on
+		# non x86{,_64} arches
+		if ! use amd64 && ! use x86 && [[ ${GCC_MAJOR_SET} -lt 4 || \
+			${GCC_MAJOR_SET} -eq 4 && ${GCC_MINOR_SET} -lt 7 ]] ; then
+			eerror "${PN} needs to be built with gcc-4.7 or later."
+			eerror "Please use gcc-config to switch to gcc-4.7 or later version."
+			die
+		fi
 	fi
 }
 
@@ -571,7 +589,9 @@ mysql-multilib_src_configure() {
 		CXXFLAGS="${CXXFLAGS} -fno-implicit-templates"
 	fi
 	# As of 5.7, exceptions are used!
-	if ! mysql_version_is_at_least "5.7" ; then
+	if [[ ${PN} == "percona-server" ]] && mysql_version_is_at_least "5.6.26" ; then
+                CXXFLAGS="${CXXFLAGS} -fno-rtti"
+        elif ! mysql_version_is_at_least "5.7" ; then
 		CXXFLAGS="${CXXFLAGS} -fno-exceptions -fno-rtti"
 	fi
 	export CXXFLAGS
@@ -595,7 +615,7 @@ multilib_src_configure() {
 
 	if ! multilib_is_native_abi && in_iuse client-libs ; then
 		if ! use client-libs ; then
-			ewarn "Skipping multilib build due to client-libs USE disabled"
+			einfo "Skipping multilib build due to client-libs USE disabled"
 			return 0
 		fi
 	fi
@@ -631,10 +651,20 @@ multilib_src_configure() {
 		-DENABLED_LOCAL_INFILE=1
 		-DMYSQL_UNIX_ADDR=${EPREFIX}/var/run/mysqld/mysqld.sock
 		-DINSTALL_UNIX_ADDRDIR=${EPREFIX}/var/run/mysqld/mysqld.sock
-		-DWITH_SSL=$(usex ssl system bundled)
 		-DWITH_DEFAULT_COMPILER_OPTIONS=0
 		-DWITH_DEFAULT_FEATURE_SET=0
+		-DINSTALL_SYSTEMD_UNITDIR="$(systemd_get_unitdir)"
 	)
+
+	if in_iuse systemd ; then
+		mycmakeargs+=( -DWITH_SYSTEMD=$(usex systemd) )
+	fi
+
+	if use openssl || use libressl ; then
+		mycmakeargs+=( -DWITH_SSL=system )
+	else
+		mycmakeargs+=( -DWITH_SSL=bundled )
+	fi
 
 	if in_iuse client-libs ; then
 		mycmakeargs+=( -DWITHOUT_CLIENTLIBS=$(usex client-libs 0 1) )
@@ -720,7 +750,6 @@ mysql-multilib_src_compile() {
 multilib_src_compile() {
 	if ! multilib_is_native_abi && in_iuse client-libs ; then
 		if ! use client-libs ; then
-			ewarn "Skipping multilib build due to client-libs USE disabled"
 			return 0
 		fi
 	fi
@@ -750,7 +779,6 @@ multilib_src_install() {
 
 	if ! multilib_is_native_abi && in_iuse client-libs ; then
 		if ! use client-libs ; then
-			ewarn "Skipping multilib build due to client-libs USE disabled"
 			return 0
 		fi
 	fi
@@ -779,6 +807,27 @@ mysql-multilib_pkg_preinst() {
 	if [[ ${PN} == "mysql-cluster" ]] ; then
 		mysql_version_is_at_least "7.2.9" && java-pkg-opt-2_pkg_preinst
 	fi
+	# Here we need to see if the implementation switched client libraries
+	# First, we check if this is a new instance of the package and a client library already exists
+	# Then, we check if this package is rebuilt but the previous instance did not
+	# have the client-libs USE set.
+	# Instances which do not have a client-libs USE can only be replaced by a different provider
+	local SHOW_ABI_MESSAGE
+	if ! in_iuse client-libs || use_if_iuse client-libs ; then
+	        if [[ -z ${REPLACING_VERSIONS} && -e "${EROOT}usr/$(get_libdir)/libmysqlclient.so" ]] ; then
+			SHOW_ABI_MESSAGE=1
+		elif [[ ${REPLACING_VERSIONS} && -e "${EROOT}usr/$(get_libdir)/libmysqlclient.so" ]] && \
+			in_iuse client-libs && has_version "${CATEGORY}/${PN}[-client-libs(+)]" ; then
+			SHOW_ABI_MESSAGE=1
+		fi
+
+	fi
+	if [[ ${SHOW_ABI_MESSAGE} ]] ; then
+                elog "Due to ABI changes when switching between different client libraries,"
+                elog "revdep-rebuild must find and rebuild all packages linking to libmysqlclient."
+                elog "Please run: revdep-rebuild --library libmysqlclient.so.${SUBSLOT:-18}"
+                ewarn "Failure to run revdep-rebuild may cause issues with other programs or libraries"
+        fi
 }
 
 # @FUNCTION: mysql-multilib_pkg_postinst
@@ -829,7 +878,7 @@ mysql-multilib_pkg_postinst() {
 				einfo
 				elog "This install includes the PAM authentication plugin."
 				elog "To activate and configure the PAM plugin, please read:"
-				elog "https://kb.askmonty.org/en/pam-authentication-plugin/"
+				elog "https://mariadb.com/kb/en/mariadb/pam-authentication-plugin/"
 				einfo
 			fi
 		fi
@@ -845,7 +894,7 @@ mysql-multilib_pkg_postinst() {
 		elog "mysql_upgrade tool."
 		einfo
 
-		if [[ ${PN} == "mariadb-galera" ]] ; then
+		if [[ ${PN} == "mariadb-galera" ]] || use_if_iuse galera ; then
 			einfo
 			elog "Be sure to edit the my.cnf file to activate your cluster settings."
 			elog "This should be done after running \"emerge --config =${CATEGORY}/${PF}\""
@@ -872,9 +921,10 @@ mysql-multilib_getopt() {
 # Use my_print_defaults to extract specific config options
 mysql-multilib_getoptval() {
 	local mypd="${EROOT}"/usr/bin/my_print_defaults
-	section="$1"
-	flag="--${2}="
-	"${mypd}" $section | sed -n "/^${flag}/s,${flag},,gp"
+	local section="$1"
+	local flag="--${2}="
+	local extra_options="${3}"
+	"${mypd}" $extra_options $section | sed -n "/^${flag}/s,${flag},,gp"
 }
 
 # @FUNCTION: mysql-multilib_pkg_config
@@ -935,6 +985,10 @@ mysql-multilib_pkg_config() {
 
 	if [ -z "${MYSQL_ROOT_PASSWORD}" ]; then
 		MYSQL_ROOT_PASSWORD="$(mysql-multilib_getoptval 'client mysql' password)"
+		# Sometimes --show is required to display passwords in some implementations of my_print_defaults
+		if [[ "${MYSQL_ROOT_PASSWORD}" == '*****' ]]; then
+			MYSQL_ROOT_PASSWORD="$(mysql-multilib_getoptval 'client mysql' password --show)"
+		fi
 	fi
 	MYSQL_TMPDIR="$(mysql-multilib_getoptval mysqld tmpdir)"
 	# These are dir+prefix
@@ -998,7 +1052,7 @@ mysql-multilib_pkg_config() {
 	help_tables="${TMPDIR}/fill_help_tables.sql"
 
 	# Figure out which options we need to disable to do the setup
-	helpfile="${TMPDIR}/mysqld-help"
+	local helpfile="${TMPDIR}/mysqld-help"
 	${EROOT}/usr/sbin/mysqld --verbose --help >"${helpfile}" 2>/dev/null
 	for opt in grant-tables host-cache name-resolve networking slave-start \
 		federated ssl log-bin relay-log slow-query-log external-locking \

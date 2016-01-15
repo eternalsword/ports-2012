@@ -44,6 +44,11 @@ RDEPEND="${RDEPEND}
 
 DOCS="README AUTHORS TODO"
 
+PATCHES=(
+	"${FILESDIR}/gcc52.patch"
+	"${FILESDIR}/lmms-1.1.3-Werror.patch"
+)
+
 src_configure() {
 	mycmakeargs="${mycmakeargs}
 		-DWANT_SYSTEM_SR=TRUE

@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
 RDEPEND="dev-libs/icu:=
-	dev-libs/openssl
+	dev-libs/openssl:0
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/gstreamer:1.0
@@ -27,11 +27,13 @@ RDEPEND="dev-libs/icu:=
 	virtual/jpeg:0"
 DEPEND="${RDEPEND}
 	${RUBY_DEPS}
+	net-misc/openssh[-bindist]
 	app-arch/unzip
 	virtual/pkgconfig"
 
 src_prepare() {
 	epatch "${FILESDIR}/phantomjs-python3-udis86-itab.patch"
+	epatch "${FILESDIR}/phantomjs-gcc5-compile-fix.patch"
 
 	# Respect CC, CXX, {C,CXX,LD}FLAGS in .qmake.cache
 	sed -i \

@@ -9,12 +9,12 @@ inherit eutils latex-package
 DESCRIPTION="Combined LaTeX/Metafont package for drawing of Feynman diagrams"
 HOMEPAGE="http://www.ctan.org/tex-archive/macros/latex/contrib/feynmf/"
 #Taken from: ftp.tug.ctan.org/tex-archive/macros/latex/contrib/${PN}.tar.gz
-SRC_URI="http://dev.gentoo.org/~ulm/distfiles/${P}.tar.gz
-	doc? ( http://dev.gentoo.org/~ulm/distfiles/${PN}-cnl.tar.gz )"
+SRC_URI="https://dev.gentoo.org/~ulm/distfiles/${P}.tar.gz
+	doc? ( https://dev.gentoo.org/~ulm/distfiles/${PN}-cnl.tar.gz )"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="alpha amd64 ~arm ~hppa ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
+KEYWORDS="alpha amd64 arm ~hppa ia64 ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
 IUSE="doc"
 
 RDEPEND="dev-texlive/texlive-metapost"

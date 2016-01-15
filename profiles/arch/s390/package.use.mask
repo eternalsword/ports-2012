@@ -2,6 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
+# Sergey Popov <pinkbyte@gentoo.org> (24 Oct 2015)
+# Not tested
+net-mail/dovecot lz4
+
 # Mike Frysinger <vapier@gentoo.org> (16 Mar 2015)
 # Needs sci-physics/bullet tested #499974
 dev-libs/efl physics
@@ -13,6 +17,7 @@ app-portage/layman g-sorcery
 # Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org> (16 Sep 2014)
 # Needs libepoxy keywording, bug #510940
 x11-base/xorg-server glamor wayland
+x11-drivers/xf86-video-ati glamor
 
 # Mikle Kolyada <zlogene@gentoo.org> (11 Jan 2014)
 # too much unkeyworded dependencies (bug #497068)

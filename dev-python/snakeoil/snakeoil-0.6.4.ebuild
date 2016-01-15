@@ -4,6 +4,7 @@
 
 EAPI=5
 PYTHON_COMPAT=( python{2_7,3_3,3_4} )
+PYTHON_REQ_USE="threads(+)"
 inherit distutils-r1
 
 if [[ ${PV} == *9999 ]] ; then
@@ -15,7 +16,7 @@ else
 fi
 
 DESCRIPTION="Miscellaneous python utility code"
-HOMEPAGE="http://github.com/pkgcore/snakeoil"
+HOMEPAGE="https://github.com/pkgcore/snakeoil"
 
 LICENSE="BSD"
 SLOT="0"

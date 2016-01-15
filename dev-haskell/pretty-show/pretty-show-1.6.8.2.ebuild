@@ -10,12 +10,12 @@ CABAL_FEATURES="bin lib profile haddock hoogle hscolour"
 inherit haskell-cabal
 
 DESCRIPTION="Tools for working with derived 'Show' instances and generic inspection of values"
-HOMEPAGE="http://wiki.github.com/yav/pretty-show"
+HOMEPAGE="https://wiki.github.com/yav/pretty-show"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND=">=dev-haskell/haskell-lexer-1:=[profile?] <dev-haskell/haskell-lexer-2:=[profile?]

@@ -6,7 +6,7 @@ EAPI=5
 inherit eutils games
 
 DESCRIPTION="A Go-playing program"
-HOMEPAGE="http://www.gnu.org/software/gnugo/devel.html"
+HOMEPAGE="https://www.gnu.org/software/gnugo/devel.html"
 SRC_URI="mirror://gentoo/${P}.tar.gz"
 
 LICENSE="GPL-3"
@@ -15,7 +15,7 @@ KEYWORDS="amd64 ~arm ppc ppc64 x86 ~amd64-linux ~x86-linux ~ppc-macos"
 IUSE="readline"
 
 DEPEND="readline? ( sys-libs/readline:0 )
-	>=sys-libs/ncurses-5.2-r3"
+	>=sys-libs/ncurses-5.2-r3:0"
 RDEPEND=${DEPEND}
 
 src_prepare() {

@@ -8,7 +8,7 @@ inherit eutils
 
 MY_P="${P/_/-}"
 DESCRIPTION="Used to generate Makefile.in from Makefile.am"
-HOMEPAGE="http://www.gnu.org/software/automake/"
+HOMEPAGE="https://www.gnu.org/software/automake/"
 SRC_URI="mirror://gnu/${PN}/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
@@ -18,7 +18,7 @@ KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86
 IUSE=""
 
 RDEPEND="dev-lang/perl
-	>=sys-devel/automake-wrapper-9
+	>=sys-devel/automake-wrapper-10
 	>=sys-devel/autoconf-2.69
 	sys-devel/gnuconfig"
 DEPEND="${RDEPEND}"

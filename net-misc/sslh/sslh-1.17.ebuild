@@ -5,7 +5,7 @@
 EAPI=5
 
 MY_P="${PN}-v${PV}"
-inherit toolchain-funcs
+inherit toolchain-funcs eutils
 
 DESCRIPTION="Port multiplexer - accept both HTTPS and SSH connections on the same port"
 HOMEPAGE="http://www.rutschle.net/tech/sslh.shtml"
@@ -13,17 +13,22 @@ SRC_URI="http://www.rutschle.net/tech/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~m68k ~mips ~s390 ~sh ~x86"
+KEYWORDS="amd64 ~arm ~m68k ~mips ~s390 ~sh x86"
 IUSE="caps tcpd"
 
 RDEPEND="caps? ( sys-libs/libcap )
 	tcpd? ( sys-apps/tcp-wrappers )
 	dev-libs/libconfig"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	sys-apps/help2man"
 
 RESTRICT="test"
 
 S=${WORKDIR}/${MY_P}
+
+src_prepare() {
+	epatch "${FILESDIR}"/${P}-version-deps.patch
+}
 
 src_compile() {
 	emake \

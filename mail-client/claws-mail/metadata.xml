@@ -3,8 +3,8 @@
 <pkgmetadata>
 	<herd>net-mail</herd>
 	<maintainer>
-		<email>fauli@gentoo.org</email>
-		<name>Christian Faulhammer</name>
+		<email>polynomial-c@gentoo.org</email>
+		<name>Lars Wendler</name>
 	</maintainer>
 	<use>
 		<flag name="archive">Enable archiving plugin</flag>
@@ -28,6 +28,7 @@
 		<flag name="notification">Notification for new mail in
 		different way, see also USE flags libcanberra,
 		libindicate and libnotify</flag>
+		<flag name="sieve">Build plugin for sieve filter support</flag>
 		<flag name="smime">Build plugin for S/MIME support</flag>
 		<flag name="spamassassin">Build <pkg>mail-filter/spamassassin</pkg>
 			plugin</flag>

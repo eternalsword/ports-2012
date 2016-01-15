@@ -1,5 +1,6 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-
+# $Header: /var/cvsroot/gentoo-x86/games-emulation/sdlmess/sdlmess-0.148_p1.ebuild,v 1.5 2015/01/30 18:25:58 mr_bones_ Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python2_6 python2_7 )
@@ -24,7 +25,7 @@ fi
 
 LICENSE="XMAME"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="amd64 x86"
 IUSE="X debug opengl"
 REQUIRED_USE="debug? ( X )"
 
@@ -88,7 +89,7 @@ src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-makefile.patch \
 		"${FILESDIR}"/${P}-no-opengl.patch \
-		"${FILESDIR}"/${PN}-memmove.patch
+		"${FILESDIR}"/${P}-memmove.patch
 
 	# Don't compile zlib and expat
 	einfo "Disabling embedded libraries: expat, flac, jpeg, portmidi, zlib"

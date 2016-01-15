@@ -39,7 +39,7 @@ GUI_RDEPEND="
 		dev-qt/qtgui:5
 		dev-qt/qtwidgets:5
 		dbus? (
-			dev-libs/libdbusmenu-qt[qt5]
+			>=dev-libs/libdbusmenu-qt-0.9.3_pre20140619[qt5]
 			dev-qt/qtdbus:5
 		)
 		kde? (
@@ -59,11 +59,11 @@ GUI_RDEPEND="
 		dev-qt/qtgui:4
 		ayatana? ( dev-libs/libindicate-qt )
 		dbus? (
-			dev-libs/libdbusmenu-qt[qt4(+)]
+			>=dev-libs/libdbusmenu-qt-0.9.3_pre20140619[qt4(+)]
 			dev-qt/qtdbus:4
 			kde? (
 				kde-base/kdelibs:4
-				kde-apps/oxygen-icons
+				kde-frameworks/oxygen-icons
 				ayatana? ( kde-misc/plasma-widget-message-indicator )
 			)
 		)
@@ -136,7 +136,8 @@ src_configure() {
 		$(cmake-utils_use_want server CORE)
 		$(cmake-utils_use_with webkit)
 		$(cmake-utils_use_want X QTCLIENT)
-		"-DEMBED_DATA=OFF"
+		-DEMBED_DATA=OFF
+		-DCMAKE_SKIP_RPATH=ON
 	)
 
 	# Something broke upstream detection since Qt 5.5

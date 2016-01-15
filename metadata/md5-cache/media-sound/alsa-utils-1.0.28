@@ -1,13 +1,13 @@
 DEFINED_PHASES=configure install postinst prepare
-DEPEND=>=media-libs/alsa-lib-1.0.28 libsamplerate? ( media-libs/libsamplerate ) ncurses? ( >=sys-libs/ncurses-5.7-r7 ) virtual/pkgconfig doc? ( app-text/xmlto ) virtual/pkgconfig virtual/pkgconfig
+DEPEND=>=media-libs/alsa-lib-1.0.28 libsamplerate? ( media-libs/libsamplerate ) ncurses? ( >=sys-libs/ncurses-5.7-r7:0= ) virtual/pkgconfig doc? ( app-text/xmlto ) virtual/pkgconfig virtual/pkgconfig
 DESCRIPTION=Advanced Linux Sound Architecture Utils (alsactl, alsamixer, etc.)
 EAPI=5
 HOMEPAGE=http://www.alsa-project.org/
 IUSE=doc +libsamplerate +ncurses nls selinux
 KEYWORDS=alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~sh sparc x86
 LICENSE=GPL-2
-RDEPEND=>=media-libs/alsa-lib-1.0.28 libsamplerate? ( media-libs/libsamplerate ) ncurses? ( >=sys-libs/ncurses-5.7-r7 ) selinux? ( sec-policy/selinux-alsa )
+RDEPEND=>=media-libs/alsa-lib-1.0.28 libsamplerate? ( media-libs/libsamplerate ) ncurses? ( >=sys-libs/ncurses-5.7-r7:0= ) selinux? ( sec-policy/selinux-alsa )
 SLOT=0.9
 SRC_URI=mirror://alsaproject/utils/alsa-utils-1.0.28.tar.bz2
-_eclasses_=eutils	351a78113be5b393c09a2c948701ad36	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	systemd	b0daeef4b75b0130d34c62aa1930d21e	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	udev	37ef89be271b9ae8aa64be024ddb39b5
-_md5_=dcbcd4c7150d92f7662720602360de91
+_eclasses_=eutils	d9bd2ddd85a58e470b49ca997e255a4c	multilib	3972ca401cf7dbb430df9995f5d8d580	systemd	3165c885f3c71ffae7a867d931fb0e07	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	udev	37ef89be271b9ae8aa64be024ddb39b5
+_md5_=e9655de086110ec92fc0989c7343e754

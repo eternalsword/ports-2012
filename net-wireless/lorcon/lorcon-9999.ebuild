@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -7,7 +7,7 @@ EAPI=5
 PYTHON_COMPAT=( python2_7 )
 DISTUTILS_OPTIONAL=1
 
-USE_RUBY="ruby19 ruby21"
+USE_RUBY="ruby19 ruby20"
 RUBY_OPTIONAL=yes
 
 inherit distutils-r1 ruby-ng
@@ -20,7 +20,7 @@ if [[ ${PV} == "9999" ]] ; then
 	inherit git-r3
 	KEYWORDS=""
 else
-	SRC_URI="http://dev.gentoo.org/~zerochaos/distfiles/${P}.tar.xz"
+	SRC_URI="https://dev.gentoo.org/~zerochaos/distfiles/${P}.tar.xz"
 	KEYWORDS="~amd64 ~arm ~ppc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 fi
 
@@ -30,7 +30,7 @@ IUSE="python ruby"
 
 DEPEND="ruby? ( $(ruby_implementations_depend) )
 	python? ( ${PYTHON_DEPS} )
-	dev-libs/libnl
+	dev-libs/libnl:3=
 	net-libs/libpcap"
 RDEPEND="${DEPEND}"
 

@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -7,14 +7,14 @@ EAPI=4
 inherit eutils toolchain-funcs
 
 DESCRIPTION="serial graphics adapter bios option rom for x86"
-HOMEPAGE="http://code.google.com/p/sgabios/"
+HOMEPAGE="https://code.google.com/p/sgabios/"
 SRC_URI="mirror://gentoo/${P}.tar.xz
-	http://dev.gentoo.org/~cardoe/distfiles/${P}.tar.xz
-	http://dev.gentoo.org/~cardoe/distfiles/${P}-bins.tar.xz"
+	https://dev.gentoo.org/~cardoe/distfiles/${P}.tar.xz
+	https://dev.gentoo.org/~cardoe/distfiles/${P}-bins.tar.xz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="amd64 ~ppc ~ppc64 x86"
+KEYWORDS="~alpha amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc x86"
 IUSE=""
 
 src_prepare() {

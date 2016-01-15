@@ -24,6 +24,9 @@ RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]
 	media-libs/sdl2-ttf
 	virtual/jpeg:62
 "
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	dev-python/cython[${PYTHON_USEDEP}]"
 
 S=${WORKDIR}/pygame-sdl2-for-renpy-${PV}
+
+PATCHES=( "${FILESDIR}"/${P}-cython-0.23.patch )

@@ -1,14 +1,14 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
-PYTHON_COMPAT=( python{2_7,3_3,3_4} pypy )
+PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 
 inherit bash-completion-r1 distutils-r1
 
 #if LIVE
-EGIT_REPO_URI="http://bitbucket.org/mgorny/${PN}.git"
+EGIT_REPO_URI="https://bitbucket.org/mgorny/${PN}.git"
 inherit git-r3
 #endif
 

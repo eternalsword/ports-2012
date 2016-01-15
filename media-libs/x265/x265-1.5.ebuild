@@ -8,10 +8,10 @@ inherit cmake-multilib multilib flag-o-matic
 
 if [[ ${PV} = 9999* ]]; then
 	inherit mercurial
-	EHG_REPO_URI="http://bitbucket.org/multicoreware/x265"
+	EHG_REPO_URI="https://bitbucket.org/multicoreware/x265"
 else
 	SRC_URI="https://bitbucket.org/multicoreware/x265/get/${PV}.tar.bz2 -> ${P}.tar.bz2"
-	KEYWORDS="amd64 arm hppa ~ppc ~ppc64 x86"
+	KEYWORDS="amd64 arm hppa ~ppc ppc64 x86"
 fi
 
 DESCRIPTION="Library for encoding video streams into the H.265/HEVC format"

@@ -10,12 +10,12 @@ CABAL_FEATURES="lib profile haddock hoogle hscolour"
 inherit haskell-cabal
 
 DESCRIPTION="Cross-platform File handling"
-HOMEPAGE="http://github.com/kazu-yamamoto/easy-file"
+HOMEPAGE="https://github.com/kazu-yamamoto/easy-file"
 SRC_URI="mirror://hackage/packages/archive/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0/${PV}"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND=">=dev-lang/ghc-7.4.1:=

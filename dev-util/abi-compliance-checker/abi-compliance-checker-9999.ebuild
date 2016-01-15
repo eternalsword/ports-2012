@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 #if LIVE
 EGIT_REPO_URI="git://github.com/lvc/${PN}.git
-	http://github.com/lvc/${PN}.git"
+	https://github.com/lvc/${PN}.git"
 
 inherit git-r3
 #endif
@@ -20,12 +20,20 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
+DEPEND="dev-lang/perl"
+RDEPEND="${DEPEND}
+	dev-util/ctags"
+
 #if LIVE
 SRC_URI=
 KEYWORDS=
 #endif
 
+src_compile() {
+	:
+}
+
 src_install() {
 	mkdir -p "${D}"/usr || die
-	perl Makefile.pl --install --prefix=/usr --destdir="${D}" || die
+	perl Makefile.pl --install --prefix="${EPREFIX}"/usr --destdir="${D}" || die
 }

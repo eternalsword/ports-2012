@@ -13,8 +13,9 @@ LICENSE="GPL-2"
 SLOT="0/${PV}"
 KEYWORDS=""
 IUSE="
-	adns +caps crypt doc doc-pdf geoip +gtk3 ipv6 kerberos lua +netlink +pcap
-	portaudio +qt4 qt5 sbc selinux smi cpu_flags_x86_sse4_2 ssl zlib
+	adns androiddump +caps cpu_flags_x86_sse4_2 crypt doc doc-pdf geoip +gtk3
+	ipv6 kerberos lua +netlink +pcap portaudio +qt4 qt5 sbc selinux smi ssl
+	tfshark zlib
 "
 REQUIRED_USE="
 	ssl? ( crypt )
@@ -49,6 +50,7 @@ CDEPEND="
 	qt5? (
 		dev-qt/qtcore:5
 		dev-qt/qtgui:5
+		dev-qt/qtmultimedia:5
 		dev-qt/qtprintsupport:5
 		dev-qt/qtwidgets:5
 		x11-misc/xdg-utils
@@ -97,10 +99,9 @@ src_prepare() {
 	epatch \
 		"${FILESDIR}"/${PN}-1.6.13-ldflags.patch \
 		"${FILESDIR}"/${PN}-1.11.0-oldlibs.patch \
-		"${FILESDIR}"/${PN}-1.99.0.1975-sse4_2.patch \
 		"${FILESDIR}"/${PN}-99999999-pkgconfig.patch \
-		"${FILESDIR}"/${PN}-1.99.7-qt-pie.patch \
-		"${FILESDIR}"/${PN}-1.99.8-qtchooser.patch
+		"${FILESDIR}"/${PN}-1.99.8-qtchooser.patch \
+		"${FILESDIR}"/${PN}-2.1.0-sse4_2.patch
 
 	epatch_user
 
@@ -152,7 +153,10 @@ src_configure() {
 	# dumpcap requires libcap
 	# --disable-profile-build bugs #215806, #292991, #479602
 	econf \
+		$(use androiddump && use pcap && echo --enable-androiddump-use-libpcap=yes) \
+		$(use_enable androiddump) \
 		$(use_enable ipv6) \
+		$(use_enable tfshark) \
 		$(use_with adns c-ares) \
 		$(use_with caps libcap) \
 		$(use_with crypt gcrypt) \
@@ -197,7 +201,7 @@ src_install() {
 		dohtml -r docbook/{release-notes.html,ws{d,u}g_html{,_chunked}}
 		if use doc-pdf; then
 			insinto /usr/share/doc/${PF}/pdf/
-			doins docbook/{{developer,user}-guide,release-notes}-{a4,us}.pdf
+			doins docbook/{developer,user}-guide-{a4,us}.pdf docbook/release-notes.pdf
 		fi
 	fi
 
@@ -229,7 +233,7 @@ src_install() {
 	insinto /usr/include/wiretap
 	doins wiretap/wtap.h
 
-	if use gtk3 || use qt4; then
+	if use gtk3 || use qt4 || use qt5; then
 		local c d
 		for c in hi lo; do
 			for d in 16 32 48; do
@@ -237,14 +241,22 @@ src_install() {
 				newins image/${c}${d}-app-wireshark.png wireshark.png
 			done
 		done
+		for d in 16 24 32 48 64 128 256 ; do
+			insinto /usr/share/icons/hicolor/${d}x${d}/mimetypes
+			newins image/WiresharkDoc-${d}.png application-vnd.tcpdump.pcap.png
+		done
 	fi
 
 	if use gtk3; then
 		domenu wireshark.desktop
 	fi
 
-	if use qt4; then
-		sed -e '/Exec=/s|wireshark|&-qt|g' wireshark.desktop > wireshark-qt.desktop || die
+	if use qt4 || use qt5; then
+		sed \
+			-e '/Exec=/s|wireshark|&-qt|g' \
+			-e 's|^Name.*=Wireshark|& (Qt)|g' \
+			wireshark.desktop > wireshark-qt.desktop \
+			|| die
 		domenu wireshark-qt.desktop
 	fi
 

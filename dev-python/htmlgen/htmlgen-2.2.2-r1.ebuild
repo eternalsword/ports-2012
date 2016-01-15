@@ -18,7 +18,7 @@ KEYWORDS="amd64 ia64 ppc x86"
 IUSE="doc"
 
 DEPEND="${PYTHON_DEPS}
-	virtual/python-imaging[${PYTHON_USEDEP}]"
+	dev-python/pillow[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
@@ -43,7 +43,7 @@ src_install() {
 	mkdir htmlgen || die
 	touch htmlgen/__init__.py || die
 	ln ${files} htmlgen/ || die
-	python_parallel_foreach_impl python_domodule htmlgen
+	python_foreach_impl python_domodule htmlgen
 
 	if use doc; then
 		# fix the image locations in the docs

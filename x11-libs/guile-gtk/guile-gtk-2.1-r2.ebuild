@@ -9,16 +9,16 @@ AUTOTOOLS_AUTORECONF=true
 inherit autotools-utils virtualx
 
 DESCRIPTION="GTK+ bindings for guile"
-HOMEPAGE="http://www.gnu.org/software/guile-gtk/"
+HOMEPAGE="https://www.gnu.org/software/guile-gtk/"
 SRC_URI="mirror://gnu/guile-gtk/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ppc x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 RDEPEND="
-	dev-scheme/guile[deprecated(+)]
+	dev-scheme/guile:12[deprecated(+)]
 	x11-libs/gtk+:2
 	gnome-base/libglade:2.0
 	>=x11-libs/gtkglarea-1.90:2"

@@ -10,13 +10,13 @@ DESCRIPTION="Git commit integration in Akonadi"
 HOMEPAGE="https://projects.kde.org/projects/playground/pim/akonadi-git-resource"
 LICENSE="GPL-2"
 
-SRC_URI="http://dev.gentoo.org/~johu/distfiles/${P}.tar.xz"
+SRC_URI="https://dev.gentoo.org/~johu/distfiles/${P}.tar.xz"
 
 SLOT="4"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug"
 
 DEPEND="
-	$(add_kdebase_dep kdepimlibs)
+	$(add_kdeapps_dep kdepimlibs)
 	>=dev-libs/libgit2-0.17
 "

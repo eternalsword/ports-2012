@@ -11,7 +11,7 @@ inherit versionator distutils-r1 python-r1 fdo-mime
 
 DESCRIPTION="Free, open-source, non-linear video editor to create and edit videos and movies"
 HOMEPAGE="http://www.openshotvideo.com"
-SRC_URI="http://launchpad.net/${PN}/$(get_version_component_range 1-2)/${PV}/+download/${P}.tar.gz"
+SRC_URI="https://launchpad.net/${PN}/$(get_version_component_range 1-2)/${PV}/+download/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -24,7 +24,7 @@ RDEPEND="
 	dev-python/pygoocanvas[${PYTHON_USEDEP}]
 	dev-python/pygtk[${PYTHON_USEDEP}]
 	dev-python/pyxdg[${PYTHON_USEDEP}]
-	virtual/python-imaging[${PYTHON_USEDEP}]
+	dev-python/pillow[${PYTHON_USEDEP}]
 	>=media-libs/mlt-0.8.2[ffmpeg,frei0r,gtk,melt,python,sdl,xml]
 	ffmpeg? (
 		libav? ( media-video/libav:=[encode,sdl,x264,mp3,theora] )

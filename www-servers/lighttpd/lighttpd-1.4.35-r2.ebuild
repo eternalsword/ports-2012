@@ -1,9 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI="5"
-inherit base autotools eutils depend.php readme.gentoo user systemd
+inherit base autotools eutils readme.gentoo user systemd
 
 DESCRIPTION="Lightweight high-performance web server"
 HOMEPAGE="http://www.lighttpd.net/"
@@ -26,7 +26,7 @@ CDEPEND="
 	memcache? ( dev-libs/libmemcache )
 	mysql?    ( >=virtual/mysql-4.0 )
 	pcre?     ( >=dev-libs/libpcre-3.1 )
-	php?      ( dev-lang/php:=[cgi] )
+	php?      ( dev-lang/php:*[cgi] )
 	rrdtool?  ( net-analyzer/rrdtool )
 	ssl?    ( >=dev-libs/openssl-0.9.7:=[kerberos?] )
 	webdav? (

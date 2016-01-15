@@ -12,11 +12,11 @@ MY_PN="${PN##python-}"
 MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="A non-validating SQL parser module for Python"
-HOMEPAGE="http://code.google.com/p/python-sqlparse/ https://github.com/andialbrecht/sqlparse"
+HOMEPAGE="https://code.google.com/p/python-sqlparse/ https://github.com/andialbrecht/sqlparse"
 SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="BSD-2"
 IUSE="doc test"
 

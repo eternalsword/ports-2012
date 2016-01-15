@@ -19,7 +19,7 @@ else
 fi
 
 DESCRIPTION="Adds communication between KDE and your smartphone"
-HOMEPAGE="http://www.kde.org/"
+HOMEPAGE="https://www.kde.org/"
 
 LICENSE="GPL-2+"
 SLOT="4"
@@ -41,6 +41,8 @@ DEPEND="${COMMON_DEPEND}
 "
 
 [[ ${KDE_BUILD_TYPE} != live ]] && S=${WORKDIR}/${MY_P}
+
+PATCHES=( "${FILESDIR}/${P}-ninja.patch" )
 
 pkg_postinst(){
 	elog

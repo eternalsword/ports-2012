@@ -33,7 +33,7 @@ EXPORT_FUNCTIONS pkg_pretend pkg_setup src_unpack src_prepare src_configure src_
 # @ECLASS-VARIABLE: QT_MINIMAL
 # @DESCRIPTION:
 # Minimal Qt version to require for the package.
-: ${QT_MINIMAL:=5.4.1}
+: ${QT_MINIMAL:=5.4.2}
 
 # @ECLASS-VARIABLE: KDE_AUTODEPS
 # @DESCRIPTION:
@@ -64,6 +64,11 @@ else
 	: ${KDE_DOXYGEN:=false}
 fi
 
+# @ECLASS-VARIABLE: KDE_DOX_DIR
+# @DESCRIPTION:
+# Defaults to ".". Otherwise, use alternative KDE doxygen path.
+: ${KDE_DOX_DIR:=.}
+
 # @ECLASS-VARIABLE: KDE_EXAMPLES
 # @DESCRIPTION:
 # If set to "false", unconditionally ignore a top-level examples subdirectory.
@@ -75,12 +80,21 @@ fi
 # If set to "false", do nothing.
 # Otherwise, add "+handbook" to IUSE, add the appropriate dependency, and
 # generate and install KDE handbook.
+# If set to "forceoptional", remove a KF5DocTools dependency from the root
+# CMakeLists.txt in addition to the above.
 : ${KDE_HANDBOOK:=false}
+
+# @ECLASS-VARIABLE: KDE_DOC_DIR
+# @DESCRIPTION:
+# Defaults to "doc". Otherwise, use alternative KDE handbook path.
+: ${KDE_DOC_DIR:=doc}
 
 # @ECLASS-VARIABLE: KDE_TEST
 # @DESCRIPTION:
 # If set to "false", do nothing.
 # For any other value, add test to IUSE and add a dependency on dev-qt/qttest:5.
+# If set to "forceoptional", remove a Qt5Test dependency from the root
+# CMakeLists.txt in addition to the above.
 if [[ ${CATEGORY} = kde-frameworks ]]; then
 	: ${KDE_TEST:=true}
 else
@@ -102,9 +116,9 @@ fi
 : ${KDE_SELINUX_MODULE:=none}
 
 if [[ ${KDEBASE} = kdevelop ]]; then
-	HOMEPAGE="http://www.kdevelop.org/"
+	HOMEPAGE="https://www.kdevelop.org/"
 else
-	HOMEPAGE="http://www.kde.org/"
+	HOMEPAGE="https://www.kde.org/"
 fi
 
 LICENSE="GPL-2"
@@ -134,10 +148,10 @@ case ${KDE_AUTODEPS} in
 		RDEPEND+=" >=kde-frameworks/kf-env-3"
 		COMMONDEPEND+="	>=dev-qt/qtcore-${QT_MINIMAL}:5"
 
-		if [[ ${CATEGORY} = kde-plasma ]]; then
+		if [[ ${CATEGORY} = kde-frameworks || ${CATEGORY} = kde-plasma && ${PN} != polkit-kde-agent ]]; then
 			RDEPEND+="
 				!kde-apps/kde4-l10n[-minimal(-)]
-				!kde-base/kde-l10n:4[-minimal(-)]
+				!<kde-apps/kde4-l10n-15.08.0-r1
 			"
 		fi
 
@@ -244,15 +258,17 @@ _calculate_src_uri() {
 		kde-frameworks)
 			SRC_URI="mirror://kde/stable/frameworks/${PV%.*}/${_kmname}-${PV}.tar.xz" ;;
 		kde-plasma)
+			local plasmapv=$(get_version_component_range 1-3)
+
 			case ${PV} in
 				5.?.[6-9]? )
 					# Plasma 5 beta releases
-					SRC_URI="mirror://kde/unstable/plasma/${PV}/${_kmname}-${PV}.tar.xz"
+					SRC_URI="mirror://kde/unstable/plasma/${plasmapv}/${_kmname}-${PV}.tar.xz"
 					RESTRICT+=" mirror"
 					;;
 				*)
 					# Plasma 5 stable releases
-					SRC_URI="mirror://kde/stable/plasma/${PV}/${_kmname}-${PV}.tar.xz" ;;
+					SRC_URI="mirror://kde/stable/plasma/${plasmapv}/${_kmname}-${PV}.tar.xz" ;;
 			esac
 			;;
 	esac
@@ -272,13 +288,25 @@ _calculate_live_repo() {
 			# (anonsvn) with anything else you might want to use.
 			ESVN_MIRROR=${ESVN_MIRROR:=svn://anonsvn.kde.org/home/kde}
 
-			local branch_prefix="KDE"
+			local branch_prefix="trunk/KDE"
 
-			if [[ -n ${KMNAME} ]]; then
-				branch_prefix="${KMNAME}"
+			if [[ ${PV} == ??.??.49.9999 && ${CATEGORY} = kde-apps ]]; then
+				branch_prefix="branches/Applications/$(get_version_component_range 1-2)"
 			fi
 
-			ESVN_REPO_URI="${ESVN_MIRROR}/trunk/${branch_prefix}/${PN}"
+			if [[ ${PV} != 9999 && ${CATEGORY} = kde-plasma ]]; then
+				branch_prefix="branches/plasma/$(get_version_component_range 1-2)"
+			fi
+
+			local _kmname
+
+			if [[ -n ${KMNAME} ]]; then
+				_kmname=${KMNAME}
+			else
+				_kmname=${PN}
+			fi
+
+			ESVN_REPO_URI="${ESVN_MIRROR}/${branch_prefix}/${_kmname}"
 			;;
 		git)
 			# @ECLASS-VARIABLE: EGIT_MIRROR
@@ -302,6 +330,10 @@ _calculate_live_repo() {
 				_kmname=${PN}
 			fi
 
+			if [[ ${PV} == ??.??.49.9999 && ${CATEGORY} = kde-apps ]]; then
+				EGIT_BRANCH="Applications/$(get_version_component_range 1-2)"
+			fi
+
 			if [[ ${PV} != 9999 && ${CATEGORY} = kde-plasma ]]; then
 				EGIT_BRANCH="Plasma/$(get_version_component_range 1-2)"
 			fi
@@ -323,7 +355,9 @@ debug-print "${LINENO} ${ECLASS} ${FUNCNAME}: SRC_URI is ${SRC_URI}"
 # Do some basic settings
 kde5_pkg_pretend() {
 	debug-print-function ${FUNCNAME} "$@"
-	_check_gcc_version
+	if [[ ${MERGE_TYPE} != binary ]]; then
+		_check_gcc_version
+	fi
 }
 
 # @FUNCTION: kde5_pkg_setup
@@ -331,7 +365,9 @@ kde5_pkg_pretend() {
 # Do some basic settings
 kde5_pkg_setup() {
 	debug-print-function ${FUNCNAME} "$@"
-	_check_gcc_version
+	if [[ ${MERGE_TYPE} != binary ]]; then
+		_check_gcc_version
+	fi
 }
 
 # @FUNCTION: kde5_src_unpack
@@ -367,14 +403,18 @@ kde5_src_prepare() {
 
 	# only enable handbook when required
 	if ! use_if_iuse handbook ; then
-		comment_add_subdirectory doc
+		comment_add_subdirectory ${KDE_DOC_DIR}
+
+		if [[ ${KDE_HANDBOOK} = forceoptional ]] ; then
+			punt_bogus_dep KF5 DocTools
+		fi
 	fi
 
 	# enable only the requested translations
 	# when required
 	if [[ ${KDE_BUILD_TYPE} = release ]] ; then
 		if [[ -d po ]] ; then
-			pushd po > /dev/null
+			pushd po > /dev/null || die
 			for lang in *; do
 				if ! has ${lang} ${LINGUAS} ; then
 					if [[ ${lang} != CMakeLists.txt ]] ; then
@@ -385,34 +425,25 @@ kde5_src_prepare() {
 					fi
 				fi
 			done
-			popd > /dev/null
+			popd > /dev/null || die
 		fi
 
-		if [[ ${KDE_HANDBOOK} = true ]] ; then
-			pushd doc > /dev/null
+		if [[ ${KDE_HANDBOOK} != false && -d ${KDE_DOC_DIR} && ${CATEGORY} != kde-apps ]] ; then
+			pushd ${KDE_DOC_DIR} > /dev/null || die
 			for lang in *; do
 				if ! has ${lang} ${LINGUAS} ; then
 					comment_add_subdirectory ${lang}
 				fi
 			done
-			popd > /dev/null
+			popd > /dev/null || die
 		fi
 	else
 		rm -rf po
 	fi
 
-	# in frameworks, tests = manual tests so never
-	# build them
+	# in frameworks, tests = manual tests so never build them
 	if [[ ${CATEGORY} = kde-frameworks ]]; then
 		comment_add_subdirectory tests
-	fi
-
-	if [[ ${CATEGORY} = kde-frameworks || ${CATEGORY} = kde-plasma || ${CATEGORY} = kde-apps ]] ; then
-		# only build unit tests when required
-		if ! use_if_iuse test ; then
-			comment_add_subdirectory autotests
-			comment_add_subdirectory tests
-		fi
 	fi
 
 	case ${KDE_PUNT_BOGUS_DEPS} in
@@ -426,6 +457,21 @@ kde5_src_prepare() {
 			fi
 			;;
 	esac
+
+	# only build unit tests when required
+	if ! use_if_iuse test ; then
+		if [[ ${KDE_TEST} = forceoptional ]] ; then
+			punt_bogus_dep Qt5 Test
+			# if forceoptional, also cover non-kde categories
+			comment_add_subdirectory autotests
+			comment_add_subdirectory test
+			comment_add_subdirectory tests
+		elif [[ ${CATEGORY} = kde-frameworks || ${CATEGORY} = kde-plasma || ${CATEGORY} = kde-apps ]] ; then
+			comment_add_subdirectory autotests
+			comment_add_subdirectory test
+			comment_add_subdirectory tests
+		fi
+	fi
 
 	cmake-utils_src_prepare
 }
@@ -466,7 +512,7 @@ kde5_src_compile() {
 
 	# Build doxygen documentation if applicable
 	if use_if_iuse doc ; then
-		kgenapidox . || die
+		kgenapidox ${KDE_DOX_DIR} || die
 	fi
 }
 

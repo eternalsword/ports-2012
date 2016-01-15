@@ -7,4 +7,8 @@
 	</maintainer>
 	<longdescription lang="en">
 	</longdescription>
+	<upstream>
+		<remote-id type="pypi">sphinxcontrib-newsfeed</remote-id>
+		<remote-id type="bitbucket">prometheus/sphinxcontrib-newsfeed</remote-id>
+	</upstream>
 </pkgmetadata>

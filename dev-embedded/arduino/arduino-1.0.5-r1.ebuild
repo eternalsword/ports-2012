@@ -8,8 +8,8 @@ JAVA_PKG_IUSE="doc examples"
 inherit eutils java-pkg-2 java-ant-2
 
 DESCRIPTION="An open-source AVR electronics prototyping platform"
-HOMEPAGE="http://arduino.cc/ http://arduino.googlecode.com/"
-SRC_URI="http://${PN}.googlecode.com/files/${P}-src.tar.gz
+HOMEPAGE="http://arduino.cc/ https://arduino.googlecode.com/"
+SRC_URI="https://${PN}.googlecode.com/files/${P}-src.tar.gz
 mirror://gentoo/arduino-icons.tar.bz2"
 LICENSE="GPL-2 GPL-2+ LGPL-2 CC-BY-SA-3.0"
 SLOT="0"
@@ -64,7 +64,7 @@ src_install() {
 
 	if use examples; then
 		java-pkg_doexamples examples
-		docompress -x /usr/share/doc/${P}/examples/
+		docompress -x /usr/share/doc/${PF}/examples/
 	fi
 
 	if use doc; then

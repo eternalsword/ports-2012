@@ -17,15 +17,17 @@ SRC_URI="
 
 SLOT="0"
 LICENSE="Apache-2.0"
-KEYWORDS="~amd64 ~ppc64 ~x86"
+KEYWORDS="~amd64 ~ia64 ~ppc ~ppc64 ~x86"
 IUSE=""
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	$(python_gen_cond_dep '>=dev-python/cffi-1.1:=[${PYTHON_USEDEP}]' 'python*')
+	$(python_gen_cond_dep '>=virtual/pypy-2.6.0' pypy )
 	"
 RDEPEND="
 	$(python_gen_cond_dep '>=dev-python/cffi-1.1:=[${PYTHON_USEDEP}]' 'python*')
+	$(python_gen_cond_dep '>=virtual/pypy-2.6.0' pypy )
 	>=dev-python/six-1.4.1[${PYTHON_USEDEP}]
 	!dev-python/py-bcrypt"
 

@@ -12,10 +12,10 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc ~x86"
+KEYWORDS="alpha amd64 ppc x86"
 IUSE="alsa ncurses pulseaudio suid qt4"
 
-RDEPEND="ncurses? ( sys-libs/ncurses )
+RDEPEND="ncurses? ( sys-libs/ncurses:* )
 	qt4? ( dev-qt/qtgui:4[qt3support] )
 	alsa? ( media-libs/alsa-lib )
 	pulseaudio? ( media-sound/pulseaudio )"

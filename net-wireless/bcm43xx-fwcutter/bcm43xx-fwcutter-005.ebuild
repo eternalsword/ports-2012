@@ -6,7 +6,8 @@ inherit toolchain-funcs
 
 DESCRIPTION="Firmware Tool for Broadcom 43xx based wireless network devices"
 HOMEPAGE="http://bcm43xx.berlios.de"
-SRC_URI="mirror://berlios/bcm43xx/${P}.tar.bz2"
+#SRC_URI="mirror://berlios/bcm43xx/${P}.tar.bz2"
+SRC_URI="mirror://gentoo/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -34,6 +35,6 @@ pkg_postinst() {
 	fi
 
 	einfo "Please read this forum thread for help and troubleshooting:"
-	einfo "http://forums.gentoo.org/viewtopic-t-409194.html"
+	einfo "https://forums.gentoo.org/viewtopic-t-409194.html"
 	echo
 }

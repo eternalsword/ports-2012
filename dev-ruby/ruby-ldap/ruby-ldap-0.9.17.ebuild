@@ -15,11 +15,11 @@ DESCRIPTION="A Ruby interface to some LDAP libraries"
 HOMEPAGE="http://ruby-ldap.sourceforge.net/"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-macos"
+KEYWORDS="alpha amd64 ~hppa ia64 ppc ~ppc64 sparc x86 ~x86-macos"
 IUSE="ssl"
 DEPEND=">=net-nds/openldap-2
 	dev-libs/cyrus-sasl
-	ssl? ( dev-libs/openssl )"
+	ssl? ( dev-libs/openssl:0 )"
 RDEPEND="${DEPEND}"
 
 # Current test set is interactive due to certificate generation and requires

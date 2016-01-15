@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI=5
-USE_RUBY="ruby19 ruby20 ruby21"
+USE_RUBY="ruby19 ruby20 ruby21 ruby22"
 
 RUBY_FAKEGEM_TASK_TEST="test"
 
@@ -13,7 +13,7 @@ RUBY_FAKEGEM_EXTRADOC="History.md Performance.md README.md"
 inherit ruby-fakegem
 
 DESCRIPTION="A high performance pure Ruby client for accessing memcached servers"
-HOMEPAGE="http://github.com/mperham/dalli"
+HOMEPAGE="https://github.com/mperham/dalli"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc ~ppc64 ~x86"

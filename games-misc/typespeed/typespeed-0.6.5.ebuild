@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI=5
-inherit autotools games
+inherit autotools eutils games
 
 DESCRIPTION="Test your typing speed, and get your fingers CPS"
 HOMEPAGE="http://typespeed.sourceforge.net/"
@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="alpha amd64 ppc ~ppc64 x86"
 IUSE="nls"
 
-RDEPEND="sys-libs/ncurses
+RDEPEND="sys-libs/ncurses:0
 	nls? ( virtual/libintl )"
 DEPEND="${RDEPEND}
 	nls? ( sys-devel/gettext )"
@@ -23,12 +23,9 @@ src_prepare() {
 	sed -i \
 		-e 's/testsuite//' \
 		-e 's/doc//' \
-		Makefile.am \
-		|| die
-	sed -i \
-		-e '/^CC =/d' \
-		src/Makefile.am \
-		|| die
+		Makefile.am || die
+	sed -i -e '/^CC =/d' src/Makefile.am || die
+	epatch "${FILESDIR}"/${P}-musl.patch
 	rm -rf m4 #417265
 	eautoreconf
 }

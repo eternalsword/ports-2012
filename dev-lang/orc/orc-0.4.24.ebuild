@@ -11,8 +11,8 @@ SRC_URI="http://gstreamer.freedesktop.org/src/${PN}/${P}.tar.xz"
 
 LICENSE="BSD BSD-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~hppa ~ppc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
-IUSE="examples hardened static-libs"
+KEYWORDS="amd64 arm hppa ~ppc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+IUSE="examples pax_kernel static-libs"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
@@ -40,15 +40,15 @@ src_configure() {
 
 src_install() {
 	autotools-multilib_src_install
-	if use hardened; then
-		pax-mark m usr/bin/orc-bugreport || die
-		pax-mark m usr/bin/orcc || die
-		pax-mark m usr/$(get_libdir)/liborc*.so* || die
+	if use pax_kernel; then
+		pax-mark m "${ED}"usr/bin/orc-bugreport
+		pax-mark m "${ED}"usr/bin/orcc
+		pax-mark m "${ED}"usr/$(get_libdir)/liborc*.so*
 	fi
 }
 
 pkg_postinst() {
-	if use hardened; then
+	if use pax_kernel; then
 		ewarn "Please run \"revdep-pax\" after installation".
 		ewarn "It's provided by sys-apps/elfix."
 	fi

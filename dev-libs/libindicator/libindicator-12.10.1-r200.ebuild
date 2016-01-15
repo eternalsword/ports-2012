@@ -3,11 +3,11 @@
 # $Id$
 
 EAPI=4
-inherit eutils flag-o-matic virtualx
+inherit autotools eutils flag-o-matic virtualx
 
 DESCRIPTION="A set of symbols and convience functions that all indicators would like to use"
-HOMEPAGE="http://launchpad.net/libindicator"
-SRC_URI="http://launchpad.net/${PN}/${PV%.*}/${PV}/+download/${P}.tar.gz"
+HOMEPAGE="https://launchpad.net/libindicator"
+SRC_URI="https://launchpad.net/${PN}/${PV%.*}/${PV}/+download/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -19,6 +19,11 @@ RDEPEND=">=dev-libs/glib-2.22
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	test? ( dev-util/dbus-test-runner )"
+
+src_prepare() {
+	epatch "${FILESDIR}"/${PN}-ldflags-spacing.patch
+	eautoreconf
+}
 
 src_configure() {
 	append-flags -Wno-error

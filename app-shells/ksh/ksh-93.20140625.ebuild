@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -11,8 +11,8 @@ HOMEPAGE="http://www.kornshell.com/"
 
 KSH_PV=${PV:3:4}-${PV:7:2}-${PV:9:2}
 
-SRC_URI="http://dev.gentoo.org/~floppym/distfiles/INIT.${KSH_PV}.tgz
-	http://dev.gentoo.org/~floppym/distfiles/ast-base.${KSH_PV}.tgz"
+SRC_URI="https://dev.gentoo.org/~floppym/distfiles/INIT.${KSH_PV}.tgz
+	https://dev.gentoo.org/~floppym/distfiles/ast-base.${KSH_PV}.tgz"
 
 LICENSE="CPL-1.0 EPL-1.0"
 SLOT="0"
@@ -29,6 +29,7 @@ src_prepare() {
 		bin/package src/cmd/INIT/package.sh || die
 
 	epatch "${FILESDIR}"/${PN}-prefix.patch
+	epatch "${FILESDIR}"/cpp.patch
 	eprefixify src/cmd/ksh93/data/msg.c
 }
 

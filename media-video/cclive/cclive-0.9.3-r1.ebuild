@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils
+inherit eutils flag-o-matic
 
 DESCRIPTION="Command line tool for extracting videos from various websites"
 HOMEPAGE="http://cclive.sourceforge.net/"
@@ -26,8 +26,10 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-iostream.patch #527658
+	epatch "${FILESDIR}"/${P}-boost-ver-check.patch #548310
 }
 
 src_configure() {
+	append-cxxflags -std=c++11 #567174
 	econf --disable-ccl
 }
