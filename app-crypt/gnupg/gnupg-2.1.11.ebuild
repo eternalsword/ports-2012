@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -13,22 +13,23 @@ SRC_URI="mirror://gnupg/gnupg/${MY_P}.tar.bz2"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~sparc ~x86"
-IUSE="bzip2 doc +gnutls ldap nls readline static selinux smartcard tools usb"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86"
+IUSE="bzip2 doc +gnutls ldap nls readline static selinux smartcard tofu tools usb"
 
 COMMON_DEPEND_LIBS="
 	dev-libs/npth
-	>=dev-libs/libassuan-2
+	>=dev-libs/libassuan-2.4.1
 	>=dev-libs/libgcrypt-1.6.2[threads]
-	>=dev-libs/libgpg-error-1.17
-	>=dev-libs/libksba-1.0.7
+	>=dev-libs/libgpg-error-1.21
+	>=dev-libs/libksba-1.2.0
 	>=net-misc/curl-7.10
 	gnutls? ( >=net-libs/gnutls-3.0 )
 	sys-libs/zlib
 	ldap? ( net-nds/openldap )
 	bzip2? ( app-arch/bzip2 )
-	readline? ( sys-libs/readline:= )
+	readline? ( sys-libs/readline:0= )
 	smartcard? ( usb? ( virtual/libusb:0 ) )
+	tofu? ( >=dev-db/sqlite-3.7 )
 	"
 COMMON_DEPEND_BINS="app-crypt/pinentry
 		   !app-crypt/dirmngr"
@@ -100,6 +101,7 @@ src_configure() {
 		$(use_with ldap) \
 		$(use_enable nls) \
 		$(use_with readline) \
+		$(use_enable tofu) \
 		CC_FOR_BUILD="$(tc-getBUILD_CC)"
 }
 
@@ -119,7 +121,9 @@ src_install() {
 		tools/{gpg-zip,gpgconf,gpgsplit,lspgpot,mail-signed-keys,make-dns-cert}
 
 	emake DESTDIR="${D}" -f doc/Makefile uninstall-nobase_dist_docDATA
-	rm "${ED}"/usr/share/gnupg/help* || die
+	# The help*txt files are read from the datadir by GnuPG directly.
+	# They do not work if compressed or moved!
+	#rm "${ED}"/usr/share/gnupg/help* || die
 
 	dodoc ChangeLog NEWS README THANKS TODO VERSION doc/FAQ doc/DETAILS \
 		doc/HACKING doc/TRANSLATE doc/OpenPGP doc/KEYSERVER doc/help*
