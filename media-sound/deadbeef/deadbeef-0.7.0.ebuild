@@ -1,4 +1,6 @@
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI="5"
 
@@ -19,12 +21,12 @@ HOMEPAGE="http://deadbeef.sourceforge.net"
 LICENSE="BSD
 	UNICODE
 	ZLIB
-	aac? ( GPL GPL-2 )
+	aac? ( GPL-1 GPL-2 )
 	adplug? ( LGPL-2.1 ZLIB )
 	alac? ( MIT GPL-2 )
 	alsa? ( GPL-2 )
 	cdda? ( GPL-2 LGPL-2 GPL-3 )
-	cdparanoia ( GPL-2 )
+	cdparanoia? ( GPL-2 )
 	cover? ( ZLIB )
 	converter? ( GPL-2 )
 	curl? ( curl ZLIB )
@@ -52,7 +54,7 @@ LICENSE="BSD
 	nullout? ( ZLIB )
 	oss? ( GPL-2 )
 	playlist-browser? ( ZLIB )
-	psf? ( BSD GPL MAME ZLIB )
+	psf? ( BSD GPL-1 MAME ZLIB )
 	pulseaudio? ( GPL-2 )
 	shell-exec? ( GPL-2 )
 	shn? ( shorten ZLIB )
@@ -113,8 +115,6 @@ RDEPEND="dev-libs/glib:2
 	hotkeys? ( x11-libs/libX11:0 )
 	libnotify? ( sys-apps/dbus:0 )
 	libsamplerate? ( media-libs/libsamplerate:0 )
-	mac? ( x86? ( dev-lang/yasm:0 )
-		amd64? ( dev-lang/yasm:0 ) )
 	mad? ( media-libs/libmad:0 )
 	midi? ( media-sound/timidity-freepats:0 )
 	mpg123? ( media-sound/mpg123:0 )
@@ -129,7 +129,9 @@ RDEPEND="dev-libs/glib:2
 DEPEND="${RDEPEND}
 	virtual/pkgconfig:0
 	nls? ( dev-util/intltool:0
-		virtual/libintl:0 )"
+		virtual/libintl:0 )
+	mac? ( x86? ( dev-lang/yasm:0 )
+		amd64? ( dev-lang/yasm:0 ) )"
 
 S="${WORKDIR}/${P}"
 
