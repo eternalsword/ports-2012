@@ -227,10 +227,19 @@ src_install() {
 	newinitd "${MYDIR}"/device-mapper.rc-2.02.105-r2 device-mapper
 	newconfd "${MYDIR}"/device-mapper.conf-1.02.22-r3 device-mapper
 
+	cp "${MYDIR}/lvm.confd-2.02.28-r3" "${T}/lvm.confd"
+
+	if use udev; then
+		sed -e "s/@COMMENT@//" -i "${T}/lvm.confd"
+	else
+		sed -e "s/@COMMENT@/#/" -i "${T}/lvm.confd"
+	fi
+
+
 	if use !device-mapper-only ; then
 		newinitd "${MYDIR}"/dmeventd.initd-2.02.67-r1 dmeventd
-		newinitd "${MYDIR}"/lvm.rc-2.02.116 lvm
-		newconfd "${MYDIR}"/lvm.confd-2.02.28-r2 lvm
+		newinitd "${MYDIR}"/lvm.rc-2.02.105-r2 lvm
+		newconfd "${T}/lvm.confd" lvm
 
 		newinitd "${MYDIR}"/lvm-monitoring.initd-2.02.105-r2 lvm-monitoring
 		newinitd "${MYDIR}"/lvmetad.initd-2.02.105-r3 lvmetad
@@ -266,13 +275,6 @@ src_install() {
 pkg_postinst() {
 	ewarn "Make sure the \"lvm\" init script is in the runlevels:"
 	ewarn "# rc-update add lvm boot"
-	ewarn
-	ewarn "Make sure to enable lvmetad in /etc/lvm/lvm.conf if you want"
-	ewarn "to enable lvm autoactivation and metadata caching."
-	ewarn
-	ewarn "After enabling or disabling lvmetad in /etc/lvm/lvm.conf you must"
-	ewarn "run the following to update the init script dependencies: "
-	ewarn "# rc-update -u"
 }
 
 src_test() {
