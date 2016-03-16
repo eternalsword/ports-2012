@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
 PYTHON_REQ_USE='threads(+)'
 
 WAF_PV='1.8.12'
 
-inherit eutils fdo-mime gnome2-utils pax-utils python-any-r1 toolchain-funcs waf-utils
+inherit fdo-mime gnome2-utils pax-utils python-any-r1 toolchain-funcs waf-utils
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
@@ -28,11 +28,11 @@ DOCS+=( README.md )
 # See Copyright in source tarball and bug #506946. Waf is BSD, libmpv is ISC.
 LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
-IUSE="+alsa archive bluray cdda +cli doc drm dvb +dvd +egl +enca encode gbm
-	+iconv jack jpeg lcms +libass libav libcaca libguess libmpv lua luajit
-	openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl selinux
-	test uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama +xscreensaver
-	+xv zsh-completion"
+IUSE="aqua +alsa archive bluray cdda +cli coreaudio doc drm dvb +dvd +egl +enca
+	encode gbm +iconv jack jpeg lcms +libass libav libcaca libguess libmpv lua
+	luajit openal +opengl oss pulseaudio raspberry-pi rubberband samba -sdl
+	selinux test uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
+	+xscreensaver +xv zsh-completion"
 
 REQUIRED_USE="
 	|| ( cli libmpv )
@@ -125,39 +125,12 @@ pkg_pretend() {
 	if [[ ${MERGE_TYPE} != "binary" ]] && ! tc-has-tls && use vaapi && use egl; then
 		die "Your compiler lacks C++11 TLS support. Use GCC>=4.8.0 or Clang>=3.3."
 	fi
-
-	if ! use libass; then
-		ewarn "You have disabled the libass support."
-		ewarn "OSD and subtitles won't be available."
-	fi
-
-	if use openal; then
-		ewarn "You have enabled the openal audio output. Be warned that"
-		ewarn "this output is considered experimental by upstream."
-	fi
-
-	if use sdl; then
-		ewarn "You have enabled the sdl video and audio outputs. Note that"
-		ewarn "upstream provides these outputs for compatibility reasons only."
-		ewarn "You probably don't need them under the normal circumstances."
-	fi
-
-	if use libav; then
-		elog "You have enabled media-video/libav instead of media-video/ffmpeg."
-		elog "Upstream recommends media-video/ffmpeg, as some functionality"
-		elog "is not provided by media-video/libav."
-	fi
-
-	einfo "mpv optionally supports many different audio and video formats."
-	einfo "You will need to enable support for the desired formats in your"
-	einfo "libavcodec/libavformat provider:"
-	einfo "    media-video/ffmpeg or media-video/libav"
 }
 
 src_prepare() {
 	cp "${DISTDIR}/waf-${WAF_PV}" "${S}"/waf || die
 	chmod +x "${S}"/waf || die
-	epatch_user
+	default
 }
 
 src_configure() {
@@ -214,10 +187,10 @@ src_configure() {
 		$(use_enable openal)
 		--disable-opensles
 		$(use_enable alsa)
-		--disable-coreaudio
+		$(use_enable coreaudio)
 
 		# Video outputs
-		--disable-cocoa
+		$(use_enable aqua cocoa)
 		$(use_enable drm)
 		$(use_enable gbm)
 		$(use_enable wayland)
@@ -227,6 +200,7 @@ src_configure() {
 		$(use_enable xv)
 		$(use_enable xinerama)
 		$(use_enable X xrandr)
+		$(usex opengl "$(use_enable aqua gl-cocoa)" '--disable-gl-cocoa')
 		$(usex opengl "$(use_enable X gl-x11)" '--disable-gl-x11')
 		$(usex egl "$(use_enable X egl-x11)" '--disable-egl-x11')
 		$(usex egl "$(use_enable gbm egl-drm)" '--disable-egl-drm')
@@ -244,6 +218,7 @@ src_configure() {
 		$(use_enable opengl desktop-gl)
 
 		# HWaccels
+		# Automagic Video Toolbox HW acceleration. See Gentoo bug 577332.
 		$(use_enable vaapi vaapi-hwaccel)
 		# Automagic VDPAU HW acceleration. See Gentoo bug 558870.
 
@@ -253,6 +228,9 @@ src_configure() {
 		$(use_enable v4l libv4l2)
 		$(use_enable v4l audio-input)
 		$(use_enable dvb dvbin)
+
+		# OS-specific features
+		--disable-apple-remote
 	)
 
 	if use vaapi && use X; then
