@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -19,17 +19,18 @@ SRC_URI="ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/${P}.tgz
 
 LICENSE="OPENLDAP GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~x86-solaris"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~x86-solaris"
 
 IUSE_DAEMON="crypt icu samba slp tcpd experimental minimal"
 IUSE_BACKEND="+berkdb"
 IUSE_OVERLAY="overlays perl"
-IUSE_OPTIONAL="gnutls iodbc sasl ssl odbc debug ipv6 +syslog selinux static-libs"
+IUSE_OPTIONAL="gnutls iodbc sasl ssl odbc debug ipv6 libressl +syslog selinux static-libs"
 IUSE_CONTRIB="smbkrb5passwd kerberos"
 IUSE_CONTRIB="${IUSE_CONTRIB} -cxx"
 IUSE="${IUSE_DAEMON} ${IUSE_BACKEND} ${IUSE_OVERLAY} ${IUSE_OPTIONAL} ${IUSE_CONTRIB}"
 
-REQUIRED_USE="cxx? ( sasl )"
+REQUIRED_USE="cxx? ( sasl )
+	?? ( gnutls libressl )"
 
 # always list newer first
 # Do not add any AGPL-3 BDB here!
@@ -40,8 +41,13 @@ for _slot in $BDB_SLOTS; do BDB_PKGS="${BDB_PKGS} sys-libs/db:${_slot}" ; done
 
 # openssl is needed to generate lanman-passwords required by samba
 CDEPEND="icu? ( dev-libs/icu:= )
-	ssl? ( !gnutls? ( >=dev-libs/openssl-1.0.1h-r2[${MULTILIB_USEDEP}] )
-		gnutls? ( >=net-libs/gnutls-2.12.23-r6[${MULTILIB_USEDEP}] >=dev-libs/libgcrypt-1.5.3:0[${MULTILIB_USEDEP}] ) )
+	ssl? (
+		!gnutls? (
+			!libressl? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
+		)
+		gnutls? ( >=net-libs/gnutls-2.12.23-r6[${MULTILIB_USEDEP}]
+		libressl? ( dev-libs/libressl[${MULTILIB_USEDEP}] )
+		>=dev-libs/libgcrypt-1.5.3:0[${MULTILIB_USEDEP}] ) )
 	sasl? ( dev-libs/cyrus-sasl:= )
 	!minimal? (
 		sys-devel/libtool
@@ -52,13 +58,17 @@ CDEPEND="icu? ( dev-libs/icu:= )
 			iodbc? ( dev-db/libiodbc ) )
 		slp? ( net-libs/openslp )
 		perl? ( dev-lang/perl[-build(-)] )
-		samba? ( dev-libs/openssl )
+		samba? (
+			!libressl? ( dev-libs/openssl:0 )
+			libressl? ( dev-libs/libressl )
+		)
 		berkdb? (
 			<sys-libs/db-6.0:=
 			|| ( ${BDB_PKGS} )
 			)
 		smbkrb5passwd? (
-			dev-libs/openssl
+			!libressl? ( dev-libs/openssl:0 )
+			libressl? ( dev-libs/libressl )
 			kerberos? ( app-crypt/heimdal )
 			)
 		kerberos? ( virtual/krb5 )
@@ -371,9 +381,6 @@ build_contrib_module() {
 }
 
 src_configure() {
-	#Fix for glibc-2.8 and ucred. Bug 228457.
-	append-cppflags -D_GNU_SOURCE
-
 	# Bug 408001
 	use elibc_FreeBSD && append-cppflags -DMDB_DSYNC=O_SYNC -DMDB_FDATASYNC=fsync
 
@@ -676,7 +683,7 @@ multilib_src_install() {
 
 		# install our own init scripts and systemd unit files
 		einfo "Install init scripts"
-		newinitd "${FILESDIR}"/slapd-initd-2.4.40-r1 slapd
+		newinitd "${FILESDIR}"/slapd-initd-2.4.40-r2 slapd
 		newconfd "${FILESDIR}"/slapd-confd-2.4.28-r1 slapd
 		einfo "Install systemd service"
 		systemd_dounit "${FILESDIR}"/slapd.service

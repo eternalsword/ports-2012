@@ -35,21 +35,7 @@ stop() {
 
 checkconfig() {
 	# checks requested by bug #502948
-	# Step 1: extract the last valid config file or config dir
-	set -- $OPTS
-	while [ -n "$*" ]; do
-		opt=$1 ; shift
-		if [ "$opt" = "-f" -o "$opt" = "-F" ] ; then
-			CONF=$1
-			shift
-		fi
-	done
-	set --
-	# Fallback
-	CONF=${CONF-/etc/openldap/slapd.conf}
-	[ -d $CONF ] && CONF=${CONF}/*
-	DBDIRS=`eval awk '"/^(directory|olcDbDirectory:)/{print \$2}"' $CONF`
-	for d in $DBDIRS; do
+	for d in `awk '/^directory/{print $2}'`; do
 		if [ ! -d $d ]; then
 			eerror "Directory $d in config does not exist!"
 			return 1

@@ -1,4 +1,6 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI="5"
 
@@ -17,7 +19,7 @@ SRC_URI="ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/${P}.tgz
 
 LICENSE="OPENLDAP GPL-2"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~x86-solaris"
 
 IUSE_DAEMON="crypt icu samba slp tcpd experimental minimal"
 IUSE_BACKEND="+berkdb"
@@ -369,9 +371,6 @@ build_contrib_module() {
 }
 
 src_configure() {
-	#Fix for glibc-2.8 and ucred. Bug 228457.
-	append-cppflags -D_GNU_SOURCE
-
 	# Bug 408001
 	use elibc_FreeBSD && append-cppflags -DMDB_DSYNC=O_SYNC -DMDB_FDATASYNC=fsync
 
@@ -555,25 +554,26 @@ multilib_src_compile() {
 		fi
 
 		if use kerberos ; then
+			build_contrib_module "kinit" "kinit.c" "kinit"
 			cd "${S}/contrib/slapd-modules/passwd" || die
-	                        einfo "Compiling contrib-module: pw-kerberos"
-	                        "${lt}" --mode=compile --tag=CC \
-	                                "${CC}" \
-	                                -I"${BUILD_DIR}"/include \
-	                                -I../../../include \
-	                                ${CFLAGS} \
-	                                $(krb5-config --cflags) \
-	                                -DHAVE_KRB5 \
-	                                -o kerberos.lo \
-	                                -c kerberos.c || die "compiling pw-kerberos failed"
-	                        einfo "Linking contrib-module: pw-kerberos"
-	                        "${lt}" --mode=link --tag=CC \
-	                                "${CC}" -module \
-	                                ${CFLAGS} \
-	                                ${LDFLAGS} \
-	                                -rpath "${EPREFIX}"/usr/$(get_libdir)/openldap/openldap \
-	                                -o pw-kerberos.la \
-	                                kerberos.lo || die "linking pw-kerberos failed"
+			einfo "Compiling contrib-module: pw-kerberos"
+			"${lt}" --mode=compile --tag=CC \
+				"${CC}" \
+				-I"${BUILD_DIR}"/include \
+				-I../../../include \
+				${CFLAGS} \
+				$(krb5-config --cflags) \
+				-DHAVE_KRB5 \
+				-o kerberos.lo \
+				-c kerberos.c || die "compiling pw-kerberos failed"
+			einfo "Linking contrib-module: pw-kerberos"
+			"${lt}" --mode=link --tag=CC \
+				"${CC}" -module \
+				${CFLAGS} \
+				${LDFLAGS} \
+				-rpath "${EPREFIX}"/usr/$(get_libdir)/openldap/openldap \
+				-o pw-kerberos.la \
+				kerberos.lo || die "linking pw-kerberos failed"
 		fi
 		# We could build pw-radius if GNURadius would install radlib.h
 		cd "${S}/contrib/slapd-modules/passwd" || die
@@ -673,7 +673,7 @@ multilib_src_install() {
 
 		# install our own init scripts and systemd unit files
 		einfo "Install init scripts"
-		newinitd "${FILESDIR}"/slapd-initd-2.4.40-r1 slapd
+		newinitd "${FILESDIR}"/slapd-initd-2.4.40-r2 slapd
 		newconfd "${FILESDIR}"/slapd-confd-2.4.28-r1 slapd
 		einfo "Install systemd service"
 		systemd_dounit "${FILESDIR}"/slapd.service
@@ -799,7 +799,7 @@ pkg_postinst() {
 	if has_version 'net-nds/openldap[-minimal]' && ((${OPENLDAP_PRINT_MESSAGES})); then
 		elog "Getting started using OpenLDAP? There is some documentation available:"
 		elog "Gentoo Guide to OpenLDAP Authentication"
-		elog "(http://www.gentoo.org/doc/en/ldap-howto.xml)"
+		elog "(https://www.gentoo.org/doc/en/ldap-howto.xml)"
 		elog "---"
 		elog "An example file for tuning BDB backends with openldap is"
 		elog "DB_CONFIG.fast.example in /usr/share/doc/${PF}/"
