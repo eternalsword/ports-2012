@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=x11-libs/libX11 x11-libs/libXext opengl? ( media-libs/glew media-libs/imlib2 virtual/opengl x11-libs/libXrandr x11-libs/libXrender ) opengl? ( media-libs/glm ) sys-devel/make >=dev-util/cmake-2.8.12
+DESCRIPTION=slop (Select Operation) is an application that queries the user for a selection and prints it out
+EAPI=5
+HOMEPAGE=https://github.com/naelstrof/slop
+IUSE=opengl
+KEYWORDS=amd64 x86
+LICENSE=GPL-3
+RDEPEND=x11-libs/libX11 x11-libs/libXext opengl? ( media-libs/glew media-libs/imlib2 virtual/opengl x11-libs/libXrandr x11-libs/libXrender )
+SLOT=0
+SRC_URI=https://github.com/naelstrof/slop/archive/v4.3.21.tar.gz -> slop-4.3.21.tar.gz
+_eclasses_=cmake-utils	422bbd1bee2557490177a34dbe0a662b	eutils	9d81603248f2ba3ec59124320d123e5e	flag-o-matic	d270fa247153df66074f795fa42dba3e	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	d513d423d449877e49d99af3f7af7acb	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=4a4f49415875ad6a4b6c72bde96f709e
