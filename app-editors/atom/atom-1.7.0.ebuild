@@ -1,16 +1,19 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
+# $Header: $
 
-EAPI=6
+EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
-inherit flag-o-matic python-any-r1 eutils
+inherit git-r3 flag-o-matic python-any-r1 eutils 
 
 DESCRIPTION="A hackable text editor for the 21st Century"
 HOMEPAGE="https://atom.io"
-SRC_URI="https://github.com/atom/atom/archive/v${PV}.tar.gz -> ${PV}.tar.gz"
-RESTRICT="mirror"
+SRC_URI=""
+
+EGIT_REPO_URI="https://github.com/${PN}/${PN}"
+EGIT_COMMIT="v${PV}"
+
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -18,7 +21,7 @@ IUSE=""
 
 DEPEND="
 	${PYTHON_DEPS}
-	net-libs/nodejs[npm]
+	|| ( net-libs/nodejs[npm] net-libs/iojs[npm] )
 	media-fonts/inconsolata
 	gnome-base/gconf
 	x11-libs/gtk+:2
@@ -27,12 +30,18 @@ DEPEND="
 	x11-libs/libXtst
 	dev-libs/nss
 	media-libs/alsa-lib
+	net-print/cups
 "
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
 	python-any-r1_pkg_setup
+
 	npm config set python $PYTHON
+}
+
+src_unpack() {
+	git-r3_src_unpack
 }
 
 src_prepare(){
@@ -45,7 +54,7 @@ src_prepare(){
 		-e "s|<%= appName %>|Atom|" \
 		resources/linux/atom.desktop.in > resources/linux/Atom.desktop
 
-	# Fix atom location guessing
+    	# Fix atom location guessing
 	sed -i -e 's/ATOM_PATH="$USR_DIRECTORY\/share\/atom/ATOM_PATH="$USR_DIRECTORY\/../g' \
 		./atom.sh \
 		|| die "Fail fixing atom-shell directory"
@@ -54,7 +63,6 @@ src_prepare(){
 	sed -i -e 's@node script/bootstrap@node script/bootstrap --no-quiet@g' \
 		./script/build \
 		|| die "Fail fixing verbosity of script/build"
-	default
 }
 
 src_compile(){
@@ -64,22 +72,26 @@ src_compile(){
 }
 
 src_install(){
-	insinto "/usr/share/${PN}"
-	doins -r "${T}"/Atom/*
-	insinto "/usr/share/applications"
+	insinto ${EPREFIX}/usr/share/${PN}
+	doins -r ${T}/Atom/*
+	insinto ${EPREFIX}/usr/share/applications
 	newins resources/linux/Atom.desktop atom.desktop
-	insinto "/usr/share/pixmaps"
+	insinto ${EPREFIX}/usr/share/pixmaps
 	newins resources/app-icons/stable/png/128.png atom.png
-	insinto "/usr/share/licenses/${PN}"
+	insinto ${EPREFIX}/usr/share/licenses/${PN}
 	doins LICENSE.md
 	# Fixes permissions
-	fperms +x "/usr/share/${PN}/${PN}"
-	fperms +x "/usr/share/${PN}/libgcrypt.so.11"
-	fperms +x "/usr/share/${PN}/resources/app/atom.sh"
-	fperms +x "/usr/share/${PN}/resources/app/apm/bin/apm"
-	fperms +x "/usr/share/${PN}/resources/app/apm/bin/node"
-	fperms +x "/usr/share/${PN}/resources/app/apm/node_modules/npm/bin/node-gyp-bin/node-gyp"
+	fperms +x ${EPREFIX}/usr/share/${PN}/${PN}
+	#fperms +x ${EPREFIX}/usr/share/${PN}/libffmpegsumo.so
+	fperms +x ${EPREFIX}/usr/share/${PN}/libgcrypt.so.11
+	#fperms +x ${EPREFIX}/usr/share/${PN}/libnotify.so.4
+	fperms +x ${EPREFIX}/usr/share/${PN}/libffmpeg.so
+	fperms +x ${EPREFIX}/usr/share/${PN}/libnode.so
+	fperms +x ${EPREFIX}/usr/share/${PN}/resources/app/atom.sh
+	fperms +x ${EPREFIX}/usr/share/${PN}/resources/app/apm/bin/apm
+	fperms +x ${EPREFIX}/usr/share/${PN}/resources/app/apm/bin/node
+	fperms +x ${EPREFIX}/usr/share/${PN}/resources/app/apm/node_modules/npm/bin/node-gyp-bin/node-gyp
 	# Symlinking to /usr/bin
-	dosym "/usr/share/${PN}/resources/app/atom.sh" /usr/bin/atom
-	dosym "/usr/share/${PN}/resources/app/apm/bin/apm" /usr/bin/apm
+	dosym ${EPREFIX}/usr/share/${PN}/resources/app/atom.sh /usr/bin/atom
+	dosym ${EPREFIX}/usr/share/${PN}/resources/app/apm/bin/apm /usr/bin/apm
 }
