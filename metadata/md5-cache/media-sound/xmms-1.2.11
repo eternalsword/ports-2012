@@ -10,5 +10,5 @@ PDEPEND=lirc? ( media-plugins/xmms-lirc ) flac? ( media-libs/flac ) mikmod? ( me
 RDEPEND==x11-libs/gtk+-1.2* directfb? ( dev-libs/DirectFB ) app-arch/unzip
 SLOT=0
 SRC_URI=http://www.xmms.org/files/1.2.x/xmms-1.2.11.tar.bz2 mirror://gentoo/gentoo_ice-xmms-0.2.tar.bz2 http://dev.gentoo.org/~eradicator/xmms/xmms-1.2.10-gentoo-m4-1.1.tar.bz2
-_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	flag-o-matic	d270fa247153df66074f795fa42dba3e	libtool	4890219c51da247200223277f993e054	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	d513d423d449877e49d99af3f7af7acb
+_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	flag-o-matic	d270fa247153df66074f795fa42dba3e	libtool	4890219c51da247200223277f993e054	multilib	23ae8c186171e6476af098d2a50d0ee0	toolchain-funcs	d513d423d449877e49d99af3f7af7acb
 _md5_=1c348202254eee780fdcc48c73d51d09

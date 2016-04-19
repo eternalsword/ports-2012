@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_REQUIRED="optional"
 QT_MINIMAL="4.7.4"
@@ -59,7 +59,7 @@ unset DEV_URI
 # These are bundles that can't be removed for now due to huge patchsets.
 # If you want them gone, patches are welcome.
 ADDONS_SRC=(
-	"${ADDONS_URI}/17e8eb9a4ec4139b7689d139be4da133-xmlsec1-1.2.16.tar.gz" # modifies source code
+	"${ADDONS_URI}/ce12af00283eb90d9281956524250d6e-xmlsec1-1.2.20.tar.gz" # modifies source code
 	"collada? ( ${ADDONS_URI}/4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2 )"
 	"java? ( ${ADDONS_URI}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip )"
 	# no release for 8 years, should we package it?
@@ -258,11 +258,14 @@ PATCHES=(
 )
 
 CHECKREQS_MEMORY="512M"
-if [[ ${MERGE_TYPE} != binary ]] ; then CHECKREQS_DISK_BUILD="6G" ; fi
+
+if [[ ${MERGE_TYPE} != binary ]] && is-flagq "-g*" && ! is-flagq "-g*0" ; then
+	CHECKREQS_DISK_BUILD="22G"
+elif [[ ${MERGE_TYPE} != binary ]] ; then
+	CHECKREQS_DISK_BUILD="6G"
+fi
 
 pkg_pretend() {
-	local pgslot
-
 	use java || \
 		ewarn "If you plan to use lbase application you should enable java or you will get various crashes."
 
@@ -280,7 +283,7 @@ pkg_pretend() {
 	# Ensure pg version but we have to be sure the pg is installed (first
 	# install on clean system)
 	if use postgres && has_version dev-db/postgresql; then
-		 pgslot=$(postgresql-config show)
+		 local pgslot=$(postgresql-config show)
 		 if [[ ${pgslot//.} -lt 90 ]] ; then
 			eerror "PostgreSQL slot must be set to 9.0 or higher."
 			eerror "    postgresql-config set 9.0"
@@ -325,16 +328,9 @@ src_unpack() {
 }
 
 src_prepare() {
-	# patchset
-	if [[ -n ${PATCHSET} ]]; then
-		EPATCH_FORCE="yes" \
-		EPATCH_SOURCE="${WORKDIR}/${PATCHSET/.tar.xz/}" \
-		EPATCH_SUFFIX="patch" \
-		epatch
-	fi
-
-	epatch "${PATCHES[@]}"
-	epatch_user
+	[[ -n ${PATCHSET} ]] && eapply "${WORKDIR}/${PATCHSET/.tar.xz/}"
+	eapply "${PATCHES[@]}"
+	eapply_user
 
 	AT_M4DIR="m4" eautoreconf
 	# hack in the autogen.sh
@@ -363,7 +359,6 @@ src_prepare() {
 
 src_configure() {
 	local java_opts
-	local lo_ext
 	local ext_opts
 
 	# optimization flags
