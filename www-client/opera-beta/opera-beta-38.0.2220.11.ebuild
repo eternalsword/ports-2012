@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -16,10 +16,9 @@ LICENSE="OPERA-2014"
 SLOT="0"
 SRC_URI_BASE="http://get.geo.opera.com/pub/"
 SRC_URI="
-	amd64?	( "${SRC_URI_BASE}${PN}/${PV}/linux/${PN}_${PV}_amd64.deb" )
 	x86?	( "${SRC_URI_BASE}${PN}/${PV}/linux/${PN}_${PV}_i386.deb" )
 "
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~x86"
 
 RDEPEND="
 	dev-libs/expat
