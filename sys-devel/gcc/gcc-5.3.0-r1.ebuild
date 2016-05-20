@@ -171,7 +171,7 @@ src_prepare() {
 			local gcc_hard_flags="-DEFAULT_RELRO -DEFAULT_BIND_NOW -DEFAULT_PIE_SSP"
 
 			EPATCH_MULTI_MSG="Applying PIE patches..." \
-				epatch "${WORKDIR}"/piepatch/*.patch
+				epatch "${WORKDIR}"/piepatch/
 
 			sed -e '/^ALL_CFLAGS/iHARD_CFLAGS = ' \
 				-e 's|^ALL_CFLAGS = |ALL_CFLAGS = $(HARD_CFLAGS) |' \
