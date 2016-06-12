@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-inherit eutils multilib user
+inherit autotools eutils multilib user
 
 MY_P=${P/\./-}
 MY_P=${MY_P/./-R}
@@ -16,8 +16,8 @@ if [[ ${PV} == "9999" ]] ; then
 	inherit git-2
 	KEYWORDS=""
 else
-	SRC_URI="http://www.kismetwireless.net/code/${MY_P}.tar.gz"
-	KEYWORDS="~amd64 ~arm ~ppc ~x86"
+	SRC_URI="http://www.kismetwireless.net/code/${MY_P}.tar.xz"
+	KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~x86"
 fi
 
 DESCRIPTION="IEEE 802.11 wireless LAN sniffer"
@@ -34,9 +34,8 @@ CDEPEND="net-wireless/wireless-tools
 			)
 	pcre? ( dev-libs/libpcre )
 	suid? ( sys-libs/libcap )
-	client? ( sys-libs/ncurses )
+	client? ( sys-libs/ncurses:0= )
 	!arm? ( speech? ( app-accessibility/flite ) )
-	ruby? ( dev-lang/ruby:* )
 	plugin-btscan? ( net-wireless/bluez )
 	plugin-dot15d4? ( virtual/libusb:0 )
 	plugin-spectools? ( net-wireless/spectools )
@@ -47,6 +46,7 @@ DEPEND="${CDEPEND}
 "
 
 RDEPEND="${CDEPEND}
+	ruby? ( dev-lang/ruby:* )
 	selinux? ( sec-policy/selinux-kismet )
 "
 
@@ -57,6 +57,9 @@ src_prepare() {
 	# Don't strip and set correct mangrp
 	sed -i -e 's| -s||g' \
 		-e 's|@mangrp@|root|g' Makefile.in
+
+	epatch_user
+	eautoreconf
 }
 
 src_configure() {

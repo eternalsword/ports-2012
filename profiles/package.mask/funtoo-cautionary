@@ -1,9 +1,6 @@
 # FL-2524
 >=www-servers/nginx-1.9.7
 
-# mask a version of wxGTK-3.0 port of amule, not stable, RAM/CPU hog.
->=net-p2p/amule-2.3.1-r1
-
 # precautionary mask as newer versions appear to break GNOME 3 and other DE's
 >sys-auth/consolekit-0.4.6
 
@@ -17,14 +14,11 @@ media-tv/xbmc
 # FL-2641: mask damaged libcgroup ebuild.
 =dev-libs/libcgroup-0.41-r1
 
-# FL-2631: mask opencv-3.0, breaks certain packages:
->media-libs/opencv-2.4.10
-
 # FL-2621: mask broken version of pstoedit (from last working)
 >media-gfx/pstoedit-3.62
 
 # FL-2600: rise mask for gnupg.
->app-crypt/gnupg-2.0.28
+>=app-crypt/gnupg-2.1
 
 # mask sys-apps/makedev. This one collides with baselayout, makedev is part of baselayout.
 sys-apps/makedev

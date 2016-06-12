@@ -1,4 +1,6 @@
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI="5"
 
@@ -6,11 +8,11 @@ DEADBEEF_GUI="yes"
 
 inherit autotools deadbeef-plugins git-r3
 
-EGIT_REPO_URI="git://git.code.sf.net/p/${PN}/code"
+EGIT_REPO_URI="https://gitlab.com/zykure/deadbeef-fb.git"
 EGIT_BRANCH="master"
 
 DESCRIPTION="DeaDBeeF filebrowser plugin"
-HOMEPAGE="http://sourceforge.net/projects/deadbeef-fb"
+HOMEPAGE="https://gitlab.com/zykure/deadbeef-fb"
 
 LICENSE="GPL-2"
 KEYWORDS=""

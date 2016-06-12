@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -13,9 +13,12 @@ SRC_URI="http://www1.cs.columbia.edu/~angelos/Code/${P}.tar.gz"
 LICENSE="keynote"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="ssl"
+IUSE="libressl ssl"
 
-RDEPEND="ssl? ( dev-libs/openssl )"
+RDEPEND="ssl? (
+		!libressl? ( dev-libs/openssl:0= )
+		libressl? ( dev-libs/libressl:0= )
+	)"
 DEPEND="${RDEPEND}
 	virtual/yacc"
 

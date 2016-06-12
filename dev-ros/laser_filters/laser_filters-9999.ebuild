@@ -5,6 +5,7 @@
 EAPI=5
 ROS_REPO_URI="https://github.com/ros-perception/laser_filters"
 KEYWORDS="~amd64 ~arm"
+PYTHON_COMPAT=( python2_7 )
 
 inherit ros-catkin
 
@@ -18,10 +19,9 @@ RDEPEND="
 	dev-libs/boost:=
 	dev-ros/sensor_msgs[${CATKIN_MESSAGES_CXX_USEDEP}]
 	dev-ros/tf
-	dev-cpp/eigen:3
 	dev-ros/angles
 	dev-ros/filters
 	dev-ros/laser_geometry
 "
 DEPEND="${RDEPEND}
-	test? ( dev-ros/rostest )"
+	test? ( dev-ros/rostest[${PYTHON_USEDEP}] )"

@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
+# $Header: /var/cvsroot/gentoo-x86/mail-mta/netqmail/netqmail-1.06-r2.ebuild,v 1.13 2013/06/09 16:01:23 ago Exp $
 
 EAPI=5
 
@@ -25,7 +25,7 @@ HOMEPAGE="
 	http://qmail.org
 "
 SRC_URI="mirror://qmail/${P}.tar.gz
-	https://dev.gentoo.org/~hollow/distfiles/${GENQMAIL_F}
+	http://dev.gentoo.org/~hollow/distfiles/${GENQMAIL_F}
 	http://www.ckdhr.com/ckd/${QMAIL_LARGE_DNS}
 	http://inoa.net/qmail-tls/${QMAIL_TLS_CVE}
 	!vanilla? (
@@ -38,7 +38,7 @@ SRC_URI="mirror://qmail/${P}.tar.gz
 LICENSE="public-domain"
 SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 ~m68k ~mips ppc ppc64 s390 sh sparc x86"
-IUSE="authcram gencertdaily highvolume qmail-spp ssl vanilla"
+IUSE="authcram gencertdaily highvolume ipv6 qmail-spp ssl vanilla"
 REQUIRED_USE='vanilla? ( !ssl !qmail-spp !highvolume )'
 RESTRICT="test"
 
@@ -90,6 +90,7 @@ src_unpack() {
 }
 
 src_prepare() {
+
 	epatch "${FILESDIR}"/${PV}-exit.patch
 	epatch "${FILESDIR}"/${PV}-readwrite.patch
 	epatch "${DISTDIR}"/${QMAIL_LARGE_DNS}
@@ -115,6 +116,10 @@ src_prepare() {
 			cd "${WORKDIR}"
 			epatch "${FILESDIR}"/genqmail-20080406-ldflags.patch
 			cd -
+		fi
+
+		if use ipv6; then
+			epatch "${FILESDIR}"/${PV}-ipv6.patch
 		fi
 	fi
 
@@ -147,7 +152,7 @@ pkg_postinst() {
 	qmail_supervise_config_notice
 	elog
 	elog "If you are looking for documentation, check those links:"
-	elog "https://www.gentoo.org/doc/en/qmail-howto.xml"
+	elog "http://www.gentoo.org/doc/en/qmail-howto.xml"
 	elog "  -- qmail/vpopmail Virtual Mail Hosting System Guide"
 	elog "http://www.lifewithqmail.com/"
 	elog "  -- Life with qmail"

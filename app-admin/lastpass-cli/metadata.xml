@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>proxy-maintainers</herd>
-	<maintainer>
-		<email>gokturk@binghamton.edu</email>
-		<name>Gokturk 'gokturk' Yuksek</name>
+	<maintainer type="person">
+		<email>gokturk@gentoo.org</email>
+		<name>Göktürk Yüksek</name>
 	</maintainer>
 	<use>
 		<flag name="X">

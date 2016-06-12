@@ -1,19 +1,19 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 VIRTUALX_REQUIRED="test"
 inherit cmake-utils virtualx
 
 DESCRIPTION="C++ string template engine based on the Django template system"
-HOMEPAGE="http://www.gitorious.org/grantlee/pages/Home"
+HOMEPAGE="https://github.com/steveire/grantlee"
 SRC_URI="http://downloads.grantlee.org/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="5"
-KEYWORDS="~amd64 ~arm ~ppc64 ~x86"
+KEYWORDS="amd64 ~arm ~ppc64 x86"
 IUSE="debug doc test"
 
 RDEPEND="
@@ -48,7 +48,7 @@ src_compile() {
 }
 
 src_test() {
-	VIRTUALX_COMMAND="cmake-utils_src_test" virtualmake
+	virtx cmake-utils_src_test
 }
 
 src_install() {

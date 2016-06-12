@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -13,9 +13,9 @@ SRC_URI="https://github.com/sqlcipher/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
-IUSE="readline static-libs tcl"
+IUSE="readline static-libs tcl test"
 
 # Tcl is always needed by buildsystem
 RDEPEND="dev-libs/openssl:0[${MULTILIB_USEDEP}]
@@ -23,6 +23,9 @@ RDEPEND="dev-libs/openssl:0[${MULTILIB_USEDEP}]
 	tcl? ( dev-lang/tcl:=[${MULTILIB_USEDEP}] )"
 DEPEND="${RDEPEND}
 	dev-lang/tcl"
+
+# Testsuite requires compilation with TCL, bug #582584
+REQUIRED_USE="test? ( tcl )"
 
 src_prepare() {
 	append-cflags -DSQLITE_HAS_CODEC

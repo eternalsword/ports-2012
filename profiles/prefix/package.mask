@@ -10,15 +10,15 @@
 #
 
 
+# Bernard Cafarelli <voyageur@gentoo.org> (27 Jan 2016)
+# New llvm version, masked for testing
+=sys-devel/llvm-3.8.0*
+=sys-devel/clang-3.8.0*
+
 # Fabian Groffen <grobian@gentoo.org> (11 Feb 2014)
 # Fails to compile, bug #493464
 =sys-devel/autogen-5.18.1
 =sys-devel/autogen-5.18.2
-
-# Fabian Groffen <grobian@gentoo.org> (29 Apr 2012)
-# AT_FDCWD, openat, faccessat, etc. issues on probably all but Linux
-# platforms, masking for now.
->=app-misc/pax-utils-0.3
 
 # Elias Pipping <pipping@gentoo.org> (09 Oct 2007)
 # darwin-miscutils are only available on darwin

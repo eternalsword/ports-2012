@@ -190,6 +190,10 @@ qt4-build-multilib_src_prepare() {
 		append-flags -mminimal-toc
 	fi
 
+	# Teach configure about gcc-6 and later
+	sed -i -e 's:5\*|:[5-9]*|:' \
+		configure || die "sed gcc version failed"
+
 	# Read also AR from the environment
 	sed -i -e 's/^SYSTEM_VARIABLES="/&AR /' \
 		configure || die "sed SYSTEM_VARIABLES failed"
@@ -581,9 +585,13 @@ qt4_prepare_env() {
 	QT4_EXAMPLESDIR=${QT4_DATADIR}/examples
 	QT4_DEMOSDIR=${QT4_DATADIR}/demos
 	QT4_SYSCONFDIR=${EPREFIX}/etc/qt4
-	QMAKE_LIBDIR_QT=${QT4_LIBDIR}
 
+	# are these still needed?
+	QMAKE_LIBDIR_QT=${QT4_LIBDIR}
 	export XDG_CONFIG_HOME="${T}"
+
+	# can confuse qmake if set (bug 583352)
+	unset QMAKESPEC
 }
 
 # @FUNCTION: qt4_foreach_target_subdir

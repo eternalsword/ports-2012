@@ -1,6 +1,30 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
+
+# Davide Pesavento <pesa@gentoo.org> (06 Jun 2016)
+# Requires unkeyworded dev-python/PyQt5
+net-print/hplip qt5
+
+# Johannes Huber <johu@gentoo.org> (26 Mar 2016)
+# Unkeyworded dependency x11-libs/snorenotify
+net-irc/quassel snorenotify
+
+# Rick Farina <zerochaos@gentoo.org> (23 Mar 2016)
+# rspec:3 is not keyworded for x86 at this time
+=dev-ruby/bundler-audit-0.5.0 test
+
+# Justin Lecher <jlec@gentoo.org> (22 Feb 2016)
+# Missing test deps keyword #575366
+dev-cpp/eigen test
+
+# Mike Frysinger <vapier@gentoo.org> (21 Feb 2016)
+# Needs arch love for elementary. #575322
+media-libs/elementary javascript
+
+# Patrick Lauer (20 Feb 2015)
+# Missing keywords on deps
+net-libs/ortp zrtp
 
 # Pacho Ramos <pacho@gentoo.org> (15 Nov 2015)
 # Missing keywords
@@ -39,12 +63,6 @@ sys-auth/sssd samba
 dev-libs/efl physics sdl
 media-libs/elementary sdl
 
-# Michał Górny <mgorny@gentoo.org> (21 Feb 2015)
-# The external QCA plugins are not keyworded on this arch. Since
-# this is only a temporary measure and nothing depends on them,
-# just masking them until the new version goes stable.
-<app-crypt/qca-2.1 logger pkcs11 sasl
-
 # Andreas K. Huettel <dilfridge@gentoo.org> (15 Feb 2015)
 # There's no keyworded office implementation anymore.
 gnome-extra/sushi office
@@ -74,12 +92,6 @@ dev-util/bnfc test
 # Requires non-keyworded >=x11-libs/libxkbcommon-0.4.
 sys-apps/systemd terminal
 sys-apps/systemd xkb
-
-# Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org> (16 Sep 2014)
-# Needs libepoxy keywording, bug #510940
-x11-base/xorg-server glamor wayland
-x11-drivers/xf86-video-nouveau glamor
-x11-drivers/xf86-video-ati glamor
 
 # Anthony G. Basile <blueness@gentoo.org> (17 Aug 2014)
 # This pulls in qemu[smartcard] which is masked
@@ -130,7 +142,6 @@ media-libs/opencv vtk
 # unkeyworded deps
 kde-apps/gwenview semantic-desktop
 kde-apps/okular dpi
-kde-base/nepomuk-core migrator
 
 # Pacho Ramos <pacho@gentoo.org> (22 Feb 2013)
 # Missing keywords, bug #495250
@@ -218,17 +229,9 @@ media-libs/openimageio tbb
 # to do so.
 dev-ruby/rack-test test
 
-# Michael Weber <xmw@gentoo.org> (22 Aug 2012)
-# missing stable on >=www-client/firefox-3
-x11-themes/gtk-engines-qtcurve mozilla
-
 # Anthony G. Basile <blueness@gentoo.org> (21 Aug 2012)
 # Does not work on ppc/ppc64
 net-misc/tor tor-hardening
-
-# Michael Weber <xmw@gentoo.org> (3 Jun 2012)
-# pymol got stabled (bug 366229) but USE=apbs deps aren't keyworded
-sci-chemistry/pymol apbs
 
 # Andreas K. Huettel <dilfridge@gentoo.org> (28 May 2012)
 # Mask new useflag of opencv, as dependency dev-cpp/tbb is not keyworded on ppc
@@ -280,7 +283,7 @@ app-cdr/brasero vcd
 
 # Brent Baude <ranger@gentoo.org> (25 June 2011)
 # kde-base/krossjava fails to build on ppc
-kde-base/kdebindings-meta java
+kde-apps/kdebindings-meta java
 
 # Doug Goldstein <cardoe@gentoo.org> (27 May 2011)
 # app-emulation/spice, app-emulation/xen, and sys-cluster/ceph
@@ -329,11 +332,6 @@ dev-ruby/activerecord sqlite3
 # Brent Baude <ranger@gentoo.org>
 # masking zephyr USE on pidgin
 net-im/pidgin zephyr
-
-=dev-java/ibm-jdk-bin-1.5* -nsplugin
-=dev-java/ibm-jre-bin-1.5* -nsplugin
-=dev-java/ibm-jdk-bin-1.6* -nsplugin
-=dev-java/ibm-jre-bin-1.6* -nsplugin
 
 # Joseph Jezak <josejx@gentoo.org> (28 Jun 2007)
 # Masked Parallel LCD devices for bug #180683

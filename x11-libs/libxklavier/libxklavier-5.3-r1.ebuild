@@ -4,10 +4,10 @@
 
 EAPI=5
 
-inherit eutils gnome.org libtool
+inherit eutils gnome.org libtool xdg-utils
 
 DESCRIPTION="A library for the X Keyboard Extension (high-level API)"
-HOMEPAGE="http://www.freedesktop.org/wiki/Software/LibXklavier"
+HOMEPAGE="https://www.freedesktop.org/wiki/Software/LibXklavier"
 
 LICENSE="LGPL-2"
 SLOT="0/16"
@@ -32,6 +32,7 @@ DEPEND="${RDEPEND}
 "
 
 src_prepare() {
+	xdg_environment_reset
 	elibtoolize
 }
 

@@ -106,17 +106,65 @@ perl_delete_packlist() {
 	debug-print-function $FUNCNAME "$@"
 	perl_set_version
 	if [[ -d ${D}/${VENDOR_ARCH} ]] ; then
-		find "${D}/${VENDOR_ARCH}" -type f -a \( -name .packlist \
-			-o \( -name '*.bs' -a -empty \) \) -delete
+		find "${D}/${VENDOR_ARCH}" -type f -a -name .packlist -delete
+		perl_delete_emptybsdir
+	fi
+}
+
+# @FUNCTION: perl_delete_emptybsdir
+# @USAGE: perl_delete_emptybsdir
+# @DESCRIPTION:
+# Look through ${D} for empty .bs files and empty directories,
+# and get rid of items found.
+perl_delete_emptybsdir() {
+	debug-print-function $FUNCNAME "$@"
+	perl_set_version
+	if [[ -d ${D}/${VENDOR_ARCH} ]] ; then
+		find "${D}/${VENDOR_ARCH}" -type f \
+			-a -name '*.bs' -a -empty -delete
 		find "${D}" -depth -mindepth 1 -type d -empty -delete
 	fi
+}
+
+# @FUNCTION: perl_fix_packlist
+# @USAGE: perl_fix_packlist
+# @DESCRIPTION:
+# Look through ${D} for .packlist text files containing the temporary installation
+# folder (i.e. ${D}). If the pattern is found, silently replace it with `/'.
+# Remove duplicate entries; then validate all entries in the packlist against ${D}
+# and prune entries that do not correspond to installed files.
+perl_fix_packlist() {
+	debug-print-function $FUNCNAME "$@"
+
+	local packlist_temp="${T}/.gentoo_packlist_temp"
+	find "${D}" -type f -name '.packlist' -print0 | while read -rd '' f ; do
+		if file "${f}" | grep -q -i " text" ; then
+                        einfo "Fixing packlist file /${f#${D}}"
+
+			# remove the temporary build dir path
+			sed -i -e "s:${D}:/:g" "${f}"
+
+			# remove duplicate entries
+			sort -u "${f}" > "${packlist_temp}"
+			mv "${packlist_temp}" "${f}"
+
+			# remove files that dont exist
+			cat "${f}" | while read -r entry; do
+				if [ ! -e "${D}/${entry}" ]; then
+					einfo "Pruning surplus packlist entry ${entry}"
+					grep -v -x -F "${entry}" "${f}" > "${packlist_temp}"
+					mv "${packlist_temp}" "${f}"
+				fi
+			done
+		fi
+	done
 }
 
 # @FUNCTION: perl_remove_temppath
 # @USAGE: perl_remove_temppath
 # @DESCRIPTION:
 # Look through ${D} for text files containing the temporary installation
-# folder (i.e. ${D}). If the pattern is found (i.e. " text"), replace it with `/'.
+# folder (i.e. ${D}). If the pattern is found, replace it with `/' and warn.
 perl_remove_temppath() {
 	debug-print-function $FUNCNAME "$@"
 
@@ -249,4 +297,25 @@ perl_check_env() {
 
 	eerror "Your environment settings may lead to undefined behavior and/or build failures."
 	die "Please fix your environment ( ~/.bashrc, package.env, ... ), see above for details."
+}
+
+# @FUNCTION: perl_doexamples
+# @USAGE: perl_doexamples "file_1" "file_2"
+# @DESCRIPTION:
+# Install example files ready-to-run.
+# Is called under certain circumstances in perl-module.eclass src_install
+# (see the documentation there).
+#
+perl_doexamples() {
+	debug-print-function $FUNCNAME "$@"
+
+	einfo "Installing examples into /usr/share/doc/${PF}/examples"
+
+	# no compression since we want ready-to-run scripts
+	docompress -x /usr/share/doc/${PF}/examples
+
+	docinto examples/
+	dodoc -r $@
+
+	# is there a way to undo "docinto" ?
 }

@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 # needs someone to test on these: ~alpha ~hppa ~ia64 ~sparc etc ...
 
-IUSE="debug doc examples lto"
+IUSE="debug doc examples"
 
 RDEPEND="
 	virtual/fortran
@@ -26,10 +26,6 @@ RDEPEND="
 DEPEND="sys-apps/findutils"
 
 S=${WORKDIR}/${MY_P}
-
-if use lto; then
-	RESTRICT="strip"
-fi
 
 pkg_setup() {
 	fortran-2_pkg_setup
@@ -79,7 +75,13 @@ src_prepare() {
 	if [[ "${ARCH}" == "ppc" ]] ; then
 		sed -i -e "s|= -mcpu=G4 -mtune=G4|= |" ${config}
 	elif [[ "${ARCH}" == "ppc64" ]] ; then
-		sed -i -e "s|= -mcpu=G5 -mtune=G5|= |" ${config}
+		sed -i -e "s|= -mcpu=G5 -mtune=G5|= |" \
+			-e "s|-fdefault-real-8|-fdefault-real-8 -fdefault-double-8|" \
+			${config}
+	elif [[ "${ARCH}" == "amd64" ]] ; then
+		cp ${config}.in ${config}
+		sed -i -e "s|-fdefault-real-8|-fdefault-real-8 -fdefault-double-8|" \
+			${config}
 	else
 		cp ${config}.in ${config} || die "Error updating config!"
 	fi
@@ -104,14 +106,10 @@ src_compile() {
 	EBUILD_CFLAGS="${CFLAGS}"
 	unset ARCH CFLAGS
 
-	tc-export CC FC AR NM STRIP RANLIB
+	tc-export CC FC AR NM RANLIB
+	export STRIP="/bin/true"
 	TC_FLAGS="CC=$CC FC=$FC AR=$AR RANLIB=$RANLIB"
 	ARFLAGS="rv"
-
-	if use lto; then
-		PLUGIN_PATH="--plugin=$(gcc -print-prog-name=liblto_plugin.so)"
-		tc-ld-is-gold && ARFLAGS="rv ${PLUGIN_PATH}"
-	fi
 
 	# emake won't work with this fossil...
 	BUFRFLAGS="ARCH=$target R64=$R64 CNAME=$CNAME"

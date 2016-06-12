@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -10,7 +10,7 @@ inherit multilib python-r1 toolchain-funcs eutils bash-completion-r1
 
 MY_P="${P//_/-}"
 
-MY_RELEASEDATE="20150202"
+MY_RELEASEDATE="20160223"
 EXTRAS_VER="1.34"
 SEMNG_VER="${PV}"
 SELNX_VER="${PV}"
@@ -31,7 +31,7 @@ if [[ ${PV} == 9999 ]] ; then
 else
 	SRC_URI="https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/${MY_RELEASEDATE}/${MY_P}.tar.gz
 		https://dev.gentoo.org/~perfinion/distfiles/policycoreutils-extra-${EXTRAS_VER}.tar.bz2"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="~amd64 ~arm ~arm64 ~mips ~x86"
 	S1="${WORKDIR}/${MY_P}"
 	S2="${WORKDIR}/policycoreutils-extra"
 	S="${S1}"
@@ -81,12 +81,9 @@ src_prepare() {
 		epatch "${FILESDIR}/0010-remove-sesandbox-support.patch"
 		epatch "${FILESDIR}/0020-disable-autodetection-of-pam-and-audit.patch"
 		epatch "${FILESDIR}/0030-make-inotify-check-use-flag-triggered.patch"
-		epatch "${FILESDIR}/0040-reverse-access-check-in-run_init.patch"
 		epatch "${FILESDIR}/0070-remove-symlink-attempt-fails-with-gentoo-sandbox-approach.patch"
 		epatch "${FILESDIR}/0110-build-mcstrans-bug-472912.patch"
 		epatch "${FILESDIR}/0120-build-failure-for-mcscolor-for-CONTEXT__CONTAINS.patch"
-		epatch "${FILESDIR}/0130-Only-invoke-RPM-on-RPM-enabled-Linux-distributions-bug-534682.patch"
-		epatch "${FILESDIR}/0140-Set-self.sename-to-sename-after-calling-semanage-bug-557370.patch"
 	fi
 
 	# rlpkg is more useful than fixfiles

@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -19,12 +19,13 @@ if [[ ${PV} == 9999 ]]; then
 	KEYWORDS=""
 else
 	SRC_URI="http://download.deluge-torrent.org/source/${P}.tar.bz2"
-	KEYWORDS="~amd64 ~arm ~ppc ~sparc ~x86"
+	KEYWORDS="amd64 ~arm ~ppc ~sparc x86"
 fi
 
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="geoip gtk libnotify setproctitle sound webinterface"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND=">=net-libs/rb_libtorrent-0.14.9[python]
 	dev-python/setuptools[${PYTHON_USEDEP}]
@@ -54,11 +55,13 @@ python_prepare_all() {
 	distutils-r1_python_prepare_all
 }
 
-_distutils-r1_create_setup_cfg() {
+esetup.py() {
 	# bug 531370: deluge has its own plugin system. No need to relocate its egg info files.
 	# Override this call from the distutils-r1 eclass.
 	# This does not respect the distutils-r1 API. DONOT copy this example.
-	:
+	set -- "${PYTHON}" setup.py "$@"
+	echo "$@"
+	"$@" || die
 }
 
 python_install_all() {

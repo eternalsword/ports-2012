@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -11,7 +11,7 @@ if [[ ${PV} == *9999 ]] ; then
 	EGIT_URI_APPEND="${PN}"
 else
 	SRC_URI="https://download.enlightenment.org/rel/apps/${PN}/${MY_P}.tar.xz"
-	EKEY_STATE="live"
+	EKEY_STATE="snap"
 fi
 
 inherit enlightenment
@@ -54,8 +54,8 @@ RDEPEND="
 		>=x11-libs/pixman-0.31.1
 		>=x11-libs/libxkbcommon-0.3.1
 	)
-	>=dev-libs/efl-1.16[X]
-	>=media-libs/elementary-1.16
+	>=dev-libs/efl-1.17[X]
+	>=media-libs/elementary-1.17
 	x11-libs/xcb-util-keysyms"
 DEPEND="${RDEPEND}"
 

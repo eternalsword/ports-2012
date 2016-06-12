@@ -1,7 +1,7 @@
-DEFINED_PHASES=compile configure install prepare unpack
-DEPEND=dev-libs/librevenge dev-libs/libxml2 sys-libs/zlib >=dev-libs/boost-1.46 sys-devel/libtool virtual/pkgconfig doc? ( app-doc/doxygen )
+DEFINED_PHASES=configure install prepare
+DEPEND=dev-libs/librevenge dev-libs/libxml2 sys-libs/zlib >=dev-libs/boost-1.46 sys-devel/libtool virtual/pkgconfig doc? ( app-doc/doxygen ) !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.15:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
 DESCRIPTION=Library parsing abiword documents
-EAPI=5
+EAPI=6
 HOMEPAGE=https://wiki.documentfoundation.org/DLP/Libraries/libabw
 IUSE=doc static-libs
 KEYWORDS=amd64 ~arm x86
@@ -9,5 +9,5 @@ LICENSE=MPL-2.0
 RDEPEND=dev-libs/librevenge dev-libs/libxml2 sys-libs/zlib
 SLOT=0
 SRC_URI=http://dev-www.libreoffice.org/src/libabw/libabw-0.1.1.tar.xz
-_eclasses_=base	3fe4f8980633fd7bc69e9887209ba2fe	eutils	d9bd2ddd85a58e470b49ca997e255a4c	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85
-_md5_=f039472fddf75563a75c3c0e71b789c0
+_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	792f83d5ec9536cb5ccef375469d8bde	libtool	4890219c51da247200223277f993e054	multilib	d062ae4ba2fc40a19c11de2ad89b6616	toolchain-funcs	d513d423d449877e49d99af3f7af7acb
+_md5_=5ef4c64dfb693e61a0e625ced1d2ec12

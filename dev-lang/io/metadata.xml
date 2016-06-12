@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer>
-<email>araujo@gentoo.org</email>
-</maintainer>
 <use>
 <flag name="clutter">Build add-on for <pkg>media-libs/clutter</pkg></flag>
 <flag name="editline">Build add-on for <pkg>dev-libs/libedit</pkg></flag>
@@ -24,4 +21,3 @@ concurrency), LISP (code is a runtime inspectable/modifiable tree) and Lua
 (small, embeddable).
 </longdescription>
 </pkgmetadata>
-

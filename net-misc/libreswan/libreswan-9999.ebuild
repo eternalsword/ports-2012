@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit eutils systemd toolchain-funcs
+inherit systemd toolchain-funcs
 
 if [[ ${PV} != 9999 ]]; then
 	SRC_URI="https://download.libreswan.org/${P}.tar.gz"
@@ -46,10 +46,6 @@ RDEPEND="${COMMON_DEPEND}
 	!net-misc/strongswan
 "
 
-src_prepare() {
-	epatch_user
-}
-
 usetf() {
 	usex "$1" true false
 }
@@ -72,6 +68,7 @@ src_configure() {
 	export USE_XAUTHPAM=$(usetf pam)
 	export DEBUG_CFLAGS=
 	export OPTIMIZE_CFLAGS=
+	export WERROR_CFLAGS=
 }
 
 src_compile() {

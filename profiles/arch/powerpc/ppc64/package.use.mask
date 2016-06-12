@@ -1,6 +1,17 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
+
+# Jeroen Roovers <jer@gentoo.org> (19 May 2016)
+# pulls in many dev-ruby/asciidoctor dependencies (bug #583390)
+net-misc/chrony html
+
+# Patrice Clement <monsieurp@gentoo.org> (08 Feb 2016)
+# I would need to keyword an awful lot of packages on ppc64
+# that would need Java 7 otherwise.
+dev-java/batik python
+dev-java/bsf python
+dev-java/ant-apache-bsf python
 
 # Michael Weber <xmw@gentoo.org> (09 Jan 2016)
 # no ppc64 support in media-libs/glfw
@@ -35,11 +46,6 @@ media-sound/audacity midi
 # dev-lang/luajit lack ppc64 keyword, bug #551540
 dev-libs/libpeas jit
 
-# James Le Cuirot <chewi@gentoo.org> (21 May 2015)
-# Mask rdeps of icedtea-web to deal with bug #549134. I had hoped to
-# apply the ppc64 keyword today but it segfaulted upon testing.
-dev-java/icedtea nsplugin webstart
-
 # Jeroen Roovers <jer@gentoo.org> (26 Apr 2015)
 # Needs the entire LXDE to be useful (bug #520296)
 xfce-extra/xfce4-power-manager lxpanel
@@ -56,7 +62,6 @@ games-simulation/openttd openmedia
 # Michael Palimaka <kensington@gentoo.org> (02 Apr 2013)
 # Requires dev-lang/mono which currently has some issues
 # on ppc64.
-kde-base/kdebindings-meta csharp
 net-libs/libkolabxml csharp
 
 # Sergey Popov <pinkbyte@gentoo.org> (18 Feb 2013)
@@ -105,10 +110,6 @@ app-arch/p7zip kde
 dev-vcs/subversion kde
 media-video/vlc kde
 net-libs/libproxy kde
-
-# Tomáš Chvátal <scarabeus@gentoo.org> (06 June 2010)
-# requires more keywording per bug #323003
-kde-base/kde-meta sdk
 
 # Kacper Kowalik <xarthisius@gentoo.org> (30 May 2010)
 # quesoglc is not keyworded

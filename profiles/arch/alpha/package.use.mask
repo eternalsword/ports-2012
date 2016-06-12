@@ -1,6 +1,32 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
+
+# Tobias Klausmann <klausman@gentoo.org> (07 Jun 2016)
+# cmus is one amongst many. When-if a user wants it, we'll reconsider it.
+# Same goes for libircclient
+app-admin/conky cmus irc
+
+# Tobias Klausmann <klausman@gentoo.org> (07 Jun 2016)
+# the nvidia SDK needs nvidia-drivers and thus can never work on alpha
+# Likewise, nasm is x86/x86-64 only
+media-video/ffmpeg nvenc openh264
+
+# Justin Lecher <jlec@gentoo.org> (22 Feb 2016)
+# Missing test deps keyword #575366
+dev-cpp/eigen test
+
+# Mike Frysinger <vapier@gentoo.org> (21 Feb 2016)
+# Needs arch love for elementary. #575322
+media-libs/elementary javascript
+
+# Tobias Klausmann <klausman@gentoo.org> 04 Feb 2016
+# sys-cluster/ceph is not broken per se, but a maintenance burden.
+net-analyzer/rrdtool rados
+
+# James Le Cuirot <chewi@gentoo.org) (30 Jan 2016)
+# scrollview requires Java, which is unsupported on Alpha.
+app-text/tesseract scrollview
 
 # Michael Weber <xmw@gentoo.org> (09 Jan 2016)
 # no alpha support in media-libs/glfw
@@ -10,15 +36,6 @@ app-text/mupdf opengl
 # on behalf of Ilya Tumaykin <itumaykin+gentoo@gmail.com>
 # dev-lang/luajit lacks alpha keyword. See bug #488318.
 media-video/mpv luajit
-
-# Ian Delaney <idella4@gentoo.org> (28 Dec 2015)
-# dep of testsuite dev-util/cmocka requires keywording for alpha
-# via Bug 569558, then this can be taken out
-media-video/mpv test
-
-# Mike Frysinger <vapier@gentoo.org> (22 Dec 2015)
-# Needs keywording. #569254
-net-firewall/iptables nftables
 
 # Justin Lecher <jlec@gentoo.org> (18 Nov 2015)
 # requires dev-python/restkit which requires
@@ -99,12 +116,6 @@ xfce-base/xfce4-settings libinput
 # Michał Górny <mgorny@gentoo.org> (22 Feb 2015)
 # Dependency not keyworded for some reason.
 media-libs/gegl umfpack
-
-# Michał Górny <mgorny@gentoo.org> (21 Feb 2015)
-# The external QCA plugins are not keyworded on this arch. Since
-# this is only a temporary measure and nothing depends on them,
-# just masking them until the new version goes stable.
-<app-crypt/qca-2.1 pkcs11
 
 # Patrick Lauer <patrick@gentoo.org> (10 Feb 2015)
 # Missing keywords for media-libs/x265

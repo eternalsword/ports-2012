@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -8,7 +8,7 @@ inherit eutils multilib toolchain-funcs user
 
 DESCRIPTION="Inspire IRCd - The Stable, High-Performance Modular IRCd"
 HOMEPAGE="https://inspircd.github.com/"
-SRC_URI="https://www.github.com/inspircd/inspircd/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/inspircd/inspircd/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -37,7 +37,10 @@ src_prepare() {
 	# Patch the inspircd launcher with the inspircd user
 	sed -i -e "s/@UID@/${PN}/" "${S}/make/template/${PN}" || die
 
-	epatch "${FILESDIR}/${P}-fix-path-builds.patch"
+	epatch "${FILESDIR}"/${P}-fix-path-builds.patch
+	epatch "${FILESDIR}"/${P}-deprecated-tmpnam-560362.patch
+
+	epatch_user
 }
 
 src_configure() {

@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -11,7 +11,7 @@ inherit python-single-r1 kde4-meta
 
 DESCRIPTION="Kate is an MDI texteditor"
 HOMEPAGE="https://www.kde.org/applications/utilities/kate http://kate-editor.org"
-KEYWORDS="amd64 ~arm ppc ppc64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~ppc ~ppc64 x86 ~amd64-linux ~x86-linux"
 IUSE="debug python"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
@@ -53,9 +53,9 @@ src_configure() {
 pkg_postinst() {
 	kde4-meta_pkg_postinst
 
-	if ! has_version kde-base/kaddressbook:${SLOT}; then
+	if ! has_version kde-apps/kaddressbook:${SLOT}; then
 		echo
-		elog "File templates plugin requires kde-base/kaddressbook:${SLOT}."
+		elog "File templates plugin requires kde-apps/kaddressbook:${SLOT}."
 		elog "Please install it if you plan to use this plugin."
 		echo
 	fi

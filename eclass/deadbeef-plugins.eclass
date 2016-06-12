@@ -1,4 +1,6 @@
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 # @ECLASS: deadbeef-plugins.eclass
 # @MAINTAINER:
@@ -36,7 +38,7 @@ EXPORT_FUNCTIONS "src_install"
 # @DESCRIPTION:
 # Looking for a *.so deadbeef plugins and installs found plugins to corresponding deadbeef directory.
 deadbeef-plugins_src_install() {
-	local plugins=`find "${WORKDIR}" -name "*.so" -type f`
+	local plugins="$(find "${WORKDIR}" -name "*.so" -type f)"
 	for plugin in ${plugins} ; do
 		insinto "/usr/$(get_libdir)/deadbeef"
 		doins "${plugin}"

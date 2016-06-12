@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -10,7 +10,7 @@ inherit python-single-r1 kde4-base
 
 DESCRIPTION="KDE Interactive Geometry tool"
 HOMEPAGE="https://www.kde.org/applications/education/kig https://edu.kde.org/kig"
-KEYWORDS="amd64 ~arm ppc ppc64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~ppc ~ppc64 x86 ~amd64-linux ~x86-linux"
 IUSE="debug scripting"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
@@ -36,6 +36,7 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
+		-DPYTHON_EXECUTABLE="${PYTHON}"
 		$(cmake-utils_use_find_package scripting BoostPython)
 	)
 

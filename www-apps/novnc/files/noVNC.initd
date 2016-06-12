@@ -1,4 +1,4 @@
-#!/sbin/runscript
+#!/sbin/openrc-run
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
@@ -17,6 +17,7 @@ depend() {
 }
 
 checkconfig() {
+  checkpath -d -m 0750 /var/log/noVNC
 	if [ ! -r /etc/conf.d/${SVCNAME} ]; then
 		eerror "No config file found: /etc/conf.d/${SVCNAME}"
 		return 1

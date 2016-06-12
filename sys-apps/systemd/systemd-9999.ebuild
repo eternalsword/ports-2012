@@ -1,26 +1,28 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://github.com/systemd/systemd.git"
 	inherit git-r3
 else
-	SRC_URI="https://github.com/systemd/systemd/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+	SRC_URI="https://github.com/systemd/systemd/archive/v${PV}.tar.gz -> ${P}.tar.gz
+		!doc? ( https://dev.gentoo.org/~floppym/dist/${P}-man.tar.gz )"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 fi
 
-inherit autotools bash-completion-r1 linux-info multilib \
-	multilib-minimal pam systemd toolchain-funcs udev user
+PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
+
+inherit autotools bash-completion-r1 linux-info multilib-minimal pam python-any-r1 systemd toolchain-funcs udev user
 
 DESCRIPTION="System and service manager for Linux"
-HOMEPAGE="http://www.freedesktop.org/wiki/Software/systemd"
+HOMEPAGE="https://www.freedesktop.org/wiki/Software/systemd"
 
 LICENSE="GPL-2 LGPL-2.1 MIT public-domain"
 SLOT="0/2"
-IUSE="acl apparmor audit cryptsetup curl elfutils +gcrypt gnuefi http
+IUSE="acl apparmor audit cryptsetup curl doc elfutils +gcrypt gnuefi http
 	idn importd +kdbus +kmod +lz4 lzma nat pam policykit
 	qrcode +seccomp selinux ssl sysv-utils test vanilla xkb"
 
@@ -65,12 +67,13 @@ COMMON_DEPEND=">=sys-apps/util-linux-2.27.1:0=[${MULTILIB_USEDEP}]
 # baselayout-2.2 has /run
 RDEPEND="${COMMON_DEPEND}
 	>=sys-apps/baselayout-2.2
+	selinux? ( sec-policy/selinux-base-policy[systemd] )
 	!sys-auth/nss-myhostname
 	!sys-fs/eudev
 	!sys-fs/udev"
 
 # sys-apps/dbus: the daemon only (+ build-time lib dep for tests)
-PDEPEND=">=sys-apps/dbus-1.6.8-r1:0[systemd]
+PDEPEND=">=sys-apps/dbus-1.8.8:0[systemd]
 	>=sys-apps/hwids-20150417[udev]
 	>=sys-fs/udev-init-scripts-25
 	policykit? ( sys-auth/polkit )
@@ -92,13 +95,18 @@ DEPEND="${COMMON_DEPEND}
 	app-text/docbook-xml-dtd:4.5
 	app-text/docbook-xsl-stylesheets
 	dev-libs/libxslt:0
+	doc? ( $(python_gen_any_dep 'dev-python/lxml[${PYTHON_USEDEP}]') )
 "
+
+python_check_deps() {
+	has_version --host-root "dev-python/lxml[${PYTHON_USEDEP}]"
+}
 
 pkg_pretend() {
 	local CONFIG_CHECK="~AUTOFS4_FS ~BLK_DEV_BSG ~CGROUPS
 		~DEVPTS_MULTIPLE_INSTANCES ~DEVTMPFS ~DMIID ~EPOLL ~FANOTIFY ~FHANDLE
 		~INOTIFY_USER ~IPV6 ~NET ~NET_NS ~PROC_FS ~SECCOMP ~SIGNALFD ~SYSFS
-		~TIMERFD ~TMPFS_XATTR
+		~TIMERFD ~TMPFS_XATTR ~UNIX
 		~!FW_LOADER_USER_HELPER ~!GRKERNSEC_PROC ~!IDE ~!SYSFS_DEPRECATED
 		~!SYSFS_DEPRECATED_V2"
 
@@ -144,9 +152,15 @@ src_unpack() {
 src_prepare() {
 	# Bug 463376
 	sed -i -e 's/GROUP="dialout"/GROUP="uucp"/' rules/*.rules || die
-	epatch "${FILESDIR}/218-Dont-enable-audit-by-default.patch"
-	epatch "${FILESDIR}/228-noclean-tmp.patch"
-	epatch_user
+
+	local PATCHES=(
+		"${FILESDIR}/218-Dont-enable-audit-by-default.patch"
+		"${FILESDIR}/228-noclean-tmp.patch"
+	)
+	[[ -d "${WORKDIR}"/patches ]] && PATCHES+=( "${WORKDIR}"/patches )
+
+	default
+
 	eautoreconf
 }
 
@@ -159,6 +173,8 @@ src_configure() {
 	# Prevent conflicts with i686 cross toolchain, bug 559726
 	tc-export AR CC NM OBJCOPY RANLIB
 
+	use doc && python_setup
+
 	multilib-minimal_src_configure
 }
 
@@ -167,6 +183,11 @@ multilib_src_configure() {
 		# disable -flto since it is an optimization flag
 		# and makes distcc less effective
 		cc_cv_CFLAGS__flto=no
+		# disable -fuse-ld=gold since Gentoo supports explicit linker
+		# choice and forcing gold is undesired, #539998
+		# ld.gold may collide with user's LDFLAGS, #545168
+		# ld.gold breaks sparc, #573874
+		cc_cv_LDFLAGS__Wl__fuse_ld_gold=no
 
 		# Workaround for gcc-4.7, bug 554454.
 		cc_cv_CFLAGS__Werror_shadow=no
@@ -190,7 +211,6 @@ multilib_src_configure() {
 		# no deps
 		--enable-efi
 		--enable-ima
-		--without-python
 
 		# Optional components/dependencies
 		$(multilib_native_use_enable acl)
@@ -220,8 +240,10 @@ multilib_src_configure() {
 		$(multilib_native_use_enable test tests)
 		$(multilib_native_use_enable test dbus)
 		$(multilib_native_use_enable xkb xkbcommon)
+		$(multilib_native_use_with doc python)
 
 		# hardcode a few paths to spare some deps
+		KILL=/bin/kill
 		QUOTAON=/usr/sbin/quotaon
 		QUOTACHECK=/usr/sbin/quotacheck
 
@@ -234,6 +256,9 @@ multilib_src_configure() {
 		--with-dbussystemservicedir="${EPREFIX}/usr/share/dbus-1/system-services"
 
 		--with-ntp-servers="0.gentoo.pool.ntp.org 1.gentoo.pool.ntp.org 2.gentoo.pool.ntp.org 3.gentoo.pool.ntp.org"
+
+		# Breaks screen, tmux, etc.
+		--without-kill-user-processes
 	)
 
 	# Work around bug 463846.
@@ -291,17 +316,15 @@ multilib_src_install() {
 
 		emake "${mymakeopts[@]}"
 	fi
-
-	# install compat pkg-config files
-	# Change dbus to >=sys-apps/dbus-1.8.8 if/when this is dropped.
-	local pcfiles=( src/compat-libs/libsystemd-{daemon,id128,journal,login}.pc )
-	emake "${mymakeopts[@]}" install-pkgconfiglibDATA \
-		pkgconfiglib_DATA="${pcfiles[*]}"
 }
 
 multilib_src_install_all() {
 	prune_libtool_files --modules
 	einstalldocs
+
+	if [[ ${PV} != 9999 ]]; then
+		use doc || doman "${WORKDIR}"/man/systemd.{directives,index}.7
+	fi
 
 	if use sysv-utils; then
 		for app in halt poweroff reboot runlevel shutdown telinit; do
@@ -314,9 +337,6 @@ multilib_src_install_all() {
 			|| die
 		rm "${D}"/usr/share/man/man1/init.1 || die
 	fi
-
-	# Disable storing coredumps in journald, bug #433457
-	mv "${D}"/usr/lib/sysctl.d/50-coredump.conf{,.disabled} || die
 
 	# Preserve empty dirs in /etc & /var, bug #437008
 	keepdir /etc/binfmt.d /etc/modules-load.d /etc/tmpfiles.d \
@@ -424,13 +444,13 @@ pkg_postinst() {
 	enewgroup input
 	enewgroup systemd-journal
 	newusergroup systemd-bus-proxy
+	newusergroup systemd-coredump
 	newusergroup systemd-journal-gateway
 	newusergroup systemd-journal-remote
 	newusergroup systemd-journal-upload
 	newusergroup systemd-network
 	newusergroup systemd-resolve
 	newusergroup systemd-timesync
-	use http && newusergroup systemd-journal-gateway
 
 	systemd_update_catalog
 

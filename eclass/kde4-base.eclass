@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -160,7 +160,7 @@ KDE_HANDBOOK="${KDE_HANDBOOK:-never}"
 # translations. (Mostly all kde ebuilds does not ship documentation
 # and translations in live ebuilds)
 if [[ ${KDE_BUILD_TYPE} == live && -z ${KDE_LINGUAS_LIVE_OVERRIDE} ]]; then
-	# Kdebase actualy provides the handbooks even for live stuff
+	# Kdebase actually provides the handbooks even for live stuff
 	[[ ${KDEBASE} == kde-base ]] || KDE_HANDBOOK=never
 	KDE_LINGUAS=""
 fi
@@ -358,7 +358,14 @@ case ${KDE_HANDBOOK} in
 		[[ ${PN} != kdelibs ]] && kderdepend+=" ${kdehandbookrdepend}"
 		;;
 	optional)
-		IUSE+=" +handbook"
+		case ${PN} in
+			kcontrol | kdesu | knetattach)
+				IUSE+=" handbook"
+				;;
+			*)
+				IUSE+=" +handbook"
+				;;
+		esac
 		kdedepend+=" handbook? ( ${kdehandbookdepend} )"
 		[[ ${PN} != kdelibs ]] && kderdepend+=" handbook? ( ${kdehandbookrdepend} )"
 		;;
@@ -439,7 +446,7 @@ _calculate_src_uri() {
 					SRC_URI="mirror://kde/unstable/${PV}/src/${_kmname_pv}.tar.xz" ;;
 				4.11.19)
 					# Part of 15.04.1 actually, sigh. Not stable for next release!
-					SRC_URI="mirror://kde/stable/applications/15.04.1/src/${_kmname_pv}.tar.xz" ;;
+					SRC_URI="mirror://kde/Attic/applications/15.04.1/src/${_kmname_pv}.tar.xz" ;;
 				4.11.22)
 					# Part of 15.08.0 actually, sigh. Not stable for next release!
 					SRC_URI="mirror://kde/stable/applications/15.08.0/src/${_kmname_pv}.tar.xz" ;;
@@ -447,20 +454,11 @@ _calculate_src_uri() {
 					# Last SC release
 					SRC_URI="mirror://kde/stable/${PV}/src/${_kmname_pv}.tar.xz" ;;
 				4.14.8)
-					# Part of 15.04.1 actually, sigh. Not stable for next release!
-					SRC_URI="mirror://kde/stable/applications/15.04.1/src/${_kmname_pv}.tar.xz" ;;
+					# Part of 15.04.1 actually, sigh. Used by kdelibs and KDE PIM 4.
+					SRC_URI="mirror://kde/Attic/applications/15.04.1/src/${_kmname_pv}.tar.xz" ;;
 				4.14.10)
-					# Part of 15.04.3 actually, sigh. Not stable for next release!
-					SRC_URI="mirror://kde/stable/applications/15.04.3/src/${_kmname_pv}.tar.xz" ;;
-				4.14.13)
-					# Part of 15.08.2 actually, sigh. Not stable for next release!
-					SRC_URI="mirror://kde/stable/applications/15.08.2/src/${_kmname_pv}.tar.xz" ;;
-				4.14.14)
-					# Part of 15.08.3 actually, sigh. Not stable for next release!
-					SRC_URI="mirror://kde/stable/applications/15.08.3/src/${_kmname_pv}.tar.xz" ;;
-				4.14.15)
-					# Part of 15.12.0 actually, sigh. Not stable for next release!
-					SRC_URI="mirror://kde/stable/applications/15.12.0/src/${_kmname_pv}.tar.xz" ;;
+					# Part of 15.04.3 actually, sigh. Used by last version of KDE PIM 4.
+					SRC_URI="mirror://kde/Attic/applications/15.04.3/src/${_kmname_pv}.tar.xz" ;;
 				??.?.[6-9]? | ??.??.[4-9]?)
 					# Unstable KDE Applications releases
 					SRC_URI="mirror://kde/unstable/applications/${PV}/src/${_kmname}-${PV}.tar.xz" ;;
@@ -473,6 +471,7 @@ _calculate_src_uri() {
 		kdevelop|kdevelop-php*|kdevplatform)
 			case ${KDEVELOP_VERSION} in
 				4.[123].[6-9]*) SRC_URI="mirror://kde/unstable/kdevelop/${KDEVELOP_VERSION}/src/${P}.tar.xz" ;;
+				4.7.3) SRC_URI="mirror://kde/stable/kdevelop/${KDEVELOP_VERSION}/src/${P}.tar.bz2" ;;
 				*) SRC_URI="mirror://kde/stable/kdevelop/${KDEVELOP_VERSION}/src/${P}.tar.xz" ;;
 			esac
 			;;

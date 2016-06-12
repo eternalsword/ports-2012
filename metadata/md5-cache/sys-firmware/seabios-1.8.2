@@ -1,5 +1,5 @@
 DEFINED_PHASES=compile configure install prepare pretend setup unpack
-DEPEND=!binary? ( amd64? ( >=sys-power/iasl-20060912 || ( >=dev-lang/python-2.7.5-r2:2.7 ) ) x86? ( >=sys-power/iasl-20060912 || ( >=dev-lang/python-2.7.5-r2:2.7 ) ) )
+DEPEND=!binary? ( amd64? ( >=sys-power/iasl-20060912 || ( dev-lang/python:3.5 dev-lang/python:3.4 >=dev-lang/python-3.3.2-r2:3.3 >=dev-lang/python-2.7.5-r2:2.7 ) ) x86? ( >=sys-power/iasl-20060912 || ( dev-lang/python:3.5 dev-lang/python:3.4 >=dev-lang/python-3.3.2-r2:3.3 >=dev-lang/python-2.7.5-r2:2.7 ) ) )
 DESCRIPTION=Open Source implementation of a 16-bit x86 BIOS
 EAPI=5
 HOMEPAGE=http://www.seabios.org
@@ -9,5 +9,5 @@ LICENSE=LGPL-3 GPL-3
 REQUIRED_USE=debug? ( !binary ) !amd64? ( !x86? ( binary ) )
 SLOT=0
 SRC_URI=!binary? ( http://code.coreboot.org/p/seabios/downloads/get/seabios-1.8.2.tar.gz ) binary? ( mirror://gentoo/bios.bin-1.8.2.xz seavgabios? ( mirror://gentoo/seavgabios-1.8.2.tar.xz ) )
-_eclasses_=eutils	d9bd2ddd85a58e470b49ca997e255a4c	multilib	3972ca401cf7dbb430df9995f5d8d580	python-any-r1	8eb13cdf35f6e43c48107b911900b2cc	python-utils-r1	30887c5e8630bbf27b5cf0fd74564323	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85
-_md5_=62e8d16d9c401603b32ad2f5cfab82a2
+_eclasses_=eutils	792f83d5ec9536cb5ccef375469d8bde	multilib	d062ae4ba2fc40a19c11de2ad89b6616	python-any-r1	8eb13cdf35f6e43c48107b911900b2cc	python-utils-r1	c0ed2a2f233d3af6dd556048695dc5cb	toolchain-funcs	d513d423d449877e49d99af3f7af7acb
+_md5_=f5f906c11858d4132e8745a97913ba99

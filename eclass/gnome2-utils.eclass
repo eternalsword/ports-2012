@@ -15,10 +15,11 @@
 #  * GConf schemas management
 #  * scrollkeeper (old Gnome help system) management
 
-inherit eutils multilib xdg-utils
+[[ ${EAPI:-0} == [012345] ]] && inherit multilib
+inherit eutils xdg-utils
 
 case "${EAPI:-0}" in
-	0|1|2|3|4|5) ;;
+	0|1|2|3|4|5|6) ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
 
@@ -100,6 +101,14 @@ gnome2_environment_reset() {
 
 	# Ensure we don't rely on dconf/gconf while building, bug #511946
 	export GSETTINGS_BACKEND="memory" 
+
+	if has ${EAPI:-0} 6; then
+		# Try to cover the packages honoring this variable, bug #508124
+		export GST_INSPECT="$(type -P true)"
+		
+		# Stop relying on random DISPLAY variable values, bug #534312
+		unset DISPLAY
+	fi
 }
 
 # @FUNCTION: gnome2_gconf_savelist
@@ -501,8 +510,8 @@ gnome2_disable_deprecation_warning() {
 		fi
 
 		LC_ALL=C sed -r -i \
-			-e 's:-D[A-Z_]+_DISABLE_DEPRECATED:$(NULL):g' \
-			-e 's:-DGSEAL_ENABLE+[A-Z_]:$(NULL):g' \
+			-e 's:-D[A-Z_]+_DISABLE_DEPRECATED:$(/bin/true):g' \
+			-e 's:-DGSEAL_ENABLE(=[A-Za-z0-9_]*)?:$(/bin/true):g' \
 			-i "${makefile}"
 
 		if [[ $? -ne 0 ]]; then

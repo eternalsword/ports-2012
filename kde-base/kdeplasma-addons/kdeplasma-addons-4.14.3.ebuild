@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -8,7 +8,7 @@ inherit flag-o-matic kde4-base
 
 DESCRIPTION="Extra Plasma applets and engines"
 LICENSE="GPL-2 LGPL-2"
-KEYWORDS="amd64 ~arm ppc ppc64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~ppc ~ppc64 x86 ~amd64-linux ~x86-linux"
 IUSE="attica debug desktopglobe exif fcitx ibus json +kdepim oauth qalculate
 qwt scim"
 
@@ -28,7 +28,7 @@ COMMON_DEPEND="
 	ibus? ( app-i18n/ibus )
 	json? ( dev-libs/qjson )
 	kdepim? ( $(add_kdeapps_dep kdepimlibs) )
-	oauth? ( dev-libs/qoauth )
+	oauth? ( dev-libs/qoauth:0 )
 	qalculate? ( sci-libs/libqalculate )
 	qwt? ( x11-libs/qwt:5 )
 	scim? ( app-i18n/scim )

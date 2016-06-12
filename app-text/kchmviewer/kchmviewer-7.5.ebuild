@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -12,12 +12,12 @@ SRC_URI="mirror://sourceforge/kchmviewer/${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="debug qt5"
+KEYWORDS="amd64 ~ppc ~x86"
+IUSE="qt5"
 
 RDEPEND="
 	dev-libs/chmlib
-	dev-libs/libzip
+	dev-libs/libzip:=
 	qt5? (
 		dev-qt/qtcore:5
 		dev-qt/qtdbus:5

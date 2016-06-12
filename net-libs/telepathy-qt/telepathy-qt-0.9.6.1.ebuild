@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -8,8 +8,8 @@ PYTHON_COMPAT=( python2_7 )
 inherit python-any-r1 cmake-utils virtualx multibuild
 
 DESCRIPTION="Qt bindings for the Telepathy D-Bus protocol"
-HOMEPAGE="http://telepathy.freedesktop.org/"
-SRC_URI="http://telepathy.freedesktop.org/releases/${PN}/${P}.tar.gz"
+HOMEPAGE="https://telepathy.freedesktop.org/"
+SRC_URI="https://telepathy.freedesktop.org/releases/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
@@ -51,10 +51,10 @@ DEPEND="${RDEPEND}
 DOCS=( AUTHORS ChangeLog HACKING NEWS README )
 
 PATCHES=(
-	"${FILESDIR}/${PV}-default-source.patch"
-	"${FILESDIR}/${PV}-yes-release.patch"
+	"${FILESDIR}/${P}-default-source.patch"
+	"${FILESDIR}/${P}-yes-release.patch"
 	"${FILESDIR}/${P}-gstreamer-1.5.patch"
-	"${FILESDIR}/${PN}-0.9.6.1-qtpath.patch"
+	"${FILESDIR}/${P}-qtpath.patch"
 )
 
 pkg_setup() {

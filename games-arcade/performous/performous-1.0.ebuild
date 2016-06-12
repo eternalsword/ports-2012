@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -61,13 +61,16 @@ src_prepare() {
 		"${FILESDIR}"/${P}-libav.patch \
 		"${FILESDIR}"/${P}-gentoo.patch \
 		"${FILESDIR}"/${P}-linguas.patch \
+		"${FILESDIR}"/${P}-gcc52.patch \
 		"${FILESDIR}"/${P}-include.patch
 	sed -i \
 		-e "s:@GENTOO_BINDIR@:${GAMES_BINDIR}:" \
 		-e '/ Z /s/ Z / ZLIB /' \
+		-e 's/Z_FOUND/ZLIB_FOUND/g' \
+		-e 's/Z_LIBRARIES/ZLIB_LIBRARIES/g' \
 		-e 's/Jpeg/JPEG/' \
 		-e 's/Png/PNG/' \
-		game/CMakeLists.txt || die
+		{game,tools}/CMakeLists.txt || die
 
 	strip-linguas -u lang
 }
