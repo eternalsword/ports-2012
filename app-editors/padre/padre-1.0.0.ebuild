@@ -101,6 +101,10 @@ DEPEND="${RDEPEND}"
 
 #SRC_TEST=do
 
+src_prepare() {
+	epatch "${FILESDIR}"/${P}-DBD::Sqlite.patch
+}
+
 src_configure() {
 	unset DISPLAY
 	perl-module_src_configure
