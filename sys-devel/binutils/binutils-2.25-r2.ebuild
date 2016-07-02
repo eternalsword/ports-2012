@@ -2,7 +2,7 @@
 
 EAPI=5
 
-inherit multilib
+inherit eutils multilib
 
 DESCRIPTION="The official GNU collection of binary linker/assembler tools."
 HOMEPAGE="http://www.gnu.org/software/binutils/"
@@ -10,7 +10,7 @@ HOMEPAGE="http://www.gnu.org/software/binutils/"
 LICENSE="|| ( GPL-3 LGPL-3 )"
 SLOT="${PV}"
 KEYWORDS="*"
-IUSE="cxx multislot multitarget nls static-libs test zlib"
+IUSE="cxx hardened multislot multitarget nls static-libs test zlib"
 
 EGIT_COMMIT=69352378c67a71c3f1e41d219035febbd943461c
 S=$WORKDIR/binutils-gdb
@@ -51,6 +51,7 @@ src_prepare() {
 		-e '/^datadir = /s:$(prefix)/@DATADIRNAME@:@datadir@:' \
 		-e '/^gnulocaledir = /s:$(prefix)/share:$(datadir):' \
 		*/po/Make-in || die "sed po's failed"
+	use hardened && epatch "${FILESDIR}"/78_all_use-relro.patch
 }
 
 src_configure() {
