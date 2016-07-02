@@ -31,7 +31,7 @@ SPECS_VER="0.2.0"
 SPECS_GCC_VER="4.4.3"
 SPECS_A="gcc-${SPECS_GCC_VER}-specs-${SPECS_VER}.tar.bz2"
 PIE_A="gcc-${PV}-piepatches-v${PIE_VER}.tar.bz2"
-GENTOO_PATCH_VER="1.0"
+GENTOO_PATCH_VER="1.1"
 GENTOO_PATCH_A="gcc-${PV}-patches-${GENTOO_PATCH_VER}.tar.bz2"
 
 GMP_VER="6.1.0"
