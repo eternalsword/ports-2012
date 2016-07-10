@@ -10,13 +10,9 @@ RESTRICT="strip"
 FEATURES=${FEATURES/multilib-strict/}
 
 IUSE="ada go +fortran objc objc++ openmp" # languages
-IUSE="$IUSE cxx multislot nls vanilla doc multilib altivec libssp hardened graphite sanitize" # other stuff
+IUSE="$IUSE cxx nls vanilla doc multilib altivec libssp hardened graphite sanitize" # other stuff
 
 SLOT="${PV}"
-
-# Ada support:
-(use ada && ! { use amd64 || use x86 ;}) && \
-	die "ada USE flag only supported on x86-64 or x86-32"
 
 # Hardened Support:
 #
@@ -578,7 +574,7 @@ pkg_postinst() {
 			fi
 		fi
 	fi
-	use multislot && do_config="no"
+
 	if [ "$do_config" == "yes" ]; then
 		gcc-config ${CTARGET}-${GCC_CONFIG_VER}
 	else

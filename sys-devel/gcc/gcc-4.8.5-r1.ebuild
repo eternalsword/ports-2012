@@ -10,7 +10,7 @@ RESTRICT="strip"
 FEATURES=${FEATURES/multilib-strict/}
 
 IUSE="go +fortran objc objc++ openmp" # languages
-IUSE="$IUSE cxx multislot nls vanilla doc multilib altivec libssp hardened" # other stuff
+IUSE="$IUSE cxx nls vanilla doc multilib altivec libssp hardened" # other stuff
 SLOT="${PV}"
 
 #Hardened Support:
@@ -520,7 +520,7 @@ pkg_postinst() {
 			fi
 		fi
 	fi
-	use multislot && do_config="no"
+
 	if [ "$do_config" == "yes" ]; then
 		gcc-config ${CTARGET}-${GCC_CONFIG_VER}
 	else
