@@ -18,8 +18,8 @@ RDEPEND="
 	!<kde-apps/kde-l10n-${PV}
 "
 
-KEYWORDS="amd64 ~arm ~ppc ~ppc64 x86 ~x86-fbsd ~amd64-linux ~x86-linux"
-IUSE="minimal"
+KEYWORDS="amd64 ~arm x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+IUSE="+minimal"
 
 REMOVE_DIRS="${FILESDIR}/${PN}-15.11.90-remove-dirs"
 REMOVE_MSGS="${FILESDIR}/${PN}-15.12.3-remove-messages"

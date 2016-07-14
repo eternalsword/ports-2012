@@ -616,7 +616,7 @@ kde4-base_pkg_setup() {
 	# In theory should be in pkg_pretend but we check it only for kdelibs there
 	# and for others we do just quick scan in pkg_setup because pkg_pretend
 	# executions consume quite some time (ie. when merging 300 packages at once will cause 300 checks)
-	if [[ ${MERGE_TYPE} != binary ]]; then
+	if [[ ${MERGE_TYPE} != binary ]] && tc-is-gcc; then
 		[[ $(gcc-major-version) -lt 4 ]] || \
 				( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -le 6 ]] ) \
 			&& die "Sorry, but gcc-4.6 and earlier wont work for some KDE packages."
@@ -891,16 +891,6 @@ kde4-base_pkg_postinst() {
 			einfo "Use it at your own risk."
 			einfo "Do _NOT_ file bugs at bugs.gentoo.org because of this ebuild!"
 			echo
-		fi
-		# for all 3rd party soft tell user that he SHOULD install kdebase-startkde or kdebase-runtime-meta
-		if [[ ${KDEBASE} != kde-base ]] && \
-				! has_version 'kde-apps/kdebase-runtime-meta'; then
-			if [[ ${KDE_REQUIRED} == always ]] || ( [[ ${KDE_REQUIRED} == optional ]] && use kde ); then
-				echo
-				ewarn "WARNING! Your system configuration does not contain \"kde-apps/kdebase-runtime-meta\"."
-				ewarn "With this setting you are unsupported by KDE team."
-				ewarn "All missing features you report for misc packages will be probably ignored or closed as INVALID."
-			fi
 		fi
 	fi
 }
