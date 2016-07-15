@@ -2,19 +2,19 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
-
-inherit eutils
+EAPI=5
+inherit eutils udev
 
 DESCRIPTION="Library to handle input devices in Wayland"
-HOMEPAGE="http://www.freedesktop.org/wiki/Software/libinput/"
-SRC_URI="http://www.freedesktop.org/software/${PN}/${P}.tar.xz"
+HOMEPAGE="https://www.freedesktop.org/wiki/Software/libinput/"
+SRC_URI="https://www.freedesktop.org/software/${PN}/${P}.tar.xz"
 
-# License appears to be a variant of libtiff
-LICENSE="libtiff"
-SLOT="0/7"
-KEYWORDS="alpha amd64 arm ~arm64 hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh ~sparc x86"
-IUSE=""
+LICENSE="MIT"
+SLOT="0/10"
+KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh sparc x86"
+IUSE="test"
+# Tests require write access to udev rules directory which is a no-no for live system.
+# Other tests are just about logs, exported symbols and autotest of the test library.
 RESTRICT="test"
 
 RDEPEND="
@@ -23,8 +23,11 @@ RDEPEND="
 	virtual/libudev
 "
 DEPEND="${RDEPEND}
-	virtual/pkgconfig
-"
+	virtual/pkgconfig"
+#	test? (
+#		>=dev-libs/check-0.9.10
+#		dev-util/valgrind
+#		sys-libs/libunwind )
 
 src_configure() {
 	# Doc handling in kinda strange but everything
@@ -39,11 +42,12 @@ src_configure() {
 	econf \
 		--disable-documentation \
 		--disable-event-gui \
-		--disable-tests
+		$(use_enable test tests) \
+		--with-udev-dir="$(get_udevdir)"
 }
 
 src_install() {
-	emake install DESTDIR="${D}" || die
+	emake install DESTDIR="${D}"
 	dodoc -r doc/html
 	prune_libtool_files
 }
