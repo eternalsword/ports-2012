@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -27,12 +27,15 @@ HOMEPAGE="http://www.gegl.org/"
 LICENSE="|| ( GPL-3 LGPL-3 )"
 SLOT="0.3"
 
-IUSE="cairo cpu_flags_x86_mmx cpu_flags_x86_sse debug ffmpeg +introspection jpeg jpeg2k lcms lensfun libav openexr png raw sdl svg test tiff umfpack vala v4l webp"
+IUSE="cairo cpu_flags_x86_mmx cpu_flags_x86_sse debug ffmpeg +introspection jpeg2k lcms lensfun openexr raw sdl svg test tiff umfpack vala v4l webp"
 REQUIRED_IUSE="
 	svg? ( cairo )
 	vala? ( introspection )
 "
 
+# NOTE: Even current libav 11.4 does not have AV_CODEC_CAP_VARIABLE_FRAME_SIZE
+#       so there is no chance to support libav right now (Gentoo bug #567638)
+#       If it returns, please check prior GEGL ebuilds for how libav was integrated.  Thanks!
 RDEPEND="
 	>=dev-libs/glib-2.36:2
 	dev-libs/json-glib
@@ -43,16 +46,15 @@ RDEPEND="
 
 	cairo? ( x11-libs/cairo )
 	ffmpeg? (
-		libav? ( media-video/libav:0= )
-		!libav? ( media-video/ffmpeg:0= )
+		>=media-video/ffmpeg-2.8:0=
 	)
 	introspection? ( >=dev-libs/gobject-introspection-1.32 )
-	jpeg? ( virtual/jpeg:0= )
+	virtual/jpeg:0=
 	jpeg2k? ( >=media-libs/jasper-1.900.1 )
 	lcms? ( >=media-libs/lcms-2.2:2 )
 	lensfun? ( >=media-libs/lensfun-0.2.5 )
 	openexr? ( media-libs/openexr )
-	png? ( media-libs/libpng:0= )
+	media-libs/libpng:0=
 	raw? ( >=media-libs/libraw-0.15.4 )
 	sdl? ( media-libs/libsdl )
 	svg? ( >=gnome-base/librsvg-2.14:2 )
@@ -149,14 +151,14 @@ src_configure() {
 		$(use_with ffmpeg libavformat) \
 		--without-gexiv2 \
 		--without-graphviz \
-		$(use_with jpeg libjpeg) \
+		--with-libjpeg \
 		$(use_with jpeg2k jasper) \
 		$(use_with lcms) \
 		$(use_with lensfun) \
 		--without-lua \
 		--without-mrg \
 		$(use_with openexr) \
-		$(use_with png libpng) \
+		--with-libpng \
 		$(use_with raw libraw) \
 		$(use_with sdl) \
 		$(use_with svg librsvg) \

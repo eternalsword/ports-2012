@@ -30,6 +30,27 @@
 
 #--- END OF EXAMPLES ---
 
+# Johannes Huber <johu@gentoo.org> (4 Aug 2016)
+# Masked for removal in 30 days. Dead upstream. Last release
+# 7 years ago. No reverse dependencies. Use kde-apps/ffmpegthumbs
+# or media-video/ffmpegthumbnailer instead.
+media-video/kffmpegthumbnailer
+
+# Kent Fredric <kentnl@gentoo.org> (3 Aug 2016)
+# No reverse dependencies, was never clear why it was in tree,
+# upstream stagnant, dev-libs/cdk is mostly unmaintained.
+#
+# Please voice concerns on bug 575036 if you still need this.
+# Removal in 30 days.
+dev-perl/cdk-perl
+
+# Matthias Maier <tamiko@gentoo.org> (3 Aug 2016)
+# Masked for removal in 30 days. Obsolete packages that are now part of
+# sci-libs/libqalculate and/or sci-calculators/qalculate-gtk
+sci-calculators/qalculate-bases
+sci-calculators/qalculate-currency
+sci-calculators/qalculate-units
+
 # Kent Fredric <kentnl@gentoo.org> (3 Aug 2016)
 # Contents superseded by virtual/perl-Test-Simple >=1.1.10
 # and now only creates depdendency resolution headaches.
