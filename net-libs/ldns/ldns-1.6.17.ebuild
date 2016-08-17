@@ -1,6 +1,8 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
-EAPI=5
+EAPI="5"
 PYTHON_COMPAT=( python2_7 )
 
 inherit eutils multilib-minimal python-single-r1
@@ -11,7 +13,7 @@ SRC_URI="http://www.nlnetlabs.nl/downloads/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="alpha amd64 arm hppa ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~ppc-macos ~x64-macos ~x64-solaris"
 IUSE="dane doc +ecdsa gost python +ssl static-libs vim-syntax"
 
 # configure will die if ecdsa is enabled and ssl is not
@@ -38,6 +40,10 @@ MULTILIB_CHOST_TOOLS=(
 
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
+}
+
+src_prepare() {
+	epatch "${FILESDIR}/${P}_perl522.patch"
 }
 
 multilib_src_configure() {
