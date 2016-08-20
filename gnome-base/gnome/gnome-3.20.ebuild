@@ -33,7 +33,7 @@ RDEPEND="
 		>=app-accessibility/at-spi2-atk-2.18
 		>=app-accessibility/at-spi2-core-2.18
 		>=app-accessibility/caribou-0.4.19
-		>=app-accessibility/orca
+		app-accessibility/orca
 		>=gnome-extra/mousetweaks-3.12.0 )
 	classic? ( gnome-extra/gnome-shell-extensions )
 	extras? ( gnome-base/gnome-extra-apps )
