@@ -1,18 +1,22 @@
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
-EAPI=5
+EAPI=6
+
+PARTS_P="${PN}-parts-${PV}"
 
 inherit qmake-utils
 
 DESCRIPTION="Electronic Design Automation"
 HOMEPAGE="http://fritzing.org/"
-FRITZING_PARTS_COMMIT=40d95121666e76bafbf276af313545b0c67edeb3
-SRC_URI="https://github.com/fritzing/fritzing-app/archive/${PV}.tar.gz -> ${P}.tar.gz https://github.com/fritzing/fritzing-parts/archive/${FRITZING_PARTS_COMMIT}.tar.gz"
+SRC_URI="https://github.com/fritzing/fritzing-app/archive/${PV}.tar.gz -> ${P}.tar.gz
+	https://github.com/fritzing/fritzing-parts/archive/${PV}.tar.gz -> ${PARTS_P}.tar.gz"
 
-LICENSE="CC-BY-SA-3.0 GPL-2 GPL-3"
+LICENSE="CC-BY-SA-3.0 GPL-3+"
 SLOT="0"
-KEYWORDS="~*"
-IUSE="qt5"
+KEYWORDS="~amd64 ~x86"
+IUSE=""
 
 RDEPEND="dev-qt/qtconcurrent:5
 	dev-qt/qtcore:5
@@ -24,46 +28,50 @@ RDEPEND="dev-qt/qtconcurrent:5
 	dev-qt/qtsvg:5
 	dev-qt/qtwidgets:5
 	dev-qt/qtxml:5
-	dev-libs/quazip"
+	dev-libs/quazip[qt5]"
 DEPEND="${RDEPEND}
-
-	>=dev-libs/boost-1.40"
+	>=dev-libs/boost-1.40:="
 
 S="${WORKDIR}/${PN}-app-${PV}"
-src_unpack() {
-	unpack ${A}
-	mv "${WORKDIR}"/${PN}-parts-*/* "${S}/parts" || die
-}
+
+DOCS="readme.md"
 
 src_prepare() {
-	local translations=
-	epatch ${FILESDIR}/${PN}-desktop.patch
+	local lang translations=
 
 	# Get a rid of the bundled libs
 	# Bug 412555 and
 	# https://code.google.com/p/fritzing/issues/detail?id=1898
-
-	rm -rf src/lib/quazip/ pri/quazip.pri src/lib/boost*
+	rm -rf src/lib/quazip/ pri/quazip.pri src/lib/boost* || die
 
 	# Fritzing doesn't need zlib
-
 	sed -i -e 's:LIBS += -lz::' -e 's:-lminizip::' phoenix.pro || die
 
-	edos2unix ${PN}.desktop
-
 	# Somewhat evil but IMHO the best solution
-
-	for lang in $LINGUAS; do
+	for lang in $L10N; do
 		lang=${lang/linguas_}
-		[ -f "translations/${PN}_${lang}.qm" ] && translations+=" translations/${PN}_${lang}.qm"
+		[[ -f "translations/${PN}_${lang}.qm" ]] && translations+=" translations/${PN}_${lang}.qm"
 	done
-	if [ -n "${translations}" ]; then
+	if [[ -n "${translations}" ]]; then
 		sed -i -e "s:\(translations.extra =\) .*:\1	cp -p ${translations} \$(INSTALL_ROOT)\$\$PKGDATADIR/translations\r:" phoenix.pro || die
 	else
 		sed -i -e "s:translations.extra = .*:\r:" phoenix.pro || die
 	fi
+
+	# Fix missing Intel bin icon
+	# https://github.com/fritzing/fritzing-parts/commit/716560e9
+	sed -i -e 's:Intel.png:intel.png:' bins/more/intel.fzb || die
+
+	default
 }
 
 src_configure() {
-	eqmake5 DEFINES=QUAZIP_INSTALLED PREFIX="${D}"/usr phoenix.pro
+	eqmake5 DEFINES=QUAZIP_INSTALLED phoenix.pro
+}
+
+src_install() {
+	INSTALL_ROOT="${D}" default
+
+	insinto /usr/share/fritzing/parts
+	doins -r "${WORKDIR}/${PARTS_P}"/*
 }

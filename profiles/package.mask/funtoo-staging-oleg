@@ -1,21 +1,9 @@
-# re-mask gnutls, which is unmasked in gentoo-x86. not tested enough as claimed
->=net-libs/gnutls-3.4.0
-
-# avoid icedtea-bin-7.2.6.6 due to unsatisfied glibc dep.
->=dev-java/icedtea-bin-7.2.6.6
+# mask rkt version that is forced systemd. until sorted.
+>=app-emulation/rkt-1.7.0
 
 # precaution staging mask for newer boost. ~ ebuilds unmasked in gentoo-x86.
 >=dev-libs/boost-1.58.0-r2
 >=dev-util/boost-build-1.59.0
-
-# basealyout-2.2.1. Minor updates to various etc files. Keep ebuild masked for testing
-=sys-apps/baselayout-2.2.1
-
-# ati-drivers update. masked for testing:
-=x11-drivers/ati-drivers-15.12
-
-# a mask of elfutils that needs new glibc. until FL-3054 is fixed.
->=dev-libs/elfutils-0.165
 
 # mask ruby 2.3 until targets also updated to ruby2.3. need tested. Also mask newer eselect ruby, which brings ruby:2.3 support.
 =app-eselect/eselect-ruby-2015*

@@ -1,4 +1,6 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -11,7 +13,7 @@ HOMEPAGE="https://git.gnome.org/browse/gnome-user-share"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="amd64 x86"
 IUSE=""
 
 # FIXME: could libnotify be made optional ?
@@ -22,7 +24,7 @@ RDEPEND="
 	>=gnome-base/nautilus-2.91.7
 	media-libs/libcanberra[gtk3]
 	>=www-apache/mod_dnssd-0.6
-	>=www-servers/apache-2.2[apache2_modules_dav,apache2_modules_dav_fs,apache2_modules_authn_file,apache2_modules_auth_digest,apache2_modules_authz_groupfile]
+	>=www-servers/apache-2.2[apache2_modules_dav,apache2_modules_dav_fs,apache2_modules_authn_file,apache2_modules_auth_digest,apache2_modules_authz_groupfile,apache2_mpms_prefork]
 	>=x11-libs/libnotify-0.7:=
 "
 DEPEND="${RDEPEND}
@@ -33,10 +35,6 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
 "
-
-src_prepare() {
-	epatch ${FILESDIR}/gnome-user-share-3.14-remove-prefork.patch || die
-}
 
 src_configure() {
 	gnome2_src_configure \

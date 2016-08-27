@@ -120,6 +120,7 @@ hy_AM - Armenian locale
 ia - Interlingua locale
 id - Indonesian locale
 id_ID - Indonesian locale
+ii - Nousu locale
 is - Icelandic locale
 is_IS - Icelandic locale for Iceland
 it - Italian locale
@@ -141,6 +142,7 @@ kok - Konkani locale
 ks - Kashmiri locale
 ksw - S'gaw Karen locale
 ku - Kurdish (latin) locale
+ku_IQ - Kurdish (latin) locale for Iraq
 ky - Kyrgyz (Kirghiz) locale
 ky_KG -  Kyrgyz (Kirghiz) locale for Kyrgyzstan
 la - Latin locale
@@ -187,6 +189,7 @@ or - Oriya locale
 pa - Punjabi locale for India
 pa_IN - Punjabi locale for India
 pam - Kapampangan locale
+pap - Papiamento locale
 pl - Polish locale
 pl_PL - Polish locale
 ps - Pushto locale
@@ -205,6 +208,7 @@ sa - Sanskrit locale
 sa_IN - Sanskrit locale for India
 sah - Sakha (Yakut) locale
 sat - Santali locale
+sc - Sardinian locale
 sco - Scots locale
 sd - Sindhi locale
 se - Northern Saami locale

@@ -10,13 +10,9 @@ RESTRICT="strip"
 FEATURES=${FEATURES/multilib-strict/}
 
 IUSE="ada go +fortran objc objc++ openmp" # languages
-IUSE="$IUSE cxx multislot nls vanilla doc multilib altivec libssp hardened graphite sanitize" # other stuff
+IUSE="$IUSE cxx nls vanilla doc multilib altivec libssp hardened graphite sanitize" # other stuff
 
 SLOT="${PV}"
-
-# Ada support:
-(use ada && ! { use amd64 || use x86 ;}) && \
-	die "ada USE flag only supported on x86-64 or x86-32"
 
 # Hardened Support:
 #
@@ -31,7 +27,7 @@ SPECS_VER="0.2.0"
 SPECS_GCC_VER="4.4.3"
 SPECS_A="gcc-${SPECS_GCC_VER}-specs-${SPECS_VER}.tar.bz2"
 PIE_A="gcc-${PV}-piepatches-v${PIE_VER}.tar.bz2"
-GENTOO_PATCH_VER="1.0"
+GENTOO_PATCH_VER="1.1"
 GENTOO_PATCH_A="gcc-${PV}-patches-${GENTOO_PATCH_VER}.tar.bz2"
 
 GMP_VER="6.1.0"
@@ -163,7 +159,8 @@ src_prepare() {
 		is_crosscompile && EPATCH_EXCLUDE+=" 05_all_gcc-spec-env.patch"
 		if [ -n "$GENTOO_PATCH_VER" ]; then
 			EPATCH_MULTI_MSG="Applying Gentoo patches ..." \
-			epatch ${WORKDIR}/patch
+			EPATCH_SUFFIX="patch" \
+			epatch "${WORKDIR}"/patch
 		fi
 
 		# Hardened patches
@@ -171,7 +168,8 @@ src_prepare() {
 			local gcc_hard_flags="-DEFAULT_RELRO -DEFAULT_BIND_NOW -DEFAULT_PIE_SSP"
 
 			EPATCH_MULTI_MSG="Applying PIE patches..." \
-				epatch "${WORKDIR}"/piepatch/
+				EPATCH_SUFFIX="patch" \
+				epatch "${WORKDIR}"/piepatch
 
 			sed -e '/^ALL_CFLAGS/iHARD_CFLAGS = ' \
 				-e 's|^ALL_CFLAGS = |ALL_CFLAGS = $(HARD_CFLAGS) |' \
@@ -578,7 +576,7 @@ pkg_postinst() {
 			fi
 		fi
 	fi
-	use multislot && do_config="no"
+
 	if [ "$do_config" == "yes" ]; then
 		gcc-config ${CTARGET}-${GCC_CONFIG_VER}
 	else

@@ -3,7 +3,7 @@
 # any new glibc upgrade will be built against any upgraded
 # linux-headers.
 
->=sys-libs/glibc-2.20-r2
->=sys-kernel/linux-headers-4.1
->=sys-devel/gcc-4.9.2-r2
+>=sys-libs/glibc-2.23
+>=sys-kernel/linux-headers-4.4
+>=sys-devel/gcc-5.4.0
 >=sys-devel/binutils-2.26

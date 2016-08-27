@@ -1,6 +1,8 @@
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
-EAPI=5
+EAPI="5"
 PYTHON_COMPAT=( python2_7 )
 
 inherit eutils multilib-minimal python-single-r1
@@ -11,19 +13,31 @@ SRC_URI="http://www.nlnetlabs.nl/downloads/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~*"
-IUSE="dane doc +ecdsa gost python +ssl static-libs vim-syntax"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~ppc-macos ~x64-macos ~x64-solaris"
+IUSE="dane doc +ecdsa gost libressl python +ssl static-libs vim-syntax"
 
 # configure will die if ecdsa is enabled and ssl is not
 REQUIRED_USE="ecdsa? ( ssl )
 	python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="
-	dane? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
-	ecdsa? ( >=dev-libs/openssl-1.0.1h-r2:0[-bindist,${MULTILIB_USEDEP}] )
-	gost? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
 	python? ( ${PYTHON_DEPS} )
-	ssl? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
+	dane? (
+		!libressl? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
+		libressl? ( dev-libs/libressl[${MULTILIB_USEDEP}] )
+	)
+	ecdsa? (
+		!libressl? ( >=dev-libs/openssl-1.0.1h-r2:0[-bindist,${MULTILIB_USEDEP}] )
+		libressl? ( dev-libs/libressl[${MULTILIB_USEDEP}] )
+	)
+	gost? (
+		!libressl? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
+		libressl? ( dev-libs/libressl[${MULTILIB_USEDEP}] )
+	)
+	ssl? (
+		!libressl? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
+		libressl? ( dev-libs/libressl[${MULTILIB_USEDEP}] )
+	)
 "
 DEPEND="${RDEPEND}
 	python? ( dev-lang/swig )
@@ -41,7 +55,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-1.6.17_perl-5.22_fix.patch
+	epatch "${FILESDIR}/${P}_perl522.patch"
 }
 
 multilib_src_configure() {

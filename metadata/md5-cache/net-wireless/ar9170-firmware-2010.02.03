@@ -7,5 +7,5 @@ LICENSE=atheros-firmware
 RDEPEND=|| ( virtual/udev sys-apps/hotplug )
 SLOT=0
 SRC_URI=https://api.opensuse.org/public/source/driver:wireless/ar9170-firmware/ar9170.fw
-_eclasses_=eutils	792f83d5ec9536cb5ccef375469d8bde	multilib	d062ae4ba2fc40a19c11de2ad89b6616	toolchain-funcs	d513d423d449877e49d99af3f7af7acb	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_eclasses_=eutils	792f83d5ec9536cb5ccef375469d8bde	multilib	d062ae4ba2fc40a19c11de2ad89b6616	toolchain-funcs	82165206dedb2075f9a0fb8f9b1f9441	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=57d7a423d3f37e55f9feca7deff20c41

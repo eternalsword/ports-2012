@@ -2,7 +2,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
 
 inherit distutils-r1 git-2
 
@@ -16,15 +16,14 @@ HOMEPAGE="http://www.qtile.org/"
 
 LICENSE="MIT"
 SLOT="0"
-IUSE="dbus widget-google-calendar widget-imap widget-launchbar widget-mpd widget-mpris widget-wlan widget-keyboardkbdd"
+IUSE="dbus widget-khal-calendar widget-imap widget-launchbar widget-mpd widget-mpris widget-wlan widget-keyboardkbdd"
 
 REQUIRED_USE="widget-mpris? ( dbus )
 	widget-keyboardkbdd? ( dbus )
-	widget-google-calendar? ( || ( python_targets_python2_7 python_targets_python3_4 ) )
 	widget-wlan? ( python_targets_python2_7 )
 "
 
-RDEPEND="x11-libs/cairo[xcb] x11-libs/pango
+RDEPEND="x11-libs/cairo[xcb] x11-libs/pango dev-python/setproctitle[${PYTHON_USEDEP}
 	$(python_gen_cond_dep 'dev-python/asyncio[${PYTHON_USEDEP}]' 'python3_3')
 	$(python_gen_cond_dep 'dev-python/trollius[${PYTHON_USEDEP}]' 'python2*')
 	>=dev-python/six-1.4.1[${PYTHON_USEDEP}]
@@ -35,11 +34,9 @@ RDEPEND="x11-libs/cairo[xcb] x11-libs/pango
 		dev-python/dbus-python[${PYTHON_USEDEP}]
 		>=dev-python/pygobject-3.4.2-r1000[${PYTHON_USEDEP}]
 	)
-	widget-google-calendar? (
+	widget-khal-calendar? (
 		dev-python/httplib2[${PYTHON_USEDEP}]
 		dev-python/python-dateutil[${PYTHON_USEDEP}]
-		dev-python/oauth2client[$PYTHON_USEDEP]
-		dev-python/google-api-python-client[${PYTHON_USEDEP}]
 	)
 	widget-imap? ( dev-python/keyring[${PYTHON_USEDEP}] )
 	widget-launchbar? ( dev-python/pyxdg[${PYTHON_USEDEP}] )
@@ -57,10 +54,10 @@ src_prepare() {
 			sed -i '/self.setup_python_dbus()/d' libqtile/manager.py
 		)
 	fi
-	if ! use widget-google-calendar ; then
+	if ! use widget-khal-calendar ; then
 		(
-			sed -i '/safe_import(".google_calendar", "GoogleCalendar")/d' libqtile/widget/__init__.py
-			rm libqtile/widget/google_calendar.py
+			sed -i '/safe_import(".khal_calendar", "KhalCalendar")/d' libqtile/widget/__init__.py
+			rm libqtile/widget/khal_calendar.py
 		)
 	fi
 	if ! use widget-imap ; then

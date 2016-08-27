@@ -16,7 +16,7 @@ SRC_URI="https://github.com/${PN}/${MY_PN}/releases/download/${PV/_/-}/${MY_P}.t
 # roundcube is GPL-licensed, the rest of the licenses here are
 # for bundled PEAR components, googiespell and utf8.class.php
 LICENSE="GPL-3 BSD PHP-2.02 PHP-3 MIT public-domain"
-KEYWORDS="amd64 arm ~hppa ~ppc ~ppc64 ~sparc x86"
+KEYWORDS="amd64 arm ~hppa ppc ~ppc64 ~sparc x86"
 
 IUSE="enigma ldap managesieve mysql postgres sqlite ssl spell"
 REQUIRED_USE="|| ( mysql postgres sqlite )"
@@ -34,7 +34,7 @@ RDEPEND="
 	>=dev-php/PEAR-Net_SMTP-1.6.2
 	virtual/httpd-php
 	enigma? ( >=dev-php/PEAR-Crypt_GPG-1.2.0 app-crypt/gnupg )
-	ldap? ( >=dev-php/PEAR-Net_LDAP2-2.0.12 )
+	ldap? ( >=dev-php/PEAR-Net_LDAP2-2.0.12 dev-php/PEAR-Net_LDAP3 )
 	managesieve? ( >=dev-php/PEAR-Net_Sieve-1.3.2 )
 	mysql? ( || ( dev-lang/php[mysql] dev-lang/php[mysqli] ) )
 	spell? ( dev-lang/php[curl,spell] )

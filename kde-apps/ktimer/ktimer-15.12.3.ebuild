@@ -4,14 +4,13 @@
 
 EAPI=6
 
-KDE_DOXYGEN="true"
 KDE_HANDBOOK="forceoptional"
 inherit kde5
 
 DESCRIPTION="KDE Timer"
 HOMEPAGE="https://www.kde.org/applications/utilities/ktimer
 https://utils.kde.org/projects/ktimer"
-KEYWORDS="amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 DEPEND="

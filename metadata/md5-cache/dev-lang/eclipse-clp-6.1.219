@@ -9,5 +9,5 @@ LICENSE=LGPL-2.1
 RESTRICT=coin glpk parallel
 SLOT=0
 SRC_URI=http://eclipseclp.org/Distribution/6.1_219/src/eclipse_src.tgz -> eclipse-clp-6.1.219.tar.gz
-_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	792f83d5ec9536cb5ccef375469d8bde	java-utils-2	9a25f292ff66f8c2c00100ac0b15c54f	libtool	4890219c51da247200223277f993e054	multilib	d062ae4ba2fc40a19c11de2ad89b6616	readme.gentoo-r1	03878c06495db70bc36bd717383c09f7	toolchain-funcs	d513d423d449877e49d99af3f7af7acb	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	792f83d5ec9536cb5ccef375469d8bde	java-utils-2	9a25f292ff66f8c2c00100ac0b15c54f	libtool	4890219c51da247200223277f993e054	multilib	d062ae4ba2fc40a19c11de2ad89b6616	readme.gentoo-r1	03878c06495db70bc36bd717383c09f7	toolchain-funcs	82165206dedb2075f9a0fb8f9b1f9441	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=5c0b2afda835806e8de634e0a7211959

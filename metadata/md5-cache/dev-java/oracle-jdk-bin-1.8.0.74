@@ -11,5 +11,5 @@ REQUIRED_USE=javafx? ( alsa fontconfig )
 RESTRICT=mirror preserve-libs strip
 SLOT=1.8
 SRC_URI=amd64? ( mirror://funtoo/oracle-java/jdk-8u74-linux-x64.tar.gz ) arm? ( mirror://funtoo/oracle-java/jdk-8u73-linux-arm32-vfp-hflt.tar.gz ) arm64? ( mirror://funtoo/oracle-java/jdk-8u73-linux-arm64-vfp-hflt.tar.gz ) x86? ( mirror://funtoo/oracle-java/jdk-8u74-linux-i586.tar.gz ) jce? ( mirror://funtoo/oracle-java/UnlimitedJCEPolicyJDK8.zip )
-_eclasses_=eutils	792f83d5ec9536cb5ccef375469d8bde	fdo-mime	92d07846ea8ea54172f8c0112a47ae3d	java-vm-2	781219edff5311bc07e442f4d62e4ed8	multilib	d062ae4ba2fc40a19c11de2ad89b6616	pax-utils	ecf634cba91bb9591a8fdb6f6145f1bb	prefix	e7f2b9c6e57342e5d25eac22fce23062	toolchain-funcs	d513d423d449877e49d99af3f7af7acb	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_eclasses_=eutils	792f83d5ec9536cb5ccef375469d8bde	fdo-mime	92d07846ea8ea54172f8c0112a47ae3d	java-vm-2	c8b4e8309c59dc750e862fc8a2fec671	multilib	d062ae4ba2fc40a19c11de2ad89b6616	pax-utils	ecf634cba91bb9591a8fdb6f6145f1bb	prefix	99dcca42e6528d8fe3c214bf5731aaf2	toolchain-funcs	82165206dedb2075f9a0fb8f9b1f9441	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=4407479c119d7d7bc158a803920fdb48

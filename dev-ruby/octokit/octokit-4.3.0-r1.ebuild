@@ -18,13 +18,14 @@ SRC_URI="https://github.com/octokit/octokit.rb/archive/v${PV}.tar.gz -> ${P}.tar
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm"
 IUSE=""
 
 RUBY_S=octokit.rb-${PV}
 
 ruby_add_rdepend ">=dev-ruby/sawyer-0.5.3"
-ruby_add_bdepend "test? ( >=dev-ruby/netrc-0.7.7
+ruby_add_bdepend "test? ( dev-ruby/mime-types
+	>=dev-ruby/netrc-0.7.7
 	dev-ruby/vcr:2
 	>=dev-ruby/webmock-1.9 )"
 

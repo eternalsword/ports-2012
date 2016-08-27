@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI=5
-inherit autotools eutils
+inherit autotools eutils prefix
 
 DESCRIPTION="Text based WWW browser, supports tables and frames"
 HOMEPAGE="http://w3m.sourceforge.net/"
@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/w3m/${P}.tar.gz"
 LICENSE="w3m"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris"
-IUSE="X fbcon gpm gtk imlib libressl lynxkeymap nls nntp ssl unicode vanilla xface linguas_ja"
+IUSE="X fbcon gpm gtk imlib libressl lynxkeymap nls nntp ssl unicode vanilla xface l10n_ja"
 
 # We cannot build w3m with gtk+2 w/o X because gtk+2 ebuild doesn't
 # allow us to build w/o X, so we have to give up framebuffer w3mimg....
@@ -49,6 +49,7 @@ src_prepare() {
 			"${FILESDIR}"/${P}-url-schema.patch
 	ecvs_clean
 	sed -i -e "/^AR=/s/ar/$(tc-getAR)/" {.,w3mimg,libwc}/Makefile.in || die
+	hprefixify acinclude.m4
 	eautoconf
 }
 
@@ -69,7 +70,7 @@ src_configure() {
 	# emacs-w3m doesn't like "--enable-m17n --disable-unicode,"
 	# so we better enable or disable both. Default to enable
 	# m17n and unicode, see bug #47046.
-	if use linguas_ja ; then
+	if use l10n_ja ; then
 		if use unicode ; then
 			myconf="${myconf} --enable-japanese=U"
 		else
@@ -119,7 +120,7 @@ src_install() {
 	doins Bonus/*
 	dodoc README NEWS TODO ChangeLog
 	docinto doc-en ; dodoc doc/*
-	if use linguas_ja ; then
+	if use l10n_ja ; then
 		docinto doc-jp ; dodoc doc-jp/*
 	else
 		rm -rf "${ED}"/usr/share/man/ja || die
