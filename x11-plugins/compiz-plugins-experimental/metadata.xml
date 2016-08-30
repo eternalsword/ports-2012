@@ -5,5 +5,8 @@
 	<email>noone@nowhere.com</email>
 	<name>Un-maintained</name>
 </maintainer>
-<longdescription lang="en">Simplified Compizconfig Settings Manager.</longdescription>
+<longdescription lang="en">
+Package with several compiz-fusion plugins:
+fakeargb, mswitch, snow, tile.
+</longdescription>
 </pkgmetadata>
