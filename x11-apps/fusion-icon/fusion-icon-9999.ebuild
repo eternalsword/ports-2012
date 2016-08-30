@@ -19,7 +19,7 @@ IUSE="gtk3 qt5"
 # FIXME: (nasaiya) setup.py defaults to --with-qt=5.0... not sure if --with-qt=4 even works.. just removing qt4 useflag for now.
 # FIXME: (nasaiya) do we need pycairo?
 RDEPEND="
-	>=compiz-reloaded/compizconfig-python-0.8.12
+	>=dev-python/compizconfig-python-0.8.12
 	!gtk3? ( 
             >=dev-python/pygtk-2.10:2[${PYTHON_USEDEP}] 
             dev-libs/libappindicator 

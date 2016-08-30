@@ -18,8 +18,8 @@ IUSE=""
 RDEPEND="
 	>=gnome-base/librsvg-2.14.0:2
 	x11-libs/cairo
-	>=compiz-reloaded/compiz-bcop-0.8.12
-	>=compiz-reloaded/compiz-0.8.12
+	>=x11-libs/compiz-bcop-0.8.12
+	>=x11-wm/compiz-0.8.12
 	virtual/jpeg:0
 	virtual/glu
 "

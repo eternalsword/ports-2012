@@ -14,7 +14,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="-*"
 IUSE=""
-DEPEND=">=compiz-reloaded/emerald-0.8.12"
+DEPEND=">=x11-wm/emerald-0.8.12"
 
 DOCS="INSTALL NEWS"
 

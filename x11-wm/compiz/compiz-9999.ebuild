@@ -62,7 +62,7 @@ COMMONDEPEND="
                 >=dev-libs/glib-2.32
         )
         compizconfig? (
-                >=compiz-reloaded/libcompizconfig-${PV}
+                >=x11-libs/libcompizconfig-${PV}
         )
 "
 

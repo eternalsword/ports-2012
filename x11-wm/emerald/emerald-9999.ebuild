@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="-*"
 IUSE="gtk3"
 
-PDEPEND=">=compiz-reloaded/emerald-themes-${PV}"
+PDEPEND=">=x11-themes/emerald-themes-${PV}"
 
 RDEPEND="
 	!gtk3? (

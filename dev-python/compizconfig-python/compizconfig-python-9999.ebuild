@@ -18,7 +18,7 @@ KEYWORDS="-*"
 RDEPEND="${PYTHON_DEPS}
 	>=dev-libs/glib-2.6
 	dev-python/cython
-	>=compiz-reloaded/libcompizconfig-${PV}"
+	>=x11-libs/libcompizconfig-${PV}"
 
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"

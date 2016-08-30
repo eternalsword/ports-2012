@@ -18,9 +18,9 @@ IUSE=""
 RDEPEND="
 	>=gnome-base/librsvg-2.14.0:2
 	virtual/jpeg:0
-	>=compiz-reloaded/compiz-bcop-0.8.12
-	>=compiz-reloaded/compiz-plugins-main-0.8.12
-	>=compiz-reloaded/compiz-0.8.12
+	>=x11-libs/compiz-bcop-0.8.12
+	>=x11-plugins/compiz-plugins-main-0.8.12
+	>=x11-wm/compiz-0.8.12
 "
 
 DEPEND="${RDEPEND}

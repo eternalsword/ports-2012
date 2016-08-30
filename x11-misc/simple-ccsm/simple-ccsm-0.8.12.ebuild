@@ -21,13 +21,13 @@ DEPEND="
 	dev-util/intltool
 	virtual/pkgconfig"
 RDEPEND="
-	>=compiz-reloaded/compizconfig-python-0.8.12[${PYTHON_USEDEP}]
+	>=dev-python/compizconfig-python-0.8.12[${PYTHON_USEDEP}]
 	!gtk3? ( 
             >=dev-python/pygtk-2.12:2[${PYTHON_USEDEP}] 
-            >=compiz-reloaded/ccsm-0.8.12[-gtk3,${PYTHON_USEDEP}]
+            >=x11-misc/ccsm-0.8.12[-gtk3,${PYTHON_USEDEP}]
         )
 	gtk3? ( 
-            >=compiz-reloaded/ccsm-0.8.12[gtk3,${PYTHON_USEDEP}]
+            >=x11-misc/ccsm-0.8.12[gtk3,${PYTHON_USEDEP}]
             dev-python/pygobject 
             dev-python/pycairo 
         )

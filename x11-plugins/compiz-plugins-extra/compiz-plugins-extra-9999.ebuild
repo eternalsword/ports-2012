@@ -19,9 +19,9 @@ IUSE="libnotify"
 RDEPEND="
 	>=gnome-base/librsvg-2.14.0:2
 	virtual/jpeg:0
-	>=compiz-reloaded/compiz-bcop-${PV}
-	>=compiz-reloaded/compiz-plugins-main-${PV}
-	>=compiz-reloaded/compiz-${PV}
+	>=x11-libs/compiz-bcop-${PV}
+	>=x11-plugins/compiz-plugins-main-${PV}
+	>=x11-wm/compiz-${PV}
 	libnotify? ( x11-libs/libnotify )
 "
 

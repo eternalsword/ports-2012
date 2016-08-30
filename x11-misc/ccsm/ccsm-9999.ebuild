@@ -21,7 +21,7 @@ IUSE="gtk3"
 # FIXME : (nasaiya): does this mean we need additional deps?
 # FIXME : (nasaiya): is pycairo just for gtk3?
 RDEPEND="
-	>=compiz-reloaded/compizconfig-python-${PV}[${PYTHON_USEDEP}]
+	>=dev-python/compizconfig-python-${PV}[${PYTHON_USEDEP}]
 	!gtk3? ( >=dev-python/pygtk-2.12:2[${PYTHON_USEDEP}] )
 	gtk3? ( 
             dev-python/pygobject 

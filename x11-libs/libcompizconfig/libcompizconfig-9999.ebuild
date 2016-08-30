@@ -15,7 +15,7 @@ KEYWORDS="-*"
 
 RDEPEND="dev-libs/libxml2
 	dev-libs/protobuf
-	>=compiz-reloaded/compiz-${PV}
+	>=x11-wm/compiz-${PV}
 	x11-libs/libX11"
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.41
