@@ -12,7 +12,7 @@ SRC_URI="https://github.com/compiz-reloaded/compiz-plugins-extra/releases/downlo
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="*"
 IUSE="libnotify"
 
 RDEPEND="

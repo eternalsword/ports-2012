@@ -12,7 +12,7 @@ SRC_URI="https://github.com/compiz-reloaded/emerald/releases/download/v${PV}/eme
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="*"
 IUSE="gtk3"
 
 PDEPEND=">=x11-themes/emerald-themes-0.8.12"

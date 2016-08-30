@@ -11,7 +11,7 @@ SRC_URI="https://github.com/compiz-reloaded/libcompizconfig/releases/download/v$
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="*"
 
 RDEPEND="dev-libs/libxml2
 	dev-libs/protobuf

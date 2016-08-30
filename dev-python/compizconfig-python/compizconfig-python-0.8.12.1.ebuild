@@ -13,7 +13,7 @@ SRC_URI="https://github.com/compiz-reloaded/compizconfig-python/releases/downloa
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="*"
 
 RDEPEND="${PYTHON_DEPS}
 	>=dev-libs/glib-2.6

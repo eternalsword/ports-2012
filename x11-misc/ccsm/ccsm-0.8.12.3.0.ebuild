@@ -14,7 +14,7 @@ SRC_URI="https://github.com/compiz-reloaded/ccsm/releases/download/v${PV}/ccsm-$
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="*"
 IUSE="gtk3"
 
 # FIXME : (Myu): (regarding pygobject) Needed introspections for ccsm: GLib, Gtk, Gdk, GdkX11, GdkPixbuf, Pango, PangoCairo ( XRevan86 IRC ) 

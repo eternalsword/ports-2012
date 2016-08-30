@@ -12,7 +12,7 @@ SRC_URI="https://github.com/compiz-reloaded/compiz/releases/download/v0.8.12.3/c
 
 LICENSE="GPL-2 LGPL-2.1 MIT"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="*"
 IUSE="gtk3 +cairo dbus fuse +svg inotify marco mate gsettings compizconfig"
 
 COMMONDEPEND="
