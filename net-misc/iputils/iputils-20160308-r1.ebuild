@@ -24,9 +24,10 @@ HOMEPAGE="https://wiki.linuxfoundation.org/networking/iputils"
 
 LICENSE="BSD-4"
 SLOT="0"
-IUSE="arping clockdiff doc gcrypt idn ipv6 libressl nettle +openssl rarpd rdisc SECURITY_HAZARD ssl static tftpd tracepath traceroute"
+IUSE="arping caps clockdiff doc gcrypt idn ipv6 libressl nettle +openssl rarpd rdisc SECURITY_HAZARD ssl static tftpd tracepath traceroute"
 
-LIB_DEPEND="idn? ( net-dns/libidn[static-libs(+)] )
+LIB_DEPEND="caps? ( sys-libs/libcap[static-libs(+)] )
+	idn? ( net-dns/libidn[static-libs(+)] )
 	ipv6? ( ssl? (
 		gcrypt? ( dev-libs/libgcrypt:0=[static-libs(+)] )
 		nettle? ( dev-libs/nettle[static-libs(+)] )
@@ -57,6 +58,7 @@ S=${WORKDIR}/${PN}-s${PV}
 
 PATCHES=(
 	"${FILESDIR}/021109-uclibc-no-ether_ntohost.patch"
+	"${FILESDIR}/iputils-old-kernel.patch"
 )
 
 src_prepare() {
@@ -96,6 +98,7 @@ src_configure() {
 src_compile() {
 	tc-export CC
 	emake \
+		USE_CAP=$(usex caps) \
 		USE_IDN=$(usex idn) \
 		IPV4_DEFAULT=$(usex ipv6 'no' 'yes') \
 		TARGETS="${TARGETS[*]}" \
@@ -150,8 +153,10 @@ src_install() {
 	fi
 
 	fperms 4711 /bin/ping
-	use ipv6 && fperms 4711 /bin/ping6 /usr/sbin/tracepath6
-
+	use ipv6 && fperms 4711 /bin/ping6
+	if use tracepath && use ipv6 ; then
+		fperms 4711 /usr/sbin/tracepath6
+	fi
 	dodoc INSTALL RELNOTES
 	use doc && dohtml doc/*.html
 }
