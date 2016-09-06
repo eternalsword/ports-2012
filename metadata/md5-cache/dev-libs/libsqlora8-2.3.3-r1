@@ -1,0 +1,14 @@
+DEFINED_PHASES=compile configure install
+DEPEND=dev-db/oracle-instantclient virtual/pkgconfig
+DESCRIPTION=Simple C-library to access Oracle databases via the OCI interface
+EAPI=6
+HOMEPAGE=http://www.poitschke.de/libsqlora8/index_noframe.html
+IUSE=orathreads static-libs +threads
+KEYWORDS=~x86
+LICENSE=ISC
+RDEPEND=dev-db/oracle-instantclient
+REQUIRED_USE=?? ( orathreads threads )
+SLOT=0
+SRC_URI=http://www.poitschke.de/libsqlora8/libsqlora8-2.3.3.tar.gz
+_eclasses_=eutils	792f83d5ec9536cb5ccef375469d8bde	flag-o-matic	8632fcd33a047954f007dee9a137bdcc	multilib	d062ae4ba2fc40a19c11de2ad89b6616	toolchain-funcs	82165206dedb2075f9a0fb8f9b1f9441	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=f5797797ab98ceb908abcb38066c3f83
