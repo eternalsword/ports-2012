@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install postinst postrm preinst prepare prerm pretend setup
+DEPEND=binary? ( >=sys-kernel/genkernel-3.4.40.7 )
+DESCRIPTION=Debian Sources (and optional binary kernel)
+EAPI=5
+HOMEPAGE=http://www.debian.org
+IUSE=binary
+KEYWORDS=*
+LICENSE=GPL-2
+RESTRICT=binchecks strip mirror
+SLOT=4.7.2
+SRC_URI=mirror://funtoo/linux_4.7.2.orig.tar.xz mirror://funtoo/linux_4.7.2-1.debian.tar.xz
+_eclasses_=check-reqs	aee25bdf4e2f459af86d17f7c41dcdf6	eutils	792f83d5ec9536cb5ccef375469d8bde	mount-boot	ea24b511b0ad59831d0151aa634dfad2	multilib	d062ae4ba2fc40a19c11de2ad89b6616	toolchain-funcs	82165206dedb2075f9a0fb8f9b1f9441
+_md5_=757f623eaa659154f3e05a504d4dc827
