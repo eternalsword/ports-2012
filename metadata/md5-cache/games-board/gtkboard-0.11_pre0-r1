@@ -1,0 +1,13 @@
+DEFINED_PHASES=configure install prepare
+DEPEND=x11-libs/gtk+:2 media-libs/libsdl:0[sound] media-libs/sdl-mixer[vorbis] gnome? ( gnome-base/libgnomeui ) virtual/pkgconfig
+DESCRIPTION=Board games system
+EAPI=6
+HOMEPAGE=http://gtkboard.sourceforge.net/
+IUSE=gnome
+KEYWORDS=~amd64 ~ppc ~x86
+LICENSE=GPL-2
+RDEPEND=x11-libs/gtk+:2 media-libs/libsdl:0[sound] media-libs/sdl-mixer[vorbis] gnome? ( gnome-base/libgnomeui )
+SLOT=0
+SRC_URI=mirror://sourceforge/gtkboard/gtkboard-0.11pre0.tar.gz
+_eclasses_=eutils	792f83d5ec9536cb5ccef375469d8bde	multilib	d062ae4ba2fc40a19c11de2ad89b6616	toolchain-funcs	82165206dedb2075f9a0fb8f9b1f9441
+_md5_=37c781106babb00be35632f04f1bbf57
