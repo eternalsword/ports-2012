@@ -783,6 +783,13 @@ app-forensics/openscap:rpm - Compiles the RPM probes
 app-forensics/openscap:sce - Enables Script Check Engine (SCE) support
 app-forensics/openscap:sql - Build the sql independant probes
 app-forensics/ovaldi:rpm - Enable the RPM probes
+app-forensics/quickfuzz:archs - support archive formats
+app-forensics/quickfuzz:codes - support cource code formats
+app-forensics/quickfuzz:docs - support document formats
+app-forensics/quickfuzz:imgs - support image formats
+app-forensics/quickfuzz:media - support media formats
+app-forensics/quickfuzz:net - support networking formats
+app-forensics/quickfuzz:pki - support PKI formats
 app-forensics/sleuthkit:aff - Enable extra aff formats
 app-forensics/sleuthkit:ewf - Enable libewf support
 app-i18n/anthy:canna-2ch - Enable support for app-dicts/canna-2ch
@@ -1541,6 +1548,7 @@ dev-haskell/biosff:fclip - Build the fclip executable.
 dev-haskell/biosff:flower - Build the flower executable.
 dev-haskell/biosff:frecover - Build the frecover executable.
 dev-haskell/blaze-builder-enumerator:newbuilder - use bytestring-builder instead of blaze-builder-0.3
+dev-haskell/bytes:test-doctests - Enable the doctest suite when using the enable-tests option for cabal.
 dev-haskell/c2hs:regression - run regression tests
 dev-haskell/cabal-install:network-uri - Get Network.URI from the network-uri package.
 dev-haskell/cabal-install:noprefs - Ignore 'preferred-versions' file from hackage's tarball.
@@ -1600,6 +1608,7 @@ dev-haskell/hdbc-odbc:buildstresstest - Build stress test
 dev-haskell/highlighting-kate:executable - Build the Highlight executable.
 dev-haskell/highlighting-kate:pcre-light - Use the pcre-light library instead of regex-pcre-builtin.
 dev-haskell/hlint:gpl - Use GPL libraries, specifically hscolour.
+dev-haskell/hps:build-exec - Build the `hps-fractals' executable
 dev-haskell/hs3:network-uri - Get Network.URI from the network-uri package.
 dev-haskell/hslogger:buildtests - Build the executable to run unit tests.
 dev-haskell/hslua:apicheck - Compile Lua with -DLUA_USE_APICHECK..
@@ -1611,10 +1620,12 @@ dev-haskell/http-client:network-uri - Get Network.URI from the network-uri packa
 dev-haskell/httpd-shed:buildexamples - Build example executables.
 dev-haskell/httpd-shed:network-uri - Get Network.URI from the network-uri package.
 dev-haskell/hxt:network-uri - Get Network.URI from the network-uri package.
+dev-haskell/icalendar:network-uri - use network-uri package
 dev-haskell/json:generic - Add support for generic encoder (dev-haskell/syb)
 dev-haskell/json:mapdict - Encode Haskell maps as JSON dicts
 dev-haskell/json:parsec - Add support for parsing with Parsec
 dev-haskell/json:pretty - Add support for using pretty printing combinators
+dev-haskell/language-dot:executable - Build the `ppdot' executable
 dev-haskell/lens:benchmark-uniplate - Enable benchmarking against Neil Mitchell's uniplate library for comparative performance analysis. Defaults to being turned off to avoid the extra dependency.
 dev-haskell/lens:dump-splices - Build and run the doctests test-suite.
 dev-haskell/lens:inlining - Generate inline pragmas when using template-haskell. This defaults to enabled, but you can to shut it off to benchmark the relative performance impact, or as last ditch effort to address compile errors resulting from the myriad versions of template-haskell that all purport to be 2.8.
@@ -1628,6 +1639,7 @@ dev-haskell/lens:test-hunit - You can disable the hunit test suite with -f-test-
 dev-haskell/lens:test-properties - Build the properties test if we're building tests
 dev-haskell/lens:trustworthy - Assert that we are trustworthy when we can
 dev-haskell/lifted-async:monad-control-1 - Use moand-control == 1.*
+dev-haskell/linear:template-haskell - You can disable the use of the `template-haskell` package using `-f-template-haskell`. Disabling this is an unsupported configuration, but it may be useful for accelerating builds in sandboxes for expert users.
 dev-haskell/monad-control:instancest - If enabled this package will export MonadBaseControl instances for the lazy and strict ST monad. If disabled these instances are only exported when base >= 4.4. If enabled it is required that the transformer-base package exports MonadBase instances for ST. It will do this by default.
 dev-haskell/monad-logger:template_haskell - Enable Template Haskell support.
 dev-haskell/monad-par:chaselev - Use Chase-Lev Deques for higher-perf work-stealing.
@@ -1685,6 +1697,9 @@ dev-haskell/tasty-quickcheck:old-quickcheck - Use Quick-Check < 2.7.
 dev-haskell/texmath:executable - Compile test executable.
 dev-haskell/texmath:network-uri - Get Network.URI from the network-uri package.
 dev-haskell/text:developer - operate in developer mode
+dev-haskell/thyme:bug-for-bug - bug-for-bug compatibility with time
+dev-haskell/thyme:lens - use the full lens package
+dev-haskell/thyme:show-internal - instance Show of internal representation
 dev-haskell/tls:compat - Accept SSLv2 compatible handshake.
 dev-haskell/tls:network - Use the base network library.
 dev-haskell/transformers-base:orphaninstances - Build instances for orphan datatypes.
@@ -2120,7 +2135,6 @@ dev-libs/opensc:secure-messaging - Enable secure messaging.
 dev-libs/openssl:asm - Support assembly hand optimized crypto functions (i.e. faster run time)
 dev-libs/openssl:bindist - Disable EC algorithms (as they seem to be patented) -- note: changes the ABI
 dev-libs/openssl:rfc3779 - Enable support for RFC 3779 (X.509 Extensions for IP Addresses and AS Identifiers)
-dev-libs/openssl:sctp - Support for Stream Control Transmission Protocol
 dev-libs/openssl:sslv2 - Support for the old/insecure SSLv2 protocol -- note: not required for TLS/https
 dev-libs/openssl:sslv3 - Support for the old/insecure SSLv3 protocol -- note: not required for TLS/https
 dev-libs/openssl:tls-heartbeat - Enable the Heartbeat Extension in TLS and DTLS
@@ -3283,8 +3297,6 @@ kde-apps/kate:addons - Build and install additional plugins
 kde-apps/kde-apps-meta:pim - Pull in KDE PIM suite
 kde-apps/kde-apps-meta:sdk - Pull in developer-specific meta-packages
 kde-apps/kdeadmin-meta:cron - Installs KDE application for virtual/cron configuration
-kde-apps/kdeartwork-kscreensaver:eigen - Enable various arithmetic screensavers which use Eigen2 for computations.
-kde-apps/kdeartwork-kscreensaver:kexiv2 - Enable image rotation based on exif tags with libkexiv2.
 kde-apps/kdebase-kioslaves:sftp - Enable SFTP protocol support using net-libs/libssh
 kde-apps/kdebase-runtime-meta:oldwallet - Install kde-apps/kwalletd on a minimal setup for migration purposes
 kde-apps/kdecore-meta:minimal - Disable install of various KDE SC 4 based packages
@@ -4127,6 +4139,7 @@ media-libs/svgalib:kernel-helper - Build the helper kernel module
 media-libs/taglib:asf - Provide support for Microsoft's 'advanced systems format' media container.
 media-libs/taglib:boost - Use dev-libs/boost instead of GCC built-ins
 media-libs/tremor:low-accuracy - enable 32bit only multiply operations
+media-libs/vigra:valgrind - Enable valgrind in make check
 media-libs/vips:fits - Enable support for the FITS image format through sci-libs/cfitsio
 media-libs/waffle:egl - Enable EGL support
 media-libs/waffle:gbm - Enable support for the Generic Buffer Manager (gbm)
@@ -4455,7 +4468,6 @@ media-sound/kid3:acoustid - Enable support for acoustic fingerprinting plugin us
 media-sound/kid3:phonon - Enable sound support via media-libs/phonon or dev-qt/qtphonon
 media-sound/klick:rubberband - Enable rubberband support
 media-sound/kwave:opus - Enable Opus audio codec support
-media-sound/kwave:phonon - Enable playback via Phonon
 media-sound/kwave:qtmedia - Enable playback via Qt5Multimedia
 media-sound/lame:frontend - Build and install the 'lame' executable frontend to lame libraries.
 media-sound/lame:mp3rtp - Build the mp3-to-RTP streaming utility. **UNSUPPORTED**
@@ -4780,7 +4792,6 @@ media-video/ffmpeg:cdio - Enables audio CD grabbing with dev-libs/libcdio.
 media-video/ffmpeg:celt - Adds Xiph CELT audio decoding support via media-libs/celt
 media-video/ffmpeg:chromaprint - Enables audio fingerprinting support with media-libs/chromaprint.
 media-video/ffmpeg:cpudetection - Enables runtime CPU detection (useful for bindist, compatibility on other CPUs)
-media-video/ffmpeg:dcadec - Enables DCA decoding with media-sound/dcadec.
 media-video/ffmpeg:ebur128 - Enables EBU R128 loudness normalization filter via media-libs/libebur128
 media-video/ffmpeg:faac - Use external faac library for AAC encoding
 media-video/ffmpeg:fdk - Use external fdk-aac library for AAC encoding
@@ -6267,8 +6278,10 @@ net-misc/networkmanager:connection-sharing - Use net-dns/dnsmasq and net-firewal
 net-misc/networkmanager:consolekit - Use sys-auth/consolekit for session tracking
 net-misc/networkmanager:dhclient - Use dhclient from net-misc/dhcp for getting ip
 net-misc/networkmanager:dhcpcd - Use net-misc/dhcpcd for getting ip
+net-misc/networkmanager:json - Enable JSON validation via dev-libs/jansson in libnm.
 net-misc/networkmanager:modemmanager - Enable support for mobile broadband devices using net-misc/modemmanager
 net-misc/networkmanager:nss - Use dev-libs/nss for cryptography
+net-misc/networkmanager:ofono - Use net-misc/ofono for telephony support.
 net-misc/networkmanager:ppp - Enable support for mobile broadband and PPPoE connections using net-dialup/ppp
 net-misc/networkmanager:resolvconf - Use net-dns/openresolv for managing DNS information
 net-misc/networkmanager:teamd - Enable Teamd control support
@@ -6303,7 +6316,6 @@ net-misc/openssh:hpn - Enable high performance ssh
 net-misc/openssh:ldap - Add support for storing SSH public keys in LDAP
 net-misc/openssh:ldns - Use LDNS for DNSSEC/SSHFP validation.
 net-misc/openssh:livecd - Enable root password logins for live-cd environment.
-net-misc/openssh:sctp - Support for Stream Control Transmission Protocol
 net-misc/openssh:ssh1 - Support the legacy/weak SSH1 protocol
 net-misc/openssh:ssl - Enable additional crypto algorithms via OpenSSL
 net-misc/openvpn:down-root - Enable the down-root plugin
@@ -7120,7 +7132,6 @@ sci-mathematics/nusmv:minisat - Enable support for MiniSat
 sci-mathematics/octave:glpk - Add support for sci-mathematics/glpk for linear programming
 sci-mathematics/octave:graphicsmagick - Add support for media-gfx/graphicsmagick
 sci-mathematics/octave:gui - Enable the graphical user interface
-sci-mathematics/octave:jit - (EXPERIMENTAL) enable JIT compiler
 sci-mathematics/octave:qhull - Add support for media-libs/qhull, to allow `delaunay', `convhull', and related functions
 sci-mathematics/octave:qrupdate - Add support for sci-libs/qrupdatefor QR and Cholesky update functions
 sci-mathematics/octave:sparse - Add enhanced support for sparse matrix algebra with SuiteSparse
@@ -7595,6 +7606,8 @@ sys-devel/binutils-apple:libcxx - Add support for libcxx
 sys-devel/binutils-apple:lto - Add support for Link-Time Optimization with LLVM
 sys-devel/binutils-apple:multitarget - Compile for non-standard target architectures (ppc and ppc64) -- experimental, Gentoo only
 sys-devel/binutils-hppa64:multitarget - Adds support to binutils for cross compiling (does not work with gas)
+sys-devel/clang:default-compiler-rt - Use compiler-rt instead of libgcc as the default rtlib for clang
+sys-devel/clang:default-libcxx - Use libc++ instead of libstdc++ as the default stdlib for clang
 sys-devel/clang:multitarget - Build all host targets (default: host only)
 sys-devel/clang:static-analyzer - Install the Clang static analyzer
 sys-devel/distcc:crossdev - Enable support for sys-devel/crossdev
@@ -7626,11 +7639,14 @@ sys-devel/gettext:cvs - When running `autopoint`, use cvs to store the internal 
 sys-devel/gettext:git - When running `autopoint`, use git to store the internal development files; this requires git at runtime, but will be faster/smaller than raw archives
 sys-devel/kgcc64:regression-test - Run the testsuite and install the results (requires FEATURES=test)
 sys-devel/llvm:clang - Build the clang C/C++ compiler
+sys-devel/llvm:default-compiler-rt - Use compiler-rt instead of libgcc as the default rtlib for clang
+sys-devel/llvm:default-libcxx - Use libc++ instead of libstdc++ as the default stdlib for clang
 sys-devel/llvm:doc - Build and install the HTML documentation and regenerate the man pages
 sys-devel/llvm:gold - Build the gold linker plugin
 sys-devel/llvm:lldb - Build the lldb debugger
 sys-devel/llvm:multitarget - Build all host targets (default: host only)
 sys-devel/llvm:ncurses - Support querying terminal properties using ncurses' terminfo
+sys-devel/llvm:sanitize - Build compiler-rt's sanitizers
 sys-devel/llvm:static-analyzer - Install the Clang static analyzer (requires USE=clang)
 sys-devel/sparse:gtk - Build the test-inspect utility (requires x11-libs/gtk+ version 2)
 sys-devel/sparse:llvm - Build the sparse-llvm utility
