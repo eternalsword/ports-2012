@@ -25,7 +25,7 @@ DEPEND_COMMON="tcpd? ( sys-apps/tcp-wrappers )
 	caps? ( sys-libs/libcap )
 	sys-libs/e2fsprogs-libs
 	>=net-nds/rpcbind-0.2.0-r1
-	net-libs/libtirpc
+	net-libs/libtirpc:=
 	libmount? ( sys-apps/util-linux )
 	nfsdcld? ( >=dev-db/sqlite-3.3 )
 	nfsv4? (
@@ -58,7 +58,7 @@ DEPEND="${DEPEND_COMMON}
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-1.1.4-mtab-sym.patch
 	epatch "${FILESDIR}"/${PN}-1.2.8-cross-build.patch
-	epatch "${FILESDIR}"/${PN}-1.3.2-background-statd.patch
+	epatch "${FILESDIR}"/${PN}-1.3.3-sysmacros.patch #579884
 
 	sed \
 		-e "/^sbindir/s:= := \"${EPREFIX}\":g" \
