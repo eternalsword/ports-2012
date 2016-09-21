@@ -1943,6 +1943,7 @@ dev-libs/actor-framework:riac - Runtime inspection and configuration
 dev-libs/actor-framework:static - Provides a static build
 dev-libs/actor-framework:test - Builds the provided unit tests
 dev-libs/antlr-c:debugger - Compiles debug info into the library
+dev-libs/appstream-glib:stemmer - Add word stemming via dev-libs/snowball-stemmer.
 dev-libs/apr:older-kernels-compatibility - Enable binary compatibility with older kernels
 dev-libs/apr:urandom - Use /dev/urandom instead of /dev/random
 dev-libs/apr-util:libressl - Use dev-libs/libressl instead of dev-libs/openssl for 'openssl' USE flag
@@ -3979,6 +3980,7 @@ media-libs/glfw:egl - Use EGL instead of GLX for GL context creation
 media-libs/gmtk:dconf - Enable support for gnome-base/dconf
 media-libs/grilo:network - Enable network access for media discovery using net-libs/libsoup
 media-libs/grilo:playlist - Enable support for playlists through dev-libs/totem-pl-parser
+media-libs/gst-plugins-bad:bzip2 - Enable bzip2 encoder/decoder plugin
 media-libs/gst-plugins-bad:egl - Enable EGL support
 media-libs/gst-plugins-bad:gles2 - Enable GLES2 support
 media-libs/gst-plugins-base:ivorbis - Enable integer based vorbis decoder
@@ -4042,6 +4044,7 @@ media-libs/libsdl2:sound - Control audio support (disable at your own risk)
 media-libs/libsdl2:tslib - Build with tslib support for touchscreen devices
 media-libs/libsdl2:video - Control video support (disable at your own risk)
 media-libs/libvisio:tools - Build conversion tools
+media-libs/libvpx:highbitdepth - Enable 10 and 12 bit support for VP9.
 media-libs/libvpx:postproc - Enable additional post processing filters
 media-libs/libvpx:svc - Enable spatial-svc support (experimental)
 media-libs/libwebp:experimental - Build with -DWEBP_EXPERIMENTAL_FEATURES
@@ -4152,6 +4155,7 @@ media-libs/taglib:boost - Use dev-libs/boost instead of GCC built-ins
 media-libs/tremor:low-accuracy - enable 32bit only multiply operations
 media-libs/vigra:valgrind - Enable valgrind in make check
 media-libs/vips:fits - Enable support for the FITS image format through sci-libs/cfitsio
+media-libs/vips:matio - Enable support for reading images from Matlab files through sci-libs/matio
 media-libs/waffle:egl - Enable EGL support
 media-libs/waffle:gbm - Enable support for the Generic Buffer Manager (gbm)
 media-libs/waffle:wayland - Enable Wayland support
@@ -5957,7 +5961,6 @@ net-libs/qxmpp:opus - Enable Opus codec support via media-libs/opus
 net-libs/qxmpp:vpx - Enable VP8 codec support via media-libs/libvpx
 net-libs/rabbitmq-c:tools - Builds cli tools to interact with brokers
 net-libs/rb_libtorrent:dht - Enable DHT (distributed hash table) support
-net-libs/rest:gnome - Extract proxy information using net-libs/libsoup-gnome
 net-libs/telepathy-qt:farstream - Enable support for audio/video calls via farstream
 net-libs/tox:av - Adds support for audio and video.
 net-libs/tox:daemon - Enable the DHT Bootstrap Daemon.
@@ -7288,7 +7291,9 @@ sys-apps/elfix:xtpax - Enable XATTR_PAX_FLAGS support.
 sys-apps/entropy-server:matter - Pull in app-admin/matter
 sys-apps/etckeeper:bazaar - Support dev-vcs/bzr based repository
 sys-apps/etckeeper:cron - Install cron script
+sys-apps/firejail:apparmor - Enable support for custom AppArmor profiles
 sys-apps/firejail:bind - Enable custom bind mounts
+sys-apps/firejail:busybox - Enable support (workaround) for busybox
 sys-apps/firejail:chroot - Enable chrooting to custom directory
 sys-apps/firejail:file-transfer - Enable file transfers between sandboxes and the host system
 sys-apps/firejail:network - Enable networking features
