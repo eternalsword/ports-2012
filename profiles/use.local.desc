@@ -3983,6 +3983,7 @@ media-libs/openh264:utils - Install the CLI encoder and decoder utilities
 media-libs/openimageio:colorio - Use media-libs/opencolorio
 media-libs/openimageio:opencv - Use media-libs/opencv
 media-libs/openimageio:tbb - Use dev-cpp/tbb
+media-libs/opus:ambisonics - Enable ambisonics support (experimental).
 media-libs/opus:custom-modes - Build with custom-modes.
 media-libs/opusfile:fixed-point - Enable fixed-point arithmetic operations
 media-libs/opusfile:float - Enable floating point arithmetic operations
@@ -4313,6 +4314,7 @@ media-sound/denemo:fluidsynth - Enable Fluidsynth MIDI software synthesis
 media-sound/denemo:portmidi - Enable support for the portmidi backend
 media-sound/dir2ogg:mac - Add support for decoding Monkey's Audio files
 media-sound/dir2ogg:wma - Add support for wma files through mplayer
+media-sound/drumstick:fluidsynth - Enable support for media-sound/fluidsynth
 media-sound/easytag:gtk2 - Enable GTK+:2 support and disable default GTK+:3 support
 media-sound/easytag:gtk3 - Enable GTK+:3 support (default) and disable GTK+:2 support
 media-sound/easytag:opus - Enable support for media-libs/opus and media-libs/opusfile (opus audio codec)
@@ -4647,15 +4649,12 @@ media-tv/xmltv:za - South Africa tv listing grabber
 media-video/aegisub:uchardet - Enable charset discovery via dev-libs/uchardet
 media-video/aravis:X - Build the GTK+-based video viewer for aravis. This requires GStreamer and a few plugins but technically not the GST plugin for aravis.
 media-video/aravis:gstreamer - Build the GStreamer plugin for aravis, but not the video viewer.
-media-video/arista:faac - Use external faac library for AAC encoding
-media-video/arista:nautilus - Add an entry in the Nautilus context menu to transcode media files for a specified device.
 media-video/chaplin:transcode - Enable DVD ripping and transcoding
 media-video/clive:clipboard - Support reading from X clipboard
 media-video/clive:pager - Support pager!?
 media-video/clive:password - Support password controlled sites
 media-video/devede:mencoder - Prefer MPlayer mencoder over Libav avconv or FFmpeg ffmpeg for encoding.
 media-video/dv2sub:kino - install kino plugin
-media-video/dvd-slideshow:themes - Install theme pack
 media-video/dvdauthor:graphicsmagick - Use media-gfx/graphicsmagick instead of media-gfx/imagemagick
 media-video/dvdrip:fping - Enables fping support for cluster rendering
 media-video/dvdrip:subtitles - Enables support for subtitle ripping
@@ -4830,7 +4829,6 @@ media-video/obs-studio:imagemagick - Use ImageMagick for image loading instead o
 media-video/ogmrip:ogm - Support for OGM container format
 media-video/ogmrip:srt - Support for SRT subtitle format
 media-video/parole:clutter - Compile in Clutter GTK+ support
-media-video/pgcedit:video - Add support for video preview
 media-video/qgifer:imagemagick - Use imagemagick for image operations
 media-video/qgifer:opencv3 - Use media-libs/opencv:0/3.0 for video operations instead media-libs/opencv:0/2.4
 media-video/rtmpdump:gnutls - Use GnuTLS library instead of the default OpenSSL
@@ -4853,7 +4851,6 @@ media-video/transcode:nuv - NuppelVideo container format demuxing
 media-video/transcode:pic - disable optimized assembly code that is not PIC friendly
 media-video/transcode:postproc - Build with ffmpeg libpostproc support
 media-video/tsmuxer:qt4 - Installs tsMuxerGUI (needs Qt4)
-media-video/ushare:dlna - Add DLNA (media-libs/libdlna) support
 media-video/vdr:alternatechannel - Use alternate channel on record
 media-video/vdr:bidi - fribidi support, for languages, written from right to left
 media-video/vdr:ddepgentry - remove duplicate EPG entries
@@ -8173,7 +8170,6 @@ x11-libs/vte:glade - Provide integration with dev-util/glade.
 x11-libs/wxGTK:gnome - Use gnome-base/libgnomeprintui for printing tasks.
 x11-libs/wxGTK:gstreamer - Enable the wxMediaCtrl class for playing audio and video through gstreamer.
 x11-libs/wxGTK:sdl - Use Simple Directmedia Layer (media-libs/libsdl) for audio.
-x11-misc/ardesia:cwiid - cwiid support: collection of Linux tools written in C for interfacing to the Nintendo Wiimote.
 x11-misc/bumblebee:bbswitch - Add dependency on sys-power/bbswitch for PM feature
 x11-misc/cdm:consolekit - Enable native consolekit support
 x11-misc/colord:argyllcms - Enable ArgyllCMS sensor
