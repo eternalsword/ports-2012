@@ -2112,7 +2112,6 @@ dev-ml/ocamlnet:httpd - Enables net-httpd web server component
 dev-ml/ocamlnet:zip - Enables netzip support to read/write gzip data using object channels
 dev-ml/onanomsg:lwt - Enables lwt support.
 dev-ml/pgocaml:camlp4 - Enable PG'Ocaml syntax extension.
-dev-ml/qcheck:ounit - Enable integration with ounit
 dev-ml/tyxml:camlp4 - Enables the camlp4 syntax extension (deprecated)
 dev-ml/tyxml:ppx - Enables the ppx syntax extension (preferred)
 dev-ml/utop:camlp4 - Enables camlp4 support.
@@ -5614,10 +5613,7 @@ net-irc/iroffer-dinoex:memsave - Compile with memory protection
 net-irc/iroffer-dinoex:telnet - Compile with Telnet server support
 net-irc/irssi:proxy - Adds support for a loadable IRC proxy module
 net-irc/kvirc:dcc_video - Support video connections over DCC protocol
-net-irc/kvirc:dcc_voice - Support voice connections over DCC protocol
-net-irc/kvirc:ipc - Support inter-process communication between KVIrc processes
 net-irc/kvirc:phonon - Support Phonon for audio output
-net-irc/kvirc:transparency - Support pseudo-transparency
 net-irc/limnoria:crypt - Enables user authentication with GPG
 net-irc/ngircd:ident - Enables support for net-libs/libident
 net-irc/psybnc:multinetwork - Adds support for multiple networks
@@ -6189,10 +6185,11 @@ net-misc/ofono:provision - Enable GPRS provisioning support
 net-misc/ofono:qmimodem - Enable Qualcomm QMI modem support
 net-misc/ofono:tools - Enable testing tools
 net-misc/oidentd:masquerade - Enable support for masqueraded/NAT connections
-net-misc/openconnect:gssapi - Build GSSAPI support.
+net-misc/openconnect:gssapi - Build GSSAPI support
 net-misc/openconnect:java - Build JNI bindings using jni.h
-net-misc/openconnect:libproxy - Enable proxy support.
-net-misc/openconnect:stoken - Enable stoken support.
+net-misc/openconnect:libproxy - Enable proxy support
+net-misc/openconnect:lz4 - Enable support for lz4 compression
+net-misc/openconnect:stoken - Enable stoken support
 net-misc/openntpd:libressl - Enable HTTPS TLS time constraint support using dev-libs/libressl
 net-misc/openssh:X509 - Adds support for X.509 certificate authentication
 net-misc/openssh:bindist - Disable EC/RC5 algorithms in OpenSSL for patent reasons.
@@ -6454,6 +6451,7 @@ net-p2p/eiskaltdcpp:json - Enable JSON for cli and daemon
 net-p2p/eiskaltdcpp:libcanberra - Enable sound notifications support over libcanberra in EiskaltDC++ Gtk
 net-p2p/eiskaltdcpp:minimal - Don't install headers
 net-p2p/fms:frost - Add support for frost boards
+net-p2p/go-ethereum:evm - Build Ethereum Virtual Machine (EVM)
 net-p2p/go-ipfs-bin:fuse - Enable runtime support for sys-fs/fuse
 net-p2p/i2p:ecdsa - Enables additional checks to make sure a setup is available that is capable of using I2Ps ECDSA provisions. I2P will work without it, but you will likely see warnings.
 net-p2p/i2p:nls - Adds Native Language Support using GNU gettext.
@@ -7716,8 +7714,10 @@ sys-libs/glibc:glibc-compat20 - Enable the glibc-compat addon
 sys-libs/glibc:glibc-omitfp - Configure glibc with --enable-omitfp which lets the build system determine when it is safe to use -fomit-frame-pointer
 sys-libs/glibc:nptlonly - Disables building the linuxthreads fallback in glibc ebuilds that support building both linuxthread and nptl
 sys-libs/gwenhywfar:fox - Use x11-libs/fox graphical toolkit
+sys-libs/libcxx:libcxxabi - Build on top of sys-libs/libcxxabi instead of gcc's libsupc++ (avoids depending on gcc).
 sys-libs/libcxx:libcxxrt - Build on top of sys-libs/libcxxrt instead of gcc's libsupc++ (avoids depending on gcc).
 sys-libs/libcxx:libunwind - Use libunwind instead of libgcc_s for stack unwinding, thus avoiding dependence on gcc.
+sys-libs/libcxxabi:libunwind - Use libunwind instead of libgcc_s for stack unwinding, thus avoiding dependency on gcc
 sys-libs/libcxxrt:libunwind - Use libunwind instead of libgcc_s for unwinding. This should allow avoiding relying on sys-devel/gcc but for now clang is setup to use libgcc_s.
 sys-libs/libhugetlbfs:perl - Install the cpupcstat tool and some perl modules
 sys-libs/libomp:hwloc - Enable CPU affinity support via hwloc
