@@ -21,12 +21,17 @@ SRC_URI="http://llvm.org/releases/${PV}/${P}.src.tar.xz
 	lldb? ( http://llvm.org/releases/${PV}/lldb-${PV}.src.tar.xz )
 	!doc? ( http://dev.gentoo.org/~mgorny/dist/${PN}-3.9.0_rc3-manpages.tar.bz2 )"
 
+# Keep in sync with CMakeLists.txt
+ALL_LLVM_TARGETS=( AArch64 AMDGPU ARM BPF Hexagon Mips MSP430
+	NVPTX PowerPC Sparc SystemZ X86 XCore )
+ALL_LLVM_TARGETS=( "${ALL_LLVM_TARGETS[@]/#/llvm_targets_}" )
+
 LICENSE="UoI-NCSA"
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
 IUSE="clang debug default-compiler-rt default-libcxx doc gold libedit +libffi
 	lldb multitarget ncurses ocaml python +sanitize +static-analyzer test xml
-	video_cards_radeon elibc_musl kernel_Darwin kernel_FreeBSD"
+	elibc_musl kernel_Darwin kernel_FreeBSD ${ALL_LLVM_TARGETS[*]}"
 
 COMMON_DEPEND="
 	sys-libs/zlib:0=
@@ -71,14 +76,20 @@ RDEPEND="${COMMON_DEPEND}
 	clang? ( !<=sys-devel/clang-${PV}-r99 )
 	abi_x86_32? ( !<=app-emulation/emul-linux-x86-baselibs-20130224-r2
 		!app-emulation/emul-linux-x86-baselibs[-abi_x86_32(-)] )"
-PDEPEND="clang? ( =sys-devel/clang-${PV}-r100 )
+PDEPEND="
+	clang? (
+		=sys-devel/clang-${PV}-r100
+		~sys-devel/clang-runtime-${PV}
+	)
 	default-libcxx? ( sys-libs/libcxx )
 	kernel_Darwin? ( =sys-libs/libcxx-${PV%.*}* )"
 
 # pypy gives me around 1700 unresolved tests due to open file limit
 # being exceeded. probably GC does not close them fast enough.
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
-	lldb? ( clang xml )"
+	lldb? ( clang xml )
+	|| ( ${ALL_LLVM_TARGETS[*]} )
+	multitarget? ( ${ALL_LLVM_TARGETS[*]} )"
 
 S=${WORKDIR}/${P/_}.src
 
@@ -144,17 +155,17 @@ src_prepare() {
 	python_setup
 
 	# Fix libdir for ocaml bindings install, bug #559134
-	eapply "${FILESDIR}"/9999/0001-cmake-Install-OCaml-modules-into-correct-package-loc.patch
+	eapply "${FILESDIR}"/3.9.0/0001-cmake-Install-OCaml-modules-into-correct-package-loc.patch
 	# Do not build/install ocaml docs with USE=-doc, bug #562008
 	eapply "${FILESDIR}"/3.9.0/0002-cmake-Make-OCaml-docs-dependent-on-LLVM_BUILD_DOCS.patch
 
 	# Make it possible to override Sphinx HTML install dirs
 	# https://llvm.org/bugs/show_bug.cgi?id=23780
-	eapply "${FILESDIR}"/9999/0003-cmake-Support-overriding-Sphinx-HTML-doc-install-dir.patch
+	eapply "${FILESDIR}"/3.9.0/0003-cmake-Support-overriding-Sphinx-HTML-doc-install-dir.patch
 
 	# Prevent race conditions with parallel Sphinx runs
 	# https://llvm.org/bugs/show_bug.cgi?id=23781
-	eapply "${FILESDIR}"/9999/0004-cmake-Add-an-ordering-dep-between-HTML-man-Sphinx-ta.patch
+	eapply "${FILESDIR}"/3.9.0/0004-cmake-Add-an-ordering-dep-between-HTML-man-Sphinx-ta.patch
 
 	# Allow custom cmake build types (like 'Gentoo')
 	eapply "${FILESDIR}"/9999/0006-cmake-Remove-the-CMAKE_BUILD_TYPE-assertion.patch
@@ -165,7 +176,7 @@ src_prepare() {
 
 	# Restore SOVERSIONs for shared libraries
 	# https://bugs.gentoo.org/show_bug.cgi?id=578392
-	eapply "${FILESDIR}"/9999/0008-cmake-Restore-SOVERSIONs-on-shared-libraries.patch
+	eapply "${FILESDIR}"/3.9.0/0008-cmake-Reintroduce-ldconfig-compatible-SOVERSIONs-on-.patch
 
 	# support building llvm against musl-libc
 	use elibc_musl && eapply "${FILESDIR}"/9999/musl-fixes.patch
@@ -233,14 +244,6 @@ src_prepare() {
 }
 
 multilib_src_configure() {
-	local targets
-	if use multitarget; then
-		targets=all
-	else
-		targets='host;BPF'
-		use video_cards_radeon && targets+=';AMDGPU'
-	fi
-
 	local ffi_cflags ffi_ldflags
 	if use libffi; then
 		ffi_cflags=$(pkg-config --cflags-only-I libffi)
@@ -252,7 +255,7 @@ multilib_src_configure() {
 		-DLLVM_LIBDIR_SUFFIX=${libdir#lib}
 
 		-DBUILD_SHARED_LIBS=ON
-		-DLLVM_TARGETS_TO_BUILD="${targets}"
+		-DLLVM_TARGETS_TO_BUILD="${LLVM_TARGETS// /;}"
 		-DLLVM_BUILD_TESTS=$(usex test)
 
 		-DLLVM_ENABLE_FFI=$(usex libffi)
@@ -427,24 +430,45 @@ src_install() {
 	)
 
 	if use clang; then
-		# note: magic applied in multilib_src_install()!
-		CLANG_VERSION=${PV%.*}
-
-		MULTILIB_CHOST_TOOLS+=(
-			/usr/bin/clang
-			/usr/bin/clang++
-			/usr/bin/clang-cl
-			/usr/bin/clang-${CLANG_VERSION}
-			/usr/bin/clang++-${CLANG_VERSION}
-			/usr/bin/clang-cl-${CLANG_VERSION}
-		)
-
 		MULTILIB_WRAPPED_HEADERS+=(
 			/usr/include/clang/Config/config.h
 		)
 	fi
 
 	multilib-minimal_src_install
+
+	if use clang; then
+		# Apply CHOST and version suffix to clang tools
+		local clang_version=${PV%.*}
+		local clang_tools=( clang clang++ clang-cl clang-cpp )
+		local abi i
+
+		# cmake gives us:
+		# - clang-X.Y
+		# - clang -> clang-X.Y
+		# - clang++, clang-cl, clang-cpp -> clang
+		# we want to have:
+		# - clang-X.Y
+		# - clang++-X.Y, clang-cl-X.Y, clang-cpp-X.Y -> clang-X.Y
+		# - clang, clang++, clang-cl, clang-cpp -> clang*-X.Y
+		# also in CHOST variant
+		for i in "${clang_tools[@]:1}"; do
+			rm -f "${ED%/}/usr/bin/${i}" || die
+			dosym "clang-${clang_version}" "/usr/bin/${i}-${clang_version}"
+			dosym "${i}-${clang_version}" "/usr/bin/${i}"
+		done
+
+		# now create target symlinks for all supported ABIs
+		for abi in $(get_all_abis); do
+			local abi_chost=$(get_abi_CHOST "${abi}")
+			for i in "${clang_tools[@]}"; do
+				dosym "${i}-${clang_version}" \
+					"/usr/bin/${abi_chost}-${i}-${clang_version}"
+				dosym "${abi_chost}-${i}-${clang_version}" \
+					"/usr/bin/${abi_chost}-${i}"
+			done
+		done
+	fi
 
 	# Remove unnecessary headers on FreeBSD, bug #417171
 	if use kernel_FreeBSD && use clang; then
@@ -461,41 +485,6 @@ multilib_src_install() {
 			dodir "/usr/${CHOST}/binutils-bin/lib/bfd-plugins"
 			dosym "../../../../$(get_libdir)/LLVMgold.so" \
 				"/usr/${CHOST}/binutils-bin/lib/bfd-plugins/LLVMgold.so"
-		fi
-	fi
-
-	# apply CHOST and CLANG_VERSION to clang executables
-	# they're statically linked so we don't have to worry about the lib
-	if use clang; then
-		local clang_tools=( clang clang++ clang-cl )
-		local i
-
-		# cmake gives us:
-		# - clang-X.Y
-		# - clang -> clang-X.Y
-		# - clang++, clang-cl -> clang
-		# we want to have:
-		# - clang-X.Y
-		# - clang++-X.Y, clang-cl-X.Y -> clang-X.Y
-		# - clang, clang++, clang-cl -> clang*-X.Y
-		# so we need to fix the two tools
-		for i in "${clang_tools[@]:1}"; do
-			rm "${ED%/}/usr/bin/${i}" || die
-			dosym "clang-${CLANG_VERSION}" "/usr/bin/${i}-${CLANG_VERSION}"
-			dosym "${i}-${CLANG_VERSION}" "/usr/bin/${i}"
-		done
-
-		# now prepend ${CHOST} and let the multilib-build.eclass symlink it
-		if ! multilib_is_native_abi; then
-			# non-native? let's replace it with a simple wrapper
-			for i in "${clang_tools[@]}"; do
-				rm "${ED%/}/usr/bin/${i}-${CLANG_VERSION}" || die
-				cat > "${T}"/wrapper.tmp <<-_EOF_
-					#!${EPREFIX}/bin/sh
-					exec "${i}-${CLANG_VERSION}" $(get_abi_CFLAGS) "\${@}"
-				_EOF_
-				newbin "${T}"/wrapper.tmp "${i}-${CLANG_VERSION}"
-			done
 		fi
 	fi
 }
@@ -536,11 +525,5 @@ multilib_src_install_all() {
 		if use static-analyzer; then
 			python_optimize "${ED}"usr/share/scan-view
 		fi
-	fi
-}
-
-pkg_postinst() {
-	if use clang && ! has_version 'sys-libs/libomp'; then
-		elog "To enable OpenMP support in clang, install sys-libs/libomp."
 	fi
 }

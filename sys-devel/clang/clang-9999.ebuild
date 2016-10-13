@@ -17,14 +17,20 @@ SRC_URI=""
 EGIT_REPO_URI="http://llvm.org/git/clang.git
 	https://github.com/llvm-mirror/clang.git"
 
+# Keep in sync with sys-devel/llvm
+ALL_LLVM_TARGETS=( AArch64 AMDGPU ARM BPF Hexagon Lanai Mips MSP430
+	NVPTX PowerPC Sparc SystemZ X86 XCore )
+ALL_LLVM_TARGETS=( "${ALL_LLVM_TARGETS[@]/#/llvm_targets_}" )
+LLVM_TARGET_USEDEPS=${ALL_LLVM_TARGETS[@]/%/?}
+
 LICENSE="UoI-NCSA"
 SLOT="0/${PV%.*}"
 KEYWORDS=""
 IUSE="debug default-compiler-rt default-libcxx +doc multitarget python
-	+static-analyzer test xml video_cards_radeon elibc_musl kernel_FreeBSD"
+	+static-analyzer test xml elibc_musl kernel_FreeBSD ${ALL_LLVM_TARGETS[*]}"
 
 RDEPEND="
-	~sys-devel/llvm-${PV}:=[debug=,multitarget?,video_cards_radeon?,${MULTILIB_USEDEP}]
+	~sys-devel/llvm-${PV}:=[debug=,${LLVM_TARGET_USEDEPS// /,},${MULTILIB_USEDEP}]
 	static-analyzer? ( dev-lang/perl:* )
 	xml? ( dev-libs/libxml2:2=[${MULTILIB_USEDEP}] )
 	!<sys-devel/llvm-${PV}
@@ -32,14 +38,29 @@ RDEPEND="
 # configparser-3.2 breaks the build (3.3 or none at all are fine)
 DEPEND="${RDEPEND}
 	doc? ( dev-python/sphinx )
+	test? ( dev-python/lit[${PYTHON_USEDEP}] )
 	xml? ( virtual/pkgconfig )
 	!!<dev-python/configparser-3.3.0.2
 	${PYTHON_DEPS}"
 PDEPEND="
+	~sys-devel/clang-runtime-${PV}
 	default-compiler-rt? ( sys-libs/compiler-rt )
 	default-libcxx? ( sys-libs/libcxx )"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}
+	|| ( ${ALL_LLVM_TARGETS[*]} )
+	multitarget? ( ${ALL_LLVM_TARGETS[*]} )"
+
+# Multilib notes:
+# 1. ABI_* flags control ABIs libclang* is built for only.
+# 2. clang is always capable of compiling code for all ABIs for enabled
+#    target. However, you will need appropriate crt* files (installed
+#    e.g. by sys-devel/gcc and sys-libs/glibc).
+# 3. ${CHOST}-clang wrappers are always installed for all ABIs included
+#    in the current profile (i.e. alike supported by sys-devel/gcc).
+#
+# Therefore: use sys-devel/clang[${MULTILIB_USEDEP}] only if you need
+# multilib clang* libraries (not runtime, not wrappers).
 
 pkg_pretend() {
 	local build_size=650
@@ -94,10 +115,7 @@ src_unpack() {
 src_prepare() {
 	python_setup
 
-	# fix race condition between sphinx targets
-	eapply "${FILESDIR}"/9999/0001-cmake-Add-ordering-dep-between-HTML-Sphinx-docs-and-.patch
 	# automatically select active system GCC's libraries, bugs #406163 and #417913
-	# TODO: cross-linux tests broken by this one
 	eapply "${FILESDIR}"/9999/0002-driver-Support-obtaining-active-toolchain-from-gcc-c.patch
 	# support overriding clang runtime install directory
 	eapply "${FILESDIR}"/9999/0005-cmake-Supporting-overriding-runtime-libdir-via-CLANG.patch
@@ -114,14 +132,6 @@ src_prepare() {
 }
 
 multilib_src_configure() {
-	local targets
-	if use multitarget; then
-		targets=all
-	else
-		targets='host;BPF'
-		use video_cards_radeon && targets+=';AMDGPU'
-	fi
-
 	local libdir=$(get_libdir)
 	local mycmakeargs=(
 		-DLLVM_LIBDIR_SUFFIX=${libdir#lib}
@@ -131,7 +141,7 @@ multilib_src_configure() {
 		-DCLANG_GOLD_LIBDIR_SUFFIX="${NATIVE_LIBDIR#lib}"
 
 		-DBUILD_SHARED_LIBS=ON
-		-DLLVM_TARGETS_TO_BUILD="${targets}"
+		-DLLVM_TARGETS_TO_BUILD="${LLVM_TARGETS// /;}"
 		# TODO: get them properly conditional
 		#-DLLVM_BUILD_TESTS=$(usex test)
 
@@ -149,6 +159,9 @@ multilib_src_configure() {
 	)
 	use test && mycmakeargs+=(
 		-DLLVM_MAIN_SRC_DIR="${WORKDIR}/llvm"
+		-DLIT_COMMAND="${EPREFIX}/usr/bin/lit"
+	fi
+
 	)
 
 	if multilib_is_native_abi; then
@@ -158,7 +171,7 @@ multilib_src_configure() {
 			-DLLVM_ENABLE_DOXYGEN=OFF
 		)
 		use doc && mycmakeargs+=(
-			-DCLANG_INSTALL_HTML="${EPREFIX}/usr/share/doc/${PF}/clang"
+			-DCLANG_INSTALL_SPHINX_HTML_DIR="${EPREFIX}/usr/share/doc/${PF}/html"
 			-DSPHINX_WARNINGS_AS_ERRORS=OFF
 		)
 	else
@@ -190,65 +203,51 @@ multilib_src_test() {
 }
 
 src_install() {
-	# note: magic applied in multilib_src_install()!
-	CLANG_VERSION=4.0
-
-	MULTILIB_CHOST_TOOLS=(
-		/usr/bin/clang
-		/usr/bin/clang++
-		/usr/bin/clang-cl
-		/usr/bin/clang-${CLANG_VERSION}
-		/usr/bin/clang++-${CLANG_VERSION}
-		/usr/bin/clang-cl-${CLANG_VERSION}
-	)
-
 	MULTILIB_WRAPPED_HEADERS=(
 		/usr/include/clang/Config/config.h
 	)
 
 	multilib-minimal_src_install
 
+	# Apply CHOST and version suffix to clang tools
+	local clang_version=4.0
+	local clang_tools=( clang clang++ clang-cl clang-cpp )
+	local abi i
+
+	# cmake gives us:
+	# - clang-X.Y
+	# - clang -> clang-X.Y
+	# - clang++, clang-cl, clang-cpp -> clang
+	# we want to have:
+	# - clang-X.Y
+	# - clang++-X.Y, clang-cl-X.Y, clang-cpp-X.Y -> clang-X.Y
+	# - clang, clang++, clang-cl, clang-cpp -> clang*-X.Y
+	# also in CHOST variant
+	for i in "${clang_tools[@]:1}"; do
+		rm "${ED%/}/usr/bin/${i}" || die
+		dosym "clang-${clang_version}" "/usr/bin/${i}-${clang_version}"
+		dosym "${i}-${clang_version}" "/usr/bin/${i}"
+	done
+
+	# now create target symlinks for all supported ABIs
+	for abi in $(get_all_abis); do
+		local abi_chost=$(get_abi_CHOST "${abi}")
+		for i in "${clang_tools[@]}"; do
+			dosym "${i}-${clang_version}" \
+				"/usr/bin/${abi_chost}-${i}-${clang_version}"
+			dosym "${abi_chost}-${i}-${clang_version}" \
+				"/usr/bin/${abi_chost}-${i}"
+		done
+	done
+
 	# Remove unnecessary headers on FreeBSD, bug #417171
-	if use kernel_FreeBSD && use clang; then
+	if use kernel_FreeBSD; then
 		rm "${ED}"usr/lib/clang/${PV}/include/{std,float,iso,limits,tgmath,varargs}*.h || die
 	fi
 }
 
 multilib_src_install() {
 	cmake-utils_src_install
-
-	# apply CHOST and CLANG_VERSION to clang executables
-	# they're statically linked so we don't have to worry about the lib
-	local clang_tools=( clang clang++ clang-cl )
-	local i
-
-	# cmake gives us:
-	# - clang-X.Y
-	# - clang -> clang-X.Y
-	# - clang++, clang-cl -> clang
-	# we want to have:
-	# - clang-X.Y
-	# - clang++-X.Y, clang-cl-X.Y -> clang-X.Y
-	# - clang, clang++, clang-cl -> clang*-X.Y
-	# so we need to fix the two tools
-	for i in "${clang_tools[@]:1}"; do
-		rm "${ED%/}/usr/bin/${i}" || die
-		dosym "clang-${CLANG_VERSION}" "/usr/bin/${i}-${CLANG_VERSION}"
-		dosym "${i}-${CLANG_VERSION}" "/usr/bin/${i}"
-	done
-
-	# now prepend ${CHOST} and let the multilib-build.eclass symlink it
-	if ! multilib_is_native_abi; then
-		# non-native? let's replace it with a simple wrapper
-		for i in "${clang_tools[@]}"; do
-			rm "${ED%/}/usr/bin/${i}-${CLANG_VERSION}" || die
-			cat > "${T}"/wrapper.tmp <<-_EOF_
-				#!${EPREFIX}/bin/sh
-				exec "${i}-${CLANG_VERSION}" $(get_abi_CFLAGS) "\${@}"
-			_EOF_
-			newbin "${T}"/wrapper.tmp "${i}-${CLANG_VERSION}"
-		done
-	fi
 }
 
 multilib_src_install_all() {
@@ -264,11 +263,5 @@ multilib_src_install_all() {
 	python_fix_shebang "${ED}"
 	if use static-analyzer; then
 		python_optimize "${ED}"usr/share/scan-view
-	fi
-}
-
-pkg_postinst() {
-	if ! has_version 'sys-libs/libomp'; then
-		elog "To enable OpenMP support in clang, install sys-libs/libomp."
 	fi
 }

@@ -18,11 +18,16 @@ SRC_URI=""
 EGIT_REPO_URI="http://llvm.org/git/llvm.git
 	https://github.com/llvm-mirror/llvm.git"
 
+# Keep in sync with CMakeLists.txt
+ALL_LLVM_TARGETS=( AArch64 AMDGPU ARM BPF Hexagon Lanai Mips MSP430
+	NVPTX PowerPC Sparc SystemZ X86 XCore )
+ALL_LLVM_TARGETS=( "${ALL_LLVM_TARGETS[@]/#/llvm_targets_}" )
+
 LICENSE="UoI-NCSA"
 SLOT="0/${PV%.*}"
 KEYWORDS=""
 IUSE="debug +doc gold libedit +libffi multitarget ncurses ocaml test
-	video_cards_radeon elibc_musl kernel_Darwin"
+	elibc_musl kernel_Darwin ${ALL_LLVM_TARGETS[*]}"
 
 RDEPEND="
 	sys-libs/zlib:0=
@@ -46,10 +51,18 @@ DEPEND="${RDEPEND}
 	libffi? ( virtual/pkgconfig )
 	ocaml? ( dev-ml/findlib
 		test? ( dev-ml/ounit ) )
+	test? ( $(python_gen_any_dep 'dev-python/lit[${PYTHON_USEDEP}]') )
 	!!<dev-python/configparser-3.3.0.2
 	${PYTHON_DEPS}"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}
+	|| ( ${ALL_LLVM_TARGETS[*]} )
+	multitarget? ( ${ALL_LLVM_TARGETS[*]} )"
+
+python_check_deps() {
+	! use test \
+		|| has_version "dev-python/lit[${PYTHON_USEDEP}]"
+}
 
 pkg_pretend() {
 	# in megs
@@ -89,27 +102,12 @@ src_prepare() {
 	# Python is needed to run tests using lit
 	python_setup
 
-	# Fix libdir for ocaml bindings install, bug #559134
-	eapply "${FILESDIR}"/9999/0001-cmake-Install-OCaml-modules-into-correct-package-loc.patch
-
-	# Make it possible to override Sphinx HTML install dirs
-	# https://llvm.org/bugs/show_bug.cgi?id=23780
-	eapply "${FILESDIR}"/9999/0003-cmake-Support-overriding-Sphinx-HTML-doc-install-dir.patch
-
-	# Prevent race conditions with parallel Sphinx runs
-	# https://llvm.org/bugs/show_bug.cgi?id=23781
-	eapply "${FILESDIR}"/9999/0004-cmake-Add-an-ordering-dep-between-HTML-man-Sphinx-ta.patch
-
 	# Allow custom cmake build types (like 'Gentoo')
 	eapply "${FILESDIR}"/9999/0006-cmake-Remove-the-CMAKE_BUILD_TYPE-assertion.patch
 
 	# Fix llvm-config for shared linking and sane flags
 	# https://bugs.gentoo.org/show_bug.cgi?id=565358
 	eapply "${FILESDIR}"/9999/0007-llvm-config-Clean-up-exported-values-update-for-shar.patch
-
-	# Restore SOVERSIONs for shared libraries
-	# https://bugs.gentoo.org/show_bug.cgi?id=578392
-	eapply "${FILESDIR}"/9999/0008-cmake-Restore-SOVERSIONs-on-shared-libraries.patch
 
 	# support building llvm against musl-libc
 	use elibc_musl && eapply "${FILESDIR}"/9999/musl-fixes.patch
@@ -125,14 +123,6 @@ src_prepare() {
 }
 
 multilib_src_configure() {
-	local targets
-	if use multitarget; then
-		targets=all
-	else
-		targets='host;BPF'
-		use video_cards_radeon && targets+=';AMDGPU'
-	fi
-
 	local ffi_cflags ffi_ldflags
 	if use libffi; then
 		ffi_cflags=$(pkg-config --cflags-only-I libffi)
@@ -144,7 +134,7 @@ multilib_src_configure() {
 		-DLLVM_LIBDIR_SUFFIX=${libdir#lib}
 
 		-DBUILD_SHARED_LIBS=ON
-		-DLLVM_TARGETS_TO_BUILD="${targets}"
+		-DLLVM_TARGETS_TO_BUILD="${LLVM_TARGETS// /;}"
 		-DLLVM_BUILD_TESTS=$(usex test)
 
 		-DLLVM_ENABLE_FFI=$(usex libffi)
@@ -176,6 +166,10 @@ multilib_src_configure() {
 		)
 #	fi
 
+	use test && mycmakeargs+=(
+		-DLIT_COMMAND="${EPREFIX}/usr/bin/lit"
+	)
+
 	if multilib_is_native_abi; then
 		mycmakeargs+=(
 			-DLLVM_BUILD_DOCS=$(usex doc)
@@ -190,7 +184,7 @@ multilib_src_configure() {
 			-DLLVM_INSTALL_UTILS=ON
 		)
 		use doc && mycmakeargs+=(
-			-DLLVM_INSTALL_HTML="${EPREFIX}/usr/share/doc/${PF}/html"
+			-DLLVM_INSTALL_SPHINX_HTML_DIR="${EPREFIX}/usr/share/doc/${PF}/html"
 			-DSPHINX_WARNINGS_AS_ERRORS=OFF
 		)
 		use gold && mycmakeargs+=(
