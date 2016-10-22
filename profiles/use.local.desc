@@ -2115,7 +2115,12 @@ dev-ml/zarith:mpir - Use MPIR library instead of GMP.
 dev-perl/App-Nopaste:clipboard - copying of URLs with -x/--copy
 dev-perl/App-Nopaste:github - Github authentication
 dev-perl/App-Nopaste:pastebin - pastebin.com support
+dev-perl/Business-ISBN:barcode - Install dev-perl/GD-Barcode for rendering ISBN numbers as barcodes
+dev-perl/Business-ISBN:xisbn - Install dev-perl/Mojolicious for querying xisbn.worldcat.org
+dev-perl/Convert-UUlib:system-uulib - Use dev-libs/uulib instead of bundled version.
+dev-perl/DBD-SQLite:system-sqlite - Use the system-wide dev-db/sqlite installation
 dev-perl/DBD-mysql:embedded - Support embedded server (libmysqld)
+dev-perl/DBD-mysql:ssl - Compile in support for SSL connections via libmysqlclient
 dev-perl/DBIx-Class:admin - Modules required for the DBIx::Class administrative library
 dev-perl/DBIx-Class:admin_script - Modules required for the CLI DBIx::Class interface dbicadmin
 dev-perl/DBIx-Class:deploy - Modules required for "deploy" in DBIx::Class::Storage::DBI and "deploymen_statements" in DBIx::Class::Storage::DBI

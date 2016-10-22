@@ -1,7 +1,5 @@
-# FL-3351: add vim-8. masked for testing:
-=app-editors/vim-core-8.0.0005
-=app-editors/vim-8.0.0005
-=app-editors/gvim-8.0.0005
+# QA-460: mask m2crypto that missing dep. Fixing of it is more complex task. Let's wait.
+>=dev-python/m2crypto-0.25
 
 # Fl-3333: add new portage that has git sync fixed. masked for testing.
 =sys-apps/portage-2.4.3
@@ -14,9 +12,6 @@
 
 # mask xfsprogs-4.7.0, that is causing QA build failures.
 >=sys-fs/xfsprogs-4.7.0
-
-# debian-sources-4.7.2. maksed for testing
-=sys-kernel/debian-sources-4.7.2
 
 # FL-3261: keep newestt iputils masked.
 >=net-misc/iputils-20160308
