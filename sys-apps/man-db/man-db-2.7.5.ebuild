@@ -1,19 +1,19 @@
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI="4"
 
 inherit eutils user versionator
-MAN_PKG="man-1.6g"
-MAN2HTML_SRC="mirror://funtoo/${MAN_PKG}.tar.gz"
 
 DESCRIPTION="a man replacement that utilizes berkdb instead of flat files"
 HOMEPAGE="http://www.nongnu.org/man-db/"
-SRC_URI="mirror://nongnu/${PN}/${P}.tar.xz ${MAN2HTML_SRC}"
+SRC_URI="mirror://nongnu/${PN}/${P}.tar.xz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="*"
-IUSE="berkdb +gdbm +manpager lzma nls selinux static-libs zlib"
+KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~amd64-linux ~arm-linux ~x86-linux"
+IUSE="berkdb +gdbm +manpager nls selinux static-libs zlib"
 
 CDEPEND=">=dev-libs/libpipeline-1.4.0
 	berkdb? ( sys-libs/db )
@@ -43,13 +43,6 @@ pkg_setup() {
 		ewarn "Defaulting to USE=gdbm due to ambiguous berkdb/gdbm USE flag settings"
 	fi
 }
-src_prepare() {
-	# FL-258 build man package so we can extract man2html
-	cd "${WORKDIR}"/"${MAN_PKG}"
-	epatch "${FILESDIR}"/man-1.6/*
-	# make sure `less` handles escape sequences #287183
-	sed -i -e '/^DEFAULTLESSOPT=/s:"$:R":' configure
-}
 
 src_configure() {
 	export ac_cv_lib_z_gzopen=$(usex zlib)
@@ -66,42 +59,10 @@ src_configure() {
 	sed -i \
 		-e '/^#DEFINE.*\<[nt]roff\>/{s:^#::;s:$: -c:}' \
 		src/man_db.conf || die
-
-	# FL-258 build man package so we can extract man2html
-
-	cd "${WORKDIR}"/"${MAN_PKG}"
-	strip-linguas $(eval $(grep ^LANGUAGES= configure) ; echo ${LANGUAGES//,/ })
-	unset NLSPATH #175258
-	tc-export CC BUILD_CC
-	local mylang=
-	if use nls ; then
-		if [[ -z ${LINGUAS} ]] ; then
-			mylang="all"
-		else
-			mylang="${LINGUAS// /,}"
-		fi
-	else
-		mylang="none"
-	fi
-	export COMPRESS
-	if use lzma ; then
-		COMPRESS=/usr/bin/xz
-	else
-		COMPRESS=/bin/bzip2
-	fi
-	./configure -confdir=/etc +sgid +fhs +lang ${mylang} || die "configure failed in man"
-}
-src_compile () {
-	cd "${S}"
-	emake || die "emake failed"
-	# FL-258 build man package so we can extract man2html
-	cd "${WORKDIR}"/"${MAN_PKG}"
-	emake || die "emake failed"
 }
 
 src_install() {
-	cd "${S}"
-	emake install DESTDIR="${D}" || die
+	default
 	dodoc docs/{HACKING,TODO}
 	prune_libtool_files
 
@@ -109,12 +70,8 @@ src_install() {
 	newexe "${FILESDIR}"/man-db.cron man-db #289884
 
 	keepdir /var/cache/man
-	fowners man:root /var/cache/man
+	fowners man:0 /var/cache/man
 	fperms 2755 /var/cache/man
-
-	# FL-258 Install just the man2html part of man.
-	cd "${WORKDIR}"/"${MAN_PKG}"/man2html
-	make PREFIX="${D}" install || die "make install failed for man2html"
 }
 
 pkg_preinst() {
