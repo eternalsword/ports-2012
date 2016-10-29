@@ -317,7 +317,6 @@ app-crypt/qca:gcrypt - Enable gcrypt plugin
 app-crypt/qca:gpg - Enable GnuPG plugin
 app-crypt/qca:logger - Enable logger plugin
 app-crypt/qca:nss - Enable NSS plugin
-app-crypt/qca:openssl - Enable OpenSSL plugin
 app-crypt/qca:pkcs11 - Enable PKCS#11 plugin
 app-crypt/qca:sasl - Enable SASL plugin
 app-crypt/qca:softstore - Enable softstore plugin
@@ -2584,6 +2583,7 @@ dev-util/anjuta:terminal - Enable terminal plugin based on x11-libs/vte
 dev-util/apitrace:cli - Enable command line interface
 dev-util/apitrace:egl - Enable EGL support
 dev-util/apitrace:system-snappy - Link dynamic against app-arch/snappy
+dev-util/bazel:tools - Install extra bazel tools to build from sources
 dev-util/bitcoin-tx:ljr - Enable Luke Dashjr's patches
 dev-util/buildbot:irc - Add support for status delivery through an ircbot.
 dev-util/buildbot:mail - Add support for watching a maildir for commits.
