@@ -1019,6 +1019,7 @@ app-shells/bash:bashlogger - Log ALL commands typed into bash; should ONLY be us
 app-shells/bash:mem-scramble - Build with custom malloc/free overwriting allocated/freed memory
 app-shells/bash:net - Enable /dev/tcp/host/port redirection
 app-shells/bash:plugins - Add support for loading builtins at runtime via 'enable'
+app-shells/dash:dumb-echo - Disable echo -n for added fun
 app-shells/mpv-bash-completion:luajit - Use dev-lang/luajit instead of dev-lang/lua
 app-shells/pdsh:rsh - This allows the use of rsh (remote shell) and rcp (remote copy) for authoring websites. sftp is a much more secure protocol and is preferred.
 app-shells/scsh-install-lib:scsh - Use a non-FHS directory layout
@@ -2600,6 +2601,9 @@ dev-util/codelite:clang - Enable LLVM C Compiler support
 dev-util/codelite:sftp - Enable SFTP connection support
 dev-util/cppcheck:htmlreport - install cppcheck-htmlreport
 dev-util/ctags:ada - Enable Ada support
+dev-util/ctags:json - Enable JSON output support
+dev-util/ctags:xml - Enable XML parsing support
+dev-util/ctags:yaml - Enable YAML parsing support
 dev-util/cwdiff:a2ps - install app-text/a2ps for postscript output
 dev-util/cwdiff:mercurial - install hg wdiff alias for dev-vcs/mercurial
 dev-util/devhelp:gedit - Install plugin for app-editors/gedit
@@ -7192,7 +7196,6 @@ sys-apps/etckeeper:bazaar - Support dev-vcs/bzr based repository
 sys-apps/etckeeper:cron - Install cron script
 sys-apps/firejail:apparmor - Enable support for custom AppArmor profiles
 sys-apps/firejail:bind - Enable custom bind mounts
-sys-apps/firejail:busybox - Enable support (workaround) for busybox
 sys-apps/firejail:chroot - Enable chrooting to custom directory
 sys-apps/firejail:file-transfer - Enable file transfers between sandboxes and the host system
 sys-apps/firejail:network - Enable networking features
@@ -7784,6 +7787,7 @@ sys-libs/uclibc:ssp - Force the use of ssp to be built into a hardened uclibc se
 sys-libs/uclibc:uclibc-compat - Build uclibc with backwards compatible options
 sys-libs/uclibc:wordexp - Add support for word expansion (wordexp.h)
 sys-libs/uclibc-ng:rpc - Enable sun nis/rpc support (you should use libtirpc though)
+sys-libs/uclibc-ng:symlink-compat - Explicitly add sym links for libdl.so.0, libm.so.0, and friends for backward compatibility with sys-libs/uclibc-ng-1.0.17 and earlier
 sys-libs/zlib:minizip - include the minizip library for quick and dirty zip extraction
 sys-power/cpupower:cpufreq_bench - Build and install the cpufreq_bench binary
 sys-power/nut:ipmi - Support IPMI-based UPSes.
