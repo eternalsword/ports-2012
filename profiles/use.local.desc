@@ -241,6 +241,7 @@ app-backup/bareos:storage-daemon - Install storage daemon (bareos-sd)
 app-backup/borgbackup:fuse - Mount archive as a FUSE filesystem.
 app-backup/boxbackup:client-only - Disable server support, and just build a client
 app-backup/btrbk:pv - Use sys-apps/pv to enable progress bar functionality
+app-backup/bup:web - Support browsing backups via a web interface
 app-backup/dar:dar32 - Enables --enable-mode=32 option, which replace infinite by 32 bit integers
 app-backup/dar:dar64 - Enables --enable-mode=64 option, which replace infinite by 64 bit integers
 app-backup/dar:gcrypt - Enables strong encryption support
@@ -844,6 +845,7 @@ app-misc/mosquitto:bridge - Enable bridge support in the MQTT broker.
 app-misc/mosquitto:persistence - Store messages and subscriptions to a file.
 app-misc/mosquitto:srv - Include SRV lookup support.
 app-misc/muttprint:doc - Builds documentation
+app-misc/neofetch:X - Enable support for detecting DEs, WMs, screen resolutions, and showing images from an X terminal
 app-misc/note:general - Add support for ascii flatfile backend
 app-misc/note:text - Add support for text backend
 app-misc/openastro:jpeg - Enable exporting Astrological Charts to jpeg
@@ -7877,6 +7879,7 @@ sys-process/systemd-cron:etc-crontab-systemd - Use dedicated /etc/crontab-system
 sys-process/systemd-cron:minutely - Support /etc/cron.minutely
 sys-process/systemd-cron:setgid - Compile setgid C helper for crontab. Needs GCC or Clang.
 sys-process/systemd-cron:yearly - Support /etc/cron.yearly
+sys-process/tini:args - Enable argument parsing.
 virtual/mpi:romio - Enable romio, a high-performance portable MPI-IO
 virtual/mysql:embedded - Build embedded server (libmysqld)
 virtual/podofo-build:boost - Add support for boost
@@ -8327,7 +8330,6 @@ x11-themes/arc-theme:gtk2 - Install GTK+2 theme
 x11-themes/arc-theme:gtk3 - Install GTK+3 theme
 x11-themes/arc-theme:mate - Install Metacity theme for mate-base/mate
 x11-themes/arc-theme:xfce - Install theme for xfce-base/xfwm4
-x11-themes/bespin:windeco - Enable window decoration for KWin.
 x11-themes/comix-xcursors:lefthanded - Install lefthanded version of theme in addition to default one
 x11-themes/comix-xcursors:opaque - Install non-transparent version of theme in addition to default one
 x11-themes/gentoo-artwork:grub - Install extra sys-boot/grub themes
@@ -8340,8 +8342,6 @@ x11-themes/gtk-engines-nodoka:animation-rtl - Progressbar animation from right t
 x11-themes/kfaenza:additional - Install additional KFaenza icons. See third homepage for details
 x11-themes/light-themes:gtk3 - Support GTK 3.x, too
 x11-themes/mate-themes-meta:gtk2-only - Allow dependency-resolution for a system without GTK+3
-x11-themes/qtcurve:kde - Enable KDE4 support. This adds a QtCurve configuration module to KDE's SystemSettings
-x11-themes/qtcurve:windeco - Enable window decoration for KWin
 x11-themes/redhat-artwork:audacious - Install media-sound/audacious theme
 x11-themes/redhat-artwork:cursors - Install Bluecurve cursors
 x11-themes/redhat-artwork:gdm - Install Bluecurve gnome-base/gdm theme
