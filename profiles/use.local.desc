@@ -467,6 +467,8 @@ app-emulation/ganeti:multiple-users - Enable support for running VMs as differen
 app-emulation/ganeti:rbd - Enable rados block device support via sys-cluster/ceph
 app-emulation/ganeti:restricted-commands - Enable restricted commands in the node daemon
 app-emulation/ganeti:xen - Enable Xen support
+app-emulation/hyperd:libvirt - Enable support for KVM via libvirt
+app-emulation/hyperd:xen - Enable support for the Xen Hypervisor
 app-emulation/libguestfs:erlang - Build Erlang bindings
 app-emulation/libguestfs:fuse - Enable image mount support via fuse
 app-emulation/libguestfs:inspect-icons - Use media-gfx/icoutilsfor acces icon file in image and inspect it
@@ -555,6 +557,8 @@ app-emulation/rkt:rkt_stage1_kvm_lkvm - Build stage1-kvm-lkvm.aci
 app-emulation/rkt:rkt_stage1_kvm_qemu - Build stage1-kvm-qemu.aci
 app-emulation/rkt:rkt_stage1_src - Build the stage1.aci from source
 app-emulation/runc:apparmor - Enable AppArmor support.
+app-emulation/runv:libvirt - Enable support for KVM via libvirt
+app-emulation/runv:xen - Enable support for the Xen Hypervisor
 app-emulation/spice:lz4 - Enable support for LZ4 compression using app-arch/lz4
 app-emulation/spice:smartcard - Enable smartcard remoting using app-emulation/libcacard
 app-emulation/spice-vdagent:consolekit - Use sys-auth/consolekit to determine the master vdagentd in case of multiple running vdagentds (highly recommended)
@@ -2360,6 +2364,7 @@ dev-python/translate-toolkit:html - Support conversion between po and html files
 dev-python/translate-toolkit:ical - Support conversion between po and ical files
 dev-python/translate-toolkit:ini - Support conversion between po and ini files
 dev-python/translate-toolkit:subtitles - Support conversion between po and sub files
+dev-python/translate-toolkit:yaml - Support YAML format
 dev-python/twisted:conch - include Twisted SSHv2 implementation
 dev-python/twisted:http2 - include http2 support
 dev-python/twisted:serial - include serial port support
@@ -6280,7 +6285,6 @@ net-misc/rdesktop:kerberos - Enable CredSPP support + Kerberos authentication wi
 net-misc/rdesktop:pcsc-lite - Enable smartcard support with sys-apps/pcsc-lite driver
 net-misc/rdesktop:xrandr - Enable XRandR window extension support
 net-misc/remmina:freerdp - Add support for the net-misc/freerdp application
-net-misc/remmina:libsecret - Enable libsecret support to store login credentials
 net-misc/remmina:spice - Support connecting to SPICE-enabled virtual machines
 net-misc/remmina:ssh - Enable support for SSH/SFTP protocol; see also 'vte'
 net-misc/remmina:telepathy - Enable telepathy support
@@ -7156,6 +7160,8 @@ sci-visualization/gnuplot:libcerf - Enable special functions from sci-libs/libce
 sci-visualization/gnuplot:thin-splines - Enable thin plate splines
 sci-visualization/gwyddion:fits - Enable FITS image import via sci-libs/cfitsio
 sci-visualization/gwyddion:sourceview - Enable support for x11-libs/gtksourceview
+sci-visualization/labplot:cantor - Enable support for different open-source computer algebra systems via kde-apps/cantor
+sci-visualization/labplot:fits - Enable support for NASA's sci-libs/cfitsio library
 sci-visualization/opendx:cdf - Add support for sci-libs/cdf data exchange format
 sci-visualization/opendx:hdf - Add support for the Hierarchical Data Format (sci-libs/hdf)
 sci-visualization/paraview:boost - Enable the usage of dev-libs/boost
@@ -8041,6 +8047,8 @@ www-misc/zoneminder:gcrypt - ...
 www-misc/zoneminder:openssl - ...
 www-misc/zoneminder:vlc - Enable using media-libs/vlc for streaming from cameras
 www-plugins/adobe-flash:kde - Install a KCM plugin for configuring flash player preferences
+www-plugins/adobe-flash:npapi - Install the Netscape Flash API plugin (for Firefox and similar browsers
+www-plugins/adobe-flash:ppapi - Install the Pepper Flash API plugin (for Chrome and similar browsers
 www-plugins/chrome-binary-plugins:widevine - Install the Widevine DRM library
 www-plugins/freshplayerplugin:gles2 - Use system GLESv2 libraries instead of ANGLE for shader translation
 www-plugins/freshplayerplugin:gtk3 - Build with GTK+ 3 instead of GTK+ 2
