@@ -10,5 +10,5 @@ RDEPEND=virtual/libc || ( ( x11-libs/libXxf86vm x11-libs/libXext x11-libs/libX11
 RESTRICT=strip
 SLOT=0
 SRC_URI=amd64? ( java? ( mirror://gentoo/sancho-0.9.4-59-linux-gtk-x86_64-java.sh ) !java? ( mirror://gentoo/sancho-0.9.4-59-linux-gtk.sh ) ) ppc? ( mirror://gentoo/sancho-0.9.4-59-linux-gtk-ppc-java.sh ) x86? ( java? ( mirror://gentoo/sancho-0.9.4-59-linux-gtk-java.sh ) !java? ( mirror://gentoo/sancho-0.9.4-59-linux-gtk.sh ) )
-_eclasses_=eutils	b83a2420b796f7c6eff682679d08fe25	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	6198c04daba0e1307bd844df7d37f423
+_eclasses_=eutils	b83a2420b796f7c6eff682679d08fe25	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=72ba37a3c8eb4dc6b6e0ac09a271f0e6
