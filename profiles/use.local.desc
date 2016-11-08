@@ -1056,6 +1056,7 @@ app-text/docbook-xsl-ns-stylesheets:ruby - Install the Ruby-based dbtoepub scrip
 app-text/docbook-xsl-stylesheets:ruby - Install the Ruby-based dbtoepub script; requires an interpreter compatible with app-eselect/eselect-ruby.
 app-text/dvipng:t1lib - Enable support for T1lib font rendering (media-libs/t1lib)
 app-text/ebook-tools:lit2epub - Install lit2epub script
+app-text/editorconfig-core-c:cli - Install command line interface.
 app-text/enchant:aspell - Adds support for app-text/aspell spell checker
 app-text/enchant:hunspell - Adds support for app-text/hunspell spell checker
 app-text/enchant:zemberek - Adds support for app-text/zemberek-server spell checker server
@@ -2254,6 +2255,7 @@ dev-python/django-tastypie:digest - Library to aid in implementing HTTP Digest A
 dev-python/django-tastypie:lxml - An optional serialiser dev-python/lxml
 dev-python/django-tastypie:yaml - An optional serialiser dev-python/yaml
 dev-python/django-two-factor-auth:yubikey - Adds support for Yubikeys via django-otp-yubikey
+dev-python/editorconfig-core-py:cli - Install command line interface as well as python library
 dev-python/falcon:cython - Build cython-based python modules
 dev-python/flask-restful:paging - Enable resource paging support
 dev-python/geopy:timezone - Enables localized date support
@@ -4373,6 +4375,8 @@ media-sound/gimmix:cover - Enable cover art fetching
 media-sound/gimmix:lyrics - Enable lyric fetching
 media-sound/gmpc:unique - Enable single instance support using dev-libs/libunique
 media-sound/gmpc:xspf - Enable support for reading and saving XSPF playlists
+media-sound/gmusicbrowser:extras - Install some extra deps for plugins (ex. Titlebar)
+media-sound/gmusicbrowser:gstreamer-0 - Enable audio support via legacy gstreamer:0.10
 media-sound/gogglesmm:opus - Enable support for opus codec
 media-sound/google-musicmanager:log - Enables advanced logging through dev-libs/log4cxx
 media-sound/herrie:http - Enable http streaming
