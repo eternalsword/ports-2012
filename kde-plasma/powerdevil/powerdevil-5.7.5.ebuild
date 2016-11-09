@@ -61,8 +61,8 @@ RDEPEND="${DEPEND}
 			sys-power/upower-pm-utils
 		)
 	)
-	!kde-base/powerdevil:4
-	!kde-base/systemsettings:4[handbook]
+	!kde-plasma/powerdevil:4
+	!kde-plasma/systemsettings:4[handbook]
 "
 
 PATCHES=( "${FILESDIR}/${PN}-5.6.95-wireless-optional.patch" )
