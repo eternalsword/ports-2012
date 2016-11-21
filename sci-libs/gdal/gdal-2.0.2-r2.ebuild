@@ -92,6 +92,7 @@ src_prepare() {
 
 	if use jpeg2k; then
 		epatch "${FILESDIR}"/${P}-jasper.patch
+		epatch "${FILESDIR}"/${P}-jas_stream_initbuf.patch
 	fi
 
 	# -soname is only accepted by GNU ld/ELF
