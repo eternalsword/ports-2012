@@ -1,11 +1,13 @@
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI=5
 
 inherit autotools
 
 SRC_URI="https://github.com/linuxmint/xapps/archive/${PV}.tar.gz -> ${P}.tar.gz"
-KEYWORDS="~*"
+KEYWORDS="~amd64 ~x86"
 
 DESCRIPTION="Cross-desktop libraries and common resources"
 HOMEPAGE="https://github.com/linuxmint/xapps/"
@@ -19,12 +21,16 @@ RDEPEND="
 	>=dev-libs/glib-2.37.3:2
 	x11-libs/cairo
 	gnome-base/libgnomekbd
-"
-DEPEND="${RDEPEND}
 	gnome-base/gnome-common
 "
+DEPEND="${RDEPEND}"
 
-src_prepare() {
-	rm -rf files/usr/bin
+src_prepare(){
 	eautoreconf
+	default
+}
+
+src_install(){
+	default
+	rm -rf "${D}/usr/bin/" || die
 }
