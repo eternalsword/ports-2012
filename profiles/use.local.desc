@@ -4106,7 +4106,7 @@ media-libs/x265:pic - Disable optimized assembly code that is not PIC friendly
 media-libs/xine-lib:bluray - Enable playback of Blu-ray filesystems using media-libs/libbluray
 media-libs/xine-lib:dxr3 - Enable support for DXR3 mpeg acceleration cards.
 media-libs/xine-lib:flac - Build the media-libs/flac based FLAC demuxer and decoder. This flag is not needed for playing FLAC content, neither standalone nor in Ogg container (OggFLAC), but might have better support for exotic features like 24-bit samples or 96kHz sample rates.
-media-libs/xine-lib:fusion - Enable support for the Fusion audio sub system
+media-libs/xine-lib:fusionsound - Enable support for the Fusion audio sub system
 media-libs/xine-lib:gtk - Build the gdkpixbuf-based image decoder plugin.
 media-libs/xine-lib:imagemagick - Build the ImageMagick-based image decoder plugin.
 media-libs/xine-lib:mad - Build the media-libs/libmad based mp3 decoder. This mp3 decoder has superior support compared to the one coming from FFmpeg that is used as a fallback. If you experience any bad behaviour with mp3 files (skipping, distorted sound) make sure you enabled this USE flag.
@@ -4441,7 +4441,6 @@ media-sound/moc:sid - Build with SID (Commodore 64 Audio) support
 media-sound/moc:tremor - Build vorbis support using an integer implementation of the vorbis library (media-libs/tremor)
 media-sound/mp3blaster:sid - Build with SID (Commodore 64 Audio) support
 media-sound/mp3splt-gtk:audacious - Include media-sound/audacious support
-media-sound/mp3splt-gtk:gtk3 - Link against x11-libs/gtk+:3 instead of x11-libs/gtk+:2
 media-sound/mpd:adplug - Enable the AdPlug decoder plugin
 media-sound/mpd:cdio - Use libcdio for ISO9660 parsing support
 media-sound/mpd:curl - Support for web stream listening
@@ -4973,7 +4972,6 @@ media-video/vlc:macosx-notifications - Enables Mac OS X notifications module (fo
 media-video/vlc:macosx-qtkit - Enables Mac OS X qtkit module: qtcapture (video) and qtsound (audio) module.
 media-video/vlc:macosx-quartztext - Enables Mac OS X quartz text module.
 media-video/vlc:matroska - Enables matroska support using reference libraries (fallback on other existing matroska support if disabled, i.e., matroska enabled FFmpeg)
-media-video/vlc:media-library - Build the (sqlite based) media library.
 media-video/vlc:mpeg - Add libmpeg2 support for mpeg-1 and mpeg-2 video streams
 media-video/vlc:omxil - Enables OpenMAX Integration Layer codec module.
 media-video/vlc:opencv - Enabled OpenCV (computer vision) filter module.
@@ -4982,7 +4980,7 @@ media-video/vlc:opus - Support opus decoding via libopus.
 media-video/vlc:postproc - Enables image post-processing via libpostproc (part of FFmpeg).
 media-video/vlc:projectm - Enables the projectM visualization plugin.
 media-video/vlc:qt4 - Builds a Qt4 based frontend, a graphical interface.
-media-video/vlc:qt5 - Builds a Qt5 based frontend, a graphical interface.
+media-video/vlc:qt5 - Builds a Qt5 based frontend, a graphical interface (overrides qt4).
 media-video/vlc:rdp - Enables freerdp for RDP/Remote Desktop client support
 media-video/vlc:rtsp - Enables real audio and RTSP modules.
 media-video/vlc:run-as-root - Allows vlc to start for root. Don't enable this unless you have a very specific (e.g. embedded) need for it!
