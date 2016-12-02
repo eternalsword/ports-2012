@@ -1,13 +1,13 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
-PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
+EAPI=6
+PYTHON_COMPAT=( python2_7 python3_{4,5} )
 
 inherit distutils-r1
 
-RESTRICT="test" # broken
+RESTRICT="test" # requires running MongoDB server
 
 DESCRIPTION="Flask support for MongoDB and with WTF model forms"
 HOMEPAGE="https://pypi.python.org/pypi/flask-mongoengine/"
@@ -19,16 +19,17 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 RDEPEND=">=dev-python/flask-0.8[${PYTHON_USEDEP}]
-		>=dev-python/mongoengine-0.7.10[${PYTHON_USEDEP}]
-		>=dev-python/flask-wtf-0.8.3[${PYTHON_USEDEP}]
-		>=dev-python/flask-debugtoolbar-0.8[${PYTHON_USEDEP}]"
-
+	>=dev-python/mongoengine-0.7.10[${PYTHON_USEDEP}]
+	dev-python/flask-wtf[${PYTHON_USEDEP}]"
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]
 	test? ( dev-python/nose[${PYTHON_USEDEP}] )
-	doc? ( dev-python/sphinx[${PYTHON_USEDEP}]
-	)"
+	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )"
 
-PATCHES=( "${FILESDIR}"/tests-installation.patch )
+python_prepare_all() {
+	# fix distutils sandbox violation due to missing test-deps in normal build
+	sed -i '/test_requirements/d' setup.py || die
+	distutils-r1_python_prepare_all
+}
 
 python_compile_all() {
 	use doc && emake -C docs html

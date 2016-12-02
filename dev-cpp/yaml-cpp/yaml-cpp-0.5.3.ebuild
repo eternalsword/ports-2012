@@ -1,12 +1,12 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils
 
-DESCRIPTION="A YAML parser and emitter in C++"
+DESCRIPTION="YAML parser and emitter in C++"
 HOMEPAGE="https://github.com/jbeder/yaml-cpp"
 SRC_URI="https://github.com/jbeder/${PN}/archive/release-${PV}.tar.gz"
 
