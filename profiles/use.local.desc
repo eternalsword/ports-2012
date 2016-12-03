@@ -1115,7 +1115,7 @@ app-text/sgmltools-lite:jadetex - Add support for app-text/jadetex (for processi
 app-text/stardict:espeak - Enable text to speech synthesizer using espeak engine
 app-text/stardict:pronounce - Install WyabdcRealPeopleTTS package (it is just many .wav files) to make StarDict pronounce English words
 app-text/stardict:qqwry - Enable QQWry plugin, which provides information (in Chinese language) about geographical positions, owner, etc. for IP addresses
-app-text/stardict:tools - Build and install the extra stardict tools
+app-text/stardict:tools - Build and install dictionary management tools and converters from various dictionary formats
 app-text/tesseract:math - Enable support for recognition of equations.
 app-text/tesseract:opencl - Enable opencl support for speedup using GPU computation.
 app-text/tesseract:osd - Enable support orientation and script detection.
@@ -3291,7 +3291,6 @@ kde-base/kdebase-startkde:wallpapers - Install the KDE Plasma wallpapers
 kde-base/kdelibs:opengl - Enable OpenGL support for Plasma (GLApplet)
 kde-base/kdm:consolekit - Enables support for authorization using consolekit
 kde-base/klipper:prison - Enable support for barcodes/QRcodes
-kde-base/libplasmaclock:kdepim - KDE PIM integration via kde-apps/kdepimlibs
 kde-base/plasma-workspace:json - Enable JSON support via dev-libs/qjson
 kde-base/plasma-workspace:kdepim - KDE PIM integration via kde-apps/kdepimlibs
 kde-base/plasma-workspace:qalculate - Enable Qalculate runner using sci-libs/libqalculate
@@ -4023,6 +4022,7 @@ media-libs/mlt:frei0r - Build the module for media-plugins/frei0r-plugins
 media-libs/mlt:kdenlive - Build support for kde-apps/kdenlive
 media-libs/mlt:lua - Build SWIG bindings for Lua
 media-libs/mlt:melt - Build the melt commandline tool
+media-libs/mlt:opencv - Build motion tracking module using media-libs/opencv
 media-libs/mlt:python - Build SWIG bindings for Python
 media-libs/mlt:rtaudio - Builds rtaudio consumer for native audio support on multiple platforms.
 media-libs/mlt:ruby - Build SWIG bindings for Ruby
@@ -5829,6 +5829,7 @@ net-libs/nghttp2:jemalloc - Use dev-libs/jemalloc for memory allocation
 net-libs/nghttp2:utils - Install nghttp, nghttpd and nghttpx
 net-libs/nodejs:npm - Enable NPM package manager
 net-libs/nodejs:snapshot - Enable snapshot creation for faster startup
+net-libs/nodejs:systemtap - Enable SystemTAP/DTrace tracing
 net-libs/onion:boehm-gc - Add dev-libs/boehm-gc support for memory allocations.
 net-libs/onion:libev - Use dev-libs/libev as thread poller instead of Linux's epoll.
 net-libs/onion:libevent - Use dev-libs/libevent as thread poller instead of libev or Linux's epoll.
@@ -6192,7 +6193,6 @@ net-misc/lldpd:edp - Enable Extreme Discovery Protocol
 net-misc/lldpd:fdp - Enable Foundry Discovery Protocol
 net-misc/lldpd:graph - Create dot graphs in documentations
 net-misc/lldpd:jansson - Enable JSON output via Jansson
-net-misc/lldpd:json-c - Enable JSON output via json-c
 net-misc/lldpd:lldpmed - Enable LLDP-MED extension
 net-misc/lldpd:old-kernel - Enable compatibility with Linux kernel older than 2.6.39
 net-misc/lldpd:sanitizers - Enable code instrumentation with selected sanitizers
@@ -6276,7 +6276,8 @@ net-misc/openssh:ssh1 - Support the legacy/weak SSH1 protocol
 net-misc/openssh:ssl - Enable additional crypto algorithms via OpenSSL
 net-misc/openvpn:down-root - Enable the down-root plugin
 net-misc/openvpn:iproute2 - Enabled iproute2 support instead of net-tools
-net-misc/openvpn:passwordsave - Enables openvpn to save passwords
+net-misc/openvpn:lz4 - Enable LZ4 support
+net-misc/openvpn:mbedtls - Use mbed TLS instead of OpenSSL
 net-misc/openvpn:pkcs11 - Enable PKCS#11 smartcard support
 net-misc/openvpn:plugins - Enable the OpenVPN plugin system
 net-misc/openvpn:polarssl - Use PolarSSL instead of OpenSSL
