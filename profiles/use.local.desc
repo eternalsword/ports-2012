@@ -1109,6 +1109,7 @@ app-text/podofo:boost - Add support for boost
 app-text/poppler:cairo-qt - Enable experimental Cairo font rasterizer for Qt4 backend.
 app-text/poppler:nss - Enable signatures handling with dev-libs/nss
 app-text/poppler:utils - Install command-line PDF converters and various utilities.
+app-text/qpdf:perl - Install fix-qdf tool (for reverting PDF edits) written in perl
 app-text/qpdfview:fitz - Use experimental fitz rendering, provided by app-text/mupdf, instead of poppler
 app-text/qpdfview:synctex - Add support for searching TeX sources
 app-text/sdcv:darkterm - Improve readability of color output on terminals with dark background.
@@ -3361,6 +3362,7 @@ kde-plasma/kdeplasma-addons:share - Enable applet for quickly sharing data to a 
 kde-plasma/kinfocenter:egl - Retrieve information about OpenGL via EGL
 kde-plasma/kinfocenter:gles2 - Show OpenGL ES information in kinfocenter
 kde-plasma/kinfocenter:pci - Show advanced PCI information
+kde-plasma/klipper:prison - Enable support for barcodes/QRcodes
 kde-plasma/kmenuedit:hotkeys - Enable support for hotkey editing
 kde-plasma/kwallet-pam:oldwallet - Enable legacy support for kde-apps/kwalletd
 kde-plasma/kwin:gles - Enable support for GLES
@@ -6576,8 +6578,8 @@ net-p2p/primecoind:logrotate - Use app-admin/logrotate for rotating logs
 net-p2p/qbittorrent:webui - Enable the Web UI
 net-p2p/retroshare:cli - Enables the CLI version of RetroShare
 net-p2p/retroshare:feedreader - Enables the Feedreader plugin
+net-p2p/retroshare:gui - Enables the GUI version of RetroShare
 net-p2p/retroshare:links-cloud - Enables LinkClouds plugin
-net-p2p/retroshare:qt4 - Enables the GUI using qt4
 net-p2p/retroshare:voip - Enables VOIP plugin
 net-p2p/rtorrent:daemon - Uses app-misc/screen to daemonize this application
 net-p2p/syncthing:tools - Install stdiscosrv, strelaysrv and other tools to /usr/libexec/syncthing/.
