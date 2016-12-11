@@ -66,7 +66,6 @@ app-admin/diradm:automount - Support for automount data in LDAP
 app-admin/diradm:irixpasswd - Support for storing separate IRIX passwords
 app-admin/ego:zsh-completion - Enable ZSH completion
 app-admin/elektra:augeas - Enable plugin for reading and writing configuration files with help from Augeas
-app-admin/elektra:gcov - Enable coverage support
 app-admin/elektra:ini - Enable new, advanced ini support
 app-admin/elektra:simpleini - Enable simpleini support
 app-admin/elektra:uname - Enable uname information for the key database
@@ -888,6 +887,7 @@ app-misc/screenfetch:X - Use the media-gfx/scrot package to take screenshots
 app-misc/sphinx:id64 - use 64-bit document and word IDs
 app-misc/sphinx:re2 - use the dev-libs/re2 regular expression library
 app-misc/sphinx:stemmer - Enable language stemming support
+app-misc/task:sync - Enable "task sync" support
 app-misc/tasque:hiveminder - Allows you to use http://www.hiveminder.com/ as your storage backend.
 app-misc/tasque:rememberthemilk - Allows you to use http://www.rememberthemilk.com/ as your storage backend.
 app-misc/tmux:utempter - Include libutempter support
@@ -1759,6 +1759,7 @@ dev-lang/ocaml:flambda - Enables the Flambda optimizer: A new intermediate repre
 dev-lang/orc:pax_kernel - Apply patch needed for pax enabled kernels.
 dev-lang/perl:ithreads - Enable Perl threads, has some compatibility problems
 dev-lang/php:cli - Enable CLI SAPI
+dev-lang/php:coverage - Include gcov symbols for test coverage and lcov reports. Only useful for extension developers, and requires GCC.
 dev-lang/php:embed - Enable embed SAPI
 dev-lang/php:enchant - Add supports Enchant spelling library.
 dev-lang/php:fileinfo - Add fileinfo extension support
@@ -1770,7 +1771,7 @@ dev-lang/php:intl - Enables the intl extension for extended internalization supp
 dev-lang/php:json - Enable JSON support
 dev-lang/php:ldap-sasl - Add SASL support for the PHP LDAP extension
 dev-lang/php:libmysqlclient - Use libmyslclient driver for mysql, mysqli, PDO_Mysql (not recommended)
-dev-lang/php:opcache - Enables built-in opcode cache, replacing pecl-apc et.al
+dev-lang/php:opcache - Enables built-in opcode cache, replacing pecl-apc et al.
 dev-lang/php:pdo - Enable the bundled PDO extensions
 dev-lang/php:phar - Enables the phar extension to provide phar archive support
 dev-lang/php:phpdbg - Enable the PHP Debug Command Line SAPI (like gdb for php)
@@ -2268,6 +2269,11 @@ dev-python/PyQt5:widgets - Build bindings for the QtWidgets module
 dev-python/PyQt5:x11extras - Build bindings for the QtX11Extras module
 dev-python/PyQt5:xmlpatterns - Build bindings for the QtXmlPatterns module
 dev-python/PythonQt:extensions - Install extensions
+dev-python/QtPy:designer - Build bindings for the QtDesigner module and enable the designer plugin
+dev-python/QtPy:gui - Build bindings for the QtGui module
+dev-python/QtPy:svg - Build bindings for the QtSvg module
+dev-python/QtPy:testlib - Build bindings for the QtTest module
+dev-python/QtPy:webkit - Build bindings for the QtWebKit module
 dev-python/amqplib:extras - Install extra tools to generate initial Python mod from an AMQP XML file
 dev-python/anyvc:bazaar - Add support for Bazaar
 dev-python/anyvc:mercurial - Add support for Mercurial
@@ -3361,6 +3367,7 @@ kde-plasma/kdeplasma-addons:qalculate - Enable Qalculate runner using sci-libs/l
 kde-plasma/kdeplasma-addons:qwt - Enable applets that use x11-libs/qwt SLOT 5
 kde-plasma/kdeplasma-addons:scim - Enable applets that use app-i18n/scim
 kde-plasma/kdeplasma-addons:share - Enable applet for quickly sharing data to a variety of sources
+kde-plasma/kdm:consolekit - Enables support for authorization using consolekit
 kde-plasma/kinfocenter:egl - Retrieve information about OpenGL via EGL
 kde-plasma/kinfocenter:gles2 - Show OpenGL ES information in kinfocenter
 kde-plasma/kinfocenter:pci - Show advanced PCI information
@@ -5931,6 +5938,7 @@ net-libs/xrootd:fuse - Enable the sys-fs/fuse filesystem driver
 net-libs/xrootd:http - Enable http protocol support
 net-libs/xrootd:libevent - Use dev-libs/libevent for event handling
 net-libs/zeromq:pgm - Build PGM (Pragmatic General Multicast)extention, a protocol for reliable multicast transport of data over IP networks.
+net-libs/zeromq:sodium - Use dev-libs/libsodium for cryptography
 net-mail/automx:memcached - Enable memcached support
 net-mail/automx:sql - Enable support for SQL backends
 net-mail/automx:tools - Install additional automx-test tool
@@ -8397,7 +8405,7 @@ x11-themes/redhat-artwork:audacious - Install media-sound/audacious theme
 x11-themes/redhat-artwork:cursors - Install Bluecurve cursors
 x11-themes/redhat-artwork:gdm - Install Bluecurve gnome-base/gdm theme
 x11-themes/redhat-artwork:icons - Install Bluecurve icons
-x11-themes/redhat-artwork:kdm - Install Bluecurve kde-base/kdm theme
+x11-themes/redhat-artwork:kdm - Install Bluecurve kde-plasma/kdm theme
 x11-themes/redhat-artwork:nautilus - Install Bluecurve gnome-base/nautilus icons
 x11-themes/skinenigmang-logos:dxr3 - Install logos for lower osd color depth on dxr3 cards
 x11-themes/vertex-theme:cinnamon - Install theme for gnome-extra/cinnamon
