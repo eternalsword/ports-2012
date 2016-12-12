@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 # See `man savedconfig.eclass` for info on how to use USE=savedconfig.
 
-EAPI="4"
+EAPI="5"
 inherit eutils flag-o-matic savedconfig toolchain-funcs multilib
 
 DESCRIPTION="Utilities for rescue and embedded systems"
@@ -118,6 +118,8 @@ src_configure() {
 	busybox_config_option n MONOTONIC_SYSCALL
 	busybox_config_option n USE_PORTABLE_CODE
 	busybox_config_option n WERROR
+	# triming the BSS size may be dangerous
+	busybox_config_option n FEATURE_USE_BSS_TAIL
 
 	# If these are not set and we are using a uclibc/busybox setup
 	# all calls to system() will fail.
@@ -139,6 +141,7 @@ src_configure() {
 	busybox_config_option math FEATURE_AWK_LIBM
 
 	# all the debug options are compiler related, so punt them
+	busybox_config_option n DEBUG_SANITIZE
 	busybox_config_option n DEBUG
 	busybox_config_option y NO_DEBUG_LIB
 	busybox_config_option n DMALLOC

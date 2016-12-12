@@ -48,7 +48,7 @@ PDEPEND="clang? ( =sys-devel/clang-${PV}-r100 )"
 
 S=${WORKDIR}/${P}.src
 
-pkg_pretend() {
+check_space() {
 	# in megs
 	# !clang !debug !multitarget -O2       400
 	# !clang !debug  multitarget -O2       550
@@ -74,8 +74,12 @@ pkg_pretend() {
 	check-reqs_pkg_pretend
 }
 
+pkg_pretend() {
+	check_space
+}
+
 pkg_setup() {
-	pkg_pretend
+	check_space
 }
 
 src_unpack() {
@@ -170,7 +174,7 @@ multilib_src_configure() {
 
 	if use libffi; then
 		local CPPFLAGS=${CPPFLAGS}
-		append-cppflags "$(pkg-config --cflags libffi)"
+		append-cppflags "$($(tc-getPKG_CONFIG) --cflags libffi)"
 	fi
 
 	# llvm prefers clang over gcc, so we may need to force that
