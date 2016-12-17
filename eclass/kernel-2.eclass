@@ -128,8 +128,6 @@
 # @DESCRIPTION:
 # If set, this kernel is unsupported by Gentoo Security
 # to the current eclass maintainer :)
-# added functionality:
-# unipatch      - a flexible, singular method to extract, add and remove patches.
 
 # @ECLASS-VARIABLE:  K_DEBLOB_AVAILABLE	
 # @DEFAULT_UNSET
@@ -157,13 +155,6 @@
 # If set, the eclass will search for the kernel source
 # in the long term directories on the upstream servers
 # as the location has been changed by upstream
-
-# @ECLASS-VARIABLE:  K_KDBUS_AVAILABLE		
-# @DEFAULT_UNSET
-# @DESCRIPTION:
-# If set, the ebuild contains the option of installing the
-# kdbus patch.  This patch is not installed without the 'kdbus'
-# and 'experimental' use flags.
 
 # @ECLASS-VARIABLE:  H_SUPPORTEDARCH		
 # @DEFAULT_UNSET
@@ -241,6 +232,7 @@ RESTRICT="binchecks strip"
 
 
 # @FUNCTION: debug-print-kernel2-variables
+# @USAGE:
 # @DESCRIPTION: 
 # this function exists only to help debug kernel-2.eclass
 # if you are adding new functionality in, put a call to it
@@ -255,6 +247,7 @@ debug-print-kernel2-variables() {
 }
 
 # @FUNCTION: handle_genpatches
+# @USAGE: [--set-unipatch-list]
 # @DESCRIPTION:
 # add genpatches to list of patches to apply uf wanted 
 
@@ -312,6 +305,7 @@ handle_genpatches() {
 }
 
 # @FUNCTION: detect_version
+# @USAGE:
 # @DESCRIPTION: 
 # this function will detect and set
 # - OKV: Original Kernel Version (2.6.0/2.6.0-test11)
@@ -543,6 +537,7 @@ detect_version() {
 }
 
 # @FUNCTION: kernel_is
+# @USAGE: <conditional version | version>
 # @DESCRIPTION: 
 # user for comparing kernel versions
 # or just identifying a version
@@ -576,6 +571,7 @@ kernel_is() {
 }
 
 # @FUNCTION: kernel_is_2_4
+# @USAGE:
 # @DESCRIPTION: 
 # return true if kernel is version 2.4 
 kernel_is_2_4() {
@@ -583,6 +579,7 @@ kernel_is_2_4() {
 }
 
 # @FUNCTION: kernel_is_2_6
+# @USAGE:
 # @DESCRIPTION: 
 # return true if kernel is version 2.6 
 kernel_is_2_6() {
@@ -605,10 +602,6 @@ if [[ ${ETYPE} == sources ]]; then
 	SLOT="${PVR}"
 	DESCRIPTION="Sources based on the Linux Kernel."
 	IUSE="symlink build"
-
-	if [[ -n ${K_KDBUS_AVAILABLE} ]]; then
-		IUSE="${IUSE} kdbus"
-	fi
 
 	# Bug #266157, deblob for libre support
 	if [[ -z ${K_PREDEBLOBBED} ]] ; then
@@ -677,6 +670,7 @@ fi
 # Cross-compile support functions
 
 # @FUNCTION: kernel_header_destdir
+# @USAGE:
 # @DESCRIPTION: 
 # return header destination directory
 kernel_header_destdir() {
@@ -686,6 +680,7 @@ kernel_header_destdir() {
 }
 
 # @FUNCTION: cross_pre_c_headers
+# @USAGE:
 # @DESCRIPTION: 
 # set use if neccesary for cross compile support 
 cross_pre_c_headers() {
@@ -693,6 +688,7 @@ cross_pre_c_headers() {
 }
 
 # @FUNCTION: env_setup_xmakeopts
+# @USAGE:
 # @DESCRIPTION: 
 # set the ARCH/CROSS_COMPILE when cross compiling
 
@@ -712,6 +708,7 @@ env_setup_xmakeopts() {
 }
 
 # @FUNCTION: unpack_2_4
+# @USAGE:
 # @DESCRIPTION: 
 # unpack and generate .config for 2.4 kernels
 
@@ -725,6 +722,7 @@ unpack_2_4() {
 }
 
 # @FUNCTION: unpack_2_6
+# @USAGE:
 # @DESCRIPTION: 
 # unpack and generate .config for 2.6 kernels
 
@@ -750,6 +748,7 @@ unpack_2_6() {
 }
 
 # @FUNCTION: universal_unpack
+# @USAGE:
 # @DESCRIPTION: 
 # unpack kernel sources 
 
@@ -793,6 +792,7 @@ universal_unpack() {
 }
 
 # @FUNCTION: unpack_set_extraversion
+# @USAGE:
 # @DESCRIPTION: 
 # handle EXTRAVERSION 
 
@@ -803,6 +803,7 @@ unpack_set_extraversion() {
 }
 
 # @FUNCTION: unpack_fix_install_path
+# @USAGE:
 # @DESCRIPTION: 
 # Should be done after patches have been applied
 # Otherwise patches that modify the same area of Makefile will fail
@@ -815,6 +816,7 @@ unpack_fix_install_path() {
 # Compile Functions
 
 # @FUNCTION: compile_headers
+# @USAGE:
 # @DESCRIPTION: 
 # header compilation
 
@@ -871,6 +873,7 @@ compile_headers() {
 }
 
 # @FUNCTION: compile_headers_tweak_config
+# @USAGE:
 # @DESCRIPTION: 
 # some targets can be very very picky, so let's finesse the
 # .config based upon any info we may have
@@ -890,6 +893,7 @@ compile_headers_tweak_config() {
 # install functions
 
 # @FUNCTION: install_universal
+# @USAGE:
 # @DESCRIPTION: 
 # Fix permissions in tarball
 
@@ -901,6 +905,7 @@ install_universal() {
 }
 
 # @FUNCTION: install_headers
+# @USAGE:
 # @DESCRIPTION: 
 # Install headers 
 
@@ -940,6 +945,7 @@ install_headers() {
 }
 
 # @FUNCTION: install_sources
+# @USAGE:
 # @DESCRIPTION: 
 # Install sources 
 
@@ -978,6 +984,7 @@ install_sources() {
 }
 
 # @FUNCTION: preinst_headers
+# @USAGE:
 # @DESCRIPTION: 
 # Headers preinst steps 
 
@@ -988,6 +995,7 @@ preinst_headers() {
 }
 
 # @FUNCTION: postinst_sources
+# @USAGE:
 # @DESCRIPTION: 
 # Sources post installation function.
 # see inline comments
@@ -1082,6 +1090,7 @@ postinst_sources() {
 # pkg_setup functions
 
 # @FUNCTION: setup_headers
+# @USAGE:
 # @DESCRIPTION: 
 # Determine if ${PN} supports arch
 
@@ -1101,6 +1110,7 @@ setup_headers() {
 }
 
 # @FUNCTION: unipatch
+# @USAGE: <list of patches to apply>
 # @DESCRIPTION: 
 # Universal function that will apply patches to source 
 
@@ -1223,13 +1233,6 @@ unipatch() {
 				if [[ $UNIPATCH_DROP != *"5000_enable-additional-cpu-optimizations-for-gcc.patch"* ]]; then
 					#drop 5000_enable-additional-cpu-optimizations-for-gcc.patch
 					UNIPATCH_DROP+=" 5000_enable-additional-cpu-optimizations-for-gcc.patch"
-				fi
-			fi
-
-			# if kdbus use flag is not set, drop the kdbus patch
-            if [[ $UNIPATCH_DROP != *"5015_kdbus*.patch"* ]]; then
-				if ! has kdbus ${IUSE} ||  ! use kdbus; then
-					UNIPATCH_DROP="${UNIPATCH_DROP} 5015_kdbus*.patch"
 				fi
 			fi
  		fi
@@ -1364,9 +1367,8 @@ unipatch() {
 }
 
 # @FUNCTION: getfilevar
+# @USAGE: <variable> <configfile>
 # @DESCRIPTION: 
-# getfilevar accepts 2 vars as follows:
-# getfilevar <VARIABLE> <CONFIGFILE>
 # pulled from linux-info
 
 getfilevar() {
@@ -1392,6 +1394,7 @@ getfilevar() {
 }
 
 # @FUNCTION: detect_arch
+# @USAGE:
 # @DESCRIPTION: 
 # This function sets ARCH_URI and ARCH_PATCH
 # with the neccessary info for the arch sepecific compatibility
@@ -1425,6 +1428,7 @@ detect_arch() {
 }
 
 # @FUNCTION: headers___fix
+# @USAGE:
 # @DESCRIPTION: 
 # Voodoo to partially fix broken upstream headers.
 # note: do not put inline/asm/volatile together (breaks "inline asm volatile")
@@ -1440,6 +1444,7 @@ headers___fix() {
 }
 
 # @FUNCTION: kernel-2_src_unpack() 
+# @USAGE:
 # @DESCRIPTION: 
 # unpack sources, handle genpatches, deblob 
 
@@ -1501,6 +1506,7 @@ kernel-2_src_unpack() {
 }
 
 # @FUNCTION: kernel-2_src_prepare
+# @USAGE:
 # @DESCRIPTION:
 # Apply any user patches 
 
@@ -1516,6 +1522,7 @@ kernel-2_src_prepare() {
 }
 
 # @FUNCTION: kernel-2_src_compile
+# @USAGE:
 # @DESCRIPTION:
 # conpile headers or run deblob script 
 
@@ -1531,6 +1538,7 @@ kernel-2_src_compile() {
 }
 
 # @FUNCTION: kernel-2_src_test
+# @USAGE:
 # @DESCRIPTION:
 # if you leave it to the default src_test, it will run make to
 # find whether test/check targets are present; since "make test"
@@ -1549,6 +1557,7 @@ kernel-2_pkg_preinst() {
 }
 
 # @FUNCTION: kernel-2_src_install
+# @USAGE:
 # @DESCRIPTION:
 # Install headers or sources dependant on ETYPE
 
@@ -1559,6 +1568,7 @@ kernel-2_src_install() {
 }
 
 # @FUNCTION: kernel-2_pkg_postinst
+# @USAGE:
 # @DESCRIPTION:
 # call postinst_sources for ETYPE = sources 
 
@@ -1567,6 +1577,7 @@ kernel-2_pkg_postinst() {
 }
 
 # @FUNCTION: kernel-2_pkg_setup
+# @USAGE:
 # @DESCRIPTION:
 # check for supported kernel version, die if ETYPE is unknown, call setup_headers
 # if necessary 
@@ -1597,6 +1608,7 @@ kernel-2_pkg_setup() {
 }
 
 # @FUNCTION: kernel-2_pkg_postrm
+# @USAGE:
 # @DESCRIPTION:
 # Notify the user that after a depclean, there may be sources
 # left behind that need to be manually cleaned
