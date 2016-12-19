@@ -3009,6 +3009,8 @@ games-fps/xonotic:ode - Enable support for physics engine from dev-games/ode
 games-kids/crayon-physics:bundled-libs - Use the upstream provided bundled libraries.
 games-misc/katawa-shoujo:system-renpy - Use games-engines/renpy instead of the bundled one (experimental)
 games-misc/little-inferno:bundled-libs - Use bundled libraries.
+games-misc/ponysay:fish-completion - Enable fish completion support
+games-misc/ponysay:non-free - Install non-free ponies (i.e. from the MLP franchise)
 games-misc/xcowsay:fortune - Installs the fortune-mod xcow binary
 games-mud/tf:atcp - enable ATCP support.
 games-mud/tf:gmcp - enable GMCP support.
@@ -3218,6 +3220,7 @@ kde-apps/artikulate:qtmedia - Enable playback via Qt5Multimedia
 kde-apps/blogilo:google - Google service integration via net-libs/libkgapi
 kde-apps/cantor:R - Enable dev-lang/R backend support
 kde-apps/cantor:analitza - Enable kde-apps/analitza backend support
+kde-apps/cantor:julia - Enable dev-lang/julia backend support
 kde-apps/cantor:qalculate - Enable sci-libs/libqalculate backend support
 kde-apps/dolphin:thumbnail - Enables video thumbnail generation
 kde-apps/dolphin-plugins:bazaar - Enable support for the bazaar VCS
@@ -3236,6 +3239,7 @@ kde-apps/kdeadmin-meta:cron - Installs KDE application for virtual/cron configur
 kde-apps/kdebase-kioslaves:sftp - Enable SFTP protocol support using net-libs/libssh
 kde-apps/kdebase-runtime-meta:oldwallet - Install kde-apps/kwalletd on a minimal setup for migration purposes
 kde-apps/kdecore-meta:minimal - Disable install of various KDE SC 4 based packages
+kde-apps/kdegraphics-mobipocket:thumbnail - Enables thumbnail generation
 kde-apps/kdenetwork-meta:ppp - Enable support for net-dialup/ppp.
 kde-apps/kdenetwork-meta:telepathy - Enable build of kde-apps/plasma-telepathy-meta, otherwise kde-apps/kopete.
 kde-apps/kdenlive:freesound - Enable freesound.org credentials support via dev-qt/qtwebkit to download files
@@ -3253,10 +3257,13 @@ kde-apps/kget:mms - Enable MMS (Microsoft Media Server) plugin through media-lib
 kde-apps/kget:webkit - Enable KdeWebkit browser plugin using kde-misc/kwebkitpart
 kde-apps/kig:geogebra - Support files created by sci-mathematics/geogebra
 kde-apps/kig:scripting - Support Python scripting
+kde-apps/kio-extras:htmlthumbs - Enable HTML thumbnail previews via dev-qt/qtwebengine
 kde-apps/kio-extras:phonon - Enable file audio preview plugin using media-libs/phonon
 kde-apps/kio-extras:sftp - Enable SFTP protocol support using net-libs/libssh
+kde-apps/konqueror:activities - Enable kactivities support
 kde-apps/konqueror:bookmarks - Add dependency on bookmark package.
 kde-apps/konqueror:filemanager - Install the dolphin kpart for use as a file manager.
+kde-apps/konqueror:speech - Build text-to-speech plugin
 kde-apps/kopete:addbookmarks - Automatically add incoming urls to bookmarks.
 kde-apps/kopete:autoreplace - Automatically replace selected text
 kde-apps/kopete:contactnotes - Enables writing personal notes for contacts.
@@ -3308,6 +3315,7 @@ kde-apps/marble:zip - Enable support for reading and displaying .kmz files
 kde-apps/okular:chm - Enable support for Microsoft Compiled HTML Help files
 kde-apps/okular:ebook - Add E-Book support
 kde-apps/okular:mobi - Add mobipocket support
+kde-apps/okular:speech - Enable text-to-speech support
 kde-apps/pimcommon:designer - Build plugins for dev-qt/designer
 kde-apps/spectacle:kipi - Enable support for the KDE Image Plugin Interface
 kde-apps/spectacle:share - Enable support for a share menu using dev-libs/purpose
@@ -3341,7 +3349,6 @@ kde-frameworks/sonnet:hunspell - Enable the app-text/hunspell spell-checking bac
 kde-misc/kcm-grub2:hwinfo - Used to work out supported framebuffer resolutions
 kde-misc/kcm-grub2:imagemagick - Create splash images compatible with GRUB2
 kde-misc/kdeconnect:app - Enable experimental kcapp frontend
-kde-misc/kdeconnect:telepathy - Enable net-libs/telepathy-qt support to receive text messages and respond to them
 kde-misc/kdeconnect:wayland - Enable kwin_wayland support for mousepad plugin using kde-frameworks/kwayland
 kde-misc/kepas:oscar - Enables ICQ (AIM) support.
 kde-misc/kimtoy:scim - Enable Smart Common Input Method support
@@ -4199,14 +4206,9 @@ media-plugins/gst-plugins-vaapi:egl - Enable EGL support
 media-plugins/hexter:gtk2 - Enable x11-libs/gtk+:2 based GUI
 media-plugins/imlib2_loaders:eet - Enable Eet image loader
 media-plugins/imlib2_loaders:xcf - Enable XCF image loader
-media-plugins/kipi-plugins:expoblending - Build the expoblending plugin, which requires media-gfx/hugin
 media-plugins/kipi-plugins:flashexport - Build the flash export plugin
-media-plugins/kipi-plugins:gpssync - Build the gpssync plugin, which requires kde-apps/libkgeomap and thereby marble
 media-plugins/kipi-plugins:mediawiki - Build the mediawiki export plugin
-media-plugins/kipi-plugins:panorama - Pull in dependencies needed by panorama plugin
-media-plugins/kipi-plugins:redeyes - Add redeyes removal support
 media-plugins/kipi-plugins:remotestorage - Build plugin for remote storage using network protocols such as FTP, SSH, SAMBA via kde-frameworks/kio
-media-plugins/kipi-plugins:videoslideshow - Build videoslideshow plugin
 media-plugins/kipi-plugins:vkontakte - Build plugin for vkontakte.ru
 media-plugins/mediastreamer-ilbc:20ms-frames - enable 20ms frame size (default is 30ms). Some VOIP providers such as Gizmo5 (aka Sipphone) require the codec to be compiled with the 30ms setting.
 media-plugins/mythplugins:cdr - Allows MythMusic to burn CD-Rs
@@ -4443,6 +4445,7 @@ media-sound/kid3:phonon - Enable sound support via media-libs/phonon or dev-qt/q
 media-sound/klick:rubberband - Enable rubberband support
 media-sound/lame:frontend - Build and install the 'lame' executable frontend to lame libraries.
 media-sound/lame:mp3rtp - Build the mp3-to-RTP streaming utility. **UNSUPPORTED**
+media-sound/lilypond:guile2 - Enable experimental support for Guile 2
 media-sound/linuxsampler:lv2 - Add support for Ladspa V2
 media-sound/lmms:fluidsynth - Enables Fluidsynth MIDI software synthesis plugin.
 media-sound/lmms:stk - Enables STK Mallet plugin.
@@ -6590,6 +6593,7 @@ net-p2p/retroshare:voip - Enables VOIP plugin
 net-p2p/rtorrent:daemon - Uses app-misc/screen to daemonize this application
 net-p2p/syncthing:tools - Install stdiscosrv, strelaysrv and other tools to /usr/libexec/syncthing/.
 net-p2p/transmission:lightweight - Optimize transmission for low-resource systems (smaller cache size, prefer unencrypted peer connections, etc.)
+net-p2p/transmission:mbedtls - Use mbed TLS instead of OpenSSL
 net-p2p/transmission:xfs - Enable XFS filesystem capabilities by using sys-fs/xfsprogs headers (in building of fdlimit(.c))
 net-p2p/transmission-remote-gtk:libproxy - Use net-libs/libproxy for getting the HTTP/HTTPS/SOCKS proxy configuration.
 net-p2p/transmission-remote-gtk:unique - Enable single instance support using dev-libs/libunique
@@ -6908,6 +6912,7 @@ sci-geosciences/merkaartor:libproxy - Use net-libs/libproxy for getting the HTTP
 sci-geosciences/merkaartor:qrcode - Enable QR code scanning with media-gfx/zbar
 sci-geosciences/osm2pgsql:pbf - Add support for importing the new "Protocolbuffer Binary Format"
 sci-geosciences/qgis:bundled-libs - Use internal copy of x11-libs/qwtpolar
+sci-geosciences/qgis:georeferencer - Determines whether georeferencer plugin should be built
 sci-geosciences/qgis:grass - Add support for sci-geosciences/grass
 sci-geosciences/qgis:mapserver - Determines whether mapserver should be built
 sci-geosciences/qgis:spatialite - Enable Spatial DBMS over sqlite dev-db/spatialite
@@ -7261,6 +7266,7 @@ sys-apps/firejail:network-restricted - Grant access to --interface, --net=ethXXX
 sys-apps/firejail:seccomp - Enable system call filtering
 sys-apps/firejail:userns - Enable attaching a new user namespace to a sandbox (--noroot option)
 sys-apps/firejail:x11 - Enable X11 sandboxing
+sys-apps/firejail-lts:seccomp - Enable system call filtering
 sys-apps/flashrom:atahpt - Highpoint (HPT) ATA/RAID controller support
 sys-apps/flashrom:atapromise - Support for Promise PDC2026x (FastTrak/Ultra)
 sys-apps/flashrom:atavia - Support for VIA VT6421A SATA controllers

@@ -9,7 +9,7 @@ inherit kde5
 
 DESCRIPTION="KDE arcade bombing game"
 HOMEPAGE="https://www.kde.org/applications/games/bomber/"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 DEPEND="
@@ -25,4 +25,6 @@ DEPEND="
 	$(add_qt_dep qtgui)
 	$(add_qt_dep qtwidgets)
 "
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	!games-action/xbomber
+"
