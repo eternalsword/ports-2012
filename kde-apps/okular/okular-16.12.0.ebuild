@@ -6,6 +6,7 @@ EAPI=6
 
 KDE_HANDBOOK="forceoptional"
 KDE_TEST="forceoptional"
+VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="Universal document viewer based on KDE Frameworks"
@@ -27,6 +28,7 @@ DEPEND="
 	$(add_frameworks_dep kjs)
 	$(add_frameworks_dep kparts)
 	$(add_frameworks_dep kwallet)
+	$(add_frameworks_dep kpty)
 	$(add_frameworks_dep threadweaver)
 	$(add_qt_dep qtdbus)
 	$(add_qt_dep qtgui)
@@ -51,6 +53,9 @@ DEPEND="
 	tiff? ( media-libs/tiff:0 )
 "
 RDEPEND="${DEPEND}"
+
+# bug 603116
+RESTRICT+=" test"
 
 src_prepare() {
 	kde5_src_prepare
