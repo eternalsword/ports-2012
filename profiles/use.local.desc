@@ -326,6 +326,7 @@ app-crypt/qca:softstore - Enable softstore plugin
 app-crypt/rhash:openssl - Add support for hashes from dev-libs/openssl
 app-crypt/seahorse:ldap - Enable seahorse to manipulate GPG keys on a LDAP server.
 app-crypt/tpm-tools:pkcs11 - Build Token data management utilities based on OpenCryptoki's (dev-libs/opencryptoki) PKCS#11 implementation.
+app-crypt/veracrypt:asm - Enable assembly for optimization
 app-crypt/zuluCrypt:gnome - Enable support for the freedesktop.org Secret Service API via app-crypt/libsecret. This does not control the gui!
 app-crypt/zuluCrypt:gui - Whether to build the QT gui. Highly recommended.
 app-crypt/zuluCrypt:kde - Enable support for KDE, e.g. via kde-apps/kwalletd. This does not control the gui, but NEEDS GUI ENABLED!
@@ -935,6 +936,7 @@ app-office/abiword:plugins - Enable plugins build (see http://www.abisource.com/
 app-office/abiword:redland - Enables support redland and raptor libs.
 app-office/abiword:thesaurus - Enable thesaurus support
 app-office/abiword:wordperfect - Enable wordperfect file support via app-text/libwpd
+app-office/calligra:activities - Enable kactivities support
 app-office/calligra:attica - Get hot stuff with dev-libs/libattica
 app-office/calligra:color-management - Enable color management via media-libs/opencolorio
 app-office/calligra:eigen - Enable dev-cpp/eigen mathematical templates support
@@ -6972,6 +6974,7 @@ sci-libs/gdal:xls - Add the dev-libs/freexl library for xls import support
 sci-libs/grib_api:aec - Build with Adaptive Entropy Coding compression, needs sci-libs/libaec
 sci-libs/grib_api:jasper - Use media-libs/jasper instead of media-libs/openjpeg for JPEG 2000 support
 sci-libs/gsl:cblas-external - Link gsl with external cblas provided by (virtual/cblas) instead of shipped internal version
+sci-libs/gsl:deprecated - Enable deprecated functions
 sci-libs/hdf5:fortran2003 - Enable new features that require Fortran 2003 (http://www.hdfgroup.org/HDF5/doc/fortran/NewFeatures_F2003.pdf)
 sci-libs/hdf5:hl - Enable high level API (https://support.hdfgroup.org/HDF5/doc/HL/index.html)
 sci-libs/hypre:fei - Build the internal Finite Element Interface routines
