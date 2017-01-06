@@ -3205,7 +3205,7 @@ gnome-extra/zeitgeist-datasources:firefox - Zeitgeist plugin for www-client/fire
 gnome-extra/zeitgeist-datasources:geany - Zeitgeist plugin for dev-util/geany as data source
 gnome-extra/zeitgeist-datasources:telepathy - Zeitgeist plugin for telepathy framework as data source
 gnome-extra/zeitgeist-datasources:thunderbird - Zeitgeist plugin for mail-client/thunderbird as data source
-gnome-extra/zeitgeist-datasources:tomboy - Zeitgeist plugin for app-misc/tomboy as data source
+gnome-extra/zeitgeist-datasources:tomboy - Zeitgeist plugin for tomboy as data source
 gnome-extra/zeitgeist-datasources:vim - Zeitgeist plugin for vim as data source
 gnustep-apps/gemas:projectcenter - Build and install plugin for gnustep-apps/projectcenter
 gnustep-apps/gnumail:emoticon - Enable extra Emoticon Bundle to see smiley's in e-mail messages
@@ -6329,11 +6329,9 @@ net-misc/rancid-git:git - Enable git (version control system) support
 net-misc/rdesktop:kerberos - Enable CredSPP support + Kerberos authentication with net-libs/libgssglue
 net-misc/rdesktop:pcsc-lite - Enable smartcard support with sys-apps/pcsc-lite driver
 net-misc/rdesktop:xrandr - Enable XRandR window extension support
-net-misc/remmina:freerdp - Add support for the net-misc/freerdp application
 net-misc/remmina:spice - Support connecting to SPICE-enabled virtual machines
 net-misc/remmina:ssh - Enable support for SSH/SFTP protocol; see also 'vte'
 net-misc/remmina:telepathy - Enable telepathy support
-net-misc/remmina:vte - Enable virtual terminal support (for SSH sessions)
 net-misc/remmina:webkit - Enable a user survey using net-libs/webkit-gtk
 net-misc/rsync:stunnel - Provide helper scripts for using rsync via >=net-misc/stunnel-4
 net-misc/rygel:tracker - Install dependencies for the tracker plugin
