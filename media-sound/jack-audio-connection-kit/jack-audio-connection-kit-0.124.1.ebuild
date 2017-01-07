@@ -27,8 +27,7 @@ RDEPEND="
 					!app-emulation/emul-linux-x86-soundlibs[-abi_x86_32(-)] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen )
-	sys-libs/db[${MULTILIB_USEDEP}]"
+	doc? ( app-doc/doxygen )"
 RDEPEND="${RDEPEND}
 	alsa? ( sys-process/lsof )
 	pam? ( sys-auth/realtime-base )"

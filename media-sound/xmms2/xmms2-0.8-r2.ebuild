@@ -1,25 +1,23 @@
-# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=3
+EAPI="5"
 
 inherit eutils python toolchain-funcs
 
 MY_P="${P}DrO_o"
 
-DESCRIPTION="X(cross)platform Music Multiplexing System. Next generation of the XMMS player"
+DESCRIPTION="X(cross)platform Music Multiplexing System. The new generation of the XMMS player"
 HOMEPAGE="http://xmms2.org/wiki/Main_Page"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.bz2"
 LICENSE="GPL-2 LGPL-2.1"
 
 SLOT="0"
-KEYWORDS="alpha amd64 ppc x86"
+KEYWORDS="*"
 
 IUSE="aac airplay +alsa ao asf avahi cdda curl cxx ffmpeg flac gvfs ices
 jack mac mlib-update mms +mad modplug mp3 mp4 musepack ofa oss
 perl phonehome pulseaudio python ruby
-samba +server sid sndfile speex test valgrind +vorbis vocoder wavpack xml"
+samba +server sid sndfile speex test +vorbis vocoder wavpack xml"
 
 RDEPEND="server? (
 		>=dev-db/sqlite-3.3.4
@@ -49,7 +47,7 @@ RDEPEND="server? (
 		musepack? ( media-sound/musepack-tools )
 		ofa? ( media-libs/libofa )
 		pulseaudio? ( media-sound/pulseaudio )
-		samba? ( >=net-fs/samba-4.2[client] )
+		samba? ( net-fs/samba[smbclient] )
 		sid? ( media-sound/sidplay
 			media-libs/resid )
 		sndfile? ( media-libs/libsndfile )
@@ -70,11 +68,9 @@ RDEPEND="server? (
 DEPEND="${RDEPEND}
 	dev-lang/python
 	python? ( dev-python/pyrex )
-	perl? ( dev-perl/Module-Build
-		virtual/perl-Module-Metadata )
+	perl? ( virtual/perl-Module-Build )
 	virtual/pkgconfig
-	test? ( dev-util/cunit
-		valgrind? ( dev-util/valgrind ) )
+	test? ( dev-util/cunit )
 	"
 
 S="${WORKDIR}/${MY_P}"
@@ -107,25 +103,12 @@ pkg_setup() {
 src_prepare() {
 	./waf # inflate waf
 	cd .waf* || die
-	epatch "${FILESDIR}/${PN}"-0.8DrO_o-waflib-fix-perl.patch #578778
+	epatch "${FILESDIR}/${PN}"-0.8DrO_o-waflib-fix-perl.patch
 	cd "${S}"
-	epatch "${FILESDIR}/${P}"-ffmpeg-0.11.patch #443256
-	epatch "${FILESDIR}/${P}"-libav-9-p2.patch #443256
+	epatch "${FILESDIR}/${P}"-fix-ffmpeg-compile-error.patch
 	epatch "${FILESDIR}/${P}"-libav-9.patch #443256
 	epatch "${FILESDIR}/${P}"-cython-0.19.1.patch
 	epatch "${FILESDIR}/${P}"-memset.patch
-	epatch "${FILESDIR}/${P}"-ffmpeg2.patch #536232
-	epatch "${FILESDIR}/${P}"-cpython.patch
-	epatch "${FILESDIR}/${P}"-modpug.patch #536046
-	epatch "${FILESDIR}/${P}"-audio4-p1.patch #540890
-	epatch "${FILESDIR}/${P}"-audio4-p2.patch
-	epatch "${FILESDIR}/${P}"-audio4-p3.patch
-	epatch "${FILESDIR}/${P}"-audio4-p4.patch
-	epatch "${FILESDIR}/${P}"-audio4-p5.patch
-	epatch "${FILESDIR}/${P}"-audio4-p6.patch
-	epatch "${FILESDIR}/${P}"-audio4-p7.patch
-	epatch "${FILESDIR}/${P}"-rtvg.patch #424377
-	epatch "${FILESDIR}/${P}"-samba-4.patch
 
 	if has_version dev-libs/libcdio-paranoia; then
 		sed -i -e 's:cdio/cdda.h:cdio/paranoia/cdda.h:' src/plugins/cdda/cdda.c || die
@@ -245,7 +228,6 @@ src_configure() {
 	# pass them explicitely even if empty as we try to avoid magic deps
 	waf_params+=" --with-optionals=${optionals:1}" # skip first ',' if yet
 	waf_params+=" --with-plugins=${plugins:1}"
-	waf_params+=" $(use_with valgrind)"
 
 	CC="$(tc-getCC)"         \
 	CPP="$(tc-getCPP)"       \
