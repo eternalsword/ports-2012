@@ -2,9 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=3
+EAPI=5
 
-inherit eutils python toolchain-funcs
+# waf fails on python3_5: AttributeError: Can't pickle local object 'Context.__init__.<locals>.node_class'
+PYTHON_COMPAT=( python{2_7,3_4} )
+USE_RUBY="ruby20 ruby21 ruby22"
+
+inherit eutils multiprocessing python-single-r1 ruby-single toolchain-funcs
 
 MY_P="${P}DrO_o"
 
@@ -14,21 +18,20 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.bz2"
 LICENSE="GPL-2 LGPL-2.1"
 
 SLOT="0"
-KEYWORDS="alpha amd64 ppc x86"
+KEYWORDS="alpha amd64 ~ppc ~x86"
 
-IUSE="aac airplay +alsa ao asf avahi cdda curl cxx ffmpeg flac gvfs ices
+IUSE="aac airplay +alsa ao asf cdda curl cxx ffmpeg flac gvfs ices
 jack mac mlib-update mms +mad modplug mp3 mp4 musepack ofa oss
-perl phonehome pulseaudio python ruby
-samba +server sid sndfile speex test valgrind +vorbis vocoder wavpack xml"
+perl phonehome pulseaudio python ruby samba +server sid sndfile speex
+test valgrind +vorbis vocoder wavpack xml zeroconf"
 
 RDEPEND="server? (
 		>=dev-db/sqlite-3.3.4
 
 		aac? ( >=media-libs/faad2-2.0 )
-		airplay? ( dev-libs/openssl )
+		airplay? ( dev-libs/openssl:0= )
 		alsa? ( media-libs/alsa-lib )
 		ao? ( media-libs/libao )
-		avahi? ( net-dns/avahi[mdnsresponder-compat] )
 		cdda? ( dev-libs/libcdio-paranoia
 			>=media-libs/libdiscid-0.1.1
 			>=media-sound/cdparanoia-3.9.8 )
@@ -56,28 +59,40 @@ RDEPEND="server? (
 		speex? ( media-libs/speex
 			media-libs/libogg )
 		vorbis? ( media-libs/libvorbis )
-		vocoder? ( sci-libs/fftw media-libs/libsamplerate )
+		vocoder? ( sci-libs/fftw:3.0= media-libs/libsamplerate )
 		wavpack? ( media-sound/wavpack )
 		xml? ( dev-libs/libxml2 )
+		zeroconf? ( net-dns/avahi[mdnsresponder-compat] )
 	)
 
 	>=dev-libs/glib-2.12.9
 	cxx? ( >=dev-libs/boost-1.32 )
 	perl? ( >=dev-lang/perl-5.8.8 )
-	python? ( dev-lang/python )
-	ruby? ( >=dev-lang/ruby-1.8.5 ) "
+	python? ( ${PYTHON_DEPS} )
+	ruby? ( ${RUBY_DEPS} )
+"
 
 DEPEND="${RDEPEND}
 	dev-lang/python
-	python? ( dev-python/pyrex )
+	virtual/pkgconfig
 	perl? ( dev-perl/Module-Build
 		virtual/perl-Module-Metadata )
-	virtual/pkgconfig
+	python? ( >=dev-python/cython-0.15.1
+		dev-python/pyrex )
 	test? ( dev-util/cunit
 		valgrind? ( dev-util/valgrind ) )
-	"
+"
+
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 S="${WORKDIR}/${MY_P}"
+
+pkg_setup() {
+	# used both for building xmms2 and
+	# optionally linking client library
+	# against python
+	python-single-r1_pkg_setup
+}
 
 # use_enable() is taken as proto
 # $1 - useflag
@@ -98,10 +113,6 @@ xmms2_flag() {
 			use $1 && echo ",${UWORD}"
 			;;
 	esac
-}
-
-pkg_setup() {
-	python_pkg_setup
 }
 
 src_prepare() {
@@ -130,6 +141,7 @@ src_prepare() {
 	if has_version dev-libs/libcdio-paranoia; then
 		sed -i -e 's:cdio/cdda.h:cdio/paranoia/cdda.h:' src/plugins/cdda/cdda.c || die
 	fi
+	epatch_user
 }
 
 src_configure() {
@@ -180,7 +192,7 @@ src_configure() {
 					"DISABLED	coreaudio" # MacOS only?
 					"		curl"
 					"ENABLED	cue"
-					"avahi		daap"
+					"zeroconf	daap"
 					"ENABLED	diskwrite"
 					"ENABLED	equalizer"
 					"aac		faad"
@@ -268,9 +280,7 @@ src_test() {
 
 src_install() {
 	./waf --without-ldconfig --destdir="${D}" install || die "'waf install' failed"
-	dodoc AUTHORS TODO README
-
-	use python && python_need_rebuild
+	dodoc AUTHORS TODO
 }
 
 pkg_postinst() {
@@ -284,10 +294,4 @@ pkg_postinst() {
 		einfo "developers which may help finding bugs"
 		einfo "Disable the phonehome useflag if you don't like that"
 	fi
-
-	use python && python_mod_optimize xmmsclient
-}
-
-pkg_postrm() {
-	use python && python_mod_cleanup xmmsclient
 }
