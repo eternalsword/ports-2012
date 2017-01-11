@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -28,9 +28,9 @@ DOCS+=( README.md )
 # See Copyright in sources and Gentoo bug 506946. Waf is BSD, libmpv is ISC.
 LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
-IUSE="aqua +alsa archive bluray cdda +cli coreaudio doc drm dvb dvd +egl +enca
+IUSE="+alsa aqua archive bluray cdda +cli coreaudio doc drm dvb dvd +egl +enca
 	encode gbm +iconv jack jpeg lcms +libass libav libcaca libguess libmpv +lua
-	luajit openal +opengl oss pulseaudio raspberry-pi rubberband samba -sdl
+	luajit openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl
 	selinux test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
 	+xscreensaver +xv zsh-completion"
 
@@ -43,6 +43,7 @@ REQUIRED_USE="
 	lcms? ( || ( opengl egl ) )
 	libguess? ( iconv )
 	luajit? ( lua )
+	test? ( || ( opengl egl ) )
 	tools? ( cli )
 	uchardet? ( iconv )
 	v4l? ( || ( alsa oss ) )
@@ -122,6 +123,7 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 	doc? ( dev-python/rst2pdf )
 	test? ( >=dev-util/cmocka-1.0.0 )
+	v4l? ( virtual/os-headers )
 "
 RDEPEND="${COMMON_DEPEND}
 	selinux? ( sec-policy/selinux-mplayer )

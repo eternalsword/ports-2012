@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -28,11 +28,11 @@ DOCS+=( README.md )
 # See Copyright in sources and Gentoo bug 506946. Waf is BSD, libmpv is ISC.
 LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
-IUSE="aqua +alsa archive bluray cdda +cli coreaudio doc drm dvb dvd +egl encode
+IUSE="+alsa aqua archive bluray cdda +cli coreaudio doc drm dvb dvd +egl encode
 	gbm +iconv jack jpeg lcms +libass libav libcaca libmpv +lua luajit openal
-	+opengl oss pulseaudio raspberry-pi rubberband samba -sdl selinux test
-	tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama +xscreensaver
-	+xv zsh-completion"
+	+opengl oss pulseaudio raspberry-pi rubberband samba sdl selinux test tools
+	+uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama +xscreensaver +xv
+	zsh-completion"
 
 REQUIRED_USE="
 	|| ( cli libmpv )
@@ -41,6 +41,7 @@ REQUIRED_USE="
 	gbm? ( drm egl )
 	lcms? ( || ( opengl egl ) )
 	luajit? ( lua )
+	test? ( || ( opengl egl ) )
 	tools? ( cli )
 	uchardet? ( iconv )
 	v4l? ( || ( alsa oss ) )
@@ -54,15 +55,14 @@ REQUIRED_USE="
 "
 
 COMMON_DEPEND="
-	!libav? ( >=media-video/ffmpeg-3.2.2:=[encode?,threads,vaapi?,vdpau?] )
-	libav? ( >=media-video/libav-12:=[encode?,threads,vaapi?,vdpau?] )
+	!libav? ( >=media-video/ffmpeg-3.2.2:0=[encode?,threads,vaapi?,vdpau?] )
+	libav? ( >=media-video/libav-12:0=[encode?,threads,vaapi?,vdpau?] )
 	sys-libs/zlib
 	alsa? ( >=media-libs/alsa-lib-1.0.18 )
 	archive? ( >=app-arch/libarchive-3.0.0:= )
 	bluray? ( >=media-libs/libbluray-0.3.0 )
 	cdda? ( dev-libs/libcdio-paranoia )
 	drm? ( x11-libs/libdrm )
-	dvb? ( virtual/linuxtv-dvb-headers )
 	dvd? (
 		>=media-libs/libdvdnav-4.2.0
 		>=media-libs/libdvdread-4.1.0
@@ -113,18 +113,23 @@ COMMON_DEPEND="
 "
 DEPEND="${COMMON_DEPEND}
 	${PYTHON_DEPS}
-	dev-lang/perl
 	dev-python/docutils
 	virtual/pkgconfig
 	doc? ( dev-python/rst2pdf )
+	dvb? ( virtual/linuxtv-dvb-headers )
 	test? ( >=dev-util/cmocka-1.0.0 )
+	v4l? ( virtual/os-headers )
+	zsh-completion? ( dev-lang/perl )
 "
 RDEPEND="${COMMON_DEPEND}
 	selinux? ( sec-policy/selinux-mplayer )
 	tools? ( ${PYTHON_DEPS} )
 "
 
-PATCHES=( "${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch" )
+PATCHES=(
+	"${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch"
+	"${FILESDIR}/${PN}-0.23.0-make-libavdevice-check-accept-libav.patch"
+)
 
 mpv_check_compiler() {
 	if [[ ${MERGE_TYPE} != "binary" ]] && use vaapi && use egl && ! tc-has-tls; then
@@ -193,6 +198,7 @@ src_configure() {
 		--disable-sdl1
 		$(use_enable oss oss-audio)
 		--disable-rsound		# Only available in overlays.
+		--disable-sndio			# Only available in overlays.
 		$(use_enable pulseaudio pulse)
 		$(use_enable jack)
 		$(use_enable openal)
@@ -226,6 +232,7 @@ src_configure() {
 		$(use_enable jpeg)
 		--disable-android
 		$(use_enable raspberry-pi rpi)
+		$(usex opengl "$(use_enable !aqua standard-gl)" '--disable-standard-gl')
 		--disable-ios-gl
 		$(usex libmpv "$(use_enable opengl plain-gl)" '--disable-plain-gl')
 		--disable-mali-fbdev	# Only available in overlays.
@@ -233,8 +240,8 @@ src_configure() {
 		# HWaccels:
 		# Automagic Video Toolbox HW acceleration. See Gentoo bug 577332.
 		$(use_enable vaapi vaapi-hwaccel)
-		# Automagic VDPAU HW acceleration. See Gentoo bug 558870.
-		--disable-cuda			# No support in ffmpeg. See Gentoo bug 595450.
+		$(use_enable vdpau vdpau-hwaccel)
+		--disable-cuda-hwaccel	# No support in ffmpeg. See Gentoo bug 595450.
 
 		# TV features:
 		$(use_enable v4l tv)

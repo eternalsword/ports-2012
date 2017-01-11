@@ -3298,7 +3298,6 @@ kde-apps/kopete:yahoo - Enable yahoo protocol support.
 kde-apps/kopete:zeroconf - Enable Link-Local Messaging via the bonjour protocol.
 kde-apps/kpimtextedit:designer - Build plugins for dev-qt/designer
 kde-apps/kpimtextedit:speech - Enable text-to-speech support
-kde-apps/krdc:rdesktop - Enable runtime dependency for net-misc/rdesktop
 kde-apps/krfb:ktp - Enable displaying of KDE Telepathy contacts
 kde-apps/krfb:telepathy - Enable desktop sharing through a telepathy client
 kde-apps/kstars:fits - Enable support for NASA's sci-libs/cfitsio library
@@ -4163,11 +4162,6 @@ media-plugins/audacious-plugins:http - Support HTTP streams through neon
 media-plugins/audacious-plugins:midi - Build with amidi-plug (MIDI synth) support
 media-plugins/audacious-plugins:scrobbler - Build with scrobbler/LastFM submission support
 media-plugins/audacious-plugins:sid - Build with SID (Commodore 64 Audio) support
-media-plugins/banshee-community-extensions:lastfmfingerprint - Enable support to ientify your music automatically, using the Last.fm online service.
-media-plugins/banshee-community-extensions:lirc - Enable the remote control plugin (uses app-misc/lirc)
-media-plugins/banshee-community-extensions:mirage - Enable the Mirage plugin which automatically, and intelligently generates playlists for you
-media-plugins/banshee-community-extensions:telepathy - Enables the Telepathy plugin which lets you to share and stream music with IM buddies
-media-plugins/banshee-community-extensions:zeitgeist - Build the plugin to inject events to gnome-extra/zeitgeist
 media-plugins/calf:lv2 - Add support for Ladspa V2
 media-plugins/deadbeef-plugins-meta:archive - Reading media files from archived files
 media-plugins/deadbeef-plugins-meta:bookmark-manager - Resume playing files (after closing player) from the last timestamp
@@ -4306,11 +4300,6 @@ media-sound/audacity:soundtouch - Enables soundtouch library support for pitch a
 media-sound/audacity:twolame - Enables twolame support (MPEG Audio Layer 2 encoder)
 media-sound/audacity:vamp - Enables vamp plugins support (Audio analysing plugins)
 media-sound/audacity:vst - Enable VST plugin support
-media-sound/banshee:bpm - Build beats per minute detection extension
-media-sound/banshee:cdda - Build with audio CD support
-media-sound/banshee:daap - Build with Daap support
-media-sound/banshee:karma - Build with karma support
-media-sound/banshee:youtube - Enable the Youtube plugin
 media-sound/beets:bpd - Enable support for media-sound/mpd server emulation
 media-sound/beets:chroma - Enable support for acoustic fingerprinting plugin using media-libs/chromaprint
 media-sound/beets:convert - Enable support for the convert plugin which makes it possible to transcode files
@@ -4332,8 +4321,6 @@ media-sound/clementine:moodbar - Enable moodbar support
 media-sound/clementine:projectm - Build with ProjectM visualization
 media-sound/clementine:seafile - Enable support for seafile: a file sync service
 media-sound/clementine:skydrive - Enable Skydrive support
-media-sound/clementine:system-sqlite - Use the system-wide dev-db/sqlite installation
-media-sound/clementine:ubuntu-one - Enable Ubuntu One support
 media-sound/clementine:udisks_legacy - Enable storage management support via legacy sys-fs/udisks:0
 media-sound/clementine:vkontakte - Enable vk.com support
 media-sound/clementine:wiimote - Enable support for Wii remote
@@ -4456,6 +4443,8 @@ media-sound/lame:mp3rtp - Build the mp3-to-RTP streaming utility. **UNSUPPORTED*
 media-sound/lilypond:guile2 - Enable experimental support for Guile 2
 media-sound/linuxsampler:lv2 - Add support for Ladspa V2
 media-sound/lmms:fluidsynth - Enables Fluidsynth MIDI software synthesis plugin.
+media-sound/lmms:libgig - Enables GIG player plugin.
+media-sound/lmms:soundio - Enalbes libsoundio support.
 media-sound/lmms:stk - Enables STK Mallet plugin.
 media-sound/lmms:vst - Enables the VeSTige plugin to run VST plugins through Wine.
 media-sound/lyvi:mpris - Enable MPRIS support
@@ -4754,7 +4743,6 @@ media-video/chaplin:transcode - Enable DVD ripping and transcoding
 media-video/clive:clipboard - Support reading from X clipboard
 media-video/clive:pager - Support pager!?
 media-video/clive:password - Support password controlled sites
-media-video/devede:mencoder - Prefer MPlayer mencoder over Libav avconv or FFmpeg ffmpeg for encoding.
 media-video/dv2sub:kino - install kino plugin
 media-video/dvdauthor:graphicsmagick - Use media-gfx/graphicsmagick instead of media-gfx/imagemagick
 media-video/dvdrip:fping - Enables fping support for cluster rendering
@@ -5017,7 +5005,6 @@ media-video/vlc:postproc - Enables image post-processing via libpostproc (part o
 media-video/vlc:projectm - Enables the projectM visualization plugin.
 media-video/vlc:qt4 - Builds a Qt4 based frontend, a graphical interface.
 media-video/vlc:qt5 - Builds a Qt5 based frontend, a graphical interface (overrides qt4).
-media-video/vlc:rdp - Enables freerdp for RDP/Remote Desktop client support
 media-video/vlc:rtsp - Enables real audio and RTSP modules.
 media-video/vlc:run-as-root - Allows vlc to start for root. Don't enable this unless you have a very specific (e.g. embedded) need for it!
 media-video/vlc:schroedinger - Enable Dirac video support (an advanced royalty-free video compression format) via libschroedinger (high-speed implementation in C of the Dirac codec).
