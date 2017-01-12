@@ -1,0 +1,13 @@
+DEFINED_PHASES=install
+DEPEND=gnome-base/libgnome-keyring
+DESCRIPTION=Brave Web Browser
+EAPI=6
+HOMEPAGE=https://brave.com
+KEYWORDS=~*
+LICENSE=MPL-2.0
+RDEPEND=gnome-base/libgnome-keyring
+RESTRICT=strip mirror
+SLOT=0
+SRC_URI=https://github.com/brave/browser-laptop/releases/download/v0.12.15dev/Brave.tar.bz2
+_eclasses_=eutils	b83a2420b796f7c6eff682679d08fe25	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_md5_=022b43238147da5ee2f9ca119664a2c1
