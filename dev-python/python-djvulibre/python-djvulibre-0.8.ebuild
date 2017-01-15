@@ -1,47 +1,32 @@
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
-EAPI=6
+EAPI=5
 
-PYTHON_COMPAT=( python2_7 python3_{4..5} )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
 inherit distutils-r1
 
-DESCRIPTION="Python support for the DjVu image format"
+DESCRIPTION="Set of Python bindings for the DjVuLibre library"
 HOMEPAGE="http://jwilk.net/software/python-djvulibre"
-SRC_URI="https://github.com/jwilk/${PN}/archive/${PV}.tar.gz"
+SRC_URI="mirror://pypi/p/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~*"
-
-IUSE="examples doc"
+KEYWORDS="~amd64 ~x86"
+IUSE="test"
+RESTRICT="!test? ( test )"
 
 RDEPEND="app-text/djvu"
-DEPEND="$RDEPEND
-	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
+DEPEND="${RDEPEND}
 	dev-python/cython[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
+	test? ( dev-python/nose[${PYTHON_USEDEP}] )
 "
 
-python_compile_all() {
-	if use doc; then
-		BUILDDIR=doc/_build
-		sphinx-build -b html -d "${BUILDDIR}/doctrees" doc/api "${BUILDDIR}/html"
-	fi
-}
-
-python_install_all() {
-	if use doc; then
-		rm -fr doc/_build/html/_sources
-		local HTML_DOCS=( doc/_build/html/* )
-	fi
-	distutils-r1_python_install_all
-}
-
-src_install() {
-	distutils-r1_src_install
-	if use examples; then
-		insinto /usr/share/doc/${PF}/examples
-		doins "${S}"/examples/*
-	fi
+python_test() {
+	ln -s "${S}/tests" "${BUILD_DIR}/tests" || die
+	cd "${BUILD_DIR}" || die
+	nosetests -v || die
 }
