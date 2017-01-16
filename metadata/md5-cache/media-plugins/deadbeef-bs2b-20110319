@@ -10,4 +10,4 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/Alexey-Yakovenko/bs2b/archive/a1961cd2f0686a7bdf0915f1fc7d62b5aba369bd.tar.gz -> deadbeef-bs2b-20110319.tar.gz
 _eclasses_=deadbeef-plugins	16bcde3107386bd9cbfbb6bd528cb53a	eutils	b83a2420b796f7c6eff682679d08fe25	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=7e525d437145cb595265f6089bd481fa
+_md5_=f5c530e1080ef0479070228e7f059028

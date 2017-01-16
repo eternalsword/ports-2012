@@ -12,4 +12,4 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/cboxdoerfer/ddb_musical_spectrum/archive/215bbad824b1ecf291083026f6b2a2bdbee1101b.tar.gz -> deadbeef-musical-spectrum-20160426.tar.gz
 _eclasses_=deadbeef-plugins	16bcde3107386bd9cbfbb6bd528cb53a	eutils	b83a2420b796f7c6eff682679d08fe25	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=061ab1b7af8f5544f83812ef37247191
+_md5_=588b8bf9c0070a12a0e163773a660bde

@@ -10,4 +10,4 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/silentlexx/deadbeef_soxr/archive/4647e18f8e210e45fa01b1ef7296d2c4234c0f05.tar.gz -> deadbeef-soxr-20160209.tar.gz
 _eclasses_=deadbeef-plugins	16bcde3107386bd9cbfbb6bd528cb53a	eutils	b83a2420b796f7c6eff682679d08fe25	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=14f494e29b187582f66d6634317099e0
+_md5_=173880c6458b0ec5165dd1296f2bcc1f

@@ -1,8 +1,6 @@
-# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI="5"
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -16,7 +14,7 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE="libressl"
 
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~*"
 
 CDEPEND="
 	dev-db/sqlite:3
@@ -46,3 +44,5 @@ DEPEND="${CDEPEND}
 	dev-python/cython[${PYTHON_USEDEP}]
 	virtual/pkgconfig
 "
+
+PATCHES=( "${FILESDIR}/${P}-PixelFormat-fix.patch" )
