@@ -9,5 +9,5 @@ RDEPEND=media-sound/deadbeef:0
 RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/Alexey-Yakovenko/stereo-widener/archive/d3990d772b02cdc6206f067748f5d1f9650616fb.tar.gz -> deadbeef-stereo-widener-20110319.tar.gz
-_eclasses_=deadbeef-plugins	16bcde3107386bd9cbfbb6bd528cb53a	eutils	b83a2420b796f7c6eff682679d08fe25	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=deadbeef-plugins	16bcde3107386bd9cbfbb6bd528cb53a	eutils	017377e73405d964cd0137088cddb9c3	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=e01dd3106b350acfa61b91dd78a06e96

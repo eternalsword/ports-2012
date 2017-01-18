@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -71,7 +71,7 @@ RDEPEND="${RDEPEND}
 
 S=${WORKDIR}/${PARCH}
 
-pkg_setup() {
+pkg_pretend() {
 	# this sucks, but i'd rather have people unable to `emerge -u openssh`
 	# than not be able to log in to their server any more
 	maybe_fail() { [[ -z ${!2} ]] && echo "$1" ; }
@@ -161,6 +161,10 @@ src_prepare() {
 	use hppa && sed_args+=(
 		-e '/CFLAGS/s:-ftrapv:-fdisable-this-test:'
 		-e '/OSSH_CHECK_CFLAG_LINK.*-ftrapv/d'
+	)
+	# _XOPEN_SOURCE causes header conflicts on Solaris
+	[[ ${CHOST} == *-solaris* ]] && sed_args+=(
+		-e 's/-D_XOPEN_SOURCE//'
 	)
 	sed -i "${sed_args[@]}" configure{.ac,} || die
 
@@ -268,37 +272,32 @@ src_install() {
 }
 
 src_test() {
-	local t tests skipped failed passed shell
-	tests="interop-tests compat-tests"
-	skipped=""
-	shell=$(egetshell ${UID})
+	local t skipped=() failed=() passed=()
+	local tests=( interop-tests compat-tests )
+
+	local shell=$(egetshell "${UID}")
 	if [[ ${shell} == */nologin ]] || [[ ${shell} == */false ]] ; then
-		elog "Running the full OpenSSH testsuite"
-		elog "requires a usable shell for the 'portage'"
+		elog "Running the full OpenSSH testsuite requires a usable shell for the 'portage'"
 		elog "user, so we will run a subset only."
-		skipped="${skipped} tests"
+		skipped+=( tests )
 	else
-		tests="${tests} tests"
+		tests+=( tests )
 	fi
-	# It will also attempt to write to the homedir .ssh
+
+	# It will also attempt to write to the homedir .ssh.
 	local sshhome=${T}/homedir
 	mkdir -p "${sshhome}"/.ssh
-	for t in ${tests} ; do
+	for t in "${tests[@]}" ; do
 		# Some tests read from stdin ...
 		HOMEDIR="${sshhome}" HOME="${sshhome}" \
 		emake -k -j1 ${t} </dev/null \
-			&& passed="${passed}${t} " \
-			|| failed="${failed}${t} "
+			&& passed+=( "${t}" ) \
+			|| failed+=( "${t}" )
 	done
-	einfo "Passed tests: ${passed}"
-	ewarn "Skipped tests: ${skipped}"
-	if [[ -n ${failed} ]] ; then
-		ewarn "Failed tests: ${failed}"
-		die "Some tests failed: ${failed}"
-	else
-		einfo "Failed tests: ${failed}"
-		return 0
-	fi
+
+	einfo "Passed tests: ${passed[*]}"
+	[[ ${#skipped[@]} -gt 0 ]] && ewarn "Skipped tests: ${skipped[*]}"
+	[[ ${#failed[@]}  -gt 0 ]] && die "Some tests failed: ${failed[*]}"
 }
 
 pkg_preinst() {

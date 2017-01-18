@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -57,7 +57,7 @@ _CMAKE_UTILS_ECLASS=1
 # @ECLASS-VARIABLE: CMAKE_MIN_VERSION
 # @DESCRIPTION:
 # Specify the minimum required CMake version.
-: ${CMAKE_MIN_VERSION:=2.8.12}
+: ${CMAKE_MIN_VERSION:=3.5.2}
 
 # @ECLASS-VARIABLE: CMAKE_REMOVE_MODULES
 # @DESCRIPTION:
@@ -117,7 +117,7 @@ case ${EAPI} in
 	*) die "EAPI=${EAPI:-0} is not supported" ;;
 esac
 
-inherit toolchain-funcs multilib flag-o-matic eutils versionator
+inherit toolchain-funcs multilib flag-o-matic eutils multiprocessing versionator
 
 EXPORT_FUNCTIONS src_prepare src_configure src_compile src_test src_install
 
@@ -780,8 +780,9 @@ enable_cmake-utils_src_test() {
 
 	[[ -n ${TEST_VERBOSE} ]] && myctestargs+=( --extra-verbose --output-on-failure )
 
-	echo ctest "${myctestargs[@]}" "$@"
-	if ctest "${myctestargs[@]}" "$@" ; then
+	set -- ctest -j "$(makeopts_jobs)" --test-load "$(makeopts_loadavg)" "${myctestargs[@]}" "$@"
+	echo "$@" >&2
+	if "$@" ; then
 		einfo "Tests succeeded."
 		popd > /dev/null || die
 		return 0

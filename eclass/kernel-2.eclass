@@ -967,13 +967,6 @@ install_sources() {
 		done
 	fi
 
-	if [[ ! -f ${S}/patches.txt ]]; then
-		# patches.txt is empty so lets use our ChangeLog
-		[[ -f ${FILESDIR}/../ChangeLog ]] && \
-			echo "Please check the ebuild ChangeLog for more details." \
-			> "${S}"/patches.txt
-	fi
-
 	mv "${WORKDIR}"/linux* "${ED}"usr/src || die
 
 	if [[ -n "${UNIPATCH_DOCS}" ]] ; then
@@ -1625,5 +1618,8 @@ kernel-2_pkg_postrm() {
 	ewarn "${EROOT}usr/src/linux-${KV_FULL}"
 	ewarn "with modified files will remain behind. By design, package managers"
 	ewarn "will not remove these modified files and the directories they reside in."
+	echo
+	ewarn "For more detailed kernel removal instructions, please see: "
+	ewarn "https://wiki.gentoo.org/wiki/Kernel/Removal"
 	echo
 }
