@@ -10,4 +10,4 @@ RDEPEND=sdl? ( media-libs/libsdl ) gif? ( media-libs/giflib ) png? ( media-libs/
 SLOT=0
 SRC_URI=http://directfb.net/downloads/Core/DirectFB-1.4/DirectFB-1.4.9.tar.gz http://directfb.net/downloads/Old/DirectFB-1.4.9.tar.gz
 _eclasses_=eutils	017377e73405d964cd0137088cddb9c3	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=34a4da9934ae0e2af5d6c1da0a3afdb6
+_md5_=57d38da879ac572db270367a00d003c1
