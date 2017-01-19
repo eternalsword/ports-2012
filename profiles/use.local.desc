@@ -2412,6 +2412,7 @@ dev-python/restkit:cli - Install the restcli command line interface/tool, based 
 dev-python/scrapy:boto - Add support for Amazon S3 via dev-python/boto
 dev-python/scrapy:ibl - Use Instace Based Learning algorithm for automatic extraction
 dev-python/simplecv:shell - Enable the iPython SimpleCV shell
+dev-python/sphinx:net - enable internet capabilities
 dev-python/spyder:ipython - Add support for dev-python/ipython
 dev-python/spyder:matplotlib - Add support for dev-python/matplotlib
 dev-python/spyder:numpy - Add support for dev-python/numpy
@@ -3922,7 +3923,6 @@ media-libs/faad2:digitalradio - Digital Radio Mondiale (warning: disables other 
 media-libs/flickcurl:raptor - Use media-libs/raptor for proper RDF serializing
 media-libs/fontconfig-infinality:nyx - Additional style using croscorefonts
 media-libs/freetype:adobe-cff - Use Adobe CFF as default font-renderer
-media-libs/freetype:auto-hinter - Use the unpatented auto-hinter instead of the (recommended) TrueType bytecode interpreter
 media-libs/freetype:bindist - Disable ClearType support (see http://freetype.org/patents.html)
 media-libs/freetype:bzip2 - Support bzip2 compressed PCF fonts.
 media-libs/freetype:cleartype_hinting - New bytecode hinting mode for TrueType fonts that activates subpixel hinting (a.k.a. ClearType hinting) by default
@@ -3947,7 +3947,6 @@ media-libs/gst-plugins-bad:bzip2 - Enable bzip2 encoder/decoder plugin
 media-libs/gst-plugins-bad:egl - Enable EGL support
 media-libs/gst-plugins-bad:gles2 - Enable GLES2 support
 media-libs/gst-plugins-base:ivorbis - Enable integer based vorbis decoder
-media-libs/gst-plugins-base:opus - Enable opus codec support
 media-libs/gst-plugins-base:pango - Enable pango GStreamer plugin
 media-libs/gstreamer:orc - Disable some PaX memory protections to allow plugins that use dev-lang/orc for runtime optimization to be used on hardened PaX systems
 media-libs/harfbuzz:glib - Compile with GLib Unicode support
@@ -4862,6 +4861,7 @@ media-video/mjpg-streamer:output_rtsp - Plugin which provides a mechanism to tak
 media-video/mjpg-streamer:output_udp - Plugin receiving content over UDP and storing to a directory
 media-video/mjpg-streamer:v4l - Uses media-libs/libv4l function mapping for input_uvc plugin
 media-video/mjpg-streamer:www - Installs WWW content
+media-video/motion:mmal - Enables Multi-Media Abstraction Layer (MMAL) decoding support: Available e.g. on the Raspberry Pi.
 media-video/motiontrack:multiprocess - Enables multi-process support (SMP/cluster) for motiontrack programs
 media-video/mplayer:bl - Blinkenlights video output
 media-video/mplayer:bluray - Enable playback of Blu-ray filesystems
@@ -5446,8 +5446,10 @@ net-fs/samba:aio - Enable asynchronous IO support
 net-fs/samba:client - Enables the client part
 net-fs/samba:cluster - Enable support for clustering
 net-fs/samba:dmapi - Enable support for DMAPI. This currently works only in combination with XFS.
+net-fs/samba:gpg - Use app-crypt/gpgme for AD DC
 net-fs/samba:iprint - Enabling iPrint technology by Novell
 net-fs/samba:quota - Enables support for user quotas
+net-fs/samba:system-heimdal - Use app-crypt/heimdal instead of bundled heimdal.
 net-fs/samba:system-mitkrb5 - Use app-crypt/mit-krb5 instead of app-crypt/heimdal.
 net-fs/samba:winbind - Enables support for the winbind auth daemon
 net-fs/smbnetfs:gnome - Use the gnome-base/gnome-keyring for password management.
@@ -8249,6 +8251,7 @@ x11-libs/cairo:opengl - Use Mesa backend for acceleration
 x11-libs/cairo:valgrind - Built-in support to mark memory regions
 x11-libs/cairo:xlib-xcb - Use XCB renderer backend for acceleration over xlib. Enabling this may solve or introduce display corruption problems.
 x11-libs/fltk:games - Builds and installs some extra games
+x11-libs/gdk-pixbuf:X - Build and install the legacy gdk_pixbuf_xlib-2.0 library
 x11-libs/glamor:gles - Build glamor based on gles2
 x11-libs/granite:demo - Build the Granite demo application (to present all available UI features provided by the library)
 x11-libs/gtk+:broadway - Enable the GDK Broadway backend.
@@ -8418,7 +8421,6 @@ x11-themes/redhat-artwork:audacious - Install media-sound/audacious theme
 x11-themes/redhat-artwork:cursors - Install Bluecurve cursors
 x11-themes/redhat-artwork:gdm - Install Bluecurve gnome-base/gdm theme
 x11-themes/redhat-artwork:icons - Install Bluecurve icons
-x11-themes/redhat-artwork:kdm - Install Bluecurve kde-plasma/kdm theme
 x11-themes/redhat-artwork:nautilus - Install Bluecurve gnome-base/nautilus icons
 x11-themes/skinenigmang-logos:dxr3 - Install logos for lower osd color depth on dxr3 cards
 x11-themes/vertex-theme:cinnamon - Install theme for gnome-extra/cinnamon
