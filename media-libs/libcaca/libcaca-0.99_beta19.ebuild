@@ -5,7 +5,7 @@
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
 RUBY_OPTIONAL=yes
-USE_RUBY=ruby20
+USE_RUBY="ruby21 ruby22 ruby23 ruby24"
 
 inherit autotools ruby-ng eutils flag-o-matic mono-env multilib java-pkg-opt-2 python-single-r1 multilib-minimal
 
@@ -16,12 +16,11 @@ SRC_URI="http://libcaca.zoy.org/files/${PN}/${MY_P}.tar.gz"
 
 LICENSE="GPL-2 ISC LGPL-2.1 WTFPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ~ia64 ~mips ppc ppc64 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd"
 IUSE="cxx doc imlib java mono ncurses opengl python ruby slang static-libs test truetype X"
 REQUIRED_USE="
 	python? ( ${PYTHON_REQUIRED_USE} )
-	ruby? ( ruby_targets_${USE_RUBY} )
-"
+	"
 
 COMMON_DEPEND="imlib? ( >=media-libs/imlib2-1.4.6-r2[${MULTILIB_USEDEP}] )
 	mono? ( dev-lang/mono )
