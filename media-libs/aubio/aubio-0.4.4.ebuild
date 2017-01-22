@@ -41,7 +41,7 @@ PYTHON_SRC_DIR="${S}"
 
 src_prepare() {
 	sed -i -e "s:doxygen:doxygen_disabled:" wscript || die
-	sed -i '4i#include "../../src/utils/log.h"' python/ext/aubiomodule.c
+	epatch "${FILESDIR}/${P}-fl3492.patch"
 }
 
 src_configure() {
