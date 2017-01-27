@@ -7,5 +7,5 @@ LICENSE=logitechmediaserver-bin
 RDEPEND=!prefix? ( >=sys-apps/baselayout-2.0.0 ) !prefix? ( virtual/logger ) >=dev-lang/perl-5.8.8[ithreads] x86? ( <dev-lang/perl-5.23[ithreads] ) amd64? ( <dev-lang/perl-5.23[ithreads] ) >=dev-perl/Data-UUID-1.202
 RESTRICT=bindist mirror
 SLOT=0
-_eclasses_=eutils	017377e73405d964cd0137088cddb9c3	git-2	7af5d170bfc02983b4bcd3167dc5edd4	multilib	165fc17c38d1b11dac2008280dab6e80	systemd	5b6ca8b2fc1307ca593223f327342c96	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	80aaa71614ced86f02ee1a513821dc87
+_eclasses_=eutils	ea170b525f6a38a006be05c9d9429f13	git-2	7af5d170bfc02983b4bcd3167dc5edd4	multilib	165fc17c38d1b11dac2008280dab6e80	systemd	5b6ca8b2fc1307ca593223f327342c96	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	80aaa71614ced86f02ee1a513821dc87
 _md5_=d9a892bd5853e7cc18fd3c9174e8d78f

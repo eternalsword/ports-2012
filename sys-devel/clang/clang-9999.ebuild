@@ -39,7 +39,7 @@ RDEPEND="
 # configparser-3.2 breaks the build (3.3 or none at all are fine)
 DEPEND="${RDEPEND}
 	doc? ( dev-python/sphinx )
-	test? ( dev-python/lit[${PYTHON_USEDEP}] )
+	test? ( ~dev-python/lit-${PV}[${PYTHON_USEDEP}] )
 	xml? ( virtual/pkgconfig )
 	!!<dev-python/configparser-3.3.0.2
 	${PYTHON_DEPS}"
@@ -123,6 +123,9 @@ src_unpack() {
 src_prepare() {
 	python_setup
 
+	# fix finding compiler-rt libs
+	eapply "${FILESDIR}"/9999/0001-Driver-Use-arch-type-to-find-compiler-rt-libraries-o.patch
+
 	# fix stand-alone doc build
 	eapply "${FILESDIR}"/9999/0007-cmake-Support-stand-alone-Sphinx-doxygen-doc-build.patch
 
@@ -141,8 +144,7 @@ multilib_src_configure() {
 
 		-DBUILD_SHARED_LIBS=ON
 		-DLLVM_TARGETS_TO_BUILD="${LLVM_TARGETS// /;}"
-		# TODO: get them properly conditional
-		#-DLLVM_BUILD_TESTS=$(usex test)
+		-DLLVM_BUILD_TESTS=$(usex test)
 
 		# these are not propagated reliably, so redefine them
 		-DLLVM_ENABLE_EH=ON
