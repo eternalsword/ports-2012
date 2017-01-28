@@ -10,4 +10,4 @@ RDEPEND=dev-lang/perl[ithreads] dev-perl/Archive-Extract dev-perl/Archive-Zip de
 SLOT=0
 SRC_URI=mirror://sourceforge/assp/ASSP_2.5.5_16366_install.zip
 _eclasses_=eutils	ea170b525f6a38a006be05c9d9429f13	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	80aaa71614ced86f02ee1a513821dc87	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=ed83e32903ace6f9a23d55e373946214
+_md5_=f6222f377b2e5676b21c9242ff432f9e
