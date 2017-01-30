@@ -1,0 +1,11 @@
+DEFINED_PHASES=install prepare unpack
+DESCRIPTION=A free and open source desktop alternative to Microsoft Project
+EAPI=5
+HOMEPAGE=http://www.projectlibre.org/
+KEYWORDS=amd64 x86
+LICENSE=CPAL-1.0
+RDEPEND=virtual/jre
+SLOT=0
+SRC_URI=mirror://sourceforge/projectlibre/ProjectLibre//projectlibre-1.7.0.tar.gz http://sourceforge.net/p/projectlibre/code/ci/master/tree/openproj_build/resources/projectlibre.desktop?format=raw -> projectlibre.desktop http://sourceforge.net/p/projectlibre/code/ci/master/tree/openproj_build/resources/projectlibre.png?format=raw -> projectlibre.png
+_eclasses_=eutils	ea170b525f6a38a006be05c9d9429f13	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_md5_=90ef654f4a543eb56a66d31971777e87

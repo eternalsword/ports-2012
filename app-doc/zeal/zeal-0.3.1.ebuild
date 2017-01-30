@@ -10,11 +10,9 @@ DESCRIPTION="Offline documentation browser inspired by Dash"
 HOMEPAGE="https://zealdocs.org/"
 SRC_URI="https://github.com/zealdocs/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
-S="${WORKDIR}/${P}/src"
-
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~x86"
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="
 	app-arch/libarchive
@@ -34,8 +32,7 @@ RDEPEND="
 "
 
 src_configure() {
-	eqmake5
-		PREFIX="${EPREFIX}/usr"
+	eqmake5 PREFIX="${EPREFIX}/usr"
 }
 
 src_install() {
