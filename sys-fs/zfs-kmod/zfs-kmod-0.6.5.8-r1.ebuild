@@ -79,9 +79,9 @@ src_prepare() {
 		{ sed -i "s/\(Release:\)\(.*\)1/\1\2${PR}-gentoo/" "${S}/META" || die "Could not set Gentoo release"; }
 	if [ ${PV} != "9999" ]
 	then
-		epatch "${FILESDIR}/${PN}-0.6.5.8-linux-4.9-compat.patch"
+		epatch "${FILESDIR}/debian-patches/${PN}-0.6.5.8/0003-Linux-4.9-compat-inode_change_ok-renamed-setattr_pre.patch"
+		eautoreconf
 	fi
-	eautoreconf
 	autotools-utils_src_prepare
 }
 

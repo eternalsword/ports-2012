@@ -6,6 +6,6 @@ KEYWORDS=amd64 x86
 LICENSE=CPAL-1.0
 RDEPEND=virtual/jre
 SLOT=0
-SRC_URI=mirror://sourceforge/projectlibre/ProjectLibre//projectlibre-1.7.0.tar.gz http://sourceforge.net/p/projectlibre/code/ci/master/tree/openproj_build/resources/projectlibre.desktop?format=raw -> projectlibre.desktop http://sourceforge.net/p/projectlibre/code/ci/master/tree/openproj_build/resources/projectlibre.png?format=raw -> projectlibre.png
-_eclasses_=eutils	ea170b525f6a38a006be05c9d9429f13	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=90ef654f4a543eb56a66d31971777e87
+SRC_URI=mirror://sourceforge/projectlibre/ProjectLibre/1.7/projectlibre-1.7.0.tar.gz http://sourceforge.net/p/projectlibre/code/ci/master/tree/openproj_build/resources/projectlibre.desktop?format=raw -> projectlibre.desktop http://sourceforge.net/p/projectlibre/code/ci/master/tree/openproj_build/resources/projectlibre.png?format=raw -> projectlibre.png
+_eclasses_=eutils	ea170b525f6a38a006be05c9d9429f13	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=288ec8d29c63d79a1afc16c7fbf84a4f
