@@ -42,6 +42,7 @@ src_prepare() {
 	rm -v libwnck/wnck-marshal.{c,h} || die "rm failed"
 
 	gnome2_src_prepare
+}
 
 src_configure () {
 	gnome2_src_configure \
