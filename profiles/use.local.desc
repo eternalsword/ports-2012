@@ -4017,12 +4017,9 @@ media-libs/libvpx:postproc - Enable additional post processing filters
 media-libs/libvpx:svc - Enable spatial-svc support (experimental)
 media-libs/libwebp:experimental - Build with -DWEBP_EXPERIMENTAL_FEATURES
 media-libs/libwebp:swap-16bit-csp - Enable byte swapping for 16 bit colorspace
-media-libs/libyami:capi - Add a C API interface, in addition to the C++.
 media-libs/libyami:dmabuf - Enable dma_buf buffer sharing.
-media-libs/libyami:gles - Add suppport for GLES.
-media-libs/libyami:glx - Add support for OpenGL/GLX instead of EGL.
+media-libs/libyami:egl - Enable EGL support.
 media-libs/libyami:md5 - Add support for generating md5 sums for each frame.
-media-libs/libyami:tools - Build and install command line tools. Useful for testing.
 media-libs/libyami:v4l - Add support for V4L2 hardware codecs.
 media-libs/libzmf:tools - Build conversion tools
 media-libs/lilv:dyn-manifest - Add LV2 Dynamic Manifest support. See http://lv2plug.in/ns/ext/dynmanifest/
@@ -4798,6 +4795,7 @@ media-video/ffmpeg:quvi - Adds support for playing media from Internet services 
 media-video/ffmpeg:rubberband - Adds time-stretching and pitch-shifting audio filter based on media-libs/rubberband.
 media-video/ffmpeg:schroedinger - Enable Dirac video support (an advanced royalty-free video compression format) via libschroedinger (high-speed implementation in C of the Dirac codec).
 media-video/ffmpeg:snappy - Enable app-arch/snappy support. Required for e.g. Vidvox Hap encoder.
+media-video/ffmpeg:sofalizer - Enables Sofalizer filter
 media-video/ffmpeg:ssh - Enable SSH/sftp support via net-libs/libssh.
 media-video/ffmpeg:twolame - Enables MP2 encoding via media-sound/twolame as an alternative to the internal encoder.
 media-video/ffmpeg:vpx - Enables vp8 codec support using libvpx: Decoding vp8 does not require this to be enabled but libvpx can also be used for decoding; encoding vp8 requires this useflag to be enabled though.
@@ -4832,6 +4830,7 @@ media-video/libav:frei0r - Enable frei0r wrapping in libavfilter
 media-video/libav:gpl - Build all GPL licensed code. Without this flag set the package is build under LGPL license.
 media-video/libav:hardcoded-tables - Use pre-calculated tables rather than calculating them on the fly.
 media-video/libav:network - Enable network streaming support.
+media-video/libav:nvidia - Enable nvidia video codec hardware acceleration support.
 media-video/libav:openssl - Prefer dev-libs/openssl over net-libs/gnutls to provide SSL/TLS support (notice: the resulting binaries are unredistributable).
 media-video/libav:opus - Use the external opus library for encoding and decoding.
 media-video/libav:pic - Force shared libraries to be built as PIC (this is slower).
@@ -4898,9 +4897,11 @@ media-video/mpv:bluray - Enable playback of Blu-ray filesystems
 media-video/mpv:bs2b - Enable Bauer stereophonic-to-binaural headphone filter
 media-video/mpv:cdio - Enable CDDA support via dev-libs/libcdio-paranoia
 media-video/mpv:cli - Build mpv CLI player
+media-video/mpv:cplugins - Enable C plugins support
+media-video/mpv:cuda - Enable hardware video decoding via Nvidia CUDA
 media-video/mpv:doc-pdf - Build documentation in pdf format
 media-video/mpv:drm - Enable Kernel Mode Setting / Direct Rendering Manager based video output
-media-video/mpv:egl - Enable support for various EGL-based video outputs
+media-video/mpv:egl - Enable support for various EGL-based video outputs / backends
 media-video/mpv:enca - Enable subtitles charset discovery via app-i18n/enca
 media-video/mpv:gbm - Enable Graphics Buffer Manager based EGL video output
 media-video/mpv:jpeg - Enable support for saving screenshots in JPEG format
@@ -6710,7 +6711,6 @@ net-wireless/blueman:thunar - Install the sendto-plugin for xfce-base/thunar
 net-wireless/bluez:deprecated - Build deprecated plugins
 net-wireless/bluez:experimental - Build experimental plugins
 net-wireless/bluez:extra-tools - Install tools that upstream doesn't install on purpose by default. All this tools shouldn't be used. Then, please notify upstream about you still need them to let them know the situation.
-net-wireless/bluez:hid2hci - The HID proxying makes the keyboard / mouse show up as regular USB HID devices, but needs them to be paired before enabling this, otherwise they won't be detected
 net-wireless/bluez:obex - Enable OBEX transfer support.
 net-wireless/bluez:test-programs - Install tools for testing of various Bluetooth functions
 net-wireless/bluez:user-session - Allow compatibility with user-session semantics for session bus under systemd
