@@ -5892,7 +5892,6 @@ net-libs/opal:wav - Enable WAVFILE support
 net-libs/opal:x264-static - Install x264 plugin statically linked with x264
 net-libs/ortp:ntp-timestamp - Turn on NTP timestamping on received packet
 net-libs/ortp:srtp - Add support for Secure RTP
-net-libs/ortp:zrtp - Add support for ZRTP key negotiation
 net-libs/phodav:spice - Install the spice-webdavd guest agent
 net-libs/pjproject:amr - Inlcude AMR codec in the build
 net-libs/pjproject:epoll - Use /dev/epoll ioqueue on Linux (experimental)
@@ -6123,8 +6122,10 @@ net-misc/cgminer:ants1 - Enable support for Antminer S1 Bitmain
 net-misc/cgminer:ants2 - Enable support for Antminer S2 Bitmain
 net-misc/cgminer:ants3 - Enable support for Antminer S3 Bitmain
 net-misc/cgminer:avalon - Enable support for Avalon ASICs
+net-misc/cgminer:avalon-miner - Enable support for Avalon miner ASICs
 net-misc/cgminer:avalon2 - Enable support for Avalon2 ASICs
 net-misc/cgminer:avalon4 - Enable support for Avalon4 ASICs
+net-misc/cgminer:avalon7 - Enable support for Avalon7 ASICs
 net-misc/cgminer:bab - Enable support for BlackArrow Bitfury
 net-misc/cgminer:bflsc - Enable support for BFL ASICs
 net-misc/cgminer:bitforce - Enable support for mining with ButterFly Labs BitFORCE FPGAs
@@ -6142,7 +6143,6 @@ net-misc/cgminer:minion - Enable support for mining with BlackArrow Bitfury
 net-misc/cgminer:modminer - Enable support for mining with ModMiner FPGAs
 net-misc/cgminer:sp10 - Enable support for Spondoolies SP10
 net-misc/cgminer:sp30 - Enable support for Spondoolies SP30
-net-misc/cgminer:spondoolies - Enable support for Spondoolies
 net-misc/chrony:adns - Support for asynchronous DNS
 net-misc/chrony:cmdmon - Support for command and monitoring
 net-misc/chrony:html - Install HTML documentation
@@ -7062,6 +7062,7 @@ sci-libs/scotch:int64 - Build the 64 bits integer library (needed for > 2^31 ver
 sci-libs/scotch:tools - Build and install extra exec tools
 sci-libs/shogun:R - Enable support for dev-lang/R
 sci-libs/shogun:octave - Enable support for sci-mathematics/octave
+sci-libs/shogun:opencl - Enable support for building against OpenCL
 sci-libs/silo:silex - Build silex data browser
 sci-libs/spqr:metis - Use sci-libs/metis or sci-libs/parmetis for partitioning
 sci-libs/spqr:tbb - Enable multithreading with the Intel Threads Building Block dev-cpp/tbb
