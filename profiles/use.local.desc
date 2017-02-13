@@ -87,7 +87,6 @@ app-admin/lastpass-cli:pinentry - Use app-crypt/pinentry to prompt for passwords
 app-admin/logrotate:acl - Installs acl support
 app-admin/logrotate:cron - Installs cron file
 app-admin/logrotate:selinux - Installs Security Enhanced Linux support
-app-admin/logstash-bin:all-plugins - contains the standard distribution package plus all plugins
 app-admin/matter:entropy - Add Entropy support
 app-admin/mcollective:client - Install client utilities
 app-admin/mms-agent:monitoring - Install the monitoring agent
@@ -4743,7 +4742,6 @@ media-video/clive:clipboard - Support reading from X clipboard
 media-video/clive:pager - Support pager!?
 media-video/clive:password - Support password controlled sites
 media-video/dv2sub:kino - install kino plugin
-media-video/dvdauthor:graphicsmagick - Use media-gfx/graphicsmagick instead of media-gfx/imagemagick
 media-video/dvdrip:fping - Enables fping support for cluster rendering
 media-video/dvdrip:subtitles - Enables support for subtitle ripping
 media-video/ffdiaporama:openclipart - Support openslipart database
@@ -5455,7 +5453,6 @@ net-fs/smbnetfs:gnome - Use the gnome-base/gnome-keyring for password management
 net-fs/unfs3:cluster - Enable ClusterNFS file naming extensions
 net-ftp/frox:transparent - Enable transparent proxying of data connections
 net-ftp/lftp:convert-mozilla-cookies - Install the convert-mozilla-cookies script and its run-time dependencies
-net-ftp/lftp:openssl - Use dev-libs/openssl for SSL connections
 net-ftp/lftp:verify-file - Install the verify-file script and its run-time dependencies
 net-ftp/proftpd:authfile - Enable support for the auth-file module
 net-ftp/proftpd:ban - Enable support for the mod_ban module
