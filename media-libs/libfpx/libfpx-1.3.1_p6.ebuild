@@ -18,7 +18,7 @@ S=${WORKDIR}/${P/_p/-}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-1.2.0.13-export-symbols.patch
-
+	epatch "${FILESDIR}"/${PN}-1.2.0.13-gcc6-compat.patch
 	eapply_user
 
 	# we're not windows, even though we don't define __unix by default

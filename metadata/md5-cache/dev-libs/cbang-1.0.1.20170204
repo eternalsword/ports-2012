@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile configure install unpack
+DEPEND=dev-libs/boost ChakraCore? ( net-libs/ChakraCore ) dev-util/scons >=dev-vcs/git-1.8.2.1
+DESCRIPTION=C! (cbang) is a library of cross-platform C++ utilities
+EAPI=6
+HOMEPAGE=https://github.com/CauldronDevelopmentLLC/cbang
+IUSE=+ChakraCore
+KEYWORDS=~*
+LICENSE=LGPL-2.1
+RDEPEND=dev-libs/boost ChakraCore? ( net-libs/ChakraCore )
+SLOT=0
+_eclasses_=eutils	ea170b525f6a38a006be05c9d9429f13	git-r3	6efc2d7de07a77bf72c7207b48d0e123	multilib	165fc17c38d1b11dac2008280dab6e80	multiprocessing	eb9be4b678c4e71f3f530a767df31912	scons-utils	d42c1726f481bb5812cc2ce1f236db1d	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_md5_=918dc505a88c9c88d06749af23d2c96e

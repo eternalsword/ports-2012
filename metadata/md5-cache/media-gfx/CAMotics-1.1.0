@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile configure install
+DEPEND=dev-libs/cbang[ChakraCore] net-libs/ChakraCore dev-qt/qtcore:4 dev-qt/qtopengl:4 dev-qt/qtgui:4 x11-libs/cairo dev-util/scons
+DESCRIPTION=Open-Source Simulation & Computer Aided Machining - A 3-axis CNC GCode simulator
+EAPI=6
+HOMEPAGE=https://github.com/CauldronDevelopmentLLC/CAMotics
+KEYWORDS=~*
+LICENSE=GPL-2+
+RDEPEND=dev-libs/cbang[ChakraCore] net-libs/ChakraCore dev-qt/qtcore:4 dev-qt/qtopengl:4 dev-qt/qtgui:4 x11-libs/cairo
+SLOT=0
+SRC_URI=https://github.com/CauldronDevelopmentLLC/CAMotics/archive/1.1.0-release.tar.gz -> CAMotics-1.1.0.tar.gz
+_eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	multiprocessing	eb9be4b678c4e71f3f530a767df31912	scons-utils	d42c1726f481bb5812cc2ce1f236db1d	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_md5_=34b840bde4d76ce34cc316488ccecd37
