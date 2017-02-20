@@ -3261,7 +3261,7 @@ kde-apps/akonadi:tools - Install tools for developers and testing
 kde-apps/akonadi-contacts:prison - Enable support for QRcodes in contacts
 kde-apps/analitza:eigen - Enable dev-cpp/eigen mathematical templates support
 kde-apps/artikulate:qtmedia - Enable playback via Qt5Multimedia
-kde-apps/blogilo:google - Google service integration via net-libs/libkgapi
+kde-apps/blogilo:google - Google service integration via kde-apps/libkgapi
 kde-apps/cantor:R - Enable dev-lang/R backend support
 kde-apps/cantor:analitza - Enable kde-apps/analitza backend support
 kde-apps/cantor:julia - Enable dev-lang/julia backend support
@@ -3288,10 +3288,10 @@ kde-apps/kdenetwork-meta:ppp - Enable support for net-dialup/ppp.
 kde-apps/kdenlive:freesound - Enable freesound.org credentials support via dev-qt/qtwebkit to download files
 kde-apps/kdenlive:gles2 - Use GLES 2.0 or later instead of full OpenGL
 kde-apps/kdenlive:jogshuttle - Enable support for Jog-Shuttle devices
-kde-apps/kdepim-addons:google - Google service integration via net-libs/libkgapi
+kde-apps/kdepim-addons:google - Google service integration via kde-apps/libkgapi
 kde-apps/kdepim-apps-libs:prison - Enable support for QRcodes in contacts
-kde-apps/kdepim-common-libs:google - Google service integration via net-libs/libkgapi
-kde-apps/kdepim-runtime:google - Google service integration via net-libs/libkgapi
+kde-apps/kdepim-common-libs:google - Google service integration via kde-apps/libkgapi
+kde-apps/kdepim-runtime:google - Google service integration via kde-apps/libkgapi
 kde-apps/kdepimlibs:prison - Enable support for QRcodes in contacts
 kde-apps/kdeutils-meta:floppy - Install kde-apps/kfloppy to format and create DOS or ext2fs filesystems in a floppy.
 kde-apps/keditbookmarks:man - Build and install man pages
@@ -3300,7 +3300,9 @@ kde-apps/kget:gpg - Enable signature verification by QGpgME via kde-apps/kdepiml
 kde-apps/kget:mms - Enable MMS (Microsoft Media Server) plugin through media-libs/libmms
 kde-apps/kig:geogebra - Support files created by sci-mathematics/geogebra
 kde-apps/kig:scripting - Support Python scripting
+kde-apps/kio-extras:activities - Enable activities kioslave and fileitem plugin
 kde-apps/kio-extras:htmlthumbs - Enable HTML thumbnail previews via dev-qt/qtwebengine
+kde-apps/kio-extras:man - Enable manpages kioslave
 kde-apps/kio-extras:phonon - Enable file audio preview plugin using media-libs/phonon
 kde-apps/kio-extras:sftp - Enable SFTP protocol support using net-libs/libssh
 kde-apps/konqueror:activities - Enable kactivities support
@@ -3405,7 +3407,6 @@ kde-plasma/kdebase-startkde:crash-reporter - Builds a gui tool to submit crash i
 kde-plasma/kdebase-startkde:wallpapers - Install the KDE Plasma wallpapers
 kde-plasma/kdeplasma-addons:attica - Enable support for dev-libs/libattica
 kde-plasma/kdeplasma-addons:desktopglobe - Enable Desktop Globe wallpaper using kde-apps/marble
-kde-plasma/kdeplasma-addons:eigen - Build Mandelbrot wallpaper plugin using dev-cpp/eigen using SLOT 2
 kde-plasma/kdeplasma-addons:fcitx - Use fcitx input method via app-i18n/fcitx
 kde-plasma/kdeplasma-addons:ibus - Use ibus input method via app-i18n/ibus
 kde-plasma/kdeplasma-addons:json - Enable JSON support via dev-libs/qjson
@@ -5820,7 +5821,6 @@ net-libs/libmicrohttpd:messages - enable error messages
 net-libs/libnftnl:json - Supports parsing of JSON
 net-libs/libnids:glib - Use dev-libs/glib for multiprocessing support
 net-libs/libnids:libnet - Include code requiring net-libs/libnet
-net-libs/libnm-qt:modemmanager - Enable support for mobile broadband devices
 net-libs/liboauth:bindist - Alias for the nss USE flag, since there are license compliancy trouble when using OpenSSL.
 net-libs/liboauth:curl - If enabled, net-misc/curl is used thorugh the libcurl library; if it's not, the curl command is used instead. Some features are only available when using the library, but using it as library requires matching SSL implementations.
 net-libs/liboauth:nss - Use Mozilla NSS (dev-libs/nss) as hash library; if this is disabled, dev-libs/openssl is used instead.
