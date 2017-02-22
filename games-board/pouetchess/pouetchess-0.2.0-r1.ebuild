@@ -25,10 +25,14 @@ S=${WORKDIR}/${PN}_src_${PV}
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}/${P}-sconstruct-sandbox.patch" \
-		"${FILESDIR}/${P}-nvidia_glext.patch" \
-		"${FILESDIR}/${P}-segfaults.patch" \
-		"${FILESDIR}/${P}-gcc43.patch"
+		"${FILESDIR}/${PN}-0.2.0-sconstruct-sandbox.patch" \
+		"${FILESDIR}/${PN}-0.2.0-nvidia_glext.patch" \
+		"${FILESDIR}/${PN}-0.2.0-segfaults.patch" \
+		"${FILESDIR}/${PN}-0.2.0-gcc43.patch" \
+		"${FILESDIR}/${PN}-0.2.0-gcc6-compat-graphic_chessboard.patch" \
+		"${FILESDIR}/${PN}-0.2.0-gcc6-compat-mathutils.patch" \
+		"${FILESDIR}/${PN}-0.2.0-gcc6-compat-models.patch"
+
 	# Fix for LibSDL >= 1.2.10 detection
 	sed -i \
 		-e "s:sdlver.split('.') >= \['1','2','8'\]:sdlver.split('.') >= [1,2,8]:" \
