@@ -9,5 +9,5 @@ RDEPEND=>=x11-libs/gtk+-2.6 >=media-sound/xmms2-0.2.6 gkrellm? ( app-admin/gkrel
 RESTRICT=fetch
 SLOT=0
 SRC_URI=http://wejp.k.vu/projects/xmms2/gxmms2-HEAD.tar.gz
-_eclasses_=eutils	ea170b525f6a38a006be05c9d9429f13	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=db49c4e1cbd510222dac76a6d94ba5d6

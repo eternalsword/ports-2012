@@ -9,5 +9,5 @@ LICENSE=MIT
 PROVIDE=virtual/blackbox
 RDEPEND=x11-libs/libXft x11-libs/libXt nls? ( sys-devel/gettext ) truetype? ( media-libs/freetype )
 SLOT=0
-_eclasses_=cvs	e94c89c58918dff87fa3db1e817c25be	eutils	ea170b525f6a38a006be05c9d9429f13	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=cvs	e94c89c58918dff87fa3db1e817c25be	eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=4b6a26ec0c42bc64e9314a6c6ad65433

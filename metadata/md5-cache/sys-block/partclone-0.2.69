@@ -8,5 +8,5 @@ LICENSE=GPL-2
 RDEPEND=sys-fs/e2fsprogs btrfs? ( sys-fs/btrfs-progs ) fat? ( sys-fs/dosfstools ) ntfs? ( sys-fs/ntfs3g ) hfs? ( sys-fs/hfsutils ) jfs? ( sys-fs/jfsutils ) reiserfs? ( sys-fs/progsreiserfs ) reiser4? ( sys-fs/reiser4progs ) xfs? ( >=sys-fs/xfsprogs-3.1.11-r1 ) static? ( sys-fs/e2fsprogs[static-libs] sys-fs/xfsprogs[static-libs] sys-libs/ncurses[static-libs] sys-fs/ntfs3g[static-libs] )
 SLOT=0
 SRC_URI=http://github.com/Thomas-Tsai/partclone/archive/0.2.69.tar.gz -> partclone-0.2.69.tar.gz
-_eclasses_=eutils	ea170b525f6a38a006be05c9d9429f13	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=587ffca3dc1ecfeb58450142d9482627

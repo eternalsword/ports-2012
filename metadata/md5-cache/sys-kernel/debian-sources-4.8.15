@@ -9,5 +9,5 @@ LICENSE=GPL-2
 RESTRICT=binchecks strip mirror
 SLOT=4.8.15
 SRC_URI=mirror://funtoo/linux_4.8.15.orig.tar.xz mirror://funtoo/linux_4.8.15-1.debian.tar.xz
-_eclasses_=check-reqs	aee25bdf4e2f459af86d17f7c41dcdf6	eutils	ea170b525f6a38a006be05c9d9429f13	mount-boot	ea24b511b0ad59831d0151aa634dfad2	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=check-reqs	aee25bdf4e2f459af86d17f7c41dcdf6	eutils	708f85bc1bf00876604e223fb56e062a	mount-boot	ea24b511b0ad59831d0151aa634dfad2	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=9797f3618753fdc5ce1079b775ebd1fb
