@@ -98,7 +98,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/iscan-2.28.1.3+libpng-1.5.patch
 	epatch "${FILESDIR}"/iscan-2.29.1-png-libs.patch
 	epatch "${FILESDIR}"/iscan-2.30.1-fix-g++-test.patch
-
+	epatch "${FILESDIR}"/iscan-2.30.1.1-gcc6.patch
 	eautoreconf
 }
 
