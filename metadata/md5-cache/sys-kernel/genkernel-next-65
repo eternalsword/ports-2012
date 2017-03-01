@@ -10,4 +10,4 @@ RDEPEND=app-text/asciidoc sys-fs/e2fsprogs !sys-fs/eudev[-kmod,modutils] selinux
 SLOT=0
 SRC_URI=https://github.com/Sabayon/genkernel-next/archive/v65.tar.gz -> genkernel-next-65.tar.gz
 _eclasses_=bash-completion-r1	acf715fa09463f043fbfdc1640f3fb85	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=97a97e020fcf962388e0dc1db6648c32
+_md5_=a7b70934b0ce00bb20839557f2e0506b

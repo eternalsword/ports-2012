@@ -7,4 +7,4 @@ LICENSE=GPL-3
 RDEPEND=x11-libs/gtk+:3 x11-themes/gtk-engines
 SLOT=live
 _eclasses_=git-2	7af5d170bfc02983b4bcd3167dc5edd4
-_md5_=5cfac5a2354958edfb4f5189a0d323ef
+_md5_=40dacdde3a99708902e5294014b32490

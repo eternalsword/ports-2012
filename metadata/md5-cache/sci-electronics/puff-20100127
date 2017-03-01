@@ -9,4 +9,4 @@ RDEPEND=x11-libs/libX11
 SLOT=0
 SRC_URI=http://wwwhome.cs.utwente.nl/~ptdeboer/ham/puff/puff-20100127.tgz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=165df6a61204dbdf146962bbbcb4cd0f
+_md5_=98015edf42f904da0f69f1f4fc2cbb3a

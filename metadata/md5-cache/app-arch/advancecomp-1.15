@@ -11,4 +11,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=mirror://sourceforge/advancemame/advancecomp-1.15.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=f20dec70cfed337f1dbaad4df6b8498a
+_md5_=0c1ba418258875d8261159eb1d1e1798

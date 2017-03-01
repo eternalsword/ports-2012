@@ -7,4 +7,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=https://dev.gentoo.org/~jlec/distfiles/openvas-tools-0_pre20512.tar.xz
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=2eed9529d2a97e9cf8e7f19ff65736be
+_md5_=c7a290ce4405add8161427aebae7d2d1

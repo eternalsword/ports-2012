@@ -9,4 +9,4 @@ RDEPEND=cron? ( virtual/cron )
 SLOT=0
 SRC_URI=ftp://ftp.pangeia.com.br/pub/seg/pac/chkrootkit-0.50.tar.gz https://dev.gentoo.org/~xmw/chkrootkit-0.50-gentoo.diff.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=3615ef2aa767d86c63f0d8303d52cfdb
+_md5_=7c08b89185d98a361ed842d95d56d25b

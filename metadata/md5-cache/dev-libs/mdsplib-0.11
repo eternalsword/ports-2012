@@ -7,4 +7,4 @@ LICENSE=LGPL-2.1
 SLOT=0
 SRC_URI=http://limulus.net/mdsplib/mdsplib-0.11.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=77515728b4d5dd227fef19997147e2ec
+_md5_=b30c6f9152e4848f94c9e45402c95173

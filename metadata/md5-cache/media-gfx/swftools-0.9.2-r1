@@ -9,4 +9,4 @@ RDEPEND=app-text/poppler media-libs/freetype:2 media-libs/giflib:0= >=media-libs
 SLOT=0
 SRC_URI=http://www.swftools.org/swftools-0.9.2.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=a64fd61157bfe6fb6caee8d55bfd5f22
+_md5_=720c12e60757bc52826e61e0d08e4fb8

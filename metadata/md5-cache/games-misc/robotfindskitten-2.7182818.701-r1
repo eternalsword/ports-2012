@@ -9,4 +9,4 @@ RDEPEND=sys-libs/ncurses:0
 SLOT=0
 SRC_URI=mirror://sourceforge/rfk/robotfindskitten-2.7182818.701.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=7ad19e14898535fc99222b78dd639c53
+_md5_=cab7b09e25c3c5116d7e91de58246ea9

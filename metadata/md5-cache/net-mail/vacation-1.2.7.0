@@ -9,4 +9,4 @@ RDEPEND=virtual/mta sys-libs/gdbm
 SLOT=0
 SRC_URI=mirror://sourceforge/vacation/vacation-1.2.7.0.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=acd24b56e005a456da8b3e38098c6a3f
+_md5_=33c418707dd7ad77371f33be73e16e64

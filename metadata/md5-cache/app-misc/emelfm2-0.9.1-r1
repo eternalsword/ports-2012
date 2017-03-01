@@ -11,4 +11,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=http://emelfm2.net/rel/emelfm2-0.9.1.tar.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=02a224a6ed345bb32567b1dc373a5c74
+_md5_=e75a22244bb970fc2f81601fa717b068

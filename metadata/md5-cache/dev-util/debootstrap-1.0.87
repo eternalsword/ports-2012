@@ -8,4 +8,4 @@ RDEPEND=app-arch/dpkg net-misc/wget sys-devel/binutils
 SLOT=0
 SRC_URI=mirror://debian/pool/main/d/debootstrap/debootstrap_1.0.87.tar.gz mirror://gentoo/devices.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=abd0a5814cda6fe305fac5a2e97c2bd7
+_md5_=269f1482e3e753b5cbb89c233bb96b8b

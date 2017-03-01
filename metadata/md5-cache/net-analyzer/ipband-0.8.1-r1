@@ -9,4 +9,4 @@ RDEPEND=>=net-libs/libpcap-0.4
 SLOT=0
 SRC_URI=http://ipband.sourceforge.net/ipband-0.8.1.tgz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=4d3a9b24761433c4131e452e46aa4e6c
+_md5_=a79cdcf3d840b015891d04ab0d8307a6

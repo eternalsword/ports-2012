@@ -9,4 +9,4 @@ RDEPEND=perl? ( dev-lang/perl )
 SLOT=0
 SRC_URI=mirror://sourceforge/ebtables/ebtables-v2.0.10-4.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=6bdd9135311ae374e61dd37a2e6a1935
+_md5_=cd2ba3f04face11e7bc97b494172c8a3

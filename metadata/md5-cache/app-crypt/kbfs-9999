@@ -7,4 +7,4 @@ LICENSE=BSD
 RDEPEND=app-crypt/gnupg sys-fs/fuse
 SLOT=0
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	git-r3	6efc2d7de07a77bf72c7207b48d0e123	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=a80beb16097806d6a97093c8d666fe9a
+_md5_=ccdaa5ab4ce7a729ba0460afaa42e51c

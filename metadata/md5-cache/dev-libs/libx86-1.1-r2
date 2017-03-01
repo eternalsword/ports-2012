@@ -7,4 +7,4 @@ LICENSE=BSD
 SLOT=0
 SRC_URI=http://www.codon.org.uk/~mjg59/libx86/downloads/libx86-1.1.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=f7e5f54b5bc99756fb6ebb9f174c194a
+_md5_=b5ec78f373275120d6157f6f755217dc

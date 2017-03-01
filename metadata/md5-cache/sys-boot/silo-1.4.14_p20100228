@@ -10,4 +10,4 @@ RDEPEND=sys-fs/e2fsprogs sys-apps/sparc-utils
 SLOT=0
 SRC_URI=mirror://debian/pool/main/s/silo/silo_1.4.14+git20100228.orig.tar.gz mirror://debian/pool/main/s/silo/silo_1.4.14+git20100228-1.diff.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	mount-boot	ea24b511b0ad59831d0151aa634dfad2	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=adfed4d4ed5d7a0c58bce5badc0890c2
+_md5_=902dcec673dec0aaad1b964ccd117297

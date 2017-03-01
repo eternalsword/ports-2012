@@ -9,4 +9,4 @@ RDEPEND=app-shells/tcsh
 SLOT=0
 SRC_URI=mirror://sourceforge/mummer/MUMmer3.22.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=442826d5952762aeb80a630690097f2d
+_md5_=6d9be1ee53f6bb6deb0202fada6999a2

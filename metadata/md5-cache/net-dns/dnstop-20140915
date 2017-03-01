@@ -10,4 +10,4 @@ RDEPEND=sys-libs/ncurses net-libs/libpcap
 SLOT=0
 SRC_URI=http://dnstop.measurement-factory.com/src/dnstop-20140915.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=074d39621b79621e3103fbe3fc42b5cc
+_md5_=1fb22c8bee33b229523fa1aebdedca1c

@@ -10,4 +10,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=mirror://sourceforge.jp/tomoyo/49693/ccs-tools-1.8.3-20130214.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=f9028d48ac00818f7157a48adf27a2a8
+_md5_=a0db7ae31ef8b0105eb0e7a0b21e143a

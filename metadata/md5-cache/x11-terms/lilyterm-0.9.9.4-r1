@@ -9,4 +9,4 @@ RDEPEND=x11-libs/vte:0
 SLOT=0
 SRC_URI=http://lilyterm.luna.com.tw/file/lilyterm-0.9.9.4.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=e122825e04cb664fa398b803693df15f
+_md5_=640e1554ca3db560006a84c12c4960a6

@@ -12,4 +12,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=ftp://ftp.isc.org/isc/bind9/9.10.4-P4/bind-9.10.4-P4.tar.gz
 _eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=cf04c18ff81e3953b4d336d522d27e27
+_md5_=5d4f7ba77ee9b6d8c03953f88d5e2843

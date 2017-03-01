@@ -10,4 +10,4 @@ RDEPEND=tbb? ( dev-cpp/tbb )
 SLOT=1
 SRC_URI=mirror://sourceforge/bowtie-bio/bowtie-1.1.2-src.zip
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=3ffda47d0c02ed05ec45a657f7a10b19
+_md5_=069dc133bc01cabadeda1e327034b7a7

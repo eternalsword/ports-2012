@@ -10,4 +10,4 @@ RDEPEND=app-arch/bzip2 dev-libs/glib:2 dev-libs/libaio libnet? ( net-libs/libnet
 SLOT=0
 SRC_URI=http://hg.linux-ha.org/glue/archive/glue-1.0.10.tar.bz2
 _eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	base	3fe4f8980633fd7bc69e9887209ba2fe	eutils	708f85bc1bf00876604e223fb56e062a	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
-_md5_=18c173f672a27f1c8b1200cf78a2c02c
+_md5_=8545b2e8843b9281e91c31b6752160df

@@ -9,4 +9,4 @@ RDEPEND=app-text/ghostscript-gpl
 SLOT=0
 SRC_URI=ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/ghostgum/epstool-3.08.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=e78237b87745a83236c58443a7615045
+_md5_=76545bd48a667e915c1471445a79c44d

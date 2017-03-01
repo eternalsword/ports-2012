@@ -7,4 +7,4 @@ LICENSE=freedist
 SLOT=0
 SRC_URI=http://www.tux.org/~mayer/linux/nbench-byte-2.2.3.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=b0e6df895635350f7e19a630388b8e81
+_md5_=0caf20d32d84256a20db817584c9799c

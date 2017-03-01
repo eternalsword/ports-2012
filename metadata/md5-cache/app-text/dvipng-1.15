@@ -10,4 +10,4 @@ RDEPEND=dev-libs/kpathsea:= media-libs/gd:2=[jpeg,png] media-libs/libpng:0= virt
 SLOT=0
 SRC_URI=mirror://sourceforge/dvipng/dvipng-1.15.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=ab1b0a5560efdc0b3532e7233f318807
+_md5_=cfd38bae572302fdf2fa980a32abb515

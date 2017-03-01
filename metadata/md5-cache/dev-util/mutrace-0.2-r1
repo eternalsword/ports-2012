@@ -9,4 +9,4 @@ RDEPEND=sys-libs/binutils-libs:=
 SLOT=0
 SRC_URI=http://0pointer.de/public/mutrace-0.2.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=8c3ee705b9a605b42807ffedeb3f6696
+_md5_=b195eb97a0a67b65564ae7cfd9430921

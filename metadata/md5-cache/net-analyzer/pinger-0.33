@@ -11,4 +11,4 @@ REQUIRED_USE=|| ( gtk2 gtk3 ncurses ) ?? ( gtk2 gtk3 )
 SLOT=0
 SRC_URI=http://aa.vslib.cz/silk/projekty/pinger/download/pinger-0.33.tar.gz
 _eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=52ae97bc298a3c0f5701f682eca80a49
+_md5_=73ab8db4a5dc7f1537180cb44059f3b2

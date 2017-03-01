@@ -9,4 +9,4 @@ RDEPEND=x11-libs/gtk+:2 >=media-libs/libsndfile-1 >=media-libs/libpng-1.4 virtua
 SLOT=0
 SRC_URI=mirror://sourceforge/mandelbulber/mandelbulber1.11.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=b511123cd66d50cd8ef772171f5eb8f1
+_md5_=7023b402e04591c2af37a6b1064ffb2f

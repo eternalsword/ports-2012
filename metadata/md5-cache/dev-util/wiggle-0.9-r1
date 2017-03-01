@@ -10,4 +10,4 @@ RDEPEND=dev-util/diffstat dev-util/patchutils sys-apps/diffutils sys-apps/findut
 SLOT=0
 SRC_URI=http://neil.brown.name/wiggle/wiggle-0.9.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	fixheadtails	2f44773656577fe2653bacc8bdcb2174	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=cc70e7009143475a6606229ce182ac98
+_md5_=e2288ea14ae195163d15de65171e02df

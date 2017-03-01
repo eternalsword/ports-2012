@@ -10,4 +10,4 @@ RDEPEND=>=games-emulation/mupen64plus-core-2.0-r1:0= media-libs/libsdl:0=[sound]
 SLOT=0
 SRC_URI=https://github.com/mupen64plus/mupen64plus-audio-sdl/releases/download/2.0/mupen64plus-audio-sdl-src-2.0.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=d78a23995a812dd4104ccd3bffc1c778
+_md5_=53d9a9e73b8467097dbe228a4f1c0fcd

@@ -9,4 +9,4 @@ LICENSE=fasta
 SLOT=0
 SRC_URI=http://faculty.virginia.edu/wrpearson/fasta/fasta3/fasta-35.4.10.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=45693968b9680c3c6bfd9a05d54dc62a
+_md5_=bc70246741c824a5b11b9e292d26c372

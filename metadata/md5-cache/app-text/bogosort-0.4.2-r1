@@ -7,4 +7,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=ftp://ulrik.haugen.se/pub/unix/bogosort/bogosort-0.4.2.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=378022d310f1d88902181203de676c1f
+_md5_=5a760619ce66560c9a53def8cdf9b689

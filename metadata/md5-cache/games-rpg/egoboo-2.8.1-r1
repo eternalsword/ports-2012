@@ -9,4 +9,4 @@ RDEPEND=dev-games/physfs media-libs/libsdl[joystick,video] media-libs/sdl-image 
 SLOT=0
 SRC_URI=mirror://sourceforge/egoboo/egoboo-2.8.1.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=956c7240f44cd4119b2cfec6a3356ca6
+_md5_=40924d301788c85e1b8fa24d34a78590

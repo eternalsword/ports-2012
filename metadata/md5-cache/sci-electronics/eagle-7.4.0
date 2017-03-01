@@ -10,4 +10,4 @@ RESTRICT=mirror bindist
 SLOT=0
 SRC_URI=x86? ( ftp://ftp.cadsoft.de/eagle/program/7.4/eagle-lin32-7.4.0.run ) amd64? ( ftp://ftp.cadsoft.de/eagle/program/7.4/eagle-lin64-7.4.0.run )
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=86fa4675e2e618d76196a6c8364e3818
+_md5_=f064f3e9d5bb4ce0c4be08c303125ca2

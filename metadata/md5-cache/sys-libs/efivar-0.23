@@ -9,4 +9,4 @@ RDEPEND=dev-libs/popt
 SLOT=0
 SRC_URI=https://github.com/rhinstaller/efivar/releases/download/0.23/efivar-0.23.tar.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=e1a0176fe2e6768e0f06f0148ee76598
+_md5_=b944e249e75b67a9bfcefdfa88c520c7

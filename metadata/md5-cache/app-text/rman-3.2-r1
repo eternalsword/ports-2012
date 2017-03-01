@@ -8,4 +8,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=mirror://sourceforge/polyglotman/rman-3.2.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=c8c7aa92a5edb9c81acea8ba70ae01bc
+_md5_=cd006f6e4b17896619426b1167d268a0

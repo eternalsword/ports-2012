@@ -12,4 +12,4 @@ REQUIRED_USE=?? ( gnutls libressl )
 SLOT=0
 SRC_URI=mirror://sourceforge/courier/courier-0.75.0.tar.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=111c00d52f7614624157cf1a73406b4f
+_md5_=0dd6f30805155bf9fdd1316dcc9f6974

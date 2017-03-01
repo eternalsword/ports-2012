@@ -7,4 +7,4 @@ LICENSE=public-domain
 SLOT=0
 SRC_URI=mirror://gentoo/rnaview-20040713.tar.bz2
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=1c8b32457e15004dec5512d5a847b44a
+_md5_=788c156d45287bef4f6aa876055bde4c

@@ -9,4 +9,4 @@ RDEPEND=!<=net-misc/netkit-bootpd-0.17-r2
 SLOT=0
 SRC_URI=mirror://debian/pool/main/n/netkit-bootparamd/netkit-bootparamd_0.17.orig.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=9b849f082514bf8c5b9d29842493690b
+_md5_=2e1ad5f58917f53c319245aa6ac09f45

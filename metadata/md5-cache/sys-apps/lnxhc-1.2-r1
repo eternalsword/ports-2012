@@ -9,4 +9,4 @@ RDEPEND=>=dev-lang/perl-5.8
 SLOT=0
 SRC_URI=mirror://sourceforge/lnxhc/lnxhc-1.2.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=a9e7d9bf1172718eacd8c8a387a535fd
+_md5_=19712c97ca84c2be4333a82be2b5c428

@@ -10,4 +10,4 @@ RDEPEND=iconv? ( virtual/libiconv ) dev-libs/kpathsea
 SLOT=0
 SRC_URI=mirror://gentoo/texlive-20160523-source.tar.xz
 _eclasses_=libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=c87629191bc4d26e3c4453ecf3a72f68
+_md5_=da279253da5daa666bd250b07935a983

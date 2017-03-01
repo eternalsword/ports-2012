@@ -10,4 +10,4 @@ RDEPEND=>=sys-fs/mtools-3
 SLOT=0
 SRC_URI=http://fdutils.linux.lu/fdutils-5.5.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=3b273793b7610a7016341607955c1bc7
+_md5_=f161964423c3a0edb60f52144b846eee

@@ -9,4 +9,4 @@ RDEPEND=!>=app-text/tetex-2 >=media-libs/libpng-1.2.1 >=sys-libs/zlib-1.1.4 !app
 SLOT=0
 SRC_URI=http://gaspra.kettering.edu/dvipdfm/dvipdfm-0.13.2d.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=188648bc976a9ee57c395527de29ee86
+_md5_=b68038c20e2ad342140d9ac0bb75d303

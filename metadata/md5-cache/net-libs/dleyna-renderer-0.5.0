@@ -9,4 +9,4 @@ RDEPEND=>=dev-libs/glib-2.28:2 >=media-libs/gupnp-dlna-0.9.4:2.0 >=net-libs/dley
 SLOT=0
 SRC_URI=https://01.org/sites/default/files/downloads/dleyna/dleyna-renderer-0.5.0.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=7d1acddc071854947027d7e43b047270
+_md5_=64e199a28c1fcc2d98042acdee6efb3f

@@ -10,4 +10,4 @@ RDEPEND=sys-apps/ed dev-util/diffstat graphviz? ( media-gfx/graphviz ) elibc_Dar
 SLOT=0
 SRC_URI=https://savannah.nongnu.org/download/quilt/quilt-0.63.tar.gz
 _eclasses_=bash-completion-r1	acf715fa09463f043fbfdc1640f3fb85	eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=4e445a0db1fb53066282eebc44b680e1
+_md5_=388efeccec4fc301fa07a5f7afba02b7

@@ -11,4 +11,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=https://github.com/amadvance/advancecomp/releases/download/v1.20/advancecomp-1.20.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=30481981ba3b86db9bf1e6edf31854ab
+_md5_=c2dd4ea1321ac358aefc4afaa181e7f1

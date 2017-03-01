@@ -8,4 +8,4 @@ RDEPEND=!app-arch/lz4
 SLOT=0
 SRC_URI=https://dev.gentoo.org/~mschiff/distfiles/bareos-fastlzlib-0_pre20150524.zip
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=e06e2eeda59c50f6280dd87a556dd23e
+_md5_=c38657710699c28944b509119380e209

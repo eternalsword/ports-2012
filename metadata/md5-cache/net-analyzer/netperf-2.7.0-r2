@@ -9,4 +9,4 @@ LICENSE=netperf
 SLOT=0
 SRC_URI=ftp://ftp.netperf.org/netperf/netperf-2.7.0.tar.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
-_md5_=be498894bf09145ec3a69e1e1c4b3f70
+_md5_=88d91eb23df3401fb9a0445204f0cbc2

@@ -7,4 +7,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=http://tofrodos.sourceforge.net/download/tofrodos-1.7.12a.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=7675e9a5f6834340dab8e8ab9e07942f
+_md5_=0f8280f435a3f0863ec7178b35ec1265

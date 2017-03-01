@@ -11,4 +11,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=http://moarvm.org/releases/MoarVM-2017.01.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=0b1dcfe762a6bf050f613ab718568ec4
+_md5_=c237863ada098581aa0b86896cae79aa

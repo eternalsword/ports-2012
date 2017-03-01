@@ -11,4 +11,4 @@ RESTRICT=userpriv
 SLOT=0
 SRC_URI=mirror://sourceforge/qmailadmin/qmailadmin-1.2.10.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=2e91c7914855b61ce9c24e1e44fe1ef4
+_md5_=70984ea8a1286ec8b25019b9cef53e08

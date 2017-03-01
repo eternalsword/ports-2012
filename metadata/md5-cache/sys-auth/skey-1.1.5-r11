@@ -9,5 +9,5 @@ LICENSE=BSD MIT RSA BEER-WARE
 RDEPEND=dev-lang/perl virtual/perl-Time-Local sys-libs/cracklib
 SLOT=0
 SRC_URI=mirror://gentoo/skey-1.1.5.tar.bz2 https://dev.gentoo.org/~ulm/distfiles/skey-1.1.5-patches-6.tar.xz
-_eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	readme.gentoo-r1	03878c06495db70bc36bd717383c09f7	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	readme.gentoo-r1	6f03e110529650f57fc7d1fb908b8986	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=85716e1f8ff362559d11ce439291acd8

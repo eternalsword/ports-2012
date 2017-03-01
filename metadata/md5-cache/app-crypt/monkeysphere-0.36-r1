@@ -11,4 +11,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=http://archive.monkeysphere.info/debian/pool/monkeysphere/m/monkeysphere/monkeysphere_0.36.orig.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
-_md5_=efac328c4624ce0f06b11caa47a9b8c5
+_md5_=92d280bdf1d9e23a226db402cde1722b

@@ -10,4 +10,4 @@ RDEPEND=dev-lang/perl sys-devel/gettext s3? ( dev-perl/Net-Amazon-S3 dev-perl/Fi
 SLOT=0
 SRC_URI=http://github.com/sukria/Backup-Manager/archive/0.7.13.tar.gz -> backup-manager-0.7.13.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=fa29b998a9aaf418b75f76c9a50dc80c
+_md5_=381cd15290b7f1cc15a26b4cab5b93b4

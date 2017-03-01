@@ -9,4 +9,4 @@ RDEPEND=dev-perl/URI virtual/perl-MIME-Base64 dev-perl/libwww-perl dev-perl/Net-
 SLOT=0
 SRC_URI=mirror://sourceforge/httpush/httpush-0.9b11.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=5c330e9aff5fb2ce7b88ed24028b76ff
+_md5_=4ce9f6e8af608620d9c05d686890b82d

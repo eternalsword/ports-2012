@@ -9,4 +9,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=mirror://sourceforge/mhash/mhash-0.9.9.9.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=0f0f2bef66f35a461f2cc10e61b98718
+_md5_=8805dbfb46af8529d9a671ecf5697339

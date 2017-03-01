@@ -10,4 +10,4 @@ RDEPEND=>=app-eselect/eselect-emacs-1.16 sys-libs/ncurses:0= amd64? ( abi_x86_x3
 SLOT=18
 SRC_URI=ftp://ftp.gnu.org/old-gnu/emacs/emacs-18.59.tar.gz ftp://ftp.splode.com/pub/users/friedman/emacs/emacs-18.59-linux22x-elf-glibc21.diff.gz https://dev.gentoo.org/~ulm/emacs/emacs-18.59-patches-9.tar.xz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=71d82c516e104ef1c64434297f79811b
+_md5_=9271b4c982d7aa15868dec895b7d0be7

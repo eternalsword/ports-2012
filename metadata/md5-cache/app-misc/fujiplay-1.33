@@ -7,4 +7,4 @@ LICENSE=public-domain
 SLOT=0
 SRC_URI=http://topo.math.u-psud.fr/~bousch/fujiplay.tgz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=cba4919a0c17ccae5ef2ad4a9fcae227
+_md5_=aa1bbf26353f234012798fe53056059e

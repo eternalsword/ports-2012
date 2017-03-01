@@ -9,4 +9,4 @@ RDEPEND=|| ( mail-filter/libmilter mail-mta/sendmail ) mail-filter/amavisd-new
 SLOT=0
 SRC_URI=mirror://sourceforge/amavisd-milter/amavisd-milter-1.5.0.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=3a057b6dad02549da5ea78c41baf1db3
+_md5_=42f281f8f7d8287ef4ee9a7ad9b3300d

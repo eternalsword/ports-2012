@@ -7,4 +7,4 @@ LICENSE=GPL-3
 SLOT=0
 SRC_URI=mirror://sourceforge/yasat/yasat-755.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=0eb3b7adf6e494e9df0bf3b2392d6cc7
+_md5_=9c783e7970bd432032361c1adae102f0

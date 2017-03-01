@@ -9,4 +9,4 @@ RDEPEND=app-text/libpaper
 SLOT=0
 SRC_URI=mirror://gnu/barcode/barcode-0.99.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=577b37f30b93433dab7c488ca63faa23
+_md5_=25e818716965c72bc8743324a0960bbe

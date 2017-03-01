@@ -9,4 +9,4 @@ RDEPEND=virtual/cron app-shells/bash
 SLOT=0
 SRC_URI=https://github.com/lukas2511/dehydrated/archive/v0.4.0.tar.gz -> dehydrated-0.4.0.tar.gz
 _eclasses_=user	e10ccb95af96d45f86016fa982a949bb
-_md5_=afc3439f7fc4bc63eb7fd697e054ea71
+_md5_=16845d993099c87d398052a355780511

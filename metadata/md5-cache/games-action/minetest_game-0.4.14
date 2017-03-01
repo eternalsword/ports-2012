@@ -8,4 +8,4 @@ RDEPEND=>=games-action/minetest-0.4.14
 SLOT=0
 SRC_URI=https://github.com/minetest/minetest_game/tarball/0.4.14 -> minetest_game-0.4.14.tar.gz
 _eclasses_=vcs-snapshot	2b65ecb2d0f91e4322c2ac8d673993bd
-_md5_=02974bfbde0e2c24356a86dd81bc4965
+_md5_=8a02a4fddcd038a6f94572b040de9f54

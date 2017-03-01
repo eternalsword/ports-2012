@@ -10,4 +10,4 @@ RDEPEND=zlib? ( >=sys-libs/zlib-1.1.4 )
 SLOT=0
 SRC_URI=mirror://sourceforge/lout/lout-3.39.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=20e6af607e025189a04f0b12f2d7a41c
+_md5_=e00721dd1960fd2f8215a1b76b121f0d

@@ -7,4 +7,4 @@ LICENSE=BSD
 SLOT=0
 SRC_URI=ftp://ftp.uk.linux.org/pub/linux/Networking/netboot/bootpd-2.4.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=02b4a5a8b2bbdcfc4599b2ef6ecb93ae
+_md5_=cb15f95a69a788ee819ba527d8a23fe0

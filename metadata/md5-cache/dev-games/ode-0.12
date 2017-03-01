@@ -10,4 +10,4 @@ RDEPEND=examples? ( virtual/opengl )
 SLOT=0
 SRC_URI=mirror://sourceforge/opende/ode-0.12.tar.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=130224835882946130ff2343d61133e8
+_md5_=ea4baaf512f17c78d4a99dd5788db734

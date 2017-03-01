@@ -10,4 +10,4 @@ RDEPEND=kernel_linux? ( sys-libs/libutempter ) kernel_FreeBSD? ( || ( >=sys-free
 SLOT=0
 SRC_URI=ftp://invisible-island.net/xterm/xterm-327.tgz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=237fdee76902c061e8e30a8d971e739b
+_md5_=797d35e84f3ff23fe7b85b454e342f73

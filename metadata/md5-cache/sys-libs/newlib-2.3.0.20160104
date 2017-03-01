@@ -9,4 +9,4 @@ RESTRICT=strip
 SLOT=0
 SRC_URI=ftp://sourceware.org/pub/newlib/newlib-2.3.0.20160104.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=9a8e38ea05f38f0e68337c21857e1639
+_md5_=b5b3231e28ac777fdadc5b371b2dae09

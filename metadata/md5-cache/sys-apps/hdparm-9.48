@@ -8,4 +8,4 @@ LICENSE=BSD GPL-2
 SLOT=0
 SRC_URI=mirror://sourceforge/hdparm/hdparm-9.48.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=6b33dc7532b720fbafe5203eac06f34c
+_md5_=3acbeec7df1022d3a9664f1ceb7c9399

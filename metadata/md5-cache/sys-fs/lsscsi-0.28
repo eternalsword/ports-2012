@@ -7,4 +7,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=http://sg.danny.cz/scsi/lsscsi-0.28.tgz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=f69437690b60e52b4d11d6d8ca253d5b
+_md5_=2c1b69b934af9a407c46ec2408152824

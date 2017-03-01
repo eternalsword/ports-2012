@@ -9,4 +9,4 @@ RDEPEND=sys-boot/efibootmgr sys-fs/dosfstools
 SLOT=0
 SRC_URI=mirror://sourceforge/elilo/elilo-3.12-source.tar.gz mirror://debian/pool/main/e/elilo/elilo_3.12-1.diff.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=e7d4921c3ad16b2d567f12a94e068897
+_md5_=76409a6cc10e5b3cc482de0c14268a44

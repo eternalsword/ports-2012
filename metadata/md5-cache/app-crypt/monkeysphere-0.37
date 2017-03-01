@@ -10,4 +10,4 @@ RESTRICT=test
 SLOT=0/0
 SRC_URI=mirror://debian/pool/monkeysphere/m/monkeysphere/monkeysphere_0.37.orig.tar.gz http://archive.monkeysphere.info/debian/pool/monkeysphere/m/monkeysphere/monkeysphere_0.37.orig.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
-_md5_=685185d78827f01d647853308098f749
+_md5_=e86d1e4b88c1ef01657632f967844ace

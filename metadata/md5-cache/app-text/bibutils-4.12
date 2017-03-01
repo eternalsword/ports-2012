@@ -7,4 +7,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=http://www.scripps.edu/~cdputnam/software/bibutils/bibutils_4.12_src.tgz
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=a9cf12c0c9a647a73b6b6c3802933f07
+_md5_=09332045f960dbf970324ac8514aa864

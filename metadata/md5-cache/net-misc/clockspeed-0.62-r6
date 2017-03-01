@@ -11,4 +11,4 @@ RESTRICT=mirror bindist test
 SLOT=0
 SRC_URI=http://cr.yp.to/clockspeed/clockspeed-0.62.tar.gz https://dev.gentoo.org/~pacho/maintainer-needed/leapsecs.dat.20081114
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=92121680b111758264bcaee435c5b244
+_md5_=a226d093380f151964458290eb1e6d9e

@@ -9,4 +9,4 @@ LICENSE=GPL-3 LGPL-3
 SLOT=0
 SRC_URI=http://cscapes.cs.purdue.edu/download/ColPack/ColPack-1.0.9.tar.gz
 _eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=cb9c2881b9f8ff9d32c6d840958441f3
+_md5_=32cc8a2988803b1eebda8822155f4d0b

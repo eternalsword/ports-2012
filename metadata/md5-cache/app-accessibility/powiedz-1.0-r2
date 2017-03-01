@@ -7,4 +7,4 @@ LICENSE=GPL-1
 SLOT=0
 SRC_URI=http://kadu.net/download/additions/powiedz-1.0.tgz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=b06763279d58dcbf6ff98df93edfc432
+_md5_=44659d17c331c3424434a2a783cae40d

@@ -9,4 +9,4 @@ RDEPEND=net-libs/ptlib:= net-libs/h323plus:=
 SLOT=0
 SRC_URI=mirror://sourceforge/h323plus/h323plus-app-v1_23_0.tar.gz
 _eclasses_=user	e10ccb95af96d45f86016fa982a949bb
-_md5_=14ec5d715e13647c813c7f5099b0bee3
+_md5_=0904004f864d8f5930fbd487c01655e2

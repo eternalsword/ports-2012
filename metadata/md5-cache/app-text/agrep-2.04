@@ -8,4 +8,4 @@ RDEPEND=!dev-libs/tre !app-misc/glimpse
 SLOT=0
 SRC_URI=ftp://ftp.cs.arizona.edu/agrep/agrep-2.04.tar.Z
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=c809c3b00a21dad300d1c1b74b2d6ed8
+_md5_=2a78ca12ceec0efdd8a18e1157caee6c

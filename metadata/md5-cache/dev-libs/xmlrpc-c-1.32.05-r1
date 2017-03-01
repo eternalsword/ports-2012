@@ -11,4 +11,4 @@ REQUIRED_USE=test? ( static-libs abyss curl cxx ) tools? ( curl )
 SLOT=0
 SRC_URI=https://dev.gentoo.org/~maksbotan/xmlrpc-c-1.32.05.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=08a8701be8a2b7050e01d33e7c1aaa76
+_md5_=1185de5a26fdf1845df133723689d855

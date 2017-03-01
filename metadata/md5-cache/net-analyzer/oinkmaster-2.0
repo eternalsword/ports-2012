@@ -9,4 +9,4 @@ RDEPEND=>=dev-lang/perl-5.6.1 X? ( dev-perl/Tk ) net-misc/wget app-arch/tar app-
 SLOT=0
 SRC_URI=mirror://sourceforge/oinkmaster/oinkmaster-2.0.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=fd96e3a0b2bb685f4016cb62fec518c9
+_md5_=c4f5ddcb80c2bc1c90cf250015404511

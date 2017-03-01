@@ -10,4 +10,4 @@ RDEPEND=dev-libs/glib:2 virtual/libgudev:=
 SLOT=0
 SRC_URI=mirror://sourceforge/linuxwacom/libwacom/libwacom-0.24.tar.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	udev	0498b698e76cdc94930b59a00c73dd9c
-_md5_=1cdd0cc91c6be3249add40a898fe381e
+_md5_=34984c74fb6b73a0a80aaa70f2a781a0

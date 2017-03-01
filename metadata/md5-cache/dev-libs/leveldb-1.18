@@ -10,4 +10,4 @@ RDEPEND=tcmalloc? ( dev-util/google-perftools ) snappy? ( app-arch/snappy static
 SLOT=0
 SRC_URI=https://github.com/google/leveldb/archive/v1.18.tar.gz -> leveldb-1.18.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=52a3f0a78116c119d94d190931c35531
+_md5_=120f8c3abff569de9ccafd94011b3e53

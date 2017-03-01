@@ -8,4 +8,4 @@ LICENSE=public-domain
 RDEPEND=ecm? ( sci-mathematics/gmp-ecm[-gwnum] ) mpi? ( virtual/mpi ) zlib? ( sys-libs/zlib )
 SLOT=0
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	subversion	352e2f8415dd2e3c297d2d2e32670deb	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=bbffb1f01cb3486794438528ce16f151
+_md5_=18de60a6a36918f9ff903b4437edc95f

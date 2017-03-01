@@ -8,4 +8,4 @@ LICENSE=LGPL-2.1
 SLOT=0
 SRC_URI=http://untroubled.org/bglibs/archive/bglibs-1.041.tar.gz
 _eclasses_=fixheadtails	2f44773656577fe2653bacc8bdcb2174	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=a9057aa78996e39be680e579587bf596
+_md5_=96cc045bc288dac48f48cad8f411c87c

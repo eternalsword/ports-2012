@@ -7,4 +7,4 @@ LICENSE=BSD
 SLOT=0
 SRC_URI=https://www.gentoo.org/~grobian/distfiles/pkill-darwin-1.0.tar.xz
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=9115848786368b6ea6d477bbbc09e63e
+_md5_=30d461b19879a1af222118af5690b274

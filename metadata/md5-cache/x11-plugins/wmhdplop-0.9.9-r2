@@ -9,4 +9,4 @@ RDEPEND=media-libs/imlib2[X] x11-libs/libX11 x11-libs/libXext media-fonts/corefo
 SLOT=0
 SRC_URI=http://hules.free.fr/wmhdplop/wmhdplop-0.9.9.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=299ef17e10dc8c826f6bb0597c03eea1
+_md5_=7de6ba2b3a6cf6751a4011a1412342a3

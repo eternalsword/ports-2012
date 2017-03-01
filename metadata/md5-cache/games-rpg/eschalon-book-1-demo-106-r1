@@ -9,4 +9,4 @@ RESTRICT=strip
 SLOT=0
 SRC_URI=https://dev.gentoo.org/~calchan/distfiles/eschalon-book-1-demo-106.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=3716c53ab5da4d52f47d19d4f39117b6
+_md5_=acb2fdc373a18946662b7d8adda2294f

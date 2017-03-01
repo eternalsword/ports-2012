@@ -9,4 +9,4 @@ RDEPEND=app-arch/zip media-libs/freetype:2 x11-libs/gtk+:2 virtual/libintl
 SLOT=0
 SRC_URI=mirror://sourceforge/bygfoot/bygfoot-2.3.2.tar.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=0c82b55ee0bb8bd0e02b07cd04911593
+_md5_=2ccec2f99e0b076fec355d03e592e313

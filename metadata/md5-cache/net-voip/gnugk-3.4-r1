@@ -11,4 +11,4 @@ REQUIRED_USE=doc? ( || ( linguas_en linguas_es linguas_fr ) )
 SLOT=0
 SRC_URI=mirror://sourceforge/openh323gk/gnugk-3.4.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=fc1f7b85d45ae6902fbec955008ebccb
+_md5_=d9eff2630c49a48568c46bfdc5c449c3

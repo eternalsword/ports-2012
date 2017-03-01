@@ -7,4 +7,4 @@ LICENSE=Artistic
 SLOT=0
 SRC_URI=http://shh.thathost.com/pub-unix/files/shhopt-1.1.7.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=b1cd61595d32cfd309c0d3dbeda96004
+_md5_=3af895d45b255c6045ea9a5f3ba24fe5

@@ -9,4 +9,4 @@ RDEPEND=x11-libs/libX11 sys-libs/zlib media-libs/libpng:0= virtual/jpeg:0 sci-li
 SLOT=0
 SRC_URI=mirror://sourceforge/comparametric/videorbits-2.205.tgz
 _eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=3a16e20c8612e4067501195fc412d171
+_md5_=aa6ea473fb469a8f4838a21573acf2a7

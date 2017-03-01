@@ -11,4 +11,4 @@ REQUIRED_USE=test? ( jpeg png webp zlib )
 SLOT=0
 SRC_URI=http://entropymine.com/imageworsener/imageworsener-src-1.0.0.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=54f0c9bdb56590c33a49fe75fa7ca9b0
+_md5_=05445b263f08f3c288a9fe15ee9dd0f5

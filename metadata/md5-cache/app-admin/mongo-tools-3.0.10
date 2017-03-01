@@ -10,4 +10,4 @@ RDEPEND=!<dev-db/mongodb-3.0.0
 SLOT=0
 SRC_URI=https://github.com/mongodb/mongo-tools/archive/r3.0.10.tar.gz -> mongo-tools-3.0.10.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=7ef7f1ec5600ffcdb75db9f72b7fb912
+_md5_=3f6fc7f14e396a6638379a853a6c2910

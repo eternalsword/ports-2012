@@ -9,4 +9,4 @@ RDEPEND=>=sys-libs/ncurses-5.2 !dev-lang/stratego
 SLOT=0
 SRC_URI=ftp://ibiblio.org/pub/Linux/apps/financial/spreadsheet/sc-7.16.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=3a401e2205db97888d3d9517791b029c
+_md5_=a98ce08f934494215fef4b8da1e08781

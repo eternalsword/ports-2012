@@ -7,4 +7,4 @@ LICENSE=public-domain
 SLOT=0
 SRC_URI=mirror://sourceforge/re2c/re2c-0.13.5.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=282604b6e2619140af6c83596a2c4cd4
+_md5_=12d916f79345cc78765c45c1d60bfb4b

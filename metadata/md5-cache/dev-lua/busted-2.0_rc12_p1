@@ -9,4 +9,4 @@ RDEPEND=>=dev-lang/lua-5.1:= >=dev-lua/lua_cliargs-3.0 >=dev-lua/luafilesystem-1
 SLOT=0
 SRC_URI=https://github.com/Olivine-Labs/busted/archive/v2.0.rc12-1.tar.gz -> busted-2.0_rc12_p1.tar.gz
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=4cdba72a39ab991186c9078cb8d83ab2
+_md5_=d6f2fa03e11fa6183e66b148200f1cb8

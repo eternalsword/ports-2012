@@ -8,4 +8,4 @@ LICENSE=BSD
 SLOT=0/2
 SRC_URI=https://github.com/jemalloc/jemalloc/releases/download/4.4.0/jemalloc-4.4.0.tar.bz2
 _eclasses_=multibuild	742139c87a9fa3766f0c2b155e5522bf	multilib	165fc17c38d1b11dac2008280dab6e80	multilib-build	8fe2e81aeb36cdf8a6cc5f50443879cc	multilib-minimal	e7442c2d848733064a6639b5d73d3b74	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=218b2ef35c8545239145a0c775729d76
+_md5_=cfa2b313f0f05c3879a12aa39a1b1952

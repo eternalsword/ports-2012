@@ -10,4 +10,4 @@ RDEPEND=sys-process/procps ssl? ( dev-libs/openssl ) foomaticdb? ( || ( net-prin
 SLOT=0
 SRC_URI=ftp://ftp.lprng.com/pub/LPRng/LPRng/LPRng-3.8.35.tgz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=36bb1bc27678239753cc24a249d08762
+_md5_=a97b178240907f0d057615fd5d474368

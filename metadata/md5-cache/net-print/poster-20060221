@@ -7,4 +7,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=mirror://kde/printing/poster-20060221.tar.bz2
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=21c2481d1518b1e7aa5846508b90e6eb
+_md5_=ef3df8e8ee824124765ba09a97bb6cb7

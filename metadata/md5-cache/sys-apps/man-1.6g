@@ -10,4 +10,4 @@ RDEPEND=|| ( >=sys-apps/groff-1.19.2-r1 app-doc/heirloom-doctools ) !sys-apps/ma
 SLOT=0
 SRC_URI=http://primates.ximian.com/~flucifredi/man/man-1.6g.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
-_md5_=ef084075b0a4e84b39994449dd708110
+_md5_=ae1b9a6bb2775a4283e6cbe528c1eda1

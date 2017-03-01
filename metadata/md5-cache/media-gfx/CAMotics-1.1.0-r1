@@ -9,5 +9,5 @@ LICENSE=GPL-2+
 RDEPEND=dev-libs/cbang[ChakraCore] net-libs/ChakraCore dev-qt/qtcore:4 dev-qt/qtopengl:4 dev-qt/qtgui:4 x11-libs/cairo
 SLOT=0
 SRC_URI=https://github.com/CauldronDevelopmentLLC/CAMotics/archive/1.1.0-release.tar.gz -> CAMotics-1.1.0.tar.gz
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	gnome2-utils	c6dcdf3a2c22b578b16adb945dc85c35	multilib	165fc17c38d1b11dac2008280dab6e80	multiprocessing	eb9be4b678c4e71f3f530a767df31912	scons-utils	d42c1726f481bb5812cc2ce1f236db1d	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	e2b2bd56125ce8cf59ce30c642b59d48
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	gnome2-utils	fe8e9099c6fc74a40946623c593c7236	multilib	165fc17c38d1b11dac2008280dab6e80	multiprocessing	284a473719153462f3e974d86c8cb81c	scons-utils	fcace052aef60e6b0eb3023c26aa585a	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	178a84136f416b8ea1a857717eacd21c
 _md5_=40cf9028e8104dd4166a05a27ef0dbd3

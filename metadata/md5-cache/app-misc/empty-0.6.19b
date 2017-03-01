@@ -9,4 +9,4 @@ RDEPEND=virtual/logger
 SLOT=0
 SRC_URI=mirror://sourceforge/empty/empty-0.6.19b.tgz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=ebb53a45640e0dfbda0d304f774214a1
+_md5_=4133ad6c7693658fc9a19833a64995f3

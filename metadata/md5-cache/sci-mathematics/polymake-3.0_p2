@@ -11,4 +11,4 @@ REQUIRED_USE=group? ( cdd lrs )
 SLOT=0
 SRC_URI=https://polymake.org/lib/exe/fetch.php/download/polymake-3.0r2.tar.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=a729ad18e645882513c1d34614046448
+_md5_=846669e297904525a7e81d77e858c66e

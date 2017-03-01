@@ -9,4 +9,4 @@ RDEPEND=>=dev-lang/perl-5.6 dev-perl/Algorithm-Diff dev-perl/Regexp-Common virtu
 SLOT=0
 SRC_URI=https://github.com/AlDanial/cloc/releases/download/v1.66/cloc-1.66.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=4a3f2374e188e8b103bbe3afcbaaa950
+_md5_=52eabd8447a81188d3fca4fbadd24799

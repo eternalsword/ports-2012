@@ -9,4 +9,4 @@ RDEPEND=>=media-video/transcode-1.0.2-r2[dvd] >=media-video/mjpegtools-1.8.0-r1 
 SLOT=0
 SRC_URI=mirror://sourceforge/dvdshrink/dvdshrink-2.6.1-10mdk.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=2abb03fa6f14ffb0b8cea4ec0ff8f23f
+_md5_=4a7eacb11f0c3a90f83311ad9d82d7e4

@@ -8,4 +8,4 @@ RESTRICT=strip
 SLOT=0
 SRC_URI=mirror://sourceforge/xbox-linux/cromwell-2.40.tar.gz
 _eclasses_=mount-boot	ea24b511b0ad59831d0151aa634dfad2
-_md5_=3ab103d043487402007943903b20a900
+_md5_=23869404d899f6522d2947cdfeb32342

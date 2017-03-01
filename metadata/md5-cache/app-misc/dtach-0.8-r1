@@ -7,4 +7,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=mirror://sourceforge/dtach/dtach-0.8.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=eed07c6e2b0f45c4b474f279011175fd
+_md5_=8c1a2b71a4c74ba9b2f1c3e5b1ec6582

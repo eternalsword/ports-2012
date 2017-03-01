@@ -10,4 +10,4 @@ RDEPEND=dev-perl/Config-General dev-libs/libxslt rbd? ( sys-cluster/ceph ) infin
 SLOT=0
 SRC_URI=https://github.com/fujita/tgt/tarball/v1.0.67 -> tgt-1.0.67.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=775550603c0d8ea676b39a637783c128
+_md5_=b8cafc05eb865f46d21d966e231a430d

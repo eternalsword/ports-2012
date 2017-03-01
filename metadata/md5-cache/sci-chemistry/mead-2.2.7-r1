@@ -9,4 +9,4 @@ RESTRICT=fetch
 SLOT=0
 SRC_URI=ftp://ftp.scripps.edu/pub/bashford/mead-2.2.7.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=7a9379f2ea19a912f2f83fc00060cfd8
+_md5_=5a3dfa1cbb5c4c230241e91b0d9b6fbc

@@ -9,4 +9,4 @@ LICENSE=LGPL-2.1
 SLOT=0
 SRC_URI=http://0pointer.de/lennart/projects/libdaemon/libdaemon-0.14.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=dc7420075e28df73beddbe0db03d8628
+_md5_=f5b97fbb4924f8ef0c498db4025feac9

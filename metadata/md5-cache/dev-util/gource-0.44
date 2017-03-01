@@ -9,4 +9,4 @@ RDEPEND=>=dev-libs/boost-1.46:=[threads(+)] >=media-libs/glew-1.5:0= >=media-lib
 SLOT=0
 SRC_URI=https://github.com/acaudwell/Gource/releases/download/gource-0.44/gource-0.44.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=e4044cfda5706eab1ea91beff7b03079
+_md5_=48078f35767fc1b9c16324e33ce34f15

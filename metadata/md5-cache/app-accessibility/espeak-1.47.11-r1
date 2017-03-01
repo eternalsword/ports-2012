@@ -10,4 +10,4 @@ RDEPEND=portaudio? ( >=media-libs/portaudio-19_pre20071207 ) pulseaudio? ( media
 SLOT=0
 SRC_URI=mirror://sourceforge/espeak/espeak-1.47.11-source.zip
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=92a6ad3b4c774ead266485991b12508e
+_md5_=3e3b29d8e358e6f46ea45a05363f6a02

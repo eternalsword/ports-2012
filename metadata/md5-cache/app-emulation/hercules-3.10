@@ -10,4 +10,4 @@ RDEPEND=bzip2? ( app-arch/bzip2 ) sys-libs/zlib
 SLOT=0
 SRC_URI=http://downloads.hercules-390.eu/hercules-3.10.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=a8280b5e3d6b274783ca8844804ca786
+_md5_=675d6b6ec7f057b7c7b30e9cd88aee28

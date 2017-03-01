@@ -10,4 +10,4 @@ RDEPEND=dev-lang/ocaml[ocamlopt?] dev-ml/camlp5[ocamlopt?]
 SLOT=0
 SRC_URI=https://github.com/geneweb/geneweb/archive/v6.08.tar.gz -> geneweb-6.08.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
-_md5_=023c5d303fcf68b9a13ac0d60610e81e
+_md5_=7c5444b4963e988635a7f780cb095818

@@ -9,4 +9,4 @@ RDEPEND=>=app-i18n/skk-jisyo-200705[cdb] sys-apps/xinetd
 SLOT=0
 SRC_URI=https://dbskkd-cdb.googlecode.com/files/dbskkd-cdb-2.00.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
-_md5_=6a6acd19fa629a2dd323b65cc6bdca56
+_md5_=4f47e018b90f9e57fd79aeb8823c9780

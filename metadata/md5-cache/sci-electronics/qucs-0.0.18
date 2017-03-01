@@ -10,4 +10,4 @@ RDEPEND=dev-qt/qtcore:4[qt3support] dev-qt/qtgui:4[qt3support] dev-qt/qtscript:4
 SLOT=0
 SRC_URI=mirror://sourceforge/qucs/qucs-0.0.18.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=470087502761b472b1b3cef9fb7af8df
+_md5_=6d0bb3cd88a68bba0b6ed9076b091612

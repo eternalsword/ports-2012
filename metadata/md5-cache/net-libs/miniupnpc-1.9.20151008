@@ -9,4 +9,4 @@ LICENSE=BSD
 SLOT=0/14
 SRC_URI=http://miniupnp.free.fr/files/miniupnpc-1.9.20151008.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=21c0c63fba2c643b2b69da94fcffa8d5
+_md5_=a3e110c7ac1ea8673a0eb88920502166

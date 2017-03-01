@@ -8,4 +8,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=http://www.winfield.demon.nl/linux/antiword-0.37.tar.gz https://dev.gentoo.org/~grobian/distfiles/antiword-gentoo-patches-r2.tar.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=1f264ff4a6223a235e3e8ded70ef06c7
+_md5_=509c574ec3c026953b9a5d6fd2b63ba0

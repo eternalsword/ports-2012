@@ -8,4 +8,4 @@ LICENSE=BSD
 SLOT=0
 SRC_URI=mirror://sourceforge/srtp/srtp-1.4.4.tgz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=6674f9618f4540e54db0e1e03efdf416
+_md5_=0c1d80f25a88ed941e39954730515150

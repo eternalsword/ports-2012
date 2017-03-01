@@ -8,4 +8,4 @@ RDEPEND=>=dev-lang/tcl-8.3:0=[-threads] >=dev-tcltk/tclx-8.3 >=net-analyzer/barn
 SLOT=0
 SRC_URI=mirror://sourceforge/sguil/sguil-sensor-0.8.0.tar.gz
 _eclasses_=user	e10ccb95af96d45f86016fa982a949bb
-_md5_=88e49496fb578061973b7418752cabfb
+_md5_=7e9baa9d8c186fa33c6b7e0dde61d2f9

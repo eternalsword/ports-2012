@@ -7,4 +7,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=http://www.nocrew.org/software/httptunnel/httptunnel-3.3.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=b941967d8d4529f638deed37d82cebd6
+_md5_=f30d67ebc81d5cc4ff46c8f4ab46dc4b

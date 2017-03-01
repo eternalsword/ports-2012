@@ -10,5 +10,5 @@ RDEPEND=>=net-analyzer/icinga2-2.1.1 dev-php/pecl-imagick apache2? ( >=www-serve
 REQUIRED_USE=^^ ( apache2 nginx )
 SLOT=0
 SRC_URI=https://codeload.github.com/Icinga/icingaweb2/tar.gz/v2.4.0 -> icingaweb2-2.4.0.tar.gz
-_eclasses_=depend.apache	7aeacf4ba074b9aa0047e2ba05c1010f	eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
-_md5_=89b22d33dcf588ede2205b51bd0f9066
+_eclasses_=depend.apache	0917334d570e07f9743a04ff85b3bf1b	eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
+_md5_=78e0f0a60143b2f47c019ecbef0517d5

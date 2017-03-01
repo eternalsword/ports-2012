@@ -9,4 +9,4 @@ RDEPEND=media-libs/freeglut media-libs/portaudio x11-libs/libXi x11-libs/libXmu 
 SLOT=0
 SRC_URI=mirror://sourceforge/transcend/Transcend_0.3_UnixSource.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=95fb45153a3b4507571bc97cc1724e17
+_md5_=597c7f1a10a175cb61f6c384f013dfd6

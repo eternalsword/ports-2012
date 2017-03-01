@@ -11,4 +11,4 @@ REQUIRED_USE=sdl? ( video ) xmpp? ( xml ) vxml? ( http tts xml ) xmlrpc? ( http 
 SLOT=0/2.10.11
 SRC_URI=mirror://sourceforge/opalvoip/ptlib-2.10.11.tar.bz2 doc? ( mirror://sourceforge/opalvoip/ptlib-2.10.10-htmldoc.tar.bz2 )
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=5bd34fa8a207938dd2e81af120be1c39
+_md5_=3783c6ae9db35693cd17dbe40b3513f1

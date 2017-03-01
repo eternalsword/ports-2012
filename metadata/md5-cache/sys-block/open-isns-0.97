@@ -10,4 +10,4 @@ RDEPEND=ssl? ( dev-libs/openssl:= ) slp? ( net-libs/openslp )
 SLOT=0
 SRC_URI=http://github.com/open-iscsi/open-isns/archive/v0.97.tar.gz -> open-isns-0.97.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=105bb5826deb889d0674ea46ac86ebdb
+_md5_=014bffdb01fe58907d9abaa1544cdb0b

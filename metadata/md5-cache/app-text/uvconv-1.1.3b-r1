@@ -7,4 +7,4 @@ LICENSE=GPL-2
 SLOT=0
 SRC_URI=mirror://sourceforge/unikey/uvconv-1.1.3b.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=ce3d2f9d7a58280e55ee7dcab8e50895
+_md5_=e2eb741076ee5b05cc2b7ee62699a83f

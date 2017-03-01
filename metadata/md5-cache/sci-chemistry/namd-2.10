@@ -10,4 +10,4 @@ RESTRICT=fetch
 SLOT=0
 SRC_URI=NAMD_2.10_Source.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=c8161095c13e998485d8e8c5f6cd6d40
+_md5_=1e1c9277696a47a8356482167a1c6d08

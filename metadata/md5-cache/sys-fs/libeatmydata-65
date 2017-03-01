@@ -9,4 +9,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=https://launchpad.net/libeatmydata/trunk/release-65/+download/libeatmydata-65.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=876f04393bfecac19f3b17abe09cc779
+_md5_=38f465e9c8a93b4fb745916134d28f9c

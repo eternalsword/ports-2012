@@ -7,4 +7,4 @@ LICENSE=freedist
 SLOT=1
 SRC_URI=mirror://debian/pool/non-free/u/unace-nonfree/unace-nonfree_2.5.orig.tar.gz mirror://debian/pool/non-free/u/unace-nonfree/unace-nonfree_2.5-7.debian.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=abf8d8292aa3043befddcfc0f0b722f8
+_md5_=5497e93fe114eb02d7e0790afb1c1522

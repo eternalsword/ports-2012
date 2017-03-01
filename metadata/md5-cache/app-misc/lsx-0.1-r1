@@ -7,4 +7,4 @@ LICENSE=MIT
 SLOT=0
 SRC_URI=http://suckless.org/download/lsx-0.1.tar.gz
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=cc43390a5b0a1cc81bc94fc1a2d0714a
+_md5_=d302251d84174503950a88054d76842f

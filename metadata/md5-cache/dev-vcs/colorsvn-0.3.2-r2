@@ -9,4 +9,4 @@ RDEPEND=dev-lang/perl dev-vcs/subversion
 SLOT=0
 SRC_URI=http://www.console-colors.de/downloads/colorsvn/colorsvn-0.3.2.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=4263e483c968fa4a5e07cbfb2089e65e
+_md5_=a47230be8161f3e550a614e5e6b95b2c

@@ -8,4 +8,4 @@ LICENSE=PDB
 SLOT=0
 SRC_URI=http://sw-tools.pdb.org/apps/CIFPARSE-OBJ/source/cifparse-obj-v7.105-prod-src.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=ed64abed8c2ac29a02e34e17bef8ca36
+_md5_=c087617b027e04ca940f4ebd6af3de36

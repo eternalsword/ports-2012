@@ -11,4 +11,4 @@ REQUIRED_USE=test? ( utils )
 SLOT=0
 SRC_URI=http://ftp.ebi.ac.uk/pub/software/vertebrategenomics/exonerate/exonerate-2.2.0.tar.gz
 _eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=cdf8e44122e18a8298a55be023ae333c
+_md5_=2efd53d13e6f08e4144477038f41e4af

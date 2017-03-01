@@ -9,4 +9,4 @@ RDEPEND=dev-perl/Danga-Socket dev-perl/Sys-Syscall
 SLOT=0
 SRC_URI=http://bitflu.workaround.ch/bitflu/bitflu-1.51.tgz
 _eclasses_=user	e10ccb95af96d45f86016fa982a949bb
-_md5_=f7ad2e407f908916446abe10f62deea9
+_md5_=cac47e55924492b44bde8bf874406c68

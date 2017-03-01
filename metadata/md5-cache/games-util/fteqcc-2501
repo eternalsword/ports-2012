@@ -9,4 +9,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=mirror://sourceforge/fteqw/qclibsrc2501.zip
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=8783124be088578aa42d20cf002a9d8f
+_md5_=3ca0f2d42f2edc6c0fd1a82eb8b0a38c

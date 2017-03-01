@@ -10,4 +10,4 @@ RDEPEND=sys-libs/ncurses
 SLOT=0
 SRC_URI=ftp://ftp.cs.toronto.edu/cs/ftp/pub/hugh/jove-dev/jove4.16.0.73.tgz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=f8fb573a412baad7862e10032c3624c9
+_md5_=0f5832cf466402d06b6ce5ea2fdbc75e

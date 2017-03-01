@@ -9,4 +9,4 @@ RDEPEND=dev-libs/glib:2 media-libs/freeglut media-libs/giflib >=media-libs/libpn
 SLOT=0
 SRC_URI=https://sites.google.com/site/timfenn/povscript/molscript-2.1.2pov2.20.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=ecab51e7bb84f9ee52b031119e7aac90
+_md5_=0a335f1e70d94904f0d4666c06852abf

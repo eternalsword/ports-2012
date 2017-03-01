@@ -10,4 +10,4 @@ RDEPEND=icu? ( dev-libs/icu:0= ) curl? ( net-misc/curl ) virtual/libiconv
 SLOT=0
 SRC_URI=mirror://apache/xerces/c/3/sources/xerces-c-3.1.4.tar.gz
 _eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=04d7481580e9de0a00c87f88011a4248
+_md5_=74f2588e0acc0211f4f7884b7d7d5bf1
