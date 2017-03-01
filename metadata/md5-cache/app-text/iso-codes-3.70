@@ -9,5 +9,5 @@ LICENSE=LGPL-2.1+
 RESTRICT=binchecks strip
 SLOT=0
 SRC_URI=http://pkg-isocodes.alioth.debian.org/downloads/iso-codes-3.70.tar.xz
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	l10n	8f52d9ce1814aca2ed1a46920084ea66	multilib	165fc17c38d1b11dac2008280dab6e80	python-any-r1	110f340b55387d928bb3f8ee3157d5da	python-utils-r1	316c531873247e48befb99900e5aa2ed	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	l10n	8f52d9ce1814aca2ed1a46920084ea66	multilib	165fc17c38d1b11dac2008280dab6e80	python-any-r1	74bf184baf9facd72c7baa58cab21385	python-utils-r1	316c531873247e48befb99900e5aa2ed	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=47fff85d7357e1324a83bf8e7a0925f9

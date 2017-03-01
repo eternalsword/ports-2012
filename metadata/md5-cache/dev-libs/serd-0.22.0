@@ -8,5 +8,5 @@ KEYWORDS=~amd64 ~ppc ~x86
 LICENSE=ISC
 SLOT=0
 SRC_URI=http://download.drobilla.net/serd-0.22.0.tar.bz2
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	multiprocessing	284a473719153462f3e974d86c8cb81c	python-any-r1	110f340b55387d928bb3f8ee3157d5da	python-utils-r1	316c531873247e48befb99900e5aa2ed	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	waf-utils	d1ea2758053cbb7c5b38b8f88654468d
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	multiprocessing	284a473719153462f3e974d86c8cb81c	python-any-r1	74bf184baf9facd72c7baa58cab21385	python-utils-r1	316c531873247e48befb99900e5aa2ed	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	waf-utils	d1ea2758053cbb7c5b38b8f88654468d
 _md5_=fdb35b388f7c31703a6d834bd35a983d
