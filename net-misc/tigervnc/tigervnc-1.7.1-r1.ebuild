@@ -1,6 +1,5 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="6"
 
@@ -84,12 +83,13 @@ PATCHES=(
 	"${WORKDIR}"/patches/055_xstartup.patch
 )
 
-
 src_prepare() {
 	if use server ; then
 		cp -r "${WORKDIR}"/xorg-server-${XSERVER_VERSION}/. unix/xserver || die
 	fi
+
 	default
+
 	if use server; then
 		eapply "${FILESDIR}/${PN}-1.7.1-xserver119-compat.patch"
 		cd unix/xserver || die

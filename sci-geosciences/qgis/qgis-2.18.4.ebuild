@@ -1,4 +1,3 @@
-# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -16,9 +15,8 @@ SRC_URI="
 
 LICENSE="GPL-2+ GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~*"
 IUSE="examples georeferencer grass mapserver oracle postgres python webkit"
-
 REQUIRED_USE="
 	grass? ( python )
 	mapserver? ( python )
@@ -36,7 +34,7 @@ COMMON_DEPEND="
 	dev-qt/qtscript:4
 	dev-qt/qtsvg:4
 	dev-qt/qtsql:4
-	sci-libs/gdal:=[geos,python?,${PYTHON_USEDEP}]
+	sci-libs/gdal:=[geos,oracle?,python?,${PYTHON_USEDEP}]
 	sci-libs/geos
 	sci-libs/libspatialindex:=
 	sci-libs/proj
@@ -46,10 +44,7 @@ COMMON_DEPEND="
 	georeferencer? ( sci-libs/gsl:= )
 	grass? ( >=sci-geosciences/grass-7.0.0:= )
 	mapserver? ( dev-libs/fcgi )
-	oracle? (
-		dev-db/oracle-instantclient:=
-		sci-libs/gdal:=[oracle]
-	)
+	oracle? ( dev-db/oracle-instantclient:= )
 	postgres? ( dev-db/postgresql:= )
 	python? ( ${PYTHON_DEPS}
 		dev-python/future[${PYTHON_USEDEP}]
@@ -63,7 +58,7 @@ COMMON_DEPEND="
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/qscintilla-python[qt4(+),${PYTHON_USEDEP}]
 		dev-python/requests[${PYTHON_USEDEP}]
-		dev-python/sip:=[${PYTHON_USEDEP}]
+		>=dev-python/sip-4.19.1[${PYTHON_USEDEP}]
 		dev-python/six[${PYTHON_USEDEP}]
 		postgres? ( dev-python/psycopg:2[${PYTHON_USEDEP}] )
 	)
@@ -80,15 +75,24 @@ RDEPEND="${COMMON_DEPEND}
 # Disabling test suite because upstream disallow running from install path
 RESTRICT="test"
 
+PATCHES=( "${FILESDIR}"/${PN}-lib64.patch "${FILESDIR}"/qgis_sip-ftbfs.patch )
+
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
 }
 
 src_prepare() {
-	cmake-utils_src_prepare
 
 	cd src/plugins || die
 	use georeferencer || cmake_comment_add_subdirectory "georeferencer"
+	#remove bundled libs
+	rm -rf src/core/spatialite/ || die
+	rm -rf src/core/gps/qwtpolar-{0.1,1.0}/ || die
+	rm -rf src/core/gps/qextserialport/ || die
+	rm -rf src/core/gps/qextserialport/ || die
+	rm -rf "python/ext-libs/!(CMakeLists.txt|tests)" || die
+	rm -rf src/plugins/dxf2shp_converter/
+	cmake-utils_src_prepare
 }
 
 src_configure() {
@@ -152,10 +156,10 @@ src_install() {
 
 	if use python; then
 		python_optimize "${ED%/}"/usr/share/qgis/python
+	fi
 
-		if use grass; then
-			python_fix_shebang "${ED%/}"/usr/share/qgis/grass/scripts
-		fi
+	if use grass; then
+		python_fix_shebang "${ED%/}"/usr/share/qgis/grass/scripts
 	fi
 }
 
