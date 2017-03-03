@@ -7,7 +7,8 @@ IUSE=acl audit cracklib nls pam selinux skey xattr
 KEYWORDS=*
 LICENSE=BSD GPL-2
 RDEPEND=acl? ( sys-apps/acl ) audit? ( sys-process/audit ) cracklib? ( >=sys-libs/cracklib-2.7-r3 ) pam? ( virtual/pam ) skey? ( sys-auth/skey ) selinux? ( >=sys-libs/libselinux-1.28 sys-libs/libsemanage ) nls? ( virtual/libintl ) xattr? ( sys-apps/attr ) pam? ( >=sys-auth/pambase-20120417 )
+RESTRICT=mirror
 SLOT=0
-SRC_URI=http://pkg-shadow.alioth.debian.org/releases/shadow-4.1.5.1.tar.bz2
+SRC_URI=mirror://funtoo/shadow-4.1.5.1.tar.bz2
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	pam	3ecd5b75e39b0bb05a3183c08fcdfdb4	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=7574f0e72fd9079a04865db25eb3a0f9
+_md5_=d04668827a12d049f64b24a0e73b648a
