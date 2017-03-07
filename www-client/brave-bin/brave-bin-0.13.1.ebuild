@@ -29,9 +29,8 @@ S="${WORKDIR}/Brave-linux-x64"
 src_install() {
 	declare BRAVE_HOME=/opt/${BRAVE_PN}
 
-	insinto /usr/share/icons/hicolor/128x128/apps
-	newins "${S}/resources/extensions/brave/img/braveAbout.png" "${PN}.png" || die
 	newicon "${S}/resources/extensions/brave/img/braveAbout.png" "${PN}.png"
+	newicon -s 128 "${S}/resources/extensions/brave/img/braveAbout.png" "${PN}.png" || die
 	domenu "${FILESDIR}"/${PN}.desktop
 
 	dodir ${BRAVE_HOME%/*}
