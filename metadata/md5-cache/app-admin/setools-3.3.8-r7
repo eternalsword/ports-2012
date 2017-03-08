@@ -10,5 +10,5 @@ RDEPEND=>=sys-libs/libsepol-2.4 >=sys-libs/libselinux-2.4 >=dev-db/sqlite-3.2:3 
 RESTRICT=test
 SLOT=0
 SRC_URI=http://oss.tresys.com/projects/setools/chrome/site/dists/setools-3.3.8/setools-3.3.8.tar.bz2 https://dev.gentoo.org/~perfinion/patches/setools/setools-3.3.8-04-gentoo-patches.tar.bz2
-_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	708f85bc1bf00876604e223fb56e062a	java-pkg-opt-2	be255db325e3af8fbf3506cf63998341	java-utils-2	1971a6927fcd7ec839f7e12b28a24bdd	libtool	84763589a795fb127b537cac01e5359f	multibuild	742139c87a9fa3766f0c2b155e5522bf	multilib	165fc17c38d1b11dac2008280dab6e80	python-r1	e0edbf5130eaefe107b8c8872bd818bc	python-utils-r1	316c531873247e48befb99900e5aa2ed	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	708f85bc1bf00876604e223fb56e062a	java-pkg-opt-2	be255db325e3af8fbf3506cf63998341	java-utils-2	1971a6927fcd7ec839f7e12b28a24bdd	libtool	84763589a795fb127b537cac01e5359f	multibuild	742139c87a9fa3766f0c2b155e5522bf	multilib	165fc17c38d1b11dac2008280dab6e80	python-r1	0c067f080a047742ffac024b16895b45	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=894c8b0a21561c0d4b2778819cbf687a

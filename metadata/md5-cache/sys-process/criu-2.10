@@ -10,5 +10,5 @@ RDEPEND=dev-libs/protobuf-c dev-libs/libnl:3 net-libs/libnet:1.1 sys-libs/libcap
 RESTRICT=test
 SLOT=0
 SRC_URI=http://download.openvz.org/criu/criu-2.10.tar.bz2
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	linux-info	ca370deef9d44125d829f2eb6ebc83e0	multibuild	742139c87a9fa3766f0c2b155e5522bf	multilib	165fc17c38d1b11dac2008280dab6e80	python-r1	e0edbf5130eaefe107b8c8872bd818bc	python-utils-r1	316c531873247e48befb99900e5aa2ed	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	linux-info	ca370deef9d44125d829f2eb6ebc83e0	multibuild	742139c87a9fa3766f0c2b155e5522bf	multilib	165fc17c38d1b11dac2008280dab6e80	python-r1	0c067f080a047742ffac024b16895b45	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=7e30aed36a24417639f5223a2bceb193

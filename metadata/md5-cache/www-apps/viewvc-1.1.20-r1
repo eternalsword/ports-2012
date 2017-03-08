@@ -10,5 +10,5 @@ RDEPEND=python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) >=dev-lang/
 REQUIRED_USE=python_targets_python2_7
 SLOT=0
 SRC_URI=http://viewvc.tigris.org/files/documents/3330/49275/viewvc-1.1.20.tar.gz
-_eclasses_=confutils	ce0cd2821b9536a1c1a951ab0dcb1ed3	eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	4346485bdd137b2d301e993dad734668	python-utils-r1	316c531873247e48befb99900e5aa2ed	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	webapp	a76ebd3cb5649737496e8238992dd7ca
+_eclasses_=confutils	ce0cd2821b9536a1c1a951ab0dcb1ed3	eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	webapp	a76ebd3cb5649737496e8238992dd7ca
 _md5_=235b0e36e1c32751b92c0028fb446a77

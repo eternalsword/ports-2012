@@ -11,5 +11,5 @@ REQUIRED_USE=arm? ( debug )
 RESTRICT=test splitdebug strip
 SLOT=0
 SRC_URI=http://bits.xensource.com/oss-xen/release/4.8.0/xen-4.8.0.tar.gz https://dev.gentoo.org/~dlan/distfiles/xen-security-patches-21.tar.xz
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	mount-boot	ea24b511b0ad59831d0151aa634dfad2	multilib	165fc17c38d1b11dac2008280dab6e80	python-any-r1	74bf184baf9facd72c7baa58cab21385	python-utils-r1	316c531873247e48befb99900e5aa2ed	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	mount-boot	ea24b511b0ad59831d0151aa634dfad2	multilib	165fc17c38d1b11dac2008280dab6e80	python-any-r1	be89e882151ba4b847089b860d79729c	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=746bf694fb1382f906ad9e9055a4776b

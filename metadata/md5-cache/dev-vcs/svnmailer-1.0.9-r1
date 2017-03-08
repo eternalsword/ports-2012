@@ -10,5 +10,5 @@ RDEPEND=dev-vcs/subversion[python,python_targets_python2_7(-)?,-python_single_ta
 REQUIRED_USE=python_targets_python2_7
 SLOT=0
 SRC_URI=http://storage.perlig.de/svnmailer/svnmailer-1.0.9.tar.bz2
-_eclasses_=distutils-r1	039ba10839816478cfb070fdeb053906	eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	4346485bdd137b2d301e993dad734668	python-utils-r1	316c531873247e48befb99900e5aa2ed	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	178a84136f416b8ea1a857717eacd21c
+_eclasses_=distutils-r1	039ba10839816478cfb070fdeb053906	eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	178a84136f416b8ea1a857717eacd21c
 _md5_=a1671f77b009b1d2278d18601cb9f80e
