@@ -1,0 +1,14 @@
+DEFINED_PHASES=compile configure install preinst prepare pretend setup test
+DEPEND=~dev-lang/nqp-2017.02:0=[java?,moar?,clang=] clang? ( sys-devel/clang ) java? ( >=virtual/jdk-1.7 ) >=dev-lang/perl-5.10 java? ( >=dev-java/java-config-2.2.0-r3 )
+DESCRIPTION=A compiler for the Perl 6 programming language
+EAPI=5
+HOMEPAGE=http://rakudo.org
+IUSE=clang java +moar test elibc_FreeBSD java
+KEYWORDS=~amd64 ~x86
+LICENSE=Artistic-2
+RDEPEND=~dev-lang/nqp-2017.02:0=[java?,moar?,clang=] java? ( >=virtual/jre-1.7 ) java? ( >=dev-java/java-config-2.2.0-r3 )
+REQUIRED_USE=|| ( java moar )
+SLOT=0
+SRC_URI=http://rakudo.org/downloads/rakudo/rakudo-2017.02.tar.gz
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	java-pkg-opt-2	be255db325e3af8fbf3506cf63998341	java-utils-2	1971a6927fcd7ec839f7e12b28a24bdd	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=ccc3085e0671c5cfc2b5ae774b609760
