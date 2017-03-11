@@ -7,5 +7,5 @@ IUSE=ayatana +lastfm +lyrics
 LICENSE=GPL-2
 RDEPEND=x11-libs/gtk+:3 >=dev-libs/glib-2.34:2 gnome-base/librsvg:2 media-libs/gstreamer:1.0 media-libs/gst-plugins-base:1.0 media-plugins/gst-plugins-meta:1.0 dev-db/sqlite:3 >=media-libs/libtaginfo-0.2.0 x11-libs/cairo x11-libs/libX11 ayatana? ( dev-libs/libappindicator:3 ) lastfm? ( net-libs/libsoup:2.4 ) lyrics? ( net-libs/libsoup:2.4 dev-libs/libxml2:2 )
 SLOT=0
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	fdo-mime	21ef5adf81836863efa968f2a25cff64	git-2	7af5d170bfc02983b4bcd3167dc5edd4	gnome2-utils	fe8e9099c6fc74a40946623c593c7236	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	vala	45cd5c637ea9287eeaf983960768e17c	xdg-utils	178a84136f416b8ea1a857717eacd21c
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	fdo-mime	21ef5adf81836863efa968f2a25cff64	git-2	7af5d170bfc02983b4bcd3167dc5edd4	gnome2-utils	fe8e9099c6fc74a40946623c593c7236	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	vala	45cd5c637ea9287eeaf983960768e17c	xdg-utils	b9389dfad0ee8f8e0b2a41b79fcf7120
 _md5_=a8f12a0549f1037678985f98d43ee4a8

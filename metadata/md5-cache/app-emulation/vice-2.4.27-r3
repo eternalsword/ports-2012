@@ -10,5 +10,5 @@ RDEPEND=virtual/jpeg:0 virtual/opengl media-libs/giflib alsa? ( media-libs/alsa-
 REQUIRED_USE=?? ( gtk sdl )
 SLOT=0
 SRC_URI=mirror://sourceforge/vice-emu/releases/vice-2.4.27.tar.gz
-_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	178a84136f416b8ea1a857717eacd21c
+_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	b9389dfad0ee8f8e0b2a41b79fcf7120
 _md5_=d6e265cdad271f5388bf2d814608187c

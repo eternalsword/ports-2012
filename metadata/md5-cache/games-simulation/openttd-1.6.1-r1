@@ -11,5 +11,5 @@ RDEPEND=!dedicated? ( media-libs/libsdl[sound,X,video] icu? ( || ( ( dev-libs/ic
 RESTRICT=test
 SLOT=0
 SRC_URI=http://binaries.openttd.org/releases/1.6.1/openttd-1.6.1-source.tar.gz
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	gnome2-utils	fe8e9099c6fc74a40946623c593c7236	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	178a84136f416b8ea1a857717eacd21c
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	gnome2-utils	fe8e9099c6fc74a40946623c593c7236	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	b9389dfad0ee8f8e0b2a41b79fcf7120
 _md5_=5a2d4d81606bea4d30adceb137cd1302

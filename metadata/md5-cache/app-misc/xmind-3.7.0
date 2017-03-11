@@ -9,5 +9,5 @@ LICENSE=EPL-1.0 LGPL-3
 RDEPEND=>=virtual/jre-1.8 x11-libs/gtk+:2
 SLOT=0
 SRC_URI=http://dl2.xmind.net/xmind-downloads/xmind-8-linux.zip https://dev.gentoo.org/~creffett/distfiles/xmind-icons.tar.xz
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	font	82836641e7d4639329d8c195234ad0e3	gnome2-utils	fe8e9099c6fc74a40946623c593c7236	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	178a84136f416b8ea1a857717eacd21c
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	font	82836641e7d4639329d8c195234ad0e3	gnome2-utils	fe8e9099c6fc74a40946623c593c7236	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	b9389dfad0ee8f8e0b2a41b79fcf7120
 _md5_=aa3e1d3b96ef11e10fb495fa650cc184

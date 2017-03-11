@@ -10,5 +10,5 @@ RDEPEND=app-arch/xz-utils dev-libs/glib media-libs/alsa-lib media-libs/fontconfi
 RESTRICT=strip mirror test
 SLOT=0
 SRC_URI=amd64? ( http://arduino.cc//download.php?f=/arduino-1.6.12-linux64.tar.xz -> arduino-bin_amd64-1.6.12.tar.xz ) x86? ( http://arduino.cc//download.php?f=/arduino-1.6.12-linux32.tar.xz -> arduino-bin_i386-1.6.12.tar.xz )
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	fdo-mime	21ef5adf81836863efa968f2a25cff64	gnome2-utils	fe8e9099c6fc74a40946623c593c7236	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	178a84136f416b8ea1a857717eacd21c
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	fdo-mime	21ef5adf81836863efa968f2a25cff64	gnome2-utils	fe8e9099c6fc74a40946623c593c7236	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	b9389dfad0ee8f8e0b2a41b79fcf7120
 _md5_=71ed2f90649b66f1450668d248d8c619
