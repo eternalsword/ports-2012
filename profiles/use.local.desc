@@ -2187,6 +2187,8 @@ dev-ml/logs:lwt - Enables the Logs_lwt library that provides Lwt logging functio
 dev-ml/lwt:camlp4 - Enable camlp4 syntax extension
 dev-ml/lwt:ppx - Enables the ppx syntax extension
 dev-ml/lwt:react - Enables support for dev-ml/react: Functional reactive programming (signals, events, etc.).
+dev-ml/ocaml-cohttp:async - Enables support for the dev-ml/async asynchronous execution library.
+dev-ml/ocaml-cohttp:lwt - Enables support for the dev-ml/lwt cooperative light-weight thread library.
 dev-ml/ocaml-cstruct:async - Support for asynchronous execution
 dev-ml/ocaml-cstruct:lwt - Enable threads via lwt
 dev-ml/ocaml-cstruct:ppx - Enable the ppx syntax extension
@@ -2696,6 +2698,7 @@ dev-util/apitrace:cli - Enable command line interface
 dev-util/apitrace:egl - Enable EGL support
 dev-util/apitrace:system-snappy - Link dynamic against app-arch/snappy
 dev-util/bazel:tools - Install extra bazel tools to build from sources
+dev-util/bitcoin-tx:knots - Build enhanced Bitcoin Knots version, rather than Bitcoin Core
 dev-util/bitcoin-tx:ljr - Enable Luke Dashjr's patches
 dev-util/buildbot:irc - Add support for status delivery through an ircbot.
 dev-util/buildbot:mail - Add support for watching a maildir for commits.
@@ -6179,8 +6182,10 @@ net-misc/dropbear:bsdpty - Add support for legacy BSD pty's rather than dynamic 
 net-misc/dropbear:multicall - Build all the programs as one little binary (to save space)
 net-misc/dropbear:shadow - Enable shadow password support
 net-misc/dropbox:librsync-bundled - Use bundled librsync library
+net-misc/electrum:audio_modem - Enable plugin to support Audio Modem
 net-misc/electrum:cli - Enables the CLI interface
 net-misc/electrum:cosign - Enable plugin to support multisig wallets between multiple Electrum clients
+net-misc/electrum:digitalbitbox - Enable plugin to support Digital Bitbox hardware wallet
 net-misc/electrum:email - Enable plugin to support emailing invoices
 net-misc/electrum:fiat - Enable plugin for looking up fiat values of bitcoin
 net-misc/electrum:greenaddress_it - Enable plugin to verify GreenAddress.it instant transactions
@@ -6518,10 +6523,12 @@ net-p2p/airdcpp-webclient:webui - Enable the Web UI
 net-p2p/amule:daemon - Enable amule daemon
 net-p2p/amule:remote - Enable remote controlling of the client
 net-p2p/amule:stats - Enable statistic reporting
+net-p2p/bitcoin-cli:knots - Build enhanced Bitcoin Knots version, rather than Bitcoin Core
 net-p2p/bitcoin-cli:ljr - Enable Luke Dashjr's patches
 net-p2p/bitcoin-qt:bitcoin_policy_rbf - Replace By Fee policy: Your node will preferentially mine and relay transactions paying the highest fee, regardless of receive order
 net-p2p/bitcoin-qt:bitcoin_policy_spamfilter - Enhanced spam filter policy: Notorious spammers will not be assisted by your node
 net-p2p/bitcoin-qt:http - Enable support for the JSON-RPC and REST HTTP server (builtin net-p2p/bitcoind)
+net-p2p/bitcoin-qt:knots - Build enhanced Bitcoin Knots version, rather than Bitcoin Core
 net-p2p/bitcoin-qt:libevent - Use dev-libs/libevent
 net-p2p/bitcoin-qt:ljr - Enable Luke Dashjr's patches
 net-p2p/bitcoin-qt:qrcode - Enable generation of QR Codes for receiving payments
@@ -6531,6 +6538,7 @@ net-p2p/bitcoin-qt:wallet - Enable wallet support
 net-p2p/bitcoin-qt:zeromq - Report blocks and transactions via zeromq
 net-p2p/bitcoind:bitcoin_policy_rbf - Replace By Fee policy: Your node will preferentially mine and relay transactions paying the highest fee, regardless of receive order
 net-p2p/bitcoind:bitcoin_policy_spamfilter - Enhanced spam filter policy: Notorious spammers will not be assisted by your node
+net-p2p/bitcoind:knots - Build enhanced Bitcoin Knots version, rather than Bitcoin Core
 net-p2p/bitcoind:ljr - Enable Luke Dashjr's patches
 net-p2p/bitcoind:upnp - Enable Universal Plug and Play
 net-p2p/bitcoind:wallet - Enable wallet support
@@ -7168,7 +7176,6 @@ sci-mathematics/yacas:doc - Generate HTML documentation
 sci-mathematics/yacas:gui - Build graphical interface for the native yacas engine. Requires Qt5
 sci-mathematics/yacas:java - Build the Java yacas engine and text console for it
 sci-mathematics/yacas:jupyter - Add support for jupyter notebook
-sci-mathematics/yacas:server - Build the network server version
 sci-mathematics/yafu:sieve - Use msieve for the sieving steps of NFS
 sci-mathematics/z3:isabelle - Add integration support for the Isabelle/HOL theorem prover.
 sci-misc/boinc:cuda - Use nvidia cuda toolkit for speeding up computations. NOTE: works only for subset of nvidia graphic cards so make sure your card is supported before opening a bug about it.

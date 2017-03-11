@@ -6,5 +6,5 @@ HOMEPAGE=http://bitcoincore.org/
 LICENSE=MIT
 RDEPEND=dev-libs/openssl:0[-bindist] >dev-libs/libsecp256k1-0.0.0_pre20150422 dev-libs/univalue >=dev-libs/boost-1.52.0[threads(+)]
 SLOT=0
-_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	bitcoincore	46aaa9496e2183d2da184f057b125587	db-use	582140d1a711279e50ce284fc7b609f5	eutils	708f85bc1bf00876604e223fb56e062a	git-2	7af5d170bfc02983b4bcd3167dc5edd4	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	bitcoincore	dfd4a0ddedf139a45de5e664ba5608d1	db-use	582140d1a711279e50ce284fc7b609f5	eutils	708f85bc1bf00876604e223fb56e062a	git-2	7af5d170bfc02983b4bcd3167dc5edd4	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=768f8eed7b690b8d59f338902fde8b18
