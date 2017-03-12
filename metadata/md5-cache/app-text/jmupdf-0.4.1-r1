@@ -10,5 +10,5 @@ RDEPEND=media-libs/freetype:2 media-libs/openjpeg:0= system-mupdf? ( >=app-text/
 REQUIRED_USE=!system-mupdf
 SLOT=0
 SRC_URI=https://jmupdf.googlecode.com/files/2012-02-23-source-jmupdf-0.4.1.7z
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	java-ant-2	799c0d56dcbae3a3339f5a6b7585d5d6	java-pkg-2	c4e6af2574fd1dc79b43a6e27af4b5fb	java-utils-2	1971a6927fcd7ec839f7e12b28a24bdd	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	flag-o-matic	35067884fbff37bc0c8e7421c5315558	java-ant-2	4e2b30d918dda38a51839a4d45282b62	java-pkg-2	c4e6af2574fd1dc79b43a6e27af4b5fb	java-utils-2	1971a6927fcd7ec839f7e12b28a24bdd	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=0a02b5fa25b6e1f9bcb256712df08225

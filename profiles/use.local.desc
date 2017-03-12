@@ -1756,6 +1756,20 @@ dev-lang/ghc:binary - Install the binary version directly, rather than using it 
 dev-lang/ghc:ghcbootstrap - Bootstrap from an existing GHC installation.
 dev-lang/ghc:ghcmakebinary - Build with less runtime depends (bundle libffi for building bootstrap binaries).
 dev-lang/gnat-gcc:acats - Installs ACATS source under LIBPATH.
+dev-lang/gnat-gpl:awt - Useful only when building GCJ, this enables Abstract Window Toolkit (AWT) peer support on top of GTK+
+dev-lang/gnat-gpl:cilk - Support the Cilk Plus language (C/C++ based languages for parallel programming)
+dev-lang/gnat-gpl:fixed-point - Enable fixed-point arithmetic support for MIPS targets in gcc (Warning: significantly increases compile time!)
+dev-lang/gnat-gpl:go - Build the GCC Go language frontend.
+dev-lang/gnat-gpl:graphite - Add support for the framework for loop optimizations based on a polyhedral intermediate representation
+dev-lang/gnat-gpl:libssp - Build SSP support into a dedicated library rather than use the code in the C library (DO NOT ENABLE THIS IF YOU DON'T KNOW WHAT IT DOES)
+dev-lang/gnat-gpl:nopie - Disable PIE support (NOT FOR GENERAL USE)
+dev-lang/gnat-gpl:nossp - Disable SSP support (NOT FOR GENERAL USE)
+dev-lang/gnat-gpl:objc - Build support for the Objective C code language
+dev-lang/gnat-gpl:objc++ - Build support for the Objective C++ language
+dev-lang/gnat-gpl:objc-gc - Build support for the Objective C code language Garbage Collector
+dev-lang/gnat-gpl:regression-test - Run the testsuite and install the results (requires FEATURES=test)
+dev-lang/gnat-gpl:sanitize - Build support for various sanitizer functions (ASAN/TSAN/etc...)
+dev-lang/gnat-gpl:vtv - Build support for virtual table verification (a C++ hardening feature)
 dev-lang/go:gccgo - Enable bootstrapping using gccgo
 dev-lang/icon:iplsrc - install the icon programming library source
 dev-lang/lazarus:minimal - Don't build extra packages from the bigide component
@@ -1914,6 +1928,7 @@ dev-libs/efl:psd - Enable PSD image loader
 dev-libs/efl:scim - Enable Smart Common Input Method
 dev-libs/efl:tga - Enable Tga image loader
 dev-libs/efl:tslib - Enable x11-libs/tslib for touchscreen events
+dev-libs/efl:unwind - Enable debug support via sys-libs/libunwind
 dev-libs/efl:valgrind - Enable usage of dev-util/valgrind in debug
 dev-libs/efl:webp - Enable WebP image loader
 dev-libs/efl:xim - Enable X Input Method
@@ -2473,6 +2488,7 @@ dev-python/ws4py:client - Install client modules
 dev-python/ws4py:server - Install server modules
 dev-python/wxpython:doc - Install HTML wxWidgets docs and wxpython API reference.
 dev-python/wxpython:examples - Install interactive demo module browser and sample applets.
+dev-python/zeep:async - Add async support
 dev-python/zsi:twisted - add support for python-twisted (needs dev-python/twisted-core and dev-python/twisted-web)
 dev-qt/assistant:exceptions - Add support for exceptions - like catching them inside the event loop (recommended by upstream)
 dev-qt/designer:declarative - Build the qdeclarativeview plugin
@@ -8498,7 +8514,9 @@ x11-wm/enlightenment:enlightenment_modules_tasks - Gadget to allow you to switch
 x11-wm/enlightenment:enlightenment_modules_teamwork - Enable teamwork module
 x11-wm/enlightenment:enlightenment_modules_temperature - Temperature monitor
 x11-wm/enlightenment:enlightenment_modules_tiling - Positions/resizes your windows tilingly
+x11-wm/enlightenment:enlightenment_modules_time - Time related gadgets
 x11-wm/enlightenment:enlightenment_modules_winlist - A module to show the list of client applications presently running
+x11-wm/enlightenment:enlightenment_modules_wireless - WiFi monitoring
 x11-wm/enlightenment:enlightenment_modules_wizard - First Run Wizard
 x11-wm/enlightenment:enlightenment_modules_wl-desktop-shell - Enlightenment Wayland Desktop Shell
 x11-wm/enlightenment:enlightenment_modules_wl-drm - Wayland DRM (Direct Rendering Manager) compositing module
