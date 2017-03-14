@@ -9,4 +9,4 @@ RDEPEND=>=sys-devel/clang-4 >=sys-devel/llvm-4
 SLOT=0
 SRC_URI=https://github.com/llvm-mirror/libclc/archive/2ec7d80d5e1c96fb85c694cc6ac0a78faf01a614.tar.gz -> libclc-0.2.0_pre20170118.tar.gz
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	python-any-r1	be89e882151ba4b847089b860d79729c	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	vcs-snapshot	2b65ecb2d0f91e4322c2ac8d673993bd
-_md5_=a87b07009fa58978596c6de5b047ff16
+_md5_=dc08fb375b8fb01a933389f60d226809
