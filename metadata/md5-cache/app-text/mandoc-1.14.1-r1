@@ -10,4 +10,4 @@ RDEPEND=!static? ( sys-libs/zlib sqlite? ( dev-db/sqlite:3 ) )
 SLOT=0
 SRC_URI=http://mdocml.bsd.lv/snapshots/mdocml-1.14.1.tar.gz
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=bfc9e7c3a5f172454e03ecabeabc30bc
+_md5_=3267dc06ab8ac3953255675055c454f7
