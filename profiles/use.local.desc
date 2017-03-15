@@ -7370,6 +7370,7 @@ sys-apps/linux-misc-apps:usbip - Include USB/IP binaries to replace net-misc/usb
 sys-apps/man-db:manpager - Enable manpager wrapper for colorizing output
 sys-apps/memtest86:serial - Compile with serial console support
 sys-apps/memtest86+:floppy - Install a script to create floppy disks containing memtest86+ binaries.
+sys-apps/memtest86+:iso - Compile an ISO image
 sys-apps/memtest86+:serial - Compile with serial console support
 sys-apps/moreutils:perl - Install scripts written in Perl
 sys-apps/net-tools:old-output - use old ifconfig output style (useful for when new output breaks scripts)
