@@ -2077,7 +2077,6 @@ dev-libs/openct:pcsc-lite - Build a driver library for sys-apps/pcsc-lite, provi
 dev-libs/openct:udev - Install rules for sys-fs/udev to auto-start openct.
 dev-libs/openobex:irda - Enable IrDA support
 dev-libs/opensc:ctapi - Use CT-API for accessing Smartcard hardware.
-dev-libs/opensc:libtool - Use sys-devel/libtool for dynamically loading libraries rather than the host libdl/dlopen helpers.
 dev-libs/opensc:openct - Use dev-libs/openct (and CT-API) for accessing Smartcard hardware.
 dev-libs/opensc:pcsc-lite - Use sys-apps/pcsc-lite (and PC/SC API) for accessing Smartcard hardware.
 dev-libs/opensc:secure-messaging - Enable secure messaging.
@@ -8458,6 +8457,7 @@ x11-themes/zuki-themes:gnome-shell - Install theme for gnome-base/gnome-shell
 x11-themes/zuki-themes:mate - Install Metacity theme for mate-base/mate
 x11-themes/zuki-themes:xfce - Install theme for xfce-base/xfwm4
 x11-themes/zukitwo:gnome-shell - Install theme for gnome-base/gnome-shell
+x11-wm/awesome:luajit - Use dev-lang/luajit instead of dev-lang/lua
 x11-wm/compiz:fuse - Enables support for the filesystem in userspace plugin through sys-fs/fuse.
 x11-wm/compiz:gconf - Enable the GConf-based configuration backend; it is not required to work with GNOME, and might actually be faster if it's not used.
 x11-wm/compiz-fusion:emerald - Install the x11-wm/emerald package.
