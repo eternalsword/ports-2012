@@ -1,4 +1,3 @@
-# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -9,15 +8,16 @@ VALA_USE_DEPEND="vapigen"
 # Valac is needed when building from git for the engine
 UPSTREAM_VER=
 
-inherit autotools bash-completion-r1 eutils gnome2-utils multilib python-single-r1 readme.gentoo-r1 vala virtualx
+inherit autotools bash-completion-r1 eutils flag-o-matic gnome2-utils multilib python-single-r1 readme.gentoo-r1 vala virtualx
 
 DESCRIPTION="Intelligent Input Bus for Linux / Unix OS"
 HOMEPAGE="https://github.com/ibus/ibus/wiki"
-
+EMOJIONE_TAG="ba845a7e24aac26cf3cf22abc19bea215d94fbf3"
+CLDR_EMOJIONE_TAG="855f96651af7be7a39095598e18b0c2bac7b6aae"
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
-IUSE="deprecated gconf gtk +gtk3 +introspection nls +python test vala wayland +X"
+KEYWORDS="~*"
+IUSE="deprecated gconf gtk +gtk3 +introspection nls +python test +vala wayland +X"
 REQUIRED_USE="
 	|| ( gtk gtk3 X )
 	deprecated? ( python )
@@ -30,7 +30,8 @@ REQUIRED_USE="
 	UPSTRAM_PATCHSET_URI="http://dev.gentoo.org/~dlan/distfiles/${P}-upstream-patches-${UPSTREAM_VER}.tar.xz"
 
 SRC_URI="https://github.com/ibus/ibus/releases/download/${PV}/${P}.tar.gz
-	${UPSTRAM_PATCHSET_URI}"
+	${UPSTRAM_PATCHSET_URI} https://github.com/Ranks/emojione/archive/${EMOJIONE_TAG}.tar.gz -> emojione-${EMOJIONE_TAG}.tar.gz
+	https://github.com/fujiwarat/cldr-emoji-annotation/archive/${CLDR_EMOJIONE_TAG}.tar.gz -> cldr-emoji-annotation-${CLDR_EMOJIONE_TAG}.tar.gz"
 
 COMMON_DEPEND="
 	>=dev-libs/glib-2.26:2
@@ -65,6 +66,8 @@ RDEPEND="${COMMON_DEPEND}
 	)"
 DEPEND="${COMMON_DEPEND}
 	>=dev-lang/perl-5.8.1
+	dev-libs/json-glib
+	dev-util/gtk-doc
 	dev-util/gtk-doc-am
 	dev-util/intltool
 	virtual/pkgconfig
@@ -107,6 +110,7 @@ src_prepare() {
 		EPATCH_OPTS="-p1" \
 			epatch "${WORKDIR}"/patches-upstream
 	fi
+	epatch "${FILESDIR}"/emoji-lang.patch
 
 	# We run "dconf update" in pkg_postinst/postrm to avoid sandbox violations
 	sed -e 's/dconf update/:/' \
@@ -117,6 +121,7 @@ src_prepare() {
 }
 
 src_configure() {
+	filter-ldflags --as-needed
 	local python_conf
 	if use python; then
 		python_conf="PYTHON=${PYTHON}
@@ -127,7 +132,9 @@ src_configure() {
 	fi
 	econf \
 		--enable-dconf \
-		--disable-emoji-dict \
+		--enable-emoji-dict \
+		--with-emoji-json-file=${WORKDIR}/emojione-${EMOJIONE_TAG}/emoji.json \
+		--with-emoji-annotation-dir=${WORKDIR}/cldr-emoji-annotation-${CLDR_EMOJIONE_TAG}/annotations \
 		$(use_enable introspection) \
 		$(use_enable gconf) \
 		$(use_enable gtk gtk2) \
