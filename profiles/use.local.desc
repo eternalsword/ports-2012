@@ -4630,6 +4630,12 @@ media-sound/squeezelite:aac - Supports streaming AAC from the server, utilising 
 media-sound/squeezelite:flac - Supports streaming FLAC from the server, utilising media-libs/flac
 media-sound/squeezelite:mp3 - Supports streaming MP3 from the server, utilising media-libs/libmad
 media-sound/squeezelite:vorbis - Supports streaming Ogg/Vorbis from the server, utilising media-libs/libvorbis
+media-sound/supercollider:emacs - Enable the SCEL user interface
+media-sound/supercollider:gedit - Enable the SCED user interface
+media-sound/supercollider:gpl3 - Build GPL-3 licensed code (recommended)
+media-sound/supercollider:server - Build with internal server
+media-sound/supercollider:vim - Enable the SCVIM user interface
+media-sound/supercollider:wiimote - Build sclang with Wii Remote support
 media-sound/teamspeak-server-bin:tsdns - Make use of TeamSpeak DNS.
 media-sound/tomahawk:hatchet - Enable support for the synchronisation through Hatchet
 media-sound/tomahawk:telepathy - Enable support for the real-time communication framework telepathy

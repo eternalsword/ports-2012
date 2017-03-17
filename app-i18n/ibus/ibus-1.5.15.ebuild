@@ -121,7 +121,9 @@ src_prepare() {
 }
 
 src_configure() {
-	filter-ldflags --as-needed
+	# disable as-needed, as it breaks vala/gtk3 linking. figure that later.
+	append-ldflags $(no-as-needed)
+	
 	local python_conf
 	if use python; then
 		python_conf="PYTHON=${PYTHON}
