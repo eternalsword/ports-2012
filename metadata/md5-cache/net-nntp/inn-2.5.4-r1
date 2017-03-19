@@ -10,5 +10,5 @@ RDEPEND=virtual/mta dev-perl/MIME-tools sys-libs/pam sys-libs/zlib kerberos? ( v
 REQUIRED_USE=python? ( python_targets_python2_7 )
 SLOT=0
 SRC_URI=ftp://ftp.isc.org/isc/inn/inn-2.5.4.tar.gz
-_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	708f85bc1bf00876604e223fb56e062a	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	ssl-cert	68c8dc51fe1bb63d933af89d431e9132	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	708f85bc1bf00876604e223fb56e062a	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	a166d0f5815d7f1e67bb60a196f1bf7e	ssl-cert	68c8dc51fe1bb63d933af89d431e9132	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=51cb952a39eaedd47d9855ec4870ab4c

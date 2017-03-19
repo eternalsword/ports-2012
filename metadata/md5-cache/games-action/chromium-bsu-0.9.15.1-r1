@@ -9,5 +9,5 @@ LICENSE=Clarified-Artistic
 RDEPEND=media-fonts/dejavu media-libs/quesoglc media-libs/glpng virtual/opengl virtual/glu x11-libs/libXmu mixer? ( media-libs/sdl-mixer ) !mixer? ( media-libs/freealut media-libs/openal ) nls? ( virtual/libintl ) sdl? ( media-libs/libsdl[X] media-libs/sdl-image[png] ) !sdl? ( media-libs/freeglut )
 SLOT=0
 SRC_URI=mirror://sourceforge/chromium-bsu/chromium-bsu-0.9.15.1.tar.gz
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	gnome2-utils	fe8e9099c6fc74a40946623c593c7236	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	b9389dfad0ee8f8e0b2a41b79fcf7120
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	gnome2-utils	6d2af8c7ab84825693c3f065a37b923c	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	xdg-utils	b9389dfad0ee8f8e0b2a41b79fcf7120
 _md5_=617ce810d885033b12ce10453c245825

@@ -9,5 +9,5 @@ RDEPEND=!build? ( >=sys-libs/ncurses-5.2 sys-devel/make dev-lang/perl sys-devel/
 RESTRICT=binchecks strip
 SLOT=3.12.9999
 SRC_URI=https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.12.tar.xz
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	git-r3	6efc2d7de07a77bf72c7207b48d0e123	kernel-2	238dd55384300d94154aad9048ac2028	multilib	165fc17c38d1b11dac2008280dab6e80	python-any-r1	be89e882151ba4b847089b860d79729c	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	subversion	352e2f8415dd2e3c297d2d2e32670deb	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	git-r3	6efc2d7de07a77bf72c7207b48d0e123	kernel-2	238dd55384300d94154aad9048ac2028	multilib	165fc17c38d1b11dac2008280dab6e80	python-any-r1	be89e882151ba4b847089b860d79729c	python-utils-r1	a166d0f5815d7f1e67bb60a196f1bf7e	subversion	352e2f8415dd2e3c297d2d2e32670deb	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=c6b82ae86364741b69d813cfd03fec3b

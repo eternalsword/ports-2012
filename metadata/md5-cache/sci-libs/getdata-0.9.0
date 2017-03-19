@@ -10,5 +10,5 @@ RDEPEND=bzip2? ( app-arch/bzip2 ) lzma? ( app-arch/xz-utils ) python? ( python_t
 REQUIRED_USE=python? ( python_targets_python2_7 )
 SLOT=0
 SRC_URI=mirror://sourceforge/project/getdata/getdata/0.9.0/getdata-0.9.0.tar.xz
-_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	autotools-utils	419811142edf3516b0d0cf1a254d93cb	eutils	708f85bc1bf00876604e223fb56e062a	fortran-2	9e7f20c99213f0627ff7f873d4aaa25d	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	autotools-utils	419811142edf3516b0d0cf1a254d93cb	eutils	708f85bc1bf00876604e223fb56e062a	fortran-2	9e7f20c99213f0627ff7f873d4aaa25d	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	a166d0f5815d7f1e67bb60a196f1bf7e	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=17008bd8282a3e00046a7c4aa77ac5a8

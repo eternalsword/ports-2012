@@ -10,5 +10,5 @@ RDEPEND=|| ( app-editors/vim[python,python_targets_python2_7(-)?,-python_single_
 REQUIRED_USE=python_targets_python2_7
 SLOT=0
 SRC_URI=mirror://sourceforge/atp-vim/releases/AutomaticTexPlugin_12.5.tar.gz
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	vim-doc	af2c81a1feeb0a99e91bee3e20769edb	vim-plugin	6f0171b0a2f2fce005c13b4c0685a0d8
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	a166d0f5815d7f1e67bb60a196f1bf7e	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	vim-doc	af2c81a1feeb0a99e91bee3e20769edb	vim-plugin	6f0171b0a2f2fce005c13b4c0685a0d8
 _md5_=c2590af0b7cb34b49ddf72fa41be9209

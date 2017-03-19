@@ -11,5 +11,5 @@ RDEPEND=sys-cluster/cluster-glue dev-libs/glib:2 virtual/ssh net-libs/gnutls snm
 REQUIRED_USE=python_targets_python2_7
 SLOT=0
 SRC_URI=http://hg.linux-ha.org/heartbeat-STABLE_3_0/archive/STABLE-3.0.5.tar.bz2
-_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	a166d0f5815d7f1e67bb60a196f1bf7e	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=7d2d7f884d712427fb397e849638fcc5

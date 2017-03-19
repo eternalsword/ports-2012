@@ -10,5 +10,5 @@ RDEPEND=>=dev-lang/ocaml-4:= dev-ml/io-page:= dev-ml/lwt:= >=dev-ml/ocaml-cstruc
 RESTRICT=test
 SLOT=0/0.7.0
 SRC_URI=https://github.com/mirage/mirage-profile/archive/v0.7.0.tar.gz -> mirage-profile-0.7.0.tar.gz
-_eclasses_=base	3fe4f8980633fd7bc69e9887209ba2fe	eutils	708f85bc1bf00876604e223fb56e062a	findlib	45d6030075064a68da8d7143726a1150	multilib	165fc17c38d1b11dac2008280dab6e80	oasis	66245953a092e9be817112a37f1c1301	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=base	3fe4f8980633fd7bc69e9887209ba2fe	eutils	708f85bc1bf00876604e223fb56e062a	findlib	45d6030075064a68da8d7143726a1150	multilib	165fc17c38d1b11dac2008280dab6e80	oasis	9256ed89af74c3365ec888c00bfdfe43	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=9e556f6325fe6751c91df87fb2422b10

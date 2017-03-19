@@ -1,0 +1,14 @@
+DEFINED_PHASES=configure install prepare setup unpack
+DEPEND=!sci-physics/cernlib-montecarlo[herwig] !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.15:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4 virtual/fortran
+DESCRIPTION=High Energy Physics Event Generator
+EAPI=6
+HOMEPAGE=http://www.hep.phy.cam.ac.uk/theory/webber/Herwig/
+IUSE=doc static-libs
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=all-rights-reserved
+RDEPEND=!sci-physics/cernlib-montecarlo[herwig] virtual/fortran
+RESTRICT=mirror bindist
+SLOT=0
+SRC_URI=http://www.hep.phy.cam.ac.uk/theory/webber/Herwig//herwig6521.f http://www.hep.phy.cam.ac.uk/theory/webber/Herwig//herwig6521.inc http://www.hep.phy.cam.ac.uk/theory/webber/Herwig//HERWIG65.INC doc? ( http://www.hep.phy.cam.ac.uk/theory/webber/Herwig//hw65_manual.pdf )
+_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	eutils	708f85bc1bf00876604e223fb56e062a	fortran-2	9e7f20c99213f0627ff7f873d4aaa25d	libtool	84763589a795fb127b537cac01e5359f	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=984d9036da5a53233cf91b9cbb470b9b

@@ -8,5 +8,5 @@ LICENSE=|| ( MIT BSD )
 RDEPEND=>=sys-devel/clang-3.7 >=sys-devel/llvm-3.7
 SLOT=0
 SRC_URI=mirror://gentoo/libclc-0.2.0_pre20160209.tar.xz
-_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	python-any-r1	be89e882151ba4b847089b860d79729c	python-utils-r1	4f8aa7196c2c9a5630e66c2113ae46c3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	python-any-r1	be89e882151ba4b847089b860d79729c	python-utils-r1	a166d0f5815d7f1e67bb60a196f1bf7e	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=19c0189da0edbf799dd40baead74d524

@@ -9,5 +9,5 @@ LICENSE=ISC
 RDEPEND=dev-ml/ocaml-re:= dev-ml/stringext:= dev-ml/ocaml-uri:= dev-ml/fieldslib:= dev-ml/sexplib:= dev-ml/ppx_fields_conv:= dev-ml/ppx_sexp_conv:= dev-ml/ocaml-base64:= lwt? ( dev-ml/lwt:= dev-ml/logs:=[fmt,lwt] dev-ml/cmdliner:= dev-ml/ocaml-conduit:= dev-ml/ocaml-magic-mime:= ) async? ( dev-ml/ocaml-conduit:= dev-ml/logs:=[fmt] dev-ml/ocaml-magic-mime:= dev-ml/fmt:= ) javascript? ( dev-ml/js_of_ocaml:=[ppx] ) >=dev-lang/ocaml-3.12:=[ocamlopt?]
 SLOT=0/0.22.0
 SRC_URI=https://github.com/mirage/ocaml-cohttp/archive/v0.22.0.tar.gz -> ocaml-cohttp-0.22.0.tar.gz
-_eclasses_=base	3fe4f8980633fd7bc69e9887209ba2fe	eutils	708f85bc1bf00876604e223fb56e062a	findlib	45d6030075064a68da8d7143726a1150	multilib	165fc17c38d1b11dac2008280dab6e80	oasis	66245953a092e9be817112a37f1c1301	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_eclasses_=base	3fe4f8980633fd7bc69e9887209ba2fe	eutils	708f85bc1bf00876604e223fb56e062a	findlib	45d6030075064a68da8d7143726a1150	multilib	165fc17c38d1b11dac2008280dab6e80	oasis	9256ed89af74c3365ec888c00bfdfe43	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
 _md5_=e2e90dd6c1cc7b082502bf8dae1676b9
