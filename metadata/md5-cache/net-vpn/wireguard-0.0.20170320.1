@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install postinst postrm preinst setup
+DEPEND=tools? ( net-libs/libmnl ) kernel_linux? ( virtual/modutils ) sys-apps/sed kernel_linux? ( virtual/linux-sources )
+DESCRIPTION=Simple yet fast and modern VPN that utilizes state-of-the-art cryptography.
+EAPI=6
+HOMEPAGE=https://www.wireguard.io/
+IUSE=debug +module +tools module-src kernel_linux
+KEYWORDS=~amd64 ~x86 ~mips ~arm ~arm64
+LICENSE=GPL-2
+RDEPEND=tools? ( net-libs/libmnl ) kernel_linux? ( virtual/modutils )
+SLOT=0
+SRC_URI=https://git.zx2c4.com/WireGuard/snapshot/WireGuard-0.0.20170320.1.tar.xz
+_eclasses_=bash-completion-r1	acf715fa09463f043fbfdc1640f3fb85	eutils	708f85bc1bf00876604e223fb56e062a	linux-info	ca370deef9d44125d829f2eb6ebc83e0	linux-mod	e77cdec133261f6bfa67560748277269	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=30037025cf3848867507d18faeefefcc
