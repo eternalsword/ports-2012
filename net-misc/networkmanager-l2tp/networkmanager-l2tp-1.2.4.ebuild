@@ -23,7 +23,7 @@ RDEPEND="
 	>=dev-libs/dbus-glib-0.74
 	=net-dialup/ppp-2.4.7*
 	net-dialup/xl2tpd
-	net-misc/libreswan
+	net-vpn/libreswan
 	gnome? (
 		x11-libs/gtk+:3
 		gnome-base/gconf:2

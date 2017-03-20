@@ -1,4 +1,4 @@
-DEFINED_PHASES=install postinst postrm preinst prepare prerm test
+DEFINED_PHASES=configure install postinst postrm preinst prepare prerm test
 DESCRIPTION=A stand alone memory test for x86 computers
 EAPI=5
 HOMEPAGE=http://www.memtest86.com/
@@ -6,6 +6,6 @@ IUSE=serial
 KEYWORDS=-* ~amd64 ~x86
 LICENSE=GPL-2
 SLOT=0
-SRC_URI=http://www.memtest86.com/downloads/memtest86-4.3.6-src.tar.gz
+SRC_URI=http://www.memtest86.com/downloads/memtest86-4.3.7-src.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	mount-boot	ea24b511b0ad59831d0151aa634dfad2	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=4459caaf76c1998545174e4fbd11adac
+_md5_=9408ca3b777243eff395f8cae99cf885
