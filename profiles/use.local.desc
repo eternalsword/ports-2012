@@ -353,6 +353,7 @@ app-doc/tldp-howto:html - Install multi-chapter HTML docs
 app-doc/tldp-howto:htmlsingle - Install all-on-one-page HTML docs
 app-doc/tldp-howto:pdf - Install pdf docs
 app-doc/tldp-howto:text - Install plain-text docs
+app-editors/atom-bin:system-node - Use node.js system implementation instead of the built-in one.
 app-editors/bluefish:gtk2 - Enable GTK2 instead of GTK3 even if GTK3 is available
 app-editors/bluefish:gtk3 - Enable GTK3 interface (default)
 app-editors/bluefish:gucharmap - Enable gucharmap dictionary plugin
@@ -3389,7 +3390,6 @@ kde-apps/okular:mobi - Add mobipocket support
 kde-apps/okular:mobile - Enable Plasma mobile support
 kde-apps/okular:speech - Enable text-to-speech support
 kde-apps/pimcommon:designer - Build plugins for dev-qt/designer
-kde-apps/pykde4:akonadi - Compile bindings for Akonadi
 kde-apps/spectacle:kipi - Enable support for the KDE Image Plugin Interface
 kde-apps/spectacle:share - Enable support for a share menu using dev-libs/purpose
 kde-apps/step:qalculate - Enable the libqalculate library for unit conversion
@@ -4156,6 +4156,9 @@ media-libs/sdl2-mixer:wav - support WAVE files
 media-libs/sge:image - enable sdl-image support
 media-libs/silgraphite:pango - Enables the pango-graphite pango module.
 media-libs/spandsp:fixed-point - Enable fixed point support
+media-libs/speex:armv5te - Enables optimizations for armv5te processors.
+media-libs/speex:utils - Enables speex commandline utilities (speexenc, speexdec).
+media-libs/speex:vbr - Enable VBR support.
 media-libs/svgalib:kernel-helper - Build the helper kernel module
 media-libs/taglib:asf - Provide support for Microsoft's 'advanced systems format' media container.
 media-libs/taglib:boost - Use dev-libs/boost instead of GCC built-ins
