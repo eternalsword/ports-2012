@@ -9,4 +9,4 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=amd64? ( https://download.sublimetext.com/sublime_text_3_build_3126_x64.tar.bz2 ) x86? ( https://download.sublimetext.com/sublime_text_3_build_3126_x32.tar.bz2 )
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=d62e72de2b223372b20f780747c5402e
+_md5_=ac2acb2f05e9ce24de82ecff04760e3a
