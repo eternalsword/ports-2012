@@ -1,10 +1,11 @@
-DEFINED_PHASES=install postinst unpack
+DEFINED_PHASES=install unpack
 DEPEND=>=dev-vcs/git-1.8.2.1
 DESCRIPTION=Bash Screenshot Information Tool
 EAPI=6
 HOMEPAGE=https://github.com/KittyKatt/screenFetch
-IUSE=X
+IUSE=curl X
 LICENSE=GPL-3
+RDEPEND=curl? ( net-misc/curl ) X? ( media-gfx/scrot x11-apps/xdpyinfo )
 SLOT=0
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	git-r3	6efc2d7de07a77bf72c7207b48d0e123	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=0c8f15f5881a073284fbf4e15b4cfd70
+_md5_=008740544dce6842def48b2186102d2e

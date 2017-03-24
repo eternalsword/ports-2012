@@ -1,5 +1,5 @@
 DEFINED_PHASES=config install postinst postrm preinst
-DESCRIPTION=A cross-compilation toolkit designed to make embedded Linux application development easier
+DESCRIPTION=A cross-compilation toolkit for embedded Linux application development
 EAPI=0
 HOMEPAGE=http://www.scratchbox.org/
 KEYWORDS=~amd64 ~x86
@@ -8,4 +8,4 @@ RESTRICT=strip
 SLOT=0
 SRC_URI=http://scratchbox.org/download/files/sbox-releases/hathor/tarball/scratchbox-core-1.0.20-i386.tar.gz http://scratchbox.org/download/files/sbox-releases/hathor/tarball/scratchbox-libs-1.0.20-i386.tar.gz
 _eclasses_=eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
-_md5_=291ab22502e34d235e864b6b53b9a838
+_md5_=25cb222b54d2c1a991b6005f6a2c54d9

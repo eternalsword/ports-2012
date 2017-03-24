@@ -10,4 +10,4 @@ REQUIRED_USE=python_targets_python2_7
 SLOT=0
 SRC_URI=mirror://sabayon/sys-apps/entropy-304.tar.bz2
 _eclasses_=bash-completion-r1	acf715fa09463f043fbfdc1640f3fb85	eutils	708f85bc1bf00876604e223fb56e062a	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	a166d0f5815d7f1e67bb60a196f1bf7e	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=3efcc6337ddd1ebba8d6477bc7124b8b
+_md5_=6c1ff6a3e1aafce595b6e7dd483e7c59
