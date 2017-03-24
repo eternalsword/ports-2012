@@ -64,6 +64,10 @@ src_prepare() {
 		sed -i -e /^INCLUDES/"s:$:$(mysql_config --include):" \
 			sql/Makefile.am || die
 	fi
+
+	# FL-3672: fix "undefined reference to 'mu_assoc_ref'"
+	epatch "${FILESDIR}/${P}"-libmu_auth.patch
+
 	eapply_user
 	eautoreconf
 }
