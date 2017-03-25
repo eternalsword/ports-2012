@@ -10,4 +10,4 @@ REQUIRED_USE=python_targets_python2_7
 SLOT=0
 SRC_URI=https://tintwizard.googlecode.com/files/tintwizard-0.3.4.tar.gz
 _eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	a166d0f5815d7f1e67bb60a196f1bf7e	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
-_md5_=c6d825b234caf3e7325d2ad7c7a290c7
+_md5_=5c40b9840a88dbd8a2466d226efd3a9c
