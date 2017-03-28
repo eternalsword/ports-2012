@@ -1,6 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -84,7 +82,7 @@ $(printf 'libreoffice_extensions_%s ' ${LO_EXTS})"
 LICENSE="|| ( LGPL-3 MPL-1.1 )"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="~amd64 ~arm ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="*"
 
 COMMON_DEPEND="${PYTHON_DEPS}
 	app-arch/unzip
@@ -133,7 +131,7 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	net-nds/openldap
 	sci-mathematics/lpsolve
 	virtual/jpeg:0
-	x11-libs/cairo[X,-xlib-xcb]
+	x11-libs/cairo[X,-xlib-xcb(-)]
 	x11-libs/libXinerama
 	x11-libs/libXrandr
 	x11-libs/libXrender
