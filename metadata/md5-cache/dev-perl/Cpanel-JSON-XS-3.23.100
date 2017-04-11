@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=virtual/perl-ExtUtils-MakeMaker >=virtual/perl-podlators-2.80.0 dev-lang/perl:=
+DESCRIPTION=cPanel fork of JSON::XS, fast and correct serializing
+EAPI=6
+HOMEPAGE=http://search.cpan.org/dist/Cpanel-JSON-XS/
+IUSE=test examples
+KEYWORDS=~amd64 ~arm ~x86
+LICENSE=|| ( Artistic GPL-1+ )
+RDEPEND=dev-lang/perl:=
+SLOT=0
+SRC_URI=mirror://cpan/authors/id/R/RU/RURBAN/Cpanel-JSON-XS-3.0231.tar.gz
+_eclasses_=multiprocessing	284a473719153462f3e974d86c8cb81c	perl-functions	aac50de73be0a80ebe780e0b20850130	perl-module	f6549146ea31a902e20b5f2e6f244358
+_md5_=332e0a002e821516cb6f125311ef7223

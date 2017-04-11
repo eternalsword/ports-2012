@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile configure install prepare test unpack
+DEPEND=>=dev-perl/TimeDate-1.16 >=dev-perl/Email-Abstract-2.13.1 dev-perl/Email-Date-Format virtual/perl-Time-Local virtual/perl-Time-Piece dev-lang/perl:=[-build(-)]
+DESCRIPTION=Find and Format Date Headers
+EAPI=5
+HOMEPAGE=http://search.cpan.org/dist/Email-Date/
+KEYWORDS=amd64 ppc ppc64 x86
+LICENSE=|| ( Artistic GPL-1+ )
+RDEPEND=>=dev-perl/TimeDate-1.16 >=dev-perl/Email-Abstract-2.13.1 dev-perl/Email-Date-Format virtual/perl-Time-Local virtual/perl-Time-Piece dev-lang/perl:=[-build(-)]
+SLOT=0
+SRC_URI=mirror://cpan/authors/id/R/RJ/RJBS/Email-Date-1.104.tar.gz
+_eclasses_=epatch	8233751dc5105a6ae8fcd86ce2bb0247	epunt-cxx	f8073339d152f56626493f43d8ba4691	estack	5ac2a138d0b33354b764d84f9e835db8	eutils	e7491451996e8b54c3caeb713285b0fb	ltprune	2770eed66a9b8ef944714cd0e968182e	multilib	165fc17c38d1b11dac2008280dab6e80	multiprocessing	284a473719153462f3e974d86c8cb81c	perl-functions	aac50de73be0a80ebe780e0b20850130	perl-module	f6549146ea31a902e20b5f2e6f244358	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	unpacker	45d07319df5f40ee6af58418b0f930be
+_md5_=708fe901dbe5520215d629e65bef3b2a
