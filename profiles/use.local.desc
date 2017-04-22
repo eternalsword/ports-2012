@@ -111,7 +111,6 @@ app-admin/puppet:shadow - Enable shadow support
 app-admin/puppet-agent:puppetdb - Adds puppetdb support
 app-admin/puppetserver:puppetdb - Adds support for connecting to puppetdb
 app-admin/pwgen:livecd - Install init script for root password scrambling on boot
-app-admin/rigo:passwordless-upgrade - Enable passwordless system upgrades if user is in the entropy group
 app-admin/rsyslog:dbi - Build the general database output module (requires dev-db/libdbi)
 app-admin/rsyslog:elasticsearch - Build the Elasticsearch output module (requires net-misc/curl)
 app-admin/rsyslog:gcrypt - Add support for encrypted log files using dev-libs/libgcrypt
@@ -1280,6 +1279,8 @@ dev-ada/gnatcoll:static - Build static library
 dev-ada/gprbuild:shared - Build shared library
 dev-ada/gprbuild:static - Build static library
 dev-ada/gprbuild:static-pic - Build static library with pic code
+dev-ada/gtkada:shared - Build gtkada as shared library
+dev-ada/gtkada:static - Build gtkada as static library
 dev-ada/xmlada:shared - Build shared library
 dev-ada/xmlada:static - Build static library
 dev-ada/xmlada:static-pic - Build static library with pic code
