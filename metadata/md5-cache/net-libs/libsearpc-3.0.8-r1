@@ -10,5 +10,5 @@ RDEPEND=python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) >=dev-lang/
 REQUIRED_USE=python_targets_python2_7
 SLOT=0
 SRC_URI=https://github.com/haiwen/libsearpc/archive/v3.0.8.tar.gz -> libsearpc-3.0.8.tar.gz
-_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	libtool	e32ea84bf82cf8987965b574672dba93	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	a166d0f5815d7f1e67bb60a196f1bf7e	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	vcs-snapshot	2b65ecb2d0f91e4322c2ac8d673993bd
+_eclasses_=autotools	07e71b3b5690738ef7e8bc097077e00c	libtool	e32ea84bf82cf8987965b574672dba93	multilib	165fc17c38d1b11dac2008280dab6e80	python-single-r1	c3e54dd0dc1e70c6252f2551a55bf053	python-utils-r1	b4b2ab22637f2be1315af83f2d89cfc6	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	vcs-snapshot	2b65ecb2d0f91e4322c2ac8d673993bd
 _md5_=4ff309c326ebf8de9b816fbb11c0ae4b
