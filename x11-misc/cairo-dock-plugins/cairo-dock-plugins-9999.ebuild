@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="5"
 PYTHON_DEPEND="2:2.5"
 DISTUTILS_SETUP_FILES=("Dbus/interfaces/bash|setup.py" "Dbus/interfaces/python|setup.py")
 EBZR_REPO_URI="lp:cairo-dock-plug-ins"
 
-inherit distutils cmake-utils bzr
+inherit distutils-r1 cmake-utils bzr
 
 DESCRIPTION="Official plugins for cairo-dock"
 HOMEPAGE="https://launchpad.net/cairo-dock-plug-ins/"
