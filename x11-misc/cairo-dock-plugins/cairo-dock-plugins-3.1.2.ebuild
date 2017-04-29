@@ -6,7 +6,7 @@ EAPI="3"
 PYTHON_DEPEND="2:2.5"
 DISTUTILS_SETUP_FILES=("Dbus/interfaces/bash|setup.py" "Dbus/interfaces/python|setup.py")
 
-inherit distutils cmake-utils versionator
+inherit distutils-r1 cmake-utils versionator
 
 MY_PN="${PN/plugins/plug-ins}"
 MY_PV=$(replace_version_separator 3 '-')
