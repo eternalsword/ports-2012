@@ -77,7 +77,6 @@ gnustep-base
 gnustep-libs
 java-virtuals
 kde-apps
-kde-base
 kde-frameworks
 kde-misc
 kde-plasma
@@ -114,6 +113,7 @@ net-p2p
 net-print
 net-proxy
 net-voip
+net-vpn
 net-wireless
 pantheon-base
 perl-core

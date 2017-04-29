@@ -1,11 +1,10 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
 CMAKE_MAKEFILE_GENERATOR="ninja"
-PYTHON_COMPAT=( python{2_7,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_4} )
 
 if [ ${PV} == 9999 ] ; then
 	inherit git-r3

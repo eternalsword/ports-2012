@@ -1,4 +1,6 @@
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI=4
 
@@ -10,7 +12,7 @@ SRC_URI="https://dev.gentoo.org/~ulm/eselect/${P}.tar.xz"
 
 LICENSE="GPL-2+ || ( GPL-2+ CC-BY-SA-3.0 )"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 IUSE="doc emacs vim-syntax"
 
 RDEPEND="sys-apps/sed
@@ -20,7 +22,6 @@ RDEPEND="sys-apps/sed
 		app-misc/realpath
 	)"
 DEPEND="${RDEPEND}
-	app-arch/xz-utils
 	doc? ( dev-python/docutils )"
 RDEPEND="${RDEPEND}
 	sys-apps/file
@@ -46,10 +47,6 @@ src_install() {
 		fowners root:portage /var/lib/gentoo/news
 		fperms g+w /var/lib/gentoo/news
 	fi
-
-	# tweaks for funtoo-1.0 profile
-	insinto /usr/share/eselect/modules
-	doins $FILESDIR/${PV}/profile.eselect || die
 }
 
 pkg_postinst() {

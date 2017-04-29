@@ -1,10 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 
-PYTHON_COMPAT=( python2_7 python3_3 python3_4 )
+PYTHON_COMPAT=( python2_7 python3_4 )
 PYTHON_REQ_USE="threads"
 
 inherit apache-module eutils python-single-r1
@@ -17,9 +16,10 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="amd64 ppc x86"
 IUSE=""
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND=""
-RDEPEND=""
+RDEPEND="${PYTHON_DEPS}"
 
 APACHE2_MOD_CONF="70_${PN}"
 APACHE2_MOD_DEFINE="WSGI"

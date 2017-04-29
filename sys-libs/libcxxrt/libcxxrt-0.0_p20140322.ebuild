@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -28,7 +27,7 @@ else
 fi
 IUSE="libunwind static-libs"
 
-RDEPEND="libunwind? ( >=sys-libs/libunwind-1.0.1-r1[static-libs?] )"
+RDEPEND="libunwind? ( >=sys-libs/libunwind-1.0.1-r1[static-libs?,${MULTILIB_USEDEP}] )"
 DEPEND="${RDEPEND}
 	${DEPEND}"
 

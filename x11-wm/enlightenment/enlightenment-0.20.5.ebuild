@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 
@@ -20,7 +19,7 @@ DESCRIPTION="Enlightenment DR17 window manager"
 
 LICENSE="BSD-2"
 SLOT="0.17/${PV%%_*}"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~x86-interix ~x86-solaris ~x64-solaris"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~x64-solaris ~x86-solaris"
 
 __CONF_MODS=(
 	applications bindings dialogs display
@@ -44,7 +43,7 @@ IUSE_E_MODULES=(
 	${__NORM_MODS[@]/#/enlightenment_modules_}
 )
 
-IUSE="pam spell static-libs systemd +udev ukit wayland ${IUSE_E_MODULES[@]/#/+}"
+IUSE="pam spell static-libs systemd ukit wayland ${IUSE_E_MODULES[@]/#/+}"
 
 RDEPEND="
 	pam? ( sys-libs/pam )
@@ -101,7 +100,6 @@ src_configure() {
 		$(use_enable pam)
 		$(use_enable systemd)
 		--enable-device-udev
-		$(use_enable udev mount-eeze)
 		$(use_enable ukit mount-udisks)
 		$(use_enable wayland)
 	)

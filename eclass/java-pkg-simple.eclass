@@ -1,6 +1,5 @@
 # Copyright 2004-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # @ECLASS: java-pkg-simple.eclass
 # @MAINTAINER:
@@ -87,6 +86,9 @@ S="${WORKDIR}"
 # classes to ${JAVA_JAR_FILENAME}.
 java-pkg-simple_src_compile() {
 	local sources=sources.lst classes=target/classes apidoc=target/api
+
+	# auto generate classpath
+	java-pkg_gen-cp JAVA_GENTOO_CLASSPATH
 
 	# gather sources
 	find ${JAVA_SRC_DIR:-*} -name \*.java > ${sources}

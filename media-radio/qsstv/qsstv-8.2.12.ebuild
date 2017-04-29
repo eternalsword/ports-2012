@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -20,9 +19,9 @@ IUSE=""
 DEPEND="dev-qt/qtcore:4[qt3support]
 	dev-qt/qtgui:4
 	media-libs/hamlib
-	media-libs/jasper
+	media-libs/jasper:=
 	media-libs/alsa-lib
-	sci-libs/fftw:3.0"
+	sci-libs/fftw:3.0="
 RDEPEND="${DEPEND}
 	x11-misc/xdg-utils"
 

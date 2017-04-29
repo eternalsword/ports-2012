@@ -23,10 +23,38 @@ case ${EAPI} in
 	*) die "EAPI=${EAPI:-0} is not supported" ;;
 esac
 
+# determine the build type
+if [[ ${PV} = *9999* ]]; then
+	KDE_BUILD_TYPE="live"
+else
+	KDE_BUILD_TYPE="release"
+fi
+export KDE_BUILD_TYPE
+
+case ${CATEGORY} in
+	kde-frameworks)
+		[[ ${KDE_BUILD_TYPE} = live ]] && : ${FRAMEWORKS_MINIMAL:=9999}
+		;;
+	kde-plasma)
+		if ! [[ $(get_version_component_range 2) -le 8 && $(get_version_component_range 3) -lt 50 ]]; then
+			: ${QT_MINIMAL:=5.7.1}
+		fi
+		if [[ ${KDE_BUILD_TYPE} = live ]]; then
+			: ${FRAMEWORKS_MINIMAL:=9999}
+			: ${QT_MINIMAL:=5.7.1}
+		fi
+		;;
+esac
+
+# @ECLASS-VARIABLE: QT_MINIMAL
+# @DESCRIPTION:
+# Minimal Qt version to require for the package.
+: ${QT_MINIMAL:=5.6.1}
+
 # @ECLASS-VARIABLE: FRAMEWORKS_MINIMAL
 # @DESCRIPTION:
 # Minimal Frameworks version to require for the package.
-: ${FRAMEWORKS_MINIMAL:=5.23.0}
+: ${FRAMEWORKS_MINIMAL:=5.29.0}
 
 # @ECLASS-VARIABLE: PLASMA_MINIMAL
 # @DESCRIPTION:
@@ -50,7 +78,7 @@ esac
 if [[ ${KMNAME-${PN}} = kdevelop ]]; then
 	KDEBASE=kdevelop
 elif [[ ${KMNAME} = kde-l10n || ${PN} = kde-l10n ]]; then
-	[[ ${PV} != 15.12.3 ]] && KDEBASE=kdel10n
+	KDEBASE=kdel10n
 fi
 
 debug-print "${ECLASS}: ${KDEBASE} ebuild recognized"
@@ -64,14 +92,6 @@ case ${KDE_SCM} in
 	git) ;;
 	*) die "KDE_SCM: ${KDE_SCM} is not supported" ;;
 esac
-
-# determine the build type
-if [[ ${PV} = *9999* ]]; then
-	KDE_BUILD_TYPE="live"
-else
-	KDE_BUILD_TYPE="release"
-fi
-export KDE_BUILD_TYPE
 
 # @FUNCTION: _check_gcc_version
 # @INTERNAL
@@ -254,14 +274,19 @@ add_qt_dep() {
 	fi
 
 	local version
+	local slot=${4}
 
 	if [[ -n ${3} ]]; then
 		version=${3}
-	elif [[ -z "${version}" ]] ; then
+	elif [[ -z "${version}" ]]; then
 		version=${QT_MINIMAL}
 	fi
 
-	_add_category_dep dev-qt "${1}" "${2}" "${version}" "${4}"
+	if [[ -z ${slot} ]]; then
+		slot="5"
+	fi
+
+	_add_category_dep dev-qt "${1}" "${2}" "${version}" "${slot}"
 }
 
 # @FUNCTION: get_kde_version
@@ -307,6 +332,10 @@ kde_l10n2lingua() {
 punt_bogus_dep() {
 	local prefix=${1}
 	local dep=${2}
+
+	if [[ ! -e "CMakeLists.txt" ]]; then
+		return
+	fi
 
 	pcregrep -Mni "(?s)find_package\s*\(\s*${prefix}[^)]*?${dep}.*?\)" CMakeLists.txt > "${T}/bogus${dep}"
 

@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -24,16 +23,16 @@ SLOT="0/${PV}"
 IUSE="doc +ocamlopt +ppx"
 
 RDEPEND=">=dev-lang/ocaml-4.03:=[ocamlopt?]
-	>=dev-ml/js_of_ocaml-2.5-r1:=
-	>=www-servers/ocsigenserver-2.5:=
+	>=dev-ml/js_of_ocaml-2.8.2:=
+	>=www-servers/ocsigenserver-2.8:=
 	>=dev-ml/tyxml-4:=
 	>=dev-ml/deriving-0.6:=
-	>=dev-ml/reactiveData-0.2:=
+	>=dev-ml/reactiveData-0.2.1:=
 	dev-ml/ocaml-ipaddr:=
 	dev-ml/react:=
 	dev-ml/ocaml-ssl:=
 	>=dev-ml/lwt-2.5.0:=
-	dev-ml/calendar:=
+	dev-ml/lwt_react:=
 	dev-ml/camlp4:=
 	ppx? ( >=dev-ml/ppx_tools-0.99.3:= )"
 DEPEND="${RDEPEND}

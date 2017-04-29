@@ -1,6 +1,7 @@
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI=5
 
 inherit eutils
 
@@ -12,8 +13,8 @@ SRC_URI="http://www.hboehm.info/gc/gc_source/${MY_P}.tar.gz"
 
 LICENSE="boehm-gc"
 SLOT="0"
-KEYWORDS="~*"
-IUSE="cxx static-libs +threads"
+KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~mips ppc ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
+IUSE="cxx static-libs threads"
 
 DEPEND=">=dev-libs/libatomic_ops-7.4
 	virtual/pkgconfig"
@@ -30,14 +31,16 @@ src_configure() {
 	econf "${config[@]}"
 }
 
+src_compile() {
+	# Workaround build errors. #574566
+	use ia64 && emake src/ia64_save_regs_in_stack.lo
+	use sparc && emake src/sparc_mach_dep.lo
+	default
+}
+
 src_install() {
 	default
 	use static-libs || prune_libtool_files
-
-	insinto /usr/include/gc
-	doins include/ec.h
-	insinto /usr/include/gc/private
-	doins include/private/*.h
 
 	rm -r "${ED}"/usr/share/gc || die
 	dodoc README.QUICK doc/README{.environment,.linux,.macros}

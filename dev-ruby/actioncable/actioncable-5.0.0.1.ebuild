@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -14,13 +13,13 @@ RUBY_FAKEGEM_GEMSPEC="${PN}.gemspec"
 
 inherit ruby-fakegem versionator
 
-DESCRIPTION="Structure many real-time application concerns into channels over a single WebSocket connection"
+DESCRIPTION="Integrated WebSockets for Rails"
 HOMEPAGE="https://github.com/rails/rails"
 SRC_URI="https://github.com/rails/rails/archive/v${PV}.tar.gz -> rails-${PV}.tgz"
 
 LICENSE="MIT"
 SLOT="$(get_version_component_range 1-2)"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm"
 IUSE=""
 
 RUBY_S="rails-${PV}/${PN}"

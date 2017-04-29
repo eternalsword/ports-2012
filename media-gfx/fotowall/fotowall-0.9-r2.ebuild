@@ -1,16 +1,13 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
 inherit qmake-utils
 
-MY_P="${P/f/F}"
-
 DESCRIPTION="Qt4 tool for creating wallpapers"
 HOMEPAGE="http://www.enricoros.com/opensource/fotowall/"
-SRC_URI="https://fotowall.googlecode.com/files/${MY_P}.tar.bz2"
+SRC_URI="https://github.com/enricoros/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
@@ -27,8 +24,6 @@ DEPEND="${RDEPEND}
 	webcam? ( media-libs/libv4l )
 "
 
-S="${WORKDIR}/${MY_P}"
-
 src_prepare() {
 	default
 
@@ -36,7 +31,7 @@ src_prepare() {
 		3rdparty/videocapture/VideoDevice.h || die
 
 	if ! use opengl; then
-		sed -i "/QT += opengl/d" "${PN}.pro" || die "sed failed"
+		sed -i "/QT += opengl/d" ${PN}.pro || die
 	fi
 }
 
@@ -50,6 +45,5 @@ src_configure() {
 
 src_install() {
 	emake INSTALL_ROOT="${D}" install
-
 	dodoc README.markdown
 }

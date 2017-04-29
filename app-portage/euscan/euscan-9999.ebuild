@@ -1,6 +1,5 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -27,7 +26,7 @@ RDEPEND="${DEPEND}
 	dev-python/beautifulsoup[${PYTHON_USEDEP}]"
 
 python_prepare_all() {
-	python_export_best
+	python_setup
 	echo VERSION="${PV}" "${PYTHON}" setup.py set_version
 	VERSION="${PV}" "${PYTHON}" setup.py set_version
 	distutils-r1_python_prepare_all

@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -12,7 +11,7 @@ HOMEPAGE="https://www.kde.org/applications/internet/konversation/ https://konver
 SRC_URI="mirror://kde/stable/${PN}/${PV}/src/${P}.tar.xz"
 
 LICENSE="GPL-2"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="+crypt"
 
 DEPEND="
@@ -54,7 +53,7 @@ DEPEND="
 "
 RDEPEND="${DEPEND}
 	!net-irc/konversation:4
-	crypt? ( app-crypt/qca:2[openssl] )
+	crypt? ( app-crypt/qca:2[ssl] )
 "
 
 src_configure() {
@@ -63,4 +62,12 @@ src_configure() {
 	)
 
 	kde5_src_configure
+}
+
+src_install() {
+	kde5_src_install
+
+	# Bug 616162
+	insinto /etc/xdg
+	doins "${FILESDIR}"/konversationrc
 }

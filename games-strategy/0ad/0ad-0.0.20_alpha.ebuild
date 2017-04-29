@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -23,7 +22,7 @@ IUSE="editor +lobby nvtt pch sound test"
 RESTRICT="test"
 
 RDEPEND="
-	dev-libs/boost
+	dev-libs/boost:=
 	dev-libs/icu:=
 	dev-libs/libxml2
 	dev-libs/nspr

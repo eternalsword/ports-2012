@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -13,10 +11,10 @@ SRC_URI="mirror://sourceforge/opalvoip/${P}.tar.bz2
 
 LICENSE="MPL-1.0"
 SLOT="0"
-KEYWORDS="alpha amd64 ia64 ppc ppc64 sparc x86"
+KEYWORDS="*"
 IUSE="capi celt debug doc +dtmf examples fax ffmpeg h224 h281 h323 iax ilbc
-ipv6 ivr ixj java ldap lid +plugins sbc sip sipim +sound srtp ssl static-libs
-stats swig theora +video vpb vxml wav x264 x264-static xml"
+ipv6 ivr ixj java ldap lid +plugins sbc +sip +sipim +sound srtp ssl static-libs
+stats swig theora +video vpb vxml +wav x264 x264-static +xml"
 
 REQUIRED_USE="x264-static? ( x264 )
 	h281? ( h224 )
@@ -80,13 +78,10 @@ src_prepare() {
 		rm -f samples/*/*.dsp
 		rm -f samples/*/*.dsw
 	fi
-
-	epatch "${FILESDIR}/${PN}-3.10.9-svn_revision_override.patch" \
-		"${FILESDIR}/${PN}-3.10.9-labs_is_in_stdlib.patch" \
-		"${FILESDIR}/${PN}-3.10.9-avoid_cflags_mixup.patch" \
-		"${FILESDIR}/${PN}-3.10.9-ffmpeg.patch" \
-		"${FILESDIR}/${PN}-3.10.11-libav9-gentoo.patch"
-
+	
+	# LFS ffmpeg2+ fixes.
+	epatch "${FILESDIR}"/opal-3.10.10-ffmpeg2-1.patch
+	
 	if ! use h323; then
 		# Without this patch, ekiga wont compile, even with
 		# USE=-h323.
@@ -98,6 +93,14 @@ src_prepare() {
 	sed -i -e "s:\(.*HAS_H224.*\), \[OPAL_H323\]:\1:" configure.ac \
 		|| die "sed failed"
 
+	# sed fixes for ffmpeg-3.
+	sed -e 's/CODEC_ID/AV_&/' \
+		-e 's/PIX_FMT_/AV_&/' \
+		-i plugins/video/H.263-1998/h263-1998.cxx \
+		   plugins/video/common/dyna.cxx          \
+		   plugins/video/H.264/h264-x264.cxx      \
+		   plugins/video/MPEG4-ffmpeg/mpeg4.cxx || die "sed failed"
+	
 	eaclocal
 	eautoconf
 

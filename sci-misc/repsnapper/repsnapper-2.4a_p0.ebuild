@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -23,7 +22,7 @@ IUSE=""
 DEPEND="
 	>=dev-cpp/gtkglextmm-1.2
 	dev-cpp/gtkmm:2.4
-	dev-cpp/libxmlpp
+	dev-cpp/libxmlpp:2.6
 	dev-libs/libzip
 	virtual/opengl
 "
@@ -31,6 +30,7 @@ RDEPEND=${DEPEND}
 
 src_prepare() {
 	epatch "${FILESDIR}/std-c11.patch"
+	epatch "${FILESDIR}/std_abs.patch"
 	eautoreconf
 	append-cxxflags -std=c++11
 }

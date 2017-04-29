@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -15,7 +14,7 @@ HOMEPAGE="https://github.com/chrisk/samuel"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~x86-fbsd"
+KEYWORDS="~alpha amd64 ~arm ~ppc ~ppc64 ~x86 ~x86-fbsd"
 IUSE=""
 
 ruby_add_bdepend "

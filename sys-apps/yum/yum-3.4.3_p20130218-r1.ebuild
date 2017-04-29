@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
@@ -17,15 +16,18 @@ SRC_URI="https://dev.gentoo.org/~creffett/distfiles/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc64 ~x86"
+KEYWORDS="~amd64 ~ppc64 ~ppc ~x86"
 IUSE="test"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-RDEPEND="${PYTHON_DEPS}
+RDEPEND="
+	${PYTHON_DEPS}
 	app-arch/rpm[${PYTHON_USEDEP}]
 	dev-python/sqlitecachec[${PYTHON_USEDEP}]
 	dev-libs/libxml2[python,${PYTHON_USEDEP}]
 	dev-python/pyliblzma[${PYTHON_USEDEP}]
 	dev-python/urlgrabber[${PYTHON_USEDEP}]"
+
 DEPEND="${RDEPEND}
 	dev-util/intltool
 	test? ( dev-python/nose[${PYTHON_USEDEP}] )"

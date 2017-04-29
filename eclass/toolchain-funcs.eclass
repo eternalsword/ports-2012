@@ -421,6 +421,27 @@ tc-has-openmp() {
 	return ${ret}
 }
 
+# @FUNCTION: tc-check-openmp
+# @DESCRIPTION:
+# Test for OpenMP support with the current compiler and error out with
+# a clear error message, telling the user how to rectify the missing
+# OpenMP support that has been requested by the ebuild. Using this function
+# to test for OpenMP support should be preferred over tc-has-openmp and
+# printing a custom message, as it presents a uniform interface to the user.
+tc-check-openmp() {
+	if ! tc-has-openmp; then
+		eerror "Your current compiler does not support OpenMP!"
+
+		if tc-is-gcc; then
+			eerror "Enable OpenMP support by building sys-devel/gcc with USE=\"openmp\"."
+		elif tc-is-clang; then
+			eerror "OpenMP support in sys-devel/clang is provided by sys-libs/libomp."
+		fi
+
+		die "Active compiler does not have required support for OpenMP"
+	fi
+}
+
 # @FUNCTION: tc-has-tls
 # @USAGE: [-s|-c|-l] [toolchain prefix]
 # @DESCRIPTION:
@@ -488,7 +509,7 @@ ninj() { [[ ${type} == "kern" ]] && echo $1 || echo $2 ; }
 		mips*)		echo mips;;
 		nios2*)		echo nios2;;
 		nios*)		echo nios;;
-		or32*)		echo openrisc;;
+		or1k|or32*)	echo openrisc;;
 		powerpc*)
 			# Starting with linux-2.6.15, the 'ppc' and 'ppc64' trees
 			# have been unified into simply 'powerpc', but until 2.6.16,

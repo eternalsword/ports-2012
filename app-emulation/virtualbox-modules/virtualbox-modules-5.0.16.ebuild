@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # XXX: the tarball here is just the kernel modules split out of the binary
 #      package that comes from virtualbox-bin
@@ -28,10 +27,14 @@ BUILD_TARGET_ARCH="${ARCH}"
 MODULE_NAMES="vboxdrv(misc:${S}) vboxnetflt(misc:${S}) vboxnetadp(misc:${S}) vboxpci(misc:${S})"
 
 pkg_setup() {
+	enewgroup vboxusers
+
+	CONFIG_CHECK="!TRIM_UNUSED_KSYMS"
+	ERROR_TRIM_UNUSED_KSYMS="The kernel option CONFIG_TRIM_UNUSED_KSYMS removed kernel symbols that are needed by ${PN} to load correctly."
+
 	linux-mod_pkg_setup
 
-	BUILD_PARAMS="KERN_DIR=${KV_DIR} KERNOUT=${KV_OUT_DIR} V=1 KBUILD_VERBOSE=1"
-	enewgroup vboxusers
+	BUILD_PARAMS="KERN_DIR=${KV_DIR} O=${KV_OUT_DIR} V=1 KBUILD_VERBOSE=1"
 }
 
 src_prepare() {
@@ -55,7 +58,7 @@ src_install() {
 
 pkg_postinst() {
 	linux-mod_pkg_postinst
-	elog "If you are using sys-apps/openrc, please add \"vboxdrv\", \"vboxnetflt\""
-	elog "and \"vboxnetadp\" to:"
+	elog "If you are using sys-apps/openrc, please add \"vboxdrv\", \"vboxnetflt\","
+	elog "\"vboxnetadp\" and \"vboxpci\" to:"
 	elog "  /etc/conf.d/modules"
 }

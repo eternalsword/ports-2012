@@ -1,6 +1,5 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 CATKIN_HAS_MESSAGES=yes
@@ -37,3 +36,4 @@ DEPEND="${RDEPEND}
 		dev-cpp/gtest
 		dev-python/nose[${PYTHON_USEDEP}]
 	)"
+PATCHES=( "${FILESDIR}/gcc6.patch" )

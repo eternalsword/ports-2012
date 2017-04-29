@@ -1,10 +1,10 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-EGIT_REPO_URI="git://anongit.freedesktop.org/mesa/mesa"
+EGIT_REPO_URI="https://anongit.freedesktop.org/git/mesa/mesa.git"
 
 if [[ ${PV} = 9999 ]]; then
 	GIT_ECLASS="git-r3"
@@ -13,39 +13,38 @@ fi
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit autotools multilib-minimal python-any-r1 pax-utils ${GIT_ECLASS}
+inherit autotools llvm multilib-minimal python-any-r1 pax-utils ${GIT_ECLASS}
 
 OPENGL_DIR="xorg-x11"
 
 MY_P="${P/_/-}"
-FOLDER="${PV/_rc*/}"
 
 DESCRIPTION="OpenGL-like graphic library for Linux"
-HOMEPAGE="http://mesa3d.sourceforge.net/"
+HOMEPAGE="https://www.mesa3d.org/"
 
 if [[ $PV == 9999 ]]; then
 	SRC_URI=""
 	KEYWORDS=""
 else
-	SRC_URI="ftp://ftp.freedesktop.org/pub/mesa/${FOLDER}/${MY_P}.tar.xz"
-	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~arm-linux ~ia64-linux ~x86-linux ~sparc-solaris ~x64-solaris ~x86-solaris"
+	SRC_URI="https://mesa.freedesktop.org/archive/${MY_P}.tar.xz"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~arm-linux ~x86-linux ~sparc-solaris ~x64-solaris ~x86-solaris"
 fi
 
 LICENSE="MIT"
 SLOT="0"
 RESTRICT="!bindist? ( bindist )"
 
-INTEL_CARDS="i915 i965 ilo intel"
+INTEL_CARDS="i915 i965 intel"
 RADEON_CARDS="r100 r200 r300 r600 radeon radeonsi"
-VIDEO_CARDS="${INTEL_CARDS} ${RADEON_CARDS} freedreno nouveau vc4 vmware"
+VIDEO_CARDS="${INTEL_CARDS} ${RADEON_CARDS} freedreno imx nouveau vc4 vivante vmware"
 for card in ${VIDEO_CARDS}; do
 	IUSE_VIDEO_CARDS+=" video_cards_${card}"
 done
 
 IUSE="${IUSE_VIDEO_CARDS}
 	bindist +classic d3d9 debug +dri3 +egl +gallium +gbm gles1 gles2 +llvm
-	+nptl opencl osmesa pax_kernel openmax pic selinux +udev vaapi valgrind
-	vdpau wayland xvmc xa kernel_FreeBSD"
+	+nptl opencl osmesa pax_kernel openmax pic selinux vaapi valgrind vdpau
+	vulkan wayland xvmc xa"
 
 REQUIRED_USE="
 	d3d9?   ( dri3 gallium )
@@ -56,13 +55,15 @@ REQUIRED_USE="
 	gles2?  ( egl )
 	vaapi? ( gallium )
 	vdpau? ( gallium )
+	vulkan? ( || ( video_cards_i965 video_cards_radeonsi )
+	          video_cards_radeonsi? ( llvm ) )
 	wayland? ( egl gbm )
 	xa?  ( gallium )
 	video_cards_freedreno?  ( gallium )
 	video_cards_intel?  ( classic )
 	video_cards_i915?   ( || ( classic gallium ) )
 	video_cards_i965?   ( classic )
-	video_cards_ilo?    ( gallium )
+	video_cards_imx?    ( gallium )
 	video_cards_nouveau? ( || ( classic gallium ) )
 	video_cards_radeon? ( || ( classic gallium )
 						  gallium? ( x86? ( llvm ) amd64? ( llvm ) ) )
@@ -71,11 +72,12 @@ REQUIRED_USE="
 	video_cards_r300?   ( gallium x86? ( llvm ) amd64? ( llvm ) )
 	video_cards_r600?   ( gallium )
 	video_cards_radeonsi?   ( gallium llvm )
+	video_cards_vivante? ( gallium gbm )
 	video_cards_vmware? ( gallium )
 	${PYTHON_REQUIRED_USE}
 "
 
-LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.67"
+LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.72"
 # keep correct libdrm and dri2proto dep
 # keep blocks in rdepend for binpkg
 RDEPEND="
@@ -85,7 +87,6 @@ RDEPEND="
 	classic? ( app-eselect/eselect-mesa )
 	gallium? ( app-eselect/eselect-mesa )
 	>=app-eselect/eselect-opengl-1.3.0
-	udev? ( kernel_linux? ( >=virtual/libudev-215:=[${MULTILIB_USEDEP}] ) )
 	>=dev-libs/expat-2.1.0-r3:=[${MULTILIB_USEDEP}]
 	>=x11-libs/libX11-1.6.2:=[${MULTILIB_USEDEP}]
 	>=x11-libs/libxshmfence-1.1:=[${MULTILIB_USEDEP}]
@@ -94,17 +95,17 @@ RDEPEND="
 	>=x11-libs/libXxf86vm-1.1.3:=[${MULTILIB_USEDEP}]
 	>=x11-libs/libxcb-1.9.3:=[${MULTILIB_USEDEP}]
 	x11-libs/libXfixes:=[${MULTILIB_USEDEP}]
-	llvm? ( !kernel_FreeBSD? (
-		video_cards_radeonsi? ( virtual/libelf:0=[${MULTILIB_USEDEP}] )
-		!video_cards_r600? (
-			video_cards_radeon? ( virtual/libelf:0=[${MULTILIB_USEDEP}] )
-		) )
+	llvm? (
+		video_cards_radeonsi? (
+			virtual/libelf:0=[${MULTILIB_USEDEP}]
+			vulkan? ( >=sys-devel/llvm-3.9.0:=[${MULTILIB_USEDEP}] )
+		)
 		>=sys-devel/llvm-3.6.0:=[${MULTILIB_USEDEP}]
 	)
 	opencl? (
 				app-eselect/eselect-opencl
 				dev-libs/libclc
-				!kernel_FreeBSD? ( virtual/libelf:0=[${MULTILIB_USEDEP}] )
+				virtual/libelf:0=[${MULTILIB_USEDEP}]
 			)
 	openmax? ( >=media-libs/libomxil-bellagio-0.9.3:=[${MULTILIB_USEDEP}] )
 	vaapi? (
@@ -112,9 +113,9 @@ RDEPEND="
 		video_cards_nouveau? ( !<=x11-libs/libva-vdpau-driver-0.7.4-r3 )
 	)
 	vdpau? ( >=x11-libs/libvdpau-1.1:=[${MULTILIB_USEDEP}] )
-	wayland? ( >=dev-libs/wayland-1.2.0:=[${MULTILIB_USEDEP}] )
+	wayland? ( >=dev-libs/wayland-1.11.0:=[${MULTILIB_USEDEP}] )
 	xvmc? ( >=x11-libs/libXvMC-1.0.8:=[${MULTILIB_USEDEP}] )
-	${LIBDRM_DEPSTRING}[video_cards_freedreno?,video_cards_nouveau?,video_cards_vc4?,video_cards_vmware?,${MULTILIB_USEDEP}]
+	${LIBDRM_DEPSTRING}[video_cards_freedreno?,video_cards_nouveau?,video_cards_vc4?,video_cards_vivante?,video_cards_vmware?,${MULTILIB_USEDEP}]
 "
 for card in ${INTEL_CARDS}; do
 	RDEPEND="${RDEPEND}
@@ -131,13 +132,18 @@ RDEPEND="${RDEPEND}
 	video_cards_radeonsi? ( ${LIBDRM_DEPSTRING}[video_cards_amdgpu] )
 "
 
+# FIXME: kill the sys-devel/llvm[video_cards_radeon] compat once
+# LLVM < 3.9 is out of the game
 DEPEND="${RDEPEND}
 	llvm? (
-		video_cards_radeonsi? ( sys-devel/llvm[video_cards_radeon] )
+		video_cards_radeonsi? ( || (
+			sys-devel/llvm[llvm_targets_AMDGPU]
+			sys-devel/llvm[video_cards_radeon]
+		) )
 	)
 	opencl? (
-				>=sys-devel/llvm-3.4.2:=[${MULTILIB_USEDEP}]
-				>=sys-devel/clang-3.4.2:=[${MULTILIB_USEDEP}]
+				>=sys-devel/llvm-3.6.0:=[${MULTILIB_USEDEP}]
+				>=sys-devel/clang-3.6.0:=[${MULTILIB_USEDEP}]
 				>=sys-devel/gcc-4.6
 	)
 	sys-devel/gettext
@@ -181,11 +187,15 @@ pkg_setup() {
 		ewarn "detected! This can cause problems. For details, see bug 459306."
 	fi
 
+	if use llvm || use opencl; then
+		llvm_pkg_setup
+	fi
 	python-any-r1_pkg_setup
 }
 
 src_prepare() {
 	[[ ${PV} == 9999 ]] && eautoreconf
+	eapply_user
 }
 
 multilib_src_configure() {
@@ -222,7 +232,7 @@ multilib_src_configure() {
 	if use gallium; then
 		myconf+="
 			$(use_enable d3d9 nine)
-			$(use_enable llvm gallium-llvm)
+			$(use_enable llvm)
 			$(use_enable openmax omx)
 			$(use_enable vaapi va)
 			$(use_enable vdpau)
@@ -233,10 +243,11 @@ multilib_src_configure() {
 
 		gallium_enable swrast
 		gallium_enable video_cards_vc4 vc4
+		gallium_enable video_cards_vivante etnaviv
 		gallium_enable video_cards_vmware svga
 		gallium_enable video_cards_nouveau nouveau
 		gallium_enable video_cards_i915 i915
-		gallium_enable video_cards_ilo ilo
+		gallium_enable video_cards_imx imx
 		if ! use video_cards_i915 && \
 			! use video_cards_i965; then
 			gallium_enable video_cards_intel i915
@@ -258,6 +269,11 @@ multilib_src_configure() {
 				--with-clang-libdir="${EPREFIX}/usr/lib"
 				"
 		fi
+	fi
+
+	if use vulkan; then
+		vulkan_enable video_cards_i965 intel
+		vulkan_enable video_cards_radeonsi radeon
 	fi
 
 	# x86 hardened pax_kernel needs glx-rts, bug 240956
@@ -284,7 +300,6 @@ multilib_src_configure() {
 		--enable-dri \
 		--enable-glx \
 		--enable-shared-glapi \
-		--disable-shader-cache \
 		$(use_enable !bindist texture-float) \
 		$(use_enable d3d9 nine) \
 		$(use_enable debug) \
@@ -294,11 +309,11 @@ multilib_src_configure() {
 		$(use_enable gles1) \
 		$(use_enable gles2) \
 		$(use_enable nptl glx-tls) \
-		$(use_enable !udev sysfs) \
 		--enable-valgrind=$(usex valgrind auto no) \
 		--enable-llvm-shared-libs \
 		--with-dri-drivers=${DRI_DRIVERS} \
 		--with-gallium-drivers=${GALLIUM_DRIVERS} \
+		--with-vulkan-drivers=${VULKAN_DRIVERS} \
 		PYTHON2="${PYTHON}" \
 		${myconf}
 }
@@ -360,7 +375,7 @@ multilib_src_install() {
 }
 
 multilib_src_install_all() {
-	prune_libtool_files --all
+	find "${ED}" -name '*.la' -delete
 	einstalldocs
 
 	if use !bindist; then
@@ -457,6 +472,23 @@ gallium_enable() {
 				shift
 				for i in $@; do
 					GALLIUM_DRIVERS+=",${i}"
+				done
+			fi
+			;;
+	esac
+}
+
+vulkan_enable() {
+	case $# in
+		# for enabling unconditionally
+		1)
+			VULKAN_DRIVERS+=",$1"
+			;;
+		*)
+			if use $1; then
+				shift
+				for i in $@; do
+					VULKAN_DRIVERS+=",${i}"
 				done
 			fi
 			;;

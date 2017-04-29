@@ -1,10 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_{3,4}} )
+PYTHON_COMPAT=( python{2_7,3_4} )
 
 DISABLE_AUTOFORMATTING=true
 
@@ -18,8 +17,9 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86 ~x86-fbsd"
 IUSE=""
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-RDEPEND="
+RDEPEND="${PYTHON_DEPS}
 	|| (
 		dev-python/PyQt5[gui,widgets,${PYTHON_USEDEP}]
 		dev-python/PyQt4[${PYTHON_USEDEP},X]

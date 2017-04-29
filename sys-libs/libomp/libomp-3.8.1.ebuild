@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -13,7 +12,11 @@ DESCRIPTION="OpenMP runtime library for LLVM/clang compiler"
 HOMEPAGE="http://openmp.llvm.org"
 SRC_URI="http://llvm.org/releases/${PV}/${MY_P}.src.tar.xz"
 
-LICENSE="UoI-NCSA"
+# Additional licenses:
+# - MIT-licensed Intel code,
+# - LLVM Software Grant from Intel.
+
+LICENSE="|| ( UoI-NCSA MIT ) MIT LLVM-Grant"
 SLOT="0/3.8"
 KEYWORDS="~amd64 ~x86"
 IUSE=""

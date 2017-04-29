@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="4"
 
@@ -11,7 +10,7 @@ DEB_PATCH=${PV##*.}
 DEB_PF="${PN}_${DEB_PV}-${DEB_PATCH}"
 MY_P="${PN}-${DEB_PV}"
 
-DESCRIPTION="DASH is a direct descendant of the NetBSD version of ash (the Almquist SHell) and is POSIX compliant"
+DESCRIPTION="Debian Almquist Shell"
 HOMEPAGE="http://gondor.apana.org.au/~herbert/dash/"
 SRC_URI="http://gondor.apana.org.au/~herbert/dash/files/${PN}-${DEB_PV}.tar.gz
 	mirror://debian/pool/main/d/dash/${DEB_PF}.diff.gz"

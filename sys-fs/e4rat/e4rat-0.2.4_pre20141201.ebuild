@@ -1,10 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
-
-inherit cmake-utils linux-info readme.gentoo
+EAPI=6
+inherit cmake-utils linux-info readme.gentoo-r1
 
 DESCRIPTION="Toolset to accelerate the boot process and application startup"
 HOMEPAGE="http://e4rat.sourceforge.net/"
@@ -13,19 +11,17 @@ SRC_URI="https://dev.gentoo.org/~pacho/${PN}/${PN}-0.2.4_pre20141201.tar.xz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND="
 	dev-lang/perl:=
 	>=dev-libs/boost-1.42:=
 	sys-fs/e2fsprogs
-	sys-process/audit
+	sys-process/audit[static-libs(+)]
 	sys-process/lsof
 "
-DEPEND="${DEPEND}
-	app-arch/xz-utils
-"
+DEPEND="${DEPEND}"
 
 CONFIG_CHECK="~AUDITSYSCALL"
 
@@ -33,6 +29,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-0.2.2-shared-build.patch
 	"${FILESDIR}"/${PN}-0.2.2-libdir.patch
 	"${FILESDIR}"/${PN}-0.2.4-sysmacros.patch #580534
+	"${FILESDIR}"/${PN}-0.2.4-gcc6.patch #594046
 )
 
 pkg_setup() {

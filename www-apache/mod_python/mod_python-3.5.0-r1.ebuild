@@ -1,10 +1,9 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 
-PYTHON_COMPAT=( python2_7 python3_3 python3_4 )
+PYTHON_COMPAT=( python2_7 python3_4 )
 
 inherit apache-module eutils python-single-r1
 
@@ -13,15 +12,17 @@ HOMEPAGE="http://modpython.org/"
 SRC_URI="http://dist.modpython.org/dist/${P}.tgz"
 
 LICENSE="Apache-2.0"
-KEYWORDS="~alpha ~amd64 ~ia64 ~mips ~ppc ~sparc ~x86"
+KEYWORDS="alpha amd64 ia64 ~mips ppc sparc x86"
 IUSE="doc test"
 SLOT="0"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 APACHE2_MOD_CONF="16_${PN}"
 APACHE2_MOD_DEFINE="PYTHON"
 need_apache2
 
-RDEPEND="${RDEPEND}"
+RDEPEND="${RDEPEND}
+	${PYTHON_DEPS}"
 DEPEND="${DEPEND}
 	test? (
 		app-admin/apache-tools

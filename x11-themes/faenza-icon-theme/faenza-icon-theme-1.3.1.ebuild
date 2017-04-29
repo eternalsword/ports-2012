@@ -1,6 +1,5 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 inherit gnome2-utils
@@ -17,10 +16,10 @@ RESTRICT="binchecks strip"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~x86"
+KEYWORDS="amd64 ~arm x86"
 IUSE="minimal"
 
-RDEPEND="!minimal? ( x11-themes/gnome-icon-theme )
+RDEPEND="!minimal? ( x11-themes/adwaita-icon-theme )
 	x11-themes/hicolor-icon-theme"
 
 S=${WORKDIR}/${PN}-${PV%.*}

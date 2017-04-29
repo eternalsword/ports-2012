@@ -1,12 +1,11 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
 inherit toolchain-funcs
 
-DESCRIPTION="Collection of tools including assembler, linker and librarian for PIC microcontrollers"
+DESCRIPTION="Tools including assembler, linker and librarian for PIC microcontrollers"
 HOMEPAGE="http://gputils.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
@@ -17,6 +16,9 @@ IUSE=""
 
 src_configure() {
 	tc-ld-disable-gold #369291
+	# Their configure script tries to do funky things with default
+	# compiler selection.  Force our own defaults instead.
+	tc-export CC
 	default
 }
 

@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -14,7 +13,7 @@ SRC_URI="http://dl.cihar.com/wammu/v0/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="bluetooth gnome"
 
 RDEPEND="|| ( ( >=app-mobilephone/gammu-1.36 dev-python/python-gammu )

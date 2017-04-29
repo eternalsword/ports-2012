@@ -1,12 +1,12 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
 : ${CMAKE_MAKEFILE_GENERATOR:=ninja}
-CMAKE_MIN_VERSION=3.4.3
-inherit cmake-multilib git-r3
+# (needed due to CMAKE_BUILD_TYPE != Gentoo)
+CMAKE_MIN_VERSION=3.7.0-r1
+inherit cmake-multilib git-r3 llvm
 
 DESCRIPTION="C++ runtime stack unwinder from LLVM"
 HOMEPAGE="https://github.com/llvm-mirror/libunwind"
@@ -20,9 +20,11 @@ KEYWORDS=""
 IUSE="debug +static-libs"
 
 RDEPEND="!sys-libs/libunwind"
-# llvm-config and cmake files needed to get proper flags
-# (3.9.0 needed because cmake file install path changed)
-DEPEND=">=sys-devel/llvm-3.9.0[${MULTILIB_USEDEP}]"
+# LLVM 4 required for llvm-config --cmakedir
+DEPEND=">=sys-devel/llvm-4"
+
+# least intrusive of all
+CMAKE_BUILD_TYPE=RelWithDebInfo
 
 multilib_src_configure() {
 	local libdir=$(get_libdir)
@@ -34,4 +36,11 @@ multilib_src_configure() {
 	)
 
 	cmake-utils_src_configure
+}
+
+multilib_src_install() {
+	cmake-utils_src_install
+
+	# install headers like sys-libs/libunwind
+	doheader "${S}"/include/*.h
 }

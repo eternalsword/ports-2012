@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -11,14 +10,14 @@ HOMEPAGE="https://bitbucket.org/maproom/qmapshack/wiki/Home"
 SRC_URI="https://bitbucket.org/maproom/${PN}/downloads/${P}.tar.gz"
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 RDEPEND="dev-qt/qtwebkit:5
 	dev-qt/qtscript:5
 	dev-qt/qtprintsupport:5
 	dev-qt/qtdbus:5
 	dev-qt/qttest:5
-	dev-qt/qtnetwork[ssl]
+	dev-qt/qtnetwork:5[ssl]
 	>=sci-geosciences/routino-3.1.1
 	sci-libs/gdal
 	sci-libs/proj"

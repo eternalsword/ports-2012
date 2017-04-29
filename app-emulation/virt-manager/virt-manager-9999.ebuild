@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -46,7 +45,7 @@ RDEPEND="!app-emulation/virtinst
 		net-misc/spice-gtk[usbredir,gtk3,introspection,sasl?]
 		net-misc/x11-ssh-askpass
 		x11-libs/vte:2.90[introspection]
-		gnome-keyring? ( dev-python/gnome-keyring-python )
+		gnome-keyring? ( gnome-base/libgnome-keyring )
 		policykit? ( sys-auth/polkit[introspection] )
 		x11-themes/gnome-icon-theme
 	)"
@@ -54,7 +53,7 @@ DEPEND="${RDEPEND}
 	dev-lang/perl
 	dev-util/intltool"
 
-DOCS=( README NEWS )
+DOCS=( README.md NEWS.md )
 
 src_prepare() {
 	distutils-r1_src_prepare

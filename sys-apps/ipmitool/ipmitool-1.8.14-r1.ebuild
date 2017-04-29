@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=4
 inherit eutils
@@ -18,7 +17,8 @@ SLOT="0"
 KEYWORDS="amd64 hppa ~ia64 ppc x86"
 LICENSE="BSD"
 
-RDEPEND="dev-libs/openssl"
+RDEPEND="dev-libs/openssl
+	sys-libs/readline"
 DEPEND="${RDEPEND}
 		openipmi? ( sys-libs/openipmi )
 		virtual/os-headers"

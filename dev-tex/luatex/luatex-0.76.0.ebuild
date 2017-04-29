@@ -1,3 +1,4 @@
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -5,7 +6,7 @@ EAPI=5
 inherit libtool eutils texlive-common
 
 MY_P=${PN}-beta-${PV}
-DESCRIPTION="An extended version of pdfTeX using Lua as an embedded scripting language."
+DESCRIPTION="An extended version of pdfTeX using Lua as an embedded scripting language"
 HOMEPAGE="http://www.luatex.org/"
 SRC_URI="
 	http://foundry.supelec.fr/frs/download.php/file/15745/${MY_P}-source.tar.bz2
@@ -13,7 +14,7 @@ SRC_URI="
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 IUSE="doc"
 
 RDEPEND="dev-libs/zziplib

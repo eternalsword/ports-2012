@@ -1,5 +1,5 @@
 DEFINED_PHASES=compile configure install prepare setup test unpack
-DEPEND=test? ( >=sys-devel/gcc-4.8:* >=dev-libs/boost-1.54[nls] >=dev-cpp/yaml-cpp-0.5.1 dev-libs/openssl:* sys-apps/util-linux app-emulation/virt-what net-misc/curl !<app-admin/puppet-4.0.0 ) sys-devel/make >=dev-util/cmake-2.8.12 ruby_targets_ruby20? ( dev-lang/ruby:2.0 ) ruby_targets_ruby21? ( dev-lang/ruby:2.1 ) ruby_targets_ruby22? ( dev-lang/ruby:2.2 )
+DEPEND=test? ( >=sys-devel/gcc-4.8:* >=dev-libs/boost-1.54[nls] >=dev-cpp/yaml-cpp-0.5.1 dev-libs/openssl:* sys-apps/util-linux app-emulation/virt-what net-misc/curl !<app-admin/puppet-4.0.0 ) sys-devel/make >=dev-util/cmake-3.6.3 ruby_targets_ruby20? ( dev-lang/ruby:2.0 ) ruby_targets_ruby21? ( dev-lang/ruby:2.1 ) ruby_targets_ruby22? ( dev-lang/ruby:2.2 )
 DESCRIPTION=A cross-platform ruby library for retrieving facts from operating systems
 EAPI=5
 HOMEPAGE=http://www.puppetlabs.com/puppet/related-projects/facter/
@@ -10,5 +10,5 @@ RDEPEND=>=sys-devel/gcc-4.8:* >=dev-libs/boost-1.54[nls] >=dev-cpp/yaml-cpp-0.5.
 REQUIRED_USE=|| ( ruby_targets_ruby20 ruby_targets_ruby21 ruby_targets_ruby22 )
 SLOT=0
 SRC_URI=https://downloads.puppetlabs.com/facter/facter-3.1.4.tar.gz
-_eclasses_=cmake-utils	ac5bd012586c6cf0d9826400d9de2830	eutils	792f83d5ec9536cb5ccef375469d8bde	flag-o-matic	8632fcd33a047954f007dee9a137bdcc	java-utils-2	9a25f292ff66f8c2c00100ac0b15c54f	multilib	d062ae4ba2fc40a19c11de2ad89b6616	ruby-ng	3b6431b487e69b5070a45ea20d1c4c6c	ruby-utils	2f896785ed65442d7e84ab5f5eef3bd3	toolchain-funcs	82165206dedb2075f9a0fb8f9b1f9441	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=ca76581e9854483b3bed86df6ab3c4a8
+_eclasses_=cmake-utils	014267c4475c1a625ecec5b16e0db1e6	epatch	8233751dc5105a6ae8fcd86ce2bb0247	epunt-cxx	f8073339d152f56626493f43d8ba4691	estack	5ac2a138d0b33354b764d84f9e835db8	eutils	e7491451996e8b54c3caeb713285b0fb	flag-o-matic	35067884fbff37bc0c8e7421c5315558	java-utils-2	1971a6927fcd7ec839f7e12b28a24bdd	ltprune	2770eed66a9b8ef944714cd0e968182e	multilib	165fc17c38d1b11dac2008280dab6e80	multiprocessing	284a473719153462f3e974d86c8cb81c	ruby-ng	2abd9e38aac141db06ae38bf32e748cd	ruby-utils	e9d0baddf239294b286da449ae7ac6a3	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=18df6bf2732aadb81048743bc05321f2

@@ -1,10 +1,9 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="Popular short read aligner for Next-generation sequencing data"
 HOMEPAGE="http://bowtie-bio.sourceforge.net/bowtie2/"
@@ -25,6 +24,7 @@ S="${WORKDIR}/${PN}2-${PV}"
 
 DOCS=( AUTHORS NEWS TUTORIAL )
 HTML_DOCS=( doc/{manual.html,style.css} )
+PATCHES=( "${FILESDIR}/${PN}-2.2.9-fix-c++14.patch" )
 
 pkg_pretend() {
 	if ! use cpu_flags_x86_sse2 ; then

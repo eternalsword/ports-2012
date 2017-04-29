@@ -1,11 +1,11 @@
 DEFINED_PHASES=config install postinst prepare setup unpack
-DEPEND=!media-sound/squeezecenter !media-sound/squeezeboxserver app-arch/unzip dev-vcs/git virtual/pkgconfig
+DEPEND=!media-sound/squeezecenter !media-sound/squeezeboxserver app-arch/unzip >=dev-vcs/git-1.8.2.1 virtual/pkgconfig
 DESCRIPTION=Logitech Media Server (streaming audio server)
-EAPI=5
+EAPI=6
 HOMEPAGE=http://github.com/Logitech/slimserver
 LICENSE=logitechmediaserver-bin
-RDEPEND=!prefix? ( >=sys-apps/baselayout-2.0.0 ) !prefix? ( virtual/logger ) >=dev-lang/perl-5.8.8[ithreads] x86? ( <dev-lang/perl-5.19[ithreads] ) amd64? ( <dev-lang/perl-5.21[ithreads] ) >=dev-perl/Data-UUID-1.202
+RDEPEND=!prefix? ( >=sys-apps/baselayout-2.0.0 ) !prefix? ( virtual/logger ) >=dev-lang/perl-5.8.8[ithreads] x86? ( <dev-lang/perl-5.23[ithreads] ) amd64? ( <dev-lang/perl-5.25[ithreads] ) >=dev-perl/Data-UUID-1.202
 RESTRICT=bindist mirror
 SLOT=0
-_eclasses_=eutils	792f83d5ec9536cb5ccef375469d8bde	git-2	672c3929a162f221a53b4ccb4d25d8a2	multilib	d062ae4ba2fc40a19c11de2ad89b6616	systemd	3165c885f3c71ffae7a867d931fb0e07	toolchain-funcs	82165206dedb2075f9a0fb8f9b1f9441	user	906f3c8eb3a2350a4f1191a89baa3e46
-_md5_=a31c7b44c4616e60d96d979a0ffb459c
+_eclasses_=epatch	8233751dc5105a6ae8fcd86ce2bb0247	epunt-cxx	f8073339d152f56626493f43d8ba4691	estack	5ac2a138d0b33354b764d84f9e835db8	eutils	e7491451996e8b54c3caeb713285b0fb	git-r3	6efc2d7de07a77bf72c7207b48d0e123	ltprune	2770eed66a9b8ef944714cd0e968182e	multilib	165fc17c38d1b11dac2008280dab6e80	systemd	ec2e9154031d942186c75c0aabb41900	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	user	e10ccb95af96d45f86016fa982a949bb
+_md5_=211ae7d0cf9e427d761665659e647a48

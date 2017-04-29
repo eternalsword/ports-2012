@@ -2,15 +2,12 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>contact@jovicaillic.org</email>
-		<name>Jovica Illic</name>
-	</maintainer>
-	<maintainer type="project">
-		<email>proxy-maint@gentoo.org</email>
-		<name>Proxy Maintainers</name>
-	</maintainer>
-	<maintainer type="person">
 		<email>patrick@gentoo.org</email>
 		<name>Patrick Lauer</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>graaff@gentoo.org</email>
+		<name>Hans de Graaff</name>
+		<description>lts versions</description>
 	</maintainer>
 </pkgmetadata>

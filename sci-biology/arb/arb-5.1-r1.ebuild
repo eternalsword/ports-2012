@@ -1,12 +1,11 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=2
 
 inherit eutils toolchain-funcs
 
-DESCRIPTION="Tools for DNA/RNA sequence database handling and data analysis, phylogenetic analysis"
+DESCRIPTION="Tools for DNA/RNA sequence database handling and phylogenetic analysis"
 HOMEPAGE="http://www.arb-home.de/"
 SRC_URI="
 	http://download.arb-home.de/release/arb_${PV}/arbsrc.tgz -> ${P}.tgz

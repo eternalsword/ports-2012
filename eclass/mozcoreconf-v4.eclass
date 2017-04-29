@@ -1,6 +1,5 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 #
 # @ECLASS: mozcoreconf-v4.eclass
 # @MAINTAINER:
@@ -97,7 +96,7 @@ moz_pkgsetup() {
 	export USE_PTHREADS=1
 	export ALDFLAGS=${LDFLAGS}
 	# ensure MOZCONFIG is not defined
-	eval unset MOZCONFIG
+	unset MOZCONFIG
 
 	# set MOZILLA_FIVE_HOME
 	export MOZILLA_FIVE_HOME="/usr/$(get_libdir)/${PN}"
@@ -207,6 +206,11 @@ mozconfig_init() {
 		append-flags -fPIC -mminimal-toc
 		;;
 	esac
+
+	# We need to append flags for gcc-6 support
+	if [[ $(gcc-major-version) -ge 6 ]]; then
+		append-cxxflags -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-schedule-insns2
+	fi
 
 	# Go a little faster; use less RAM
 	append-flags "$MAKEEDIT_FLAGS"

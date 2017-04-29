@@ -1,9 +1,8 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # @ECLASS: oasis.eclass
-# @MAINTAINER: 
+# @MAINTAINER:
 # ml@gentoo.org
 # @AUTHOR:
 # Original Author: Alexis Ballier <aballier@gentoo.org>
@@ -63,7 +62,7 @@ IUSE="+ocamlopt"
 [ -n "${OASIS_BUILD_TESTS}" ] && IUSE="${IUSE} test"
 
 DEPEND="${RDEPEND}
-	|| ( dev-ml/ocamlbuild <dev-lang/ocaml-4.02.3-r1 )"
+	dev-ml/ocamlbuild"
 
 # @FUNCTION: oasis_use_enable
 # @USAGE: < useflag > < variable >
@@ -86,10 +85,9 @@ oasis_src_configure() {
 	[ -n "${OASIS_BUILD_TESTS}" ] && confargs="${confargs} $(use_enable test tests)"
 	[ -n "${OASIS_NO_DEBUG}"    ] || confargs="${confargs} $(oasis_use_enable debug debug)"
 	${OASIS_SETUP_COMMAND:-ocaml setup.ml} -configure \
-		--prefix "${EPREFIX}/usr" \
-		--libdir "${EPREFIX}/usr/$(get_libdir)" \
-		--docdir "${EPREFIX}${OASIS_DOC_DIR}" \
-		--destdir "${D}" \
+		--prefix "${ED}/usr" \
+		--libdir "${ED}/usr/$(get_libdir)" \
+		--docdir "${ED}${OASIS_DOC_DIR}" \
 		$(oasis_use_enable ocamlopt is_native) \
 		${confargs} \
 		${oasis_configure_opts} \
@@ -100,7 +98,7 @@ oasis_src_configure() {
 # @DESCRIPTION:
 # Builds an oasis-based package.
 # Will build documentation if OASIS_BUILD_DOCS is defined and the doc useflag is
-# enabled. 
+# enabled.
 oasis_src_compile() {
 	${OASIS_SETUP_COMMAND:-ocaml setup.ml} -build || die
 	if [ -n "${OASIS_BUILD_DOCS}" ] && use doc; then

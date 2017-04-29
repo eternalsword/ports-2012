@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -22,11 +21,13 @@ SLOT="0"
 IUSE="test"
 
 COMMONDEPEND="
+	dev-perl/Config-Tiny
 	virtual/perl-File-Path
 	virtual/perl-File-Spec
 	dev-perl/Log-Agent
 	virtual/perl-Memoize
 	virtual/perl-IO
+	dev-perl/Path-Tiny
 	dev-perl/Shell-EnvImporter
 	virtual/perl-Term-ANSIColor
 	>=dev-perl/YAML-0.60

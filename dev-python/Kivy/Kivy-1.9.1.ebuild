@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -16,13 +15,13 @@ SRC_URI="https://pypi.io/packages/source/${PN:0:1}/${PN}/${P,,}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="cairo camera doc examples garden gstreamer +sdl spell test"
 
 RDEPEND="
 	dev-python/pillow[${PYTHON_USEDEP}]
 	cairo? ( dev-python/pycairo[${PYTHON_USEDEP}] )
-	camera? ( media-libs/opencv[${PYTHON_USEDEP}] )
+	camera? ( media-libs/opencv:0/2.4[$(python_gen_usedep 'python2_7')] )
 	garden? ( dev-python/kivy-garden[${PYTHON_USEDEP}] )
 	gstreamer? ( dev-python/gst-python:1.0[${PYTHON_USEDEP}] )
 	sdl? ( media-libs/libsdl2

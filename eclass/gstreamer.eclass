@@ -1,6 +1,5 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # @ECLASS: gstreamer.eclass
 # @MAINTAINER:
@@ -171,7 +170,7 @@ gstreamer_get_plugin_dir() {
 # @USAGE: gstreamer_system_link gst-libs/gst/audio:gstreamer-audio [...]
 # @DESCRIPTION:
 # Walks through makefiles in order to make sure build will link against system
-# librairies.
+# libraries.
 # Takes a list of path fragments and corresponding pkgconfig libraries
 # separated by colon (:). Will replace the path fragment by the output of
 # pkgconfig.

@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 
@@ -16,7 +15,7 @@ BASE_P="${PN}-${BASE_PV}"
 # docs, and are released more frequently than wxGTK.
 SRC_URI="mirror://sourceforge/wxpython/wxPython-src-${PV}.tar.bz2"
 
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
 IUSE="+X aqua doc debug gnome gstreamer odbc opengl pch sdl tiff"
 
 SLOT="2.8"
@@ -73,6 +72,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-2.8.11-collision.patch
 	epatch "${FILESDIR}"/${PN}-2.8.7-mmedia.patch              # Bug #174874
 	epatch "${FILESDIR}"/${PN}-2.8.10.1-odbc-defines.patch     # Bug #310923
+	epatch "${FILESDIR}"/${PN}-2.8.12.1-fix-c++14.patch        # Bug #592442
 
 	# Bug #421851
 	epatch "${FILESDIR}"/${P}-libdir.patch

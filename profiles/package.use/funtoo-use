@@ -1,3 +1,9 @@
+# FL-3512: workaround mutt default USE's. Stick to tokyocabinet as per upstream default.
+mail-client/mutt tokyocabinet -berkdb -gdbm
+
+# QA-473: enable text USE for app-text/xmlto
+app-text/xmlto text
+
 # FL-2672: set python_single_target_python3.3 in gnome-music.
 media-sound/gnome-music python_single_target_python3_3 -python_single_target_python3_4
 
@@ -56,7 +62,6 @@ net-misc/rsync xattr
 # FL-849 add ads flag to cifs-utils, required for clean samba or cifs-utils emerge.
 # acl flag causing crappy circular dependencies, disabled atm. 
 net-fs/cifs-utils ads
-net-fs/samba
 
 # FL-730 extent layman to support subversion, mercurial and git by default
 app-portage/layman git mercurial subversion

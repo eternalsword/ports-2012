@@ -1,6 +1,5 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 inherit autotools eutils
@@ -16,7 +15,7 @@ SLOT="0"
 KEYWORDS="~alpha amd64 ~arm hppa ~ia64 ppc ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~arm-linux ~x86-linux"
 
 DEPEND="
-	net-libs/libnet
+	net-libs/libnet:1.1
 	net-libs/libpcap
 "
 RDEPEND="${DEPEND}"

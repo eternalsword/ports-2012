@@ -1,14 +1,11 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 GCONF_DEBUG="no"
 
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="sqlite"
-
-CMAKE_MIN_VERSION="2.8.11.1"
 
 inherit gnome2 eutils flag-o-matic python-single-r1 cmake-utils
 
@@ -22,6 +19,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
 IUSE="debug doc gnome-keyring"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # glibc: deprecated mutex functions, removed in 2.36.0
 CDEPEND="${PYTHON_DEPS}

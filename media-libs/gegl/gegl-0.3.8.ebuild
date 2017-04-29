@@ -16,7 +16,7 @@ if [[ ${PV} == *9999* ]]; then
 	SRC_URI=""
 else
 	SRC_URI="http://download.gimp.org/pub/${PN}/${PV:0:3}/${P}.tar.bz2"
-	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x64-solaris ~x86-solaris"
+	KEYWORDS="alpha amd64 arm hppa ~ia64 ~mips ~ppc ppc64 ~sparc x86 ~amd64-fbsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x64-solaris ~x86-solaris"
 fi
 
 DESCRIPTION="A graph based image processing framework"
@@ -26,7 +26,7 @@ LICENSE="|| ( GPL-3 LGPL-3 )"
 SLOT="0.3"
 
 IUSE="cairo cpu_flags_x86_mmx cpu_flags_x86_sse debug ffmpeg +introspection jpeg2k lcms lensfun openexr raw sdl svg test tiff umfpack vala v4l webp"
-REQUIRED_IUSE="
+REQUIRED_USE="
 	svg? ( cairo )
 	vala? ( introspection )
 "
@@ -48,10 +48,10 @@ RDEPEND="
 	)
 	introspection? ( >=dev-libs/gobject-introspection-1.32:= )
 	virtual/jpeg:0=
-	jpeg2k? ( >=media-libs/jasper-1.900.1 )
+	jpeg2k? ( >=media-libs/jasper-1.900.1:= )
 	lcms? ( >=media-libs/lcms-2.2:2 )
 	lensfun? ( >=media-libs/lensfun-0.2.5 )
-	openexr? ( media-libs/openexr )
+	openexr? ( media-libs/openexr:= )
 	media-libs/libpng:0=
 	raw? ( >=media-libs/libraw-0.15.4 )
 	sdl? ( media-libs/libsdl )

@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=4
 
@@ -8,7 +7,7 @@ JAVA_PKG_IUSE="doc source test"
 
 inherit eutils java-pkg-2
 
-DESCRIPTION="An easy-to-use Java logging toolkit designed for secure, performance-oriented logging"
+DESCRIPTION="Easy-to-use Java logging toolkit"
 HOMEPAGE="http://avalon.apache.org/"
 SRC_URI="mirror://apache/avalon/logkit/source/logkit-${PV}-src.tar.gz"
 

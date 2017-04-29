@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 PYTHON_COMPAT=( python2_7 )
@@ -17,7 +16,9 @@ DEPEND="
 	dev-python/pyasn1[${PYTHON_USEDEP}]
 	dev-python/pycrypto[${PYTHON_USEDEP}]
 "
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	!dev-python/twisted
+"
 
 python_prepare_all() {
 	if [[ "${EUID}" -eq 0 ]]; then

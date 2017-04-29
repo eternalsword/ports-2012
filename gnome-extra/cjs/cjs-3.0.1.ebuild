@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 inherit autotools gnome2 pax-utils virtualx
@@ -12,7 +11,7 @@ SRC_URI="https://github.com/linuxmint/cjs/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="MIT || ( MPL-1.1 LGPL-2+ GPL-2+ )"
 SLOT="0"
 IUSE="+cairo examples gtk test"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 RDEPEND="
 	dev-lang/spidermonkey:24

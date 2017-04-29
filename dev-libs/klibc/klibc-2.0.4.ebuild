@@ -1,3 +1,4 @@
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 # Robin H. Johnson <robbat2@gentoo.org>, 12 Nov 2007:
@@ -10,7 +11,7 @@
 # We need to bring in the kernel sources seperately
 # Because they have to be configured in a way that differs from the copy in
 # /usr/src/. The sys-kernel/linux-headers are too stripped down to use
-# unfortunetly.
+# unfortunately.
 # This will be able to go away once the klibc author updates his code
 # to build again the headers provided by the kernel's 'headers_install' target.
 
@@ -21,7 +22,7 @@ inherit eutils multilib toolchain-funcs flag-o-matic
 
 DESCRIPTION="A minimal libc subset for use with initramfs"
 HOMEPAGE="http://www.zytor.com/mailman/listinfo/klibc/ https://www.kernel.org/pub/linux/libs/klibc/"
-KV_MAJOR="4" KV_MINOR="x" KV_SUB="1"
+KV_MAJOR="3" KV_MINOR="x" KV_SUB="12"
 PKV_EXTRA=""
 if [[ ${PKV_EXTRA} ]]; then
 	if [[ ${KV_MAJOR} == 2 ]]; then
@@ -51,7 +52,7 @@ SRC_URI="
 LICENSE="|| ( GPL-2 LGPL-2 )"
 KEYWORDS="~alpha ~amd64 ~arm ~ia64 -mips ~ppc ~ppc64 ~sparc ~x86"
 SLOT="0"
-IUSE="debug test"
+IUSE="debug test custom-cflags"
 
 DEPEND="dev-lang/perl"
 RDEPEND="${DEPEND}"
@@ -153,7 +154,7 @@ src_compile() {
 	unset KBUILD_OUTPUT # we are using a private copy
 
 	cd "${KS}"
-	emake -j1 ${defconfig} CC="${CC}" HOSTCC="${HOSTCC}" ARCH="${KLIBCASMARCH}" || die "No defconfig"
+	emake ${defconfig} CC="${CC}" HOSTCC="${HOSTCC}" ARCH="${KLIBCASMARCH}" || die "No defconfig"
 	if [[ "${KLIBCARCH/arm}" != "${KLIBCARCH}" ]] && \
 	   [[ "${CHOST/eabi}" != "${CHOST}" ]]; then
 		# The delete and insert are seperate statements
@@ -163,10 +164,11 @@ src_compile() {
 		-e '1iCONFIG_AEABI=y' \
 		-e '/CONFIG_OABI_COMPAT/d' \
 		-e '1iCONFIG_OABI_COMPAT=y' \
+		-e '1iCONFIG_ARM_UNWIND=y' \
 		"${KS}"/.config \
 		"${S}"/defconfig
 	fi
-	emake -j1 prepare CC="${CC}" HOSTCC="${HOSTCC}" ARCH="${KLIBCASMARCH}" || die "Failed to prepare kernel sources for header usage"
+	emake prepare CC="${CC}" HOSTCC="${HOSTCC}" ARCH="${KLIBCASMARCH}" || die "Failed to prepare kernel sources for header usage"
 
 	cd "${S}"
 
@@ -175,7 +177,7 @@ src_compile() {
 	append-ldflags -z noexecstack
 	append-flags -nostdlib
 
-	emake -j1 \
+	emake \
 		EXTRA_KLIBCAFLAGS="-Wa,--noexecstack" \
 		EXTRA_KLIBCLDFLAGS="-z noexecstack" \
 		HOSTLDFLAGS="-z noexecstack" \
@@ -189,7 +191,11 @@ src_compile() {
 		libdir="/usr/${libdir}" \
 		mandir="/usr/share/man" \
 		T="${T}" \
+		$(use custom-cflags || echo SKIP_)HOSTCFLAGS="${CFLAGS}" \
+		$(use custom-cflags || echo SKIP_)HOSTLDFLAGS="${LDFLAGS}" \
+		$(use custom-cflags || echo SKIP_)KLIBCOPTFLAGS="${CFLAGS}" \
 		${myargs} || die "Compile failed!"
+
 		#SHLIBDIR="/${libdir}" \
 
 	ARCH="${myARCH}" ABI="${myABI}"
@@ -221,7 +227,7 @@ src_install() {
 	unset ABI ARCH # Unset these, because they interfere
 	unset KBUILD_OUTPUT # we are using a private copy
 
-	emake -j1 \
+	emake \
 		EXTRA_KLIBCAFLAGS="-Wa,--noexecstack" \
 		EXTRA_KLIBCLDFLAGS="-z noexecstack" \
 		HOSTLDFLAGS="-z noexecstack" \
@@ -236,6 +242,9 @@ src_install() {
 		libdir="/usr/${libdir}" \
 		mandir="/usr/share/man" \
 		T="${T}" \
+		$(use custom-cflags || echo SKIP_)HOSTCFLAGS="${CFLAGS}" \
+		$(use custom-cflags || echo SKIP_)HOSTLDFLAGS="${LDFLAGS}" \
+		$(use custom-cflags || echo SKIP_)KLIBCOPTFLAGS="${CFLAGS}" \
 		${myargs} \
 		install || die "Install failed!"
 

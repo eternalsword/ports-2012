@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 PYTHON_COMPAT=( python2_7 )
@@ -14,15 +13,15 @@ SRC_URI="https://github.com/rcaelers/${PN}/archive/v${MY_PV}.tar.gz -> ${P}.tar.
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="amd64 ~ppc x86"
 
 # dbus support looks to be used only for trying to use panel applets on gnome3!
 IUSE="ayatana doc gnome gstreamer introspection mate nls pulseaudio test xfce"
-REQUIRED_USE="ayatana? ( introspection )"
+REQUIRED_USE="ayatana? ( introspection ) ${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
 	>=dev-libs/glib-2.28.0:2
-	>=x11-libs/gtk+-3.0:3[introspection?]
+	>=x11-libs/gtk+-3.0:3[introspection?,X]
 	>=dev-cpp/gtkmm-3.0.0:3.0
 	>=dev-cpp/glibmm-2.28.0:2
 	>=dev-libs/libsigc++-2.2.4.2:2
@@ -46,6 +45,7 @@ RDEPEND="
 	x11-libs/libXtst
 	x11-libs/libXt
 	x11-libs/libXmu
+	${PYTHON_DEPS}
 "
 #        dbus? (
 #                >=sys-apps/dbus-1.2

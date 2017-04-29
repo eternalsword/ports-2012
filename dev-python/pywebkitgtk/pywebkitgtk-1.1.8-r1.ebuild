@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
@@ -8,15 +7,17 @@ PYTHON_COMPAT=( python2_7 )
 inherit autotools-utils python-r1 virtualx
 
 DESCRIPTION="Python bindings for the WebKit GTK+ port"
-HOMEPAGE="https://code.google.com/p/pywebkitgtk/"
-SRC_URI="https://pywebkitgtk.googlecode.com/files/${P}.tar.gz"
+HOMEPAGE="https://github.com/jmalonzo/pywebkitgtk"
+SRC_URI="https://github.com/jmalonzo/${PN}/archive/${PN^^}_${PV//./_}.tar.gz -> ${P}.tar.gz"
 
-LICENSE="LGPL-2"
+LICENSE="LGPL-2+"
 SLOT="0"
 KEYWORDS="amd64 ~ppc ~sparc x86"
 IUSE="test"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-RDEPEND="dev-python/pygobject:2[${PYTHON_USEDEP}]
+RDEPEND="${PYTHON_DEPS}
+	dev-python/pygobject:2[${PYTHON_USEDEP}]
 	dev-python/pygtk:2[${PYTHON_USEDEP}]
 	dev-libs/libxslt
 	>=net-libs/webkit-gtk-1.1.15:2"

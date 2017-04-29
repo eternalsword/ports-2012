@@ -1,6 +1,5 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 
@@ -14,12 +13,14 @@ SRC_URI="http://www.infinicode.org/code/${PN}/files/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="music"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # TODO: Missing support for >=dev-python/eyeD3-0.7.x API that could
 # be used as alternative to app-misc/hachoir-metadata with || ( )
-RDEPEND="dev-python/pygtk:2[${PYTHON_USEDEP}]
+RDEPEND="${PYTHON_DEPS}
+	dev-python/pygtk:2[${PYTHON_USEDEP}]
 	dev-python/gconf-python[${PYTHON_USEDEP}]
 	music? ( app-misc/hachoir-metadata[${PYTHON_USEDEP}] )"
 

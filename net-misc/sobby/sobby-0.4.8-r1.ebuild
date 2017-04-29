@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 inherit eutils flag-o-matic user
@@ -17,7 +16,7 @@ RDEPEND="
 	>=dev-cpp/glibmm-2.6
 	>=dev-libs/libsigc++-2.0
 	>=dev-libs/gmp-4.1.4:0
-	>=dev-cpp/libxmlpp-2.6
+	>=dev-cpp/libxmlpp-2.6:2.6
 	>=net-libs/net6-1.3.12
 	>=net-libs/obby-0.4.6[zeroconf=]
 "

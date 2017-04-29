@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 WANT_AUTOCONF="2.1"
@@ -25,7 +24,7 @@ S="${WORKDIR}/${MY_P}"
 BUILDDIR="${S}/js/src"
 
 RDEPEND=">=dev-libs/nspr-4.7.0
-	sys-libs/readline:0
+	sys-libs/readline:0=
 	x64-macos? ( dev-libs/jemalloc )"
 DEPEND="${RDEPEND}
 	${PYTHON_DEPS}

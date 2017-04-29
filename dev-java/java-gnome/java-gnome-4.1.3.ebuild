@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 
@@ -19,6 +18,7 @@ SRC_URI="mirror://gnome/sources/${PN}/$(get_version_component_range 1-2)/${MY_P}
 LICENSE="GPL-2-with-linking-exception"
 SLOT="4.1"
 KEYWORDS="amd64 x86"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 COMMON_DEP="
 	app-text/enchant:0
@@ -35,7 +35,7 @@ COMMON_DEP="
 	${PYTHON_DEPS}"
 
 RDEPEND="${COMMON_DEP}
-	>=virtual/jre-1.6"
+	>=virtual/jre-1.6:*"
 
 DEPEND="${COMMON_DEP}
 	dev-java/junit:0

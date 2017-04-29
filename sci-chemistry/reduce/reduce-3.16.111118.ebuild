@@ -1,10 +1,9 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=4
+EAPI=6
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs
 
 MY_P="${PN}.${PV}.src"
 
@@ -14,7 +13,7 @@ SRC_URI="http://kinemage.biochem.duke.edu/downloads/software/reduce31/${MY_P}.zi
 
 LICENSE="richardson"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~ppc x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 RDEPEND=""
@@ -22,12 +21,11 @@ DEPEND="${RDEPEND}
 	app-arch/unzip"
 
 S="${WORKDIR}/"
-
-src_prepare() {
-	epatch \
-		"${FILESDIR}"/3.13.080428-LDFLAGS.patch \
-		"${FILESDIR}"/3.14.080821-CFLAGS.patch
-}
+PATCHES=(
+	"${FILESDIR}"/3.13.080428-LDFLAGS.patch
+	"${FILESDIR}"/3.14.080821-CFLAGS.patch
+	"${FILESDIR}"/${PN}-3.16.111118-fix-c++14.patch
+)
 
 src_compile() {
 	DICT_DIR="/usr/share/reduce"

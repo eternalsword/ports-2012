@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -14,7 +13,7 @@ HOMEPAGE="http://quassel-irc.org/"
 [[ "${PV}" == "9999" ]] || SRC_URI="http://quassel-irc.org/pub/${P}.tar.bz2"
 
 LICENSE="GPL-3"
-KEYWORDS="~amd64 ~arm ~ppc ~x86 ~amd64-linux ~sparc-solaris"
+KEYWORDS="amd64 ~arm ~ppc x86 ~amd64-linux ~sparc-solaris"
 SLOT="0"
 IUSE="ayatana crypt dbus debug kde monolithic phonon postgres qt5 +server
 snorenotify +ssl syslog webkit X"
@@ -22,13 +21,13 @@ snorenotify +ssl syslog webkit X"
 SERVER_RDEPEND="
 	qt5? (
 		dev-qt/qtscript:5
-		crypt? ( app-crypt/qca:2[openssl,qt5] )
+		crypt? ( app-crypt/qca:2[qt5,ssl] )
 		postgres? ( dev-qt/qtsql:5[postgres] )
 		!postgres? ( dev-qt/qtsql:5[sqlite] dev-db/sqlite:3[threadsafe(+),-secure-delete] )
 	)
 	!qt5? (
 		dev-qt/qtscript:4
-		crypt? ( app-crypt/qca:2[openssl,qt4(+)] )
+		crypt? ( app-crypt/qca:2[qt4(+),ssl] )
 		postgres? ( dev-qt/qtsql:4[postgres] )
 		!postgres? ( dev-qt/qtsql:4[sqlite] dev-db/sqlite:3[threadsafe(+),-secure-delete] )
 	)
@@ -64,9 +63,8 @@ GUI_RDEPEND="
 			>=dev-libs/libdbusmenu-qt-0.9.3_pre20140619[qt4(+)]
 			dev-qt/qtdbus:4
 			kde? (
-				kde-base/kdelibs:4
+				kde-frameworks/kdelibs:4
 				kde-frameworks/oxygen-icons:*
-				ayatana? ( kde-misc/plasma-widget-message-indicator )
 			)
 		)
 		phonon? ( || ( media-libs/phonon[qt4] dev-qt/qtphonon:4 ) )

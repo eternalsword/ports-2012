@@ -1,10 +1,9 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
-inherit eutils gnome2-utils savedconfig toolchain-funcs
+inherit eutils fdo-mime gnome2-utils savedconfig toolchain-funcs
 
 DESCRIPTION="Simple (or small or suckless) X Image Viewer"
 HOMEPAGE="https://github.com/muennich/sxiv/"
@@ -12,7 +11,7 @@ SRC_URI="https://github.com/muennich/sxiv/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 RDEPEND="
 	media-libs/libexif

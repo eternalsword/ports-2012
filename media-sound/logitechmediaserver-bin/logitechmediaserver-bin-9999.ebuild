@@ -1,8 +1,7 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header$
 
-EAPI="5"
+EAPI="6"
 
 MY_PN="${PN/-bin}"
 
@@ -17,17 +16,17 @@ elif [[ ${PV} == "9999" ]] ; then
 	EGIT_BRANCH="public/7.9"
 	EGIT_REPO_URI="https://github.com/Logitech/slimserver.git"
 	HOMEPAGE="http://github.com/Logitech/slimserver"
-	S="${WORKDIR}/slimserver"
-	INHERIT_VCS="git-2"
+	S="${WORKDIR}/${PN}-${PV}"
+	INHERIT_VCS="git-r3"
 else
+	MY_PV="${PV/_*}"
+	MY_P="${MY_PN}-${MY_PV}"
+	MY_P_BUILD_NUM="${MY_PN}-${MY_PV}-${BUILD_NUM}"
 	SRC_DIR="LogitechMediaServer_v${PV}"
 	SRC_URI="http://downloads.slimdevices.com/${SRC_DIR}/${MY_P}.tgz"
 	HOMEPAGE="http://www.mysqueezebox.com/download"
 	BUILD_NUM="1375965195"
-	MY_PV="${PV/_*}"
-	MY_P_BUILD_NUM="${MY_PN}-${MY_PV}-${BUILD_NUM}"
-	MY_P="${MY_PN}-${MY_PV}"
-	S="${WORKDIR}/${MY_P_BUILD_NUM}"
+	S="${WORKDIR}/${MY_P}"
 	INHERIT_VCS=""
 	KEYWORDS="~amd64 ~x86"
 fi
@@ -35,6 +34,7 @@ fi
 inherit ${INHERIT_VCS} eutils user systemd
 
 DESCRIPTION="Logitech Media Server (streaming audio server)"
+HOMEPAGE="http://github.com/Logitech/slimserver"
 LICENSE="${PN}"
 RESTRICT="bindist mirror"
 SLOT="0"
@@ -52,8 +52,8 @@ RDEPEND="
 	!prefix? ( >=sys-apps/baselayout-2.0.0 )
 	!prefix? ( virtual/logger )
 	>=dev-lang/perl-5.8.8[ithreads]
-	x86? ( <dev-lang/perl-5.19[ithreads] )
-	amd64? ( <dev-lang/perl-5.21[ithreads] )
+	x86? ( <dev-lang/perl-5.23[ithreads] )
+	amd64? ( <dev-lang/perl-5.25[ithreads] )
 	>=dev-perl/Data-UUID-1.202
 	"
 
@@ -95,6 +95,8 @@ src_prepare() {
 	# Apply patches to make LMS work on Gentoo.
 	epatch "${FILESDIR}/${P}-uuid-gentoo.patch"
 	epatch "${FILESDIR}/${P}-client-playlists-gentoo.patch"
+	(cd Bin && rm -rf arm*-linux i86pc-solaris* sparc-linux powerpc-linux)
+	eapply_user
 }
 
 src_install() {

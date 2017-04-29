@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -18,7 +17,7 @@ KEYWORDS=""
 IUSE="debug selinux utempter vim-syntax kernel_FreeBSD kernel_linux"
 
 CDEPEND="
-	>=dev-libs/libevent-2.0.10
+	dev-libs/libevent:0=
 	utempter? (
 		kernel_linux? ( sys-libs/libutempter )
 		kernel_FreeBSD? ( || ( >=sys-freebsd/freebsd-lib-9.0 sys-libs/libutempter ) )
@@ -27,6 +26,7 @@ CDEPEND="
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}
+	dev-libs/libevent:=
 	selinux? ( sec-policy/selinux-screen )
 	vim-syntax? (
 		|| (
@@ -54,10 +54,12 @@ src_prepare() {
 }
 
 src_configure() {
-	econf \
-		--sysconfdir="${EPREFIX}"/etc \
-		$(use_enable debug) \
+	local myeconfargs=(
+		--sysconfdir="${EPREFIX}"/etc
+		$(use_enable debug)
 		$(use_enable utempter)
+	)
+	econf "${myeconfargs[@]}"
 }
 
 src_install() {

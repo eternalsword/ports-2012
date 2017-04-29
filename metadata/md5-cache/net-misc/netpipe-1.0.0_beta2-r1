@@ -6,5 +6,5 @@ KEYWORDS=~amd64 ~ppc ~x86
 LICENSE=GPL-2
 SLOT=0
 SRC_URI=http://www.wudika.de/~jan/netpipe/netpipe.tar.gz
-_eclasses_=multilib	d062ae4ba2fc40a19c11de2ad89b6616	toolchain-funcs	82165206dedb2075f9a0fb8f9b1f9441
-_md5_=95e70f949cdaa7e1b8caa6703c265042
+_eclasses_=multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	1b1da0c45c555989dc5d832b54880783
+_md5_=543f873a8aa2b535c2d3f2424f237f98

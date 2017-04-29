@@ -1,9 +1,9 @@
 DEFINED_PHASES=install unpack
 DEPEND=dev-vcs/git
-EAPI=4
+EAPI=5
 HOMEPAGE=https://github.com/slashbeast/lazykernel
 KEYWORDS=~amd64 ~x86
 LICENSE=MIT
 SLOT=0
-_eclasses_=git-2	672c3929a162f221a53b4ccb4d25d8a2
-_md5_=08b6d3744a0c346c270d0bf9018f6c1a
+_eclasses_=git-2	7af5d170bfc02983b4bcd3167dc5edd4
+_md5_=38dc0614d824a0b2f5376e5d21b6882e

@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 inherit cmake-utils eutils gnome2-utils games
@@ -21,9 +20,9 @@ DEPEND="
 	dev-libs/libgcrypt:0
 	dev-libs/protobuf
 	dev-qt/qtcore:5
-	dev-qt/qtconcurrent
-	dev-qt/linguist-tools
-	dev-qt/qtprintsupport
+	dev-qt/qtconcurrent:5
+	dev-qt/linguist-tools:5
+	dev-qt/qtprintsupport:5
 	!dedicated? (
 		dev-qt/qtmultimedia:5
 		dev-qt/qtsvg:5

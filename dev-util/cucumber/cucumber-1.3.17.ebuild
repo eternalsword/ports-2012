@@ -1,9 +1,8 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
-USE_RUBY="ruby20"
+USE_RUBY="ruby20 ruby21 ruby22"
 
 # Documentation task depends on sdoc which we currently don't have.
 RUBY_FAKEGEM_TASK_DOC=""
@@ -18,7 +17,7 @@ DESCRIPTION="Executable feature scenarios"
 HOMEPAGE="https://github.com/aslakhellesoy/cucumber/wikis"
 LICENSE="Ruby"
 
-KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 sparc x86"
+KEYWORDS="alpha amd64 arm hppa ~ia64 ppc ppc64 sparc x86"
 SLOT="0"
 IUSE="examples test"
 
@@ -31,7 +30,6 @@ ruby_add_bdepend "
 		>=dev-ruby/json-1.7
 		dev-ruby/bundler
 		>=dev-util/cucumber-1.3
-		dev-ruby/rubyzip:0
 	)"
 
 ruby_add_rdepend "

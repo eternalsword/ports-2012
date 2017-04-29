@@ -1,13 +1,12 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
 # Python 2.6 is supported, but depends on ordereddict, which has been in
 # improvise for months and is a minimal package. If needed
 # please let me know. PyPy also works
-PYTHON_COMPAT=( python{2_7,3_3,3_4} pypy )
+PYTHON_COMPAT=( python{2_7,3_4} pypy )
 
 inherit distutils-r1
 

@@ -1,12 +1,11 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 inherit multilib xfconf
 
 DESCRIPTION="A panel plug-in for user switching (using x11-misc/lightdm or gnome-base/gdm)"
-HOMEPAGE="http://goodies.xfce.org/projects/panel-plugins/xfswitch-plugin"
+HOMEPAGE="https://goodies.xfce.org/projects/panel-plugins/xfswitch-plugin"
 SRC_URI="mirror://xfce/src/panel-plugins/${PN}/${PV%.*}/${P}.tar.gz"
 
 LICENSE="GPL-2"

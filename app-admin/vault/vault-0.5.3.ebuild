@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -44,6 +43,8 @@ src_install() {
 	dodoc "${S}"/src/${EGO_PN%/*}/{CHANGELOG.md,CONTRIBUTING.md,README.md}
 	newinitd "${FILESDIR}/${PN}.initd" "${PN}"
 	newconfd "${FILESDIR}/${PN}.confd" "${PN}"
+	insinto /etc/logrotate.d
+	newins "${FILESDIR}/${PN}.logrotated" "${PN}"
 	systemd_dounit "${FILESDIR}/${PN}.service"
 
 	keepdir /etc/${PN}.d

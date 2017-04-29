@@ -1,9 +1,8 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
-inherit eutils udev
+inherit eutils flag-o-matic udev
 
 DESCRIPTION="Separate utilities ebuild from upstream v4l-utils package"
 HOMEPAGE="http://git.linuxtv.org/v4l-utils.git"
@@ -36,6 +35,7 @@ src_prepare() {
 
 src_configure() {
 	if use qt5; then
+		append-cxxflags -std=c++11
 		local qt5_paths=( \
 			MOC="$(pkg-config --variable=host_bins Qt5Core)/moc" \
 			UIC="$(pkg-config --variable=host_bins Qt5Core)/uic" \

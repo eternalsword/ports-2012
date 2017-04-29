@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 CMAKE_REMOVE_MODULES="yes"
@@ -30,8 +29,8 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="midi songs tools webcam"
 
-RDEPEND="dev-cpp/glibmm
-	dev-cpp/libxmlpp
+RDEPEND="dev-cpp/glibmm:2
+	dev-cpp/libxmlpp:2.6
 	media-libs/portaudio
 	dev-libs/boost[threads(+)]
 	dev-libs/glib:2

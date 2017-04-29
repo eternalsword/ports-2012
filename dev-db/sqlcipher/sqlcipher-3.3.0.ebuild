@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -19,7 +18,7 @@ IUSE="readline static-libs tcl test"
 
 # Tcl is always needed by buildsystem
 RDEPEND="dev-libs/openssl:0[${MULTILIB_USEDEP}]
-	readline? ( sys-libs/readline:0[${MULTILIB_USEDEP}] )
+	readline? ( sys-libs/readline:0=[${MULTILIB_USEDEP}] )
 	tcl? ( dev-lang/tcl:=[${MULTILIB_USEDEP}] )"
 DEPEND="${RDEPEND}
 	dev-lang/tcl"

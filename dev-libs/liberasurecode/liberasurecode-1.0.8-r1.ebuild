@@ -1,6 +1,5 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -14,7 +13,7 @@ S="${WORKDIR}/tsg--${PN}-${CUSTOM_VERSION}"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~x86"
+KEYWORDS="amd64 ~arm64 x86"
 IUSE="doc static-libs"
 
 RDEPEND=""

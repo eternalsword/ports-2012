@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -27,7 +26,7 @@ RDEPEND="
 	net-mail/mailbase
 	media-libs/libcanberra:=[gtk3]
 	x11-themes/hicolor-icon-theme
-	x11-themes/gnome-icon-theme
+	x11-themes/adwaita-icon-theme
 	crypt? ( >=app-crypt/gpgme-1.0:= )
 	gnome? ( >=x11-libs/gtksourceview-3.2.0:3.0 )
 	gnome-keyring? ( app-crypt/libsecret )

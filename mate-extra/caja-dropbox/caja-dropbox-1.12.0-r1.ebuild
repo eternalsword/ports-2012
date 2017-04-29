@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -10,16 +9,17 @@ MATE_LA_PUNT="yes"
 inherit mate python-single-r1 linux-info user
 
 if [[ ${PV} != 9999 ]]; then
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 x86"
 fi
 
 DESCRIPTION="Store, Sync and Share Files Online"
 LICENSE="GPL-2"
 SLOT="0"
-
 IUSE="debug"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
+	${PYTHON_DEPS}
 	dev-libs/atk:0
 	>=dev-libs/glib-2.14:2
 	dev-python/pygtk:2[${PYTHON_USEDEP}]

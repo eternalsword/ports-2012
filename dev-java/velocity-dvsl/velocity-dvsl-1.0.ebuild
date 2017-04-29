@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -44,7 +43,7 @@ JAVA_GENTOO_CLASSPATH="
 
 java_prepare() {
 	java-pkg_clean
-	rm -rv test src/test || die
+	rm -rv src/test || die
 }
 
 src_install() {

@@ -1,6 +1,5 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 inherit eutils
 
@@ -12,7 +11,7 @@ SRC_URI="http://darwinsource.opendarwin.org/tarballs/apsl/diskdev_cmds-${MY_PV}.
 		 mirror://gentoo/diskdev_cmds-${PV}.patch.bz2"
 LICENSE="APSL-2"
 SLOT="0"
-KEYWORDS="amd64 ~arm ppc x86"
+KEYWORDS="amd64 ~arm ppc ~ppc64 x86"
 IUSE=""
 DEPEND="dev-libs/openssl"
 RDEPEND="${DEPEND}"

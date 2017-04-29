@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
@@ -13,7 +12,7 @@ HOMEPAGE="http://www.gnumeric.org/"
 LICENSE="GPL-2"
 
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc x86 ~x86-fbsd"
 
 IUSE="+introspection libgda perl python"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
@@ -38,7 +37,7 @@ RDEPEND="
 	x11-libs/cairo:=[svg]
 
 	introspection? ( >=dev-libs/gobject-introspection-1:= )
-	perl? ( dev-lang/perl )
+	perl? ( dev-lang/perl:= )
 	python? ( ${PYTHON_DEPS}
 		>=dev-python/pygobject-3:3[${PYTHON_USEDEP}] )
 	libgda? ( gnome-extra/libgda:5[gtk] )

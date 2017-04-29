@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -13,7 +12,7 @@ SRC_URI="https://01.org/sites/default/files/downloads/${PN}/${P}.zip"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 DEPEND="app-arch/unzip"

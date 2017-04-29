@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -16,7 +15,7 @@ HOMEPAGE="https://github.com/mime-types/ruby-mime-types"
 
 LICENSE="MIT"
 SLOT="3"
-KEYWORDS="~amd64 ~arm"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc64"
 IUSE=""
 
 ruby_add_bdepend "test? ( dev-ruby/minitest:5 dev-ruby/minitest-bonus-assertions:2 dev-ruby/minitest-hooks:1 )"

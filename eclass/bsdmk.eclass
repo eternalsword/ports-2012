@@ -1,6 +1,5 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # @ECLASS: bsdmk.eclass
 # @MAINTAINER:
@@ -79,5 +78,5 @@ bsdmk_src_compile() {
 # @DESCRIPTION:
 # The bsdmk src_install function, which is exported
 bsdmk_src_install() {
-	mkinstall || die "install failed"
+	mkinstall "$@" || die "install failed"
 }

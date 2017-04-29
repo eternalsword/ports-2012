@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -14,7 +13,7 @@ SRC_URI="https://people.redhat.com/~heinzm/sw/dmraid/src/${PN}-${MY_PV}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 ~arm ia64 ppc ppc64 sparc x86"
+KEYWORDS="alpha amd64 arm ia64 ppc ppc64 sparc x86"
 IUSE="dietlibc intel_led klibc led mini static"
 REQUIRED_USE="klibc? ( !dietlibc )"
 
@@ -38,7 +37,8 @@ pkg_setup() {
 src_prepare() {
 	epatch	"${FILESDIR}"/${P}-undo-p-rename.patch \
 		"${FILESDIR}"/${P}-return-all-sets.patch \
-		"${FILESDIR}"/${P}-static-build-fixes.patch
+		"${FILESDIR}"/${P}-static-build-fixes.patch \
+		"${FILESDIR}"/${P}-parallel-make.patch
 	# pkg_check_modules is not in aclocal.m4 by default, and eautoreconf doesnt add it
 	einfo "Appending pkg.m4 from system to aclocal.m4"
 	cat "${ROOT}"/usr/share/aclocal/pkg.m4 >>"${S}"/aclocal.m4 || die "Could not append pkg.m4"

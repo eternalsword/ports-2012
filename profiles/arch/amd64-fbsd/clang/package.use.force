@@ -1,6 +1,5 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # Force building libc++ over libcxxrt.
 sys-libs/libcxx libcxxrt
@@ -14,4 +13,4 @@ sys-libs/libcxx static-libs abi_x86_32
 net-misc/curl ssl curl_ssl_openssl
 
 # We obviously need clang
-sys-devel/llvm clang static-analyzer
+sys-devel/llvm clang static-analyzer default-compiler-rt default-libcxx

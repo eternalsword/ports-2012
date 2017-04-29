@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=4
 AUTOTOOLS_AUTO_DEPEND=no
@@ -12,12 +11,12 @@ SRC_URI="http://dlc.sun.com/osol/jds/downloads/extras/${PN}/${P}.tar.bz2"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86 ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 IUSE="gtk minimal"
 
 COMMON_DEPEND="gtk? ( x11-libs/gtk+:2 )"
 RDEPEND="${COMMON_DEPEND}
-	!minimal? ( || ( x11-themes/gnome-icon-theme x11-themes/tango-icon-theme ) )"
+	!minimal? ( || ( x11-themes/adwaita-icon-theme x11-themes/tango-icon-theme ) )"
 DEPEND="${COMMON_DEPEND}
 	dev-util/intltool
 	virtual/pkgconfig

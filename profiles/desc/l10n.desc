@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # This file contains descriptions of L10N USE_EXPAND flags.
 
@@ -8,11 +7,13 @@
 
 # The following are considered duplicates. Use the generic language
 # tag without region subtag instead.
+# fil-PH - Filipino (Philippines)
 # fy-NL - Western Frisian (Netherlands)
 # ga-IE - Irish (Ireland)
 # gu-IN - Gujarati (India)
 # hi-IN - Hindi (India)
 # hy-AM - Armenian (Armenia)
+# id-ID - Indonesian (Indonesia)
 # kn-IN - Kannada (India)
 # nb-NO - Norwegian Bokmål (Norway)
 # nn-NO - Norwegian Nynorsk (Norway)
@@ -39,6 +40,7 @@ brx - Bodo (India)
 bs - Bosnian
 ca - Catalan
 ca-valencia - Catalan (Valencian)
+cak - Kaqchikel
 chr - Cherokee
 cs - Czech
 csb - Kashubian
@@ -48,6 +50,7 @@ de - German
 de-1901 - German (traditional orthography)
 dgo - Dogri (individual language)
 doi - Dogri (macrolanguage)
+dsb - Lower Sorbian
 dz - Dzongkha
 el - Modern Greek
 en - English
@@ -64,6 +67,7 @@ es-MX - Spanish (Mexico)
 et - Estonian
 eu - Basque
 fa - Persian
+ff - Fulah
 fi - Finnish
 fil - Filipino
 fo - Faroese
@@ -73,6 +77,7 @@ fy - Western Frisian
 ga - Irish
 gd - Scottish Gaelic
 gl - Galician
+gn - Guarani
 gu - Gujarati
 gug - Paraguayan Guarani
 he - Hebrew
@@ -88,6 +93,7 @@ is - Icelandic
 it - Italian
 ja - Japanese
 ka - Georgian
+kab - Kabyle
 kk - Kazakh
 km - Central Khmer
 kmr-Latn - Northern Kurdish (Latin script)
@@ -99,6 +105,7 @@ ku - Kurdish
 ky - Kirghiz
 la - Latin
 lb - Luxembourgish
+lij - Ligurian
 lo - Lao
 lt - Lithuanian
 lv - Latvian

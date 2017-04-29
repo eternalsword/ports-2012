@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 inherit eutils gnome2-utils games
@@ -24,7 +23,7 @@ RDEPEND="app-arch/bzip2
 		sqlite? ( dev-db/sqlite:3 )
 		!mysql? ( ( !sqlite? ( virtual/mysql ) ) )
 	)
-	readline? ( sys-libs/readline:0 )
+	readline? ( sys-libs/readline:0= )
 	dedicated? ( aimodules? ( dev-libs/libltdl:0 ) )
 	!dedicated? (
 		media-libs/libpng:0

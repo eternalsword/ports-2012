@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -6,7 +6,7 @@ EAPI=4
 
 if [[ ${PV} == 9999 ]]; then
 	inherit subversion
-	ESVN_REPO_URI="http://svn.code.sf.net/p/parity/code/trunk"
+	ESVN_REPO_URI="https://svn.code.sf.net/p/parity/code/trunk"
 	ESVN_BOOTSTRAP="confix --bootstrap"
 	ESVN_PROJECT="${PN}"
 	: ${KEYWORDS=""}
@@ -14,7 +14,7 @@ if [[ ${PV} == 9999 ]]; then
 	DEPEND="dev-util/confix"
 else
 	SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
-	KEYWORDS="~x86-interix"
+	KEYWORDS=""
 fi
 DESCRIPTION="An Interix to native Win32 Cross-Compiler Tool (requires Visual Studio)"
 HOMEPAGE="http://www.sourceforge.net/projects/parity/"

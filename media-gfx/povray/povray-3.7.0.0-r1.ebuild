@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -17,11 +16,12 @@ fi
 
 DESCRIPTION="The Persistence of Vision Raytracer"
 HOMEPAGE="http://www.povray.org/"
-SRC_URI="https://github.com/POV-Ray/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/POV-Ray/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
+	https://dev.gentoo.org/~soap/distfiles/${P}_p20160914-fix-c++14.patch.bz2"
 
 LICENSE="AGPL-3"
 SLOT="0"
-KEYWORDS="alpha amd64 ~arm hppa ~ia64 ~mips ppc ~ppc64 ~sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
+KEYWORDS="alpha amd64 ~arm hppa ia64 ~mips ppc ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
 IUSE="debug +io-restrictions openexr static-libs tiff X"
 
 DEPEND="
@@ -43,6 +43,7 @@ S=${WORKDIR}/${PN}-${MY_PV}
 PATCHES=(
 	"${FILESDIR}"/${P}-user-conf.patch
 	"${FILESDIR}"/${P}-automagic.patch
+	"${WORKDIR}"/${P}_p20160914-fix-c++14.patch
 )
 
 src_prepare() {

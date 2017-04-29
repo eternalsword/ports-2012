@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -58,12 +57,12 @@ MULTILIB_CHOST_TOOLS=(
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-1.12_warn_cflags.patch"
 	epatch "${FILESDIR}/${PN}-config_LDFLAGS.patch"
+	epatch "${FILESDIR}/${PN}-1.14.2-redeclared-ttyname.patch"
 
 	eautoreconf
 }
 
 src_configure() {
-	append-cppflags "-I${EPREFIX}/usr/include/et"
 	# QA
 	append-flags -fno-strict-aliasing
 	append-flags -fno-strict-overflow

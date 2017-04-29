@@ -1,6 +1,5 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # @ECLASS: apache-2.eclass
 # @MAINTAINER:
@@ -19,12 +18,6 @@ case ${EAPI:-0} in
 	0|1|2|3|4)
 		die "This eclass is banned for EAPI<5"
 	;;
-	5)
-		:;
-	;;
-	6)
-		die "This eclass is not yet ready for EAPI-6"
-	;;
 esac
 
 # settings which are version specific go in here:
@@ -34,9 +27,12 @@ case $(get_version_component_range 1-2) in
 		RDEPEND=">=dev-libs/apr-1.5.1
 			!www-apache/mod_macro" #492578 #477702
 	;;
-	*)
+	2.2)
 		DEFAULT_MPM_THREADED="worker"
 		RDEPEND=">=dev-libs/apr-1.4.5" #368651
+	;;
+	*)
+		die "Unknown MAJOR.MINOR apache version."
 	;;
 esac
 
@@ -270,7 +266,7 @@ setup_modules() {
 	fi
 
 	if use ssl ; then
-		MY_CONF+=( --with-ssl="${EPREFIX}"/usr --enable-ssl=${mod_type} )
+		MY_CONF+=( --with-ssl --enable-ssl=${mod_type} )
 		MY_MODS+=( ssl )
 	else
 		MY_CONF+=( --without-ssl --disable-ssl )
@@ -451,7 +447,31 @@ apache-2_src_prepare() {
 		"${GENTOO_PATCHDIR}"/{conf/httpd.conf,init/*,patches/config.layout} \
 		|| die "libdir sed failed"
 
-	epatch "${GENTOO_PATCHDIR}"/patches/*.patch
+	if [[ "${EAPI}" -ge 6 ]] ; then
+		default
+		eapply "${GENTOO_PATCHDIR}"/patches/*.patch
+	else
+		epatch "${GENTOO_PATCHDIR}"/patches/*.patch
+	fi
+
+	if [[ ${EAPI} = 5 ]] ; then
+		# Handle patches from ebuild's PATCHES array if one is given
+		if [[ -n "${PATCHES}" ]] ; then
+			local patchestype=$(declare -p PATCHES 2>&-)
+			if [[ "${patchestype}" != "declare -a PATCHES="* ]] ; then
+				die "Declaring PATCHES as a variable is forbidden. Please use an array instead."
+			fi
+			epatch "${PATCHES[@]}"
+		fi
+
+		# Handle user patches
+		epatch_user
+	fi
+
+	# Don't rename configure.in _before_ any possible user patches!
+	if [[ -f "configure.in" ]] ; then
+		mv configure.{in,ac} || die
+	fi
 
 	# setup the filesystem layout config
 	cat "${GENTOO_PATCHDIR}"/patches/config.layout >> "${S}"/config.layout || \
@@ -463,7 +483,7 @@ apache-2_src_prepare() {
 	sed -i -e 's/httpd\.8/apache2.8/g' Makefile.in
 
 	# patched-in MPMs need the build environment rebuilt
-	sed -i -e '/sinclude/d' configure.in
+	sed -i -e '/sinclude/d' configure.ac
 	AT_M4DIR=build eautoreconf
 
 	# ${T} must be not group-writable, else grsec TPE will block it
@@ -471,9 +491,16 @@ apache-2_src_prepare() {
 
 	# This package really should upgrade to using pcre's .pc file.
 	cat <<-\EOF >"${T}"/pcre-config
-	#!/bin/sh
-	[ "${flag}" = "--version" ] && set -- --modversion
-	exec ${PKG_CONFIG} libpcre "$@"
+	#!/bin/bash
+	flags=()
+	for flag; do
+		if [[ ${flag} == "--version" ]]; then
+			flags+=( --modversion )
+		else
+			flags+=( "${flag}" )
+		fi
+	done
+	exec ${PKG_CONFIG} libpcre "${flags[@]}"
 	EOF
 	chmod a+x "${T}"/pcre-config
 }

@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="6"
 USE_RUBY="ruby20 ruby21"
@@ -43,6 +42,14 @@ src_prepare() {
 	eapply_user
 }
 
+cdb_make() {
+	cdbmake "${1}" "${1}.tmp"
+}
+
+tinycdb_make() {
+	cdb -c "${1}"
+}
+
 src_compile() {
 	local ctdic="${MY_PN}.china_taiwan" ruby
 	mv ${ctdic}{.header,}
@@ -54,9 +61,9 @@ src_compile() {
 	done
 
 	if use cdb; then
-		local cdbmake="cdbmake" f
+		local cdbmake=cdb_make f
 		if has_version dev-db/tinycdb; then
-			cdbmake="cdb -c"
+			cdbmake=tinycdb_make
 		fi
 		for f in {,zipcode/}${MY_PN}.*; do
 			LC_ALL=C awk '

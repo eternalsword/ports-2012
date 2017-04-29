@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 inherit apache-module
@@ -12,7 +11,7 @@ SRC_URI="https://dev.gentoo.org/~pacho/maintainer-needed/${P}.tar.xz"
 
 LICENSE="Apache-1.1"
 SLOT="0"
-KEYWORDS="amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="mod_proxy"
 
 DEPEND=""

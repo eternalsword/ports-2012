@@ -1,8 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
 inherit autotools bash-completion-r1 eutils vcs-snapshot
 
@@ -12,13 +11,15 @@ SRC_URI="http://mosh.mit.edu/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~mips ~ppc ~x86 ~amd64-linux ~arm-linux ~x86-linux ~x64-macos"
+KEYWORDS="amd64 ~arm ~mips ppc x86 ~amd64-linux ~arm-linux ~x86-linux ~x64-macos"
 IUSE="+client examples +mosh-hardening +server ufw +utempter"
 
-REQUIRED_USE="|| ( client server )
+REQUIRED_USE="
+	|| ( client server )
 	examples? ( client )"
 
-RDEPEND="dev-libs/protobuf
+RDEPEND="
+	dev-libs/protobuf:0=
 	sys-libs/ncurses:0=
 	virtual/ssh
 	client? (
@@ -38,8 +39,8 @@ PATCHES=(
 )
 
 src_prepare() {
-	# apply patches.
-	epatch ${PATCHES[@]}
+	MAKEOPTS+=" V=1"
+	default
 
 	eautoreconf
 }
@@ -53,10 +54,6 @@ src_configure() {
 		$(use_enable ufw) \
 		$(use_enable mosh-hardening hardening) \
 		$(use_with utempter)
-}
-
-src_compile() {
-	emake V=1
 }
 
 src_install() {

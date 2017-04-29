@@ -1,15 +1,14 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1
 
-DESCRIPTION="Fast, simple packet creation / parsing, with definitions for the basic TCP/IP protocols"
+DESCRIPTION="Fast, simple packet creation / parsing"
 HOMEPAGE="https://github.com/kbandla/dpkt"
-SRC_URI="https://${PN}.googlecode.com/files/${P}.tar.gz"
+SRC_URI="mirror://gentoo/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"

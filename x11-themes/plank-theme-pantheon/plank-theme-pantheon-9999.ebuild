@@ -1,12 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
-EAPI=5
+EAPI=6
 
-inherit base bzr
+inherit bzr
 
-DESCRIPTION="Plank theme for elementary OS, created to compliment the Pantheon desktop environment"
+DESCRIPTION="Plank theme for elementary OS"
 HOMEPAGE="https://launchpad.net/plank-theme-pantheon"
 EBZR_REPO_URI="lp:plank-theme-pantheon"
 

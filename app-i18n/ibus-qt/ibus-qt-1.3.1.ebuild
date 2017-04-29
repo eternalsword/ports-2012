@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 inherit cmake-utils eutils multilib
@@ -30,7 +29,11 @@ S="${WORKDIR}/${MY_P}"
 
 DOCS="AUTHORS README TODO"
 
-mycmakeargs="-DLIBDIR=$(get_libdir) -DDOCDIR=${EPREFIX}/usr/share/doc/${PF} all"
+src_configure() {
+	local mycmakeargs=( -DLIBDIR=$(get_libdir) -DDOCDIR=${EPREFIX}/usr/share/doc/${PF} all )
+
+	cmake-utils_src_configure
+}
 
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-1.2.0.20091217-doc.patch" \

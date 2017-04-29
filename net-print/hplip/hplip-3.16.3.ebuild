@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -16,15 +15,13 @@ SRC_URI="mirror://sourceforge/hplip/${P}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 arm ppc ~ppc64 x86"
+KEYWORDS="amd64 arm ppc ppc64 x86"
 
 IUSE="doc fax +hpcups hpijs kde libnotify -libusb0 minimal parport policykit qt4 scanner snmp static-ppds X"
 
 COMMON_DEPEND="
 	virtual/jpeg:0
-	hpijs? (
-		|| ( >=net-print/cups-filters-1.0.43-r1[foomatic] >=net-print/foomatic-filters-3.0.20080507[cups] )
-	)
+	hpijs? ( >=net-print/cups-filters-1.0.43-r1[foomatic] )
 	!minimal? (
 		${PYTHON_DEPS}
 		>=net-print/cups-1.4.0

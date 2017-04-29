@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -31,7 +30,7 @@ RDEPEND="${DEPEND}
 		mysql? ( dev-lua/luadbi[mysql] )
 		postgres? ( dev-lua/luadbi[postgres] )
 		sqlite? ( dev-lua/luadbi[sqlite] )
-		ssl? ( dev-lua/luasec )
+		ssl? ( <dev-lua/luasec-0.6 )
 		zlib? ( dev-lua/lua-zlib )"
 
 S=${WORKDIR}/${MY_P}

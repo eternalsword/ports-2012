@@ -1,11 +1,10 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
 DESCRIPTION="A Yojson codec generator for OCaml"
-HOMEPAGE="A Yojson codec generator for OCaml"
+HOMEPAGE="https://github.com/whitequark/ppx_deriving_yojson/"
 SRC_URI="https://github.com/whitequark/ppx_deriving_yojson/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"

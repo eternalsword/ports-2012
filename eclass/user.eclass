@@ -5,9 +5,6 @@
 # @ECLASS: user.eclass
 # @MAINTAINER:
 # base-system@gentoo.org (Linux)
-# Joe Jezak <josejx@gmail.com> (OS X)
-# usata@gentoo.org (OS X)
-# Aaron Walker <ka0ttic@gentoo.org> (FreeBSD)
 # @BLURB: user management in ebuilds
 # @DESCRIPTION:
 # The user eclass contains a suite of functions that allow ebuilds
@@ -188,7 +185,6 @@ enewuser() {
 	local egroups=$1; shift
 	local g egroups_arr
 	IFS="," read -r -a egroups_arr <<<"${egroups}"
-	shift
 	if [[ ${#egroups_arr[@]} -gt 0 ]] ; then
 		local defgroup exgroups
 		for g in "${egroups_arr[@]}" ; do

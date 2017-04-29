@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -17,8 +16,7 @@ SRC_URI="mirror://gnu/${PN}/${P}.tar.bz2"
 SLOT="0/${PV}"
 IUSE="curl doc fftw +glpk gnuplot graphicsmagick hdf5 +imagemagick opengl postscript
 	+qhull +qrupdate readline +sparse static-libs X zlib"
-REQUIRED_USE="?? ( graphicsmagick imagemagick )"
-KEYWORDS="~amd64 ~arm ~hppa ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm hppa ppc ppc64 x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 
 RDEPEND="
 	app-text/ghostscript-gpl
@@ -30,8 +28,10 @@ RDEPEND="
 	glpk? ( sci-mathematics/glpk )
 	gnuplot? ( sci-visualization/gnuplot )
 	hdf5? ( sci-libs/hdf5 )
-	graphicsmagick? ( media-gfx/graphicsmagick:=[cxx] )
-	imagemagick? ( media-gfx/imagemagick:=[cxx] )
+	imagemagick? (
+		!graphicsmagick? ( media-gfx/imagemagick:=[cxx] )
+		graphicsmagick? ( media-gfx/graphicsmagick:=[cxx] )
+	)
 	opengl? (
 		media-libs/freetype:2
 		media-libs/fontconfig
@@ -59,7 +59,6 @@ DEPEND="${RDEPEND}
 	doc? (
 		virtual/latex-base
 		dev-texlive/texlive-genericrecommended
-		dev-texlive/texlive-metapost
 		sys-apps/texinfo )
 	dev-util/gperf
 	virtual/pkgconfig"
@@ -67,8 +66,7 @@ DEPEND="${RDEPEND}
 PATCHES=(
 	"${FILESDIR}"/${PN}-3.4.3-{pkgbuilddir,texi}.patch
 	"${FILESDIR}"/${PN}-3.6.3-legendtext.patch
-	"${FILESDIR}"/${P}-texinfo.patch
-	"${FILESDIR}"/${P}-gcc-4.8.patch
+	"${FILESDIR}"/${PN}-3.6.4-texinfo.patch
 )
 
 src_prepare() {
@@ -101,6 +99,7 @@ src_configure() {
 		$(use_with fftw fftw3f)
 		$(use_with glpk)
 		$(use_with hdf5)
+		$(use_with imagemagick magick $(usex graphicsmagick GraphicsMagick ImageMagick))
 		$(use_with opengl)
 		$(use_with qhull)
 		$(use_with qrupdate)
@@ -113,13 +112,6 @@ src_configure() {
 		$(use_with X x)
 		$(use_with zlib z)
 	)
-	if use graphicsmagick; then
-		myeconfargs+=( "--with-magick=GraphicsMagick" )
-	elif use imagemagick; then
-		myeconfargs+=( "--with-magick=ImageMagick" )
-	else
-		myeconfargs+=( "--without-magick" )
-	fi
 	autotools-utils_src_configure
 }
 

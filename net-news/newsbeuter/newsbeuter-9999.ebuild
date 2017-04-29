@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -65,6 +64,6 @@ src_test() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" prefix="/usr" PACKAGE="${PF}" install
+	emake DESTDIR="${D}" prefix="/usr" docdir="/usr/share/doc/${PF}" install
 	dodoc AUTHORS CHANGES README.md TODO
 }

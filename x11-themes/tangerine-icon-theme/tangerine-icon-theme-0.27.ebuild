@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=4
 inherit gnome2-utils
@@ -17,7 +16,7 @@ IUSE="minimal"
 
 RESTRICT="binchecks strip"
 
-RDEPEND="!minimal? ( || ( x11-themes/gnome-icon-theme kde-frameworks/oxygen-icons ) )"
+RDEPEND="!minimal? ( || ( x11-themes/adwaita-icon-theme kde-frameworks/oxygen-icons ) )"
 DEPEND="dev-util/intltool
 	>=gnome-base/librsvg-2.34
 	sys-devel/gettext

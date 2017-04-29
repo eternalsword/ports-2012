@@ -1,0 +1,12 @@
+DEFINED_PHASES=install
+DEPEND=gnome-base/libgnome-keyring x11-libs/libXScrnSaver gnome-base/gconf
+DESCRIPTION=Brave Web Browser
+EAPI=6
+HOMEPAGE=https://brave.com
+KEYWORDS=~*
+LICENSE=MPL-2.0
+RDEPEND=gnome-base/libgnome-keyring x11-libs/libXScrnSaver
+RESTRICT=strip mirror
+SLOT=0
+SRC_URI=https://github.com/brave/browser-laptop/releases/download/v0.12.15dev/Brave.tar.bz2 -> brave-bin-0.12.15.tar.bz2
+_md5_=40f89a0f001c8a3313d9ec26cf20729f

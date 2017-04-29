@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -24,23 +23,18 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="git httpd test"
+IUSE="git httpd make test"
 
-CDEPEND="
-	httpd? (
-		dev-libs/libevent
-		sys-apps/file )"
-
-RDEPEND="${CDEPEND}
+RDEPEND="
 	git? (
 		dev-vcs/git )
 	!dev-vcs/blogc-git-receiver
 	!www-servers/blogc-runserver"
 
 DEPEND="${DEPEND}
-	${CDEPEND}
 	virtual/pkgconfig
 	test? (
+		git? ( dev-vcs/git )
 		dev-util/cmocka )"
 
 src_prepare() {
@@ -59,7 +53,9 @@ src_configure() {
 	econf \
 		$(use_enable test tests) \
 		$(use_enable git git-receiver) \
+		$(use_enable make make) \
 		$(use_enable httpd runserver) \
+		--disable-make-embedded \
 		--disable-valgrind \
 		${myconf}
 }

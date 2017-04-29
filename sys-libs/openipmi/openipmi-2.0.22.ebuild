@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -16,7 +15,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
 LICENSE="LGPL-2.1 GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~hppa ~ia64 ~ppc ~x86"
+KEYWORDS="amd64 hppa ~ia64 ppc x86"
 IUSE="crypt snmp perl python tcl"
 S="${WORKDIR}/${MY_P}"
 RESTRICT='test'
@@ -24,6 +23,7 @@ RESTRICT='test'
 RDEPEND="
 	dev-libs/glib:2
 	sys-libs/gdbm
+	sys-libs/ncurses:0=
 	crypt? ( dev-libs/openssl:0= )
 	snmp? ( net-analyzer/net-snmp )
 	perl? ( dev-lang/perl )
@@ -90,7 +90,7 @@ src_configure() {
 	#fi
 
 	myconf+=( --without-tkinter )
-	myconf+=( --with-glib --with-swig )
+	myconf+=( --with-glib --with-glibver=2.0 --with-glib12=no --with-swig )
 	# these binaries are for root!
 	econf ${myconf[@]} --bindir=/usr/sbin
 }

@@ -1,6 +1,5 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -17,7 +16,7 @@ SLOT="0/1"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 IUSE="cxsparse doc examples gflags lapack openmp protobuf +schur sparse static-libs test"
-REQUIRED_USE="test? ( gflags ) sparse? ( lapack ) doc? ( ${PYTHON_REQUIRED_USE} )"
+REQUIRED_USE="test? ( gflags ) sparse? ( lapack )"
 
 RDEPEND="
 	dev-cpp/glog[gflags?]
@@ -35,7 +34,8 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	dev-cpp/eigen:3
 	doc? ( dev-python/sphinx dev-python/sphinx_rtd_theme )
-	lapack? ( virtual/pkgconfig )"
+	lapack? ( virtual/pkgconfig )
+	${PYTHON_DEPS}"
 
 PATCHES=( "${FILESDIR}"/${P}-underlink.patch )
 

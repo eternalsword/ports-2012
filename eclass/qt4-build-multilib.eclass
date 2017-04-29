@@ -158,6 +158,12 @@ qt4-build-multilib_src_prepare() {
 			|| die "sed failed (skip X11 tests)"
 	fi
 
+	# Qt4 is not safe to build with C++14 (the new gcc-6 default).
+	# Upstream has addressed this for Qt5, but while we continue to
+	# support Qt4, we need to ensure everything is built in C++98 mode.
+	# See bugs 582522, 582618, 583662, 583744.
+	append-cxxflags -std=gnu++98
+
 	if [[ ${PN} == qtcore ]]; then
 		# Bug 373061
 		# qmake bus errors with -O2 or -O3 but -O1 works
@@ -834,10 +840,8 @@ qt4_get_mkspec() {
 	esac
 
 	# Add -64 for 64-bit prefix profiles
-	if use amd64-linux || use ia64-linux || use ppc64-linux ||
+	if use amd64-linux || use ppc64-linux ||
 		use x64-macos ||
-		use sparc64-freebsd || use x64-freebsd || use x64-openbsd ||
-		use ia64-hpux ||
 		use sparc64-solaris || use x64-solaris
 	then
 		[[ -d ${S}/mkspecs/${spec}-64 ]] && spec+=-64

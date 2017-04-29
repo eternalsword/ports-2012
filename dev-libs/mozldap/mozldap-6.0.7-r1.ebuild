@@ -1,6 +1,7 @@
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI="6"
 
 WANT_AUTOCONF="2.1"
 
@@ -12,7 +13,7 @@ SRC_URI="ftp://ftp.mozilla.org/pub/mozilla.org/directory/c-sdk/releases/v${PV}/s
 
 LICENSE="MPL-1.1 GPL-2 LGPL-2.1"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="~amd64 ~x86"
 IUSE="ipv6 debug +sasl"
 
 COMMON_DEPEND=">=dev-libs/nss-3.11.4
@@ -25,12 +26,16 @@ RDEPEND="${COMMON_DEPEND}"
 
 S="${WORKDIR}/${P}/c-sdk"
 
+PATCHES=(
+	"${FILESDIR}"/${PN}-6.0.4-pkgconfig.patch
+	"${FILESDIR}"/${P}-configure.in.patch
+	"${FILESDIR}"/nss-m4.patch
+	"${FILESDIR}"/nspr-m4.patch
+	"${FILESDIR}"/${PN}-6.0.6-ldflags.patch
+)
+
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-6.0.4-pkgconfig.patch
-	epatch "${FILESDIR}"/${P}-configure.in.patch
-	epatch "${FILESDIR}"/nss-m4.patch
-	epatch "${FILESDIR}"/nspr-m4.patch
-	epatch "${FILESDIR}"/${PN}-6.0.6-ldflags.patch
+	default
 	eautoreconf
 }
 
@@ -64,23 +69,21 @@ src_install () {
 	    -e "s,%MOZLDAP_VERSION%,${PV},g" \
 	   "${S}"/"${PN}".pc.in > "${S}"/"${PN}".pc || die "sed in install failed"
 
-	emake  install || die "make failed"
+	emake install
 	local MY_S="${WORKDIR}"/dist/
 
-	rm -rf "${MY_S}/bin/"lib*.so
-	rm -rf "${MY_S}/public/ldap-private"
+	rm -rf "${MY_S}/bin/"lib*.so || die
+	rm -rf "${MY_S}/public/ldap-private" || die
 
 	exeinto /usr/$(get_libdir)/mozldap
 	doexe "${MY_S}"/lib/*so*
 	doexe "${MY_S}"/lib/*.a
 	doexe "${MY_S}"/bin/*
 
-	#create compatibility PATH link
-
-	 for i in ldapcmp ldapcompare ldapdelete ldapmodify \
-		 	ldappasswd ldapsearch;do
-	 	dosym /usr/$(get_libdir)/mozldap/$i /usr/bin/moz"${i}" || die
-	 # compat for 389-project
+	# create compatibility PATH link
+	for i in ldapcmp ldapcompare ldapdelete ldapmodify ldappasswd ldapsearch ; do
+		dosym /usr/$(get_libdir)/mozldap/$i /usr/bin/moz"${i}" || die
+		# compat for 389-project
 		dosym /usr/$(get_libdir)/mozldap/$i /usr/bin/389-"${i}" || die
 	done
 
@@ -92,14 +95,14 @@ src_install () {
 	insinto /usr/share/mozldap
 	doins "${MY_S}"/etc/*.conf
 
-	#and while at it move them to files with versions-ending
-	#and link them back :)
-	cd "${D}"/usr/$(get_libdir)/mozldap
+	# and while at it move them to files with versions-ending
+	# and link them back :)
+	cd "${D}"/usr/$(get_libdir)/mozldap || die
 
-	#create compatibility Link
+	# create compatibility Link
 	ln -sf libldap$(get_major_version ${PV})$(get_version_component_range 2 ${PV}).so \
 		liblber$(get_major_version ${PV})$(get_version_component_range 2 ${PV}).so || die
-	#so lets move
+	# so let's move
 	for file in *.so; do
 		mv ${file} ${file}.$(get_major_version ${PV}).$(get_version_component_range 2 ${PV}) || die
 		ln -sf ${file}.$(get_major_version ${PV}).$(get_version_component_range 2 ${PV}) ${file} || die
@@ -109,30 +112,9 @@ src_install () {
 
 	# cope with libraries being in /usr/lib/mozldap
 	dodir /etc/env.d
-	echo "LDPATH=/usr/$(get_libdir)/mozldap" > "${D}"/etc/env.d/08mozldap
+	echo "LDPATH=/usr/$(get_libdir)/mozldap" > "${D}"/etc/env.d/08mozldap || die
 
 	# create pkg-config file
 	insinto /usr/$(get_libdir)/pkgconfig/
 	doins "${S}"/mozldap.pc
-
-	# fix headers - FL-1216 - replace all (dead) symlinks with the real files
-	cd ${D}/usr/include/mozldap
-	insinto /usr/include/mozldap
-	for f in *; do
-		[ ! -L $f ] && continue
-		# remove bad symlink
-		rm $f || die
-		doins ${S}/ldap/include/$f
-	done
-
-	# fix conf files - FL-1216
-	cd ${D}/usr/share/mozldap
-	insinto /usr/share/mozldap
-	for f in *; do
-		[ ! -L $f ] && continue
-		# remove bad symlink
-		rm $f || die
-		doins ${S}/ldap/libraries/libldap/$f
-	done
 }
-

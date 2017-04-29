@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 EGO_PN=golang.org/x/net/...
@@ -9,7 +8,7 @@ EGO_SRC=golang.org/x/net
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	KEYWORDS="~amd64 ~arm"
+	KEYWORDS="~amd64 ~arm ~x86"
 	EGIT_COMMIT="b6d7b1396ec874c3b00f6c84cd4301a17c56c8ed"
 	SRC_URI="https://github.com/golang/net/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	inherit golang-vcs-snapshot

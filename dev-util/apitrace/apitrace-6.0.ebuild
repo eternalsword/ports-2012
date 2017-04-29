@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 PYTHON_COMPAT=( python2_7 )
@@ -15,6 +14,7 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="+cli egl qt4"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}
 	>=app-arch/snappy-1.1.1[${MULTILIB_USEDEP}]

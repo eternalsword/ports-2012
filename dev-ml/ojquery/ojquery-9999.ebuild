@@ -1,13 +1,12 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
 inherit oasis
 
 DESCRIPTION="jQuery Binding for Eliom."
-HOMEPAGE="jQuery Binding for Eliom."
+HOMEPAGE="https://github.com/ocsigen/ojquery"
 
 if [ "${PV#9999}" != "${PV}" ] ; then
 	inherit git-r3

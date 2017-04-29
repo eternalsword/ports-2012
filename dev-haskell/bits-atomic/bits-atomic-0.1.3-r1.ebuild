@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -31,4 +30,5 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-gcc-5.patch
+	epatch "${FILESDIR}"/${P}-ghc-8.patch
 }

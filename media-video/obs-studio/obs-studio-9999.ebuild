@@ -1,10 +1,10 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="6"
+EAPI=6
 
-inherit cmake-utils
+inherit cmake-utils gnome2-utils
 
 if [[ ${PV} == *9999 ]]; then
 	inherit git-r3
@@ -34,8 +34,8 @@ DEPEND="
 	dev-qt/qttest:5
 	dev-qt/qtwidgets:5
 	dev-qt/qtx11extras:5
-	media-libs/x264:=
-	media-video/ffmpeg:=
+	media-video/ffmpeg:=[x264]
+	net-misc/curl
 	x11-libs/libXcomposite
 	x11-libs/libXinerama
 	x11-libs/libXrandr
@@ -52,32 +52,58 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
-src_prepare() {
-	CMAKE_REMOVE_MODULES_LIST=(FindFreetype)
-
-	cmake-utils_src_prepare
-}
+CMAKE_REMOVE_MODULES_LIST=( FindFreetype )
 
 src_configure() {
-	local libdir="$(get_libdir)"
+	local libdir=$(get_libdir)
 	local mycmakeargs=(
-		-DDISABLE_ALSA="$(usex !alsa)"
-		-DDISABLE_FREETYPE="$(usex !truetype)"
-		-DDISABLE_JACK="$(usex !jack)"
-		-DDISABLE_LIBFDK="$(usex !fdk)"
-		-DDISABLE_PULSEAUDIO="$(usex !pulseaudio)"
-		-DDISABLE_V4L2="$(usex !v4l)"
-		-DLIBOBS_PREFER_IMAGEMAGICK="$(usex imagemagick)"
-		-DOBS_MULTIARCH_SUFFIX="${libdir#lib}"
+		-DDISABLE_ALSA=$(usex !alsa)
+		-DDISABLE_FREETYPE=$(usex !truetype)
+		-DDISABLE_JACK=$(usex !jack)
+		-DDISABLE_LIBFDK=$(usex !fdk)
+		-DDISABLE_PULSEAUDIO=$(usex !pulseaudio)
+		-DDISABLE_V4L2=$(usex !v4l)
+		-DLIBOBS_PREFER_IMAGEMAGICK=$(usex imagemagick)
+		-DOBS_MULTIARCH_SUFFIX=${libdir#lib}
 		-DUNIX_STRUCTURE=1
 	)
-
 	cmake-utils_src_configure
 }
 
+pkg_preinst() {
+	gnome2_icon_savelist
+}
+
 pkg_postinst() {
+	gnome2_icon_cache_update
+
 	if ! use alsa && ! use pulseaudio; then
-		elog "To be able to use the audio capture features, either the"
-		elog "'alsa' or the 'pulseaudio' USE-flag needs to be enabled."
+		elog
+		elog "For the audio capture features to be available,"
+		elog "either the 'alsa' or the 'pulseaudio' USE-flag needs to"
+		elog "be enabled."
+		elog
 	fi
+
+	if ! has_version "sys-apps/dbus"; then
+		elog
+		elog "The 'sys-apps/dbus' package is not installed, but"
+		elog "could be used for disabling hibernating, screensaving,"
+		elog "and sleeping.  Where it is not installed,"
+		elog "'xdg-screensaver reset' is used instead"
+		elog "(if 'x11-misc/xdg-utils' is installed)."
+		elog
+	fi
+
+	if ! has_version "media-libs/speex"; then
+		elog
+		elog "For the speexdsp-based noise suppression filter"
+		elog "to be available, the 'media-libs/speex' package needs"
+		elog "to be installed."
+		elog
+	fi
+}
+
+pkg_postrm() {
+	gnome2_icon_cache_update
 }

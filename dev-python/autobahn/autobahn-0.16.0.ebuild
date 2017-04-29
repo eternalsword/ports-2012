@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -33,8 +32,8 @@ RDEPEND="
 	>=dev-python/six-1.10.0[${PYTHON_USEDEP}]
 	>=dev-python/snappy-0.5[${PYTHON_USEDEP}]
 	|| (
-		>=dev-python/twisted-core-12.1[$(python_gen_usedep 'python2*')]
 		>=dev-python/twisted-16.0.0[${PYTHON_USEDEP}]
+		>=dev-python/twisted-core-12.1[$(python_gen_usedep 'python2*')]
 	)
 	>=dev-python/txaio-2.5.1[${PYTHON_USEDEP}]
 	>=dev-python/u-msgpack-2.1[${PYTHON_USEDEP}]

@@ -18,12 +18,12 @@ KEYWORDS="amd64 ~arm x86 ~amd64-linux ~x86-linux"
 IUSE="debug google"
 
 DEPEND="
-	$(add_kdebase_dep baloo '' 4.14.3)
 	$(add_kdeapps_dep kdepimlibs 'akonadi(+)')
 	app-crypt/gpgme
-	>=app-office/akonadi-server-1.12.90
 	dev-libs/grantlee:0
-	google? ( net-libs/libkgapi:4 )
+	kde-apps/akonadi:4
+	kde-frameworks/baloo:4
+	google? ( $(add_kdeapps_dep libkgapi '' 2.2.0) )
 "
 RDEPEND="${DEPEND}
 	!kde-apps/libkdepim:4

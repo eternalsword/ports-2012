@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -64,7 +63,6 @@ pkg_postinst() {
 	elog "  sys-apps/udevil"
 	elog "To perform as root functionality you need one of the following:"
 	elog "  x11-misc/ktsuss"
-	elog "  x11-libs/gksu"
 	elog "  kde-apps/kdesu"
 	elog "Other optional dependencies:"
 	elog "  sys-apps/dbus"

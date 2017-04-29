@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 inherit autotools eutils
@@ -13,7 +12,7 @@ SRC_URI="http://www.cacti.net/downloads/spine/${MY_P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="amd64 hppa ~ppc ~ppc64 ~sparc x86"
+KEYWORDS="amd64 hppa ~ppc ~ppc64 sparc x86"
 
 CDEPEND="
 	dev-libs/openssl:*

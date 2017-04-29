@@ -1,6 +1,5 @@
 # Copyright 1999-2014 Gentoo Foundation.
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 # This file describes the packages needed to build a stage 1 based on this
 # profile.  Packages in this file are built in order.
@@ -40,6 +39,7 @@ virtual/editor
 virtual/libc
 virtual/os-headers
 virtual/package-manager
+virtual/pkgconfig
 sys-freebsd/freebsd-mk-defs
 sys-freebsd/freebsd-lib
 sys-freebsd/freebsd-libexec
@@ -48,3 +48,4 @@ sys-freebsd/freebsd-sbin
 sys-freebsd/freebsd-ubin
 sys-freebsd/freebsd-usbin
 sys-freebsd/freebsd-contrib
+sys-libs/timezone-data

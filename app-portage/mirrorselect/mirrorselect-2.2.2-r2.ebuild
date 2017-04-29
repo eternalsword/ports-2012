@@ -1,10 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="5"
 
-PYTHON_COMPAT=( python{2_7,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_4} )
 PYTHON_REQ_USE="xml"
 
 inherit eutils distutils-r1 prefix
@@ -19,7 +18,7 @@ LICENSE="GPL-2"
 SLOT="0"
 IUSE=""
 
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 sparc x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~mips ppc ppc64 sparc x86 ~x86-fbsd"
 
 RDEPEND="
 	dev-util/dialog

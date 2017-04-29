@@ -1,6 +1,5 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
@@ -13,9 +12,11 @@ SRC_URI="mirror://sourceforge/icesoundmanager/${MY_PN}-${PV}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="amd64 ~ppc x86"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
+	${PYTHON_DEPS}
 	dev-python/pygtk:2
 	x11-libs/gtk+:2
 	x11-wm/icewm

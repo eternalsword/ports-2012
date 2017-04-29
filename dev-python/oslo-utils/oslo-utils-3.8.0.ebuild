@@ -1,10 +1,9 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_{3,4,5}} )
+PYTHON_COMPAT=( python{2_7,3_{4,5}} )
 
 inherit distutils-r1 vcs-snapshot
 
@@ -61,6 +60,7 @@ RDEPEND="
 
 python_prepare_all() {
 	sed -i '/^hacking/d' test-requirements.txt || die
+	distutils-r1_python_prepare_all
 }
 
 python_compile_all() {

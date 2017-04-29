@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -16,7 +15,7 @@ if [[ ${PV} = *9999 ]]; then
 	EGIT_REPO_URI="https://github.com/FFTW/fftw3.git"
 else
 	SRC_URI="http://www.fftw.org/${P}.tar.gz"
-	KEYWORDS="~alpha ~ia64 ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
+	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
 fi
 
 LICENSE="GPL-2+"
@@ -28,18 +27,13 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	test? ( dev-lang/perl )"
 
+pkg_pretend() {
+	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
+}
+
 pkg_setup() {
 	if [[ ${MERGE_TYPE} != binary ]] && use openmp; then
-		if ! tc-has-openmp; then
-			ewarn "OpenMP is not available in your current selected compiler"
-
-			if tc-is-clang; then
-				ewarn "OpenMP support in sys-devel/clang is provided by sys-libs/libomp,"
-				ewarn "which you will need to build ${CATEGORY}/${PN} with USE=\"openmp\""
-			fi
-
-			die "need openmp capable compiler"
-		fi
+		tc-check-openmp
 		FORTRAN_NEED_OPENMP=1
 	fi
 

@@ -1,3 +1,24 @@
+# FL-3697: keyword dev-libs/glib and it's dependee
+=dev-libs/glib-2.48.2 amd64 x86
+=dev-util/gdbus-codegen-2.48.2 amd64 x86
+
+#FL-3571: stabilize dev-libs/zthred-2.3.2-r4:
+=dev-libs/zthread-2.3.2-r4 amd64 x86
+
+# FL-3563: set stable keywords for unforked luatex
+=dev-tex/luatex-0.76.0 amd64 x86 arm
+
+# stabilize gentoolkit 0.3.2-r1
+=app-portage/gentoolkit-0.3.2-r1 amd64 x86
+
+
+# FL-3392: stabilize libplist-1.12
+=app-pda/libplist-1.12 amd64 x86
+
+# FL-3357: stabilize man2html after man-db unfork
+=sys-apps/man2html-1.6g amd64 x86
+
+
 # FL-3074: stabilize gd-2.1.1-r1 to resolve webp deps handle. (on x86 arches only)
 =media-libs/gd-2.1.1* amd64 x86
 

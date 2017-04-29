@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -22,7 +21,7 @@ PYTHON_COMPAT=( python{3_4,3_5} )
 inherit distutils-r1 multilib ${SRC_ECLASS}
 
 DESCRIPTION="Release metatool used for creating releases based on Gentoo Linux"
-HOMEPAGE="https://www.gentoo.org/proj/en/releng/catalyst/"
+HOMEPAGE="https://wiki.gentoo.org/wiki/Catalyst"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -48,6 +47,7 @@ RDEPEND="
 python_prepare_all() {
 	echo VERSION="${PV}" "${PYTHON}" setup.py set_version
 	VERSION="${PV}" "${PYTHON}" setup.py set_version
+	distutils-r1_python_prepare_all
 }
 
 python_compile_all() {

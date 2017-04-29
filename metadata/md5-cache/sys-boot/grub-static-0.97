@@ -9,4 +9,4 @@ RDEPEND=!<sys-boot/grub-2
 SLOT=0
 SRC_URI=mirror://gentoo/grub-static-0.97.tar.bz2
 _eclasses_=mount-boot	ea24b511b0ad59831d0151aa634dfad2
-_md5_=c84abd65444009e919ac6c15d1eb7bf5
+_md5_=0bace963991da8e7085c029481953912

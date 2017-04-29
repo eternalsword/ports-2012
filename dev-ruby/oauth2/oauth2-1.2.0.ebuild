@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -16,7 +15,7 @@ inherit ruby-fakegem eutils
 
 DESCRIPTION="Wrapper for the OAuth 2.0 protocol with a similar style to the OAuth gem"
 HOMEPAGE="https://github.com/intridea/oauth2"
-SRC_URI="https://github.com/intridea/oauth2/archive/v${PV}.tar.gz"
+SRC_URI="https://github.com/intridea/oauth2/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"

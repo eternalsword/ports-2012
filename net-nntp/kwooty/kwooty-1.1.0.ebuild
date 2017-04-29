@@ -1,6 +1,5 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 KDE_LINGUAS="cs de fr"
@@ -17,7 +16,7 @@ KEYWORDS="amd64 x86"
 IUSE="debug"
 
 DEPEND="
-	$(add_kdebase_dep libkworkspace)
+	kde-plasma/libkworkspace:4
 "
 RDEPEND="
 	${DEPEND}

@@ -1,17 +1,24 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
-EGIT_REPO_URI="https://github.com/tdf/libcmis.git"
-[[ ${PV} == 9999 ]] && SCM_ECLASS="git-r3"
-inherit eutils alternatives autotools ${SCM_ECLASS}
+if [[ ${PV} = 9999 ]]; then
+	EGIT_REPO_URI="https://github.com/tdf/libcmis.git"
+	SCM_ECLASS="git-r3"
+elif [[ ${PV} = *_pre* ]]; then
+	SCM_ECLASS="vcs-snapshot"
+	snapshot=d2054a12e3f52fff8e96341e8c48f0dcd75e2e2a
+	SRC_URI="https://github.com/tdf/${PN}/archive/${snapshot}.tar.gz -> ${P}.tar.gz"
+	unset snapshot
+else
+	SRC_URI="https://github.com/tdf/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+fi
+inherit alternatives autotools ${SCM_ECLASS}
 unset SCM_ECLASS
 
 DESCRIPTION="C++ client library for the CMIS interface"
 HOMEPAGE="https://github.com/tdf/libcmis"
-[[ ${PV} == 9999 ]] || SRC_URI="https://github.com/tdf/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="|| ( GPL-2 LGPL-2 MPL-1.1 )"
 SLOT="0.5"
@@ -20,7 +27,7 @@ SLOT="0.5"
 [[ ${PV} == 9999 ]] || \
 KEYWORDS="~amd64 ~arm ~x86 ~amd64-linux ~x86-linux"
 
-IUSE="static-libs man test"
+IUSE="man static-libs test"
 
 COMMON_DEPEND="
 	dev-libs/boost:=
@@ -39,20 +46,18 @@ DEPEND="${COMMON_DEPEND}
 	)
 "
 RDEPEND="${COMMON_DEPEND}
-	!dev-cpp/libcmis:0
-	!dev-cpp/libcmis:0.2
-	!dev-cpp/libcmis:0.3
-	!dev-cpp/libcmis:0.4
+	!<dev-cpp/libcmis-0.5.0
 "
 
+RESTRICT="test"
+
 src_prepare() {
-	eapply_user
-	[[ ${PV} == 9999 ]] && eautoreconf
+	default
+	[[ ${PV} = *_pre* || ${PV} = 9999 ]] && eautoreconf
 }
 
 src_configure() {
 	econf \
-		--docdir="${EPREFIX}"/usr/share/doc/${PF} \
 		--program-suffix=-${SLOT} \
 		--disable-werror \
 		$(use_with man) \
@@ -63,7 +68,7 @@ src_configure() {
 
 src_install() {
 	default
-	prune_libtool_files --all
+	find "${D}" -name '*.la' -delete || die
 }
 
 pkg_postinst() {

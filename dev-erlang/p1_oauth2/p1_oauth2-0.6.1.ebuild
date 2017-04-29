@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -29,6 +28,7 @@ DOCS=( CHANGELOG.md  README.md )
 src_prepare() {
 	rebar_src_prepare
 	rebar_remove_deps rebar.test.config
+	sed -e '/, warnings_as_errors/d' -i rebar.test.config || die
 }
 
 src_test() {

@@ -1,6 +1,5 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -42,7 +41,7 @@ RDEPEND="
 	dev-python/pyyaml
 	dev-python/setuptools
 	dev-python/pygments
-	git? ( =dev-python/pygit2-0.21* )
+	git? ( >=dev-python/pygit2-0.21.3 )
 	mercurial? ( >=dev-vcs/mercurial-1.6 )"
 
 DEPEND="${RDEPEND}

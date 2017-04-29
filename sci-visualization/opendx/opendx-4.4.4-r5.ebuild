@@ -1,8 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=4
 
 MYP=dx-${PV}
 inherit eutils flag-o-matic autotools multilib
@@ -13,7 +12,7 @@ SRC_URI="http://opendx.sdsc.edu/source/${MYP}.tar.gz"
 
 LICENSE="IBM"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ppc x86 ~amd64-linux ~x86-linux"
 IUSE="hdf cdf netcdf tiff imagemagick szip smp"
 
 RDEPEND="x11-libs/libXmu
@@ -27,8 +26,8 @@ RDEPEND="x11-libs/libXmu
 	hdf? ( sci-libs/hdf )
 	cdf? ( sci-libs/cdf )
 	netcdf? ( sci-libs/netcdf )
-	tiff? ( media-libs/tiff:0 )
-	imagemagick? ( media-gfx/imagemagick )"
+	tiff? ( media-libs/tiff )
+	imagemagick? ( virtual/imagemagick-tools )"
 
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
@@ -46,6 +45,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${P}-open.patch"
 	epatch "${FILESDIR}/${P}-szip.patch"
 	epatch "${FILESDIR}/${P}-null.patch"
+	epatch "${FILESDIR}/${P}-magick.patch"
 	eautoreconf
 }
 

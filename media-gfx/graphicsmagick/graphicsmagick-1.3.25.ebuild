@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 inherit autotools toolchain-funcs
@@ -13,7 +12,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.xz"
 
 LICENSE="MIT"
 SLOT="0/${PV%.*}"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos"
 IUSE="bzip2 cxx debug fpx imagemagick jbig jpeg jpeg2k lcms lzma modules openmp
 	perl png postscript q16 q32 static-libs svg test threads tiff truetype
 	webp wmf X zlib"
@@ -24,7 +23,7 @@ RDEPEND="dev-libs/libltdl:0
 	imagemagick? ( !media-gfx/imagemagick )
 	jbig? ( media-libs/jbigkit )
 	jpeg? ( virtual/jpeg:0 )
-	jpeg2k? ( media-libs/jasper )
+	jpeg2k? ( media-libs/jasper:= )
 	lcms? ( media-libs/lcms:2 )
 	lzma? ( app-arch/xz-utils )
 	perl? ( dev-lang/perl )

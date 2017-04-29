@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
@@ -8,7 +7,7 @@ AUTOTOOLS_IN_SOURCE_BUILD=1
 
 FORTRAN_NEEDED=fortran
 FORTRAN_STANDARD="77 90"
-PYTHON_COMPAT=( python{2_7,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_4} )
 
 inherit autotools-utils toolchain-funcs fortran-2 python-single-r1
 
@@ -27,12 +26,15 @@ REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="
 	jpeg2k? (
-		jasper? ( media-libs/jasper )
+		jasper? ( media-libs/jasper:= )
 		!jasper? ( media-libs/openjpeg:0 )
 	)
 	netcdf? ( sci-libs/netcdf )
 	png? ( media-libs/libpng:0= )
-	python? ( dev-python/numpy[${PYTHON_USEDEP}] )"
+	python? (
+		${PYTHON_DEPS}
+		dev-python/numpy[${PYTHON_USEDEP}]
+	)"
 DEPEND="${RDEPEND}
 	python? ( dev-lang/swig )"
 

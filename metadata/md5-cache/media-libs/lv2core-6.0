@@ -1,5 +1,5 @@
 DEFINED_PHASES=compile configure install setup
-DEPEND=|| ( dev-lang/python:3.4[threads(+)] >=dev-lang/python-3.3.2-r2:3.3[threads(+)] >=dev-lang/python-2.7.5-r2:2.7[threads(+)] )
+DEPEND=|| ( dev-lang/python:3.4[threads(+)] >=dev-lang/python-2.7.5-r2:2.7[threads(+)] )
 DESCRIPTION=LV2 is a simple but extensible successor of LADSPA
 EAPI=4
 HOMEPAGE=http://lv2plug.in/
@@ -8,5 +8,5 @@ LICENSE=LGPL-2.1 MIT
 RDEPEND=!<media-libs/slv2-0.4.2
 SLOT=0
 SRC_URI=http://lv2plug.in/spec/lv2core-6.0.tar.bz2
-_eclasses_=eutils	792f83d5ec9536cb5ccef375469d8bde	multilib	d062ae4ba2fc40a19c11de2ad89b6616	multiprocessing	e32940a7b2a9992ad217eccddb84d548	python-any-r1	1c20f9b800324335a8e3b137363362e8	python-utils-r1	c0ed2a2f233d3af6dd556048695dc5cb	toolchain-funcs	82165206dedb2075f9a0fb8f9b1f9441	waf-utils	c21174962af5ca8091b66f58612797ce
-_md5_=fa8aa2029bca6c2091a8b5af3473a0c3
+_eclasses_=epatch	8233751dc5105a6ae8fcd86ce2bb0247	epunt-cxx	f8073339d152f56626493f43d8ba4691	estack	5ac2a138d0b33354b764d84f9e835db8	eutils	e7491451996e8b54c3caeb713285b0fb	ltprune	2770eed66a9b8ef944714cd0e968182e	multilib	165fc17c38d1b11dac2008280dab6e80	multiprocessing	284a473719153462f3e974d86c8cb81c	python-any-r1	be89e882151ba4b847089b860d79729c	python-utils-r1	b4b2ab22637f2be1315af83f2d89cfc6	toolchain-funcs	1b1da0c45c555989dc5d832b54880783	waf-utils	d1ea2758053cbb7c5b38b8f88654468d
+_md5_=09befef80b1f7ecc707f9e9e7acb0149

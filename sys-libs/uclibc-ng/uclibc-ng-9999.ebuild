@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="6"
 
@@ -24,7 +23,7 @@ fi
 
 LICENSE="LGPL-2"
 SLOT="0"
-IUSE="debug hardened iconv ipv6 rpc crosscompile_opts_headers-only"
+IUSE="debug hardened iconv ipv6 rpc symlink-compat crosscompile_opts_headers-only"
 RESTRICT="strip"
 
 # 1) We can't upgrade from uclibc to uclibc-ng via a soft blocker since portage
@@ -260,7 +259,7 @@ src_prepare() {
 	# ld-uClibc.so.{0,MAJOR_VERSION} -> ld-uClibc-<version>.so
 	# where MAJOR_VERSION != 0 indicates the ABI verison.
 	# We want to get rid of this and just have ABI = 0.
-	eapply "${FILESDIR}"/uclibc-compat.patch
+	eapply "${FILESDIR}"/uclibc-compat-r1.patch
 
 	# We need to change the major.minor.sublevel of uclibc-ng.
 	# Upstream sets MAJOR_VERSION = 1 which breaks runtime linking.
@@ -377,6 +376,17 @@ src_install() {
 			newbin utils/ldd.host ${CTARGET}-ldd
 		fi
 		return 0
+	fi
+
+	if use symlink-compat; then
+		dosym libc.so.0 "${DESTDIR}"/lib/libcrypt.so.0
+		dosym libc.so.0 "${DESTDIR}"/lib/libdl.so.0
+		dosym libc.so.0 "${DESTDIR}"/lib/libm.so.0
+		dosym libc.so.0 "${DESTDIR}"/lib/libpthread.so.0
+		dosym libc.so.0 "${DESTDIR}"/lib/librt.so.0
+		dosym libc.so.0 "${DESTDIR}"/lib/libresolv.so.0
+		dosym libc.so.0 "${DESTDIR}"/lib/libubacktrace.so.0
+		dosym libc.so.0 "${DESTDIR}"/lib/libutil.so.0
 	fi
 
 	emake DESTDIR="${D}" install_utils

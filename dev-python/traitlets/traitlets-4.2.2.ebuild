@@ -1,10 +1,9 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
-PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
+PYTHON_COMPAT=( python2_7 python3_{4,5} )
 
 inherit distutils-r1
 
@@ -19,7 +18,7 @@ IUSE="doc test"
 
 RDEPEND="
 	dev-python/decorator[${PYTHON_USEDEP}]
-	$(python_gen_cond_dep 'dev-python/enum34[${PYTHON_USEDEP}]' python2_7 python3_3)
+	$(python_gen_cond_dep 'dev-python/enum34[${PYTHON_USEDEP}]' python2_7)
 	dev-python/ipython_genutils[${PYTHON_USEDEP}]
 	dev-python/six[${PYTHON_USEDEP}]
 	"

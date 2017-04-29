@@ -1,10 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 inherit cmake-utils python-single-r1 python-utils-r1 eutils multilib
 
 DESCRIPTION="File transfer over OBEX for mobile phones"
@@ -13,17 +12,18 @@ SRC_URI="mirror://sourceforge/openobex/${P}-Source.tar.gz"
 SLOT="0"
 
 LICENSE="GPL-2"
-KEYWORDS="~amd64 ~hppa ~ppc ~x86"
+KEYWORDS="amd64 hppa ppc x86"
 
 # bluetooth support is not really optional, bug #529068
 IUSE="perl python ruby tcl" #bluetooth
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="
 	>=dev-libs/openobex-1.7
 	net-wireless/bluez
 	perl? ( dev-lang/perl:= )
 	python? ( ${PYTHON_DEPS} )
-	ruby? ( || ( dev-lang/ruby:2.0 dev-lang/ruby:1.9 ) )
+	ruby? ( dev-lang/ruby:2.1 )
 	tcl? ( dev-lang/tcl:0= )
 "
 DEPEND="

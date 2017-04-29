@@ -1,6 +1,5 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -10,13 +9,14 @@ SRC_URI="mirror://sourceforge/libwpd/${P}.tar.xz"
 
 LICENSE="|| ( LGPL-2.1 MPL-2.0 )"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~x86-linux ~x86-solaris"
+KEYWORDS="amd64 x86 ~x86-linux ~x86-solaris"
 IUSE="abiword +cdr debug ebook freehand gsf keynote +mspub +mwaw pagemaker +visio +wpd +wpg +wps"
 
-# FIXME: libepubgen, libeot, librvngabw
+# FIXME: libepubgen, librvngabw
 RDEPEND="
 	=app-text/libodfgen-0.1*
 	>=dev-libs/librevenge-0.0.1
+	media-libs/libeot
 	abiword? ( =app-text/libabw-0.1* )
 	cdr? ( =media-libs/libcdr-0.1* )
 	ebook? ( =app-text/libebook-0.1* )
@@ -34,6 +34,11 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 "
+
+REQUIRED_USE="
+	|| ( abiword cdr ebook freehand keynote mspub mwaw pagemaker visio wpd wpg wps )
+"
+# configure fails if no import library is selected...
 
 src_configure() {
 	econf \

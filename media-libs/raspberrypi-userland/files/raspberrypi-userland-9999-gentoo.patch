@@ -1,10 +1,15 @@
---- CMakeLists.txt.old	2015-02-20 19:37:32.754551301 +0100
-+++ CMakeLists.txt	2015-02-20 19:38:45.643356903 +0100
-@@ -38,6 +38,7 @@
- add_definitions(-DOMX_SKIP64BIT)
- add_definitions(-DEGL_SERVER_DISPMANX)
- add_definitions(-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64)
-+add_definitions(-D_GNU_SOURCE)
+--- raspberrypi-userland-9999/host_applications/linux/apps/dtoverlay/CMakeLists.txt.old	2017-02-04 19:01:38.944537134 +0100
++++ raspberrypi-userland-9999/host_applications/linux/apps/dtoverlay/CMakeLists.txt	2017-02-04 19:02:09.634401479 +0100
+@@ -22,12 +22,4 @@
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/dtparam DESTINATION bin)
  
- # do we actually need this?
- add_definitions(-D__VIDEOCORE4__)
+ set(DTOVERLAY_SCRIPTS dtoverlay-pre dtoverlay-post)
+-foreach(_script ${DTOVERLAY_SCRIPTS})
+-   add_custom_command(
+-     TARGET dtoverlay
+-     COMMAND ${CMAKE_COMMAND}
+-     -E copy ${CMAKE_CURRENT_SOURCE_DIR}/${_script}
+-     ${CMAKE_BINARY_DIR}/../../bin/${_script}
+-   )
+-endforeach()
+ install(PROGRAMS ${DTOVERLAY_SCRIPTS} DESTINATION bin)

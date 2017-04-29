@@ -19,22 +19,21 @@ KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc x86"
 # the bare minimum of libs/apps needed. It is basically gnome-base/gnome without
 # any apps, but shouldn't be used by users unless they know what they are doing.
 RDEPEND="!gnome-base/gnome
-	>=gnome-base/gnome-core-libs[cups?]
-	>=gnome-base/gnome-session
+	gnome-base/gnome-core-libs[cups?]
+	gnome-base/gnome-session
 	>=gnome-base/gnome-menus-3.10.1:3
-	>=gnome-base/gnome-settings-daemon[cups?]
-	>=gnome-base/gnome-control-center[cups?]
-	>=gnome-base/nautilus
+	gnome-base/gnome-settings-daemon[cups?]
+	gnome-base/gnome-control-center[cups?]
+	gnome-base/nautilus
 
 	gnome-shell? (
-		>=x11-wm/mutter
-		>=gnome-base/gnome-shell )
+		x11-wm/mutter
+		gnome-base/gnome-shell )
 
-	>=x11-themes/adwaita-icon-theme
-	>=x11-themes/gnome-themes-standard
-	>=x11-themes/gnome-backgrounds
-
-	>=x11-terms/gnome-terminal
+	x11-themes/adwaita-icon-theme
+	x11-themes/gnome-themes-standard
+	x11-themes/gnome-backgrounds
+	x11-terms/gnome-terminal
 "
 DEPEND=""
 PDEPEND=">=gnome-base/gvfs-1.26.0"
